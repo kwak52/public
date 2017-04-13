@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<TITLE>R_PAS4_WPULSE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_PAS4_WPULSE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_pas4_wpulse.cpp,v 1.2 2005/09/07 11:04:10 pv73rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Auswertung des Schreibimpulses bei PAS4/Zapper
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		r_pas4_wpulse.C
+   Autor:		Rtp/TEF32-Rapp (06.06.2005)
+   Zielsystem:		Linux
+   Sprache:		C++ 
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void r_pas4_wpulse(
+	   ,shm_stringpointer   *zeilen_wert 
+	   ,long index1
+	   ,long anzahl)
+  ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Auswertung des Schreibimpulses des PAS4 Zappers ueber die gesampelten Daten
+   von Spannung und Strom.
+   Auswertung:
+   1. Die Spannungdaten werden mit der Schrittweite 0.75 * PULSE_WIDTH nach 
+      einem Schreibimpuls durchsucht. Dieser wird erkannt falls die Spannung
+      in den Grenzen MIN_IMP1 und MAX_IMP1 liegt.
+   2. Startflanke des Schreibimpulses suchen.
+   3. Der Start der Auswertung erfolgt wenn der Stromwert LEVEL ueberschreitet
+      und gestoppt wenn der Stromwert LEVEL unterschreitet.
+
+
+        ARRAY_1              --&gt;       PULSE_WIDTH        &lt;--
+  40V (MIN_IMP1 bzw. MAX_IMP1)  +------------------------+ 
+                                |                        | 
+                 ----+          |                        | 
+                     |          |                        | 
+                     +----------+                        +----------------
+
+       ARRAY_2
+                                          +-----+ +--+
+                                          /     / /  /             
+       LEVEL -&gt;                           /     / /  /             
+                                    /-----+     +-+  /             
+                 -------------------+                +--------------------
+       DELTA_T                -&gt;    &lt;-
+       MEASURE_T                    -&gt;   &lt;- 
+           Ergebnis Offset          -&gt;   &lt;-       
+
+           Ergebnis t_diff    -&gt;           &lt;-
+           Ergebnis t_puls               -&gt;           &lt;-
+
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> ARRAY_1</b><pre>   Variablen Name in der die gesampelte Schreibsapannung gespeichert ist
+   ------------------------------</pre><b><a name="param4">4</a> ARRAY_2</b><pre>   Variablen Name in der der gesampelte Strom gespeichert ist
+   ------------------------------</pre><b><a name="param5">5</a> SAMPLE_RATE</b><pre>   Abtastrate in us der gesampelten Daten.
+   ------------------------------</pre><b><a name="param6">6</a> MIN_IMP1</b><pre>   Untere Grenze der ersten Schreibspannung, wird zur Erkennung eines Schreibimpulses
+   verwendet.
+   ------------------------------</pre><b><a name="param7">7</a> MAX_IMP1</b><pre>   Obere Grenze der ersten Schreibspannung, wird zur Erkennung eines Schreibimpulses
+   verwendet.
+   ------------------------------</pre><b><a name="param8">8</a> PULSE_WIDTH</b><pre>   Erwartete Pulsbreite des Schreibimpulses, damit bei hohen Abtsatraten nicht jeder
+   Messwert überprüft werden muss, wird 0.75 * PULSE_WIDTH_V als Schrittweite für
+   die Erkennung des Schreibimpulses. 
+   ------------------------------</pre><b><a name="param9">9</a> LEVEL</b><pre>   Schwelle ab dem die Auswertung der Stromwerte gestartet bzw. gestoppt wird
+   ------------------------------</pre><b><a name="param10">10</a> DELTA_T</b><pre>   Zeit vom Start des Schreibimpulses bis zur Auswertung des Stromoffsets
+   ------------------------------</pre><b><a name="param11">11</a> MEASURE_T</b><pre>   Messzeit des Stromoffsets. Ueber diese Zeit wird der Mittelwert gebildet
+   ------------------------------</pre><b><a name="param12">12</a> ARRAY_3</b><pre>   Fuer jeden Schreibimpuls werden die Ergebnisdaten in der nachfolgende Reihenfolge 
+   gespeichert:
+   t_diff[us]    = Zeitdifferenz zwischen dem Start des Schreibimpulses und 
+                   der Überschreitung des Stromwertes von LEVEL
+   t_puls[us]    = Länge des Stromimpulses zwischen Überschreiten bzw. Unterschreiten
+                   von LEVEL.
+   min[Volt]     = Minimalwert des Stromes
+   max[Volt]     = Maximalwert des Stromes
+   mittel[Volt]  = Mittelwert des Strompulses
+   Offset[Volt]  = Stromoffset 
+                   (dieser Offset wird bei der Berechnung von min/max/mittel sowie
+                    dem Parameter LEVEL beruecksichtigt)
+   ------------------------------</pre><b><a name="param13">13</a> ERGEBNIS</b><pre>    n = Anzahl der gefundenen Schreibimpulse
+   -1 = allgemeiner Fehler
+   -2 = Anzahl der erkannten Schreibimpulse uebersteigt die Kapazität im ARRAY_3 
+   ------------------------------</pre><b><a name="param14">14</a> FEHLERFLAG</b><pre>   Fehlerflag 
+</PRE>
+</BODY>
+</HTML>

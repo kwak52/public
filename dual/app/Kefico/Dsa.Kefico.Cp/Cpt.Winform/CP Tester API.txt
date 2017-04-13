@@ -1,0 +1,56 @@
+﻿
+
+Cpt.Winform project 는 CP tester(이하 CPT) 와 CP server(이하 CPS) 가 구동되는 환경에서 CPT 구성을 demonstration 하기 위한 project 입니다.
+Cpt.Winform project 는 demonstration 용의 source 를 포함하지만, 해당 solution(Cpt.Winform.sln)에 포함된 다른 project 는 해당하는 dll 을 찾아서 대체해 주셔야 합니다.
+
+CPS 구동 환경은 크게 DB server(linux, 이하 DBS) 와 MWS server(win32, 이하 MWSS) 로 구분됩니다.
+
+MWSS
+	MWSS 는 CPT 와 DBS 를 연결하여 주기 위한 용도로 사용되며 실제 프로그램은 Windwos service 형태로 구동됩니다.
+	배포판에 포함된 MwsServiceApp.exe 가 MWSS 입니다.   이는 배포판에 포함된 InstallAsWindowsService.bat 에 의해서 서비스를 등록할 수 있습니다.
+	동작 확인은 시작 > services.msc 를 typing 하시고 MWS 로 시작하는 서비스를 클릭하시면 
+		동작 중이라면 -> 중지 메뉴가 보일 것이고
+		동작하지 않는다면 -> 시작 메뉴가 보일 것입니다.
+	서비스를 구동했는데도 제대로 동작하지 않는다거나 이상 증세를 보이면 실행 파일 위치에 logMwsService-20170215.txt 등과 같이 오늘 날짜 파일을 확인해 보시거나
+	서비스를 내리고, MwsServiceApp.exe 를 직접 실행한 후에 콘솔 상의 메시지를 확인할 수 있습니다.
+	MWSS 구동 환경, 즉 DBS 의 ip, port, 등과 같은 parameter 설정은 MwsServiceApp.exe.config 파일을 수정하면 됩니다.
+
+데모 환경
+	Cpt.Winform.exe 의 환경 설정은 Cpt.Winform.exe.config 를 통해서 가능합니다.
+	Cpt.Winform.exe 를 구동하면 
+	1. 설정에 명시된 MWSS 와 연동을 수행하고
+	1. MWSS 가 구동되는 서버의 dll version 들과 CPT 가 구동되는 dll version 들을 비교합니다.
+	1. MWSS 가 사용하는 dimension 및 function enumeration 값과 DBS 의 해당 table 의 값이 동일한지 검사합니다.
+	1. CPT 가 수행되는 컴퓨터의 시간과 DB server 의 시간을 비교하여 MwsConfig.mwsServerClientTimeDifferenceLimitSecond 에 정의된 허용 오차 시간보다 작은지 검사
+	1. CPT 가 power on 되었음을 서버에 알립니다.  (CPT 종료시에는 power off 를 서버에 알립니다.)
+	1. 이상없으면 test 용 form 을 띄웁니다.
+
+	FormCptRequest 에서
+	1. LoadDefault 버튼을 누릅니다.  CPT 에서 설정한 default parameter 가 표시됩니다.
+	1. Request 버튼을 누릅니다.  설정값을 이용하여 서버로부터 대표 품번, product type, 해당 cp xml 파일 path 를 얻어 옵니다.
+	1. Next 버튼을 누르면 Cp tester form 이 나타납니다.
+		1. Send button 을 누르면 지정된 조건의 파일을 서버에서 파싱하고, CPT 에서 사용할 test list 만 추려서 내려 줍니다.  (form 의 grid 에 해당 data 가 올라옵니다.)
+		1. Test list 를 확인하시고, 해당 form 에서 Server > Generate test result 를 선택하면 해당 test step 에 대해서 CPT 가 test 결과를 upload 하는 것을 simulation 하기 위한 새로운 창이 생성됩니다.
+			- Value fill range 에 해당하는 slider 를 움직이시면, value field 를 min/max 사이의 값에서 해당 비율로 채워줍니다.
+			- Fill message 에서 문자열을 입력하고 fill 을 누르면 PRINTOUT 에 해당하는 test step 의 message field 를 채워줍니다.
+			- 이 과정들은 CPT 가 test list 를 실제로 시험한 결과로 채우는 것을 simulation 하기 위함입니다.
+			- Upload 를 누르면 value 값이 채워진 test list 를 DBS 로 전송합니다.
+			- 결과가 제대로 전송되었는지 확인은 별도 배포된 MWS package 를 통해서 볼 수 있습니다.
+
+주요 API (IDE 환경에서 F12를 누르시면 signature 를 확인할 수 있습니다.)
+	CPT 관련 주요 API 는 Dsu.Kefico.Cp.FS.dll 에 포함되어 있습니다.
+	설정 관련 class
+		CptHostConfig: CPT 관련 설정
+		ProductConfig: 제품 관련 설정
+		TestConfig: 테스트 관련 설정
+	CptManager
+		CPT 관리하기 위한 manager class
+		주요 methods
+			LoadTestData
+			UploadTestResult
+			GetCpTestInformationDetails
+	Step.Step
+		MWSS 로부터 받은 test step 들
+	Step.Upload
+		CPT 에서 하나의 step 에 대한 시험 결과를 upload 하기 위한 class.  Step.Step 에서 상속받아 upload 하기 위한 부가적인 정보를 포함하고 있음
+

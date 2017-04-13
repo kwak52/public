@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<TITLE>E_OUT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_OUT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_out.C,v 1.21 2006/01/30 08:24:04 gef1sa Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Starten der Prozesse laut Beschreibungsfile
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_out.C
+   Autor:		RtW/TEF72-Juilfs (10.03.97)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_out(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   €bergabeparameter anhand der Modglobal.stl
+   MD,e_out
+   ,PRUEFSCHRITT
+   ,POSITION
+   ,STARTLISTE1		Nickname der Prozesse
+   ,STARTLISTE1   	Nickname der Prozesse
+   ,STARTLISTE3      	Nickname der Prozesse
+   ,E_OUT_FUNKTION      Steuerung des E_OUT Modules
+
+   Aufgabe des Modules ist es, die Hardware zum Prœfling durchzuschalten,
+   die vorher in Modulen (F_ANSTEUER) initialisiert worden ist.
+   Dies geschieht in verschiedene Prozesse.</pre><b><a name="param3">3</a> STARTLISTE1</b><pre></pre><b><a name="param4">4</a> STARTLISTE1</b><pre></pre><b><a name="param5">5</a> STARTLISTE3</b><pre>   Die Reihenfolge der Starts der Prozesse wird im Hardwarebeschreibungsfile
+   "Default_e_out.cnf" festgelegt.
+   Es ist mŒglich diese Standard Reihenfolge im Modul abzuÃndern.
+   Dazu dienen die Parameter STARTLISTE1 - STARTLISTE3. In Normallfall
+   sind diese Parameter mit dem "-" Zeichen besetzt. Es gilt in diesem Fall die
+   Defaultreihenfolge lt. Hardwarebeschreibungsfile. 
+   Im Gegensatz zu dem "-" Zeichen kŒnnen die Nicknames der Prozesse 
+   eingegeben werden. Diese mœssen per ";" Zeichen voneinander getrennt werden.
+   Reicht ein Parameter (STARTLISTE1) nicht aus um alle Prozesse anzugeben, 
+   so kann der nÃchste Parameter (STARTLISTE2-STARTLISTE3) angegeben werden.
+   Es wird nun beim Starten der Prozesse genau diese Reihenfolge
+   durchgefœhrt.
+   Die Nicknames der Prozesse mœssen den Prœflistenautor bekannt sein.
+
+   Beispiel: 
+   STARTLISTE1=HT;KO;BO;</pre><b><a name="param6">6</a> E_OUT_FUNKTION</b><pre>
+	   -			E_OUT wird immer durchlaufen
+	   CHANGE_ANST		E_OUT wird nur durchlaufen wenn sich
+				ein Ansteuerparameter ‰ndert.
+                                Die Wartezeit wird aber immer ber¸cksichtigt
+
+   WARTEZEIT:
+   ----------
+   Die Wartezeit schlieﬁt sich nach dem Starten aller E_OUT Prozesse
+   an. Sie wird aus dem Ansteuerparameter gewonnen der im E_WAIT 
+   spezifiziert worden ist.
+   ZusÃtzlich kann es sein, das noch eine Hardwarewartezeit hinzu kommt.
+   Diese Wartezeit kommt aber nur zum Einsatz, wenn die Hardwarezeit
+   grŒﬁer als die in der Prœfliste eingegebene Wartezeit ist.
+   GRUND: Lastrelais haben z.B. ein Anzugszeit von ca. 10 ms.
+   
+   
+</PRE>
+</BODY>
+</HTML>

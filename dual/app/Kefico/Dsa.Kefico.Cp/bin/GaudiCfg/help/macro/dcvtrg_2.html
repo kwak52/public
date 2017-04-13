@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> DCVTrg_2 [V]															</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>DCVTrg_2 [V]															</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=9245">
+ </A>
+DCVTrg_2 [V]															</H2>
+<P CLASS="Normal">
+<A NAME="pgfId=9247">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=9249">
+ </A>
+For definition and description of function: see DCVTrg (there are no aliases however)</P>
+<P CLASS="Normal">
+<A NAME="pgfId=9251">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="BasisTitel">
+<A NAME="pgfId=9253">
+ </A>
+Notes</H6>
+<P CLASS="Normal">
+<A NAME="pgfId=9255">
+ </A>
+The definition of a second testing function makes it possible to distinguish between two voltmeters in the PAV. The use of two voltmeters can help to shorten the testing time if there are frequent voltage measurements with differing measurement ranges. One instrument can then be configured for the high measurement range and the other for the low measurement range. In that way, the time required to change the measurement range on each occasion can, in many cases, be saved.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=9257">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=9259">
+ </A>
+On testing stations which only have one voltmeter, this function is identical with DCVTrg. In those cases, DCVTrg_2  is simply an alias.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=278911">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=278912">
+ </A>
+The functions DCVTrg and DCVTrg_ 2  should be used sensibly in the PAV, even if the testing system on which the control unit is to be tested only has one voltmeter, as this simplifies subsequent conversion. DCVTrg should be the preferred option for low voltages and DCVTrg_ 2  for high voltages (especially shut-off peaks).</P>
+<P CLASS="Body-Text-2">
+<A NAME="pgfId=278913">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=278914">
+ </A>
+Test stages with a DCVTrg measurement must not be nested in test stages which contain a DCVTrg_2 measurement (or vice versa) as this would require two voltmeters and a standard testing station only has one voltmeter. Nesting is permissible only in justifiable exceptional cases if agreed with the unit carrying out the test.</P>
+<P CLASS="Footnote-Text">
+<A NAME="pgfId=9269">
+ </A>
+</P>
+</DIV>
+</BODY>
+</HTML>

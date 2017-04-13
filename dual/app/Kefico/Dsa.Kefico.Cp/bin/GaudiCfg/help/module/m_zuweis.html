@@ -1,0 +1,310 @@
+<HTML>
+<HEAD>
+<TITLE>M_ZUWEIS</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_ZUWEIS</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: m_zuweis.C,v 1.30 2005/09/06 07:44:11 cvs Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Besetzen von Variablen mit Konstanten
+   ---------------------------------------------------------------------
+   Projekt:		Projektname
+   Sourcefile:		Filename
+   Autor:		RtW/TEF72-Juilfs (07.07.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void m_zuweis(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+ 
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Aufrufparameter laut Modglobal.</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre></pre><b><a name="param2">2</a> POSITION</b><pre></pre><b><a name="param3">3</a> VARIABLE</b><pre></pre><b><a name="param4">4</a> VARIABLEN_WERT</b><pre></pre><b><a name="param5">5</a> VAR_FUNKTION</b><pre></pre><b><a name="param6">6</a> MAKRO_NAME</b><pre></pre><b><a name="param7">7</a> VARIABLEN_TYP</b><pre>   	STRING		default
+	FLOAT
+	INT
+   
+   Aufgabe des Modules ist es, eine Konstante in eine Variable zu schreiben.
+   
+   Beispiel 1: Wert 200 in &amp;MEWE ablegen
+   VARIABLE         = &amp;MEWE
+   VARIABLEN_WERT   = 200
+   
+   
+   Es ist aber auch mÎglich eine Variable von einer anderen Variable
+   zu besetzen. Dies ist zum Beispiel nÎtig um eine Variable aus einem
+   Makro in die Pruefliste als Prueflistenvariable zu halten, um diese
+   zur Weiterverarbeitung zu speichern.
+   
+   
+   Beispiel 2: Inhalt von &amp;MEWE_DCVTRG nach  &amp;MESSWERT1 ablegen
+   VARIABLE         = &amp;MESSWERT1
+   VARIABLEN_WERT   = &amp;MEWE_DCVTRG  
+   
+   OFFSET Verarbeitung:
+   -----------------------
+   OFFSET:
+   Sollte als VAR_FUNKTION "OFFSET" verwendet werden, so wird der Variablenwert
+   zusÌtzlich in die Globale Systemvariable &amp;G_OFFSET abgelegt. Im Modul
+   M_AUSWERTUNG wird auf diese Variable zugegriffen und vom Messwert abgezogen.
+   AnschlieÞend wird im M_AUSWERTUNG G_OFFSET auf 0.0 gesetzt.
+   Grund: Alle weiteren Auswertungen mÏssen ohne Offset arbeiten.
+          Dies bedeutet, das das Modul M_ZUWEIS unmittelbar vor einem Mess-
+	  Makroaufruf aufgerufen werden sollte.
+   
+   Umspeichern von internen Systemvariablen
+   ---------------------------------------------------------
+   FEHLERFLAG:   
+   Sollte in VAR_FUNKTION "FEHLER_FLAG" verwendet werden, so wird
+   der interne Fehler vom shared Memory an die spezifizierte &amp;-Variable
+   gespeichert.
+   
+   Umspeichern FIRST_RUN
+   ---------------------------------------------------------
+   FIRST_RUN:   
+   Sollte in VAR_FUNKTION "FIRST_RUN" verwendet werden, und sollte
+   FIRST_RUN gesetzt sein, so wird eine "1" zurÏckgegeben
+
+   
+   Standtyp Verarbeitung:
+   ----------------------- 
+   STANDTYP:
+   RÏckgabe des Standtypes TU HT TO   
+   
+   BANDENDE_PRG		(MARK_SET)
+   WEGFAHRSPERRE_RESET	(MARK_CLEAR)
+
+   Holen der Pruefzeit:
+   -------------------
+   ZEIT:
+   Es wird die Zeit in Millisekunden seit dem Beginn der PrÏfliste
+   zurÏckgegeben.   
+   
+   Holen des Modulerrors:
+   ----------------------
+   MODUL_ERROR:
+   Mit der Funktion M_AUSWERTUNG wird im Ûbergabeparameter POSITION
+   "KEIN_AUSDRUCK" angegeben. Damit wird eine Bewertung des MeÞergebnisses
+   erzwungen, ohne daÞ jedoch ein internes Fehlerflag gesetzt wird.
+   In der Funktion M_AUSWERTUNG wird aber in einem Kurzzeitspeicher
+   die Bewertung des MeÞergebnisses festgehalten. Auf dieses Ergebniss
+   kann mit der MODUL_ERROR Funktion zugegriffen werden.
+   Fehler      = Rueckgabe von einer "1"
+   Kein Fehler = Rueckgabe von einer "0"
+      
+   Holen der Sektionsanzahl:
+   -------------------------
+   SECTIONS:
+   Es wird Anzahl der im Automat vorhandenen SECTIONS zurueckgegeben
+  
+   Holen der aktuellen Sektion-Nummer:
+   ------------------------------------
+   SECTION_NR
+   Es wird die aktuelle Sektion-Nummer zurueckgegeben
+   
+   Holen der TYP - VARIANTE - TTNR
+   -------------------------
+   TYP: Es wird der Typ der Pruefliste zurueckgegeben
+   VARIANTE: Es wird die Variante der Pruefliste zurÏckgegeben
+   TTNR: Es wird die aktuelle Typteilenummer der Pruefliste zurueckgegeben
+   REFTYP: Es wird der Typ der Pruefliste zurueckgegeben
+   REFVARIANTE: Es wird die Variante der Referenz-Pruefliste zurueckgegeben
+   REFTTNR: Es wird die aktuelle Typteilenummer der Referenz-Pruefliste 
+            zurueckgegeben
+   
+   Holen und Speichern der individuellen SG Nummer
+   -----------------------------------------------
+   GET_ECUID
+   PUT_ECUID       
+  
+   Holen der individuellen Component-ID = 2. SG Nummer
+   -----------------------------------------------
+   GET_COMP_ID
+   Dient der log. Verheiratung von 2 Baugruppen, z.B. Leiterplatte mit spez. BE.
+   Beide Baugruppen sind mit einem Ident (Ident = Barcode oder Data-Matric-Code)
+   versehen, die über die SPS eingelesen werden.
+  
+   Holen des Software-Aenderungsstandes (SG Label)
+   -----------------------------------------------
+   VARIABLE:	$beliebig
+   VAR_FUNKTION: SW_AE_STAND   
+
+   Holen deCCS-Version 
+   -----------------------------------------------
+   VARIABLE:	$beliebig
+   VAR_FUNKTION: CCSVERSION   
+  
+   Holen des Toleranz-Ranges
+   -----------------------------------------------
+   TOL_RANGE: es wird der Toleranz_Range aus dem SharedMemory geholt.
+	   Dieser ist nur bei Prüflisten vom Typ "test" erlaubt!
+	   
+   Prüfen ob Iri OK
+   ----------------
+   GET_IRI_OK       	0 nicht in Ordung
+			OK in Ordnung
+                        
+   Bei RunIn Status zurueckgeben
+   -----------------------------
+   GET_RUNIN_STATE      NO     RunIn inaktiv
+			FIRST  erster Durchlauf
+			RUNIN  n-ter Durchlauf
+			LAST   letzter Durchlauf
+
+   Speichern Leiterplattenbarcode
+   ------------------------------
+   PUT_LP_BARCODE
+  
+   Für RC holen Anzahl der Prüfpositionen und AnzahlPrüfschritte
+   GET_ANZ_POSITION
+   GET_ANZ_PSCHR
+   CLEAR_POS_PSCHR  
+  
+   Lesen von  Softwarenummern
+   ----------------------------
+   TEST_SW_NUMMER
+   FSW1_SW_NUMMER
+   FSW2_SW_NUMMER
+   WP_SW_NUMMER
+   -------------------------------------------------------------
+   KUNDENNUMMER   	Holen der Kundennummer aus dem E_DOKU
+   ---------------------------------------------------------------
+   GET_FINGERPRINT
+   Holen der Wertigkeit der Prüfliste um eine manupulativen Eingriff zu erkennen
+   -------------------------------------------------------------
+   VAR_ANZELEMENTS   	Gibt die Anzahl gespeicherten Elemente
+                        in einem String bzw. Array zurueck. Bei
+                        einer einfachen DOUBLE oder INT Variablen wird 
+                        0 zurueck gegeben.
+   -------------------------------------------------------------
+   TRUNCATE      	VARIABLEN_WERT wird VARIABLE zugewiesen.
+                        Falls der Text laenger als die Maximallaenge
+                        von VARIABLE ist, wird der Text vorher ohne
+                        Warnungsmeldung abgeschnitten.
+                        
+   ------------------------------------------------------------------
+   CHUCKTEMP
+   Rückgabe der CHUCK-Temperatur                 
+   
+   -----------------------------------------------------------------
+   SYSTEM_UNIT
+   Abfrage ob eine spezielle UNIT im System vorhanden ist. 
+   Im Variablenwert muß der Name der gesuchten Unit eingetragen werden
+   Ist die Unit vorhanden wird eine 1 zurückgegen ansonsten 0
+                        
+
+   Revision 1.2  2002/02/22 10:38:16  juilfs
+   Iri Abfrage
+
+   Revision 1.1  2001/12/18 10:12:34  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.26  2001/11/15 11:00:01  PIJ3SA
+   VAR_FUNKTION TOL_RANGE added
+
+   Revision 1.25  2001/10/30 09:37:44  ssm3bw
+   ssm3bw_011030: documentation in header
+
+   Revision 1.24  2001/10/30 09:22:49  ssm3bw
+   ssm3bw_011030: SW_AE_STAND inserted
+
+   Revision 1.23  2001/06/27 11:41:23  juilfs
+   ECUID eingefügt
+
+   Revision 1.22  2001/01/16 17:41:28  juilfs
+   Linux
+
+   Revision 1.21  2000/11/07 15:52:04  juilfs
+   DEZ wieder gleich mit INT
+
+   Revision 1.20  2000/09/20 11:30:47  wiese
+   ÜBerarbeitung ECUMEMDATANUM
+   BITOP/STRTOINT wieder normal
+   Fehlermeldung bei DEZ und gemeinetem INT
+
+   Revision 1.19  2000/09/12 09:46:47  juilfs
+   Funktion und Abfragen erweitert
+ 
+   Revision 1.18  2000/08/31 09:55:36  wiese
+   E_ECUMEMDATANUM neu hinzu
+
+   Revision 1.17  1999/12/22 10:11:32  keppler
+   $ID -&gt; $Id
+
+   Revision 1.16  1999/12/22 09:14:47  keppler
+   $Header -&gt; $Id
+
+   Revision 1.15  1999/11/19 11:05:20  juilfs
+   REF eingebaut da sonst Doppelabfrage
+
+Revision 1.14  99/10/15  13:25:36  13:25:36  juilfs (Joerg Juilfs)
+no entry
+
+Revision 1.13  99/10/15  13:15:09  13:15:09  wiese (Stefan Wiese)
+*** empty log message ***
+
+Revision 1.12  99/10/08  11:09:15  11:09:15  juilfs (Joerg Juilfs)
+standtyp neu
+
+Revision 1.11  99/07/15  10:54:08  10:54:08  wiese (Stefan Wiese)
+Doku MARK rin
+
+Revision 1.10  99/05/17  11:05:36  11:05:36  juilfs (Joerg Juilfs)
+JÎrg hat upgedatet!!! Gut so!!
+
+Revision 1.9  99/04/20  13:03:10  13:03:10  wiese (Stefan Wiese)
+SECTIONS default auf 1 gesetzt
+
+Revision 1.8  99/04/19  07:56:03  07:56:03  wiese (Stefan Wiese)
+SECTIONS neu
+
+Revision 1.7  99/04/19  06:52:20  06:52:20  juilfs (Joerg Juilfs)
+FIRST_RUN MODUL_ERROR ZEIT neu
+
+Revision 1.6  98/12/22  16:42:04  16:42:04  wiese (Stefan Wiese)
+Auswertung der str_toul bei RÏstlauf nicht
+
+Revision 1.5  98/12/21  13:22:54  13:22:54  juilfs (Joerg Juilfs)
+*** empty log message ***
+
+Revision 1.4  98/12/19  13:55:21  13:55:21  wiese (Stefan Wiese)
+*** empty log message ***
+
+Revision 1.3  98/12/17  15:57:41  15:57:41  wiese (Stefan Wiese)
+str_toul - Wandlungsfehler abfangen
+
+Revision 1.2  98/12/17  13:14:25  13:14:25  wiese (Stefan Wiese)
+unsigned long erforderlich!!!!!!!!!!!!!
+
+Revision 1.1  98/11/27  16:47:51  16:47:51  wiese (Stefan Wiese)
+Initial revision
+
+Revision 1.1  97/12/02  14:25:27  14:25:27  juilfs (Joerg Juilfs)
+Initial revision
+
+   ---------------------------------------------------------------------
+
+
+</PRE>
+</BODY>
+</HTML>

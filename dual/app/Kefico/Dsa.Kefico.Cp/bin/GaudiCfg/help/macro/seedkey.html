@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> SeedKey [Str]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>SeedKey [Str]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=12817">
+ </A>
+SeedKey [Str]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12819">
+ </A>
+Session_Name [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12821">
+ </A>
+Seed_Method [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12823">
+ </A>
+Seed [Str]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12825">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=12827">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12829">
+ </A>
+This function is used to request a 'Key' for a 'Seed'. This can be necessary, for example, to be able to access control units with activated immobilizer or data that is normally locked via the diagnosis interface.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12831">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12833">
+ </A>
+The fundamental Seed&amp;Key method and the possible procedures can not be described here for reasons of secrecy and can not be specified in parameters for the same reasons. However, the parameters Session_Name and Seed_Method are used to specify the location in the ECU memory container at which more information is given. When the test is performed, the appropriate project-specific adjustments must be made to ensure that the correct procedure for determining the 'Key' is used. In Development, the function can be implemented in such a way that the 'Key' can be entered manually (in a dialog box).</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12835">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12837">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12839">
+ </A>
+None</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12841">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12843">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12845">
+ </A>
+Session_Name</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12847">
+ </A>
+Name of the session in the ECU memory container in which further parameters for the Seed&amp;Key method can be found.</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12849">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12851">
+ </A>
+Seed_Method</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12853">
+ </A>
+Name of Seed method. Other parameters can be read from the ECU memory container under this name and the session specified by the previous parameter.<BR>
+<BR>
+If the reserved word Seedpass is specified here, the function returns the relevant password. The pass code word for it must be specified in the parameter Seed. In that case, the parameter Session_Name has no significance and can be left blank.  </P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12855">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12857">
+ </A>
+Seed</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12859">
+ </A>
+Value or variable which contains the Seed.</P>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE>E_ISMC_AREA</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_ISMC_AREA</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_ismc_area.C,v 1.6 2004/07/13 13:39:48 aatef Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Add flaechen koordinaten
+   ---------------------------------------------------------------------
+   Projekt:		IVS
+   Sourcefile:		e_ismc_area.C
+   Autor:		RtW/TEF32-Aatef (28.11.2003)
+   Zielsystem:		SuSE Linux 8.1
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_ismc_area(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Aufrufparameter laut Modglobal.
+   
+  &lt; 1&gt; PRUEFSCHRITT
+  &lt; 2&gt; POSITION
+  &lt; 3&gt; X                x koordinat
+  ( 4) Y   		y koordinat
+  ( 5) WIDTH      	breite
+  ( 6) HEIGHT		hoehe
+  ( 7) ERRORFLAG
+   
+   Aufgabe des Modules ist es, die Koordinaten von kleine Flaechen in
+   Konfigliste eifügen.
+   
+  
+</PRE>
+</BODY>
+</HTML>

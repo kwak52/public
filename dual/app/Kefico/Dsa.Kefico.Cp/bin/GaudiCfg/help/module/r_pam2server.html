@@ -1,0 +1,186 @@
+<HTML>
+<HEAD>
+<TITLE>R_PAM2SERVER</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_PAM2SERVER</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------                 
+ Funktionsbeschreibung:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                     
+            GAUDI Pruefschritt                                              
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                         
+            PAV- Position                                                   
+    ------------------------------</pre><b><a name="param3">3</a> METHOD</b><pre>                                                           
+            AUDIWFS4:   Senden der PIN und des KEY zum AUDIWFS4 Server      
+                        Der Server bucht die Daten in eine Vordatenbank     
+                        Von da werden diese über eine Hauptdatenbank zur    
+                        die AUDI-FAZIT Datenbank gesendet.                  
+                        PIN und KEY können mit r_seedkey generiert werden.  
+    ------------------------------</pre><b><a name="param4">4</a> VERSION</b><pre>                                                          
+            Versionsnummer                                                  
+            Für AUDIWFS4 ist zur Zeit nur 01 implementiert                  
+    ------------------------------</pre><b><a name="param5">5</a> MODE</b><pre>                                                             
+            Art der Aktion.                                                 
+            SEND: Daten zum Server senden                                   
+    ------------------------------</pre><b><a name="param6">6</a> PS_STRING1</b><pre>                                                       
+            AUDIWFS4: SN,0 von KUNDDAT                                      
+    ------------------------------</pre><b><a name="param7">7</a> PS_STRING2</b><pre>                                                       
+            AUDIWFS4: PIN 4 Zeichen Hexstring  (2 Bytes)                    
+    ------------------------------</pre><b><a name="param8">8</a> PS_STRING3</b><pre>                                                       
+            AUDIWFS3: KEY 14 Zeichen Hexstring (7 Bytes)                    
+    ------------------------------</pre><b><a name="param9">9</a> PS_STRING4</b><pre>                                                       
+            AUDIWFS4: Baugruppennummer der Hardware TTNR                    
+    ------------------------------</pre><b><a name="param10">10</a> PS_STRING5</b><pre>                                                      
+            AUDIWFS5: Baugruppennummer der Seriennummer                     
+    ------------------------------</pre><b><a name="param11">11</a> PS_STRING6</b><pre>                                                       
+            AUDIWFS6: Typteilenummer                                        
+    ------------------------------</pre><b><a name="param12">12</a> PS_STRING7</b><pre>                                                       
+            AUDIWFS7: Containerkennung                                      
+    ------------------------------</pre><b><a name="param13">13</a> PS_STRING8</b><pre>                                                       
+            AUDIWFS8: Leer                                                  
+    ------------------------------</pre><b><a name="param14">14</a> PS_STRING9</b><pre>                                                       
+            AUDIWFS9: Leer                                                  
+    ------------------------------</pre><b><a name="param15">15</a> PS_STRING10</b><pre>                                                      
+            AUDIWFS10: Leer                                                 
+    ------------------------------</pre><b><a name="param16">16</a> R_ERGEBNIS</b><pre>                                                       
+            Ergebnis. Kann mit GAUDI-Variable gelesen werden                
+    ------------------------------</pre><b><a name="param17">17</a> ERRORSTRING</b><pre>                                                      
+            Fehlerstring bei Fehler                                         
+    ------------------------------</pre><b><a name="param18">18</a> ERRORFLAG</b><pre>                                                        
+            := 0 Kein Fehler                                                
+            := 1 Fehler                                                     
+                                                                            
+                                                                            
+ Input:  Zeiger auf den relevanten "Wert" einer Zeile der                   
+         expandierten Pruefliste;                                           
+         Index im entsprechenden Speicherbereich fuer                       
+         Moduldaten;                                                        
+         Anzahl der Modulparameter;                                         
+                                                                            
+ Output: none                                                               
+                                                                            
+ ----------------------------------------------------------                 
+ Return Value:                                                              
+    = 0:    Successful completion                                           
+     -1:    bei Ueberschreitung der Gesamtlaenge von 80 Zeichen;            
+                                                                            
+ ----------------------------------------------------------                 
+ Beispiel (optional):                                                       
+                                                                            
+ &lt;\userdoc&gt; 
+ ----------------------------------------------------------                 
+ C4                                                                         
+int r_pam2server( shm_stringpointer *zeilen_wert, long index1, long anzahl_parameter )
+{
+	static char ident[] = "@(#)$Id: r_pam2server.C,v 1.6 2003/05/19 08:33:48 sgc3sa Exp $";
+    const int par_errstring      = 16;
+    const int par_errflag        = 17;
+	
+	
+	 Lokale Variablen 	
+	char         auftrag[80];         // auftrag der ueber Messagequeue versendet wird
+	char         quittung[80];        // Quittung auf Auftrag
+	unsigned     auftrag_len;         // Laenge Auftrag String
+	unsigned     quittung_len = 80;   // Laenge Quittungsstring
+	int          error;               // return von msg_send_wait
+	long         msgstat;
+	long         hispnr;
+	long         schritt;
+	int          revision = 1;
+	
+	
+	 Schrittbetriebshandler 	
+	schritt = schrittbetrieb(zeilen_wert,index1);
+	if (schritt!=1) {
+		return 0;
+	}
+	
+	 Modulstatus setzen 	
+	Ssp_ss-&gt;progs[G_mypnr].status = 1;         // Testdatenladen laeuft
+	
+	 Revision bestimmen 	
+	revision = 1;
+
+	// Fehlerflag abfragen
+	if ( Ssp_vi-&gt;multi[Ssp_vi-&gt;test.multiindex].error != 0 ||
+		 Ssp_vi-&gt;multi[Ssp_vi-&gt;test.multiindex].abbruch != 0 ) {
+		strcpy(Ssp_ss-&gt;progs[G_mypnr].result,JOB_RESULT_GOOD);
+		if ( *Ssp_expand_wert-&gt;ptr[index1+par_errflag] != "-" )
+		{
+			*Ssp_expand_wert-&gt;ptr[index1+par_errflag] = "0";
+		}
+		if ( *Ssp_expand_wert-&gt;ptr[index1+par_errstring] != "-" )
+		{
+		   STRING hilf2 = "Not executed";
+		   *Ssp_expand_wert-&gt;ptr[index1+par_errstring] = hilf2;
+		}
+		return 0;
+	}
+
+	 Message an seedkey 	
+	sprintf(auftrag,"INDEX=%d;REVISION=%d;MODUL=PAM2SERVER;", index1, revision );
+	auftrag_len = strlen (auftrag) + 1;
+	error =  msg_send_wait (SK_SEEDKEY,
+							auftrag, auftrag_len,-1,200,
+							quittung, &amp;quittung_len,&amp;msgstat,&amp;hispnr);
+	
+	 Fehlerbehandlung msg_send_wait 	
+	if (error!=0) {
+		 Fehlermeldung 		
+//		error_message (ERR_ERROR, HEADER, __LINE__, "Fehler Aufruf msg_send_wait" );
+		error_message (ERR_ERROR, HEADER, __LINE__, "Error calling msg_send_wait" );
+		return -1;
+	}
+	else  {
+		 Quittung ausgeben 		
+		debug_message(__FILE__,__LINE__,2,"r_pam2server&gt; quittung = %s\n", quittung );
+	}
+	 Timeout Behandlung 	
+	if (msgstat &amp; MSG_R_TIMEOUT) {
+		 Fehlertext 		
+		ccl_befehl( Ssp_ss-&gt;progs[G_mypnr].result, JOB_RESULT, ERROR, RESULT_MAX );
+		
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,JOB_ERRSTR);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_GLEICH);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,"Timeout-SK");
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_SEMIKOLON);
+		
+		return -1;   // Timeout --&gt; Fehler
+	}
+	
+	
+	 JOB RESULT 	
+	if ( strstr(quittung,JOB_RESULT_ERROR) ) {
+		strcpy(Ssp_ss-&gt;progs[G_mypnr].result,JOB_RESULT_ERROR);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,JOB_ERRSTR);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_GLEICH);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,"SK: ");
+		
+		char *semi = strchr(quittung,';');
+		
+		if ( semi ) {
+			int len = strlen(semi+1);
+			if ( len + 5 + strlen(Ssp_ss-&gt;progs[G_mypnr].result) &gt;= RESULT_MAX ) {
+				len = RESULT_MAX - strlen(Ssp_ss-&gt;progs[G_mypnr].result) - 6;
+			}
+			strncat(Ssp_ss-&gt;progs[G_mypnr].result, semi+1, len );
+		}
+		else  {
+			strcat(Ssp_ss-&gt;progs[G_mypnr].result, "unknown" );
+		}
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_SEMIKOLON);
+		return -1;
+	}
+	return 0;
+}
+</PRE>
+</BODY>
+</HTML>

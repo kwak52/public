@@ -1,0 +1,207 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> CANInit []</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>CANInit []</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=10505">
+ </A>
+CANInit []</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10507">
+ </A>
+Interface [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10509">
+ </A>
+ID [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10511">
+ </A>
+BaudRate [Baud]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10513">
+ </A>
+ScanningPoint [%]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10515">
+ </A>
+TerminalResistance [Ohm]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10517">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=10519">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10521">
+ </A>
+Initializes the CAN interface. Following successful initialization, the testing station can communicate with the control unit using the function CANBlock. </P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10523">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10525">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10527">
+ </A>
+None</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10529">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10531">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10533">
+ </A>
+Interface</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10535">
+ </A>
+Specifies which CAN interface is to be initialized (a control unit can have more than one CAN interface). The name specified here is made up of the letters 'CAN' and a serial number (CAN1, CAN2...).'' The name specified will also be required by the function CANBlock in order to select the interface for communication.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10537">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10539">
+ </A>
+ID</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10541">
+ </A>
+Specifies whether the interface has a high-speed or low-speed transceiver. The following values are allowed:</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10544">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1575">
+ </A>
+H</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1577">
+ </A>
+High-speed (vehicle engine-compartment bus)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1583">
+ </A>
+L</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1585">
+ </A>
+Low-speed (vehicle passenger-compartment bus)</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Parameter">
+<A NAME="pgfId=10546">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10548">
+ </A>
+BaudRate</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10550">
+ </A>
+Specifies the baud rate.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10552">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10554">
+ </A>
+ScanningPoint</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10556">
+ </A>
+Time in % at which a bit received by the tester is to be scanned.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10558">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10560">
+ </A>
+TerminalResistance</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10562">
+ </A>
+Terminal resistance that has to be connected to the CAN interface by the tester. Permissible values are 60 Ohm, 120 Ohm or infinite (=Not specified). </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10564">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10566">
+ </A>
+0 Ohm is also allowed for the short-circuit test. In that case, the function is invoked only as preparation for the short-circuit test. Afterwards, it has to be invoked again with a terminal resistance  0 Ohm in order to enable communication again.</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10568">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10570">
+ </A>
+Example</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10572">
+ </A>
+</P>
+<P CLASS="Beschreibung">
+<A NAME="pgfId=10574">
+ </A>
+Initializing the CAN interface CAN1 for the high-speed CAN</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10577">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1592">
+ </A>
+CANInit</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1594">
+ </A>
+CAN1,H, 500000,75,120</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

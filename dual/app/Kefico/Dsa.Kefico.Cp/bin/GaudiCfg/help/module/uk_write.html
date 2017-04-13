@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE>UK_WRITE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>UK_WRITE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: uk_write.C,v 1.5 2005/09/21 12:16:53 pv73rt Exp $
+   ------------------------------------------------------------------------
+   Kurzbeschreibung: 	Kommunikation mit dem UK-Prozess
+   ------------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		uk_write.C 
+   Autor:		RtP/TEF32-Rapp (30.06.2005)
+   Zielsystem:		Linux
+   ------------------------------------------------------------------------
+   Prototyp:
+      bool uk_write( const QString&amp; strName,
+                     int            iTimeout,
+                     const QString&amp; strSend )
+   
+   ------------------------------------------------------------------------
+   Aufruf: 					&lt;GFMT KS=on TAB=8 LF=on&gt;
+      bOk = uk_write( "DMM_01", "10000", "*RST" );
+      bOk = uk_writeFile( "DMM_01", "10000", "*RST", strFilename );
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   uk_write:
+      Ausgabe eines beliebig langen Strings an ein Geraet. Der String wird 
+      an den Prozess UK ueber die Messagequeue geschickt, der diesen dann
+      an das Geraet ausgibt.
+   uk_writeReadFile:
+      Sendet oder empfaengt eine Datei ueber ftp. 
+
+</PRE>
+</BODY>
+</HTML>

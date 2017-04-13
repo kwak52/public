@@ -1,0 +1,1598 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Root>
+  <Function ID="GETDATAAF">
+    <Head>
+      <Usage>
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION" Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="-"></Param>
+      <Param ID="$MP_0"  Dim ="-"></Param>
+      <Param ID="$MP_1"  Dim ="-"></Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-"></Param>
+      <Param ID="$MAX"  Dim ="-"></Param>
+      <Param ID="$EH"  Dim ="-"></Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="GETDATASTR">
+    <Head>
+      <Usage>
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="-"></Param>
+      <Param ID="$MP_0"  Dim ="-"></Param>
+      <Param ID="$MP_1"  Dim ="-"></Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-"></Param>
+      <Param ID="$P_1"  Dim ="FLOAT/INT"></Param>
+      <Param ID="$P_2"  Dim ="LAENGE_RUECK"></Param>
+      <Param ID="$MIN"  Dim ="-"></Param>
+      <Param ID="$MAX"  Dim ="-"></Param>
+      <Param ID="$EH"  Dim ="-"></Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="START">
+    <Head>
+      <Usage>
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+    </Parameters>
+  </Function>
+  <Function ID="COM_KONSTDEF">
+    <Head>
+      <Usage>
+      </Usage>
+      <Description></Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$P_0"  Dim ="Name der &amp;"></Param>
+      <Param ID="$P_1"  Dim ="Name der &amp;"></Param>
+      <Param ID="$P_2"  Dim ="Name der &amp;"></Param>
+      <Param ID="$P_3"  Dim ="-"></Param>
+      <Param ID="$P_4"  Dim ="-"></Param>
+      <Param ID="$P_5"  Dim ="-"></Param>
+      <Param ID="$P_6"  Dim ="-"></Param>
+      <Param ID="$P_7"  Dim ="-"></Param>
+      <Param ID="$P_8"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="COM_INIT">
+    <Head>
+      <Usage>
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$P_0"  Dim ="-"></Param>
+      <Param ID="$P_1"  Dim ="-"></Param>
+      <Param ID="$P_2"  Dim ="-"></Param>
+      <Param ID="$P_3"  Dim ="-"></Param>
+      <Param ID="$P_4"  Dim ="-"></Param>
+      <Param ID="$P_5"  Dim ="-"></Param>
+      <Param ID="$P_6"  Dim ="-"></Param>
+      <Param ID="$P_7"  Dim ="-"></Param>
+      <Param ID="$P_8"  Dim ="-"></Param>
+      <Param ID="$P_9"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="STRCAT">
+    <Head>
+      <Usage>
+        Joins up multiple indivIDual strings to form a single complete string.
+      </Usage>
+      <Description>strcat.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-">String1...10</Param>
+      <Param ID="$P_1"  Dim ="-"></Param>
+      <Param ID="$P_2"  Dim ="-"></Param>
+      <Param ID="$P_3"  Dim ="-"></Param>
+      <Param ID="$P_4"  Dim ="-"></Param>
+      <Param ID="$P_5"  Dim ="-"></Param>
+      <Param ID="$P_6"  Dim ="-"></Param>
+      <Param ID="$P_7"  Dim ="-"></Param>
+      <Param ID="$P_8"  Dim ="-"></Param>
+      <Param ID="$P_9"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="Variable"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="K2000START" >
+    <Head>
+      <Usage>
+        Ist notwendig einmalig vor K2000INI (am besten in
+        den ersten 1000 Schritten)
+        Hier wird ggf. der Firmware-Download veranlasst und die Anschaltung fr die K-Line auf die Ausg?ge der SKM.
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$ANSTEUER_UNIT"  Dim ="PAM-FILE-UNIT">Unit der SKM (z.B. CAN1 oder SKM_01)</Param>
+      <Param ID="$TIMEOUT_SKM"  Dim ="-">Timeout zwischen der SKM und dem Host in ms</Param>
+    </Parameters>
+  </Function>
+  <Function ID="KONSTDEF">
+    <Head>
+      <Usage>
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-"></Param>
+      <Param ID="$EH"  Dim ="FLOAT/INT"></Param>
+      <Param ID="$RETURN_WERT"  Dim ="Name der &amp;"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="WARTEN">
+    <Head>
+      <Usage>
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="PRINTOUT">
+    <Head>
+      <Usage>
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="-"></Param>
+      <Param ID="$MP_0"  Dim ="-"></Param>
+      <Param ID="$MP_1"  Dim ="-"></Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-"></Param>
+      <Param ID="$P_1"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-"></Param>
+      <Param ID="$MAX"  Dim ="-"></Param>
+      <Param ID="$EH"  Dim ="-"></Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="DCV">
+      <Head>
+        <Usage>
+          Integrating DC voltage measurement with AUTO triggering.
+        </Usage>
+        <Description>dcv.html</Description>
+      </Head>
+      <Parameters>    
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt"></Param>
+        <Param ID="$MP_0"  Dim ="SG-PIN-High"></Param>
+        <Param ID="$MP_1"  Dim ="SG-PIN-LOW"></Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="0=AUTORANGE">MaxSignalAmplitude</Param>
+        <Param ID="$P_1"  Dim ="Sec">IntegrationPeriod</Param>
+        <Param ID="$MIN"  Dim ="-"></Param>
+        <Param ID="$MAX"  Dim ="-"></Param>
+        <Param ID="$EH"  Dim ="-"></Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+  <Function ID="CAN2000INI" >
+    <Head>
+      <Usage>
+        STDPAV Makro for communication over CAN with ISO15765 protocol.
+        (KWP2000 over CAN)
+      </Usage>
+      <Description>can2000ini.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="-">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="PAM-FILE-UNIT" >Unit (i.e.:CAN1)</Param>
+      <Param ID="$P_1"  Dim ="-">Can driver (H/L)</Param>
+      <Param ID="$P_2"  Dim ="-">Baudrate in Baud (i.e.: 500000)</Param>
+      <Param ID="$P_3"  Dim ="-">Sample ratio in % (i.e.: 70)</Param>
+      <Param ID="$P_4"  Dim ="-">Terminater in Ohm (0/60/120)</Param>
+      <Param ID="$P_5"  Dim ="-">Kind of communication (1...4)</Param>
+      <Param ID="$P_6"  Dim ="SENDEID-(614)">Can send ID. (i.e.: 6F1)</Param>
+      <Param ID="$P_7"  Dim ="11/29-BIT">ID len in Bit (11/29)</Param>
+      <Param ID="$P_8"  Dim ="LESEID-(620)">Can read ID. (i.e.: 7FE)</Param>
+      <Param ID="$P_9"  Dim ="11/29-BIT">ID len in Bit (11/29)</Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="DCIS">
+    <Head>
+      <Usage>
+        Indirect measurement of current by means of integrating
+        DC voltage measurement with AUTO triggering on a defined
+        measurement resistor. This function is always used when a
+        current measurement resistor has to be inserted in a line
+        to the  unit (e.g. UB) for the duration of the
+        measurement. Currents flowing into the  unit
+        register as positive.
+      </Usage>
+      <Description>dcis.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="SG-PIN-High">High pin</Param>
+      <Param ID="$MP_1"  Dim ="SG-PIN-LOW">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="0=AUTORANGE">MaxSignalAmplitude</Param>
+      <Param ID="$P_1"  Dim ="Sec">IntegrationPeriod</Param>
+      <Param ID="$P_2"  Dim ="-">Shuntresistor</Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="BERECHNEN" >
+    <Head>
+      <Usage></Usage>
+      <Description>berechnen.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="-">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-">Term</Param>
+      <Param ID="$P_1"  Dim ="0/1/2/3/4">Rounding_Method</Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="COMBLOCK" >
+    <Head>
+      <Usage>
+        Sends an interface protocol block from the tester via the
+        serial interface to the  unit. Depending on the mode 
+        a response (measured data block) may be expected from the
+         unit; the response is written to a received data memory.
+        That received data memory can be accessed by means of the functions
+        BlockIntIDH_BlockInt and BlockStrIDH_BlockStr.
+      </Usage>
+      <Description>comblock.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="-">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-">Interface_Protocol_Block</Param>
+      <Param ID="$P_1"  Dim ="-">Bytes_Expected_Back</Param>
+      <Param ID="$P_2"  Dim ="-">Timeout</Param>
+      <Param ID="$P_3"  Dim ="-">Mode</Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="BLOCKINT" >
+    <Head>
+      <Usage>
+        This function can only be carried out after a read operation
+        by the function ComBlockIDH_ComBlock. As its result  it returns the
+        bytes specified in the column Testing Parameters from low byte to high
+        byte of a loaded measured data block and interprets them as integers.
+      </Usage>
+      <Description>blockint.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-">LowByte</Param>
+      <Param ID="$P_1"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="STRCMP" >
+    <Head>
+      <Usage>
+      </Usage>
+      <Description></Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt"></Param>
+      <Param ID="$MP_0"  Dim ="-"></Param>
+      <Param ID="$MP_1"  Dim ="-"></Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="Variable"></Param>
+      <Param ID="$P_1"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-"></Param>
+      <Param ID="$MAX"  Dim ="-"></Param>
+      <Param ID="$EH"  Dim ="-"></Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="TIMEA" >
+    <Head>
+      <Usage>
+        Measurement of duration of a positive or negative pulse or a period.
+        Depending on mode  this function acts as a  function or a measurement function.
+      </Usage>
+      <Description>timea.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="SG-PIN-High">High pin</Param>
+      <Param ID="$MP_1"  Dim ="SG-PIN-LOW">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="VOLT">MaxSignalAmplitude</Param>
+      <Param ID="$P_1"  Dim ="N/P"></Param>
+      <Param ID="$P_2"  Dim ="+-400.0V"></Param>
+      <Param ID="$P_3"  Dim ="N/P"></Param>
+      <Param ID="$P_4"  Dim ="+-400.0V"></Param>
+      <Param ID="$P_5"  Dim ="-"></Param>
+      <Param ID="$P_6"  Dim ="SEC"></Param>
+      <Param ID="$P_7"  Dim ="NORM/READ/S/M"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="RTIMEA" >
+    <Head>
+      <Usage>Test read function for measurement of time duration of a pulse or a period. </Usage>
+      <Description>rtimea.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+<Function ID="RTIMEAB" >
+    <Head>
+    <Usage>Test read function for measurement of time period between the trigger
+edges of two different test signals. The function RTimeAB may only be used
+in conjunction with the function TimeABIDH_TimeAB (mode s).</Usage>
+    <Description>rtimeab.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="HEXSTRINGTOSTR" >
+    <Head>
+      <Usage>
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-"></Param>
+      <Param ID="$P_1"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="BITOP" >
+    <Head>
+      <Usage>
+        Performs a bit operation on two integers.
+        The result is also an integer.
+      </Usage>
+      <Description>bitop.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-"></Param>
+      <Param ID="$P_1"  Dim ="-"></Param>
+      <Param ID="$P_2"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="WAITUNTIL" >
+    <Head>
+      <Usage>
+      </Usage>
+      <Description>-</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="-"></Param>
+      <Param ID="$P_1"  Dim ="ms"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="DCVTRG" >
+    <Head>
+      <Usage>
+        Internally or externally triggered integrating DC voltage
+        measurement. Depending on mode  this function acts as a 
+        function or a measurement function.
+      </Usage>
+      <Description>dcvtrg.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="SG-PIN-High">High pin</Param>
+      <Param ID="$MP_1"  Dim ="SG-PIN-LOW">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="VOLT">MaxSignalAmplitude</Param>
+      <Param ID="$P_1"  Dim ="N/P"></Param>
+      <Param ID="$P_2"  Dim ="+-400.0V"></Param>
+      <Param ID="$P_3"  Dim ="1.E-6&lt;&lt;0.065 s"></Param>
+      <Param ID="$P_4"  Dim ="Sec"></Param>
+      <Param ID="$P_5"  Dim ="SG-PIN-High"></Param>
+      <Param ID="$P_6"  Dim ="SG-PIN-LOW"></Param>
+      <Param ID="$P_7"  Dim ="Sec"></Param>
+      <Param ID="$P_8"  Dim ="NORM/READ/S/M"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="RDCVTRG" >
+    <Head>
+      <Usage>
+        Test read function for internally or externally
+        triggered integrating DC voltage measurement.
+      </Usage>
+      <Description>rdcvtrg.html</Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="CONTROL" >
+      <Head>
+        <Usage>
+          This function is used to implement program subroutines andloops in the PAV.
+          The conditions supported are IF/THEN  IF/THEN/ELSE and WHILE.
+          A subroutine is terminated by ENDIF or ENDWHILE.
+          The  function must be invoked for every keyword.
+        </Usage>
+        <Description>.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-">High pin</Param>
+        <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="IF/WHILE/BREAK">Type</Param>
+        <Param ID="$P_1"  Dim ="==/!=/&gt;=/&lt; =/||"></Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="DCITRG" >
+      <Head>
+        <Usage></Usage>
+        <Description>dcitrg.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="SG-PIN-High">High pin</Param>
+        <Param ID="$MP_1"  Dim ="SG-PIN-LOW">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="-">Shuntresistor</Param>
+        <Param ID="$P_1"  Dim ="VOLT">MaxSignalAmplitude</Param>
+        <Param ID="$P_2"  Dim ="N/P"></Param>
+        <Param ID="$P_3"  Dim ="+-400.0V"></Param>
+        <Param ID="$P_4"  Dim ="Sec"></Param>
+        <Param ID="$P_5"  Dim ="Sec"></Param>
+        <Param ID="$P_6"  Dim ="SG-PIN-High"></Param>
+        <Param ID="$P_7"  Dim ="SG-PIN-LOW"></Param>
+        <Param ID="$P_8"  Dim ="Sec"></Param>
+        <Param ID="$P_9"  Dim ="NORM/READ/S/M"></Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="RDCITRG" >
+      <Head>
+        <Usage>
+          Test read function for indirect current measurement
+          function DCITrgIDH_DCITrg. The function RDCITrg may only
+          be used in conjunction with the function DCITrgIDH_DCITrg (mode s).
+        </Usage>
+        <Description>rdcitrg.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-">High pin</Param>
+        <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="DCI" >
+      <Head>
+        <Usage>
+          Indirect measurement of current by means of integrating
+          DC voltage measurement with AUTO triggering on a defined shunt.
+          This function is always used when a load with integrated shunt
+          is connected to a  unit pin and the current is to be
+          measured on the integrated shunt. Currents flowing into the
+           unit register as positive.
+        </Usage>
+        <Description>dci.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="SG-PIN-High">High pin</Param>
+        <Param ID="$MP_1"  Dim ="SG-PIN-LOW">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="0=AUTORANGE">MaxSignalAmplitude</Param>
+        <Param ID="$P_1"  Dim ="Sec">IntegrationPeriod</Param>
+        <Param ID="$P_2"  Dim ="-">Shuntresistor</Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="BREAK">
+      <Head>
+        <Usage>
+          Terminates the test if a measured value is outsIDe the tolerance limits.
+          This function does not return a value.
+        </Usage>
+        <Description>break.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-">High pin</Param>
+        <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="Variable">Measured Value</Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="ADF">
+      <Head>
+        <Usage>
+        </Usage>
+        <Description>-</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="-"></Param>
+        <Param ID="$MP_0"  Dim ="-"></Param>
+        <Param ID="$MP_1"  Dim ="-"></Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$MIN"  Dim ="-"></Param>
+        <Param ID="$MAX"  Dim ="-"></Param>
+        <Param ID="$EH"  Dim ="-"></Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="ECUMEMDATANUM">
+      <Head>
+        <Usage>
+        </Usage>
+        <Description></Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-"></Param>
+        <Param ID="$MP_1"  Dim ="-"></Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="FSW/TSW/WP/WSW"></Param>
+        <Param ID="$P_1"  Dim ="SESSION"></Param>
+        <Param ID="$P_2"  Dim ="DATENTYP"></Param>
+        <Param ID="$P_3"  Dim ="NAME"></Param>
+        <Param ID="$P_4"  Dim ="DATENATTRIBUT"></Param>
+        <Param ID="$MIN"  Dim ="-"></Param>
+        <Param ID="$MAX"  Dim ="-"></Param>
+        <Param ID="$EH"  Dim ="FLOAT/INT"></Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="ECUMEMDATASTR">
+      <Head>
+        <Usage>
+        </Usage>
+        <Description></Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-"></Param>
+        <Param ID="$MP_1"  Dim ="-"></Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="FSW/TSW/WP/WSW"></Param>
+        <Param ID="$P_1"  Dim ="SESSION"></Param>
+        <Param ID="$P_2"  Dim ="DATENTYP"></Param>
+        <Param ID="$P_3"  Dim ="NAME"></Param>
+        <Param ID="$P_4"  Dim ="DATENATTRIBUT"></Param>
+        <Param ID="$P_5"  Dim ="FLOAT/INT"></Param>
+        <Param ID="$P_6"  Dim ="LAENGE_RUECK"></Param>
+        <Param ID="$MIN"  Dim ="-"></Param>
+        <Param ID="$MAX"  Dim ="-"></Param>
+        <Param ID="$EH"  Dim ="-"></Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="FREQUENZ">
+      <Head>
+        <Usage>Measurement of frequency of a periodic signal.</Usage>
+        <Description>frequenz.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="SG-PIN-High">High pin</Param>
+        <Param ID="$MP_1"  Dim ="SG-PIN-LOW">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="VOLT">MaxSignalAmplitude</Param>
+        <Param ID="$P_1"  Dim ="N/P"></Param>
+        <Param ID="$P_2"  Dim ="+-400.0V"></Param>
+        <Param ID="$P_3"  Dim ="SEC"></Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="LOADFILE1">
+      <Head>
+        <Usage>
+          This function is used to load a file that is in the ECU memory
+          container in the form of a data block into the  unit. The
+          permissible data formats for the file in the container are binary
+          (data is transferred 1:1 to the  unit)  VLB (Variable Length
+          Binary; the file already contains segmented data)  NOP format  Intel-Hex
+          and S19 format. The reference to the valID ECU memory container is
+          embedded in the components list.
+        </Usage>
+        <Description>loadfile1.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-">High pin</Param>
+        <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="FSW/TSW/WP/WSW">Container_Type</Param>
+        <Param ID="$P_1"  Dim ="DATABLOCKNAME">File_Name</Param>
+        <Param ID="$P_2"  Dim ="BIN/VLB/NOP/PC"></Param>
+        <Param ID="$P_3"  Dim ="IN FILE"></Param>
+        <Param ID="$P_4"  Dim ="USEDFILELEN"></Param>
+        <Param ID="$P_5"  Dim ="BLOCKTITLE"></Param>
+        <Param ID="$P_6"  Dim ="BLOCKTRAILER"></Param>
+        <Param ID="$P_7"  Dim ="0-255"></Param>
+        <Param ID="$P_8"  Dim ="OF SG"></Param>
+        <Param ID="$P_9"  Dim ="K/CAN1-CAN4"></Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="PRINTINT" >
+      <Head>
+        <Usage>Represents an integer value as a formatted string.</Usage>
+        <Description>printint.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-">High pin</Param>
+        <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="-">Value</Param>
+        <Param ID="$P_1"  Dim ="-">Characters</Param>
+        <Param ID="$P_2"  Dim ="-"></Param>
+        <Param ID="$P_3"  Dim ="-"></Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="STRCOPY" >
+      <Head>
+        <Usage>Creates an excerpt from a string.</Usage>
+        <Description>strcopy.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-">High pin</Param>
+        <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="-">String</Param>
+        <Param ID="$P_1"  Dim ="-"></Param>
+        <Param ID="$P_2"  Dim ="-"></Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="STRTOHEXSTRING" >
+      <Head>
+        <Usage>
+        </Usage>
+        <Description>-</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-"></Param>
+        <Param ID="$MP_1"  Dim ="-"></Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="-"></Param>
+        <Param ID="$P_1"  Dim ="-"></Param>
+        <Param ID="$MIN"  Dim ="-"></Param>
+        <Param ID="$MAX"  Dim ="-"></Param>
+        <Param ID="$EH"  Dim ="-"></Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="STRTOINT" >
+      <Head>
+        <Usage>Converts a string into an integer value.</Usage>
+        <Description>strtoint.html</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-">High pin</Param>
+        <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="-">String</Param>
+        <Param ID="$P_1"  Dim ="-"></Param>
+        <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+        <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+        <Param ID="$EH"  Dim ="-">Unit</Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="BLOCKHEXSTR" >
+      <Head>
+        <Usage>
+        </Usage>
+        <Description>-</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-"></Param>
+        <Param ID="$MP_1"  Dim ="-"></Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="-"></Param>
+        <Param ID="$P_1"  Dim ="-"></Param>
+        <Param ID="$MIN"  Dim ="-"></Param>
+        <Param ID="$MAX"  Dim ="-"></Param>
+        <Param ID="$EH"  Dim ="-"></Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="COM_ANSTEUER" >
+      <Head>
+        <Usage>
+        </Usage>
+        <Description>-</Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$P_0"  Dim ="SG-PIN-NAME"></Param>
+        <Param ID="$P_1"  Dim ="SG-PIN"></Param>
+        <Param ID="$P_2"  Dim ="ANSTEUER_PAR"></Param>
+        <Param ID="$P_3"  Dim ="SG-PIN-NAME"></Param>
+        <Param ID="$P_4"  Dim ="SG-PIN"></Param>
+        <Param ID="$P_5"  Dim ="ANSTEUER_PAR"></Param>
+      </Parameters>
+    </Function>
+    <Function ID="ACV" >
+ <Head>
+    <Usage>Measurement of effective level with automatic triggering. </Usage>
+    <Description>acv.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="SG-PIN-High">High pin</Param>
+    <Param ID="$MP_1" Dim ="SG-PIN-LOW">Low pin</Param>
+    <Param ID="$MP_2" Dim ="Nach-PAV"></Param>
+    <Param ID="$MP_3" Dim ="Nach-PAV"></Param>
+    <Param ID="$P_0" Dim ="0=AUTORANGE">MaxSignalAmplitude</Param>
+    <Param ID="$P_1" Dim ="Sec"> IntegrationPeriod</Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-"> Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+<Function ID="ACVINIT" >
+ <Head>
+    <Usage></Usage>
+    <Description></Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="-">Measure object</Param>
+    <Param ID="$MP_0" Dim ="SG-PIN-High">High pin</Param>
+    <Param ID="$MP_1" Dim ="SG-PIN-LOW">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="0=AUTORANGE">MaxSignalAmplitude</Param>
+    <Param ID="$P_1" Dim ="Sec"> IntegrationPeriod</Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-"> Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+<Function ID="BLOCKHEX" >
+ <Head>
+    <Usage></Usage>
+    <Description></Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt"></Param>
+    <Param ID="$MP_0" Dim ="-"></Param>
+    <Param ID="$MP_1" Dim ="-"></Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="-"></Param>
+    <Param ID="$P_1" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-"></Param>
+    <Param ID="$MAX" Dim ="-"></Param>
+    <Param ID="$EH" Dim ="-"></Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+<Function ID="BLOCKSTR" >
+ <Head>
+    <Usage>This function can only be carried out after a read operation
+by the function ComBlockIDH_ComBlock. It returns a string as its
+result. It does so by returning the bytes specified in the column
+Testing Parameters from the loaded measured data block as ASCII characters.</Usage>
+    <Description>blockstr.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="-">StartByte</Param>
+    <Param ID="$P_1" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-">Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+<Function ID="CANBLOCK" >
+   <Head>
+    <Usage>Sends and/or receives messages via a CAN interface. This function
+may only be invoked once the interface has been initialized by means of
+the function CANInit. If the function reads a received message, that
+message is returned and at the same time written to a received messages
+memory (see also function ComBlock) which can be accessed using the
+standard functions </Usage>
+    <Description>canblock.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="SENDEID-(614)">ID_Send</Param>
+    <Param ID="$P_1" Dim ="11/29-BIT">ID_Send_Length</Param>
+    <Param ID="$P_2" Dim ="LESEID-(620)"></Param>
+    <Param ID="$P_3" Dim ="11/29-BIT"></Param>
+    <Param ID="$P_4" Dim ="C/L/S/R/D"></Param>
+    <Param ID="$P_5" Dim ="-"></Param>
+    <Param ID="$P_6" Dim ="(0-6000)ms"></Param>
+    <Param ID="$P_7" Dim ="s"></Param>
+    <Param ID="$P_8" Dim ="PAM-FILE-UNIT"></Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-">Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+  <Function ID="CANINIT" >
+   <Head>
+    <Usage>Initializes the CAN interface. Following successful initialization,
+the testing station can communicate with the control unit using the function CANBlock. </Usage>
+    <Description>caninit.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="-">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="PAM-FILE-UNIT">Interface</Param>
+    <Param ID="$P_1" Dim ="-">ID</Param>
+    <Param ID="$P_2" Dim ="-"></Param>
+    <Param ID="$P_3" Dim ="-"></Param>
+    <Param ID="$P_4" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-">Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+<Function ID="DCV_2">
+      <Head>
+        <Usage>
+        </Usage>
+        <Description></Description>
+      </Head>
+      <Parameters>    
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt"></Param>
+        <Param ID="$MP_0"  Dim ="SG-PIN-High"></Param>
+        <Param ID="$MP_1"  Dim ="SG-PIN-LOW"></Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="0=AUTORANGE">MaxSignalAmplitude</Param>
+        <Param ID="$P_1"  Dim ="Sec">IntegrationPeriod</Param>
+        <Param ID="$MIN"  Dim ="-"></Param>
+        <Param ID="$MAX"  Dim ="-"></Param>
+        <Param ID="$EH"  Dim ="-"></Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+<Function ID="DCVTRG_2" >
+    <Head>
+      <Usage>
+      </Usage>
+      <Description></Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="SG-PIN-High">High pin</Param>
+      <Param ID="$MP_1"  Dim ="SG-PIN-LOW">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="VOLT">MaxSignalAmplitude</Param>
+      <Param ID="$P_1"  Dim ="N/P"></Param>
+      <Param ID="$P_2"  Dim ="+-400.0V"></Param>
+      <Param ID="$P_3"  Dim ="1.E-6&lt;&lt;0.065 s"></Param>
+      <Param ID="$P_4"  Dim ="Sec"></Param>
+      <Param ID="$P_5"  Dim ="SG-PIN-High"></Param>
+      <Param ID="$P_6"  Dim ="SG-PIN-LOW"></Param>
+      <Param ID="$P_7"  Dim ="Sec"></Param>
+      <Param ID="$P_8"  Dim ="NORM/READ/S/M"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+    <Function ID="ECUMEMDATA">
+      <Head>
+        <Usage>
+        </Usage>
+        <Description></Description>
+      </Head>
+      <Parameters>
+        <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+        <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+        <Param ID="$MP_0"  Dim ="-"></Param>
+        <Param ID="$MP_1"  Dim ="-"></Param>
+        <Param ID="$MP_2"  Dim ="-"></Param>
+        <Param ID="$MP_3"  Dim ="-"></Param>
+        <Param ID="$P_0"  Dim ="SESSION"></Param>
+        <Param ID="$P_1"  Dim ="DATENTYP"></Param>
+        <Param ID="$P_2"  Dim ="NAME"></Param>
+        <Param ID="$P_3"  Dim ="DATENATTRIBUT"></Param>
+        <Param ID="$P_4"  Dim ="LAENGE_RUECK"></Param>
+        <Param ID="$MIN"  Dim ="-"></Param>
+        <Param ID="$MAX"  Dim ="-"></Param>
+        <Param ID="$EH"  Dim ="-"></Param>
+        <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+      </Parameters>
+    </Function>
+<Function ID="FGN_TRIGGER" >
+    <Head>
+      <Usage>
+      </Usage>
+      <Description></Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="-"></Param>
+      <Param ID="$MP_0"  Dim ="-">n</Param>
+      <Param ID="$MP_1"  Dim ="-"></Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="FILENAME"></Param>
+      <Param ID="$P_1"  Dim ="-"></Param>
+      <Param ID="$P_2"  Dim ="-"></Param>
+      <Param ID="$P_3"  Dim ="N/P"></Param>
+      <Param ID="$P_4"  Dim ="+-400.0V"></Param>
+      <Param ID="$P_5"  Dim ="SG-PIN-High"></Param>
+      <Param ID="$P_6"  Dim ="SG-PIN-LOW"></Param>
+      <Param ID="$P_7"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+    </Parameters>
+  </Function>
+<Function ID="FGN1_TRIGGER" >
+    <Head>
+      <Usage>
+      </Usage>
+      <Description></Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="-"></Param>
+      <Param ID="$MP_0"  Dim ="-">n</Param>
+      <Param ID="$MP_1"  Dim ="-"></Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$P_0"  Dim ="FILENAME"></Param>
+      <Param ID="$P_1"  Dim ="-"></Param>
+      <Param ID="$P_2"  Dim ="-"></Param>
+      <Param ID="$P_3"  Dim ="N/P"></Param>
+      <Param ID="$P_4"  Dim ="+-400.0V"></Param>
+      <Param ID="$P_5"  Dim ="SG-PIN-High"></Param>
+      <Param ID="$P_6"  Dim ="SG-PIN-LOW"></Param>
+      <Param ID="$P_7"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+    </Parameters>
+  </Function>
+ <Function ID="K2000INI" >
+   <Head>
+    <Usage>Initializes and establishes communication via the diagnosis
+interface for the KW2000 protocol. In contrast with the function
+ComInitIDH_ComInit, which applies to all protocols (but does not permit
+any protocol-specific parameter settings), the function K2000Ini
+specifies all parameters that are required to establish communication.</Usage>
+    <Description>k2000ini.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="-">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="-">Target_Address</Param>
+    <Param ID="$P_1" Dim ="-">Initialization_Type</Param>
+    <Param ID="$P_2" Dim ="-">Specifies the type of initialization (stimulation)</Param>
+    <Param ID="$P_3" Dim ="-">Default value: 2</Param>
+    <Param ID="$P_4" Dim ="-">Initialization_Line</Param>
+    <Param ID="$P_5" Dim ="-"></Param>
+    <Param ID="$P_6" Dim ="-">P2max</Param>
+    <Param ID="$P_7" Dim ="-">W1max</Param>
+    <Param ID="$P_8" Dim ="-">TiniL</Param>
+    <Param ID="$P_9" Dim ="-"></Param>
+    <Param ID="$P_10" Dim ="-"></Param>
+    <Param ID="$P_11" Dim ="-"></Param>
+    <Param ID="$P_12" Dim ="-"></Param>
+    <Param ID="$P_13" Dim ="-"></Param>
+    <Param ID="$P_14" Dim ="-"></Param>
+    <Param ID="$P_15" Dim ="-"></Param>
+    <Param ID="$P_16" Dim ="-"></Param>
+    <Param ID="$P_17" Dim ="-"></Param>
+    <Param ID="$P_18" Dim ="-"></Param>
+    <Param ID="$P_19" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-">Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+  <Function ID="KUNDENDAT" >
+   <Head>
+    <Usage>This function is used to request general information on
+the testing station such as date of manufacture. The result
+returned is always a string. </Usage>
+    <Description>kundendat.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="-">Data_Type</Param>
+    <Param ID="$P_1" Dim ="-"> </Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-"> Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+  <Function ID="LEGENDE" >
+   <Head>
+    <Usage></Usage>
+    <Description>legende.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="Variable">Description of Function</Param>
+    <Param ID="$P_1" Dim ="-">Testing Points</Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-"> Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+   </Parameters>
+  </Function>
+<Function ID="LOADFILE" >
+   <Head>
+    <Usage>This function is used to load a file that is in the ECU memory
+container in the form of a data block into the control unit. The
+permissible data formats for the file in the container are binary
+(data is transferred 1:1 to the control unit), VLB (Variable Length
+Binary; the file already contains segmented data), NOP format, Intel-Hex
+and S19 format. The reference to the valid ECU memory container is
+embedded in the components list. </Usage>
+    <Description>loadfile1.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="-">Container_Type</Param>
+    <Param ID="$P_1" Dim ="-">File_Name</Param>
+    <Param ID="$P_2" Dim ="-"></Param>
+    <Param ID="$P_3" Dim ="-"></Param>
+    <Param ID="$P_4" Dim ="-"></Param>
+    <Param ID="$P_5" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-"> Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+   </Parameters>
+  </Function>
+<Function ID="OBPINIT" >
+   <Head>
+    <Usage></Usage>
+    <Description></Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="-"></Param>
+    <Param ID="$MP_0" Dim ="-"></Param>
+    <Param ID="$MP_1" Dim ="-"></Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="SG-PIN-High"></Param>
+    <Param ID="$P_1" Dim ="SG-PIN-LOW"></Param>
+    <Param ID="$P_2" Dim ="-"></Param>
+    <Param ID="$P_3" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-">min</Param>
+    <Param ID="$MAX" Dim ="-">max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+   </Parameters>
+  </Function>
+<Function ID="OBPINIT1" >
+   <Head>
+    <Usage></Usage>
+    <Description></Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="-"></Param>
+    <Param ID="$MP_0" Dim ="-"></Param>
+    <Param ID="$MP_1" Dim ="-"></Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="SG-PIN-High"></Param>
+    <Param ID="$P_1" Dim ="SG-PIN-LOW"></Param>
+    <Param ID="$P_2" Dim ="-"></Param>
+    <Param ID="$P_3" Dim ="-"></Param>
+    <Param ID="$P_4" Dim ="-"></Param>
+    <Param ID="$P_5" Dim ="-"></Param>
+    <Param ID="$P_6" Dim ="-"></Param>
+    <Param ID="$P_7" Dim ="-"></Param>
+    <Param ID="$P_8" Dim ="-"></Param>
+    <Param ID="$P_9" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-">min</Param>
+    <Param ID="$MAX" Dim ="-">max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+  <Function ID="PRINTFLOAT" >
+   <Head>
+    <Usage>Represents a floating-point value as a formatted string.</Usage>
+    <Description>printfloat.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$P_0" Dim ="-">Value</Param>
+    <Param ID="$P_1" Dim ="-">Characters</Param>
+    <Param ID="$P_2" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-">Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+<Function ID="RACV" >
+   <Head>
+    <Usage>Measurement of effective level with automatic triggering.
+The measurement must be prepared with the aid of the function
+ACVInit; RACV may only be invoked once the testing instrument
+has completed its settling period (AC voltage coupling). </Usage>
+    <Description>racv.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION">PAM position 1</Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-">-</Param>
+    <Param ID="$MP_3" Dim ="-">-</Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-">Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+   </Parameters>
+  </Function>
+<Function ID="RANDOM" >
+   <Head>
+    <Usage></Usage>
+    <Description></Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION">PAM position 1</Param>
+    <Param ID="$MO" Dim ="Messobjekt"></Param>
+    <Param ID="$MP_0" Dim ="-"></Param>
+    <Param ID="$MP_1" Dim ="-"></Param>
+    <Param ID="$MP_2" Dim ="-">-</Param>
+    <Param ID="$MP_3" Dim ="-">-</Param>
+    <Param ID="$P_0" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-"></Param>
+    <Param ID="$MAX" Dim ="-"></Param>
+    <Param ID="$EH" Dim ="-"></Param>
+   </Parameters>
+  </Function>
+<Function ID="RANDOM1" >
+   <Head>
+    <Usage></Usage>
+    <Description></Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION">PAM position 1</Param>
+    <Param ID="$MO" Dim ="Messobjekt"></Param>
+    <Param ID="$MP_0" Dim ="-"></Param>
+    <Param ID="$MP_1" Dim ="-"></Param>
+    <Param ID="$MP_2" Dim ="-">-</Param>
+    <Param ID="$MP_3" Dim ="-">-</Param>
+    <Param ID="$P_0" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-"></Param>
+    <Param ID="$MAX" Dim ="-"></Param>
+    <Param ID="$EH" Dim ="-"></Param>
+   </Parameters>
+  </Function>
+<Function ID="RDCVTRG_2" >
+    <Head>
+      <Usage>
+      </Usage>
+      <Description></Description>
+    </Head>
+    <Parameters>
+      <Param ID="$POSITION"  Dim ="$POSITION"></Param>
+      <Param ID="$MO"  Dim ="Messobjekt">Measure object</Param>
+      <Param ID="$MP_0"  Dim ="-">High pin</Param>
+      <Param ID="$MP_1"  Dim ="-">Low pin</Param>
+      <Param ID="$MP_2"  Dim ="-"></Param>
+      <Param ID="$MP_3"  Dim ="-"></Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+    </Parameters>
+  </Function>
+  <Function ID="SEEDKEY" >
+   <Head>
+    <Usage>This function is used to request a 'Key' for a 'Seed'.
+This can be necessary, for example, to be able to access control
+units with activated immobilizer or data that is normally locked
+via the diagnosis interface.</Usage>
+    <Description>seedkey.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION">PAM position 1</Param>
+    <Param ID="$MO" Dim ="-">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-">-</Param>
+    <Param ID="$MP_3" Dim ="-">-</Param>
+    <Param ID="$P_0" Dim ="SESSION">Session_Name</Param>
+    <Param ID="$P_1" Dim ="-">Seed_Method</Param>
+    <Param ID="$P_2" Dim ="-">Seed</Param>
+      <Param ID="$MIN"  Dim ="-">Tolerance min</Param>
+      <Param ID="$MAX"  Dim ="-">Tolerance max</Param>
+      <Param ID="$EH"  Dim ="-">Unit</Param>
+      <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+  <Function ID="TIMEAB" >
+   <Head>
+    <Usage>Measurement of time period between the trigger edges of two
+different test signals (on Channel A and Channel B). Depending on
+mode, this function acts as a control function or a measurement function.</Usage>
+    <Description>timeab.html</Description>
+   </Head>
+ <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="SG-PIN-High">High pin</Param>
+    <Param ID="$MP_1" Dim ="SG-PIN-Low">Low pin</Param>
+    <Param ID="$MP_2" Dim ="SG-PIN-High"></Param>
+    <Param ID="$MP_3" Dim ="SG-PIN-Low"></Param>
+    <Param ID="$P_0" Dim ="VOLT">MaxSignalAmplitudeA</Param>
+    <Param ID="$P_1" Dim ="N/P"></Param>
+    <Param ID="$P_2" Dim ="+-400.0V"></Param>
+    <Param ID="$P_3" Dim ="-"></Param>
+    <Param ID="$P_4" Dim ="N/P"></Param>
+    <Param ID="$P_5" Dim ="+-400.0V"></Param>
+    <Param ID="$P_6" Dim ="-"></Param>
+    <Param ID="$P_7" Dim ="SEC"></Param>
+    <Param ID="$P_8" Dim ="NORM/READ/S/M"></Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-">Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$RETURN_WERT"  Dim ="-"></Param>
+   </Parameters>
+  </Function>
+<Function ID="OBPHS" >
+   <Head>
+    <Usage>This function is used to perform the OBP handshake between
+the testing station and the control unit. It can not be executed
+until the handshake pin has been initialized by means of the function
+OBPInit1IDH_OBPInit1. If a malfunction occurs during the OBP handshake,
+the test is normally aborted. </Usage>
+    <Description>obphs.html</Description>
+   </Head>
+   <Parameters>
+    <Param ID="$POSITION" Dim ="$POSITION"></Param>
+    <Param ID="$MO" Dim ="Messobjekt">Measure object</Param>
+    <Param ID="$MP_0" Dim ="-">High pin</Param>
+    <Param ID="$MP_1" Dim ="-">Low pin</Param>
+    <Param ID="$MP_2" Dim ="-"></Param>
+    <Param ID="$MP_3" Dim ="-"></Param>
+    <Param ID="$MIN" Dim ="-">Tolerance min</Param>
+    <Param ID="$MAX" Dim ="-">Tolerance max</Param>
+    <Param ID="$EH" Dim ="-">Unit</Param>
+    <Param ID="$P_0" Dim ="N/P">Edge</Param>
+    <Param ID="$P_1" Dim ="s"></Param>
+   </Parameters>
+  </Function>
+
+	<Function ID="COM_INIT_CP" >
+		<Head>
+			<Usage>
+				This function is used to perform the OBP handshake between
+				the testing station and the control unit. It can not be executed
+				until the handshake pin has been initialized by means of the function
+				OBPInit1IDH_OBPInit1. If a malfunction occurs during the OBP handshake,
+				the test is normally aborted.
+			</Usage>
+			<Description></Description>
+		</Head>
+		<Parameters>
+			<Param ID="$POSITION" Dim ="$POSITION"></Param>
+			<Param ID="$MO"				Dim ="Comm Device">Measure object</Param>
+			<Param ID="$P_0" Dim ="Protocol">High pin</Param>
+			<Param ID="$P_1" Dim ="DeviceID">Low pin</Param>
+			<Param ID="$P_2" Dim =	"PortID_Pri"></Param>
+			<Param ID="$P_3" Dim =	"PortID_Sec"></Param>
+			<Param ID="$P_4" Dim =	"BoardAddress"></Param>
+			<Param ID="$P_5" Dim =	"BaudRate"></Param>
+			<Param ID="$P_6" Dim =	"TimeOut"></Param>
+			<Param ID="$P_7" Dim =	"DataBits"></Param>
+			<Param ID="$P_8" Dim =	"Parity"></Param>
+			<Param ID="$P_9" Dim =	"StopBits"></Param>
+			<Param ID="$P_10" Dim =	"HandShake"></Param>
+			<Param ID="$P_11" Dim =	"EOIonW"></Param>
+			<Param ID="$P_12" Dim =	"EOSonR"></Param>
+			<Param ID="$MIN" Dim ="-">Tolerance min</Param>
+			<Param ID="$MAX" Dim ="-">Tolerance max</Param>
+			<Param ID="$EH" Dim ="-">Bool</Param>
+			<Param ID="$RETURN_WERT" Dim ="-">Success or Failure</Param>
+		</Parameters>
+	</Function>
+	<Function ID="COMBLOCK_CP" >
+		<Head>
+			<Usage>
+				This function is used to perform the OBP handshake between
+				the testing station and the control unit. It can not be executed
+				until the handshake pin has been initialized by means of the function
+				OBPInit1IDH_OBPInit1. If a malfunction occurs during the OBP handshake,
+				the test is normally aborted.
+			</Usage>
+			<Description></Description>
+		</Head>
+		<Parameters>
+			<Param ID="$POSITION" Dim ="$POSITION"></Param>
+			<Param ID="$MO" Dim ="Description">Measure object</Param>
+			<Param ID="$P_0" Dim ="DeviceID">High pin</Param>
+			<Param ID="$P_1" Dim ="DataTx">Low pin</Param>
+			<Param ID="$P_2" Dim ="DataRx"></Param>
+			<Param ID="$P_3" Dim ="TimeOut"></Param>
+			<Param ID="$P_4" Dim ="ErrorFlag"></Param>
+			<Param ID="$P_5" Dim ="EOIonW"></Param>
+			<Param ID="$P_6" Dim ="EOSonR"></Param>
+			<Param ID="$MIN" Dim ="-">Tolerance min</Param>
+			<Param ID="$MAX" Dim ="-">Tolerance max</Param>
+			<Param ID="$EH" Dim ="-">Unit</Param>
+		</Parameters>
+	</Function>
+	<Function ID="BLOCKINT_CP" >
+		<Head>
+			<Usage>
+				This function is used to perform the OBP handshake between
+				the testing station and the control unit. It can not be executed
+				until the handshake pin has been initialized by means of the function
+				OBPInit1IDH_OBPInit1. If a malfunction occurs during the OBP handshake,
+				the test is normally aborted.
+			</Usage>
+			<Description></Description>
+		</Head>
+		<Parameters>
+			<Param ID="$POSITION" Dim ="$POSITION"></Param>
+			<Param ID="$MO" Dim ="Description">Measure object</Param>
+			<Param ID="$P_0" Dim ="DeviceID">High pin</Param>
+			<Param ID="$P_1" Dim ="InputData">Low pin</Param>
+			<Param ID="$P_2" Dim ="StartByte"></Param>
+			<Param ID="$P_3" Dim ="EndByte"></Param>
+			<Param ID="$MIN" Dim ="-">Tolerance min</Param>
+			<Param ID="$MAX" Dim ="-">Tolerance max</Param>
+			<Param ID="$EH" Dim ="-">Unit</Param>
+		</Parameters>
+	</Function>
+</Root>

@@ -1,0 +1,432 @@
+<HTML>
+<HEAD>
+<TITLE>A_DATUM</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>A_DATUM</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/testlisten_anw_module/src/a_datum.C,v 1.91 2006/01/18 09:04:35 nit3an Exp $
+   -------------------------------------------------------------------------
+   Kurzbeschreibung: gibt unterschiedliche Daten in Abhaengigkeit vom Modus
+   aus, z.B. ECUID, NUMBER oder das Datum in verschiedenen Formaten
+   -------------------------------------------------------------------------
+   Projekt:        Common Core System - BOSCH
+   Sourcefile:     a_datum.C
+   Autor:          AnW/TEF7 Thomas Nickel, Ludwig Schroll
+   Zielsystem:     HP9000 743rt       (HP-UX 10.20; HP-RT  3.01) / Linux
+   Sprache:        Ansi C; C++
+   -------------------------------------------------------------------------
+   Aufruf:                            &lt;GFMT KS=on TAB=8 LF=on&gt;
+
+     int  a_datum (shm_stringpointer *zeilen_wert,// &lt;I&gt; Zeiger auf Werte
+                  long index,                     // &lt;I&gt; Index-Nummer
+                  long anzahl)                    // &lt;I&gt; Anzahl der Werte
+
+    int  a_datum (STRING     PRUEFSCHRITT
+                  STRING     POSITION
+                  STRING     ADATUM_MODUS
+                  STRING     INPUT_STRING
+                  STRING     RESULTSTRING1
+                  STRING     RESULTSTRING2
+                  STRING     FEHLERFLAG)
+
+   -------------------------------------------------------------------------
+   Returnparameter:                   &lt;GFMT KS=on TAB=8 LF=on&gt;
+   -------------------------------------------------------------------------
+   Funktionsbeschreibung:             &lt;GFMT KS=on TAB=8 LF=on&gt;
+   Das Modul verarbeitet eine Vielfalt von Daten. In Abhaengigkeit vom Modus
+   wird ein Eingabestring ausgewertet. Das Ergebnis wird in zwei
+   Ausgabestrings geschrieben, z.B. ECUID, NUMBER oder das Datum in
+   verschiedenen Formaten (genaueres s. unter ADATUM_MODUS).
+   Evaluation of calendar dates, numbering of weeks, (clock) time
+   according to DIN1355.
+
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Pruefschritt</pre><b><a name="param2">2</a> POSITION</b><pre>   PAV-Position</pre><b><a name="param3">3</a> ADATUM_MODUS</b><pre>   Die folgenden Modi koennen eingegeben werden:
+
+    ABS8_II_CODE      : Input : EEPROM ID 12 characters, e.g.: FA8TE232002C
+                        char  1- 4: TTNR
+                        char  5- 6: julian day (36 bit coded)
+                                    number of the day (1...366) + (0 or 500),
+                                    + 500: if the decade is even (2000-2009)
+                                    + 0:   if the decade is odd  (2010-2019)
+                        char  7   : year (last digit)
+                                    e.g.: 2003 --&gt; 3
+                        char  8   : plant identification number
+                                    plant 1: Anderson, 2: Ansbach, 3: Tomioka,
+                                    4: Reutlingen (M-Bau)
+                        char  9-11: serial number and line number (36 bit coded)
+                                    serial number: possible values 0 ... 9*36*36-1=11663
+                                                   allowed values  1 ... 2**13-1=8191 (13 bits)
+                                    line number: 3 high bits left of the serial number
+                        char 12   : line number and shift number
+                                    line   shift   letter
+                                       1       1      A
+                                       1       2      B
+                                       1       3      C
+                                       2       1      D
+                                       2       2      E
+                                       2       3      F
+                                       3       1      G
+                                       3       2      H
+                                       3       3      I
+                                       4       1      J
+                                       4       2      K
+                                       4       3      L
+                                       5       1      M
+                                       5       2      N
+                                       5       3      O
+                                       6       1      P
+                                       6       2      Q
+                                       6       3      R
+
+                        Output: RETURN1 : 10 characters, wwyyXXXXXX, e.g.: 0203222002
+                                from characters 5-7 of the input the week number and the
+                                year are evaluated and output decimal digits in the form
+                                   wwyy (2 digits each for week and year)
+                                the characters 8-12 of the input are evaluated to a string
+                                of the bit form:          |ppplllss|wwwsssss|ssssssss|
+                                                              XX       XX       XX
+                                ppp: plant, 3 bit, 000b(plant 1) ... 111b(plant 8)
+                                lll: line,  3 bit, 000b(line 1)  ... 111b(line 8)
+                                ss: shift,  2 bit, 00b(shift 1)  ... 11b(shift 4)
+                                www: day of week, 3 bit, 001b(monday) ... 111b(sunday)
+                                sssssssssssss: free counter, serial number, 13 bit, 0 ... 8191
+                                these 3 bytes are converted to 6 hexadecimal digits XXXXXX
+                                and appended to week number and year.
+                                   wwyyXXXXXX
+                                e.g.: E23: E2 --&gt; 506 &gt; 500 --&gt; even decade (2000-2009)
+                                      and 3rd digit = 3 --&gt; year 2003 --&gt; 03
+                                      506-500=6 --&gt; 06.01.03 --&gt; week number 02
+                                      input char 8: plant 2 --&gt; 001b
+                                      input char 9-11: 002 --&gt; serial number 2 --&gt; 0000000000010b
+                                      input char 12: C --&gt; line 1(000b), shift 3(10b)
+                                      06.01.2003 --&gt; weekday Monday --&gt; 001b
+                                      --&gt; |001|000|10|001|0000000000010|
+                                      --&gt; |0010|0010|0010|0000|0000|0010|
+                                      --&gt;   2    2     2    0    0    2
+                                      when you prepend week number and year you get the
+                                      result string: 0203222002
+
+                                RETURN2 : Date in Format JJMMTT extracted from the Input String,
+                                          e.g.: 030106
+                        Error   RETURN1 : "ERROR"
+                        Error   RETURN2 : "ERROR"
+
+    ABS8_VW_CODE      : Input : EEPROM ID 12 characters, e.g.: FA8TG6226BJC
+                                for description look at ABS8_II_CODE above
+                        Output: RETURN1 : 16 characters 3n3n2E3n3n2E3n3n
+                                the characters 5-7 of the Input are evaluated to a date
+                                in the form dd.mm.yy 
+                                (dd=day of the month 1...31, mm=month 1...12, yy=year)
+                                where every character (also the points: 2E) are converted
+                                to the corresponding 2-digit hexadecimal ASCCI code:
+                                   3n3n2E3n3n2E3n3n
+                                   (n=decimal digit of the date ddmmyy)
+                                e.g.: G62: G6 --&gt; 582 &gt; 500 --&gt; even decade (2000-2009)
+                                      and 3rd digit = 2 --&gt; year 2002 (no leap year)
+                                      582-500=82 --&gt; 23.03.02 --&gt; convert to hexadecimal
+                                      ASCII code:    32332E30332E3032
+
+                                RETURN2 : 12 characters mnmnmnmnmnmn
+                                the characters 8-12 of the Input are evaluated to a string
+                                of the bit form:          |ppplllss|wwwsssss|ssssssss|
+                                                              XX       XX       XX
+                                ppp: plant, 3 bit, 000b(plant 1) ... 111b(plant 8)
+                                lll: line,  3 bit, 000b(line 1)  ... 111b(line 8)
+                                ss: shift,  2 bit, 00b(shift 1)  ... 11b(shift 4)
+                                www: day of week, 3 bit, 001b(monday) ... 111b(sunday)
+                                sssssssssssss: free counter, serial number, 13 bit, 0 ... 8191
+                                these 3 bytes are converted to a hexadecimal number XXXXXX
+                                finally every character is listed as 2-digit hexadecimal ASCII code:
+                                   mnmnmnmnmnmn (mn: ASCII code of X)
+                                e.g.: input char 8: plant 2 --&gt; 001b
+                                      input char 9-11: 6BJ --&gt; serial number 8191 --&gt; 1111111111111b
+                                                       (this is the maximum value allowed)
+                                      input char 12: C --&gt; line 1(000b), shift 3(10b)
+                                      23.03.2002 --&gt; weekday Saturday --&gt; 110b
+                                      --&gt; |001|000|10|110|1111111111111|
+                                      --&gt; |0010|0010|1101|1111|1111|1111|
+                                      --&gt;   2    2     D    F    F    F
+                                      --&gt;  32   32    44   46   46   46
+                                      --&gt; 323244464646
+                        Error   RETURN1 : "ERROR"
+                        Error   RETURN2 : "ERROR"
+
+    AUDI_DATE :         fuer Airbag (Faulhammer)
+                        Input : --
+                        Output: RETURN1 : current date, e.g. "1999.10.30" 30.10.1999
+                                RETURN2 : current calendar week year and number, e.g.
+                                          "1999/43" KW43 in 1999
+                        Error   RETURN1 : "1970.01.01"
+                        Error   RETURN2 : "1970/01"
+
+    AUDI_NR           : Input : Bosch-Code
+                        Output: RETURN1 : Audi-Code mit 8 Stellen
+                                RETURN2 : unveraendert
+
+    BIN2HEX           : Input : String of characters 0, 1 or X (maximum 32 characters)
+                        Output: RETURN1 : after replacing all "X" characters by "1"
+                                the resulting string is transformed to a hexadecimal
+                                number
+                                RETURN2 : unchanged
+                        Error   RETURN1 : "ERROR"
+
+    CCS_VERSION       : number of CCS version
+			Input : -
+			Output: RETURN1 : CCS version, example: 3.5
+			Output: RETURN2 : unchanged
+
+    CHECKSUMM         : calculates a checksum of an input string with formula:
+                        CS = ( n * FF - (X1 + X2 + X3 + ... + Xn) ) modulo (FF + 1)
+                        where n is the number of pairs of hexadecimal digits
+                        (example for a pair of hexadecimal digits: 04, maximum: FF)
+                        and X1, X2, ..., Xn are pairs of hexadecimal digits
+			Input : a string consisting of pairs of hexadecimal digits,
+                                the number of digits must be even!
+			Output: RETURN1 : calculated checksum as a string consisting
+                                of exactly two hexadecimal digits, example: A4
+			Output: RETURN2 : unchanged
+                        Error   RETURN1 : "ERROR"
+
+    DATE_TO_KW        : fuer Hybrid (Wenzel Thomas)
+                        Input : "19991123" 23 November 1999
+                        Output: calendar week number
+                                RETURN1 : "47" 325. julian. Tag in 1999
+                                RETURN2 : unchanged
+                        Error   RETURN1 : "ERROR"
+
+    DCBCDE           :  Daimler-Chrysler (DC) barcode
+                        converts date, rearranges tester ID and DC number part
+                        Input: a string with 14 characters, e.g. 01A7FC04010103
+                               char 1 - 4:  hexadecimal tester ID, e.g. 01A7
+                               char 5 - 8: hexadecimal date in the format:
+                                  Bits  0 -  6:  year, values 0 - 63 (2000 - 2063)
+                                  Bits  7 - 10: month, values 1 - 12
+                                  Bits 11 - 15:   day, values 1 - 31
+                                  e.g.: FC04 =
+                                     1  1  1  1   1  1  0  0   0  0  0  0   0  1  0  0  
+                                     d  d  d  d   d  m  m  m   m  y  y  y   y  y  y  y
+                                           31             8			4
+                                char 9 -14: string with a DC number part (010103)
+                        Output: RETURN1: string in the format nnnnnnyymmdd0000XXXX,
+                                   e.g.: 010103040831000001A7
+                                nnnnnn = DC number part (char 9-14 of the input string),
+                                   e.g.: 010103
+                                yymmdd = decimal date string (yy=the last 2 digits of the
+                                year, mm=month, dd=day), e.g.: 040831
+                                XXXX: hexadecimal tester ID (char 1-4 of the input string),
+                                      e.g. 01A7
+                                RETURN2 : unchanged
+                        Error   RETURN1 : "ERROR" (invalid date or length of Input &lt; 14)
+
+    DOK8        :       (HP1000 Eingabe)
+    NISSAN_DATE :       fuer Airbag (Tremml)
+                        Input : YE2F0945170001 Monat 10=X Monat 11=Y Monat 12=Z
+                        Output: date evaluated from characters 6-10 of input
+                                RETURN1 : date, "19940517"
+                                RETURN2 : unchanged
+                        Error   RETURN1 : "19700101"
+
+    ECUID             : Input : --
+                        Output: RETURN1 : ECUID  aus shm
+                                RETURN2 : unveraendert
+
+    ECUREV_DATE       : Input : shm Wert job.ecurev
+                        Output: RETURN1 : ECUREV aus shm
+                                RETURN2 : unveraendert
+
+    FD_TO_DATE        : Input : "964"    BOSCH FD (3 stellig)
+                        Output: RETURN1 : "1999.04"    April  1999
+                                RETURN2 : unchanged
+                        Error   RETURN1 : "1970.01"
+
+    GET_ERROR_NR      : die Anzahl der aufgetretenen Fehler waehrend eines
+			Prueflaufs bestimmen. 
+			Input : -
+                        Output: RETURN1 : Fehleranzahl 
+                        Output: RETURN2 : unveraendert
+                        Error   RETURN1 : "error"
+
+    GET_SPS_DATA      : das von der SPS versandte Datum (Nullpunktabgleich)
+			auslesen. 
+			Input : -
+                        Output: RETURN1 : SPS_VALUE 
+                        Output: RETURN2 : unveraendert
+                        Error   RETURN1 : "NONE"
+
+    HEX2DEZ           : Input : ein String mit einer hexadezimalen Nummer
+                        Output: RETURN1 : ein String mit einer dezimalen Nummer
+                        Output: RETURN2 : unveraendert
+
+    HY_ADD_CHECKSUM   : Input : "9904160022"
+                        Output: RETURN1 : input + checksum(2 hexadecimal characters),
+                                          e.g.: "990416002241"
+                                RETURN2 : checksum, e.g.: "41"
+
+    HY_BC16_TO_DATE   : Input : "3051979641640018" (16 stellig) Ga7_kap1.doc
+                        Output: date from input
+                                RETURN1 : "19990416"   16. April  1999
+                                RETURN2 : unchanged
+                        Error   RETURN1 : "19700101"
+
+    IS_ERROR          : Input : --
+                        Output: RETURN1 : "GOOD" oder "BAD" des Tests in SECT
+                        Output: RETURN2 : unveraendert
+
+    LINE_NR           : get line number from shared memory
+			Input : --
+                        Output: RETURN1 : line number
+                        Output: RETURN2 : unchanged
+
+    LISTSTATE         : get state of the testlist, possible states are
+                        EMPTY, FIRSTRUN, MULTI, NORMAL, PREINT, SINGLE
+                        Input : --
+                        Output: RETURN1 : liststate
+                        Output: RETURN2 : unchanged
+
+    MD_MODE           : get statistics mode which can be
+                        ALL (statistics on),
+                        F_ONLY (only f-lists) or
+                        OFF (no statistics)
+                        Input : --
+                        Output: RETURN1 : statistics mode
+                        Output: RETURN2 : unchanged
+
+    MG                : Test-BSD-Anfrage an Host
+                        Input : --
+                        Output: RETURN1 : answer from server
+                        Error   RETURN1 : error message from server
+               Aufbau des Anfragepuffers fuer Protokollierung:
+               ===============================================
+            
+                    (LL                    2 byte Pufferlaenge in byte )
+                    K1                     2 byte 1. Anfragekennung : MG,DO,SK
+                    K2                     2 byte 2. Anfragekennung
+                    K3                     2 byte 3. Anfragekennung
+                    K4                     2 byte 4. Anfragekennung
+                    K5                     2 byte 5. Anfragekennung
+                    TTTTTTTTTT            10 byte Erzeugnisnummer
+                    VV                     2 byte Variante
+                    PP                     2 byte Testart
+                    KKKKKKKKKKKKKKKK      16 byte Testername
+                    --------------------------------------------------------
+                    Summe                 40 byte (42)
+            
+               Antworten:
+               ==========
+            
+                    II                     2 byte Laenge
+                    JJ                     2 byte JJ fuer Ja
+                    NN                     2 byte NN fuer Nein
+            
+               Antwort fuer MG : Anfragepuffer + Antw
+               =====================================
+                    IINN                   nicht geoeffnet
+                    IIJJTTTTTTTTTT         Master vom Typ TTTTTTTTTT geoeffnet
+                    IINNTTTTTTTTTT         Master vom Typ TTTTTTTTTT nicht geoeffnet
+            
+               Antwort fuer DO : Anfragepuffer + Antw
+               =====================================
+                    IIDDDDDDDDDDDDDDDD     Laenge und Dokunummer
+            
+               Antwort fuer SK : Anfragepuffer + Antw
+               =====================================
+                    IISSSSSSSSSSSS         Laenge und Seed&amp;Key Nummer
+            
+               Antwort bei Error : Anfragepuffer + Antw
+               =======================================
+                    IIERROREEEEEEEE        Laenge, ERROR und Fehlertext
+
+
+    NUMBER            : Input : --
+                        Output: RETURN1 : unveraendert
+                                RETURN2 : NUMBER aus shm
+
+    NUTZEN_NR         : Einen String mit einer Hexadezimalzahl (max. 20 Bit)
+			in zwei Dezimalzahlen zu jeweils 10 Bit aufteilen
+			Input : ein String mit einer hexadezimalen Zahl (&lt;=20 Bit)
+                        Output: RETURN1 : ein String mit einer dezimalen Zahl,
+					  die oberen 10 Bit
+                        Output: RETURN2 : ein String mit einer dezimalen Zahl,
+					  die unteren 10 Bit
+					  
+    PRUEF_TYP         : den Prueftyp des PAMs bestimmen 
+			Input : --
+                        Output: RETURN1 : der Prueftyp des PAMs (z. B. hytt)
+                        Output: RETURN2 : unveraendert 
+    
+    PRUEF_VAR         : variant number of testlist used
+			Input : -
+			Output: RETURN1 : testlist variant, example: 01
+			Output: RETURN2 : unchanged
+
+    SECTION_NR        : Input : --
+                        Output: RETURN1 : section_nr als String
+                        Output: RETURN2 : unveraendert
+
+    SGCODE            : Test TE_INFO besetzen
+                        Input : --
+                        Output: RETURN1 + RETURN2 --&gt; TE_INFO Telegramm
+
+    SGZAHL            : Test RETURN2 ausschliesslich mit Zahl besetzen
+                        Input : --
+                        Output: RETURN1 + RETURN2 --&gt; TE_INFO Telegramm
+
+    STATION_DATA      : Fertigungsrelevante Daten werden zu 32 bit zusammen-
+			gefasst, um ins Steuergeraet programmiert werden zu 
+			koennen.
+			Input : PGH, SKM, MOB (Mobile Station)
+                        Output: RETURN1 : 32 bit Daten
+			Bit 0  - 6:	Jahre:  0 - 63 (2000 - 2063)
+			Bit 7  - 10:	Monate: 1 - 12
+			Bit 11 - 15:	Tage:   1 - 31
+			Bit 16 - 27:	IP-Adr: letzte Ziffer der 3ten Zahl
+						4. Zahl
+			Bit 28 - 31:	0000:	PGH
+					0001:	SKM
+					0010:	Mobile Station
+                                RETURN2 : unchanged
+                        Error   RETURN1 : "ERROR"
+
+    STATION_NR        : get station number from shared memory
+			Input : --
+                        Output: RETURN1 : station number
+                        Output: RETURN2 : unchanged
+
+    STRLEN            : Input : ein String
+                        Output: RETURN1 : hexadecimal string length
+                        Output: RETURN2 : unveraendert
+
+    WAIT_MASTER       : wenn Master, dann warte ... ms
+
+    YEAR_JDAY_TO_DATE : fuer Airbag (Faulhammer)
+                        Input : year (maximal with 2 digits) and julian day, e.g.:
+                                "99;303" 303. julianischer Tag in 1999
+                                
+                        Output: RETURN1 : date, e.g.: "1999.10.30" 30.10.1999
+                                RETURN2 : calendar week year and number, e.g.
+                                          "1999/43" KW43 in 1999
+                        Error   RETURN1 : "1970.01.01"
+                        Error   RETURN2 : "1970/01"</pre><b><a name="param4">4</a> INPUT_STRING</b><pre>   einzulesende Zeichenkette
+   abhaengig von ADATUM_MODUS: s. "Input :"</pre><b><a name="param5">5</a> RESULTSTRING1</b><pre>   erste Ergebnis-Zeichenkette
+   abhaengig von ADATUM_MODUS: s. "Output: RETURN1 :"</pre><b><a name="param6">6</a> RESULTSTRING2</b><pre>   zweite Ergebnis-Zeichenkette
+   abhaengig von ADATUM_MODUS: s. "Output: RETURN2 :"</pre><b><a name="param7">7</a> FEHLERFLAG</b><pre>   = "0" if no error has occured,
+   != "0" if an error has occured
+   -------------------------------------------------------------------------
+
+
+   -------------------------------------------------------------------------
+   Fehlerbeschreibung:                &lt;GFMT KS=on TAB=8 LF=on&gt;
+   -------------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

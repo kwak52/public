@@ -1,0 +1,7 @@
+
+pdv
+	- pdv 관련 table 수정 권한.  step table 의 update 권한은 제거.
+ccs 
+	- 시험기.  measure 및 bundle table 에 관한 추가 권한
+mws
+	- 읽기 권한

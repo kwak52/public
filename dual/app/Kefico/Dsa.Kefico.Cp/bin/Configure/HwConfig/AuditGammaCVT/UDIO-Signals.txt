@@ -1,0 +1,50 @@
+﻿;; Y축 : 서보모터 전 후진축
+
+---------------
+UDIO 입력 (센서)
+---------------
+0	Door-R
+1	Door-L
+2	Z축 푸셔 전진 확인				UTiltPusherAdvanced
+3	Z축 푸셔 후진 확인				UTiltPusherReturned
+4	Turbine 감지(마스터 지그)		UGcvtPartSensorTurbine
+5	Primary 감지(마스터 지그)		UGcvtPartSensorPrimary
+6	Output 감지(마스터 지그)			UGcvtPartSensorOutput
+
+7	Output 휠 감지(터빈 휠 감지)		UGcvtWheelSensorBit1
+8	Output 휠 감지(터빈 휠 감지)		UGcvtWheelSensorBit2
+9	Primary 휠 감지					UGcvtWheelSensorBit3
+
+
+10	EMG
+11	양수버튼1
+12	양수버튼2
+13	서보모터 푸셔 후진				UGcvtMotorSlideAdvanced
+14	서보모터 푸셔 전진				UGcvtMotorSlideReturned
+15	Area 센서
+16	Z축 원점 복귀 완료
+17	Y축 원점 복귀 완료
+
+
+
+---------------
+UDIO 출력
+---------------
+0	서보 모터 MC ON
+1	틸팅 모터 MC ON
+2	틸팅 pusher 전,후진
+3	모터 pusher 전,후진
+4	Right door open
+5	Left door open
+6	
+7	
+8	Z축 원점이동 명령
+9	Y축 원점이동 명령
+10	EMG
+11	
+12	적색 경광등
+13	황색 경광등
+14	녹색 경광등
+15	부저
+16
+17

@@ -1,0 +1,138 @@
+<HTML>
+<HEAD>
+<TITLE>E_ARRAY_INI</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_ARRAY_INI</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_array_ini.C,v 1.12 2005/03/24 15:58:50 lehmann Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Initialisierung von Array-Variablen
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_array_ini.C
+   Autor:			RtW/TEF72-Juilfs (12.12.95)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_array_ini(
+     ,shm_stringpointer   *zeilen_wert
+     ,long index1
+     ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+          (Ssp_expand_zeile
+           ,Ssp_expand_wert
+           ,p_verwaltung-&gt;begin_modulblock
+           ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Dieses Modul initialisiert eine Variable als langer String oder als 
+   Feld von int / double
+   
+   
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> ARRAY</b><pre>   Variablen Name		
+   ------------------------------</pre><b><a name="param4">4</a> ARRAY_TYP</b><pre>
+   Variablen Typ DOUBLE/STRING/INT/BYTE
+   ------------------------------</pre><b><a name="param5">5</a> ARRAY_DIM</b><pre>   Wurde der ARRAY_TYP STRING gewaehlt so gibt ARRAY_DIM die Maximallaenge
+   des Strings an. 
+   Andernfalls gibt ARRAY_DIM die Anzahl der Arrayelemente	an.
+   ------------------------------</pre><b><a name="param6">6</a> ARRAY_CLEAR</b><pre>   TRUE  = der Inhalt der Variable wird bei jedem Programmstart gelöscht.
+   FALSE = der Inhalt der Variable wird nur beim Laden des Pruefprogrammes gelöscht.
+   ...
+   ---------------------------------------------------------------------
+
+-- pragmas -----------------------------------------------------------
+#pragma  COPYRIGHT "Robert Bosch GmbH Reutlingen, RtW/TEF72"
+#pragma  VERSIONID "$Id: e_array_ini.C,v 1.12 2005/03/24 15:58:50 lehmann Exp $"
+
+-- defines -----------------------------------------------------------
+#define HEADER "$Id: e_array_ini.C,v 1.12 2005/03/24 15:58:50 lehmann Exp $" 
+#define EXTERN extern	 Bei allen Subroutinen 
+
+#define ARRAY		   2
+#define ARRAYN_TYP	   3
+#define ARRAYN_ANZ_DIM	   4
+#define ARRAYN_ANZ_CLEAR   5
+-- includes ----------------------------------------------------------
+#include "shm_syscom.H"
+#include &lt;stdlib.h&gt;
+#include "libccs.H"
+#include "ccl_defines.H"         ccl_definition   PREINT              
+-- external functions / variables ------------------------------------
+-- global variables (nur im  "main" erlaubt) -------------------------
+
+ -Begin---------------------------------------------------------------
+   ---------------------------------------------------------------------
+int e_array_ini(shm_stringpointer *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+{
+-- local variables ---------------------------------------------------  
+   long			dim;		// Dimension 1
+   bool			bParamClear;	// Parameter clear memory
+   QString		strName;	// Variablenname
+   long			typ;		// Variablen typ
+   Variablenverwaltung	*V_ADRESS;  	// Variablenverweis
+   
+   if( strcmp( Ssp_vi-&gt;job.liststate, PREINT ) != 0 )
+      return 0;
+
+   if (Ssp_pp_verwaltung-&gt;steuerparameter.variablenTypDekl != 0)
+   {
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__, "e_array_ini ignored; a variables deklaration list exists");
+      return 0;
+   }
+
+   bParamClear = (*zeilen_wert-&gt;ptr[index1 + ARRAYN_ANZ_CLEAR] == "TRUE");
+   V_ADRESS    = (Variablenverwaltung *)zeilen_wert-&gt;ptr[index1 + ARRAY]; 
+   if (!V_ADRESS-&gt;isVariable())
+   {
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__, "parameter array must be a variable");
+      return -1;
+   }
+   if (*zeilen_wert-&gt;ptr[index1 + ARRAYN_TYP] == VARMEM_TYPSTR_STRING)
+      typ = VARMEM_TYP_STRING;
+   else if (*zeilen_wert-&gt;ptr[index1 + ARRAYN_TYP] == VARMEM_TYPSTR_INT)
+      typ = VARMEM_TYP_INT;
+   else if (*zeilen_wert-&gt;ptr[index1 + ARRAYN_TYP] == VARMEM_TYPSTR_DOUBLE)
+      typ = VARMEM_TYP_DOUBLE;
+   else if (*zeilen_wert-&gt;ptr[index1 + ARRAYN_TYP] == VARMEM_TYPSTR_BYTE)
+      typ = VARMEM_TYP_BYTE;
+   else
+   {
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+         "wrong type: %s", (const char *)*zeilen_wert-&gt;ptr[index1 + ARRAYN_TYP]);
+      return -1;
+   }
+   dim   = atoi((const char*)(*zeilen_wert-&gt;ptr[index1 + ARRAYN_ANZ_DIM]));
+   if (!V_ADRESS-&gt;mem_ini( typ, dim, bParamClear ))
+   {
+      return -1;
+   }
+   return 0;
+}
+ -End of file---------------------------------------------------------
+   Historie:
+   
+</PRE>
+</BODY>
+</HTML>

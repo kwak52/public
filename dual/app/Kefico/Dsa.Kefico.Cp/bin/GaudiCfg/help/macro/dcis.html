@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> DCIS [A]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>DCIS [A]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=8752">
+ </A>
+DCIS [A]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8754">
+ </A>
+MaxSignalAmplitude [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8756">
+ </A>
+IntegrationPeriod [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8758">
+ </A>
+Shuntresistor [Ohm]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=8760">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=8762">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=8764">
+ </A>
+Indirect measurement of current by means of integrating DC voltage measurement with AUTO triggering on a defined measurement resistor. This function is always used when a current measurement resistor has to be inserted in a line to the control unit (e.g. UB) for the duration of the measurement. Currents flowing into the control unit register as positive.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=8766">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=8768">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8770">
+ </A>
+The control unit pin at which the current is to be measured is specified as the test point and the reference point.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=8772">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=8774">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8776">
+ </A>
+MaxSignalAmplitude</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8778">
+ </A>
+Largest amplitude occurring on the signal. Can be used to establish the measurement range or to select a suppressor circuit.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=8780">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8782">
+ </A>
+IntegrationPeriod</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8784">
+ </A>
+Period over which the signal is integrated.<BR>
+In the event of superimposed interference signals, it is advisable to select a multiple of the interference signal period as the integration period.<BR>
+<BR>
+Standard value: period duration of supply voltage.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=8786">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8788">
+ </A>
+Shuntresistor</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8790">
+ </A>
+For selection of resistor level see MSL Catalogue, Current Measurement Using Series Resistor <BR>
+The maximum permissible testing impedance is specified as the parameter.</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=8792">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=8794">
+ </A>
+Example<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=8797">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=701">
+ </A>
+DCIS</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=703">
+ </A>
+1,0.02,100</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=8802">
+ </A>
+<BR>
+<A NAME="_Toc395942301">
+ </A>
+Test circuit:<BR>
+<BR>
+<IMG SRC="funktionen-6.gif" ALIGN="BASELINE">
+<BR>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=8807">
+ </A>
+<BR>
+<A NAME="_Toc395942302">
+ </A>
+Diagram:<BR>
+<BR>
+<IMG SRC="funktionen-7.gif" ALIGN="BASELINE">
+<BR>
+<BR>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=8810">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=710">
+ </A>
+tID</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=712">
+ </A>
+IntegrationPeriod</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=718">
+ </A>
+tPS</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=720">
+ </A>
+Period of the interference signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=726">
+ </A>
+tN</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=728">
+ </A>
+Period of mains power supply</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=8812">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=8814">
+ </A>
+Figure 3: Quiescent current input of a control unit<BR>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<TITLE>R_MATLAB</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_MATLAB</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_matlab.C,v 1.6 2005/04/18 09:10:38 gew3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Realisierung math. Matlab-Funktionen (z.B. polyfit) im CCS
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		r_matlab.C
+   Autor:		RtW2/TEF32-Greule (03.01.05)
+   Zielsystem:		LINUX bzw. HP9000/V743 (HP-RT 3.01), /7/C/D (HP-UX 10.20)
+   Sprache:		ANSI-C
+   ---------------------------------------------------------------------
+   Prototyp:
+    
+   void r_matlab(
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Mittels dieses Moduls wird im Parameter FUNKTION die gewünschte 
+   MATLAB-Funktion eingegeben. In Abhängikeit von diesem Wert erfolgt dann
+   in PARA1 ... PARA8 die Eingabe der funktionsspezifischen Parameter; 
+   dies können Einzelwerte oder auch Felder sein. Die Rückgabe der berechneten 
+   Funktionswerte erfolgt im Parameter ERGEBNIS. 
+   Ist während der Berechnung kein Fehler aufgetreten, ist der Wert des 
+   Parameters FEHLERFLAG 0; ansonsten wird im Log-File eine Fehlermeldung
+   mit der Bedeutung des Wertes ausgegeben.
+  
+   
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Pruefschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> FUNKTION</b><pre>   Auszufuehrende Aktion bei diesem Modul 
+   POLYFIT: Koeffizientenbestimmung eines Kurven-Polynoms der Form:
+            z.B. mit n = 3 -&gt; p(x) = p1x³ + p2x² + p3x + p4
+            Koeffizienten sind: p1, p2, p3, p4
+   ------------------------------</pre><b><a name="param4">4</a> PARA1</b><pre>	
+   Daten bzw. Parameter fuer die in Funktion def. Aktivitaet
+   
+   ...</pre><b><a name="param11">11</a> PARA8</b><pre>	
+   Daten bzw. Parameter fuer die in Funktion def. Aktivitaet
+   ------------------------------</pre><b><a name="param12">12</a> ERGEBNIS</b><pre>   
+   ------------------------------</pre><b><a name="param13">13</a> FEHLERFLAG</b><pre>   
+   
+   
+   Realisierte Funktionen sind:
+   - POLYFIT
+         Übergabeparameter: 
+         PARA1 = n, wobei n eine ganzahlige positive Zahl ist und für den Grad 
+                 des Polynomes steht
+                 
+                 Hinweis: n darf maximal den Wert 6 annehmen !!
+                 
+         PARA2 = Anzahl der Datenpaare die für die Bestimmung benutzt werden;
+                 Beginn der Anzahl mit dem ersten Elemnt des x- bzw. y-Wertes
+                 bis zur hier eingegeben Anzahl
+         PARA3 = x-Werte 
+         PARA4 = y-Werte 
+                            
+         ERGEBNIS: hier stehen die gefundenen Koeffizienten des gesuchten
+                   Polynoms; z.B. werden bei einem Polynom 3 Grades 
+                   4 Werte zurückgegeben.  
+        
+        Vorgehensweise zur Berechnung der Koeffizienten ist beschrieben im
+        Tasktracker 307 unter Attachments "Pfichtenheft"                  
+   
+   ...
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<TITLE>E_CONVERT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_CONVERT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_convert.C,v 1.6 2005/07/01 12:23:50 klm3sa Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Konvertieren von Zahlenstrings in andere Zahlenstrings
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_convert.C
+   Autor:		RtW2/TEF72-Wiese (31.08.00)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01)
+   Sprache:		ANSI-C/C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   
+   int e_convert
+   (shm_stringpointer *zeilen_wert // &lt;I&gt; Gaudi-Paramter - Feld
+   ,long  index1		// &lt;I&gt; Stelle der Modul - Parameter
+   ,long  anzahl)		// &lt;I&gt; anzahl Modul Paramter
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   
+   error = e_convert
+   (s*zeilen_wert 	// &lt;I&gt; Gaudi-Paramter - Feld
+   ,index1		// &lt;I&gt; Stelle der Modul - Parameter
+   ,anzahl)		// &lt;I&gt; anzahl Modul Paramter
+
+   
+   if (error != 0) 	// Fehlerbeschreibung ... 
+   {
+   // Fehlerhandling ... 
+   }</pre><b><a name="param1">1</a> #define</b><pre>PRUEFSCHRITT</pre><b><a name="param2">2</a> #define</b><pre>POSITION
+       #define VARIABLEN_WERT
+       #define VARIABLEN_TYP
+       #define ANZ_STELLEN</pre><b><a name="param6">6</a> #define</b><pre>FEHLERFLAG
+       #define ERGEBNIS
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Dieses Modul Wandelt einen String nach den Einheitenvorgaben der 
+   PAV (ecumemdatastr) um und gibt den Wert zurück.
+   Die Eingabevariable wird überprüft auf
+   0x????: Hexadezimal
+   1234:   Integer
+   01234:  Oktal
+   1234.5  Float
+   Die Ausgabe wird gewandelt nach der VARIABLEN_TYP:
+   I, INT: Wandeln in eine Integerzahl (Basis 10): Floingpointzahlen werden 
+	   als INT ausgegeben, wenn der Nachkommateil==0 ist
+   B, BIN: Wandeln in eine Binärzahl zur Basis 2. Vorgabe wie oben.
+   H, HEX: Wandeln in eine HEX - Zahl zur Basis 16. Ausgabe ohne "0x"
+   F     : Wandeln in eine Floatingpointzahl mit mindestens einer Nachkommastelle
+   DEZ	 : Wandeln in eine Floatingpointzahl auch ohne Nachkommastellen
+   S,STR : Interpretiert den Eingabestring nicht und gibt Ihn weiter.
+   
+   Der Parameter MAXLEN füllt führende NULLEN auf. Bei MAXLEN==0 wird der String ohne
+   Änderung ausgegeben. 
+   SONDERFALL: Einheit "F": MAXLEN gibt die Anzahl der Nachkommastellen an. Fehlende
+   Nachkommastellen werden mit 0 gefüllt.</pre><b><a name="param3">3</a> VARIABLENWERT:</b><pre>Eingabevariable</pre><b><a name="param4">4</a> VARIABLENTYP:</b><pre>AusgabeTYP (siehe oben)</pre><b><a name="param5">5</a> ANZ_STELLEN:</b><pre>Anzahl der Ausgabestellen. 0: Keine Änderung der Eingabelänge</pre><b><a name="param7">7</a> ERGEBNIS:</b><pre>Ausgabevariable</pre><b><a name="param8">8</a> EXECUTION:</b><pre>
+            Hiermit steuert der Anwender wann E_CONVERT
+            arbeiten soll.
+          LOAD                                                                    
+            Ausfuehrung nur im Ruestlauf.                                         
+          FIRST                                                                   
+            Ausfuehrung nur im ersten Listenlauf nach einem Ruestlauf.            
+          TEST                                                                    
+            Ausfuehrung nach einem Ruestlauf mit jedem weiteren Listenlauf.
+          default (wenn keine der obigen Angaben) z.B. - oder OMO oder ...
+            Ausführung immer
+                 
+
+
+   Revision 1.1  2001/12/18 10:25:31  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.2  2000/09/01 07:55:56  wiese
+   $HEADER -&gt; $ID
+   Doku erweitert
+
+   Revision 1.1  2000/08/31 14:04:36  wiese
+   E_ECUMEMDATA1 und E_CONVERT fuer
+   ECUMEMDATASTR und ECUMEMDATANUM neu
+
+   ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

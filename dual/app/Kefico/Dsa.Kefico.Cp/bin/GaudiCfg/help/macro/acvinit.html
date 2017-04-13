@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> ACVInit []</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>ACVInit []</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=102408">
+ </A>
+ACVInit []</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=102409">
+ </A>
+MaxSignalAmplitude [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8632">
+ </A>
+IntegrationPeriod [s]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=8634">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=8636">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=8638">
+ </A>
+Sets up an ACV measurement. Due to the AC coupling of the testing instrument, the output stage has to be allowed to complete its settling time before a measurement can be recorded. The ACVInit function can be invoked as soon as all parameters required for the voltage measurement have been applied. The voltage to be measured is then recorded using the function RACVIDH_RACV.<EM CLASS="HelpSprungverweis">
+IDH_RACV</EM>
+ Other testing stages can be carried out between the two function calls (provided they do not affect the voltage to be measured) so that the settling time can be utilized. This function does not return a value.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=8640">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=8642">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8644">
+ </A>
+Test point + Reference point</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=8646">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=8648">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8650">
+ </A>
+MaxSignalAmplitude</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8652">
+ </A>
+Largest amplitude occurring on the signal (relates only to the alternating component). Can be used to establish the measurement range or to select a suppressor circuit.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=8654">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8656">
+ </A>
+IntegrationPeriod</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8658">
+ </A>
+Period over which the signal is integrated.<BR>
+In the event of superimposed interference signals, it is advisable to select a multiple of the interference signal period as the integration period.<BR>
+<BR>
+Standard value: period duration of supply voltage.</P>
+</DIV>
+</BODY>
+</HTML>

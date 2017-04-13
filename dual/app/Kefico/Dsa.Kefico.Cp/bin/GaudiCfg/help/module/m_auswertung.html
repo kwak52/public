@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+<TITLE>M_AUSWERTUNG</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_AUSWERTUNG</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Aufgabe des Modules ist es, MeÞergebnisse die per &amp;-Variablen 
+   Ïbergeben werden, zu ÏberprÏfen ob sie in der Toleranz liegen.
+   Danach werden die MeÞergebnisse, sowie die Ïbrigen Parameter an den
+   Prozess Messdatensammler weitergereicht.
+
+   Ûbergabeparameter
+
+   MD,M_AUSWERTUNG</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre></pre><b><a name="param2">2</a> POSITION</b><pre>	Sollte statt einer Positionsnummer der String "KEIN_AUSDRUCK"
+	stehen, so wird eine Auswertung des MeÞergebnisses vorgenommen,
+	und das Ergebniss der Bewertung in einer Globalen Varibalen
+	abgelegt, auf die man mit der Funktion M_ZUWEIS
+	zugreifen kann.
+	Funktion :MODUL_ERROR</pre><b><a name="param3">3</a> MESSWERT</b><pre>   	Variable aus MeÞmodul
+   	&amp;MEWE</pre><b><a name="param4">4</a> Modulname</b><pre>   	Text fÏr Druckerstring
+	Es wird Ïber eine Variable $MO das MeÞobjekt Ïbergeben</pre><b><a name="param5">5</a> Messungsnummer</b><pre>   	Integernummer</pre><b><a name="param6">6</a> Abweichungsart</b><pre>          Diese Variable stellt den Abweichungsmode dar. Wird diese Variable
+	  besetzt wird der Ûbergabeparameter TUG als SOLLWERT angesehen, und der
+          Ûbergabeparameter TOG als ABWEICHUNG. Mit Hilfe des Parameters
+	  ABWEICHUNGSART ist es mÎglich, die Abweichungsart zu bestimmen.
+
+          %           TUG=S-TOL%  TOG=S+TOL% 
+          ABSOLUT     TUG=S-TOL   TOG=S+TOL  
+          %+          TUG=S       TOG=S+TOL% 
+          %-          TUG=S-TOL%  TOG=S      
+          ABSOLUT+    TUG=S       TOG=S+TOL  
+          ABSOLUT-    TUG=S-TOL   TOG=S 
+          
+          ARRAY_AUSWERT
+          Mit dieser Funktion lassen sich Arrays bewerten. Es werde 3 Array übergeben
+          Die Array sind vom Typ double
+          1.) Tug  Array
+          2.) Mewe Array
+          3.) Tog  Array
+          im Parameter AnzIterationen wird die Anzahl der zu überprüfenden Feldelemete angegeben,
+          im Parameter AktSteigung wird der Index des ersten Feldelementes übergeben
+          Dabei werden dann automatisch die Prüfschrittnummer und die Positionsnummer inkrementiert</pre><b><a name="param7">7</a> Statistik</b><pre>	   -		Default (mit Zeile im Protokoll)
+	   NEIN		keine Zeile im Protokoll</pre><b><a name="param8">8</a> Klass_typ</b><pre></pre><b><a name="param9">9</a> FehlerArt</b><pre>	   -		Default
+	   ONCE		Schrottkennung, d.h.SG darf nur einmal geprüft werden</pre><b><a name="param10">10</a> Dimension</b><pre>   	V,MV,MS,S,OHM,KOHM,MOHM,A,MA,W,K/W,K,PA,HPA,FL,GRD,ML/MIN,CM3,MBAR:
+		Ist die Variable Dimension mit einer dieser Dimensionen 
+		besetzt, so wird tug, tog und mewe als float behandelt.
+	HEX:	Die Werte werden als hexadezimale Integerwerte behandelt
+		und ausgegeben.
+	HEXI:
+	REVERSEHEX:
+		Wie HEX, jedoch werden die Bytes vertauscht. Aus 00FF wird 
+		FF00.
+	BIN:	Bitweise Auswertung von hexadezimalen Werten.
+		MESSWERT = 00 .. FF also 8 Bit. 
+		In TUG wird ein binÌrer Wert erwartet z.B. TUG = 0101XX01
+		Hierbei ist X eine Wildcard. D.h. das Bit wird nicht geprÏft.
+	STR:	Bedeutet String. Es wird der im MESSWERT gelieferte String 
+		ausgegeben. Er wird NICHT auf tug/tog verglichen. 		
+		Die Messung kann mit der Variabeln MG_FEHLER != 0 schlecht  
+		gemacht werden.
+	STRCMP:	Bedeutet String. Es wird der im MESSWERT gelieferte String 
+		mit dem String in TUG verglichen. Ist der String &lt;&gt; TUG, so
+		wird die Messung schlecht gemacht.
+		Die Messung kann auserdem mit der Variabeln MG_FEHLER != 0 schlecht  
+		gemacht werden.
+	DEZ INT:	Dezimalzahlen	
+	-       Keine Dimension bedeutet kein Daten zum Messdatensammer
+	ZEIT:   Bei Firstrun wird der Mittelwert von Tug und Tog berechnet.
+	BCD     Es kann eine 8 Stellige positive BCD Zahl überprüft werden.
+                Grund: Bei Datumsangaben sollten keine .000 im Messwertefenseter zu sehen sein.</pre><b><a name="param11">11</a> TUG</b><pre>oder Sollwert</pre><b><a name="param12">12</a> TOG</b><pre>oder Abweichungswert
+   
+   Ûbergabeparameter fÏr Abgleich</pre><b><a name="param13">13</a> Abgleichstelle</b><pre></pre><b><a name="param14">14</a> DimWiderstand</b><pre></pre><b><a name="param15">15</a> DimSteigung</b><pre></pre><b><a name="param16">16</a> Vorwiderstand</b><pre></pre><b><a name="param17">17</a> Vorsteigung</b><pre></pre><b><a name="param18">18</a> AktWiderstand</b><pre></pre><b><a name="param19">19</a> AktSteigung</b><pre></pre><b><a name="param20">20</a> AnzIterationen</b><pre></pre><b><a name="param21">21</a> ExxWiderstand</b><pre></pre><b><a name="param22">22</a> MG_FEHLER</b><pre>   	0 	Die Messung wird als Gut beendet, wenn die Auswerung des
+		Messwertes keinen Grund zur Beanstandung gibt.
+	!=0	Die Messung wird auf jeden Fall als schlecht beendet.</pre><b><a name="param23">23</a> NIO_AUSDRUCK</b><pre>   	NEIN	sollte das MeÞergebnis falsch sein,
+		so wird der Ausdruck unterdrÏckt</pre><b><a name="param24">24</a> RETURN_MODE</b><pre>	       Mit diesem Mode kann das Returnergebniss
+	       beeinflußt werden.
+	NORMAL:		dem Returnwert wird der Messwert uebergeben
+	CMP_VALUE:	dem Returnwert wird das Ergebnis des Stringvergleichs
+			uebergeben.
+			Natürlich nur moeglich mit Dimension "STRCMP"!</pre><b><a name="param25">25</a> RETURN_WERT</b><pre>	       Rückgabeparameter des Messwertes</pre><b><a name="param26">26</a> INPUT_FORMAT</b><pre>	  Gibt die Interpretation des Inputwertes MESSWERT an. 
+	  
+	  INT = Wert ist in Integer dargestellt, z.B. 0...255
+	  HEX = Wert ist in Hexadezimal dargestellt z. B. 00....FF
+   
+   
+   Füllparameter</pre><b><a name="param27">27</a> PARA_1</b><pre></pre><b><a name="param28">28</a> PARA_2</b><pre></pre><b><a name="param29">29</a> PARA_3</b><pre></pre><b><a name="param30">30</a> PARA_4</b><pre></pre><b><a name="param31">31</a> PARA_5</b><pre></pre><b><a name="param32">32</a> PARA_6</b><pre></pre><b><a name="param33">33</a> PARA_7</b><pre></pre><b><a name="param34">34</a> PARA_8</b><pre></pre><b><a name="param35">35</a> PARA_9</b><pre>	
+	
+   Offsetverarbeitung: 
+   Es kann sein, das vom Messergebnis noch ein Offset abgezogen werden muÞ.
+   In diesem Fall muÞ vor dem Aufruf des Modules M_AUSWERTUNG das Modul
+   M_ZUWEIS aufgerufen werden. In diesem Modul wird der Offsetwert 
+   eingegeben. Der Variablenname muÞ mit &amp;G_OFFSETMAKRO definiert sein.
+	
+   ...
+</PRE>
+</BODY>
+</HTML>

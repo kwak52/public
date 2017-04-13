@@ -1,0 +1,294 @@
+<HTML>
+<HEAD>
+<TITLE>R_ARRAY_SPLIT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_ARRAY_SPLIT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_array_split.C,v 1.4 2005/06/16 11:59:32 pv73rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	extrahieren von Messwerten aus einem Bitstream
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		r_array_split.C
+   Autor:		RtW/TEF72-Rapp (06.04.2005)
+   Zielsystem:		Linux
+   Sprache:		C++ 
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void r_array_split(
+	   ,shm_stringpointer   *zeilen_wert 
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Der Eingabestring enthaelte ein hexcodiertes Bytefeld. Dieses wird
+   als Bitstream interpretiert, in ihm sind periodisch Messwerte
+   gespeichert. Die Routine speichert die periodischen Messwerte
+   in das uebergebene INT Feld ab.
+   
+   
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Pruefschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> BIT_MODE</b><pre>   Art der Konvertierung des Wertes, zurzeit nur STANDARD erlaubt.
+   
+   In der Tabelle ist die Bitreihenfolge (0-15) des Wertes innerhalb
+   eines Bytestreams angegeben.
+   
+                  Bit
+   Byte    7  6  5  4  3  2  1  0
+       +---------------------------
+    0  |   7  6  5  4  3  2  1  0
+    1  |  15 14 13 12 11 10  9  8
+   ------------------------------</pre><b><a name="param4">4</a> HEX_STRING</b><pre>   der String enthaelt einen hexadezimal kodiertes Bytearray das als
+   Bitstream interpretiert wird.
+   ------------------------------</pre><b><a name="param5">5</a> BIT_START</b><pre>   Bit bei dem der erste Messwert im Bitstream gespeichert ist.
+   (0 - n)
+   ------------------------------</pre><b><a name="param6">6</a> BIT_ANZ</b><pre>   Anzahl Bits aus der ein Messwert generiert werden soll.
+   ------------------------------</pre><b><a name="param7">7</a> BIT_REPEAT</b><pre>   Angabe nach wieviel Bits der naechste Messwert vorhanden ist.
+   ------------------------------</pre><b><a name="param8">8</a> ERGEBNIS</b><pre>   Name des INT-Feldes in dem die extrahierten Messwerte abgelegt werden.
+   ------------------------------</pre><b><a name="param9">9</a> FEHLERFLAG</b><pre>   Das Fehlerflag wird gesetzt bei illegalen Parameter Uebergabe bzw. 
+   falls kein Messwert extrahiert werden konnte.
+   &lt;userdoc&gt;
+   ---------------------------------------------------------------------
+
+-- defines -----------------------------------------------------------
+#define HEADER "$Id: r_array_split.C,v 1.4 2005/06/16 11:59:32 pv73rt Exp $" 
+#define EXTERN extern	 Bei allen Subroutinen 
+
+#define IND_PRUEFSCHRITT	1
+#define IND_INPUT		3
+-- includes ----------------------------------------------------------
+#include "shm_syscom.H"
+#include "libccs.H"
+#include "ccl_defines.H"         ccl_definition   PREINT              
+#include "libtestmodul_pool.H"	// Modul Lib
+
+-- external functions / variables ------------------------------------
+-- global variables (nur im  "main" erlaubt) -------------------------
+ -Begin---------------------------------------------------------------
+   ---------------------------------------------------------------------
+bool convHex2Byte (const QString strHex, QByteArray &amp;data)
+{
+   int			iIndData;
+   int			iIndChar;
+   int			iCount;
+   unsigned char	ucHex;
+   unsigned char	ucByte;
+   
+   if ((strHex.length() % 2) == 1)
+   {
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+         "hex string must have a even number of bytes");
+      return false;
+   }
+   data.resize(strHex.length() / 2);
+   iIndData = 0;
+   for (iIndChar = 0; iIndChar &lt; (int)strHex.length();)
+   {
+      for (iCount = 0; iCount &lt; 2; iCount++)
+      {
+         ucHex = strHex[iIndChar];
+         iIndChar++;
+         if ((ucHex &gt;= '0') &amp;&amp; (ucHex &lt;= '9'))
+            ucHex -= '0';
+         else if ((ucHex &gt;= 'A') &amp;&amp; (ucHex &lt;= 'F'))
+            ucHex = ucHex - 'A' + 10;
+         else
+         {
+            error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+               "illegal hex char in string: %s", strHex.latin1());
+            return false;
+         }
+         if (iCount == 0)
+            ucByte = ucHex;
+         else
+            ucByte = (ucByte &lt;&lt; 4) + ucHex;
+      }
+      data[iIndData] = ucByte;
+      iIndData++;
+   }
+   return true;
+}
+
+
+int r_array_split(shm_stringpointer *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+{
+-- local variables --------------------------------------------------- 
+
+   bool			bOk;		// true = Ok
+   varmem_typen		dat_in;		// Feldpointer auf die Daten
+   long			iInd;		// index 
+   long			Anzahl;		// Anzahl
+   long			MaxAnzahl;	// maximale Anzahl
+   long long int   	lliValue;   	// 64Bit Wert
+   int			iAnzStored;	// Anzahl der gespeicherten Werte
+   int			iBitStart;	// Startbit des Messwertes
+   int			iBitStartRest;	// Startbit des Messwertes
+   int			iBitEnd;	// Endbit des Messwertes
+   int			iBitEndRest;	// Endbit des Messwertes
+   int			iBitFirstStart; // Start des ersten Messwertes
+   int			iBitAnz;   	// Anzahl der Bits des Messwertes
+   int			iBitRepeat;   	// Anzahl der Bits zum nachfolgenden Messwert
+   int			iByte;   	// Index auf Bytearray
+   int			iByteStart;   	// erstes Byte des Messwertes
+   int			iByteEnd;	// letztes Byte des Messwertes
+   int			iIndErgebnis;   // Index auf das Ergebnis
+   int			iIndFehler;   	// Index auf den Fehlereintrag
+   long			typ;		// Datenfeldtyp
+   Variablenverwaltung	*pVariable;   	// Variablenpointer 
+   QString		strName;   	// Variablenname
+   QString		strHex;   	// Hexstring
+   QString		strMode;	// Modus
+   QByteArray      	byteArray;      // ByteArray
+   unsigned char   	ucByte;   	// Byte
+
+   // Parameter interpretieren und ueberpruefen
+   iInd   = index1 + IND_INPUT - 1;
+//   _VI_5.2.7_R520000_TT1365_RA_r_array_split eingefuehrt
+   strMode = *zeilen_wert-&gt;ptr[iInd];  
+   if (strMode != "STANDARD") goto L_illegalParam;
+   iInd++;
+   strHex = *zeilen_wert-&gt;ptr[iInd];  
+   iInd++;
+   iBitFirstStart = QString(*zeilen_wert-&gt;ptr[iInd]).toInt(&amp;bOk);  
+   if (!bOk || (iBitFirstStart &lt; 0)) goto L_illegalParam;
+   iInd++;
+   iBitAnz = QString(*zeilen_wert-&gt;ptr[iInd]).toInt(&amp;bOk);  
+   if (!bOk) goto L_illegalParam;
+   if ((iBitAnz &lt; 1) || (iBitAnz &gt; 16))
+   {  
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+         "number of bits must be in the range 1-16");
+      return -1;
+   }
+   iInd++;
+   iBitRepeat = QString(*zeilen_wert-&gt;ptr[iInd]).toInt(&amp;bOk);  
+   if (!bOk || (iBitRepeat &lt; 0)) goto L_illegalParam;
+   iInd++;
+   iIndErgebnis = iInd;
+   iInd++;
+   iIndFehler = iInd;
+
+   pVariable = (Variablenverwaltung *)zeilen_wert-&gt;ptr[iIndErgebnis]; 
+   pVariable-&gt;get_name(strName);
+   if (!pVariable-&gt;mem_getpoi (dat_in, typ, Anzahl, MaxAnzahl))
+   {  
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+         "variable: %s is not a array", strName.latin1() );
+      return -1;
+   }
+   if (typ != VARMEM_TYP_INT)
+   {  
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+         "variable: %s must be a INT array", strName.latin1() );
+      return -1;
+   }
+   
+   // Parameter werden im Rüstlauf auch überprüft
+   if(strcmp(Ssp_vi-&gt;job.liststate,PREINT)==0) return 0;   
+
+   *zeilen_wert-&gt;ptr[iIndFehler] = "1"; 
+   pVariable-&gt;mem_setanzahl (0);
+
+   if (!convHex2Byte (strHex, byteArray))
+      return 0;
+
+   iBitStart  = iBitFirstStart;
+   iAnzStored = 0;
+   for (iInd = 0; iInd &lt; MaxAnzahl; iInd++)
+   {
+      iByteStart    = iBitStart / 8;
+      iBitStartRest = iBitStart % 8;
+      iBitEnd       = iBitStart + iBitAnz - 1;
+      iByteEnd      = iBitEnd / 8;
+      iBitEndRest   = 7 - (iBitEnd % 8) ;
+//cout&lt;&lt;" ---------------- iInd:"&lt;&lt;iInd&lt;&lt;endl;
+//cout&lt;&lt;" iBitStart:"&lt;&lt;iBitStart&lt;&lt;endl;
+//cout&lt;&lt;" iByteStart:"&lt;&lt;iByteStart&lt;&lt;endl;
+//cout&lt;&lt;" iBitStartRest:"&lt;&lt;iBitStartRest&lt;&lt;endl;
+//cout&lt;&lt;" iBitEnd:"&lt;&lt;iBitEnd&lt;&lt;endl;
+//cout&lt;&lt;" iByteEnd:"&lt;&lt;iByteEnd&lt;&lt;endl;
+//cout&lt;&lt;" iBitEndRest:"&lt;&lt;iBitEndRest&lt;&lt;endl;
+      if (iByteEnd &gt;= (int)byteArray.count())
+         break;
+      lliValue = 0;
+      for (iByte = iByteEnd; iByte &gt;= iByteStart; iByte--)
+      {
+         ucByte = byteArray[iByte];
+//cout&lt;&lt;" ucByte:"&lt;&lt;(int)ucByte&lt;&lt;endl;
+         // restliche Bits rausschieben
+         if (iByte == iByteEnd)
+         {
+            ucByte = ucByte &lt;&lt; iBitEndRest;
+            ucByte = ucByte &gt;&gt; iBitEndRest;
+         }
+         lliValue = (lliValue &lt;&lt; 8) + ucByte;
+//cout&lt;&lt;" ucByte2:"&lt;&lt;(int)ucByte&lt;&lt;endl;
+//cout&lt;&lt;" lliValue:"&lt;&lt;(int)lliValue&lt;&lt;endl;
+      }
+      if (iBitEndRest &gt; 0)
+         lliValue = lliValue &gt;&gt; iBitStartRest;
+      dat_in.i[iInd] = lliValue &amp; 0xFFFFFFFF; // die unteren 32 Bit speichern
+      iAnzStored = iInd + 1;
+      if (iBitRepeat &lt;= 0)
+         break;
+      iBitStart += iBitRepeat;
+   }
+   if (iAnzStored &lt; 1)
+   {
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__, "0 values generated");
+      return 0;
+   }
+   *zeilen_wert-&gt;ptr[iIndFehler] = "0"; 
+   pVariable-&gt;mem_setanzahl (iAnzStored);
+   return 0;
+   
+L_illegalParam:
+   error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+      "illegal Parameter: %s", (const char*)*zeilen_wert-&gt;ptr[iInd]);
+   return -1;
+}
+ -End of file---------------------------------------------------------
+   Historie:
+   $Log: r_array_split.C,v $
+   Revision 1.4  2005/06/16 11:59:32  pv73rt
+   _VI_6.0.6_R600001_TT1365_RA_Byte Reihenfolge geaendert
+
+   Revision 1.3  2005/06/14 14:38:47  pv73rt
+   _VI_6.0.6_R600001_TT1365_RA_Kommentar geaendert
+
+   Revision 1.2  2005/04/15 11:47:19  lehmann
+   _VI_5.2.7_R520000_TT1365_RA_Mode eingefuehrt
+
+   Revision 1.1  2005/04/06 12:24:03  lehmann
+   _VI_5.2.7_R520000_TT1365_RA_Erstellung
+
+
+   
+</PRE>
+</BODY>
+</HTML>

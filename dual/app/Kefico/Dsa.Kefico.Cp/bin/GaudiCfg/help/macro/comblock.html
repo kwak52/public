@@ -1,0 +1,1241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> ComBlock [Str]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>ComBlock [Str]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=10597">
+ </A>
+ComBlock [Str]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10599">
+ </A>
+Interface_Protocol_Block [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10601">
+ </A>
+Bytes_Expected_Back [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10603">
+ </A>
+Timeout [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10605">
+ </A>
+Mode [c/Init/l/s]</P>
+<P CLASS="Footnote-Text">
+<A NAME="pgfId=10607">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=10609">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10611">
+ </A>
+Sends an interface protocol block from the tester via the serial interface to the control unit. Depending on the mode, a response (measured data block) may be expected from the control unit; the response is written to a received data memory. The function ComBlock can be used in conjunction with the functions K2000Ini, CAN2000Ini, as well as the general function ComInit. That received data memory can be accessed by means of the functions <EM CLASS="HelpSprung">
+BlockInt</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_BlockInt</EM>
+ and <EM CLASS="HelpSprung">
+BlockStr</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_BlockStr</EM>
+. Evaluation of tolerances within the ComBlock function is not permissible.</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10613">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10615">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10617">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10619">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10621">
+ </A>
+Parameters</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10623">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10625">
+ </A>
+Interface_Protocol_Block</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10627">
+ </A>
+Specifies the protocol block that is to be sent to the control unit in the form of a sequence of bytes. Each byte is represented by 2 hexadecimal digits. There must be no spaces or any other separators between the bytes. The limitation to 14 ASCII characters does not apply in this case. Depending on the protocol, individual bytes of the protocol frame may also have to be included (see <EM CLASS="HelpSprung">
+Notes on Diagnostic Protocols</EM>
+<EM CLASS="HelpSprungverweis">
+Diagnose-Protokolle</EM>
+).<BR>
+<BR>
+If a block that does not require a request block is to be read by the tester, no parameter is specified at this point (e.g. control unit automatically sends a block to the tester after a reset without a request having been issued).<BR>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10629">
+ </A>
+Bytes_Expected_Back</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10631">
+ </A>
+Number of bytes expected back and written to the received data memory in the case of a test read function; depending on the protocol (see <EM CLASS="HelpSprung">
+Notes on Diagnostic Protocols</EM>
+<EM CLASS="HelpSprungverweis">
+Diagnose-Protokolle</EM>
+), some of the protocol frame bytes may also be counted; in the case of KWP2000 and EASY, this parameter is not analyzed. For mode 's' or 'c' (see testing parameter 'Mode'), 0 is entered here.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10633">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10635">
+ </A>
+Timeout</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10637">
+ </A>
+If the test read function receives no response from the control unit within the period specified for the timeout, the test is aborted. For mode 's' or 'c' (see testing parameter 'Mode'), 0 is entered here.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10639">
+ </A>
+<BR>
+Standard value: 1s</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10641">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10643">
+ </A>
+Mode</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10645">
+ </A>
+The parameter 'Mode' has the following meanings for the function ComBlock:<BR>
+&#180;l&#180; :											Read function: function returns measured value(s).<BR>
+&#180;s&#180;:Control function; no response is expected.				</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10647">
+ </A>
+&#180;Init&#180;:		Initialization function; corresponds to Mode 's' except that the tester remains ready to receive and can receive messages which can be retrieved by means of a ComBlock call using Mode 'l'.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10649">
+ </A>
+&#180;c&#180;:Continuous function; indicates that the interface protocol block is incomplete and is continued on a succeeding line.				</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10651">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10653">
+ </A>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10655">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10657">
+ </A>
+Example 1: Reading measured data block (K71)<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10660">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1601">
+ </A>
+ComBlock</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1603">
+ </A>
+03001203,65,1,l</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10662">
+ </A>
+<BR>
+Interface protocol block (Bytes 1 - 4):<BR>
+<BR>
+03:					Block length<BR>
+00:		Block count<BR>
+12:		Block title&quot;Read measured data&quot;<BR>
+03:					End of Text</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10664">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10666">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10668">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10670">
+ </A>
+Example 2: Reading RAM (K71)<BR>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10673">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1610">
+ </A>
+ComBlock</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1612">
+ </A>
+06000102FCAB03,2,1,l</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10675">
+ </A>
+<BR>
+Interface protocol block (Bytes 1 - 7):<BR>
+<BR>
+06:					Block length<BR>
+00:		Block count<BR>
+01:		Block title&quot;Read RAM&quot;<BR>
+02:				Number of cells<BR>
+FC:		H-byte start address<BR>
+0B:	L-byte start address<BR>
+03:	End of Text<BR>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10677">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10679">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10681">
+ </A>
+Example 3: Write to EEPROM<BR>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10684">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1619">
+ </A>
+ComBlock</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1621">
+ </A>
+08001A02B100112203,0,0,c</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10686">
+ </A>
+<BR>
+Interface protocol block (Bytes 1 - 9):<BR>
+<BR>
+08:					Block length<BR>
+00:		Block count<BR>
+1A:		Block title&quot;Write to EEPROM (serial)&quot;<BR>
+02:					Number of cells<BR>
+B1:	H-byte start address<BR>
+00:	L-byte start address<BR>
+11:	Contents of first EEPROM cell<BR>
+22:	Contents of second EEPROM cell<BR>
+03:	End of Text<BR>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10691">
+ </A>
+<A NAME="_Toc379681068">
+ </A>
+<A HREF="#pgfId=7430" CLASS="footnote">
+1</A>
+<EM CLASS="HelpFu&szlig;note">
+ </EM>
+Notes on Diagnostic Protocols</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10693">
+ </A>
+The interface protocol block is not dependent on the tester used. However, it may have to include checksums and details of the length of the protocol block; as it is time-consuming for the author of the PAV to have to determine and correctly enter such data, with some protocols it is automatically completed by the testing station control software or the tester before the interface protocol block is sent to the control unit.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10695">
+ </A>
+Below are details of which useful data has to be specified in the test function according to the diagnostic protocol in the interface protocol block and at which location the useful bytes are to be found in the received message (in the received messages memory).</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10697">
+ </A>
+<EM CLASS="HelpText">
+KW2000</EM>
+<EM CLASS="HelpSprungverweis">
+KW2000</EM>
+</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10699">
+ </A>
+<EM CLASS="HelpText">
+KW71</EM>
+<EM CLASS="HelpSprungverweis">
+KW71</EM>
+</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10701">
+ </A>
+<EM CLASS="HelpText">
+KW82</EM>
+<EM CLASS="HelpSprungverweis">
+KW82</EM>
+</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10703">
+ </A>
+<EM CLASS="HelpText">
+EASY</EM>
+<EM CLASS="HelpSprungverweis">
+EASY</EM>
+</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10705">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10710">
+ </A>
+<A NAME="_Toc379681069">
+ </A>
+<A HREF="#pgfId=7434" CLASS="footnote">
+2</A>
+<EM CLASS="HelpFu&szlig;note">
+ </EM>
+KW2000</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10712">
+ </A>
+A message that is sent to the control unit is constructed as follows:</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10714">
+ </A>
+&lt;= 63 useful bytes</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10717">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1624">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1630">
+ </A>
+Meaning</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1632">
+ </A>
+Position in interface protocol block</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1640">
+ </A>
+Byte 1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1642">
+ </A>
+80h + Number of useful bytes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1644">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1652">
+ </A>
+Byte 2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1654">
+ </A>
+01h</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1656">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1664">
+ </A>
+Byte 3</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1666">
+ </A>
+F1h</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1668">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1676">
+ </A>
+Byte 4..n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1678">
+ </A>
+Useful bytes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1680">
+ </A>
+1 .. (n - 3)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1688">
+ </A>
+Byte n+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1690">
+ </A>
+Checksum</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1686">
+ </A>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10719">
+ </A>
+</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10721">
+ </A>
+&gt; 63 useful bytes</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10724">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1693">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1699">
+ </A>
+Meaning</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1701">
+ </A>
+Position in interface protocol block</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1709">
+ </A>
+Byte 1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1711">
+ </A>
+80h</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1713">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1721">
+ </A>
+Byte 2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1723">
+ </A>
+01h or control unit address</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1725">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1733">
+ </A>
+Byte 3</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1735">
+ </A>
+F1h</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1737">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1745">
+ </A>
+Byte 4</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1747">
+ </A>
+Number of useful bytes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1749">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1757">
+ </A>
+Byte 5..n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1759">
+ </A>
+Useful bytes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1761">
+ </A>
+1 .. (n - 3)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1769">
+ </A>
+Byte n+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1771">
+ </A>
+Checksum</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1767">
+ </A>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10726">
+ </A>
+</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10728">
+ </A>
+Only the useful bytes (Byte 4 .. n or Byte 5 .. n) are entered in the PAV; when the program is run, the complete message is generated from them and sent (by a tester) to the control unit.</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10730">
+ </A>
+A message that is received by the control unit is constructed as follows:</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10733">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1774">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1780">
+ </A>
+Meaning</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1782">
+ </A>
+Position in received messages memory</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1790">
+ </A>
+Byte 1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1792">
+ </A>
+80h + Number of useful bytes + 1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1794">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1802">
+ </A>
+Byte 2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1804">
+ </A>
+F1h</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1806">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1814">
+ </A>
+Byte 3</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1816">
+ </A>
+01h</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1818">
+ </A>
+-</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1826">
+ </A>
+Byte 4</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1828">
+ </A>
+Response byte</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1830">
+ </A>
+1</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1838">
+ </A>
+Byte 5..n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1840">
+ </A>
+Useful bytes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1842">
+ </A>
+2 .. (n - 3)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1850">
+ </A>
+Byte n+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1852">
+ </A>
+Checksum</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1854">
+ </A>
+n - 2</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10735">
+ </A>
+</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10737">
+ </A>
+The first 3 bytes are automatically removed from the message received; the message is then written to the received data buffer; when accessing the data using the testing function <EM CLASS="HelpSprung">
+BlockInt</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_BlockInt</EM>
+ or <EM CLASS="HelpSprung">
+BlockStr</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_BlockStr</EM>
+, Index 1 thus refers to the response byte, and Index 2 to the first useful byte.</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10739">
+ </A>
+The response byte should be checked in the PAV for every ComBlock read function.</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10741">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10746">
+ </A>
+KW71</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10748">
+ </A>
+A message that is sent to or received from the control unit is constructed as follows: </P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10751">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1857">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1865">
+ </A>
+Meaning</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1867">
+ </A>
+Position in interface protocol block</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1869">
+ </A>
+Position in received messages memory</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1879">
+ </A>
+Byte 1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1881">
+ </A>
+Block length</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1883">
+ </A>
+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1885">
+ </A>
+1</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1895">
+ </A>
+Byte 2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1897">
+ </A>
+Block counter</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1899">
+ </A>
+2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1901">
+ </A>
+2</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1911">
+ </A>
+Byte 3</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1913">
+ </A>
+Block title</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1915">
+ </A>
+3</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1917">
+ </A>
+3</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1927">
+ </A>
+Byte 4..n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1929">
+ </A>
+Useful bytes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1931">
+ </A>
+4 .. n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1933">
+ </A>
+4 .. n</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1943">
+ </A>
+Byte n+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1945">
+ </A>
+ETX</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1939">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1941">
+ </A>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10753">
+ </A>
+</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10755">
+ </A>
+All bytes apart from ETX are entered in the PAV. When the program is run, ETX is automatically appended to the message and sent (by a tester) to the control unit.</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10757">
+ </A>
+When a message is received by the control unit, the entire message is written to the received data buffer; when accessing the data using the testing function <EM CLASS="HelpSprung">
+BlockInt</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_BlockInt</EM>
+ or <EM CLASS="HelpSprung">
+BlockStr</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_BlockStr</EM>
+, Index 4 thus refers to the first useful byte.</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10759">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10764">
+ </A>
+KW82</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10766">
+ </A>
+A message that is sent to or received from the control unit is constructed as follows: </P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10769">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1948">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1956">
+ </A>
+Meaning</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1958">
+ </A>
+Position in interface protocol block</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1960">
+ </A>
+Position in received messages memory</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1970">
+ </A>
+Byte 1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1972">
+ </A>
+Block length</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1974">
+ </A>
+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1976">
+ </A>
+1</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1986">
+ </A>
+Byte 2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1988">
+ </A>
+Block title</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1990">
+ </A>
+2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=1992">
+ </A>
+2</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=2002">
+ </A>
+Byte 3..n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=2004">
+ </A>
+Useful bytes</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=2006">
+ </A>
+3 .. n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=2008">
+ </A>
+3 .. n</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=2018">
+ </A>
+Byte n+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Body-Text">
+<A NAME="pgfId=2020">
+ </A>
+Checksum</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2014">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2016">
+ </A>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10771">
+ </A>
+</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10773">
+ </A>
+All bytes apart from Checksum are entered in the PAV. When the program is run, the checksum is automatically appended to the message and sent (by a tester) to the control unit.</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10775">
+ </A>
+When a message is received by the control unit, the entire message is written to the received data buffer; when accessing the data using the testing function <EM CLASS="HelpSprung">
+BlockInt</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_BlockInt</EM>
+ or <EM CLASS="HelpSprung">
+BlockStr</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_BlockStr</EM>
+, Index 3 thus refers to the first useful byte.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10780">
+ </A>
+EASY</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10782">
+ </A>
+With regard to the bytes to be specified or the response bytes, messages in the EASY protocol are treated in the same way as with <EM CLASS="HelpSprung">
+KW82</EM>
+<EM CLASS="HelpSprungverweis">
+KW82</EM>
+.</P>
+<P CLASS="Body-Text">
+<A NAME="pgfId=10784">
+ </A>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10786">
+ </A>
+ </P>
+</DIV>
+</DIV>
+<HR>
+<DIV CLASS="footnotes">
+<DIV CLASS="footnote">
+<P CLASS="Footnote">
+<SPAN CLASS="footnoteNumber">
+1.</SPAN>
+<A NAME="pgfId=7430">
+ </A>
+<EM CLASS="HelpFu&szlig;note">
+ Diagnosis Protocolls</EM>
+</P>
+</DIV>
+<DIV CLASS="footnote">
+<P CLASS="Footnote">
+<SPAN CLASS="footnoteNumber">
+2.</SPAN>
+<A NAME="pgfId=7434">
+ </A>
+<EM CLASS="HelpFu&szlig;note">
+ KW2000</EM>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

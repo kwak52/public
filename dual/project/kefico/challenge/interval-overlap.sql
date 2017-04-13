@@ -1,0 +1,3 @@
+-- [a, b] overlaps with [x, y] iff b > x and a < y.
+-- http://stackoverflow.com/questions/4446112/search-for-interval-overlap-in-list-of-intervals
+-- http://stackoverflow.com/questions/13513932/algorithm-to-detect-overlapping-periods

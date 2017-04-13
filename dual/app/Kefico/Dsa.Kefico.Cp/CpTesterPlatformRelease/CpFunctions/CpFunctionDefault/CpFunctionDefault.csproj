@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{739A5790-B479-4E8E-B857-690EC053865D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CpFunctionDefault</RootNamespace>
+    <AssemblyName>CpFunctionDefault</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CpApplciationIntrf">
+      <HintPath>..\..\CpPlatform\CpApplciationIntrf.dll</HintPath>
+    </Reference>
+    <Reference Include="CpApplication, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CpPlatform\CpApplication.dll</HintPath>
+    </Reference>
+    <Reference Include="CpCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CpPlatform\CpCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="CpLogUtil, Version=4.1.0.2, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="CpMngLib">
+      <HintPath>..\..\CpPlatform\CpMngLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CpSystem">
+      <HintPath>..\..\CpPlatform\CpSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="CpTStepFncBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CpPlatform\CpTStepFncBase.dll</HintPath>
+    </Reference>
+    <Reference Include="CpTStepFncLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CpPlatform\CpTStepFncLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CpUtility">
+      <HintPath>..\..\CpPlatform\CpUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DxUtility">
+      <HintPath>..\..\CpPlatform\DxUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\open-sources\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PsCommon">
+      <HintPath>..\..\CpPlatform\CPEditor\PsCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="PsCpDxUiLib">
+      <HintPath>..\..\CpPlatform\CPEditor\PsCpDxUiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="PsCpUtility">
+      <HintPath>..\..\CpPlatform\CPEditor\PsCpUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="PsKGaudi">
+      <HintPath>..\..\CpPlatform\CPEditor\PsKGaudi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\open-sources\bin\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\open-sources\bin\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\open-sources\bin\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Macros\CpFnBERECHNEN.cs" />
+    <Compile Include="Macros\CpFnBITOP.cs" />
+    <Compile Include="Macros\CpFnBLOCKINT.cs" />
+    <Compile Include="Macros\CpFnBLOCKINT_CP.cs" />
+    <Compile Include="Macros\CpFnBLOCKSTR.cs" />
+    <Compile Include="Macros\CpFnBREAK.cs" />
+    <Compile Include="Macros\CpFnCAN2000INI.cs" />
+    <Compile Include="Macros\CpFnCANBLOCK.cs" />
+    <Compile Include="Macros\CpFnCOMBLOCK.cs" />
+    <Compile Include="Macros\CpFnCOMBLOCK_CP.cs" />
+    <Compile Include="Macros\CpFnCOM_ANSTEUER.cs" />
+    <Compile Include="Macros\CpFnCOM_INIT.cs" />
+    <Compile Include="Macros\CpFnCOM_INIT_CP.cs" />
+    <Compile Include="Macros\CpFnCOM_KONSTDEF.cs" />
+    <Compile Include="Macros\CpFnCONTROL.cs" />
+    <Compile Include="Macros\CpFnDCI.cs" />
+    <Compile Include="Macros\CpFnDCIS.cs" />
+    <Compile Include="Macros\CpFnDCITRG.cs" />
+    <Compile Include="Macros\CpFnDCV.cs" />
+    <Compile Include="Macros\CpFnDCVTRG.cs" />
+    <Compile Include="Macros\CpFnDCV_CP.cs" />
+    <Compile Include="Macros\CpFnGETDATAAF.cs" />
+    <Compile Include="Macros\CpFnGETDATASTR.cs" />
+    <Compile Include="Macros\CpFnGETDATA_ARRAY.cs" />
+    <Compile Include="Macros\CpFnGETDATA_FD.cs" />
+    <Compile Include="Macros\CpFnGETDATA_LCR.cs" />
+    <Compile Include="Macros\CpFnGETDATA_PULSE.cs" />
+    <Compile Include="Macros\CpFnGETDATA_RPM.cs" />
+    <Compile Include="Macros\CpFnGETDATA_TORQUE.cs" />
+    <Compile Include="Macros\CpFnGETDATE.cs" />
+    <Compile Include="Macros\CpFnHEXSTRINGTOSTR.cs" />
+    <Compile Include="Macros\CpFnK2000START.cs" />
+    <Compile Include="Macros\CpFnKONSTDEF.cs" />
+    <Compile Include="Macros\CpFnLASER_MARK.cs" />
+    <Compile Include="Macros\CpFnPLC_READ.cs" />
+    <Compile Include="Macros\CpFnPRINTINT.cs" />
+    <Compile Include="Macros\CpFnPRINTOUT.cs" />
+    <Compile Include="Macros\CpFnPULSE_D.cs" />
+    <Compile Include="Macros\CpFnPULSE_EDGEINDEX.cs" />
+    <Compile Include="Macros\CpFnPULSE_V.cs" />
+    <Compile Include="Macros\CpFnPULSE_W.cs" />
+    <Compile Include="Macros\CpFnRDCITRG.cs" />
+    <Compile Include="Macros\CpFnRDCVTRG.cs" />
+    <Compile Include="Macros\CpFnREAD_DATA.cs" />
+    <Compile Include="Macros\CpFnREAD_EEP_DATA.cs" />
+    <Compile Include="Macros\CpFnRTIMEA.cs" />
+    <Compile Include="Macros\CpFnSTART.cs" />
+    <Compile Include="Macros\CpFnSTRCAT.cs" />
+    <Compile Include="Macros\CpFnSTRCMP.cs" />
+    <Compile Include="Macros\CpFnSTRCOPY.cs" />
+    <Compile Include="Macros\CpFnSTRTOINT.cs" />
+    <Compile Include="Macros\CpFnTIMEA.cs" />
+    <Compile Include="Macros\CpFnTIMEAB.cs" />
+    <Compile Include="Macros\CpFnTORQUEINIT.cs" />
+    <Compile Include="Macros\CpFnWAIT.cs" />
+    <Compile Include="Macros\CpFnWAITUNTIL.cs" />
+    <Compile Include="Macros\CpFnWARTEN.cs" />
+    <Compile Include="Macros\CpFnWRITE_DATA.cs" />
+    <Compile Include="Macros\CpFnWRITE_EEP_DATA.cs" />
+    <Compile Include="Modules\CpFnE_DOKU.cs" />
+    <Compile Include="Modules\CpFnE_OUT.cs" />
+    <Compile Include="Modules\CpFnE_SCANNER.cs" />
+    <Compile Include="Modules\CpFnE_WAIT.cs" />
+    <Compile Include="Modules\CpFnF_ANSTEUER.cs" />
+    <Compile Include="Modules\CpFnM_AUSWERTUNG.cs" />
+    <Compile Include="Modules\CpFnM_CONTROL.cs" />
+    <Compile Include="Modules\CpFnM_DLCRM.cs" />
+    <Compile Include="Modules\CpFnM_DMM_CP.cs" />
+    <Compile Include="Modules\CpFnM_LVDT.cs" />
+    <Compile Include="Modules\CpFnM_READ_MOTORRPM.cs" />
+    <Compile Include="Modules\CpFnP_CAL_PULSED.cs" />
+    <Compile Include="Modules\CpFnP_CAL_PULSEEDGE.cs" />
+    <Compile Include="Modules\CpFnP_CAL_PULSEV.cs" />
+    <Compile Include="Modules\CpFnP_CAL_PULSEW.cs" />
+    <Compile Include="Modules\CpFnR_CURRENT_DATE.cs" />
+    <Compile Include="Modules\CpFnR_RECHNE.cs" />
+    <Compile Include="Modules\CpFnR_STRCAT.cs" />
+    <Compile Include="Unused\CpFnE_ARRAY_INI.cs" />
+    <Compile Include="Unused\CpFnE_AWG.cs" />
+    <Compile Include="Unused\CpFnE_MESSAGES.cs" />
+    <Compile Include="Unused\CpFnE_STUELIDATA.cs" />
+    <Compile Include="Unused\CpFnE_TRIGGER.cs" />
+    <Compile Include="Unused\CpFnE_TRIGGER_INIT.cs" />
+    <Compile Include="Unused\CpFnF_6069.cs" />
+    <Compile Include="Unused\CpFnF_AUFTRAG.cs" />
+    <Compile Include="Unused\CpFnF_IGEBR_ZUSATZ.cs" />
+    <Compile Include="Unused\CpFnF_MESSTEILER.cs" />
+    <Compile Include="Unused\CpFnF_SK_ZUSATZ.cs" />
+    <Compile Include="Unused\CpFnF_UGEBR_ZUSATZ.cs" />
+    <Compile Include="Unused\CpFnL_KAM_KONFIG.cs" />
+    <Compile Include="Unused\CpFnL_KAM_ZUSATZ.cs" />
+    <Compile Include="Unused\CpFnM_ABBRUCH.cs" />
+    <Compile Include="Unused\CpFnM_COUNTER.cs" />
+    <Compile Include="Unused\CpFnM_COUNTER_CP.cs" />
+    <Compile Include="Unused\CpFnM_DMM.cs" />
+    <Compile Include="Unused\CpFnM_MAKRO_ENDE.cs" />
+    <Compile Include="Unused\CpFnM_NOP.cs" />
+    <Compile Include="Unused\CpFnM_READ_TORQUE.cs" />
+    <Compile Include="Modules\CpFnM_ZUWEIS.cs" />
+    <Compile Include="Unused\CpFnP_AUFTRAG.cs" />
+    <Compile Include="Unused\CpFnP_CANSTD.cs" />
+    <Compile Include="Unused\CpFnP_COMM_CHECK_CP.cs" />
+    <Compile Include="Unused\CpFnP_COMM_INIT_CP.cs" />
+    <Compile Include="Unused\CpFnP_INIT.cs" />
+    <Compile Include="Unused\CpFnP_READDATA.cs" />
+    <Compile Include="Unused\CpFnP_READDATA_EEP.cs" />
+    <Compile Include="Unused\CpFnP_READMEM.cs" />
+    <Compile Include="Unused\CpFnP_SET_TORQUE.cs" />
+    <Compile Include="Unused\CpFnP_SPLIT_STR_CP.cs" />
+    <Compile Include="Unused\CpFnP_STEUER.cs" />
+    <Compile Include="Unused\CpFnP_TRANSMIT_CP.cs" />
+    <Compile Include="Unused\CpFnP_WRITEDATA.cs" />
+    <Compile Include="Unused\CpFnP_WRITEDATA_EEP.cs" />
+    <Compile Include="Unused\CpFnP_WRITEMEM.cs" />
+    <Compile Include="Unused\CpFnP_ZERLEGE_STR.cs" />
+    <Compile Include="Unused\CpFnR_DATATABLE.cs" />
+    <Compile Include="Modules\CpFnR_KUNDDAT.cs" />
+    <Compile Include="Unused\CpFnR_STRCOPY.cs" />
+    <Compile Include="Unused\CpFnR_STRFORMAT.cs" />
+    <Compile Include="Unused\CpFnR_STROPERATE.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\CpMath.cs" />
+    <Compile Include="Util\CpPartID.cs" />
+    <Compile Include="Util\CpUtilRobot.cs" />
+    <Compile Include="Util\CpUtilDaq.cs" />
+    <Compile Include="Util\CpUtil.cs" />
+    <Compile Include="Util\DAQResult.cs" />
+    <Compile Include="Util\MathLib\DefErrorMessage.cs" />
+    <Compile Include="Util\MathLib\DefOperator.cs" />
+    <Compile Include="Util\MathLib\OpCalTranslator.cs" />
+    <Compile Include="Util\MathLib\OpCompTranslator.cs" />
+    <Compile Include="Util\MathLib\OpEntityBase.cs" />
+    <Compile Include="Util\MathLib\OpEntityComp.cs" />
+    <Compile Include="Util\MathLib\OpEntityComparer.cs" />
+    <Compile Include="Util\MathLib\OpEntityComputer.cs" />
+    <Compile Include="Util\MathLib\OpEntityEq.cs" />
+    <Compile Include="Util\MathLib\OpEntityVar.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Dsu.Driver.Base.FS\Dsu.Driver.Base.FS.fsproj">
+      <Project>{054dddbf-2fd8-47b6-a083-537c394bf077}</Project>
+      <Name>Dsu.Driver.Base.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.Base\Dsu.Driver.Base.csproj">
+      <Project>{DEDF4176-E7D3-45D4-832D-A09E0BAEDD1C}</Project>
+      <Name>Dsu.Driver.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.Math.FS\Dsu.Driver.Math.FS.fsproj">
+      <Project>{0b975d84-7857-431d-8791-535758d0b051}</Project>
+      <Name>Dsu.Driver.Math.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.NiDAQ.FS\Dsu.Driver.NiDAQ.FS.fsproj">
+      <Project>{414fad91-80ce-4258-a0de-876a75d66da8}</Project>
+      <Name>Dsu.Driver.NiDAQ.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.Util\Dsu.Driver.Util.csproj">
+      <Project>{73adfefb-0162-4c29-a679-9a8897f707b5}</Project>
+      <Name>Dsu.Driver.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CpTStepDevLib\CpTStepDevLib.csproj">
+      <Project>{92cb2af3-2755-4789-9140-a8e853ce3aad}</Project>
+      <Name>CpTStepDevLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Devices\CpDeviceDsBase\CpDeviceDsBase.csproj">
+      <Project>{f080afd7-0a2f-4724-a652-7938da84e87a}</Project>
+      <Name>CpDeviceDsBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MngDev\Comm\CpMngDAQControl\CpMngDAQControl.csproj">
+      <Project>{5304f8db-66dd-4cc5-b8b2-b0cb59747ec1}</Project>
+      <Name>CpMngDAQControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CpBase\CpBase.csproj">
+      <Project>{f511fd68-6b01-4da9-9920-c28b130a85fa}</Project>
+      <Name>CpBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

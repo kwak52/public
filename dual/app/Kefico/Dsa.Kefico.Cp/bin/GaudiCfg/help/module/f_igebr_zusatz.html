@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<TITLE>F_IGEBR_ZUSATZ</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>F_IGEBR_ZUSATZ</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/bosch_bus_qt/module/f_funktionsmodule/s/src/f_igebr_zusatz.C,v 1.3 2003/04/17 09:36:11 wiese Exp $
+   -----------------------------------------------------------------------------
+   Kurzbeschreibung: 	GAUDI-Interface im Vectorinterpreter fuer 6051 Karte
+   -----------------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		f_igebr_zusatz
+   Autor:		SaW/TEF72-Oberste-Vorth (05.12.1997)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   -----------------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   int f_igebr_zusatz( shm_stringpointer *zeilen_wert
+                      ,long              index_on_expPrfLst
+                      ,long              anzahl_parameter );
+   
+   -----------------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   ( Ssp_expand_wert
+    ,p_verwaltung-&gt;begin_modulblock
+    ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   -----------------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Ûbergabeparameter anhand der "modglobal.stl"
+   MD,F_IGEBR_ZUSATZ</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre></pre><b><a name="param2">2</a> POSITION</b><pre></pre><b><a name="param3">3</a> ANSTEUER_UNIT</b><pre>z.B. I_GEBER_1</pre><b><a name="param4">4</a> SPANNUNG</b><pre>            Auswahl der Leerlaufspannung auf der Stromgeberkarte;
+                        der positive Wert darf 105 Volt nicht ueberschreiten;
+		        die Einheit der Spannung ist [V];</pre><b><a name="param5">5</a> REFERENZ</b><pre>            Auswahl eines Referenzkanals:
+		          EXT
+			    in diesem Fall muss eine entsprechende positive
+			    Referenzspannung  &lt;= 20.0 Volt angegeben werden;
+		          INT / - 
+			    in diesem Fall wird die interne Referenz 
+			    beruecksichtigt / das ist die Default-Einstellung;</pre><b><a name="param6">6</a> MAX_U_REFERENZ</b><pre>      Auswahl der Referenzspannung bei angeschalteter 
+                        externer Referenz
+			  Parameter: positive Werte  &gt; "0.0" und &lt;= "20.0" 
+			             in der Einheit [V]</pre><b><a name="param7">7</a> OUTPUT_MODE</b><pre>         Auswahl des Ausgangsmodus des Gebers:
+		          ON
+			    Ausgang eingeschaltet
+			  UT
+			    Ausgang eingeschaltet und ungetaktet
+			    (dasselbe wie "ON")
+			  T
+			    Ausgang getaktet
+			  OFF / -
+			    diese Eingaben schalten den Ausgang ab;
+
+		        der Zustand des Ausgangs ist unabhaengig  von den
+			sonstigen Einstellungen;
+		        in der Default-Einstellung ist der Ausgang abgeschaltet;</pre><b><a name="param8">8</a> STROMBEREICH</b><pre>        Auswahl des einzustellenden Strombereichs:
+		          damit werden die automatische Bereichswahl
+			  ausgeschaltet und stoerende Umschalteffekte vermieden;
+			Default: - (Strombereich wird automatisch gewaehlt)
+			
+			Wichtig: 
+			  Dieses Modul unterstuetzt unterschiedliche Hardware
+			  mit unterschiedlichen Bereichsauswahlmoeglichkeiten.
+			  Das bedeutet, dass bei Vorgabe z.B. eines Bereichs 
+			  bis 20mA (z.B. bei 6051) auf der einen Hardware auch
+			  genau dieser Bereich, auf einer anderen Hardware aber
+			  der naechst hoehere ausgewaehlt wird
+			  (z.B. 40mA bei 6077) !!!
+   
+</PRE>
+</BODY>
+</HTML>

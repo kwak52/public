@@ -1,0 +1,16 @@
+﻿
+V<n> <nrf> Set output <n> to <nrf> Volts
+V<n>V <nrf> Set output <n> to <nrf> Volts with verify
+OVP<n> <nrf> Set output <n> over voltage protection trip point to <nrf> Volts
+I<n> <nrf> Set output <n> current limit to <nrf> Amps
+OCP<n> <nrf> Set output <n> over current protection trip point to <nrf> Amps
+V<n>? Returns the set voltage of output <n>
+	The response is V <n> <nr2><rmt> where <nr2> is in Volts
+I<n>? Returns the set current limit of output <n>
+	The response is I <n> <nr2><rmt> where <nr2> is in Amps
+OVP<n>? Returns the voltage trip setting for output <n>
+	The response is VP<n> <nr2><rmt> where <nr2> is in Volts
+OCP<n>? Returns the current trip setting for output <n>
+	The response is CP<n> <nr2><rmt> where <nr2> is in Amps
+V<n>O? Returns the output readback voltage for output <n>
+	The response is <nr2>V<rmt> where <nr2> is in Volts

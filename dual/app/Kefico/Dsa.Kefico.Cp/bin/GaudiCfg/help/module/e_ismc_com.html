@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE>E_ISMC_COM</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_ISMC_COM</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_ismc_com.C,v 1.9 2004/08/11 13:45:07 gueltlin Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Kommunikation mit ismc
+   ---------------------------------------------------------------------
+   Projekt:		IVS
+   Sourcefile:		e_ismc_com.C
+   Autor:		RtW/TEF32-Aatef (19.11.2003)
+   Zielsystem:		SuSE Linux 8.1
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_ismc_com(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Aufrufparameter laut Modglobal.
+   
+  &lt; 1&gt; PRUEFSCHRITT
+  &lt; 2&gt; POSITION
+  ( 3) FUNCTION         z.B CalcPowerList, CalcTempList usw
+  ( 4) TEMPERATURE      Eingestellte Temperatur waehrend Bildaufnahme
+  ( 5) INTENSITY        Eingestellte Lichtintensitaet waehrend Bildaufnahme
+  ( 6) SM_ADDRESS       Adresse vom Bild in shardmemory
+  ( 7) RESULT1		Rueckgabewert 1
+  ( 8) RESULT2		Rueckgabewert 2
+  ( 9) RESULT3		Rueckgabewert 3
+  ( 10) RETURN_WERT
+   
+   Aufgabe des Modules ist es, die Kommunikation mit der 
+   ismc durchzufuehren
+   
+  
+</PRE>
+</BODY>
+</HTML>

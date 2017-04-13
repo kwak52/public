@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<TITLE>R_ARRAY_TRIG</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_ARRAY_TRIG</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_array_trig.C,v 1.20 2005/04/18 06:52:17 jsj3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Triggererkennung in einem Feld
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		r_array_trig.C
+   Autor:			RtW/TEF72-Juilfs (20.10.2001)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++ 
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void r_array_trig(
+	   ,shm_stringpointer   *zeilen_wert 
+	   ,long index1
+	   ,long anzahl)
+  ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Über dieses Modul kann ein Feld nach dem n-ten Trigger durchsucht werden ,
+   der zugehörige Index wird zurückgegeben. Falls der gewünschte Triggerpunkt 
+   nicht gefunden wurde wird der Index -1 zurückgegeben. 
+   Der Suchbereich kann durch die Parameter ARRAY_START und ARRAY_END 
+   eingeengt werden. Sind diese nicht angegeben, startet der Suchbereich 
+   automatisch bei 1 und endet bei der Anzahl belegter Elemente des Feldes. 
+   Ist der Wert von ARRAY_START groesser dem Wert ARRAY_END wird das Feld 
+   vom Ende her durchsucht.
+   Um Fehlerspitzen zu ignorieren kann ueber den Wert HYSTERESE eine
+   Anzahl Messpunkte angegeben werden, das Modul ueberprueft nach einer 
+   Flankenerkennung ob der Wert (aktueller Index + HYSTERESE) ebenfalls
+   der Triggerbedingung entspricht, ist dies nicht der Fall wird der Trigger
+   ignoriert.
+   Soll der Index der n-ten Flanke ermittelt werden, muss in dem
+   Parameter COUNTS n-1 eingetragen werden. Dieser gibt an wieviele
+   legale Triggerbedingungen ignoriert werden sollen.
+   Ueber den Parameter OPERATION kann die Art der Auswertung festgelegt
+   werden, es ist darauf zu achten, dass bei "==" oder "!=" Vergleiche
+   in Double Feldern schon bei sehr kleinen Wertdifferenzen (z.B. durch 
+   Rundungen) es zu nicht erkennen einer Triggerbedingung fuehren kann.
+
+   Beispiel:
+	
+	Array ist belegt mit der unten angegebenen Kurvenform
+	ARRAY_START = leer    Modul belegt den Start mit Index 0
+	ARRAY_END   = leer    Modul belegt das Ende mit der Anzahl der
+						  Elemente im Feld
+	ARRAY_TRIG  = 500
+	HYSTERESE   = 5
+	OPERATION   = &gt;
+	COUNTS      = 1
+	
+	Das Modul durchsucht ab Index 0 die erste Flanke bei der der
+	Wert groesser 500 ist. Dies ist der Fall bei der positiven 
+	Flanke von 2. Da die Anzahl Messpunkte zwischen dem Triggerpunkt
+	und seinem komplementären Trigger (negative Flanke von 2) kleiner
+	der vorgegebenen Hysterese (5) ist, wird dieser Impuls ignoriert.
+	Die Impuls 3 wird als regulärer Trigger erkannt, wird aber ignoriert,
+	da fuer die zu ignorierenden Trigger 1 angewaehlt wurde.
+	Als Ergebnis wird der Index auf die positive Flanke von Impuls 4
+	zurueckgeliefert.
+
+  1000 ----+	      +-+                +------+      +------+
+           |	      | |                |      |      |      |
+           |	      | |                |      |      |      |
+           |	      | |                |      |      |      |
+  100	   +----------+ +----------------+      +------+      +-----
+		  1            2                    3             4
+
+
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> ARRAY</b><pre>   Variablen Name		
+   ------------------------------</pre><b><a name="param4">4</a> ARRAY_START</b><pre>   Index bei der die Auswertung beginnt 
+   Index &gt;= 1
+   ------------------------------</pre><b><a name="param5">5</a> ARRAY_END</b><pre>   Index bei der die Auswertung endet
+   Index &gt;= 1
+   ------------------------------</pre><b><a name="param6">6</a> ARRAY_TRIG</b><pre>   Trigger Wert
+   ------------------------------</pre><b><a name="param7">7</a> HYSTERESE</b><pre>   Um Fehlerspitzen zu ignorieren kann ueber den Wert HYSTERESE eine
+   Anzahl Messpunkte angegeben werden, das Modul ueberprueft nach einer 
+   Flankenerkennung ob der Wert (aktueller Index + HYSTERESE) ebenfalls
+   der Triggerbedingung entspricht, ist dies nicht der Fall wird der Trigger
+   ignoriert.
+   ------------------------------</pre><b><a name="param8">8</a> OPERATION</b><pre>   Eingabe des Vergleichsoperators
+	 == gleich
+	 != ungleich
+	 &gt;  grösser
+	 &gt;= grösser gleich
+	 &lt;  kleiner
+	 &lt;= kleiner gleich
+   ------------------------------</pre><b><a name="param9">9</a> COUNTS</b><pre>   Anzahl der zu ignorierenden Trigger bei der Triggererkennung 
+   ------------------------------</pre><b><a name="param10">10</a> ERGEBNIS</b><pre>   Index auf den gefundenen Trigger
+   -1 falls der Trigger nicht gefunden wurde
+   ------------------------------</pre><b><a name="param11">11</a> FEHLERFLAG</b><pre>   Fehlerflag 
+</PRE>
+</BODY>
+</HTML>

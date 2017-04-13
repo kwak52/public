@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<TITLE>E_TABLEROTATE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_TABLEROTATE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_tablerotate.C,v 1.8 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Short description: 	call of TABLE_ROTATE
+   ---------------------------------------------------------------------
+   Projekt:		ACC
+   Sourcefile:		m_tablerotate.C
+   Autor:		SSE/C.Hermann (20.02.96)
+   Zielsystem:		PC Linux
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   int e_tablerotate(shm_stringpointer *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+---------------------------------------------------------------------
+Description:
+   
+   Module parameters:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI step number
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> ANSTEUER_UNIT</b><pre>   	Name of the device (see PAM-Config file)	
+   ------------------------------</pre><b><a name="param4">4</a> ACHSE</b><pre>	definition of the used axis
+	X or Y</pre><b><a name="param5">5</a> KOORDINATE</b><pre>	Coordinate-Value in deg (relative +/-180∞ to the
+	desiered aim =&gt; ZIEL)</pre><b><a name="param6">6</a> RUNDUNG</b><pre>	rounding value for the value from KOORDINATE.
+	(number of digits after the decimal point)</pre><b><a name="param7">7</a> WINKELSPEED</b><pre>	deg-speed in ged / sec</pre><b><a name="param8">8</a> MODUS</b><pre>	M : move to the desierd coordinate + wait
+	    till the position is reached
+	S : send the command to move to the desired coordinate to the control,
+	    but do NOT wait till the position is reached.
+	L : Wait till the engine has stopt</pre><b><a name="param9">9</a> ZIEL</b><pre>	AIM ; aim character of the Rotate-Control-Config-File
+	T : Triple-mirror
+	A : Absorber
+	J : Justage
+	Z : Aim-Simulator
+	R : move to reference point</pre><b><a name="param10">10</a> TIMEOUT</b><pre>	Timeout in sec</pre><b><a name="param11">11</a> ERGEBNIS</b><pre>	return-value</pre><b><a name="param12">12</a> FEHLERFLAG</b><pre>   
+   
+   ...
+   
+---------------------------------------------------------------------------------------------------------------------
+ Configuration
+---------------------------------------------------------------------------------------------------------------------
+   
+ **Configuration of the Table-Rotate-Control** 
+     
+   In the main PAM-Config-File (i.e. ccs7483.cnf) you have to enter a line with the "UNITS".  
+   Here you difine the link to the HW-UNIT-File (i.g. hw_units_ccs7483.cnf).
+   
+   Example of an entry in the  PAM-Config-File:
+      UNITS			= hw_units_ccs7483.cnf
+      
+   In the HW-Unit-FILE must be an entry for the used Table-Control. 
+   
+   Format of the Entry-Line:
+      Unit-Name;0;Driver-Typ;0;0;0;-;-; 	.
+      
+   Example:		
+      DREHTISCH;0;0;0;0;0;-;-;
+      
+   When the testlist is loding the information of the Unit-Name and Drivertype are retrived.
+   
+   In our example:
+      Unit-Name:	DREHTISCH
+      Driver-Typ:	0	( 0 is ISEL )
+   
+   
+   With this Information, the parameters for the serial connection are retrieved from the 
+   PAM-Config-File (i.e. ccs7483.cnf) 
+  
+   
+ **Configuration of the serial connection**     
+   
+   In the PAM-Config-File (i.e. ccs7483.cnf) has to be the entry TABLE_ROTATE_DEV_DREHTISCH_CNF.
+   Here you define the link to the Serial-Config-File (i.e. tablerotate_dev.cnf).
+   In this file are the definitions of the serail parameters.
+.
+   
+   Example:
+      PAM-Config-File:		
+	 TABLE_ROTATE_DEV_DREHTISCH_CNF        = tablerotate_dev.cnf
+   
+      tablerotate_dev.cnf:
+	 TR_DEVFILE		= /dev/ttyS0
+	 TR_BAUDRATE		= 9600
+  
+  
+ **Configuration of the rotate-control**
+      
+   In the PAM-Config-File (i.e. ccs7483.cnf) there has to be an entry  TABLE_ROTATE_&lt;DrvTypName&gt;_CNF
+   (i.e. TABLEROTATE_ISEL_CNF for the ISEL-rotate-control).
+   Here you define the link to the Rotate-Control-Config-File (i.e. tablerotate_isel.cnf). 
+   In this file the parameters of the Rotate-Control are defined.
+
+   Example:
+      PAM-Config-File:		
+	 TABLE_ROTATE_ISEL_CNF	= tablerotate_isel.cnf
+   
+   Rotate-Control-Config-Files:
+      *-----------------------------------------------------------------------
+      *| Config for ISEL-Control                                             |
+      *|                                                                     |
+      *| ! ACHTUNG AUTOMATISCH ERSTELLT; AENDERUNGEN KOENNEN VERLOREN GEHEN! |
+      *|                                                                     |
+      *| Erstellt : Wed Feb 20 13:47:18 2002                                 |
+      *|                                                                     |
+      *-----------------------------------------------------------------------
+      * engine data
+      *    1. entry : Max. Winkelgeschwindigkeit Grad/s 
+      *    2. entry : Max. Ansteuerfrequenz Schritte / s
+      *    3. entry : Min. Ansteuerfrequenz Schritte / s
+      *    4. entry : Typ. Ansteuerfrequenz Schritte / s
+      *    5. entry : Schrittweite Grad / Schritt       
+      MOTDATA; 55.549999; 10000; 30; 4000; 0.005550
+
+      * Liste of aims
+      *  one aim per line
+      *    1. entry : AIM (ZIEL) - caracter for GAUDI-Module       
+      *    2. entry : Name (for dokumentation)
+      *    3. entry : horizontal value                     
+      *    4. entry : vertical   value                     
+      G; GRUNDSTELLUNG                 ;      18018;          0
+      N; NULLPUNKT                     ;         10;         20
+      A; ABSORBER                      ;         30;         40
+      T; SPIEGEL                       ;         50;         60
+      J; JUSTAGE                       ;         70;         80
+      Z; ZIEL                          ;         90;        100
+
+   
+  ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> ANSTEUER_UNIT</b><pre>   	Name des GerÃtes laut PAM Beschreibungsfile	
+   ------------------------------</pre><b><a name="param4">4</a> ACHSE</b><pre>	Angabe der Achse, die verfahren werden soll
+	X oder Y 
+        bzw
+        H = Horizontal
+        V = Vertikal</pre><b><a name="param5">5</a> KOORDINATE</b><pre>	Koordinatenwert in Grad (Abweichung +/-180∞ vom
+	Zielpunkt =&gt; ZIEL), der angefahren werden soll</pre><b><a name="param6">6</a> RUNDUNG</b><pre>	Rundungskriterium fuer Werte im Parameter KOORDINATE.
+	Anzahl der Nachkommastellen</pre><b><a name="param7">7</a> WINKELSPEED</b><pre>	Winkelgeschwindigkeit in Grad / Sekunde</pre><b><a name="param8">8</a> MODUS</b><pre>	M : Anfahren der angegebenen Koordinate + warten, bis
+	    der Motor die Position erreicht hat.
+	S : Kommando : "anfahren der Koordinate" an Motorsteuerung
+	    senden. Aber nicht warten, bis die Koordinate erreicht 
+	    wurde.
+	L : Warten, bis Motor "anfahren der Koordinate" abgeschlossen
+	    hat.
+        I: Initialisierung (Referenzfahrt und Anfahren Beladepunkt)
+        C: ??</pre><b><a name="param9">9</a> ZIEL</b><pre>	Zielauswahl aus Motorbeschreibungsdatei
+	T : Triple-Spiegel
+	A : Absorber
+	J : Justage
+	Z : Zielsimulation
+	R : Referenzfahrt</pre><b><a name="param10">10</a> TIMEOUT</b><pre>	Timeout in Sekunden</pre><b><a name="param11">11</a> ERGEBNIS</b><pre>	Rueckgabewert</pre><b><a name="param12">12</a> FEHLERFLAG</b><pre>   
+</PRE>
+</BODY>
+</HTML>

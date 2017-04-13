@@ -1,0 +1,289 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> StrToHexString [String]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>StrToHexString [String]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=13092">
+ </A>
+StrToHexString [String]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13094">
+ </A>
+String [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13096">
+ </A>
+Format [INT]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13098">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=13100">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=13102">
+ </A>
+Converts a string to a string consisting of the corresponding ASCII values in hexadecimal format.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13104">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13106">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13108">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=13110">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13112">
+ </A>
+Parameters</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13114">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13116">
+ </A>
+String</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13118">
+ </A>
+String (or variable containing a string) to be converted into its ASCII values.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13120">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13122">
+ </A>
+Format</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13124">
+ </A>
+Specifies the format in which the string specified by String is to be returned. The following values are allowed (other formats are conceivable in the future):</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13126">
+ </A>
+0 &AElig; HexString (the ASCII value of each character is represented as a hexadecimal number with 2 digits).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13128">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13130">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13132">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=13134">
+ </A>
+Example:</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13136">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=13139">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6380">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6382">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6386">
+ </A>
+Result [String]</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6394">
+ </A>
+StrToHexString</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6396">
+ </A>
+A,0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6398">
+ </A>
+41</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6406">
+ </A>
+StrToHexString</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6408">
+ </A>
+Hallo,0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6410">
+ </A>
+48616C6C6F</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6418">
+ </A>
+StrToHexString</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6420">
+ </A>
+0123, 0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6422">
+ </A>
+30313233</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=13141">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13143">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=13145">
+ </A>
+Converting the 10-digit BOSCH no. 1 234 567 890 whose digits are stored as hexadecimal numbers.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13147">
+ </A>
+Byte 1 = 0001 0010 (12 Hex);				Byte 2 = 0011 0100 (34 Hex);				Byte 3 = 0101 0110 (56 Hex) </P>
+<P CLASS="Normal">
+<A NAME="pgfId=13149">
+ </A>
+Byte 4 = 0111 1000 (78 Hex);				Byte 5 = 1001 0000 (90 Hex)</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=13152">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6425">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6427">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6431">
+ </A>
+Result</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6439">
+ </A>
+B_Nr=BlockStr</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6441">
+ </A>
+1,5</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6443">
+ </A>
+n4nnn [String]</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6451">
+ </A>
+StrToHexString</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6453">
+ </A>
+B_Nr, 0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6455">
+ </A>
+1234567890 [String]</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Footnote-Text">
+<A NAME="pgfId=13154">
+ </A>
+</P>
+<P CLASS="Footnote-Text">
+<A NAME="pgfId=13156">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,347 @@
+<HTML>
+<HEAD>
+<TITLE>P_INIT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>P_INIT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: p_init.C,v 1.29 2005/11/14 10:37:19 krf3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Zur Initialisierung der PSS
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		p_init.C
+   Autor:		RtW/TEF72-Keppler (14.03.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void p_init(shm_stringpointer *zeilen_info
+   ,shm_stringpointer    *zeilen_wert
+   ,long index1
+   ,long anzahl) 
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_zeile
+   ,Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   Test auf RC
+   
+   test auf RC 2
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Dieses Modul dient zum Aufbau des Initialisierungsstring fœr die PSS, oder
+   fœr andere Prozessorkarten, die mit selbigem Protokoll fahren.
+   Pro Aufruf dieses Moduls kann nur ein Parameter beinfluﬁt werden.
+   Es kŒnnen jedoch die Parameter fœr n Aufrufe zusammengebaut werden, und 
+   dann zur PSS gesendet werden.
+   
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> MODUS</b><pre>   	SAMMLE: 	Parameter wird an String angehÃngt. Es findet
+   			noch keine Initialisierung statt. Der gesammte String
+   			kann dann mit SCHREIBE oder AENDERE zur Schnittstelle gesendet
+   			werden.
+   	SCHREIB:	Schnittstelle wird initialisiert.
+   	AENDERE:	Schnittstelle wird initialisiert ohne das Protokoll zu verlassen 
+                        (nur CAN-Protokoll wird verlassen)
+   	AENDERE2:	Schnittstelle wird initialisiert ohne das Protokoll zu verlassen 
+                        (es wird auch das CAN-Protokoll beibehalten)
+   	SPEZIAL:	Wie ANDERE, jedoch findet die Umschaltung erst spaeter statt.
+			ACHTUNG: Implementiert bei SKM-&gt; K71 umschalten der Baudrate 
+			zwischen senden und empfangen.
+   	CAN_SCHREIB:	CAN - Schnittstelle wird initialisiert, alte Parameter werden 
+	                gelŒscht, das CAN - Protokoll verlassen
+   	CAN_AENDERE:	CAN - Schnittstelle wird initialisiert ohne das CAN - Protokoll
+	                zu verlassen oder alte Parameter zu lŒschen
+   			Mit diesem Aufruf ist das Modul nicht SchrittfÃhig.
+   	CLEAR:		€bergabestring wird geleert, muﬁ als erstes 
+   			im Makro erfolgen.
+        LOAD:		Wie Sammle, jedoch wird bei bedarf ein Download der Firmware 
+                        gemacht. 
+        LOAD_FW_PREINT: Es wird ein laden der Firmware der SKM im R¸stlauf 
+                        (laden einer Pr¸fliste) erzwungen.</pre><b><a name="param4">4</a> ADRESSE</b><pre>	Adresse des Initparameters
+   			oder 	
+			folgende Schlœsselworte kŒnnen einegegeben werden, jedoch
+   			nur bei Betrieb mit SKM.
+	BAUDRATE	im Parameter Datum muﬁ die Baudrate Dezimal in Baud 
+   			eingetragen werden. (Z.B. 10400 oder 187395 ...)
+   	BYTEFORMAT_SG	siehe Doku 
+   	TOL_BAUDRATE	Hier wird die Genauigkeit der Baudrateneinstellung 
+   			fœr die serielle Kommunikation œber K/L - Leitung
+   			angegeben. (1....255 =&gt; 0.01....2.55%) 
+	POWERON_SENSE   Einschalten Sensen der K-Leitung auf High (EASY)
+   	T_KOMMUNIK	Timeoutzeit fœr Antwort SG (0...64000 ms)
+   	T_BYTE		Timeoutzeit fœr Antwort SG zwischen 2 Bytes(0...64000 ms)
+	TINIL		Lowzeit des wake up Pattern bei schneller Reizung in ms 
+	TWUP		Gesamtzeit des wake up Pattern bei schneller Reizung in ms
+   	W_BLOCK		Wartezeit zwischen den BlŒcken (0...64000 ms)
+   	W_BYTE		Wartezeit zwischen den Bytes (10...640000 us) (10us/inc)
+   	WZ_BYTE		Wartezeit zwischen den Bytes (0...640000 ms) (1ms/inc)
+   	W_ECHO		Wartezeit um ein Byte zu echoen (k71) (10...640000 us) (10us/inc)
+   	W_ECHO_KEY	Wartezeit um Keybyte zu echoen (k71) (10...640000 us) (10us/inc)
+	W_NACHFRAGE     Wartezeit bis erneute Nachfrage bei SG wenn diese beschaeftigt
+   	W_BEDIENUNG	Wartezeit bis die Bedienung der Kommunikation erfolgt.
+   			(0...64000 ms)
+        W_VOR_POWERON   Wartezeit bevor die SKM auf Empfang geschaltet wird. (EASY)
+   	W_VOR_WUP	Wartezeit bevor das Wake up Pattern gesendet wird.
+   			(0...64000 ms)
+   	KEY_KOMPL	01 = Komplement des 2. Keybytes bei 5 Baud-Reizung ausg.
+   	REIZ_LEITUNG	Auf welcher Leitung soll gereizt werden. (5 Baud Reizung)
+   	ANZ_CU_BYTES	Anzahl der Customer Bytes bei 5 Baud Reizung
+   	LAENGENBYTE	ZusÃtliches Langenbyte bei KP2000
+   	HEADER		Format des HEADER bei KP2000
+   	AD_SOURCE	Adresse der Schnittstelle fœr KP2000 (egal)
+   	AD_TARGET	Adresse des SG fœr KP2000
+	AD_TARGET_DEZ	Adresse des SG fœr KP2000 in DEZ
+   	ADRESSIERUNG	Art der Adressierung bei KP2000
+   	WIEDERHOLEN	Blocktitel vom SG um das erneute senden der Botschaft
+   			anzufordern.
+   	DAUEREMPF_AN	Einstellung ob bei entsprechendem Blocktitel auf Dauerempf.
+   	COM1		Einstellung der SKM-Hardware (Siehe Doku)
+   	COM2		Einstellung der SKM-Hardware (Siehe Doku)
+   	STEUER		Einstellung der SKM-Hardware (Siehe Doku)
+   	POL_CKL_LTG	PolaritÃt der Kommunikationsleitungen.
+   	MODE_HW		Alternative Einstellung der Hardware fœr 
+   	COM1/COM2/STEUER (siehe Doku SKM)
+   	ACCESS_MODE	fœr Seed and Key
+   	FLASH_SG_ANTW	soll Antwort vom SG geprœft werden.
+   	ZEIGER_ANT	Stelle im String an welcher die Antwort steht.		
+   	INHALT_ANTW	Inhalt auf den geprœft werden soll bei Flashprog.
+   	FLASHF_OFFSET	siehe Doku
+	----------------------- Fuer LIN ------------------------------------
+        ----------------------- nur SKMlight --------------------------------
+        LIN_NODE_TYPE:
+                       DATUM: Festlegung des Typs des LIN-Knotens
+                              MASTER
+                              SLAVE
+        ----------------------- Fuer Melexis -----------------------------------
+        ----------------------- nur SKMlight --------------------------------
+        MELEXIS_CLK_WIDTH:    
+                        DATUM: Taktbreite (1ms/inc)
+                               Werte: 1...10 ms
+        MELEXIS_DATA_LEVEL:
+                        DATUM: Datenpegel
+                               1 = aktiv high
+                               0 = aktiv low
+        ----------------------- Fuer PPS1 -----------------------------------
+        ----------------------- nur SKMlight --------------------------------
+        PPS_CHANAL:     Kanal des CG974 Asic an dem der Sensor angeschlossen ist.
+                        DATUM: 1 Byte: Bit 0 = Kanal 1
+                                       Bit 1 = Kanal 2
+                                       Bit 2 = Kanal 3
+                         z.B. DATUM = 5 --&gt; Kanal 1 u. 3 werden ausgelesen
+        PPS_TRIGGER_WIDTH
+                        DATUM:Triggerbreite 0..100 ms
+                        Wird hier 0 eingetragen, so wird kein Trigger ausgegeben.
+        PPS_WAIT_AFTER_TRIG:
+                        DATUM: Watezeit in ms -2000..2000ms
+                           Diese Zeit wartet die SKMlight nachdem der Trigger
+                           ausgegeben wurde, bis die Druckdaten gelesen werden.
+                           Bei negativer Zeit wird das Sammeln der Daten aktiviert
+                           und nach dem Betrag der negativen Zeit wird der 
+                           Trigger ausgegeben. 
+                           0 = keine Triggerausgabe.
+        PPS_NR_COLLECT_DATA:
+                        DATUM: Anzahl der Daten die vom Sensor gelesen werden 
+                              sollen. Derzeit &lt; 5000
+        ----------------------- Fuer PAS4 -----------------------------------
+        ----------------------- nur SKMlight --------------------------------
+        PAS4_WZ1:       DATUM: Wartezeit (100us/inc) zw. Setzen der Ausg‰nge I0-I2 
+                               und Ausgeben der Sequenz auf CLK und VP_DIO.
+                               Werte: 1...255 (100us...25,5ms)
+        PAS4_WZ2:       DATUM: Wartezeit (20us/inc) zwischen Trigger 1 und CLK 13
+                               Werte: 1...255
+        PAS4_WZCLK13:   DATUM: Breite (20us/inc) von CLK 13
+                               Werte: 1...255
+        PAS4_WZ3:       DATUM: Abstand (20us/inc) zwischen CLK 13 und CLK 14
+                               Werte: 1...255
+        PAS4_WZ4:       DATUM: Wartezeit (20us/inc) nach CLK 14
+                               Werte: 1...255
+        PAS4_WZ5:       DATUM: Wartezeit (20 us/inc) zwischen CLK12 und Trigger 1
+                               Werte: 1...255
+	----------------------- Fuer SPI ------------------------------------
+        ----------------------- nur SKMlight --------------------------------
+        SPI_NR_BITS_PER_TRANSFER:
+                        DATUM: Anzahl der Bits Pro Registerzugriff (8....16)
+        SPI_ACTIVE_CLK_LEVEL:
+                        DATUM: Level des Clock an Anfang des Takt.
+                               1 = High
+                               0 = Low        
+        SPI_CAPTURING_EDGE:
+                       DATUM: Uebernahme der Daten mit fallender oder steigender Flanke
+                              1 = INACTIVE_TO_ACTIVE
+                              0 = ACTIVE_TO_INACTIVE
+        SPI_DELAY_BEFORE_SCK:
+                       DATUM: Verzˆgerungszeit zwischen dem Chip Select (CS) Signal
+                              und der ersten Clock-Flanke. 
+                              Werte:(0....57) in 100ns Schritten
+        SPI_DELAY_AFTER_TRANSFER:
+                       DATUM: Zeit in us bis das CS Signal deaktiviert wird
+                              nach Ausgabe der Daten (1...255) in us
+ 	----------------------- Fuer USS4 -----------------------------------
+        ----------------------- nur SKMlight --------------------------------
+        B1_TIME		Time B1 in 100 us Aufloesung (Bitzeit def. in PAV USS4)
+        B2_TIME		Time B2 in 100 us Aufloesung (Bitzeit def. in PAV USS4)
+        B3_TIME		Time B3 in 100 us Aufloesung (Bitzeit def. in PAV USS4)
+        SENDING_DURATION
+                        Sendedauer des USS4 Sensors. Wird gegeben durch die 
+                        Lowzeit des Signals bei Senden/Empfangen nach B1,B1.
+                        Aufloesung: 100us/Inc.
+        DATA_PULS_WIDTH Datenpulsbreite TDW bei Soft adjust laut PAV (100us/Inc)
+        DATA_PAUSE_WIDTH
+                        Datenpausenbreite TDP bei Soft adjust laut PAV
+                        (100 us/inc)
+        DELAY_OV	Delay vor Puls auf der Steuerleitung
+                        f¸r Overvoltage nach Zener Zapping (100 us/inc)
+                        
+        ZZ_PROG_PULSE	Breite des Pulses der nach DELAY_OV ausgeloest wird.
+                        (100 us/inc)
+        GAP_OF_PULSES   Gesamtes Messfenster fuer Echostoerung (TEBE laut PAV)
+                        in ms/inc
+        TRIGGER_DELAY_SEND
+                        Nach dem Sendbefehl wird ein Trigger auf der S/E-Leitung
+                        von 40us Dauer ausgegeben beim BEFEHL USS4_SEND_TRIG mit
+                        Modul p_auftrag. 
+                        Hier wird das Delay in ms/inc ab Ende des Sendbefehls 
+                        eingegeben.
+        WRITE_PARAMETER_FAST     
+                        Hier kann eingeschaltet werden, dass die Kommunikations-
+                        zeiten durch auserhalb der Spec. liegenden Signalzeiten
+                        erheblich verk¸rzt werden. 
+                        0 = Aus
+                        sonst = Ein          
+	----------------------- ENDE USS4-----------------------------------
+
+	----------------------- Fuer CAN -----------------------------------
+	CAN_TAST	Bit - Abtastzeitpunkt ( Dieser Parameter ermittelt 
+			zusammen mit der Baudrate die Bitparameter)
+		alternativ dazu: 
+	BAUD_VORTEIL	Baudraten Vorteiler
+	TIMESEGMENT1   	Timequants vor Sample -&gt; siehe SKM - Doku
+	TIMESEGMENT2   	Timequants nach Sample  -&gt; siehe SKM - Doku
+		
+	SAMPL_MODE	0: 1 Sample, 1: 3 Sample
+	SYNC_SPRUNG	Synchronisationssprungweite zwischen 0 und 3
+	CAN_MASK_STD    Maske zur Erkennung von Botschaften (default: 7FF)
+	CAN_MASK_EXT    Maske zur Erkennung von Botschaften (default: 1FFFFFFF)
+	CAN_MASK_15     Maske zur Erkennung von Botschaften (default: 7FF)
+	CAN_MASK_15_M   MASKE 15: standard: 0, extended: 1
+	CAN_T_SEND      Timeout zum Senden von Botschaften in ms
+	CAN_T_READ      Timeout zum Empfangen von Botschaften in ms
+	CAN_W_BLOCK     Wartezeit vor Aussenden einer Botschaft in 100us
+	CAN_W_I_BLOCK	Wartezeit zwischen Botschaften einer Blocks in 100us
+	CAN_W_S_ACK	Wartezeit, bis ACK gesendet wird (KP2000_CAN)
+	CAN_W_BEDIEN	Wartezeit, bis die Schnittstelle bedient wird
+	CAN_INTERRUPT	0: Interrupt des CAN deaktiviert (default) , 1: aktiv
+	CAN_OUT		0: Ausgang nach init aktiv, 1: Ausgang deaktiviert
+	CAN_DRIVER	L: lowspeed-, H: Highspeed-, E: externer Treiber, 0: keiner
+           (nur SKM)    Single wire CAN nur zusammen mit SOK768 (externer CAN-Treiber) 
+                        S: sleep mode, T:transmit high voltage (wake up) mode
+                        U: transmit high voltage mode, N: normal speed and voltage mode                     
+	CAN_FLANKE	bei Highspeeddriver Flanke 0: schnell, 1: langsame
+	CAN_WIDER	120: J7: 120Ohm, 60: J7: 120 Ohm, J8: 120 Ohm,
+			40:  J7: 120 Ohm, J8: 60 Ohm, 0: J7: kein R, J8: kein R
+	CAN_FREQU	0: 82C527 mit 16Mhz fest (wird stark empfohlen),
+			1: 82C527 lÃuft mit Quarzfrequenz des C167 (variabel
+			   nach Baudrate der K-Leitung)</pre><b><a name="param5">5</a> DATUM</b><pre>	Parameter fœr die Initialisierung</pre><b><a name="param6">6</a> ERGEBNIS</b><pre>		Antwort der Schnittstelle ob OK oder Fehler
+
+   Revision 1.1  2001/12/18 10:49:41  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.13  2001/01/11 15:14:29  juilfs
+   Linux ‹berarbeitung
+
+   Revision 1.12  2000/11/02 08:24:13  keppler
+   Doku erweitert, (SPEZIAL)
+
+   Revision 1.11  2000/09/08 07:58:40  keppler
+   Doku berichtigt
+
+   Revision 1.10  2000/08/29 09:35:09  keppler
+   Ruesten im PREINT,
+   Memorystatus der SKM ins Logfile
+
+   Revision 1.9  2000/05/15 07:56:53  keppler
+   no changes
+
+   Revision 1.8  2000/05/15 07:56:37  keppler
+   *** empty log message ***
+
+   Revision 1.7  2000/02/10 10:52:21  keppler
+   Abfrage auf Default des Shared Memory
+
+   Revision 1.6  1999/12/22 10:06:37  keppler
+   $ID -&gt; $Id
+
+   Revision 1.5  1999/12/22 09:13:14  keppler
+   $Header -&gt; $Id
+
+   Revision 1.4  1999/12/07 18:04:50  juilfs
+   Initpfad neu
+
+Revision 1.3  98/11/27  10:42:04  10:42:04  keppler (Fritz Keppler)
+Doku geaendert
+
+Revision 1.2  98/08/20  16:12:37  16:12:37  keppler (Fritz Keppler)
+Doku erweitert
+
+Revision 1.1  98/08/13  17:43:17  17:43:17  keppler (Fritz Keppler)
+Initial revision
+
+Revision 1.1  98/06/30  08:50:32  08:50:32  keppler (Fritz Keppler)
+Initial revision
+
+Revision 1.6  98/04/28  17:11:39  17:11:39  wiese (Stefan Wiese)
+DOKU fœr CAN
+Lesen des Configfiles nur einmal
+
+Revision 1.5  98/03/16  15:37:21  15:37:21  keppler (Fritz Keppler)
+Daten aus File in Struct abspeichern und von 
+dort auslesen.
+
+   Revision 1.4  98/02/09  18:02:28  18:02:28  keppler (Fritz Keppler)
+   Schrittabfrage vor Start Programm
+   
+   Revision 1.3  98/01/26  16:50:06  16:50:06  keppler (Fritz Keppler)
+   Doku erweitert
+   
+   Revision 1.2  98/01/20  17:36:07  17:36:07  keppler (Fritz Keppler)
+   Doku erweitert
+   
+   Revision 1.1  97/12/02  14:40:00  14:40:00  keppler (Fritz Keppler)
+   Initial revision
+   
+   Revision 1.4  96/07/04  15:22:19  15:22:19  keppler (Fritz Keppler)
+   Doku wereitert.
+   
+   Revision 1.3  96/07/02  11:49:43  11:49:43  keppler (Fritz Keppler)
+   Letzte Version mit String 81
+   
+   Revision 1.2  96/06/05  13:45:37  13:45:37  keppler (Fritz Keppler)
+   erste funktionierende Version
+   
+   Revision 1.1  96/05/20  14:30:25  14:30:25  keppler (Fritz Keppler)
+   Initial revision
+   
+   ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

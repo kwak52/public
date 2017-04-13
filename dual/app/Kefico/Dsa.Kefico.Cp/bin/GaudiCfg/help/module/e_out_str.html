@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<TITLE>E_OUT_STR</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_OUT_STR</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_out_str.C,v 1.4 2005/09/28 11:09:41 cvs Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Belegung von Systemsteuervariablen
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_out_str
+   Autor:		RtW/TEF72-juilfs (01.09.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_out_str(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+ 
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Ûbergabeparameter anhand der Modglobal.stl
+   MD,e_out_bosch
+   ,PRUEFSCHRITT	1
+   ,POSITION		2
+   ,INKREMENTAL	 	3 
+   Mit diesem Modul koennen Systemvariablen direckt besetzt werden.</pre><b><a name="param3">3</a> INKREMENTAL</b><pre>   ON/OFF  einschalten des Inkrementalmodus   
+        RESET           Reset auf dem Bosch Bus auslösen
+        E_OUT_OFF       Aufruf der folgenden E_OUT unterbinden
+        E_OUT_ON        Aufruf der folgenden E_OUT freigeben        
+   
+</PRE>
+</BODY>
+</HTML>

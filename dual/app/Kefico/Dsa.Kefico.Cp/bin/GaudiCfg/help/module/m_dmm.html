@@ -1,0 +1,153 @@
+<HTML>
+<HEAD>
+<TITLE>M_DMM</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_DMM</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: m_dmm.C,v 1.8 2006/01/09 16:04:14 gef1sa Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Aufruf des Prozesses VXI_DMM
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		m_dmm.C
+   Autor:		RtW/TEF72-Juilfs (12.12.95)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void m_dmm(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+    
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Dieses Modul Ïbergibt seine Parameter an den Prozess VXI_DMM.
+   Im Prozess VXI_DMM werden dann die Messungen durchgefÏhrt.
+   Das MeÞergebnis wird per Returnparameter aus diesem Modul weiter 
+   an das Modul M_AUSWERTEN gegeben. Die FunktionalitÌt des Multimeters
+   wird mit den Ûbergabeparametern eingestellt.
+   
+   
+   Beschreibung der ModulÏbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI PrÏfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> VXI_GERAET</b><pre>   	Name des GerÌtes laut PAM Beschreibungsfile	
+	:DVM_01
+	:DVM_02	
+   ------------------------------</pre><b><a name="param4">4</a> DMM_FUNKTION</b><pre>    	MeÞfunktion
+	:DCV
+	:ACV
+	:RESISTANCE
+   ------------------------------</pre><b><a name="param5">5</a> DMM_RANGE</b><pre>
+	Messbereich in Volt Kohm
+	0.0	Autorange (Sonderfunktion) 
+	
+   ------------------------------</pre><b><a name="param6">6</a> DMM_APER_TIME</b><pre>    	Integrationszeit in s
+        Folgende Integrationszeiten können eingestellt werden.
+        10 us, 100us, 2,5 ms, 266, ms
+        sollte ein Integrationswerteingabe zwischen 2 Werten liegen, wird immer der nähere
+        verwendet.
+
+                  
+        
+   ------------------------------</pre><b><a name="param7">7</a> DMM_TRG_SOURCE</b><pre>    	Triggerart
+	:IMMEDIATE	interner Trigger
+	:EXT		externer Trigger
+	:HOLD		Halten des MeÞergebnisses
+   ------------------------------</pre><b><a name="param8">8</a> DMM_TRG_COUNT</b><pre>    	Anzahl der Triggerimpulse
+   ------------------------------</pre><b><a name="param9">9</a> DMM_TRG_DELAY</b><pre>	Delay zwischen 1. Trigger und 1.Messung
+   ------------------------------</pre><b><a name="param10">10</a> DMM_SMP_SOURCE</b><pre>    	Quelle des Triggerimpulses
+	:IMMEDIATE	Interner Trigger	
+	:TIMER		Keine Beschreibung
+	:SOFTWARE
+	:CONTROLREG
+   ------------------------------</pre><b><a name="param11">11</a> DMM_SMP_COUNT</b><pre>   	Anzahl von Messungen per Trigger
+   -------------------------------</pre><b><a name="param12">12</a> DMM_SMP_PERIOD</b><pre>   	Zeitdauer zwischen 2 Messungen 
+   -------------------------------</pre><b><a name="param13">13</a> DMM_AUTOZERO</b><pre>	:ON
+	:OFF
+	:ONCE         
+   -------------------------------</pre><b><a name="param14">14</a> DMM_OFFSET_COM</b><pre>   	:TRUE
+	:FALSE
+   -------------------------------</pre><b><a name="param15">15</a> DMM_INTERRUPT</b><pre>   -------------------------------</pre><b><a name="param16">16</a> DMM_MASKE</b><pre>   -------------------------------</pre><b><a name="param17">17</a> DMM_MODUS</b><pre>   Steuerfunktion des DMM   Einstellen Arm    Lesen
+   INIT				+	
+   ARM					+
+   READ						+
+   S				+	+
+   AR (fÏr ACV)				+	+
+   M (= NORM)			+	+	+	
+	
+   -------------------------------</pre><b><a name="param18">18</a> R_MESSWERT</b><pre>   	RÏckgabe des Messwertes
+   -------------------------------</pre><b><a name="param19">19</a> TIMEOUT</b><pre></pre><b><a name="param20">20</a> DIMENSION</b><pre></pre><b><a name="param21">21</a> MESSTEILERFAKTOR</b><pre>   
+   
+   
+   
+   ######################################################################
+   Status:
+   Bisher wurden beim Aufruf von ACVINIT 2 Sekunden gewartet. Dies
+   soll mit einer neuen Prozessstruktur geändert werden. Die Funktion
+   RACV war dann relativ schnell &lt;200 ms.
+   Die Prüfzeit erhöhte sich dadurch um 2 Sekunden  
+   
+   Änderung des Ablauf:
+   Ab der CCS Release 5.2 wird ist es möglich für das 2. DVM einen eigenen Prozess
+   aufzusetzen. Hiermit sollen die ACVINIT Aufrufe in den Backround Prozess
+   abgearbeitet werden. 
+
+   
+   
+   Hieraus ergeben sich folgende Fälle.
+   1.)	Es gibt nur einen Prozess VD
+        Bei Aufruf des ACVINIT wird der VI sofort wieder freigegeben und beim nächsten
+        Aufruf von M_DMM die restliche Initialisierunszeitzeit gewartet. 
+        Dies bedeutet, dass ggf. beim nächsten DVM Aufruf DCV 2 Sekunden gewartet wird.
+        Grund: Die ACVINIT ist noch nicht abgeschlossen.
+        
+   2.)	Es gibt einen weiteren Prozess VD ---&gt; V2
+        Bei Aufruf des ACVINIT wird der VI sofort wieder freigegeben und beim nächsten
+        Aufruf von M_DMM die restliche Initialisierunszeitzeit gewartet.
+        Da die DCV Messungen klassisch mit dem DVM_01 durchgeführt werden, 
+        und das DVM_01 über dem Prozess VD gesteuert wird, gibt es keinen
+        Performance Verlust. Beim Aufsetzen des RACV wird eventuell die Initialisierung
+        Zeit des ACVINIT noch abgewartet.
+        Der Prüflisten Autor muß darauf achten das zwischen Aufruf ACVINIT und RACV
+        ca 2 Sekunden in der Prüfung verbraucht werden.
+        bei diesem Verfahren geht die InitialisierungsZeit nicht in die Prüfzeit ein,
+        da der Prozess V2 eigenständig das DVM_02 initialisiert, und vor der Initialisierung 
+        den VI freigegeben hat.
+        Beim Umschalten des V2 Prozesses auf DCV Messungen muß natürlich wieder mit
+        einer uminitialisierungszeit von ca 300 ms gerechnet werden. Dies war aber
+        auch schon vorher der Fall.
+        
+
+         
+        
+   
+   
+   
+</PRE>
+</BODY>
+</HTML>

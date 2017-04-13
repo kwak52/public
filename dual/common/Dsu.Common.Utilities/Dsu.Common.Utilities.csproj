@@ -1,0 +1,469 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{825711E0-451F-4EDA-9560-A624350DE411}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dsu.Common.Utilities</RootNamespace>
+    <AssemblyName>Dsu.Common.Utilities</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <CodeContractsAssemblyMode>0</CodeContractsAssemblyMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE;DEBUG;ARCH_INTEL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>ARCH_INTEL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>False</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>0</CodeContractsAnalysisWarningLevel>
+    <DocumentationFile>..\..\App\bin\Release\Dsu.Common.Utilities.xml</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PRODUCT|AnyCPU'">
+    <OutputPath>$(SolutionDir)\bin\PRODUCT\</OutputPath>
+    <DefineConstants>PRODUCT;ARCH_INTEL</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Akka, Version=1.1.1.27, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\open-sources\bin\Akka.dll</HintPath>
+    </Reference>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="LanguageExt.Core">
+      <HintPath>..\..\open-sources\bin\LanguageExt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\open-sources\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\open-sources\bin\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\open-sources\bin\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\open-sources\bin\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\open-sources\bin\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationIdleTimer.cs" />
+    <Compile Include="ByteArrayUtil.cs" />
+    <Compile Include="CodeDOMParser.cs" />
+    <Compile Include="Controls\HudBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\HudBarForm.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\HudContainer.cs" />
+    <Compile Include="Controls\ListViewExceptionStackTrace.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\MRUManager.cs" />
+    <Compile Include="Controls\PopupToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomColor.cs" />
+    <Compile Include="Designer\AbstractControlDescriptionProvider.cs" />
+    <Compile Include="DesignSurfaceExt\DesignerOptionServiceExt.cs" />
+    <Compile Include="DesignSurfaceExt\DesignerSerializationServiceImpl.cs" />
+    <Compile Include="DesignSurfaceExt\DesignSurfaceExt.cs" />
+    <Compile Include="DesignSurfaceExt\DesignSurfaceExt2.cs" />
+    <Compile Include="DesignSurfaceExt\DesignSurfaceManagerExt.cs" />
+    <Compile Include="DesignSurfaceExt\IDesignSurfaceExt.cs" />
+    <Compile Include="DesignSurfaceExt\IDesignSurfaceExt2.cs" />
+    <Compile Include="DesignSurfaceExt\MenuCommandServiceExt.cs" />
+    <Compile Include="DesignSurfaceExt\NameCreationServiceImp.cs" />
+    <Compile Include="DesignSurfaceExt\PropertyGridHost.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DesignSurfaceExt\PropertyGridHost.designer.cs">
+      <DependentUpon>PropertyGridHost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignSurfaceExt\TabOrderHooker.cs" />
+    <Compile Include="DesignSurfaceExt\ToolboxServiceImp.cs" />
+    <Compile Include="DesignSurfaceExt\UndoEngineExt.cs" />
+    <Compile Include="Disposable.cs" />
+    <Compile Include="DisposeActioner.cs" />
+    <Compile Include="EmEventHandler.cs" />
+    <Compile Include="Exceptions\ExceptionHandler.cs" />
+    <Compile Include="Exceptions\ExceptionSafeTaskRunner.cs" />
+    <Compile Include="Exceptions\ExceptionSafeThreadStarter.cs" />
+    <Compile Include="Exceptions\FormExceptionStackTrace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exceptions\FormExceptionStackTrace.Designer.cs">
+      <DependentUpon>FormExceptionStackTrace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\FormUnhandledException.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exceptions\FormUnhandledException.designer.cs">
+      <DependentUpon>FormUnhandledException.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\UnhandledExceptionHandler.cs" />
+    <Compile Include="ExtensionMethods\EmLanguageExt.cs" />
+    <Compile Include="ExtensionMethods\EmRx.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="Log4NetWrapper\EmLogProxy.cs" />
+    <Compile Include="Log4NetWrapper\FormLoggerController.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Log4NetWrapper\FormLoggerController.Designer.cs">
+      <DependentUpon>FormLoggerController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Log4NetWrapper\ILoggable.cs" />
+    <Compile Include="Log4NetWrapper\Log4NetWrapper.cs" />
+    <Compile Include="Log4NetWrapper\LogEntryManager.cs" />
+    <Compile Include="Log4NetWrapper\LogProxy.cs" />
+    <Compile Include="Log4NetWrapper\LogRecord.cs" />
+    <Compile Include="MVCs\DocViewController.cs" />
+    <Compile Include="NamedObject.cs" />
+    <Compile Include="DataTypes\Boolean.cs" />
+    <Compile Include="Exceptions\ExceptionHider.cs" />
+    <Compile Include="ExHelpProvider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExtensionMethods\EmAsync.cs" />
+    <Compile Include="ExtensionMethods\EmThread.cs" />
+    <Compile Include="Forms\FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormAbout.Designer.cs">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormAutoClosingMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormAutoClosingMessageBox.Designer.cs">
+      <DependentUpon>FormAutoClosingMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormHelper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormConfiguration.designer.cs">
+      <DependentUpon>FormConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormDocumentProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormDocumentProperty.Designer.cs">
+      <DependentUpon>FormDocumentProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormErrorReportViaMail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormErrorReportViaMail.Designer.cs">
+      <DependentUpon>FormErrorReportViaMail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormContainer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormContainer.Designer.cs">
+      <DependentUpon>FormContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSmtpClientConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSmtpClientConfig.Designer.cs">
+      <DependentUpon>FormSmtpClientConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericEventArgs.cs" />
+    <Compile Include="Holder.cs" />
+    <Compile Include="IDockable.cs" />
+    <Compile Include="DesignPattern\IVisitor.cs" />
+    <Compile Include="IntPtrUtil.cs" />
+    <Compile Include="Keyboard.cs" />
+    <Compile Include="License.cs" />
+    <Compile Include="CMVIFormManager.cs" />
+    <Compile Include="MVCs\DocBase.cs" />
+    <Compile Include="MVCs\ModelChangedEventArgs.cs" />
+    <Compile Include="MVCs\MvcControlBase.cs" />
+    <Compile Include="NotifyPropertyChangedBase.cs" />
+    <Compile Include="Process\CProcess.cs" />
+    <Compile Include="Process\Locker.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Registry\Registry.cs" />
+    <Compile Include="Registry\RegistrySerializer.cs" />
+    <Compile Include="Rx\ConnectionChangedEventArgs.cs" />
+    <Compile Include="Rx\EmAkka.cs" />
+    <Compile Include="Rx\EmReactive.cs" />
+    <Compile Include="Rx\EmRx.cs" />
+    <Compile Include="Rx\ISubscribable.cs" />
+    <Compile Include="Rx\ObservableEvent.cs" />
+    <Compile Include="Rx\ObservableSimulationEvent.cs" />
+    <Compile Include="SDI.cs" />
+    <Compile Include="SelectionChangedEventHandler.cs" />
+    <Compile Include="Dsu.Common\CommonApplication.cs" />
+    <Compile Include="Dsu.Common\CommonConfiguration.cs" />
+    <Compile Include="Dsu.Common\FormAppCommon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SvnInfo.cs" />
+    <Compile Include="Tools\Tools_DateTime.cs" />
+    <Compile Include="Variable.cs" />
+    <Compile Include="WeakReferenceHolder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DesignSurfaceExt\PropertyGridHost.resx">
+      <DependentUpon>PropertyGridHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Exceptions\FormExceptionStackTrace.resx">
+      <DependentUpon>FormExceptionStackTrace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Exceptions\FormUnhandledException.resx">
+      <DependentUpon>FormUnhandledException.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormAbout.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormAutoClosingMessageBox.resx">
+      <DependentUpon>FormAutoClosingMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormConfiguration.resx">
+      <DependentUpon>FormConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormContainer.resx">
+      <DependentUpon>FormContainer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormDocumentProperty.resx">
+      <DependentUpon>FormDocumentProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormErrorReportViaMail.resx">
+      <DependentUpon>FormErrorReportViaMail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSmtpClientConfig.resx">
+      <DependentUpon>FormSmtpClientConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dsu.Common\FormAppCommon.resx">
+      <DependentUpon>FormAppCommon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Log4NetWrapper\FormLoggerController.resx">
+      <DependentUpon>FormLoggerController.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Exceptions\ExceptionHandler.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vs2010.png" />
+    <None Include="Resources\vs2010.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dsu.Common.Interfaces\Dsu.Common.Interfaces.csproj">
+      <Project>{4a9c406e-bea1-4470-b9d1-09605eaa44f3}</Project>
+      <Name>Dsu.Common.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Common.Resources\Dsu.Common.Resources.csproj">
+      <Project>{5b5804ce-0652-4bd8-bcd0-e3c038ac9fea}</Project>
+      <Name>Dsu.Common.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

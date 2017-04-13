@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE>E_DOKU</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_DOKU</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_doku.C,v 1.8 2006/01/11 14:35:47 ggj3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	erster-Schritt einer Testliste mit Nummer 1 
+   ---------------------------------------------------------------------
+   Projekt:		BOSCH ccs
+   Sourcefile:		e_doku.C
+   Autor:		RtP2/TEF32-Gueltling
+   Zielsystem:		SuSE Linux 8.2 HP-RT 3.01
+   Sprache:		Ansi-C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+  int e_doku(shm_stringpointer *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ------------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   error =  (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	    ,p_verwaltung-&gt;begin_modulblock
+	    ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   if (error == -1)
+   {
+   // Fehlerbehandlung
+   }
+   
+   ------------------------------------------------------------------------
+   Funktionsbeschreibung: 			&lt;GFMT KS=on TAB=8 LF=on&gt;
+   Die Routine ist der Start-Schritt in einer Testliste. Die uebergebenen
+   Informationen werden in einen Strukt im Ssp_vi multienvironment
+   (Ss_e_doku) im shared Memory abgelegt.
+   Beschreibung der Informnationen (Beispiele in Klammern)
+   
+   Kopie der Informationen in Ssp_vi-&gt;multi[Ssp_vi-&gt;test.multiindex].doku.
+   Folgende Elemente werden Besetzt:</pre><b><a name="param1">1</a> doku.autor</b><pre>       : Urheber der Pruefliste</pre><b><a name="param2">2</a> doku.erstellt</b><pre>    : Erstell Datum</pre><b><a name="param3">3</a> doku.proddukt</b><pre>    : Produktbezeichnung (M1.7)</pre><b><a name="param4">4</a> doku.ae_stand</b><pre>    : Aenderungsstand (z.B. 28RT004711)
+                             Der Aenderungsstand ist massgebend fuer das
+                             Testprogramm. Falls in der pdv ein anderer 
+                             Eintrag vorhanden, erfolgt eine Fehlermeldung</pre><b><a name="param5">5</a> doku.kundennummer</b><pre>: Typbezeichnung des Kunden (1 739 041)</pre><b><a name="param6">6</a> doku.eingefuehrt</b><pre> : letzte Aenderung mit ae_stand</pre><b><a name="param7">7</a> doku.gueltig_von</b><pre> : Moeglichkeit zeitlich begrenzt</pre><b><a name="param8">8</a> doku.gueltig_bis</b><pre> :      ein Programm der Fertigung zur</pre><b><a name="param9">9</a> doku.passwort</b><pre>    :      Verfuegung zu stellen</pre><b><a name="param10">10</a> doku.typ</b><pre>         : Art der ISN individuellen Sg-Nr</pre><b><a name="param11">11</a> doku.vergleich</b><pre>   : Kontakttraegertest (ja / nein)</pre><b><a name="param12">12</a> doku.muster</b><pre>      : Kontakttraeger (Wechselteil) Nummer</pre><b><a name="param13">13</a> doku.prot_art</b><pre>    : spezielles Statistikprotokoll (E_Gas)</pre><b><a name="param14">14</a> doku.fehlermax</b><pre>   : Abbruch nach n Messfehlern</pre><b><a name="param15">15</a> doku.protokoll_emb:</b><pre>Statistik-Protokoll Erst-Muster</pre><b><a name="param16">16</a> doku.sw_ae_stand</b><pre> : SW-Aenderungsstand</pre><b><a name="param17">17</a> doku.adapterfile</b><pre> : Adapterfile aus Directory ...pruef_ccs/Adapter/</pre><b><a name="param18">18</a> doku.usermark</b><pre>    : Usermarke fuer Statistik</pre><b><a name="param19">19</a> doku.swnumber</b><pre>    : Softwarenummer
+   
+   Im System-Common sind 13 Informationszellen fuer Erweiterungen vorgesehen.
+   
+
+   Revision 1.1  2001/12/18 10:26:17  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.8  2001/11/09 14:15:49  wiese
+   #ifdef HPRT raus
+   (char *) rein
+
+   Revision 1.7  2001/05/28 12:48:15  PIJ3SA
+   Gaudi-Parameter USERMARK in E_DOKU added
+
+   Revision 1.6  2001/01/16 14:28:47  juilfs
+   Linux
+
+   Revision 1.5  1999/12/22 10:06:14  keppler
+   $ID -&gt; $Id
+
+   Revision 1.4  1999/12/22 09:17:03  keppler
+   $Header -&gt; $Id
+
+   Revision 1.3  1999/12/07 17:19:11  juilfs
+   no entry
+
+Revision 1.2  99/04/06  14:09:34  14:09:34  wiese (Stefan Wiese)
+pruefsw_nr neu
+
+Revision 1.1  99/04/06  13:36:44  13:36:44  wiese (Stefan Wiese)
+Initial revision
+
+Revision 1.1  97/12/02  14:24:41  14:24:41  juilfs (Joerg Juilfs)
+Initial revision
+
+Revision 1.1  96/07/10  10:25:54  10:25:54  keppler (Fritz Keppler)
+Initial revision
+
+
+   ------------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ROOT>
+    <SystemConfigure>
+    <HaConfigure>
+
+      <!-- WARNING !!!!!!!!!!!!
+        Do not edit CPTesterHWIdentificationFile node and the contents of the Configure\HwConfig\CPTesterHWIdentification.xml file.  Just to mark trace.
+        If you edit them, the CP tester may malfunction.
+        -->
+      <CPTesterHWIdentificationFile>Configure\HwConfig\CPTesterHWIdentification.xml</CPTesterHWIdentificationFile>
+
+      <CAN>False</CAN>      <RS232>False</RS232>      <GPIB>False</GPIB>      <NETWORKUDP>False</NETWORKUDP>     <NETWORKTCPIP>False</NETWORKTCPIP>
+      <DMM>False</DMM>      <SMU>False</SMU>      <LASERMARKER>False</LASERMARKER>      <COUNTER_INPUT>False</COUNTER_INPUT>      <RESISTOR>False</RESISTOR>
+      <FGN>False</FGN>      <LOAD>False</LOAD>      <SCOPE>False</SCOPE>      <RELAY>False</RELAY>
+
+      <DAQ_CONTROLLER>False</DAQ_CONTROLLER>
+      <ANALOG_INPUT>False</ANALOG_INPUT>
+      <PLC>False</PLC>
+      <POWER_SUPPLY>False</POWER_SUPPLY>
+      <LVDT>False</LVDT>
+      <LCRMETER>False</LCRMETER>
+      <MOTION>False</MOTION>
+      <DIGITAL_IO>False</DIGITAL_IO>
+      <TRIGGER_IO>False</TRIGGER_IO> <!--UPS APC-->
+      
+    </HaConfigure>
+  </SystemConfigure>
+  
+
+  <ApplicationConfigure>
+    <SystemInfo>
+      <Title>8FF(A8MF1)</Title>
+      <LastBuildDate>2016-10-08-09:19:23</LastBuildDate>
+      <SystemVersion>Ver 1.0.0</SystemVersion>
+      <HardwareVersion>Ver 1.0.0</HardwareVersion>
+    </SystemInfo>
+    <ApplicationInfo> 
+      <ParserApiVer>Ver 1.0.0</ParserApiVer>
+      <ParserLastBuildDate>2016-10-03-19:40:02</ParserLastBuildDate>
+      <ParserApiDll>PsKGaudi.dll</ParserApiDll>
+      <FunctionExeLastBuildDate>2016-10-03-19:40:02</FunctionExeLastBuildDate>
+      <FunctionExeDll>CpFunctionDefault.dll</FunctionExeDll>
+      <ShowLogLevel>DEBUG</ShowLogLevel>
+      <SaveLogPath>D:\CPLog\</SaveLogPath>
+      <CnfPath>\Configure\HwConfig\</CnfPath>
+      <TestListPath>\Configure\TestList\</TestListPath>
+    </ApplicationInfo>
+    <StationConfigure>
+
+      <SgStation>
+        <StationID>0</StationID>
+        <Name>pSTN1_8FF_FD</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>pSTN1_8FF_FD</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>50</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>FD0</ID>
+            <ID>FD1</ID>
+            <ID>FD2</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+      <SgStation>
+        <StationID>1</StationID>
+        <Name>pSTN2_8FF_LCR</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>pSTN2_8FF_LCR</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>50</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>LCR0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+      <SgStation>
+        <StationID>2</StationID>
+        <Name>pSTN3_8FF_INPUT</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>pSTN3_8FF_INPUT</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>50</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+      <SgStation>
+        <StationID>3</StationID>
+        <Name>pSTN3_8FF_MIDLE</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>pSTN3_8FF_MIDLE</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>50</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI2</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+      <SgStation>
+        <StationID>4</StationID>
+        <Name>pSTN5_8FF_OUPUT</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>pSTN5_8FF_OUPUT</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>50</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI1</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+
+    </StationConfigure>
+  </ApplicationConfigure>
+  <HwConfigure>
+    <CommDevices>
+      <Device>
+        <ID>RS232_0</ID>
+        <Type>RS232</Type>
+        <DllName>CpDevRS232</DllName>
+        <HwName>COM3</HwName>
+        <Attributes COMMENT = "" BAUDRATE = "0" DATABITS="8" CR="True" LF="True" TIMEOUT ="500"/>
+      </Device>
+      <Device>
+        <ID>TCPIP_POWERSUPPLY0</ID>
+        <Type>NETWORKTCPIP</Type>
+        <DllName>CpDevNetworkTCPIP</DllName>
+        <HwName>TCPIP0</HwName>
+        <Attributes COMMENT = "" IP_ADDRESS="192.168.8.100" PORT_NO="9221" CR="False" LF="True"/>
+      </Device>
+      <Device>
+        <ID>NI_DAQ_CONTROLLER0</ID>
+        <Type>DAQ_CONTROLLER</Type>
+        <DllName>CpDevDAQ_NI</DllName>
+        <HwName>Dev1</HwName>
+        <Attributes COMMENT = "" SAMPLING_PER_SEC ="1000000" SAMPLE_PER_BUFFER="1"/>
+      </Device>
+    </CommDevices>
+
+    <Devices>
+      <Device>
+        <ID>PLC_READ</ID>
+        <Type>PLC</Type>
+        <DllName>CpDevPLC_Mitsubishi</DllName>
+        <HwName></HwName>
+        <Attributes COMMENT = "" CPU_TYPE_STR="Q06UDV" PLC_IP_ADDR="192.168.8.10" PLC_PORT_NUMBER="10000" CONNECTION_TYPE_STR="UDP" TIMEOUT="1000" READPORT ="True" />
+      </Device>
+      
+      <Device>
+        <ID>PLC_WRITE</ID>
+        <Type>PLC</Type>
+        <DllName>CpDevPLC_Mitsubishi</DllName>
+        <HwName></HwName>
+        <Attributes COMMENT = "" CPU_TYPE_STR="Q06UDV" PLC_IP_ADDR="192.168.8.10" PLC_PORT_NUMBER="10001" CONNECTION_TYPE_STR="TCP" TIMEOUT="1000" READPORT ="False" />
+      </Device>
+      <Device>
+        
+        <ID>U_SRN1</ID>
+        <Type>POWER_SUPPLY</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevPowerSupply_Sorensen</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.100</HwName>
+        <Attributes COMMENT = "INPUT" VOLTAGE_LIMIT="30" CURRENT_LIMIT="3" MAX_TEMP="100" CHANNEL ="1"/>
+      </Device>
+      
+      <Device>
+        <ID>U_SRN2</ID>
+        <Type>POWER_SUPPLY</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevPowerSupply_Sorensen</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.101</HwName>
+        <Attributes COMMENT = "MIDDLE" VOLTAGE_LIMIT="30" CURRENT_LIMIT="3" MAX_TEMP="100" CHANNEL ="2"/>
+      </Device>
+
+
+      <Device>
+        <ID>U_SRN3</ID>
+        <Type>POWER_SUPPLY</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevPowerSupply_Sorensen</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.101</HwName>
+        <Attributes COMMENT = "OUTPUT" VOLTAGE_LIMIT="30" CURRENT_LIMIT="3" MAX_TEMP="100" CHANNEL ="1"/>
+      </Device>
+      
+      
+      <Device>
+        <ID>LCR0</ID>
+        <Type>LCRMETER</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevLCR_Hioki</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.51</HwName>
+        <Attributes COMMENT = "" CHANNEL ="1"/>
+      </Device>
+      <Device>
+        <ID>AI0</ID>
+        <Type>ANALOG_INPUT</Type>
+        <Virtual>true</Virtual>
+        <DllName>CpVDevAI_NIDAQ</DllName>
+        <CommDevID>NI_DAQ_CONTROLLER0</CommDevID>
+        <HwName>Dev1/ai0</HwName>
+        <Attributes COMMENT ="INPUT"  />
+      </Device>
+      <Device>
+        <ID>AI1</ID>
+        <Type>ANALOG_INPUT</Type>
+        <Virtual>true</Virtual>
+        <DllName>CpVDevAI_NIDAQ</DllName>
+        <CommDevID>NI_DAQ_CONTROLLER0</CommDevID>
+        <HwName>Dev1/ai1</HwName>
+        <Attributes COMMENT ="OUTPUT" />
+      </Device>
+      <Device>
+        <ID>AI2</ID>
+        <Type>ANALOG_INPUT</Type>
+        <Virtual>true</Virtual>
+        <DllName>CpVDevAI_NIDAQ</DllName>
+        <CommDevID>NI_DAQ_CONTROLLER0</CommDevID>
+        <HwName>Dev1/ai2</HwName>
+	    	<Attributes COMMENT ="MIDDLE" />
+      </Device>
+
+
+      <Device>
+        <ID>MT_INPUT</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevMotion_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.12</HwName>
+        <Attributes COMMENT = "" AXIS_ROBOT = "False" AXIS_ID = "0" AXIS_DIRECTION = "CW" CFG_ACC_RPM_RER_SEC="1500" CFG_DEC_RPM_RER_SEC="1500" CFG_MAX_RPM="2010" CFG_DISTANCE_PER_REVOLUTION ="100" />
+      </Device>
+
+	  
+      <Device>
+        <ID>MT_MIDDLE</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevMotion_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.12</HwName>
+        <Attributes COMMENT = "" AXIS_ROBOT = "False" AXIS_ID = "1" AXIS_DIRECTION = "CCW" CFG_ACC_RPM_RER_SEC="1500" CFG_DEC_RPM_RER_SEC="1500" CFG_MAX_RPM="2010" CFG_DISTANCE_PER_REVOLUTION ="100" />
+      </Device>
+
+
+      <Device>
+        <ID>MT_OUTPUT</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevMotion_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.12</HwName>
+        <Attributes COMMENT = "" AXIS_ROBOT = "False" AXIS_ID = "2" AXIS_DIRECTION = "CCW" CFG_ACC_RPM_RER_SEC="1500" CFG_DEC_RPM_RER_SEC="1500" CFG_MAX_RPM="2010" CFG_DISTANCE_PER_REVOLUTION ="100" />
+      </Device>
+
+<!--
+      <Device>
+        <ID>ROBOT_X</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevMotion_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.13</HwName>
+        <Attributes COMMENT = "" AXIS_ROBOT = "True" AXIS_ID = "0" AXIS_DIRECTION = "CCW" CFG_ACC_RPM_RER_SEC="1" CFG_DEC_RPM_RER_SEC="1" CFG_MAX_RPM="10" CFG_DISTANCE_PER_REVOLUTION ="10" />
+      </Device>
+
+
+      <Device>
+        <ID>ROBOT_Y</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevMotion_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.13</HwName>
+        <Attributes COMMENT = "" AXIS_ROBOT = "True" AXIS_ID = "1" AXIS_DIRECTION = "CCW" CFG_ACC_RPM_RER_SEC="1" CFG_DEC_RPM_RER_SEC="1" CFG_MAX_RPM="10" CFG_DISTANCE_PER_REVOLUTION ="10" />
+      </Device>
+
+      <Device>
+        <ID>ROBOT_Z</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevMotion_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.13</HwName>
+        <Attributes COMMENT = "" AXIS_ROBOT = "True" AXIS_ID = "2" AXIS_DIRECTION = "CW" CFG_ACC_RPM_RER_SEC="1" CFG_DEC_RPM_RER_SEC="1" CFG_MAX_RPM="10" CFG_DISTANCE_PER_REVOLUTION ="5" />
+      </Device>
+
+      <Device>
+        <ID>ROBOT_T</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevMotion_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.13</HwName>
+        <Attributes  COMMENT = "" AXIS_ROBOT = "True" AXIS_ID = "3" AXIS_DIRECTION = "CW" CFG_ACC_RPM_RER_SEC="1" CFG_DEC_RPM_RER_SEC="1" CFG_MAX_RPM="10" CFG_DISTANCE_PER_REVOLUTION ="1000" />
+      </Device>
+
+      <Device>
+        <ID>ROBOT_4AXIS</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevMotion_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.12</HwName>
+        <Attributes  COMMENT = "" AXIS_ROBOT = "True" AXIS_ID = "0;1;2;3" AXIS_DIRECTION = "CW" CFG_ACC_RPM_RER_SEC="1" CFG_DEC_RPM_RER_SEC="1" CFG_MAX_RPM="10" CFG_DISTANCE_PER_REVOLUTION ="1000" />
+      </Device>
+
+  
+
+
+
+<Device>
+  <ID>ROBOT_4AXIS</ID>
+  <Type>MOTION</Type>
+  <Virtual>false</Virtual>
+  <DllName>CpDevRobot_PAIXCtrl</DllName>
+  <CommDevID></CommDevID>
+  <HwName>192.168.8.12</HwName>
+  <Attributes  COMMENT = "" AXIS_ROBOT = "True" AXIS_ID = "+0;+1;+2;+3" AXIS_DIRECTION = "CW" CFG_ACC_RPM_RER_SEC="1" CFG_DEC_RPM_RER_SEC="1" CFG_MAX_RPM="10" CFG_DISTANCE_PER_REVOLUTION ="1000" />
+</Device>
+    -->
+  <Device>
+    <ID>UDIO_CPU0</ID>
+        <Type>DIGITAL_IO</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevDIOControl_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.8.11</HwName>
+        <Attributes COMMENT = "" DIGITAL_INPUT_POINT = "48" DIGITAL_OUTPUT_POINT="16"/>
+      </Device>
+
+
+
+      <Device>
+      <ID>FD0</ID>
+      <Type>LVDT</Type>
+      <Virtual>false</Virtual>
+      <DllName>CpDevLVDT_Sony</DllName>
+      <CommDevID></CommDevID>
+      <HwName>COM4</HwName>
+      <Attributes COMMENT = "INPUT" BAUDRATE = "9600"/>
+     </Device>
+
+    <Device>
+      <ID>FD1</ID>
+      <Type>LVDT</Type>
+      <Virtual>false</Virtual>
+      <DllName>CpDevLVDT_Sony</DllName>
+      <CommDevID></CommDevID>
+      <HwName>COM5</HwName>
+      <Attributes COMMENT = "OUTPUT" BAUDRATE = "9600"/>
+     </Device>
+
+    <Device>
+      <ID>FD2</ID>
+      <Type>LVDT</Type>
+      <Virtual>false</Virtual>
+      <DllName>CpDevLVDT_Sony</DllName>
+      <CommDevID></CommDevID>
+      <HwName>COM3</HwName>
+      <Attributes COMMENT = "MIDDLE" BAUDRATE = "9600"/>
+     </Device>
+
+      <Device>
+        <ID>UPS0</ID>
+        <Type>TRIGGER_IO</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevUPS_APC</DllName>
+        <CommDevID></CommDevID>
+        <HwName></HwName>
+        <Attributes COMMENT = "" IP_ADDRESS="192.168.8.30" PORT_NO="9221" CR="False" LF="True"/>
+      </Device>
+      
+    </Devices>
+  </HwConfigure>
+</ROOT>

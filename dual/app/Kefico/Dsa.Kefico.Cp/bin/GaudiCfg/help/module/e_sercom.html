@@ -1,0 +1,303 @@
+<HTML>
+<HEAD>
+<TITLE>E_SERCOM</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_SERCOM</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------         
+ Funktionsbeschreibung:                                             
+
+                                                               
+    Dieses Modul stellt eine Anwender-Schnittstelle zu einer beliebigen (ueber ein Configfile konfigurierbar) seriellen      
+    Schnittstelle (TTY-Schnittstelle) her. 
+
+    Das E_SERCOM arbeitet mit dem prozess sercom (Nickname SE) zusammen.
+    Der prozess sercom muss deshalb in der prog_start_xx.cnf eingetragen sein.
+  
+    Aufruf des prozess sercom:
+    ==========================
+   
+    Der prozess sercom wird unmittelbar vom E_SERCOM via message-queue with wait aufgerufen.
+    D.h. bei jedem E_SERCOM Aufruf wird der prozess sercom aktiv und führt die Aufgaben
+    sofort aus und quittiert das Ergebnis zurück zum E_SERCOM.
+    
+    Ein E_OUT Aufruf in der Prüfliste ist nicht supportet, d.h. der Prozess sercom
+    darf nicht in der hw_e_out_xx.cnf eingetragen sein!
+    
+                         
+    Basis fuer die Arbeit mit diesem Modul sind 2 Konfigurations-Dateien:                                                        
+       a) hw_vxi_geraete....cnf                                     
+       b) sercom.cnf                                                
+                                                                    
+    zu a)  hw_vxi_geraete....cnf 
+                                                         
+       Beschreibung der (durch Semikolon getrennten) Eintraege in diesem File:  
+       1. Unitname 
+			 der logische Name, der vom Anwender in der Pruefliste eingetragen werden muss,
+			 um auf das Device zugreifen zu koennen:
+               z.B. SER_IFACE_01                    
+       2. Sekundaer-Adresse                         
+             wird nur fuer HPIB-Devices oder Multifunktions-Karten benoetigt,ist normalerweise -1;             
+             im konkreten Fall wird damit eine der von der Muxer-Karte bereitgestellten Schnittstellen bezeichnet; 
+       3. VXI/HPIB-Adresse   
+             dies ist die Primaer-Adresse unter der das Device am Bus angesprochen werden kann;  
+             (bei Devices mit Kernel-Treiber ist dies -1) 
+       4. Geraetename         
+             dies ist der vom Hersteller vergebene Device-Name:
+               z.B. M45                          
+       5. Herstellername    
+       6. Slot im VXI Rack       
+             bei VXI-Geraeten sollte hier die Nummer des SLOTs, in dem das Device steckt eingetragen werden; 
+             (bei HPIB-Devices steht hier stets -1)   
+                                                      
+    zu b)  sercom.cnf
+    
+       Konfiguration der Schnittstellen-Parameter:  
+       ~_MODE = ...                                             
+          einer der Modi SYSV (System V), RAW, CBREAK, COOKED 
+       ~_DEVICENAME = ...    
+          Vorgabe des TTY-Devicenamens, z.B. /dev/m45tty3  
+       ~_BAUDRATE = ...  
+          Festlegung der Baudrate, z.B. 9600 
+       ~_PARITY = ...                          
+          Paritaetsbit festlegen, z.B. NONE 
+       ~_STOPBITS = ...          
+          Anzahl der Stopbits konfigurieren, z.B. 1 
+       ~_DATENBITS = ...        
+          Anzahl der Datenbits pro Byte festlegen, z.B. 8  
+       ~_XONXOFF = ...    
+          Schnittstellen-Protokoll festlegen, z.B. ON  
+       ~_OUTPUTMAP = ...   
+          Mapping beim Datenversenden bestimmen: 
+            NONE - kein Mapping,   
+            CRNL - CR in NL umwandeln, 
+            NLCR - NL in CR umwandeln,  
+            NLCRNL - NL in CRNL umwandeln;  
+       ~_INPUTMAP = ...    
+          Mapping beim Datenempfang: 
+            NONE - kein Mapping, 
+            NLCR - NL in CR umwandeln,   
+            CRNL - CR in NL umwandeln,  
+            IGNCR - CR ignorieren  
+       ~_CHARTIMEOUT = ... 
+          Timeout beim Lesen eines Zeichens in Millisekunden;   
+          Daten werden Byte-weise eingelesen, nach jedem Byte wartet der Lesevorgang die vorgegebene Wartezeit;  
+       ~_SEND_TIMEOUT = ...            
+          Timeout beim Senden von Zeichen in Sekunden;  
+          gibt vor, in welcher Zeit eine Anzahl an Zeichen laengstens ueber die Schnittstelle transferiert werden sollen;
+       ~_TERMTYPE = ... 
+          Festlegung des Endekriteriums fuer empfangende Daten: 
+            TERMLENGTH - Kriterium ist die Laenge, 
+            TERMSEQUENZ - Kriterium ist eine Zeichenkette; 
+       ~_TERMLENGTH = ...   
+       ~_TERMSEQUENZ = ... 
+       ~_EXCL = ... 
+          Festlegung, dass die Schnittstelle exclusiv von dem jeweiligen Prozess genutzt wird; 
+		 (fuer Details siehe Dokumentation "UnivDevice.frm" im Verzeichnis "ent1:/daten/ux_hprt_global/libclass/...") 
+                                                                   
+       Konfiguration spezieller Device-Features:                
+       ~_ONERROR_COMMAND = ...                              
+          Kommando, dass an ein Device im Fehlerfall uebertragen werden soll;   
+                                                        
+       Konfiguration des Pfades fuer einen Dateizugriff:   
+       ~_FILEPATH = ...                                       
+          hiermit kann der Suchpfad auf dem Leitrechner vorgegeben werden - Ausgangspunkt ist dabei stets
+          der Basispfad /daten_lrp3/pruef_ccs (fuer SaW);  
+          Beispielpfad:                   
+              /dect/ptc/   
+                                                                 
+                                               
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>  
+         GAUDI Pruefschritt                                
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>          
+         PAV- Position                    
+    ------------------------------</pre><b><a name="param3">3</a> INTERFACE</b><pre>  
+         z.B. SER_IFACE_04 
+         symbolischer Name eines seriellen Interfaces; dieser Name wird im Configfile 'hw_vxi_geraete....cnf' definiert; 
+    ------------------------------</pre><b><a name="param4">4</a> ERRORTEXT</b><pre> 
+         Text, der immer dann im Fehlerausdruck / in der Fehlerstatistik erscheint, wenn Daten nicht gesendet
+         oder nicht empfangen werden konnten;  
+    ------------------------------</pre><b><a name="param5">5</a> FUNCTION</b><pre>
+         CLEAR
+            loescht den Ein- und Ausgabebuffer der seriellen Schnittstelle;  
+                                                         
+         INIT                              
+            Initialisierungsschritt der ausschliesslich im ersten Listenlauf (FIRSTRUN) nach einem Ruestlauf ausgefuehrt wird;          
+            es findet sowohl Daten- als auch File-Transfer statt (sofern die entsprechenden Felder besetzt sind);  
+                                           
+         DOWNLOAD    
+            allgemeiner Transfer von Daten und/oder Filedaten.  
+            Dieser Schritt wird im ersten Listenlauf (FIRSTRUN) und auch in allen nachfolgenden   
+            Listenlaeufen (NORMALRUN) ausgefuehrt;  
+                                
+         SEND                                
+            ausschliesslicher Transfer von Daten - 
+            siehe Gaudi-Parameter 'SENDDATA_1/ bis SENDDATA_4'; 
+                                                                 
+            Wichtig: Gaudi-Parameter FILENAME wird hier nicht  supportet d.h. ein Filetransfer findet  nicht statt! 
+            
+		 SENDFORCE
+			Daten werden auch bei Fehlermax-Abbruch gesendet !!! 
+			Achtung: Funktion nur in der Multi-Prüfliste möglich wegen vectorinterpreter Design.
+			
+			ausschliesslicher Transfer von Daten - 
+            siehe Gaudi-Parameter 'SENDDATA_1/ bis SENDDATA_4'; 
+                                                                 
+            Wichtig: Gaudi-Parameter FILENAME wird hier nicht  supportet d.h. ein Filetransfer findet  nicht statt! 
+                                                       
+         RCV      
+            Transfer von Daten - wie bei SEND - und im Anschluss Lesen einer Antwort (mit vom Anwender bestimmbarem 
+            Timeout);                     
+            die Anzahl zu lesender Datenbytes kann mit DATANUMBER vorgegeben werden;   
+                                                              
+            Wichtig: Gaudi-Parameter FILENAME wird hier nicht supportet d.h. ein Filetransfer findet nicht statt!  
+            
+		 RCVFORCE
+			Daten werden auch bei Fehlermax-Abbruch gesendet !!! 
+			Achtung: Funktion nur in der Multi-Prüfliste möglich wegen vectorinterpreter Design.
+			
+			Transfer von Daten - wie bei SENDFORCE - und im Anschluss Lesen einer Antwort (mit vom Anwender bestimmbarem 
+            Timeout);                     
+            die Anzahl zu lesender Datenbytes kann mit DATANUMBER vorgegeben werden;   
+                                                              
+            Wichtig: Gaudi-Parameter FILENAME wird hier nicht supportet d.h. ein Filetransfer findet nicht statt!   
+		                      
+              
+		BREAKSTRING
+            Initialisierungsschritt der Sendedaten für den Prüflistenabbruch, der ausschliesslich im Ruestlauf ausgefuehrt wird; 
+            siehe Gaudi-Parameter 'SENDDATA_1/ bis SENDDATA_4';         
+            Es findet kein Daten- als auch File-Transfer statt; Der Prozess sercom merkt sich diese Sendedaten für das Abbruchhändling;  
+            Im Abbruchfall wird dieser String standardmäßig zum Device gesendet. Es wird keine Antwort vom Device zurückgelesen. 
+		          
+	                                                
+    ------------------------------</pre><b><a name="param6">6</a> CONTROL</b><pre> 
+         Steuerparameter fuer Protokoll-Informationen 
+                                                    
+         Supportet sind folgende Eintraege: 
+                                                               
+         CONTROL = ICP3000   In-Circuit Programmer fuer Steuergeraet ES-HDEV  (Elektr. Hochdruck-Einspritzventil) 
+                                                                
+         CONTROL = JNAT      Schnittstelle für SDL-Class2 -SG's Content of Configfile for JNAT: 
+                  V743_1_MODE            = RAW	      
+                  V743_1_BAUDRATE        = 19200    
+                  V743_1_TERMTYPE        = TERMSEQUENZ  
+                  V743_1_TERMSEQUENZ     = \x0d&gt; 
+                                                  
+         CONTROL = BINARY    ASCII-Zeichenkette (in HEX-Notation) in binär wandeln und versenden  
+         
+         CONTROL = CETA800   Kommunikation mit dem Lecktester CETA800.
+                             Es wird das Protokoll der CETA800 verwendet. Das zu übertragende
+                             Anweisungszeichen und Datenblock eines CETA800-Telegramms ist als
+                             Hex-String im Parameter SENDDATA_x einzutragen.
+                                                                                                             
+    ------------------------------</pre><b><a name="param7">7</a> DATANUMBER</b><pre>
+								 
+       7.1 FUNCTION = INIT/DOWNLOAD 
+           Anzahl der aus einem File auszulesenden und  via serielle Schnittstelle zu uebertragenden Bytes; 
+           es ist hier in jedem Fall ein sinnvoller Wert &gt; 0  anzugeben;   
+                                                  
+       7.2 FUNCTION = RCV          
+           Anzahl der zu lesenden Bytes;
+                                                        
+       Default ist '-' (Minus, entspricht der Null), dh. es  werden soviele Zeichen gelesen, wie verfuegbar sind 
+       bzw. soviele Zeichen bis zur vorgegebenen Endekennung (s.o., Parameter 'TERMSEQUENZ' im Configfile);  
+                                                             
+    ------------------------------</pre><b><a name="param8">8</a> DEV_TIMEOUT</b><pre>                       
+         beim Daten-Transfer vom und zum Device kann eine Timeout-Bedingung vorliegen;  
+                                                                  
+         8.1 beim Senden:                                   
+            das angesprochene Device meldet XOFF, jedoch ein XON wird nicht mehr gesendet;  
+            damit der weitere Pruefablauf nicht unterbrochen wird, kann durch die Angabe eines Timeouts
+            (in Millisekunden) die maximale Transferunterbrechung  angegeben werden; 
+                                
+         8.2 beim Empfang: 
+            das angesprochene Device liefert keine Daten oder meldet XOFF, ohne anschliessend ein XON zu senden; 
+            der Anwender kann spezifizieren, wie lange ein Transfer maximal dauern darf; 
+                                                         
+         Wichtig:                                             
+         Die Transfer-Dauer ist abhaengig von der zu transferierenden Datenmenge, der Transfer-Rate und der 
+         Antwortzeit des angeschlossenen Device! 
+                                                 
+    ------------------------------</pre><b><a name="param9">9</a> SENDDATA_1</b><pre>            
+         ASCII-Zeichenkette, die versendet werden soll (maximal 80 Zeichen). 
+         Es kann auch eine &amp;-Variabel uebergeben werden; 
+                                                           
+    ------------------------------</pre><b><a name="param10">10</a> SENDDATA_2</b><pre>      
+         dito                            
+         Die Felder werden zunaechst konkateniert, bevor sie 
+         via serielle Schnittstelle an ein Device versendet werden.   
+                                                          
+    ------------------------------</pre><b><a name="param11">11</a> SENDDATA_3</b><pre>                        
+         dito                                   
+         Dieses und die vorangegangenen Felder werden zunaechst 
+         konkateniert, bevor sie via serielle Schnittstelle an ein Device versendet werden.  
+                                                         
+    ------------------------------</pre><b><a name="param12">12</a> SENDDATA_4</b><pre>           
+         dito                             
+         Dieses und die vorangegangenen Felder werden zunaechst
+         konkateniert, bevor sie via serielle Schnittstelle an ein Device versendet werden.
+                                                                 
+         Wichtig:   
+         Die Uebertragung von "Sonderzeichen" kann durch  Steuerbefehle in den Zeichenketten (\X0A oder \X0D,
+         entspr. Linefeed bzw. CarriageReturn) erzwungen werden. 
+                                                       
+         Findet sich ein solches Zeichen am Ende einer Zeichenkette, werden alle bis dahin eingegebenen 
+         Zeichen (konkatenierten Zeichenketten) komplett uebertragen. Sollte danach noch eine weitere Zeichen- 
+         kette folgen, wird diese erst im Anschluss daran uebertragen. 
+                                 
+    ------------------------------</pre><b><a name="param13">13</a> FILENAME</b><pre>   
+         Der Anwender gibt hier den Namen einer Datei an, dessen Inhalt vollstaendig an ein Device uebertragen werden soll. 
+         Der Dateiname muss in Grossbuchstaben angegeben werden.
+         Die Datei findet sich auf dem entsprechenden Leitrechner (in SaW auf dem lrp3) im Verzeichnis
+            /daten_lrp3/pruef_ccs/Suchpfad...
+         Der 'Suchpfad' wird dabei im  Configfile, "sercom.cnf", spezifiziert. 
+                                                                
+         Wichtig:                                       
+         Es werden ausschliesslich druckbare Zeichen uebertragen, 
+         also Zeichen zwischen Hexadezimal 0x20 (=Leerzeichen) und hexadezimal 0x7E(='~')! 
+                                                                
+    ------------------------------</pre><b><a name="param14">14</a> RECEIVED_DATA</b><pre>
+         &amp;-Variable, die die Antwort des Device enthaelt (maximal 80 Zeichen); 
+                                                   
+    ------------------------------</pre><b><a name="param15">15</a> PARAMETER1</b><pre>        
+         Parameter, mit dem angegeben wird, welcher Teil der  empfangenen Daten auszugeben ist;
+                                                         
+    ------------------------------</pre><b><a name="param16">16</a> PARAMETER2</b><pre>                        
+         Parameter, mit dem angegeben wird, welcher Teil der empfangenen Daten auszugeben ist; 
+                                                        
+         Beispiel:                         
+          - PARAMETER1 und PARAMETER2 sind beide '-' (Minus), welches die Default-Einstellung ist: 
+            die empfangenen Daten werden unveraendert an die &amp;-Variable weitergegeben; 
+          - Auswahl eines Bereichs innerhalb der empfangenen Daten durch Ziffern: 
+            Empfangen wurde z.B. "Hallo World"    
+               PARAMETER1: 3   
+               PARAMETER2: 9  
+               RCVD_DATA enthaelt dann "llo Wor" 
+                                                  
+    ------------------------------</pre><b><a name="param17">17</a> ERRORFLAG</b><pre> 
+         Dies Flag wird nur dann auf den Wert 1 gesetzt, sollte bei FUNCTION = 'INIT', 'DOWNLOAD', 'SEND', 'RCV' ein 
+         Schreib- bzw. Lesefehler  erkannt worden sein. 
+         Konnte ein File nicht geoeffnet werden, erfolgt ebenfalls eine Fehlermeldung hierueber.
+                                                                
+         Im Fehlerfall wird die im Configfile, "serialcom.cnf", definierte Sequenz an das Device uebertragen.
+		 Es werden dann beim naechsten Listenlauf saemtliche Schritte mit "INIT" erneut ausgefuehrt! 
+
+    ------------------------------</pre><b><a name="param18">18</a> WAIT</b><pre> 
+         Mit diesem Parameter kann eine Zeit in ms angegeben werden, die in jedem Fall nach Senden der Daten
+         bzw. nach senden des Breakstrings bei einem Programmabbruch gewartet wird
+    
+    ------------------------------
+
+					
+</PRE>
+</BODY>
+</HTML>

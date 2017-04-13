@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE>M_COUNTER</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_COUNTER</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: m_counter.C,v 1.6 2003/02/24 12:07:41 keppler Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Aufruf des Prozesses VXI_COUNTER
+   ---------------------------------------------------------------------
+   Projekt:		TS2000
+   Sourcefile:		m_counter.C
+   Autor:		RtW/TEF72-Juilfs (20.02.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void m_dmm(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Anzahl der €bergabeparameter und Index der expandierten
+   Prœfliste im Platz VXI_COUNTER_UNIT ablegen. Der Prozess 
+   VXI_COUNTER greift spÃter auf diese beiden Parameter zu und
+   kopiert die €bergabeparameter in die localen Arrays
+   
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> VXI_GERAET</b><pre>   	Name des GerÃtes laut PAM Beschreibungsfile	
+	
+   ------------------------------</pre><b><a name="param4">4</a> COUN_FUNKTION</b><pre></pre><b><a name="param5">5</a> COUN_MODUS</b><pre></pre><b><a name="param6">6</a> COUN_RANGE</b><pre></pre><b><a name="param7">7</a> COUN_APERTURE</b><pre></pre><b><a name="param8">8</a> COUN_MESSANZ</b><pre></pre><b><a name="param9">9</a> COUN_TIMEOUT</b><pre></pre><b><a name="param10">10</a> COUN_DELAY</b><pre></pre><b><a name="param11">11</a> DIMENSION</b><pre></pre><b><a name="param12">12</a> TRG_IN</b><pre></pre><b><a name="param13">13</a> TRG_OUT</b><pre></pre><b><a name="param14">14</a> R_MESSWERT</b><pre>   
+</PRE>
+</BODY>
+</HTML>

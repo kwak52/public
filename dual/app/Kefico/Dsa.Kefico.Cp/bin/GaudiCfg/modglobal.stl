@@ -1,0 +1,4513 @@
+**-------------------------------------------------------------------*
+** CCS-Parameterdefinitionen                                         *
+**-------------------------------------------------------------------*
+** Diese Datei wurde vom Modglobal XML Editor erstellt. Aenderungen  *
+** an dieser Datei werden beim naechsten Export ueberschrieben.      *
+**-------------------------------------------------------------------*
+** Globale Modul-Liste fuer RTW                                      *
+** Mit Hilfe des Commandofile Gaumod werden aus dieser grossen       *
+** Typ 4 Liste viele kleine Typ 2 Files erstellt mit den Namen       *
+** der unten aufgefuehrten Programme.                                *
+**-------------------------------------------------------------------*
+** A_ : Spezielle Module fuer Abgleich AM_QUIT                       *
+** B_ : Messmodule nur fuer Abgleich                                 *
+** E_ : Einstellmodule                                               *
+** F_ : Funktionsmodule wie Geber Drehzahl usw.                      *
+** I_ : Initialisierungsmodule                                       *
+** K_ : Kleines Koppelfeld Ansteuerungs Module                       *
+** L_ : Lastmodule  fuer die Hardwaremodule im Lasteinschub          *
+** M_ : Universalmessmodule                                          *
+** S_ : Sondermodule                                                 *
+** T_ : Test-Ansteuermodule fuer Kartentest                          *
+**-------------------------------------------------------------------*
+** Definitionen der Modulparameter                                   *
+** MP,ID,Dimension,Typ,{Werte},Default,S,T,Kommentar                 *
+**-------------------------------------------------------------------*
+
+MP,PRUEFSCHRITT      ,Programmschr. ,I4 ,{              },0          ,0,0
+MP,POSITION          ,Nach-PAV      ,C14,{              },0          ,0,0
+MP,N_WIEDERHOLEN     ,              ,C14,{              },0          ,0,0
+MP,NO_BURN_BITS      ,              ,C16,{              },0          ,0,0
+MP,BURNCODE_1        ,              ,C60,{              },0          ,0,0
+MP,BURNCODE_2        ,              ,C60,{              },0          ,0,0
+MP,GOTO_PSCHR        ,PRUEFSCHRITT  ,C14,{              },0          ,0,0
+MP,ABBRUCH           ,Ja/Nein/ABRUC ,C14,{JA:Nein:ABRUCH:JAWID:NEABBR:JAABBR},NEIN       ,0,0
+MP,R_MESSWERT        ,Variable      ,C14,{              },&MEWE      ,0,0
+MP,MESSWERT          ,Variable      ,c14,{              },&MEWE      ,0,0
+MP,MG_FEHLER         ,Variable      ,c14,{              },0          ,0,0
+MP,OFFSET            ,              ,c14,{              },0          ,0,0
+MP,FAKTOR            ,              ,C14,{              },0          ,0,0
+MP,VXI_GERAET        ,DVM_01/COUN_01,c14,{              },0          ,0,0
+MP,MESS_MODUS        ,NORM/READ/S/M ,c14,{NORM:INIT:READ:S:M:AR},NORM       ,0,0
+MP,WAIT              ,ms            ,C14,{              },0          ,0,0
+MP,WAIT_FUNKTION     ,              ,c14,{              },0          ,0,0
+MP,WAIT_PARAMETER    ,ANSTEUER_NAME ,c14,{              },WZ         ,0,0
+MP,FIRST_RUN_TIME    ,ms            ,c14,{              },0          ,0,0
+MP,ANSTEUER_NAME     ,SG-PIN-NAME   ,c14,{              },0          ,0,0
+MP,ANSTEUER_WERT     ,PAV-WERT      ,C14,{              },-          ,0,0
+MP,ANSTEUER_BEZUG    ,BEZUGS-PIN    ,c14,{              },-          ,0,0
+MP,ANSTEUER_DIM      ,V/MA/MV/OHM/  ,c14,{              },-          ,0,0
+MP,ANSTEUER_UNIT     ,PAM-FILE-UNIT ,c14,{              },0          ,0,0
+MP,ANST_UNIT_CS      ,PAM-FILE-UNIT ,c80,{              },-          ,0,0
+MP,ANSTEUER_PIN      ,SG-PIN        ,c14,{              },-          ,0,0
+MP,ANSTEUER_ART      ,ANSTEUER_PAR  ,c14,{ANSTEUER_PAR:
+ MODUL_PAR:
+ NEU:
+ SPLIT_ANST:
+ UNIT_ABSCHALT:
+ UNIT_PARALLEL:
+ KOPPLUNG},ANSTEUER_PAR,0,0
+MP,FEK_MODUS         ,-/B/W         ,c14,{-:B:W:CONT:BLOCK_WRITE },-          ,,
+MP,ANSTEUER_FAKTO    ,faktor        ,c14,{              },1          ,0,0
+MP,DMM_FUNKTION      ,DCV/ACV/RESIS ,c14,{DCV:
+ ACV:
+ RESISTANCE:
+ CAPACITANCE:
+ INDUCTANCE:
+ -},DCV        ,0,0
+MP,DMM_RANGE         ,0=AUTORANGE   ,c14,{              },0.0        ,0,0
+MP,DMM_APER_TIME     ,Sec           ,c14,{              },0.02       ,0,0
+MP,DMM_TRG_SOURCE    ,IMMEDIATE:EXT ,c14,{              },IMMEDIATE  ,0,0
+MP,DMM_TRG_COUNT     ,1-n           ,c14,{              },1          ,0,0
+MP,DMM_TRG_DELAY     ,Sec           ,c14,{              },0          ,0,0
+MP,DMM_SMP_SOURCE    ,IMMEDIATE     ,C14,{TIMER:IMMEDIATE:SOFTWARE:CONTROLREG:-},IMMEDIATE  ,0,0
+MP,DMM_SMP_COUNT     ,1-n           ,c14,{              },1          ,0,0
+MP,DMM_SMP_PERIOD    ,              ,c14,{              },100        ,0,0
+MP,DMM_AUTOZERO      ,ON:OFF:ONCE   ,c14,{ON:OFF:ONCE:- },OFF        ,0,0
+MP,DMM_OFFSET_COM    ,TRUE:FALSE    ,c14,{TRUE:FALSE:-  },FALSE      ,0,0
+MP,DMM_MODUS         ,NORM:READ:s:m ,C14,{NORM:INIT:READ:S:M:-},NORM       ,0,0
+MP,DMM_INTERRUPT     ,              ,c14,{AVAIL:
+ DONE:
+ ERROR:
+ COMPLETE:
+ HALFFULL:
+ NONE:
+ -},NONE       ,0,0
+MP,DMM_MASKE         ,0-7           ,c14,{              },0          ,0,0
+MP,DMM_TIMEOUT       ,Sec           ,c14,{              },3          ,0,0
+MP,Modulname         ,Messobjekt    ,C14,{              },           ,0,0
+MP,Kommentar         ,              ,c14,{              },MO         ,0,0
+MP,Messungsnummer    ,              ,c14,{              },1          ,0,0
+MP,Abweichungsart    ,              ,c14,{              },-          ,0,0
+MP,Statistik         ,              ,c14,{              },-          ,0,0
+MP,Klass_typ         ,              ,c14,{              },-          ,0,0
+MP,FehlerArt         ,              ,c14,{              },-          ,0,0
+MP,Dimension         ,              ,c14,{              },           ,0,0
+MP,TUG               ,              ,c14,{              },           ,0,0
+MP,TOG               ,              ,c14,{              },           ,0,0
+MP,Abgleichstelle    ,              ,c14,{              },-          ,0,0
+MP,DimWiderstand     ,              ,c14,{              },-          ,0,0
+MP,DimSteigung       ,              ,c14,{              },-          ,0,0
+MP,Vorwiderstand     ,              ,c14,{              },-          ,0,0
+MP,Vorsteigung       ,              ,c14,{              },-          ,0,0
+MP,AktWiderstand     ,              ,c14,{              },-          ,0,0
+MP,AktSteigung       ,              ,c14,{              },-          ,0,0
+MP,AnzIterationen    ,              ,c14,{              },-          ,0,0
+MP,ExxWiderstand     ,              ,C14,{              },-          ,0,0
+MP,NIO_AUSDRUCK      ,JA/NEIN       ,c14,{              },JA         ,0,0
+MP,RETURN_MODE       ,NORMAL        ,C14,{              },NORMAL     ,0,0
+MP,RETURN_WERT       ,              ,c14,{              },           ,0,0
+MP,INPUT_FORMAT      ,              ,c14,{              },-          ,0,0
+MP,ABBRUCHART        ,DUMMY_ABBRUCH ,c14,{              },PROG_ABBRUCH,0,0
+MP,VARIABLE          ,Name der &    ,c60,{              },-          ,0,0
+MP,VARIBLEN_WERT     ,              ,C60,{              },-          ,0,0
+MP,VARIABLEN_TYP     ,FLOAT/INT     ,c60,{              },STRING     ,0,0
+MP,VAR_FUNKT         ,              ,c60,{              },-          ,0,0
+MP,MAKRO_NAME        ,              ,c60,{              },-          ,0,0
+MP,SCAN_UNIT         ,Ausgang MKA   ,c14,{              },1          ,0,0
+MP,PIN_HIGH          ,SG-PIN-High   ,c14,{              },0          ,0,0
+MP,PIN_LOW           ,SG-PIN-LOW    ,c14,{              },0          ,0,0
+MP,SCHALTER_FUNKT    ,ON/OFF        ,c14,{              },OFF        ,0,0
+MP,SCANNER_MODUS     ,-/OUT(BOSCHOUT,C14,{              },-          ,0,0
+MP,SCANN_UNIT_TRG    ,Ausg. MKA TRG ,c14,{              },-          ,0,0
+MP,PIN_HIGH_TRG      ,SG-PIN-High   ,c14,{              },-          ,0,0
+MP,PIN_LOW_TRG       ,SG-PIN-LOW    ,c14,{              },-          ,0,0
+MP,COUN_FUNKTION     ,I/R/IR/S/M    ,c14,{              },0          ,0,0
+MP,COUN_MODUS        ,TIMEAB/       ,c14,{              },0          ,0,0
+MP,COUN_RANGE        ,              ,c14,{              },0          ,0,0
+MP,DEFAULT           ,              ,c80,{              },           ,,
+MP,COUN_APERTURE     ,              ,c14,{              },0          ,0,0
+MP,COUN_MESSANZ      ,1-n           ,c14,{              },0          ,0,0
+MP,COUN_TIMEOUT      ,SEC           ,c14,{              },3          ,0,0
+MP,COUN_DELAY        ,Sec           ,c14,{              },0          ,0,0
+MP,COUN_EINHEIT      ,              ,c14,{              },0          ,0,0
+MP,TRG_IN            ,              ,c14,{              },0          ,0,0
+MP,TRG_OUT           ,              ,c14,{              },0          ,0,0
+MP,TRG_NAME          ,DVM_TRG       ,c14,{              },DVM_TRG    ,0,0
+MP,PEGEL             ,+-400.0V      ,c14,{              },10.0       ,0,0
+MP,FLANKE            ,N/P           ,I2 ,{N=0:P=1       },N          ,0,0
+MP,TRG_DELAY         ,1.E-6<<0.065 s,C14,{              },0          ,0,0
+MP,TRG_LINE          ,$RETURN       ,c14,{              },1          ,0,0
+MP,MAX_PEGEL         ,VOLT          ,c14,{              },0.         ,0,0
+MP,E_TRG_MODE        ,NORM/NEW/DEL  ,C14,{NORM:
+ NEW:
+ DEL:
+ DCVTRG:
+ HLDSTART:
+ HLDSTOP:
+ HLDOUT},NORM       ,0,0
+MP,RESTZEIT          ,$RETURN       ,c14,{              },0          ,0,0
+MP,DIR               ,              ,c80,{              },           ,,
+MP,CCS_SERVICE       ,              ,c80,{              },           ,,
+MP,TRG_NAME_A        ,DVM_TRG       ,c14,{              },DVM_TRG    ,0,0
+MP,MODE_A            ,DEL/HLD/SPI/DI,I2 ,{DIR=0:
+ HLD=1:
+ DEL=2:
+ SPI=3:
+ DIR_S=16:
+ HLD_S=17:
+ DEL_S=18:
+ SPI_S=19},DIR        ,0,0
+MP,GATE_MODE_D       ,              ,c14,{              },           ,,
+MP,GATE_MODE_B       ,              ,c14,{              },           ,,
+MP,OUT_TRG_D         ,              ,c14,{              },           ,,
+MP,OUT_TRG_C         ,              ,c14,{              },           ,,
+MP,OUT_TRG_B         ,              ,c14,{              },           ,,
+MP,OUT_TRG_A         ,              ,c14,{              },           ,,
+MP,RESERVE_D3        ,              ,c14,{              },           ,,
+MP,RESERVE_D2        ,              ,c14,{              },           ,,
+MP,RESERVE_D1        ,              ,c14,{              },           ,,
+MP,RESERVE_C3        ,              ,c14,{              },           ,,
+MP,RESERVE_C2        ,              ,c14,{              },           ,,
+MP,RESERVE_C1        ,              ,c14,{              },           ,,
+MP,RESERVE_B3        ,              ,c14,{              },           ,,
+MP,RESERVE_B2        ,              ,c14,{              },           ,,
+MP,RESERVE_B1        ,              ,c14,{              },           ,,
+MP,RESERVE_A3        ,              ,c14,{              },           ,,
+MP,RESERVE_A2        ,              ,c14,{              },           ,,
+MP,RESERVE_A1        ,              ,c14,{              },           ,,
+MP,TIME_A            ,1.E-6<<1.048 s,C14,{              },0          ,0,0
+MP,HYSTERESE_A       ,0<100 %/V     ,c14,{              },10%        ,0,0
+MP,GATE_MODE_A       ,DIR/KANAL_B/..,c14,{              },DIR        ,0,0
+MP,SPIKEFILT_A       ,<0.000064     ,c14,{              },0          ,0,0
+MP,TRG_NAME_B        ,COUN_A        ,C14,{              },COUN_A     ,0,0
+MP,MODE_B            ,DEL/HLD/SPI/DI,I2 ,{DIR=0:
+ HLD=1:
+ DEL=2:
+ SPI=3:
+ DIR_S=16:
+ HLD_S=17:
+ DEL_S=18:
+ SPI_S=19},DIR        ,0,0
+MP,TIME_B            ,1.E-6<<1.048 s,C14,{              },0          ,0,0
+MP,HYSTERESE_B       ,0<100 %/V     ,c14,{              },10%        ,0,0
+MP,SPIKEFILT_B       ,<0.000064     ,c14,{              },0          ,0,0
+MP,TRG_NAME_C        ,COUN_B        ,C14,{              },COUN_B     ,0,0
+MP,MODE_C            ,DIR/SPI       ,I2 ,{DIR=0:SPI=1   },DIR        ,0,0
+MP,TIME_C            ,1.E-6<<0.065 s,C14,{              },0          ,0,0
+MP,HYSTERESE_C       ,0<100 %/V     ,c14,{              },10%        ,0,0
+MP,GATE_MODE_C       ,DIR/KANAL_A/..,c14,{              },DIR        ,0,0
+MP,SPIKEFILT_C       ,NOT_REALISED:0,c14,{0             },0          ,0,0
+MP,TRG_NAME_D        ,EXT_CLOCK_2   ,c14,{              },EXT_CLOCK_2,0,0
+MP,MODE_D            ,DIR/SPI       ,I2 ,{DIR=0:SPI=1   },DIR        ,0,0
+MP,TIME_D            ,1.E-6<<0.065 s,C14,{              },0          ,0,0
+MP,HYSTERESE_D       ,0<100 %/V     ,c14,{              },10%        ,0,0
+MP,SPIKEFILT_D       ,NOT_REALISED:0,c14,{0             },0          ,0,0
+MP,CONNECT_MODE      ,CONNECT/DISCON,c14,{CONNECT:DISCONNECT},DISCONNECT ,0,0
+MP,EXT_CLK2_LINE     ,$(TRG_LINE)   ,c14,{              },-1         ,0,0
+MP,TIMEOUT_CLOCK2    ,MS            ,c14,{              },0          ,0,0
+MP,CLK2_OUT_LINE     ,$(TRG_LINE)   ,c14,{              },-1         ,0,0
+MP,SUBSTR_MODUS      ,              ,c14,{ASCII_STR:CHR_STR:HEX_STR:SERCOM},CHR_STR    ,,
+MP,MODUS             ,SAMMLE/SCHREIB,c14,{              },SCHREIB    ,0,0
+MP,ADRESSE           ,              ,c14,{              },0          ,0,0
+MP,DATUM             ,              ,c14,{              },           ,0,0
+MP,ERGEBNIS          ,              ,C14,{              },0          ,0,0
+MP,ANST_PIN_1        ,              ,C60,{              },-          ,0,0
+MP,ANST_BEZUG_1      ,              ,c60,{              },-          ,0,0
+MP,ANST_PIN_2        ,              ,c60,{              },-          ,0,0
+MP,ANST_BEZUG_2      ,              ,c60,{              },-          ,0,0
+MP,ANST_PIN_3        ,              ,C60,{              },-          ,0,0
+MP,ANST_BEZUG_3      ,              ,c60,{              },-          ,0,0
+MP,ANST_PIN_4        ,              ,c60,{              },-          ,0,0
+MP,ANST_BEZUG_4      ,              ,c60,{              },-          ,0,0
+MP,ANST_PIN_5        ,              ,c60,{              },-          ,0,0
+MP,ANST_BEZUG_5      ,              ,c60,{              },-          ,0,0
+MP,ANST_PIN_6        ,              ,c60,{              },-          ,0,0
+MP,ANST_BEZUG_6      ,              ,c60,{              },-          ,0,0
+MP,STECKER           ,1-10          ,C14,{              },-          ,0,0
+MP,REIHENWID         ,EIN           ,c14,{              },-          ,0,0
+MP,DEKADEN_WERT      ,Ohm50-1550    ,c14,{              },-          ,0,0
+MP,V_PFAD            ,EIN/-         ,c14,{              },-          ,0,0
+MP,BITS_63_61        ,XXX/000/111   ,C14,{              },-          ,0,0
+MP,SG_DATEN          ,              ,C60,{              },-          ,0,0
+MP,PARA1             ,              ,C80,{              },-          ,0,0
+MP,PARA2             ,              ,c80,{              },-          ,0,0
+MP,PARA3             ,              ,c80,{              },-          ,0,0
+MP,PARA4             ,              ,c80,{              },-          ,0,0
+MP,BEFEHL            ,              ,C14,{              },-          ,0,0
+MP,ID_SENDEN         ,SENDEID-(614) ,C14,{              },-          ,0,0
+MP,ID_SENDEN_LEN     ,11/29-BIT     ,c14,{              },-          ,0,0
+MP,ID_LESEN          ,LESEID-(620)  ,c14,{              },-          ,0,0
+MP,ID_LESEN_LEN      ,11/29-BIT     ,c14,{              },-          ,0,0
+MP,MODUS_STD         ,C/L/S/R/D     ,c14,{              },-          ,0,0
+MP,PERIODE_SEND      ,(0-6000)ms    ,c14,{              },-          ,0,0
+MP,TIMEOUT_SKM       ,s             ,c14,{              },-          ,0,0
+MP,FIRMWARE          ,              ,c14,{              },-          ,0,0
+MP,UNTERADRESSE      ,              ,c14,{              },-          ,0,0
+MP,PROTOKOLL         ,              ,C14,{              },-          ,0,0
+MP,STELLE_BLOCKT     ,              ,c14,{              },-          ,0,0
+MP,FEHLERBLOCKT      ,              ,c14,{              },-          ,0,0
+MP,BITS_PRO_DATA     ,              ,C14,{              },-          ,0,0
+MP,OFFSET_CAN        ,              ,c14,{              },-          ,0,0
+MP,FUNKTION          ,              ,C80,{              },-          ,0,0
+MP,SUBFUNKTION       ,              ,C80,{              },-          ,0,0
+MP,MODE              ,              ,C80,{              },-          ,0,0
+MP,SUBMODE           ,              ,c80,{              },-          ,0,0
+MP,PARA5             ,              ,c80,{              },-          ,0,0
+MP,PARA6             ,              ,c80,{              },-          ,0,0
+MP,PARA7             ,              ,c80,{              },-          ,0,0
+MP,PARA8             ,              ,c80,{              },-          ,0,0
+MP,PARA9             ,              ,c80,{              },-          ,0,0
+MP,PARA10            ,              ,c80,{              },-          ,0,0
+MP,PARA11            ,              ,c80,{              },-          ,0,0
+MP,PARA12            ,              ,c80,{              },-          ,0,0
+MP,PARA13            ,              ,c80,{              },-          ,0,0
+MP,PARA14            ,              ,c80,{              },-          ,0,0
+MP,PARA15            ,              ,c80,{              },-          ,0,0
+MP,PARA16            ,              ,C80,{              },-          ,0,0
+MP,PARA17            ,              ,c80,{              },-          ,0,0
+MP,PARA18            ,              ,c80,{              },-          ,0,0
+MP,PARA19            ,              ,c80,{              },-          ,0,0
+MP,PARA20            ,              ,c80,{              },-          ,0,0
+MP,DATEINAME         ,DATABLOCKNAME ,C60,{              },-          ,0,0
+MP,LADEMODUS         ,BIN/VLB/NOP/PCC,c60,{              },BIN        ,0,0
+MP,START_ADR         ,IN FILE       ,c60,{              },0          ,0,0
+MP,BLOCKLEN          ,USEDFILELEN   ,c60,{              },0          ,0,0
+MP,SEGMENT_HEADER    ,BLOCKTITLE    ,c60,{              },           ,0,0
+MP,SEGMENT_ENDE      ,BLOCKTRAILER  ,c60,{:             },           ,0,0
+MP,SEGMENT_LEN       ,0-255         ,c60,{              },250        ,0,0
+MP,POSITIVE_RESP     ,OF SG         ,c60,{              },-          ,0,0
+MP,LFMODE            ,C L           ,c60,{              },-          ,0,0
+MP,SCHNITTSTELLE     ,K/CAN1-CAN4   ,c60,{K:CAN1:CAN2:CAN3:CAN4:JTAG},K          ,0,0
+MP,ERGEBNIS_FELD     ,<FELDNAME>    ,C80,{              },-          ,0,0
+MP,INPUT_STRING      ,              ,C14,{              },-          ,0,0
+MP,ZEIGER_ANF        ,              ,c14,{              },-          ,0,0
+MP,ZEIGER_END        ,              ,c14,{              },-          ,0,0
+MP,FEHLERFLAG        ,              ,c14,{              },-          ,0,0
+MP,INPUTFORMAT       ,              ,C80,{              },-          ,0,0
+MP,CALCULATION       ,              ,c80,{              },-          ,0,0
+MP,GEN_POLYNOM       ,              ,c80,{              },-          ,0,0
+MP,INIT_VALUE        ,              ,c80,{              },-          ,0,0
+MP,UC_FIRMWARE       ,              ,C60,{              },           ,,
+MP,FPGA_FILE         ,              ,C60,{              },           ,,
+MP,XOR_VALUE         ,              ,c80,{              },-          ,0,0
+MP,BYTE_ORDER        ,              ,C80,{              },-          ,0,0
+MP,ANST_UNIT_1       ,PAM-FILE-UNIT ,C14,{              },-          ,0,0
+MP,ANST_UNIT_2       ,PAM-FILE-UNIT ,c14,{              },-          ,0,0
+MP,EXT_REF_1         ,INT/EXT       ,C14,{              },-          ,0,0
+MP,EXT_REF_CH_1      ,a01/a03/a16   ,c14,{              },-          ,0,0
+MP,EXT_REF_2         ,INT/EXT       ,c14,{              },-          ,0,0
+MP,EXT_REF_CH_2      ,c01/c03/c16   ,c14,{              },-          ,0,0
+MP,SENSE_1           ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,SENSE_2           ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,ARB_UNIT          ,              ,C60,{              },ARB_01     ,0,0
+MP,ARB_MODUS         ,NORM|OUT      ,C60,{NORM:OUT      },NORM       ,0,0
+MP,ARB_KANNAL        ,NUMMER        ,c60,{CH1:CH2       },CH1        ,0,0
+MP,ARB_KURVE         ,FILE-NAME     ,c60,{              },           ,0,0
+MP,ARB_PERIODE       ,PERIODENZEIT  ,c60,{              },0          ,0,0
+MP,ARB_PERIOD_DIM    ,HZ|KHZ|UPM    ,c60,{              },HZ         ,0,0
+MP,ARB_CLOCK         ,INTERN        ,c60,{              },INTERN     ,0,0
+MP,ARB_OUTPUT        ,ON|OFF        ,c60,{ON:OFF        },ON         ,0,0
+MP,ARB_IMPEDANCE     ,LOW|NORM      ,c60,{LOW:NORM      },NORM       ,0,0
+MP,ARB_ATTENUATOR    ,ON|OFF        ,c60,{ON:OFF        },OFF        ,0,0
+MP,ARB_TIEFPASS      ,ON|OFF        ,C60,{ON:OFF        },OFF        ,0,0
+MP,ARB_AUTO_START    ,ON|OFF        ,c60,{ON:OFF        },OFF        ,0,0
+MP,ARB_START_SEQ     ,              ,c60,{              },           ,0,0
+MP,ARB_RUN_STOP      ,RUN|STOP|SYN|-,c60,{RUN:STOP:SYN:-:ONTHEFLY:STOPONE},STOP       ,0,0
+MP,ARB_IN_TR_MODE    ,FREE|TTL|SOF|-,c60,{FRONT:TTL:SOF:NONE:HOLD:FREE:-},FREE       ,0,0
+MP,ARB_IN_TTL_TR     ,0..7|OFF      ,c60,{0:1:2:3:4:5:6:7:OFF},OFF        ,0,0
+MP,ARB_IN_TR_ART     ,EDGE|LEVEL|OFF,c60,{EDGE:LEVEL:OFF},OFF        ,0,0
+MP,ARB_IN_TR_FLAN    ,POS|NEG|OFF   ,c60,{POS:NEG:OFF   },OFF        ,0,0
+MP,ARB_OU_TR_MODE    ,OFF|MARK|FRONT,c60,{OFF:MARK:FRONT},OFF        ,0,0
+MP,ARB_OU_TTL_TR     ,0..7|OFF      ,c60,{0:1:2:3:4:5:6:7:OFF},OFF        ,0,0
+MP,ARB_AMPL1_NAME    ,A...S         ,c60,{A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:0},0          ,0,0
+MP,ARB_AMPL1_WERT    ,SPANNUNGSWERT ,c60,{              },0          ,0,0
+MP,ARB_AMPL1_DIM     ,VOLT          ,c60,{              },V          ,0,0
+MP,ARB_AMPL2_NAME    ,A...S         ,c60,{A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:0},0          ,0,0
+MP,ARB_AMPL2_WERT    ,SPANNUNGSWERT ,c60,{              },0          ,0,0
+MP,ARB_AMPL2_DIM     ,VOLT          ,c60,{              },V          ,0,0
+MP,ARB_AMPL3_NAME    ,A...S         ,c60,{A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:0},0          ,0,0
+MP,ARB_AMPL3_WERT    ,SPANNUNGSWERT ,C60,{              },0          ,0,0
+MP,ARB_AMPL3_DIM     ,VOLT          ,c60,{              },V          ,0,0
+MP,ARB_AMPL4_NAME    ,A...S         ,c60,{A:B:C:D:E:F:G:H:I:J:K:L:M:N:O:P:Q:R:S:0},0          ,0,0
+MP,ARB_AMPL4_WERT    ,SPANNUNGSWERT ,c60,{              },0          ,0,0
+MP,ARB_AMPL4_DIM     ,VOLT          ,c60,{              },V          ,0,0
+MP,ARB_FREQ_PREC     ,0/00          ,c60,{              },0          ,0,0
+MP,ARB_WAITTIME      ,ms            ,C14,{              },0          ,0,0
+MP,AWG_SIGNALFILE    ,FILENAME      ,C60,{              },-          ,0,0
+MP,AWG_START_SIG     ,SIGNAL_NAME   ,c60,{              },-          ,0,0
+MP,AWG_CLOCK         ,INT/EXTERN    ,c60,{              },INTERN     ,0,0
+MP,AWG_OUTPUT        ,ON|OFF        ,c60,{ON:OFF        },ON         ,0,0
+MP,AWG_IMPEDANCE     ,LOW|NORM      ,c60,{LOW:NORM      },NORM       ,0,0
+MP,AWG_ATTENUATOR    ,ON|OFF        ,C60,{ON:OFF        },OFF        ,0,0
+MP,AWG_TIEFPASS      ,ON|OFF        ,C60,{ON:OFF        },OFF        ,0,0
+MP,AWG_RUN_MODE      ,SINGLE/LOOP   ,c60,{SINGLE:LOOP   },LOOP       ,0,0
+MP,AWG_RUN_STOP      ,RUN|STOP|SYN|-,c60,{STOPALL:RUN:STOP:SYN:-},RUN        ,0,0
+MP,AWG_IN_TR_MODE    ,FREE|TTL|SOF|-,C60,{FRONT:TTL:SOF:NONE:HOLD:FREE},FREE       ,0,0
+MP,AWG_IN_TTL_TR     ,0..7|OFF      ,c60,{0:1:2:3:4:5:6:7:OFF},OFF        ,0,0
+MP,AWG_IN_TR_ART     ,EDGE|LEVEL|OFF,c60,{EDGE:LEVEL:OFF},OFF        ,0,0
+MP,AWG_IN_TR_FLAN    ,POS|NEG|OFF   ,c60,{POS:NEG:OFF   },OFF        ,0,0
+MP,AWG_OU_TR_MODE    ,OFF|MARK|FRONT,c60,{OFF:MARKER:FRONT},OFF        ,0,0
+MP,AWG_OU_TTL_TR     ,0..7|OFF      ,C60,{0:1:2:3:4:5:6:7:OFF},OFF        ,0,0
+MP,AWG_FREQ_PREC     ,0/00          ,C60,{              },0          ,0,0
+MP,AWG_AMPL_PREC     ,0/00          ,c60,{              },0          ,0,0
+MP,AUTOR             ,NAME          ,C80,{              },0          ,0,0
+MP,ERSTELLT          ,DATUM         ,C80,{              },0          ,0,0
+MP,PRODUKT           ,BEZEICHNUNG   ,c80,{              },0          ,0,0
+MP,AE_STAND          ,Label/PDV     ,c80,{              },0          ,0,0
+MP,KUNDENNUMMER      ,FUER BARCODE  ,c80,{              },0          ,0,0
+MP,EINGEFUEHRT       ,DATUM         ,c80,{              },0          ,0,0
+MP,GUELTIG_VON       ,JAHR/MON/TAG  ,C80,{              },0          ,0,0
+MP,GUELTIG_BIS       ,JAHR/MON/TAG  ,c80,{              },0          ,0,0
+MP,PASSWORT          ,PASSWORT      ,c80,{              },0          ,0,0
+MP,TYP               ,LAUFENDE NR   ,c80,{              },0          ,0,0
+MP,VERGLEICH         ,JA / NEIN     ,c80,{              },NEIN       ,0,0
+MP,MUSTER            ,DEZIMAL       ,c80,{              },0          ,0,0
+MP,PROT_ART          ,JA/NEIN/E_GAS ,C80,{              },NEIN       ,0,0
+MP,FEHLER_MAX        ,BIS ABBRUCH   ,c80,{              },5          ,0,0
+MP,PROTOKOLL_EMB     ,NEIN/KEY      ,C80,{              },NEIN       ,0,0
+MP,SOFTWARENUMMER    ,FLASHPROG     ,c80,{              },-          ,0,0
+MP,TESTCOUNTERTYP    ,COMPLETE/BAD/OTP,C40,{COMPLETE:BAD:OTP},COMPLETE   ,,
+MP,TEST_SW_NUMMER    ,TSW           ,c80,{              },-          ,0,0
+MP,SW_AE_STAND       ,SW_AE_NUMMER  ,c80,{              },-          ,0,0
+MP,ADAPTERFILE       ,ADAPTERFILE   ,c80,{              },-          ,0,0
+MP,USERMARK          ,USERMARKE     ,c80,{              },-          ,0,0
+MP,SYMADDR_FILE      ,SYMADDR_FILE  ,C50,{              },-          ,0,0
+MP,MESS_ART_1        ,              ,C14,{              },-          ,0,0
+MP,MESS_HIGH_1       ,              ,c14,{              },-          ,0,0
+MP,MESS_LOW_1        ,              ,c14,{              },-          ,0,0
+MP,MESS_MODE_1       ,              ,c14,{              },-          ,0,0
+MP,SPANNUNG          ,<= 104 Volt   ,C14,{              },-          ,0,0
+MP,REFERENZ          ,EXT/INT/-     ,c14,{              },-          ,0,0
+MP,MAX_U_REF         ,<= 20 Volt    ,C14,{              },-          ,0,0
+MP,OUTPUT_MODE       ,ON/OFF/UT/T/- ,c14,{              },-          ,0,0
+MP,PARA_0            ,              ,C14,{              },           ,0,0
+MP,PARA_1            ,              ,c14,{              },           ,0,0
+MP,PARA_2            ,              ,c14,{              },           ,0,0
+MP,PARA_3            ,              ,c14,{              },           ,0,0
+MP,PARA_4            ,              ,c14,{              },           ,0,0
+MP,PARA_5            ,              ,c14,{              },           ,0,0
+MP,PARA_6            ,              ,c14,{              },           ,0,0
+MP,PARA_7            ,              ,c14,{              },           ,0,0
+MP,PARA_8            ,              ,c14,{              },           ,0,0
+MP,PARA_9            ,              ,c14,{              },           ,0,0
+MP,PARA_10           ,              ,c14,{              },           ,0,0
+MP,PARA_11           ,              ,c14,{              },           ,0,0
+MP,PARA_12           ,              ,c14,{              },           ,0,0
+MP,PARA_13           ,              ,c14,{              },           ,0,0
+MP,PARA_14           ,              ,c14,{              },           ,0,0
+MP,STEUER_MAKRO      ,S/M/OFF       ,c14,{S:M:OFF       },OFF        ,0,0
+MP,TRG_PEGEL_P       ,Volt          ,C14,{              },0          ,0,0
+MP,TRG_PEGEL_N       ,Volt          ,c14,{              },0          ,0,0
+MP,U_OUT_HIGH        ,Volt          ,c14,{              },0          ,0,0
+MP,U_OUT_LOW         ,Volt          ,c14,{              },0          ,0,0
+MP,OBP_FLANKE        ,P/N           ,I2 ,{N=0:P=1       },P          ,0,0
+MP,OBP_TIME_OUT      ,Sec           ,c14,{              },1          ,0,0
+MP,R_PEGEL           ,&VAR          ,c14,{              },&R_PEGEL   ,0,0
+MP,FU3_BNC1          ,00001111      ,c14,{              },00000000   ,0,0
+MP,SK_BNC1           ,0000          ,c14,{              },0000       ,0,0
+MP,FU3_BNC2          ,00001111      ,c14,{              },00000000   ,0,0
+MP,SK_BNC2           ,0000          ,C14,{              },0000       ,0,0
+MP,FU3_BNC3          ,00001111      ,c14,{              },00000000   ,0,0
+MP,SK_BNC3           ,0000          ,c14,{              },0000       ,0,0
+MP,FU3_BNC4          ,00001111      ,c14,{              },00000000   ,0,0
+MP,SK_BNC4           ,0000          ,c14,{              },0000       ,0,0
+MP,FU3_BNC5          ,00001111      ,c14,{              },00000000   ,0,0
+MP,SK_BNC5           ,0000          ,c14,{              },0000       ,0,0
+MP,INKREMENTAL       ,ON/OFF        ,c14,{              },ON         ,0,0
+MP,INT_TIMEOUT       ,s             ,c14,{              },1          ,0,0
+MP,INT_FUNKTION      ,S/M           ,c14,{S:M           },S          ,0,0
+MP,BERECHNUNG        ,              ,C60,{              },0          ,0,0
+MP,RUNDUNGSART       ,0/1/2/3/4     ,C14,{              },0          ,0,0
+MP,ABG_MODE          ,GAIN_SGG/CRC_SGG,C14,{GAIN_SGG:
+ CRC_SGG:
+ UBATT_SGG:
+ USS4_AB_INIT:
+ USS4_AB:
+ USS4_AB_RESULT},GAIN_SGG   ,0,0
+MP,STARTLISTE1       ,BO/HT/KO      ,c14,{              },-          ,0,0
+MP,STARTLISTE2       ,BO/HT/KO      ,c14,{              },-          ,0,0
+MP,STARTLISTE3       ,BO/HT/KO      ,c14,{              },-          ,0,0
+MP,E_OUT_FUNKTION    ,-/CHANGE_ANST ,C14,{              },-          ,0,0
+MP,DATEN_BIT_00      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_01      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_02      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_03      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_04      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_05      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_06      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_07      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_08      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_09      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_10      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_11      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_12      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_13      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_14      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_BIT_15      ,EIN/-/A-PARA  ,c14,{              },-          ,0,0
+MP,DATEN_WORT_UM     ,LW1/LW2/HW1/HW2-,c14,{              },-          ,0,0
+MP,DATEN_WORT_01     ,Hex_wert      ,C14,{              },-          ,0,0
+MP,DATEN_WORT_02     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_03     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_04     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_05     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_06     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_07     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_08     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_09     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_10     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_11     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_12     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_13     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_14     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_15     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_16     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_17     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_18     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_19     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_20     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_21     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_22     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_23     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_24     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_25     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_26     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_27     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_28     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_29     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_30     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_31     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,DATEN_WORT_32     ,Hex_wert      ,c14,{              },-          ,0,0
+MP,KOPPELFELD_ART    ,MESS_KF/FU_KF ,c14,{MESS_KF:
+ STIMULI_KF:
+ LAST_KF:
+ SCHALTER_KF:
+ FU_KF:
+ SONDER_KF:
+ LOCAL_BUS},MESS_KF    ,0,0
+MP,ELEMENT_NUMMER    ,0-n           ,c14,{              },0          ,0,0
+MP,SENSELINE         ,              ,c14,{              },-          ,0,0
+MP,SENSE_HIGH        ,              ,c14,{              },-          ,0,0
+MP,SENSE_LOW         ,              ,c14,{              },-          ,0,0
+MP,MESSKANAL         ,              ,c14,{              },-          ,0,0
+MP,STROMMESS_R       ,10/0.1 Ohm    ,c14,{              },-          ,0,0
+MP,SIGNALFILE        ,DATEINAME     ,c14,{              },-          ,0,0
+MP,TRIG_SOURCE       ,EXT1/2/CLK2   ,c14,{              },-          ,0,0
+MP,TRIG_SLOPE        ,POS/NEG       ,c14,{              },-          ,0,0
+MP,TRIG_EVENT        ,SYNC/ASYNC    ,c14,{              },-          ,0,0
+MP,AMPL_PRECISION    ,IN_PROZENT    ,c14,{              },-          ,0,0
+MP,AMPL_FACTOR       ,1.0...0.1     ,c14,{              },-          ,0,0
+MP,FREQ_FACTOR       ,0.1...10.0    ,c14,{              },-          ,0,0
+MP,ANALOG_PIN        ,PAV-PIN       ,c14,{              },-          ,0,0
+MP,ANALOG_REF        ,PAV-PIN       ,c14,{              },-          ,0,0
+MP,IMPEDANZ          ,LOW/NORM/500R ,c14,{              },-          ,0,0
+MP,EXT_OUTREF        ,PAV-PIN       ,c14,{              },-          ,0,0
+MP,TRIGGER1          ,IN/OUT        ,c14,{              },-          ,0,0
+MP,TRIGGER2          ,IN/OUT        ,c14,{              },-          ,0,0
+MP,OC1               ,PAV-PIN       ,c14,{              },-          ,0,0
+MP,OC2               ,PAV_PIN       ,c14,{              },-          ,0,0
+MP,OC3               ,PAV-PIN       ,c14,{              },-          ,0,0
+MP,OC4               ,PAV-PIN       ,c14,{              },-          ,0,0
+MP,OUTP_ENABLE       ,ON/OFF        ,c14,{              },-          ,0,0
+MP,RUN_STOP          ,SINGLE/FREE   ,c14,{              },-          ,0,0
+MP,MESSTEILER        ,-/50/1        ,c14,{              },-          ,0,0
+MP,R_TEILER          ,&TEILER       ,c14,{              },&TEILER    ,0,0
+MP,MULTIFUNK         ,              ,c14,{              },-          ,0,0
+MP,TYPENSCHILD       ,              ,c14,{              },-          ,0,0
+MP,TYPENSCHILD_NR    ,              ,c14,{              },-          ,0,0
+MP,AUSGABEDEVICE     ,              ,c14,{              },-          ,0,0
+MP,STRING1           ,              ,C64,{              },-          ,0,0
+MP,STRING2           ,              ,c64,{              },-          ,0,0
+MP,STRING3           ,              ,c64,{              },-          ,0,0
+MP,STRING4           ,              ,c64,{              },-          ,0,0
+MP,STRING5           ,              ,c64,{              },-          ,0,0
+MP,STRING6           ,              ,c64,{              },-          ,0,0
+MP,STRING7           ,              ,c64,{              },-          ,0,0
+MP,STRING8           ,              ,c64,{              },-          ,0,0
+MP,STRING9           ,              ,c64,{              },-          ,0,0
+MP,DATENART          ,              ,C14,{              },-          ,0,0
+MP,DATENFORMAT       ,              ,c14,{              },-          ,0,0
+MP,ERGNAME           ,              ,c14,{              },-          ,0,0
+MP,DATENSTRING1      ,              ,c14,{              },-          ,0,0
+MP,DATENSTRING2      ,              ,c14,{              },-          ,0,0
+MP,DATENSTRING3      ,              ,c14,{              },-          ,0,0
+MP,R_ERGEBNIS        ,              ,C14,{              },-          ,0,0
+MP,SOLL_BITS         ,0/1/X         ,C20,{              },XXXXXXXXXXXXXXXX,0,0
+MP,GEBER             ,SPS/BOSCH     ,C14,{              },-          ,0,0
+MP,GEBER_INFO        ,-             ,c14,{              },-          ,0,0
+MP,REFERENZ_PIN      ,              ,c14,{              },-          ,0,0
+MP,SENSING           ,EXT/INT/-     ,c14,{              },-          ,0,0
+MP,FUNK_UMPROG       ,HIGH/LOW/-    ,c14,{HIGH:LOW:-    },-          ,0,0
+MP,MESSKANAL_HIGH    ,              ,c14,{              },-          ,0,0
+MP,MESSKANAL_LOW     ,              ,c14,{              },-          ,0,0
+MP,ASCIISTRING1      ,              ,c14,{              },           ,0,0
+MP,ASCIISTRING2      ,              ,c14,{              },           ,0,0
+MP,ASCIISTRING3      ,              ,c14,{              },           ,0,0
+MP,ASCIISTRING4      ,              ,c14,{              },           ,0,0
+MP,ASCIISTRING5      ,              ,c14,{              },           ,0,0
+MP,ASCIISTRING6      ,              ,c14,{              },           ,0,0
+MP,ASCIISTRING7      ,              ,c14,{              },           ,0,0
+MP,ASCIISTRING8      ,              ,c14,{              },           ,0,0
+MP,ASCIISTRING9      ,              ,c14,{              },           ,0,0
+MP,ASCIISTRING10     ,              ,c14,{              },           ,0,0
+MP,RESULTSTRING      ,              ,C14,{              },           ,0,0
+MP,IN_FORMAT         ,              ,c14,{              },-          ,0,0
+MP,OUT_LEN           ,              ,c14,{              },-          ,0,0
+MP,PARAMETER1_CS     ,              ,C80,{              },           ,,
+MP,PARAMETER2_CS     ,              ,C80,{              },           ,,
+MP,PARAMETER3_CS     ,              ,C80,{              },           ,,
+MP,PARAMETER4_CS     ,              ,C80,{              },           ,,
+MP,VALUE1_CS         ,              ,C80,{              },           ,,
+MP,VALUE2_CS         ,              ,C80,{              },           ,,
+MP,VALUE3_CS         ,              ,C80,{              },           ,,
+MP,VALUE4_CS         ,              ,C80,{              },           ,,
+MP,UNIT1_CS          ,              ,C80,{              },           ,,
+MP,UNIT2_CS          ,              ,C80,{              },           ,,
+MP,UNIT3_CS          ,              ,C80,{              },           ,,
+MP,UNIT4_CS          ,              ,C80,{              },           ,,
+MP,RESERVED1         ,-             ,C80,{              },           ,,
+MP,RESERVED2         ,-             ,C80,{              },           ,,
+MP,RESERVED3         ,-             ,C80,{              },           ,,
+MP,RESERVED4         ,-             ,C80,{              },           ,,
+MP,CONTINUE_CS       ,true|false    ,C80,{true:false    },false      ,,
+MP,RETVAL_CS         ,              ,C80,{              },           ,,
+MP,RETURN_CS         ,              ,C80,{              },           ,,
+MP,OUT_NACHKOMMA     ,              ,c14,{              },-          ,0,0
+MP,OUT_NULLFUELL     ,              ,c14,{              },-          ,0,0
+MP,OUT_FORMAT        ,              ,c14,{              },-          ,0,0
+MP,OUTPUT_STRING     ,              ,c14,{              },-          ,0,0
+MP,INPUT_STRING1     ,              ,c14,{              },-          ,0,0
+MP,OPERATOR          ,              ,c14,{              },-          ,0,0
+MP,INPUT_STRING2     ,              ,c14,{              },-          ,0,0
+MP,STEP_FUNKTION     ,ON/OFF        ,c14,{ON:OFF        },OFF        ,0,0
+MP,KOPPEL_MODUL      ,BEZEICHNUNG   ,C30,{              },E_KOPPEL   ,0,0
+MP,KOPPEL_FUNK       ,FUNKTION      ,C30,{              },NORM       ,0,0
+MP,KOPPEL_OADR1      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_UADR1      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYA1    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYB1    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RANGE1     ,-1|OTOL|CTOL  ,C30,{              },-1         ,0,0
+MP,KOPPEL_OADR2      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_UADR2      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYA2    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYB2    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RANGE2     ,-1|OTOL|CTOL  ,C30,{              },-1         ,0,0
+MP,KOPPEL_OADR3      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_UADR3      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYA3    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYB3    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RANGE3     ,-1|OTOL|CTOL  ,C30,{              },-1         ,0,0
+MP,KOPPEL_OADR4      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_UADR4      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYA4    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYB4    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RANGE4     ,-1|OTOL|CTOL  ,C30,{              },-1         ,0,0
+MP,KOPPEL_OADR5      ,A-B|C-D|E     ,c30,{              },-1         ,0,0
+MP,KOPPEL_UADR5      ,A-B|C-D|E     ,c30,{              },-1         ,0,0
+MP,KOPPEL_RELAYA5    ,A-B|C-D|E     ,c30,{              },-1         ,0,0
+MP,KOPPEL_RELAYB5    ,A-B|C-D|E     ,c30,{              },-1         ,0,0
+MP,KOPPEL_RANGE5     ,-1|OTOL|CTOL  ,c30,{              },-1         ,0,0
+MP,KOPPEL_OADR6      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_UADR6      ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYA6    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RELAYB6    ,A-B|C-D|E     ,C30,{              },-1         ,0,0
+MP,KOPPEL_RANGE6     ,-1|OTOL|CTOL  ,C30,{              },-1         ,0,0
+MP,IGN_TRIGGER_P     ,              ,C14,{              },-          ,0,0
+MP,IGN_IMPULS_P      ,              ,c14,{              },-          ,0,0
+MP,IGN_BEZUG_P       ,              ,c14,{              },-          ,0,0
+MP,TEMP_EINHEIT      ,              ,c14,{              },-          ,0,0
+MP,HI_TUG            ,Volt          ,C14,{              },0.         ,0,0
+MP,HI_TOG            ,Volt          ,c14,{              },0.         ,0,0
+MP,LO_TUG            ,Volt          ,c14,{              },0.         ,0,0
+MP,LO_TOG            ,Volt          ,c14,{              },0.         ,0,0
+MP,AKTIV_16_01       ,S/-           ,C16,{              },SSSSSSSSSSSSSSSS,0,0
+MP,AKTIV_32_17       ,S/-           ,c16,{              },SSSSSSSSSSSSSSSS,0,0
+MP,AKTIV_48_33       ,S/-           ,C16,{              },SSSSSSSSSSSSSSSS,0,0
+MP,AKTIV_64_49       ,S/-           ,C16,{              },SSSSSSSSSSSSSSSS,0,0
+MP,MASSE_ANSCHALT    ,-/a25/c25     ,C16,{              },-          ,,
+MP,MUSTER_16_01      ,H/L/-         ,c16,{              },-          ,0,0
+MP,MUSTER_32_17      ,H/L/-         ,c16,{              },-          ,0,0
+MP,MUSTER_48_33      ,H/L/-         ,c16,{              },-          ,0,0
+MP,MUSTER_64_49      ,H/L/-         ,c16,{              },-          ,0,0
+MP,AN_MESSKANAL      ,1-64          ,C14,{              },0          ,0,0
+MP,R_MEWE_ANALOG     ,&-Variable    ,c14,{              },&ANALOG    ,0,0
+MP,R_MEWE_16_01      ,&-Variable    ,c14,{              },&MEWE1     ,0,0
+MP,R_MEWE_32_17      ,&-Variable    ,c14,{              },&MEWE2     ,0,0
+MP,R_MEWE_48_33      ,&-Variable    ,c14,{              },&MEWE3     ,0,0
+MP,R_MEWE_64_49      ,&-Variable    ,c14,{              },&MEWE4     ,0,0
+MP,AUFTRAG           ,              ,C16,{Deckelv=2:
+ Vakuum =4:
+ Steckeranfahr=5:
+ Stempeln=6:
+ Test=7:
+ Niederhalter=9:
+ Einzelnutzen=16},Steckeranfahr,0,0
+MP,AKTION            ,              ,C16,{AUSFUEHREN:
+ ZU:
+ AUF:
+ EIN:
+ AUS:
+ VOR:
+ ZURUECK:
+ SERIELL_VOR:
+ HALTEFEDER:
+ ANWAEHLEN:
+ ERGEBNIS},AUSFUEHREN ,0,0
+MP,CHANNEL_16_01     ,S/-           ,C14,{              },-          ,0,0
+MP,CHANNEL_32_17     ,S/-           ,c14,{              },-          ,0,0
+MP,CHANNEL_48_33     ,S/-           ,c14,{              },-          ,0,0
+MP,CHANNEL_64_49     ,S/-           ,c14,{              },-          ,0,0
+MP,TRIGGER_SRC       ,SOFTWARE/0/1  ,c14,{              },SOFTWARE   ,0,0
+MP,TRIGGER_OUT       ,0-7           ,c14,{              },0          ,0,0
+MP,ADC_ZERO          ,ON/OFF        ,c14,{              },OFF        ,0,0
+MP,FILTER            ,ON/OFF        ,c14,{              },OFF        ,0,0
+MP,RANGE             ,AUTORANGE     ,c14,{              },AUTORANGE  ,0,0
+MP,PERIOD            ,10-32767 us   ,c14,{              },20         ,0,0
+MP,TTNR              ,-/10STLG.     ,c14,{              },-          ,0,0
+MP,SG_NUMMER         ,1/2/3/...     ,c14,{              },1          ,0,0
+MP,PROT_PRINTER      ,              ,c14,{              },           ,0,0
+MP,MULTI_MODE        ,START/END/CONT,c14,{START:ENDE:CONT:KT_SCHLECHT},START      ,0,0
+MP,S_K_MODUS         ,              ,c14,{              },-          ,0,0
+MP,SEED              ,              ,C40,{              },-          ,0,0
+MP,ERRORSTRING       ,              ,C14,{              },-          ,0,0
+MP,SK_MODE           ,              ,C14,{              },-          ,0,0
+MP,SK_NUM_OF_OP      ,              ,c14,{              },-          ,0,0
+MP,KK1_AN_SK         ,ON/OFF        ,C14,{              },ON         ,0,0
+MP,KK2_AN_KK1        ,ON/OFF        ,c14,{              },ON         ,0,0
+MP,KK3_AN_KK2        ,ON/OFF        ,C14,{              },ON         ,0,0
+MP,KK4_AN_KK3        ,ON/OFF        ,C14,{              },ON         ,0,0
+MP,KK5_AN_KK4        ,ON/OFF        ,c14,{              },ON         ,0,0
+MP,SCHALTER_01       ,              ,c14,{              },-          ,0,0
+MP,SCHALTER_02       ,              ,c14,{              },-          ,0,0
+MP,SCHALTER_03       ,              ,c14,{              },-          ,0,0
+MP,SCHALTER_04       ,              ,c14,{              },-          ,0,0
+MP,DEVICENAME        ,UNITNAME      ,C40,{              },-          ,0,0
+MP,FUNCTION          ,INIT/SEND/RCV ,c40,{              },-          ,0,0
+MP,DATAFORMAT        ,SBINARY16     ,c40,{              },-          ,0,0
+MP,DATASEPARATOR     ," . "         ,c40,{              },-          ,0,0
+MP,DATARANGE         ,CH1:B15V      ,c40,{              },-          ,0,0
+MP,DATARATE          ,CH1:100_1/sec ,c40,{              },-          ,0,0
+MP,RCV_NUMBER        ,              ,c40,{              },-          ,0,0
+MP,DEV_TIMEOUT       ,Millisekunden ,c40,{              },10000      ,0,0
+MP,ROUTING           ,              ,c40,{              },           ,0,0
+MP,MEASURE_CTRL1     ,              ,c40,{              },           ,0,0
+MP,MEASURE_CTRL2     ,              ,c40,{              },           ,0,0
+MP,DEVICE_OUTPUT     ,              ,c40,{              },           ,0,0
+MP,TRIGGER/ARMING    ,              ,c40,{              },           ,0,0
+MP,GENERAL_PRMTR1    ,              ,c40,{              },           ,0,0
+MP,GENERAL_PRMTR2    ,              ,c40,{              },           ,0,0
+MP,GENERAL_PRMTR3    ,              ,c40,{              },           ,0,0
+MP,GENERAL_PRMTR4    ,              ,c40,{              },           ,0,0
+MP,FILENAME          ,              ,C40,{              },           ,0,0
+MP,RCV_CTRL1         ,              ,c40,{              },           ,0,0
+MP,RCV_CTRL2         ,              ,c40,{              },           ,0,0
+MP,ERRORFLAG         ,&Errorflag    ,C40,{              },&Errorflag ,0,0
+MP,IDENTIFICATION    ,INFOSTRING    ,c40,{              },-          ,0,0
+MP,DATAFILTER        ,GLITCH_03     ,c40,{              },-          ,0,0
+MP,ACTION            ,FUNCTION      ,C40,{              },-          ,0,0
+MP,ACTION_PRMTR1     ,              ,c40,{              },-          ,0,0
+MP,ACTION_PRMTR2     ,              ,c40,{              },-          ,0,0
+MP,CHANNEL_A         ,              ,c40,{              },-          ,0,0
+MP,CHANNEL_B         ,              ,c40,{              },-          ,0,0
+MP,START             ,              ,c40,{              },-          ,0,0
+MP,END               ,              ,C40,{              },-          ,0,0
+MP,MIN_VALUE         ,              ,c40,{              },-          ,0,0
+MP,MAX_VALUE         ,              ,c40,{              },-          ,0,0
+MP,RESULT_POS        ,              ,c40,{              },-          ,0,0
+MP,RESULT_VALUE      ,              ,c40,{              },-          ,0,0
+MP,SWITCH_01_08      ,X1_ac32_ac25  ,C14,{              },XXXXXXXX   ,0,0
+MP,SWITCH_09_16      ,X1_ac24_ac17  ,c14,{              },XXXXXXXX   ,0,0
+MP,SWITCH_17_24      ,X1_ac16_ac09  ,c14,{              },XXXXXXXX   ,0,0
+MP,SWITCH_25_32      ,X1_ac08_ac01  ,c14,{              },XXXXXXXX   ,0,0
+MP,SWITCH_33_40      ,X2_ac32_ac25  ,c14,{              },XXXXXXXX   ,0,0
+MP,SWITCH_41_48      ,X2_ac24_ac17  ,c14,{              },XXXXXXXX   ,0,0
+MP,SWITCH_49_56      ,X2_ac16_ac09  ,c14,{              },XXXXXXXX   ,0,0
+MP,SWITCH_57_64      ,X2_ac08_ac01  ,c14,{              },XXXXXXXX   ,0,0
+MP,STROMBEREICH      ,<=450mA       ,c14,{              },-          ,0,0
+MP,STRING0           ,              ,C14,{              },           ,0,0
+MP,File              ,              ,C14,{              },           ,0,0
+MP,Modus_bdm         ,T/V/C/P/DIREKT,C14,{              },TPV        ,0,0
+MP,Modus_lade        ,BE/BT/BP/BV/BD,C14,{              },BEBTBPBV   ,0,0
+MP,PGH_MODE          ,-v0/-v1/-v2/  ,C80,{              },-V0        ,0,0
+MP,DRIVERNR          ,              ,C80,{              },           ,0,0
+MP,SEQUENCE          ,S/P/E/V       ,C80,{              },SPEP       ,0,0
+MP,SESSION           ,SESSION       ,c80,{              },SLOW_SERIAL,0,0
+MP,TYPNAME           ,NAME          ,c80,{              },DATEN1     ,0,0
+MP,DATENTYP          ,DATENTYP      ,c80,{              },CHECKSUM   ,0,0
+MP,DATENATTRIBUT     ,DATENATTRIBUT ,c80,{              },TARGET-START-ADR,0,0
+MP,LAENGE_RUECK      ,LAENGE_RUECK  ,c80,{              },0          ,0,0
+MP,CONTAINERTYP      ,FSW/TSW/WP/WSW,C80,{FSW:
+ FSW1:
+ FSW2:
+ TSW:
+ WP:
+ WSW:
+ DLM:
+ FLEXRAY:
+ RBS:
+ FCF},FSW        ,0,0
+MP,KON_A             ,              ,C14,{              },-          ,0,0
+MP,KON_B             ,              ,c14,{              },-          ,0,0
+MP,KON_KASK          ,              ,c14,{              },-          ,0,0
+MP,SENSE_UB_UNIT     ,              ,c14,{              },-          ,0,0
+MP,SENSING_UB        ,              ,c14,{              },-          ,0,0
+MP,SENSE_UL_UNIT     ,              ,c14,{              },-          ,0,0
+MP,SENSING_UL        ,              ,c14,{              },-          ,0,0
+MP,MESS_UNIT         ,              ,c14,{              },-          ,0,0
+MP,MESS_KANAL        ,              ,C14,{              },-          ,0,0
+MP,TRIG_MODE_A       ,DELHLD/DIR    ,c14,{DIR:DELHLD:DELHLD_S:M},DIR        ,,
+MP,ANSCHALTUNG       ,              ,c14,{              },-          ,0,0
+MP,DEVICE_MODUL      ,BEZEICHNUNG   ,C14,{              },E1420      ,0,0
+MP,DEVICE_FUNK       ,FUNKTION      ,C14,{              },NORM       ,0,0
+MP,EXECUTION         ,              ,C80,{              },-          ,0,0
+MP,INPUTSTRING       ,              ,C80,{              },-          ,0,0
+MP,INPUTFILE         ,              ,c80,{              },-          ,0,0
+MP,IGNORE            ,              ,c80,{              },-          ,0,0
+MP,IGNORE_START      ,us            ,c80,{              },0          ,0,0
+MP,IGNORE_END        ,us            ,c80,{              },0          ,0,0
+MP,LINE_IN_FILE      ,              ,c80,{              },-          ,0,0
+MP,STARTINDEX        ,              ,c80,{              },-          ,0,0
+MP,STOPINDEX         ,              ,c80,{              },-          ,0,0
+MP,FIELDNUMBER       ,              ,c80,{              },-          ,0,0
+MP,SEPARATOR         ,              ,c80,{              },-          ,0,0
+MP,OUTPUTSTRING      ,              ,C80,{              },-          ,0,0
+MP,COLUMNS           ,              ,c80,{              },-          ,0,0
+MP,INPUTKEY          ,              ,c80,{              },-          ,0,0
+MP,KEYFORMAT         ,              ,c80,{              },-          ,0,0
+MP,FIRST_COLUMN      ,              ,c80,{              },-          ,0,0
+MP,LAST_COLUMN       ,              ,c80,{              },-          ,0,0
+MP,COLUMN_A          ,&COLUMN_A     ,c80,{              },           ,0,0
+MP,COLUMN_B          ,&COLUMN_B     ,c80,{              },           ,0,0
+MP,COLUMN_C          ,&COLUMN_C     ,c80,{              },           ,0,0
+MP,COLUMN_D          ,&COLUMN_D     ,c80,{              },           ,0,0
+MP,COLUMN_E          ,&COLUMN_E     ,c80,{              },           ,0,0
+MP,COLUMN_F          ,&COLUMN_F     ,c80,{              },           ,0,0
+MP,COLUMN_G          ,&COLUMN_G     ,c80,{              },           ,0,0
+MP,VALUE_CASE        ,UPPER / LOWER ,c80,{              },           ,0,0
+MP,KON_UNIT          ,KON_U_        ,C14,{              },KON_U_1    ,0,0
+MP,KON_FUNKTION      ,INIT/READ/RESET,c14,{INIT:READ:RESET:GET_INFO:WRITE:-},READ       ,0,0
+MP,KON_MODE          ,CURR/VOLT/CHANNEL,c14,{              },VOLTAGE    ,0,0
+MP,KON_HOLD          ,              ,c14,{              },-          ,0,0
+MP,KON_FOLD          ,              ,c14,{              },-          ,0,0
+MP,KON_OVP           ,              ,c14,{              },-          ,0,0
+MP,KON_TIMEOUT       ,MS            ,c14,{              },1000       ,0,0
+MP,BIT0              ,OFF-ON/KOMM   ,C14,{              },OFF/       ,0,0
+MP,BIT1              ,OFF-ON/KOMM   ,c14,{              },OFF/       ,0,0
+MP,BIT2              ,OFF-ON/KOMM   ,c14,{              },OFF/       ,0,0
+MP,BIT3              ,OFF-ON/KOMM   ,c14,{              },OFF/       ,0,0
+MP,BIT4              ,OFF-ON/KOMM   ,c14,{              },OFF/       ,0,0
+MP,BIT5              ,OFF-ON/KOMM   ,c14,{              },OFF/       ,0,0
+MP,BIT6              ,OFF-ON/KOMM   ,C14,{              },OFF/       ,0,0
+MP,BIT7              ,OFF-ON/KOMM   ,c14,{              },OFF/       ,0,0
+MP,INTERFACE         ,              ,C40,{              },-          ,0,0
+MP,ERRORTEXT         ,              ,c40,{              },-          ,0,0
+MP,CONTROL           ,              ,c40,{              },-          ,0,0
+MP,DATANUMBER        ,              ,c40,{              },-          ,0,0
+MP,SENDDATA1         ,              ,c40,{              },           ,0,0
+MP,SENDDATA2         ,              ,c40,{              },           ,0,0
+MP,SENDDATA3         ,              ,c40,{              },           ,0,0
+MP,SENDDATA4         ,              ,c40,{              },           ,0,0
+MP,RECEIVED_DATA     ,              ,c40,{              },           ,0,0
+MP,PARAMETER1        ,              ,c40,{              },           ,0,0
+MP,PARAMETER2        ,              ,c40,{              },           ,0,0
+MP,SELECTION         ,              ,C40,{              },           ,0,0
+MP,RETURN_DIMENSI    ,              ,c40,{              },           ,0,0
+MP,RETURN_FORM       ,              ,c40,{              },           ,0,0
+MP,RETURN_DATA       ,              ,c40,{              },           ,0,0
+MP,HA_HI_PEGEL       ,-5V/+5V/0-50ma,C14,{              },-          ,0,0
+MP,HA_LO_PEGEL       ,-5V/+5V/0-50ma,c14,{              },-          ,0,0
+MP,VA_HI_PEGEL       ,-5V/+5V/0-50ma,c14,{              },-          ,0,0
+MP,VA_LO_PEGEL       ,-5V/+5V/0-50ma,c14,{              },-          ,0,0
+MP,HA_DIMENSION      ,V/MA          ,c14,{              },V          ,0,0
+MP,VA_DIMENSION      ,V/MA          ,c14,{              },V          ,0,0
+MP,HA_BYPASS         ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,VA_BYPASS         ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,HA_R              ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,HA_C              ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,VA_R              ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,VA_C              ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,RST_M_S           ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,MODE_2_3          ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,MODE_0_1          ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,SIGNAL_GND        ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,SG_GND            ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,C_GND             ,EIN/AUS       ,c14,{              },AUS        ,0,0
+MP,AN_DFHR_PIN       ,a19/a17/a18   ,c14,{              },-          ,0,0
+MP,AN_DFHR_BEZUG     ,c19/c17/c18   ,c14,{              },-          ,0,0
+MP,AN_DFHL_PIN       ,a20/a21/a22   ,c14,{              },-          ,0,0
+MP,AN_DFHL_BEZUG     ,c20/c21/c22   ,c14,{              },-          ,0,0
+MP,AN_DFVR_PIN       ,a27/a28/a29   ,c14,{              },-          ,0,0
+MP,AN_DFVR_BEZUG     ,c27/c28/c29   ,c14,{              },-          ,0,0
+MP,AN_DFVL_PIN       ,a24/a25/a26   ,c14,{              },-          ,0,0
+MP,AN_DFVL_BEZUG     ,c24/c25/c26   ,c14,{              },-          ,0,0
+MP,VERZWEIGUNG       ,IF/WHILE/BREAK,C60,{IF:
+ ELSEIF:
+ ELSE:
+ ENDIF:
+ WHILE:
+ BREAK:
+ ENDWHILE:
+ ENDDO},IF         ,0,0
+MP,BEDINGUNG         ,==/!=/>=/<=/||,C60,{              },           ,0,0
+MP,BEDINGUNG2        ,==/!=/>=/<=/||,C80,{              },           ,0,0
+MP,BEDINGUNG3        ,==/!=/>=/<=/||,c80,{              },           ,0,0
+MP,BEDINGUNG4        ,==/!=/>=/<=/||,c80,{              },           ,0,0
+MP,FILENAME1         ,/<dir>/<name> ,C60,{              },           ,0,0
+MP,FILENAME2         ,KOM_MEWE      ,c60,{              },           ,0,0
+MP,CMP_MODE          ,ADR_TU_TO_MEWE,C14,{              },           ,0,0
+MP,START1            ,0C00(HEX)     ,c14,{              },           ,0,0
+MP,END1              ,20(HEX)       ,c14,{              },           ,0,0
+MP,START2            ,0C00(HEX)     ,c14,{              },           ,0,0
+MP,END2              ,20(HEX)       ,c14,{              },           ,0,0
+MP,PS_LOCK           ,ON/OFF        ,c14,{ON:OFF        },OFF        ,0,0
+MP,PS_MODE           ,IMMEDIATE/LOCK_X,c14,{IMMEDIATE:
+ LOCK_1:
+ LOCK_2:
+ LOCK_3:
+ LOCK_4:
+ LOCK_5},IMMEDIATE  ,0,0
+MP,PFK_MODUS         ,START/STOP    ,c14,{START:STOP:-  },START      ,0,0
+MP,PRODUCT           ,ACC/..        ,c14,{              },ACC        ,0,0
+MP,PFKBYTE_IN1       ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_IN2       ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_IN3       ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_IN4       ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_IN5       ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_IN6       ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_IN7       ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_IN8       ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_IN9       ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_IN10      ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_OUT1      ,00..FF        ,C14,{              },-          ,0,0
+MP,PFKBYTE_OUT2      ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_OUT3      ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_OUT4      ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_OUT5      ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_OUT6      ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_OUT7      ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_OUT8      ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_OUT9      ,00..FF        ,c14,{              },-          ,0,0
+MP,PFKBYTE_OUT10     ,00..FF        ,c14,{              },-          ,0,0
+MP,PRUEFTOR1         ,IC/PF/FO/LT/HT,c14,{IC:PF:FO:LT:HT:FR:REP:IR:-},IC         ,0,0
+MP,PRUEFTOR2         ,IC/PF/FO/LT/HT,c14,{IC:PF:FO:LT:HT:FR:REP:IR:-},PF         ,0,0
+MP,PRUEFTOR3         ,IC/PF/FO/LT/HT,c14,{IC:PF:FO:LT:HT:FR:REP:IR:-},FO         ,0,0
+MP,PRUEFTOR4         ,IC/PF/FO/LT/HT,c14,{IC:PF:FO:LT:HT:FR:REP:IR:-},LT         ,0,0
+MP,PRUEFTOR5         ,IC/PF/FO/LT/HT,c14,{IC:PF:FO:LT:HT:FR:REP:IR:-},HT         ,0,0
+MP,PRUEFTOR6         ,IC/PF/FO/LT/HT,c14,{IC:PF:FO:LT:HT:FR:REP:IR:-},FR         ,0,0
+MP,PRUEFTOR7         ,IC/PF/FO/LT/HT,c14,{IC:PF:FO:LT:HT:FR:REP:IR:-},IR         ,0,0
+MP,PRUEFTOR8         ,IC/PF/FO/LT/HT,c14,{IC:PF:FO:LT:HT:FR:REP:IR:-},-          ,0,0
+MP,PRUEFTYP1         ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP2         ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP3         ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP4         ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP5         ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP6         ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP7         ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP8         ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP9         ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP10        ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP11        ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP12        ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP13        ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP14        ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP15        ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,PRUEFTYP16        ,IC/PF/FO/LT/HT,c14,{              },-          ,0,0
+MP,TEXT_MODE         ,              ,c14,{              },           ,0,0
+MP,TEXT1             ,              ,C60,{              },           ,0,0
+MP,TEXT2             ,              ,C60,{              },           ,0,0
+MP,TEXT3             ,              ,c60,{              },           ,0,0
+MP,TEXT4             ,              ,c60,{              },           ,0,0
+MP,TEXT5             ,              ,c60,{              },           ,0,0
+MP,TEXT6             ,              ,c60,{              },           ,0,0
+MP,TEXT7             ,              ,c60,{              },           ,0,0
+MP,TEXT8             ,              ,c60,{              },           ,0,0
+MP,TEXT9             ,              ,c60,{              },           ,0,0
+MP,TEXT10            ,              ,c60,{              },           ,0,0
+MP,TEXT11            ,              ,c60,{              },           ,0,0
+MP,TEXT12            ,              ,c60,{              },           ,0,0
+MP,TEXT13            ,              ,c60,{              },           ,0,0
+MP,TEXT14            ,              ,c60,{              },           ,0,0
+MP,TEXT15            ,              ,c60,{              },           ,0,0
+MP,TEXT16            ,              ,c60,{              },           ,0,0
+MP,TEXT17            ,              ,c60,{              },           ,0,0
+MP,TEXT18            ,              ,c60,{              },           ,0,0
+MP,TEXT19            ,              ,C60,{              },           ,0,0
+MP,TEXT20            ,              ,c60,{              },           ,0,0
+MP,ARRAY_DIM1        ,              ,C14,{              },           ,0,0
+MP,ARRAY_DIM2        ,              ,c14,{              },           ,0,0
+MP,ARRAY             ,              ,c14,{              },           ,0,0
+MP,ARRAY_TYP         ,              ,C14,{DOUBLE:INT:STRING:BYTE},DOUBLE     ,0,0
+MP,ARRAY_CLEAR       ,TRUE/FALSE    ,c14,{TRUE:FALSE    },TRUE       ,0,0
+MP,ARRAY_IO_MODE     ,R/RI/W        ,c14,{R:RI:W        },W          ,0,0
+MP,ARRAY_IO_TYP      ,ASCII         ,c14,{ASCII         },ASCII      ,0,0
+MP,SUB_DIRECTORY     ,Name_Unterverz,C60,{              },           ,0,0
+MP,HEADER_1          ,Text          ,c60,{              },           ,0,0
+MP,ARRAY_1           ,Variablenname ,c60,{              },           ,0,0
+MP,HEADER_2          ,Text          ,c60,{              },           ,0,0
+MP,ARRAY_2           ,Variablenname ,C60,{              },           ,0,0
+MP,HEADER_3          ,Text          ,c60,{              },           ,0,0
+MP,ARRAY_3           ,Variablenname ,c60,{              },           ,0,0
+MP,HEADER_4          ,Text          ,c60,{              },           ,0,0
+MP,ARRAY_4           ,Variablenname ,c60,{              },           ,0,0
+MP,HEADER_5          ,Text          ,c60,{              },           ,0,0
+MP,ARRAY_5           ,Variablenname ,C60,{              },           ,0,0
+MP,HEADER_6          ,Text          ,c60,{              },           ,0,0
+MP,ARRAY_6           ,Variablenname ,c60,{              },           ,0,0
+MP,HEADER_7          ,Text          ,c60,{              },           ,0,0
+MP,ARRAY_7           ,Variablenname ,c60,{              },           ,0,0
+MP,HEADER_8          ,Text          ,c60,{              },           ,0,0
+MP,ARRAY_8           ,Variablenname ,c60,{              },           ,0,0
+MP,HEADER_9          ,Text          ,c60,{              },           ,0,0
+MP,ARRAY_9           ,Variablenname ,c60,{              },           ,0,0
+MP,ARRAY_MODE        ,R/W           ,C14,{R:W           },R          ,0,0
+MP,ARRAY_INDEX       ,Zahl_von_1-n  ,c14,{              },           ,0,0
+MP,START_TEST_IEE    ,Text          ,C60,{FIRST-RUN:NEIN:RESET},NEIN       ,0,0
+MP,END_TEST_IEEE     ,Text          ,c60,{NEIN:RESET    },NEIN       ,0,0
+MP,START_TIMEOUT     ,Text          ,c60,{              },           ,0,0
+MP,END_SEND          ,Text          ,C60,{CR/LF:LINEFEED:NEIN:EOI},LINEFEED   ,0,0
+MP,END_RECEIVE       ,Text          ,c60,{LINEFEED:NEIN:EOI},NEIN       ,0,0
+MP,DELIMITER         ,Datentrenner  ,C14,{              },           ,0,0
+MP,ESR_TEST          ,Text          ,C60,{NEIN:JA       },NEIN       ,0,0
+MP,OPEN_MODE         ,Text          ,c60,{DEFAULT:ON_START},DEFAULT    ,0,0
+MP,DEVICE_CLEAR      ,Text          ,c60,{YES:NO        },YES        ,0,0
+MP,ENABLE_PROG       ,ALL/BO/VI/    ,C60,{              },           ,0,0
+MP,COMMAND           ,              ,c60,{              },           ,0,0
+MP,COMMAND_CS        ,              ,c80,{              },           ,0,0
+MP,ADRESSCODE        ,SIB/IR        ,c60,{SIB:IR        },SIB        ,0,0
+MP,ADRESSARRAY       ,Text          ,c60,{              },           ,0,0
+MP,SENDSTR           ,Text          ,c60,{              },           ,0,0
+MP,LAUFENDENR        ,Text          ,c60,{              },           ,0,0
+MP,ERGEBNISMODE      ,              ,c60,{OKLISTE:OERFOLG:WERTELISTE:ZUENDLISTE},WERTELISTE ,0,0
+MP,ERGEBNISARRAY     ,Text          ,c60,{              },           ,0,0
+MP,SCRIPTNAME        ,              ,c60,{              },           ,0,0
+MP,METHOD            ,AUDIWFS4      ,C14,{              },AUDIWFS4   ,0,0
+MP,VERSION           ,01            ,c14,{              },01         ,0,0
+MP,PS_STRING1        ,SN 0          ,C64,{              },-          ,0,0
+MP,PS_STRING2        ,PIN           ,c64,{              },-          ,0,0
+MP,PS_STRING3        ,KEY           ,c64,{              },-          ,0,0
+MP,PS_STRING4        ,GROUPNRHW TTNR,C64,{              },-          ,0,0
+MP,PS_STRING5        ,GROUPNRSNR    ,c64,{              },-          ,0,0
+MP,PS_STRING6        ,TTNR          ,C64,{              },-          ,0,0
+MP,PS_STRING7        ,CONT KENNUNG  ,c64,{              },-          ,0,0
+MP,PS_STRING8        ,WFSMARK       ,c64,{              },-          ,0,0
+MP,PS_STRING9        ,              ,c64,{              },-          ,0,0
+MP,PS_STRING10       ,              ,C64,{              },-          ,0,0
+MP,DAUER_PAUSE       ,              ,c14,{              },           ,,
+MP,MESS_HIGH         ,              ,C14,{              },-          ,0,0
+MP,MESS_LOW          ,              ,c14,{              },-          ,0,0
+MP,MESS_SHUNT        ,0R1/1R        ,c14,{              },0R1        ,0,0
+MP,steuerwort        ,              ,c14,{              },--         ,0,0
+MP,messprog          ,              ,c14,{              },--         ,0,0
+MP,dauerplus         ,              ,c14,{              },--         ,0,0
+MP,spannung_max      ,              ,c14,{              },--         ,0,0
+MP,strom             ,              ,c14,{              },--         ,0,0
+MP,strom_max         ,              ,c14,{              },--         ,0,0
+MP,grundlast         ,              ,c14,{              },--         ,0,0
+MP,WIEDERHOLEN       ,ANZAHL        ,c14,{              },0          ,0,0
+MP,LABEL_END         ,PRUEFSCHRITT  ,c14,{              },0          ,0,0
+MP,STOP              ,JA|NEIN|ABRUC ,C14,{JA:Nein:ABRUCH:JAWID:NEABBR:JAABBR},NEIN       ,0,0
+MP,MODUL             ,MODUL-NAME    ,c14,{              },           ,0,0
+MP,BEFEHL01          ,HPIB-BEFEHL   ,c14,{              },           ,0,0
+MP,BEFEHL02          ,HPIB-BEFEHL   ,c14,{              },           ,0,0
+MP,ANTWORTEN         ,ANZAHL-READ   ,c14,{              },           ,0,0
+MP,TIMEOUT           ,MS            ,C14,{              },           ,0,0
+MP,UNIT              ,PRO3          ,c14,{              },PRO3       ,0,0
+MP,BEFEHL03          ,HPIB-BEFEHL   ,c14,{              },           ,0,0
+MP,PROKSS_MODUS      ,RUEST|PROKSS  ,c14,{              },IECMON     ,0,0
+MP,H_TUG1            ,0000...FFFF   ,C14,{              },           ,0,0
+MP,H_TOG1            ,0000...FFFF   ,C14,{              },           ,0,0
+MP,H_TUG2            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,H_TOG2            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,H_TUG3            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,H_TOG3            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,H_TUG4            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,H_TOG4            ,0000...FFFF   ,C14,{              },           ,0,0
+MP,H_TUG5            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,H_TOG5            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,H_TUG6            ,0000...FFFF   ,C14,{              },           ,0,0
+MP,H_TOG6            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,DATUM0            ,Datenstr.     ,C80,{              },           ,0,0
+MP,DATUM1            ,Datenstr.     ,c80,{              },           ,0,0
+MP,DATUM2            ,Datenstr.     ,c80,{              },           ,0,0
+MP,DATUM3            ,Datenstr.     ,c80,{              },           ,0,0
+MP,DATUM4            ,Datenstr.     ,c80,{              },           ,0,0
+MP,DATUM5            ,Datenstr.     ,c80,{              },           ,0,0
+MP,DATUM6            ,Datenstr.     ,c80,{              },           ,0,0
+MP,DATUM7            ,Datenstr.     ,c80,{              },           ,0,0
+MP,DATUM8            ,Datenstr.     ,c80,{              },           ,0,0
+MP,STANDTYP_1_8      ,TT\\EP\\..    ,C80,{              },           ,0,0
+MP,OFFSET_1_8        ,00\\01\\..    ,c80,{              },           ,0,0
+MP,H_TUG7            ,0000...FFFF   ,C14,{              },           ,0,0
+MP,H_TOG7            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,H_TUG8            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,H_TOG8            ,0000...FFFF   ,c14,{              },           ,0,0
+MP,TUG_RET           ,              ,c14,{              },           ,0,0
+MP,TOG_RET           ,              ,c14,{              },           ,0,0
+MP,EINGAENGE         ,0/1           ,c14,{              },0          ,0,0
+MP,ANALOGSCHALTER    ,0000..1111    ,c14,{              },0000       ,0,0
+MP,MASSESCHALTER     ,0/1           ,c14,{              },0          ,0,0
+MP,AUSGAENGE         ,00000000..11. ,c14,{              },00000000   ,0,0
+MP,SONDERFKT         ,0/1 BNC5->6/7 ,c14,{              },0          ,0,0
+MP,RELAIS_1          ,EIN/-         ,c14,{              },           ,0,0
+MP,RELAIS_14         ,EIN/-         ,c14,{              },           ,0,0
+MP,RELAIS_13         ,EIN/-         ,c14,{              },           ,0,0
+MP,RELAIS_3          ,EIN/-         ,c14,{              },           ,0,0
+MP,RELAIS_15         ,EIN/-         ,c14,{              },           ,0,0
+MP,RELAIS_4          ,EIN/-         ,c14,{              },           ,0,0
+MP,RELAIS_5          ,EIN/-         ,c14,{              },           ,0,0
+MP,CALIBRATE         ,              ,C80,{              },           ,0,0
+MP,CHANNEL           ,              ,C80,{              },           ,0,0
+MP,INPUT             ,              ,C80,{              },           ,0,0
+MP,MEASURE           ,              ,c80,{              },           ,0,0
+MP,LIST              ,              ,c80,{              },           ,0,0
+MP,TRANSIENT         ,              ,c80,{              },           ,0,0
+MP,STATUS            ,              ,c80,{              },           ,0,0
+MP,SYSTEM_CMD        ,              ,c80,{              },           ,0,0
+MP,TRIGGER_CMD       ,              ,c80,{              },           ,0,0
+MP,COMMON_CMD        ,              ,c80,{              },           ,0,0
+MP,EL_MODE           ,              ,C80,{              },           ,0,0
+MP,EL_COUNTS         ,              ,c80,{              },           ,0,0
+MP,EL_ERROR          ,              ,c80,{              },           ,0,0
+MP,PATCH_0           ,              ,c80,{              },           ,0,0
+MP,PATCH_1           ,              ,c80,{              },           ,0,0
+MP,PATCH_2           ,              ,c80,{              },           ,0,0
+MP,PATCH_3           ,              ,c80,{              },           ,0,0
+MP,PATCH_4           ,              ,c80,{              },           ,0,0
+MP,PATCH_5           ,              ,c80,{              },           ,0,0
+MP,PATCH_6           ,              ,c80,{              },           ,0,0
+MP,PATCH_7           ,              ,c80,{              },           ,0,0
+MP,PATCH_8           ,              ,c80,{              },           ,0,0
+MP,PATCH_9           ,              ,c80,{              },           ,0,0
+MP,CODE_0            ,              ,c80,{              },           ,0,0
+MP,CODE_1            ,              ,c80,{              },           ,0,0
+MP,CODE_2            ,              ,c80,{              },           ,0,0
+MP,CODE_3            ,              ,c80,{              },           ,0,0
+MP,CODE_4            ,              ,c80,{              },           ,0,0
+MP,CODE_5            ,              ,c80,{              },           ,0,0
+MP,CODE_6            ,              ,c80,{              },           ,0,0
+MP,CODE_7            ,              ,c80,{              },           ,0,0
+MP,CODE_8            ,              ,c80,{              },           ,0,0
+MP,CODE_9            ,              ,c80,{              },           ,0,0
+MP,RETURN_0          ,              ,c80,{              },&NOP       ,0,0
+MP,RETURN_1          ,              ,c80,{              },&NOP       ,0,0
+MP,RETURN_2          ,              ,c80,{              },&NOP       ,0,0
+MP,RETURN_3          ,              ,c80,{              },&NOP       ,0,0
+MP,RETURN_4          ,              ,c80,{              },&NOP       ,0,0
+MP,RETURN_5          ,              ,c80,{              },&NOP       ,0,0
+MP,RETURN_6          ,              ,c80,{              },&NOP       ,0,0
+MP,RETURN_7          ,              ,c80,{              },&NOP       ,0,0
+MP,RETURN_8          ,              ,c80,{              },&NOP       ,0,0
+MP,RETURN_9          ,              ,c80,{              },&NOP       ,0,0
+MP,INTERP_MODE       ,MIN/MAX/MITTE ,c80,{MIN:MAX:MITTEL:STD},MITTEL     ,0,0
+MP,START_ARRAY       ,0             ,c80,{              },0          ,0,0
+MP,STOP_ARRAY        ,4095          ,c80,{              },4095       ,0,0
+MP,START_SLOPE       ,-/POS/NEG     ,c80,{-:POS:NEG     },-          ,0,0
+MP,STOP_SLOPE        ,-/POS/NEG     ,c80,{-:POS:NEG     },-          ,0,0
+MP,START_LEVEL       ,              ,c80,{              },           ,0,0
+MP,STOP_LEVEL        ,              ,c80,{              },           ,0,0
+MP,R_INDEX_START     ,              ,c80,{              },&NOP       ,0,0
+MP,R_INDEX_END       ,              ,c80,{              },&NOP       ,0,0
+MP,CUT_START         ,%             ,c80,{              },0          ,0,0
+MP,CONTEXT           ,Device        ,c80,{              },           ,,
+MP,CUT_END           ,%             ,c80,{              },0          ,0,0
+MP,ACHSE             ,X/Y/H/V       ,c80,{X:Y:H:V       },X          ,0,0
+MP,KOORDINATE        ,              ,c80,{              },           ,0,0
+MP,TR_RUNDUNG        ,              ,c80,{              },           ,0,0
+MP,WINKELSPEED       ,              ,c80,{              },           ,0,0
+MP,TR_MODUS          ,M/S/L/R/C/I   ,c80,{M:S:L:R:C:I   },M          ,0,0
+MP,ZIEL              ,              ,c80,{              },           ,0,0
+MP,ARRAY_START       ,              ,c80,{              },           ,0,0
+MP,ARRAY_END         ,              ,c80,{              },           ,0,0
+MP,ARRAY_TRIG        ,              ,c80,{              },           ,0,0
+MP,HYSTERESE         ,              ,c80,{              },           ,0,0
+MP,OPERATION         ,==/!=/>/</>=  ,c80,{              },           ,0,0
+MP,COUNTS            ,              ,c80,{              },           ,0,0
+MP,PORT_START        ,1-6           ,c80,{1:2:3:4:5:6   },1          ,0,0
+MP,PORT_END          ,1-6           ,c80,{1:2:3:4:5:6   },1          ,0,0
+MP,BIT               ,              ,c80,{              },           ,0,0
+MP,WORD_START        ,              ,c80,{              },           ,0,0
+MP,WORD_END          ,              ,c80,{              },           ,0,0
+MP,TEST_FLAG         ,ONLY_GOOD|ONLY_BAD,C14,{              },ONLY_GOOD  ,0,0
+MP,SELECT            ,SKIP_|ONLY_   ,C14,{              },SKIP_MASTER,0,0
+MP,ANT_MODE          ,              ,C80,{              },           ,0,0
+MP,RTC_ID            ,              ,c80,{              },           ,0,0
+MP,DATA1             ,              ,c80,{              },           ,0,0
+MP,DATA2             ,              ,c80,{              },           ,0,0
+MP,DATA3             ,              ,C80,{              },           ,0,0
+MP,DATA4             ,              ,c80,{              },           ,0,0
+MP,DATA5             ,              ,c80,{              },           ,0,0
+MP,WINKEL            ,              ,c80,{              },           ,0,0
+MP,REAL_BEAM1        ,              ,c80,{              },           ,0,0
+MP,IMAG_BEAM1        ,              ,c80,{              },           ,0,0
+MP,REAL_BEAM2        ,              ,c80,{              },           ,0,0
+MP,IMAG_BEAM2        ,              ,c80,{              },           ,0,0
+MP,REAL_BEAM3        ,              ,c80,{              },           ,0,0
+MP,IMAG_BEAM3        ,              ,c80,{              },           ,0,0
+MP,REAL_BEAM4        ,              ,c80,{              },           ,0,0
+MP,IMAG_BEAM4        ,              ,c80,{              },           ,0,0
+MP,DATENWORT1        ,              ,C14,{              },0          ,0,0
+MP,DATENWORT2        ,              ,c14,{              },0          ,0,0
+MP,DATENWORT3        ,              ,c14,{              },0          ,0,0
+MP,DATENWORT4        ,              ,c14,{              },0          ,0,0
+MP,DATENWORT5        ,              ,c14,{              },XXX        ,0,0
+MP,DATENWORT6        ,              ,c14,{              },XXX        ,0,0
+MP,KARTE             ,KARTE:1|2     ,c14,{1:2           },1          ,0,0
+MP,SWITCH1           ,SW:00-07      ,c14,{              },00000000   ,0,0
+MP,SWITCH2           ,SW:08-15      ,c14,{              },00000000   ,0,0
+MP,SWITCH3           ,SW:16-23      ,c14,{              },00000000   ,0,0
+MP,SWITCH4           ,SW:24-31      ,c14,{              },00000000   ,0,0
+MP,SWITCH5           ,SW:32-39      ,c14,{              },00000000   ,0,0
+MP,SWITCH6           ,SW:40-47      ,c14,{              },00000000   ,0,0
+MP,SWITCH7           ,SW:48-55      ,c14,{              },00000000   ,0,0
+MP,SWITCH8           ,SW:56-63      ,c14,{              },00000000   ,0,0
+MP,R_WERT_1          ,KOHM          ,c14,{              },0          ,0,0
+MP,R_WERT_2          ,KOHM          ,c14,{              },0          ,0,0
+MP,DA_MODUS          ,V|I           ,c14,{V:I           },V          ,0,0
+MP,DA_OUTPUT         ,..VOLT|AMPERE ,c14,{              },0          ,0,0
+MP,DA_REGISTER       ,HEX           ,c14,{              },0          ,0,0
+MP,DA_OFFSET         ,              ,c14,{              },11         ,0,0
+MP,DA_GAIN           ,              ,c14,{              },3000       ,0,0
+MP,VI_MODE           ,I|V|AMP|ATT|P ,c14,{I:V:AMP:ATT:P },I          ,0,0
+MP,VI_CUR_SOLL       ,0...200MA     ,c14,{              },0.0        ,0,0
+MP,VI_CUR_RANGE      ,0...200MA     ,c14,{              },1.0        ,0,0
+MP,VI_VOLT_SOLL      ,VOLT          ,c14,{              },0.0        ,0,0
+MP,VI_VOLT_RANGE     ,VOLT          ,c14,{              },19.0       ,0,0
+MP,VI_COMP_VOLT      ,VOLT          ,c14,{              },0.0        ,0,0
+MP,VI_COMP_DIR       ,1=UP|0=DOWN   ,c14,{              },0.0        ,0,0
+MP,VI_AMPLI_GAIN     ,VERSTAERKUNG  ,c14,{              },0.0        ,0,0
+MP,VI_TIM_PERIOD     ,USEC          ,c14,{              },1000       ,0,0
+MP,VI_IGN_ILOCK      ,0=NO|1=IGN    ,c14,{              },0          ,0,0
+MP,VI_DVM_HI_OUT     ,00000-BUS R01 ,c14,{              },00000      ,0,0
+MP,VI_DVM_LO_OUT     ,00000-BUS R02 ,c14,{              },00000      ,0,0
+MP,VI_INST_03        ,00000-BUS R03 ,c14,{              },00000      ,0,0
+MP,VI_INST_04        ,00000-BUS R04 ,c14,{              },00000      ,0,0
+MP,VI_AMPL_HI_IN     ,00000-BUS R05 ,c14,{              },00000      ,0,0
+MP,VI_AMPL_LO_IN     ,00000-BUS R06 ,c14,{              },00000      ,0,0
+MP,VI_ATTN_HI_IN     ,00000-BUS R07 ,c14,{              },00000      ,0,0
+MP,VI_ATTN_LO_IN     ,00000-BUS R08 ,c14,{              },00000      ,0,0
+MP,VI_INST_09        ,00000-BUS R09 ,c14,{              },00000      ,0,0
+MP,VI_INST_10        ,00000-BUS R10 ,c14,{              },00000      ,0,0
+MP,VI_INST_11        ,00000-BUS R11 ,c14,{              },00000      ,0,0
+MP,VI_INST_12        ,00000-BUS R12 ,c14,{              },00000      ,0,0
+MP,VI_INST_13        ,00000-BUS R13 ,c14,{              },00000      ,0,0
+MP,VI_INST_14        ,00000-BUS R14 ,c14,{              },00000      ,0,0
+MP,VI_INST_15        ,00000-BUS R15 ,c14,{              },00000      ,0,0
+MP,VI_INST_16        ,00000-BUS R16 ,c14,{              },00000      ,0,0
+MP,VI_SRC_HI_OUT     ,00000-BUS R17 ,c14,{              },00000      ,0,0
+MP,VI_SRC_LO_OUT     ,00000-BUS R18 ,c14,{              },00000      ,0,0
+MP,VI_COMP_IN        ,X0000-BUS R19 ,c14,{              },X0000      ,0,0
+MP,VI_TRIGER_OUT     ,X0000-BUS R20 ,c14,{              },X0000      ,0,0
+MP,POWER_ADRESSE     ,HPIB-ADDRESS  ,c14,{              },5          ,0,0
+MP,KANNAL            ,KANNAL-NR.    ,c14,{              },1          ,0,0
+MP,OUTPUT            ,ON|OFF        ,c14,{ON:OFF        },ON         ,0,0
+MP,PINMX_UNIT        ,PINMX1|PINMX2 ,c14,{PINMX1:PINMX2 },PINMX1     ,0,0
+MP,PROT_PINMX        ,0=DI|1=EN|2=P ,c14,{              },01111      ,0,0
+MP,ROW_PINMX1        ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX2        ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX3        ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX4        ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX5        ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX6        ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX7        ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX8        ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX9        ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX10       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX11       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX12       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX13       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX14       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX15       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX16       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX17       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX18       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX19       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX20       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX21       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX22       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX23       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX24       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX25       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX26       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX27       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX28       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX29       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX30       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX31       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,ROW_PINMX32       ,A|C1|C2|C3|C4 ,c14,{              },00000      ,0,0
+MP,AD_FUNKTION       ,LIST_LISTS    ,c14,{              },LIST0      ,0,0
+MP,N_MESSWERT        ,              ,c14,{              },           ,0,0
+MP,RESOLUTION        ,HI=32|LOW=16  ,c14,{              },HIGH       ,0,0
+MP,TRIG_MODE_D       ,DELHLD/DIR    ,c14,{DIR:DELHLD:DELHLD_S:M},DIR        ,,
+MP,TRIG_GATE_A       ,              ,c14,{              },           ,,
+MP,TRIG_IN_TTL_4     ,              ,c14,{              },           ,,
+MP,TRIG_IN_TTL_3     ,              ,c14,{              },           ,,
+MP,TRIG_GATE_D       ,              ,c14,{              },           ,,
+MP,TRIG_GATE_C       ,              ,c14,{              },           ,,
+MP,TRIG_GATE_B       ,              ,C14,{              },           ,,
+MP,TRIG_IN_TTL_2     ,              ,c14,{              },           ,,
+MP,TRIG_IN_TTL_1     ,              ,c14,{              },           ,,
+MP,TRIG_MODUS        ,INTERN|SOFT   ,c14,{              },INTERN     ,0,0
+MP,TRIG_PERIOD       ,DELAY_IN_US   ,c14,{              },1000000    ,0,0
+MP,TRIG_MODE_C       ,DELHLD/DIR    ,C14,{DIR:DELHLD:DELHLD_S:M},DIR        ,,
+MP,TRIG_MODE_B       ,DELHLD/DIR    ,c14,{DIR:DELHLD:DELHLD_S:M},DIR        ,,
+MP,TRIG_COUNT        ,ANZAHL_TRIG   ,c14,{              },1          ,0,0
+MP,LIST_LISTS        ,0..3|0..3|..  ,c14,{              },0          ,0,0
+MP,LIST_PERIOD       ,ZEIT_IN_US    ,c14,{              },1000.0     ,0,0
+MP,SCAN_PERIOD       ,ZEIT_IN_US    ,c14,{              },1000.0     ,0,0
+MP,SCAN_1_LIST       ,KANAL|0..63   ,c14,{              },           ,0,0
+MP,SCAN_1_TOL        ,TUG|TOG       ,c14,{              },           ,0,0
+MP,SCAN_1_DIM        ,EINHEIT       ,c14,{              },           ,0,0
+MP,SCAN_2_LIST       ,KANAL|0..63   ,c14,{              },           ,0,0
+MP,SCAN_2_TOL        ,TUG|TOG       ,c14,{              },           ,0,0
+MP,SCAN_2_DIM        ,EINHEIT       ,c14,{              },           ,0,0
+MP,SCAN_3_LIST       ,KANAL|0..63   ,c14,{              },           ,0,0
+MP,SCAN_3_TOL        ,TUG|TOG       ,c14,{              },           ,0,0
+MP,SCAN_3_DIM        ,EINHEIT       ,c14,{              },           ,0,0
+MP,SCAN_4_LIST       ,KANAL|0..63   ,c14,{              },           ,0,0
+MP,SCAN_4_TOL        ,TUG|TOG       ,c14,{              },           ,0,0
+MP,SCAN_4_DIM        ,EINHEIT       ,c14,{              },           ,0,0
+MP,GEN_MODULE        ,MODU-NAME     ,C80,{              },GENERATE   ,0,0
+MP,GEN_COMMAND       ,COMMAND       ,c80,{              },0          ,0,0
+MP,GEN_PARAM1        ,PARAMETER     ,c80,{              },           ,0,0
+MP,GEN_PARAM2        ,PARAMETER     ,c80,{              },           ,0,0
+MP,GEN_PARAM3        ,PARAMETER     ,c80,{              },           ,0,0
+MP,GEN_PARAM4        ,PARAMETER     ,c80,{              },           ,0,0
+MP,KARTEN_MODUS      ,OUT           ,C14,{OUT           },OUT        ,0,0
+MP,KARTEN_NR         ,Z.B.6304      ,c14,{              },6304       ,0,0
+MP,KARTEN_OADR       ,0..15         ,c14,{              },0          ,0,0
+MP,KARTEN_UADR       ,0..15         ,c14,{              },0          ,0,0
+MP,KARTEN_OFFS       ,0..3          ,c14,{0:1:2:3       },0          ,0,0
+MP,KARTEN_WORDS      ,1..4          ,c14,{1:2:3:4       },4          ,0,0
+MP,DATENWORD1        ,HEX-WERT      ,c14,{              },0          ,0,0
+MP,DATENWORD2        ,HEX-WERT      ,c14,{              },0          ,0,0
+MP,DATENWORD3        ,HEX-WERT      ,c14,{              },0          ,0,0
+MP,DATENWORD4        ,HEX-WERT      ,c14,{              },0          ,0,0
+MP,LOOKUP_MODUS      ,ECUID.ISNR    ,C80,{              },-          ,0,0
+MP,RESULT_NUMMER1    ,              ,c80,{              },-          ,0,0
+MP,RESULT_NUMMER2    ,              ,c80,{              },-          ,0,0
+MP,ADATUM_MODUS      ,YEAR_JDAY_TO_DATE,c80,{              },-          ,0,0
+MP,PLATFORM          ,Platform      ,C14,{AB9:AB10      },AB9        ,0,0
+MP,TARGET_FLTNO      ,Target Fltno  ,c14,{              },           ,0,0
+MP,SEARCH_OPTION     ,Search Option ,C14,{ALWAYS:POSSIBLE},ALWAYS     ,0,0
+MP,FLT_VALIDAT       ,Flt Validat   ,C80,{              },           ,0,0
+MP,RESULT_NO         ,Resultnumber  ,c14,{              },           ,0,0
+MP,RESULT_STATE      ,Resultstate   ,C14,{              },           ,0,0
+MP,RESULT_ADDR       ,Resultaddr    ,c14,{              },           ,0,0
+MP,STATE_STRING      ,StateFlagsStr ,c14,{              },           ,0,0
+MP,ERR_COUNT         ,Number OF err ,c14,{              },-          ,0,0
+MP,OUTPUTFLAG        ,result flag   ,c14,{ERRNO:STATE   },ERRNO      ,0,0
+MP,TARGET_ERRNO      ,target errno  ,c14,{              },-          ,0,0
+MP,IO_FUNK           ,TX|RX|INIT    ,C80,{TX:RX:INIT:TX_RX},INIT       ,0,0
+MP,IO_PORT           ,B             ,c80,{              },B          ,0,0
+MP,OUT_STR           ,B9600|Daten   ,c80,{              },B9600      ,0,0
+MP,INP_STR           ,RETURN-STRING ,c80,{              },&V24_INP   ,0,0
+MP,IO_STAT           ,RETURN-STAT   ,c80,{              },&V24_STAT  ,0,0
+MP,SYM_NAME          ,SYMFILE.SYM   ,C14,{              },           ,0,0
+MP,DOPPLER           ,              ,c14,{              },           ,0,0
+MP,SUB               ,SUBTRAHEND    ,c14,{              },0          ,0,0
+MP,DIV               ,DIVISOR       ,c14,{              },0          ,0,0
+MP,MULT              ,MULTIPLIKATOR ,c14,{              },0          ,0,0
+MP,LAN_DEVICE        ,UNITNAME      ,C40,{              },-          ,0,0
+MP,COMMAND1          ,BEFEHL1       ,c40,{              },-          ,0,0
+MP,COMMAND2          ,BEFEHL2       ,c40,{              },-          ,0,0
+MP,COMMAND3          ,BEFEHL3       ,c40,{              },-          ,0,0
+MP,COMMAND4          ,BEFEHL4       ,c40,{              },-          ,0,0
+MP,COMMAND5          ,BEFEHL5       ,c40,{              },-          ,0,0
+MP,COMMAND6          ,BEFEHL6       ,c40,{              },-          ,0,0
+MP,COMMAND7          ,BEFEHL7       ,C40,{              },-          ,0,0
+MP,COMMAND8          ,BEFEHL8       ,c40,{              },-          ,0,0
+MP,COMMAND9          ,BEFEHL9       ,c40,{              },-          ,0,0
+MP,COMMAND10         ,BEFEHL10      ,c40,{              },-          ,0,0
+MP,UL_MODE           ,SEND/READ     ,c40,{              },-          ,0,0
+MP,UL_COUNTS         ,ANZAHL        ,c40,{              },-          ,0,0
+MP,UL_TIMEOUT        ,TIMEOUT       ,c40,{              },-          ,0,0
+MP,UL_RETURN         ,ERGEBNIS      ,c40,{              },-          ,0,0
+MP,UL_ERROR          ,FEHLER        ,C40,{              },-          ,0,0
+MP,BOMFUNCTION       ,CONTAINER     ,C80,{CONTAINER     },CONTAINER  ,0,0
+MP,BOMSUBFUNCTION    ,SET|GET       ,c80,{SET:GET       },SET        ,0,0
+MP,VAR1              ,SEE-FUNCTION  ,C80,{              },-          ,0,0
+MP,VAR2              ,SEE-FUNCTION  ,c80,{              },-          ,0,0
+MP,VAR3              ,SEE-FUNCTION  ,c80,{              },-          ,0,0
+MP,VAR4              ,SEE-FUNCTION  ,c80,{              },-          ,0,0
+MP,VAR5              ,SEE-FUNCTION  ,c80,{              },-          ,0,0
+MP,VAR6              ,SEE-FUNCTION  ,c80,{              },-          ,0,0
+MP,VAR7              ,SEE-FUNCTION  ,C80,{              },-          ,0,0
+MP,TEMPERATURE       ,Temperatur    ,C14,{              },23         ,0,0
+MP,INTENSITY         ,Licht         ,c14,{              },0.0        ,0,0
+MP,SM_ADDRESS        ,Shared Memory ,c14,{              },1          ,0,0
+MP,X_POS             ,X Position    ,c14,{              },0          ,0,0
+MP,Y_POS             ,Y Position    ,c14,{              },0          ,0,0
+MP,WIDTH             ,Breite        ,c14,{              },64         ,0,0
+MP,HEIGHT            ,Hoehe         ,c14,{              },64         ,0,0
+MP,FU_ISMC_COM       ,Fuktion       ,c14,{CALC_POWR_LIST:
+ CALC_TEMP_LIST:
+ CALCBLEMISH:
+ CALCCOLUMNGAIN:
+ TEST_CURVE:
+ TEST_FLASH},CALC_POWR_LIST,0,0
+MP,TEMPSKAL          ,TempSkalieren ,c14,{              },-          ,0,0
+MP,RESULT1           ,Ergebnis1     ,c14,{              },-          ,0,0
+MP,RESULT2           ,Ergebnis2     ,c14,{              },-          ,0,0
+MP,RESULT3           ,Ergebnis3     ,c14,{              },-          ,0,0
+MP,RESULT4           ,Ergebnis4     ,c14,{              },-          ,0,0
+MP,RESULT5           ,Ergebnis5     ,c14,{              },-          ,0,0
+MP,RESULT6           ,Ergebnis6     ,c14,{              },-          ,0,0
+MP,RESULT7           ,Ergebnis7     ,c14,{              },-          ,0,0
+MP,DYNAMICTHRES      ,Schwellwert   ,c14,{              },4095       ,0,0
+MP,SNR1              ,SNR           ,C14,{              },1          ,0,0
+MP,SNR2              ,SNR           ,c14,{              },1          ,0,0
+MP,VIGNET_BASIC      ,Basicflaeche  ,c14,{              },3          ,0,0
+MP,VIGNET_POWER      ,Intensitaet   ,c14,{              },4          ,0,0
+MP,DARKSENSOR1       ,Dunkelempfindl.,c14,{              },1          ,0,0
+MP,DARKSENSOR2       ,Dunkelempfindl.,c14,{              },2          ,0,0
+MP,DYNAMICPOWER      ,Intensitaet   ,c14,{              },4          ,0,0
+MP,POS_DEVTHRES      ,Pos. Schwell. ,c14,{              },60         ,0,0
+MP,NEG_DEVTHRES      ,Neg. Schwell. ,c14,{              },60         ,0,0
+MP,POS_SLOPETHRES    ,Pos. Schwell. ,c14,{              },60         ,0,0
+MP,NEG_SLOPETHRES    ,NEG. Schwell. ,c14,{              },60         ,0,0
+MP,FPN_CORRECTION    ,FPN Korrektur ,c14,{              },1          ,0,0
+MP,DPTHRES           ,Auswertung    ,c14,{              },60         ,0,0
+MP,OUTPUTTHRES       ,Auswertung    ,C14,{              },60         ,0,0
+MP,FU_ISMC_STATE     ,Function      ,c14,{START:END     },START      ,0,0
+MP,SSHT_NR           ,1/2           ,c14,{1:2           },1          ,0,0
+MP,FU_SSHT_COM       ,Funktion      ,c14,{MOVIE:
+ NVMOVIE:
+ NVROTATED:
+ STOPMOVIE:
+ GRAB:
+ GRABCRUNCH:
+ GETCAMREG:
+ SETCAMREG:
+ SETCAMIDENT:
+ GETCAMIDEMT:
+ GETCAMTEMP:
+ CLEARFLASH:
+ WRITEFLASH:
+ WRITE512FLASH:
+ READFLASH:
+ WRITEEEPROM:
+ READEEPROM:
+ PROTECTEEPROM:
+ CRCEEPROM:
+ CHECKCRCEEPROM},MOVIE      ,0,0
+MP,SSHT_ADR          ,Hex_Adresse   ,c14,{              },1          ,0,0
+MP,SSHT_VALUE        ,Werte         ,c14,{              },1          ,0,0
+MP,SSHT_LENTH        ,Laenge        ,c14,{              },1          ,0,0
+MP,SSHT_EINHEIT      ,Einheit       ,c14,{HEX:INT       },HEX        ,0,0
+MP,FU_SSHT_INIT      ,Funktion      ,c14,{INIT:CLOSE    },INIT       ,0,0
+MP,SSHT_DEVICE       ,K- Z-Box      ,c14,{BETTER:DAVID  },BETTER     ,0,0
+MP,BITTIEFE          ,Pixelgroesse  ,c14,{8:10:12       },10         ,0,0
+MP,BILDGROESSE       ,Bildgroesse   ,c14,{640x480:642x482},642x482    ,0,0
+MP,BILDPOSITION      ,Bildposition  ,c14,{              },1          ,0,0
+MP,FU_ULBC_COM       ,Fuktion       ,c14,{GET_SD:GET_FT:WAIT},GET_SD     ,0,0
+MP,GL_VERSION        ,GH Bef. Ver.  ,c14,{              },1.0        ,0,0
+MP,FARBTEMPERATUR    ,[K]           ,c14,{              },0          ,0,0
+MP,T_FARBTEMPERAT    ,Toleranz [%]  ,c14,{              },0          ,0,0
+MP,T_STRAHLDICHTE    ,Toleranz [%]  ,c14,{              },0          ,0,0
+MP,GL_WAIT           ,Warte auf Antw,c14,{WAIT:NOWAIT   },WAIT       ,0,0
+MP,FU_ULBC_CRT       ,Funktion      ,c14,{SP:SDC:SH:FTT:FTS:SDT},SP         ,0,0
+MP,ULBC_VALUE        ,Wert          ,c14,{              },0          ,0,0
+MP,STATE             ,ULBC Zustand  ,c14,{              },0          ,0,0
+MP,DISK_IO_MODE      ,R/W/D         ,c14,{READ:WRITE:DELETE},WRITE      ,0,0
+MP,FILEFORMAT        ,Diskformat    ,c14,{HEADER_RAW:RAW},HEADER_RAW ,0,0
+MP,IO_HEADER         ,Header info   ,c14,{              },           ,0,0
+MP,ARRAY_BUF         ,Buffer        ,c14,{              },           ,0,0
+MP,ARRAY_LEN         ,Bufferlaenge  ,c14,{              },           ,0,0
+MP,IO_MODE           ,R/W           ,c14,{R:W           },R          ,0,0
+MP,VARNAME           ,              ,c14,{              },           ,0,0
+MP,WAFERMAPMODE      ,TI            ,C80,{TI            },TI         ,0,0
+MP,DMM3487_FUNK      ,DCV           ,C14,{DCV           },DCV        ,0,0
+MP,DMM3487_RANGE     ,              ,c14,{              },100        ,0,0
+MP,MODEL_FILENAME    ,Model Datei   ,c14,{              },           ,0,0
+MP,PS_FLAG           ,Transfor. PS  ,c14,{1:0           },1          ,0,0
+MP,PSV_FILENAME      ,Transf. Datei ,c14,{              },           ,0,0
+MP,IOR_ESTIM_FLAG    ,Koor. Bewert. ,c14,{1:0           },1          ,0,0
+MP,IP_FILENAME       ,Master Datei  ,c14,{              },           ,0,0
+MP,RES_SKEWANGLE     ,Wankwinkel    ,c14,{              },           ,0,0
+MP,RES_ROLLANGLE     ,Nickwinkel    ,c14,{              },           ,0,0
+MP,RES_GIERANGLE     ,Gierwinkel    ,c14,{              },           ,0,0
+MP,RES_DISTANTION    ,Verzeichnung  ,c14,{              },           ,0,0
+MP,RES_RESOLUTION    ,Aufloesung    ,c14,{              },           ,0,0
+MP,STTDEV_SKEWANG    ,Stdabw WankW  ,c14,{              },           ,0,0
+MP,STTDEV_ROLLANG    ,Stdabw NickW  ,c14,{              },           ,0,0
+MP,STDDEV_GUERANG    ,Stdabw GierW  ,c14,{              },           ,0,0
+MP,P_START           ,Programmstart ,c14,{SGTEST:RUESTLAUF},SGTEST     ,0,0
+MP,SUBDIR            ,Subdirectory  ,c14,{              },           ,0,0
+MP,PROGRAMMNAME      ,PName Script  ,c14,{              },           ,0,0
+MP,P_WARTE           ,Sekunden      ,c14,{              },5          ,0,0
+MP,ABORT_SIGNAL      ,Abbruch       ,c14,{NONE:
+ SIGTERM:
+ SIGHUP:
+ SIGUSR1:
+ SIGUSR2:
+ SIGKILL},NONE       ,0,0
+MP,TERMINAL          ,Shell XWindow ,c14,{SHELL:XTERM   },SHELL      ,0,0
+MP,MODE_INPUTSTRI    ,              ,c14,{INIT:CONCAT:RUESTEN:RUN:DEBUG:TEST},INIT       ,0,0
+MP,MESSMODUL         ,              ,C80,{              },           ,0,0
+MP,OUTPUTFILE        ,              ,C80,{__FILENAME__  },           ,0,0
+MP,MODE_PATCH        ,              ,C14,{VALUE:DIM:NPLC:SCANNER:LOOKUP},VALUE      ,0,0
+MP,GEN1_TASTVERH     ,              ,c14,{              },50         ,0,0
+MP,GEN2_TASTVERH     ,              ,c14,{              },50         ,0,0
+MP,GEN3_TASTVERH     ,              ,c14,{              },50         ,0,0
+MP,GEN4_TASTVERH     ,              ,c14,{              },50         ,0,0
+MP,TTL_TREIBER       ,ON OFF        ,c14,{              },OFF        ,0,0
+MP,ANZ_DATA          ,              ,c14,{              },1          ,,
+MP,SELBSTTEST        ,ON OFF        ,C14,{              },OFF        ,0,0
+MP,START_DATA        ,              ,C14,{              },1          ,,
+MP,MESSBETRIEB       ,ON OFF        ,C14,{              },OFF        ,0,0
+MP,LIN_BEFEHL        ,              ,C40,{INIT_VER_LI:
+ FRAME_DIRECT:
+ CLEAR_SCHE:
+ ADD_SCHE_LI:
+ INSERT_SCHE_LI:
+ DELETE_SCHE_LI:
+ START_SCHE:
+ STOP_SCHE:
+ WAKE_UP},INIT_VER_LI,0,0
+MP,FRAME_ID          ,0..63         ,C14,{              },0          ,0,0
+MP,FRAME_MODE        ,Frameverar.   ,c14,{RESPOND:RECEIVE:IGNORE:CONCAT},IGNORE     ,0,0
+MP,LIN_DATEN         ,max 8 Byte    ,C80,{              },           ,0,0
+MP,SCHED_INDEX       ,1..255        ,C14,{              },1          ,0,0
+MP,SCHED_DELAY       ,0..255ms      ,c14,{              },0          ,0,0
+MP,NR_EXEC           ,0..65535      ,c14,{              },1          ,0,0
+MP,BIT_MODE          ,              ,c14,{STANDARD      },STANDARD   ,0,0
+MP,HEX_STRING        ,              ,C80,{              },0          ,0,0
+MP,BIT_START         ,0..n          ,C14,{              },0          ,0,0
+MP,BIT_ANZ           ,1..32         ,c14,{              },0          ,0,0
+MP,BIT_REPEAT        ,0..n          ,c14,{              },0          ,0,0
+MP,SAMPLE_RATE       ,us            ,C80,{              },0          ,0,0
+MP,MIN_IMP1          ,              ,c80,{              },0          ,0,0
+MP,MAX_IMP1          ,              ,c80,{              },0          ,0,0
+MP,MIN_IMP2          ,              ,c80,{              },0          ,0,0
+MP,MAX_IMP2          ,              ,c80,{              },0          ,0,0
+MP,PULSE_WIDTH       ,us            ,c80,{              },0          ,0,0
+MP,CUR_0_MIN         ,              ,c80,{              },0          ,0,0
+MP,CUR_0_MAX         ,              ,c80,{              },0          ,0,0
+MP,CUR_1_MIN         ,              ,c80,{              },0          ,0,0
+MP,CUR_1_MAX         ,              ,c80,{              },0          ,0,0
+MP,LEVEL             ,              ,c80,{              },0          ,0,0
+MP,DELTA_T           ,us            ,C80,{              },0          ,0,0
+MP,MEASURE_T         ,us            ,c80,{              },0          ,0,0
+MP,BITMASK           ,1X00X1..      ,c80,{              },0          ,0,0
+MP,DHP_TESTER        ,              ,C40,{              },           ,0,0
+MP,DHP_AKTION        ,              ,c40,{              },           ,0,0
+MP,DHP_TIMEOUT       ,MS            ,c40,{              },           ,0,0
+MP,NOISE_TYPE        ,              ,c40,{              },           ,0,0
+MP,NOISE_CONTROL     ,              ,C40,{READ:WRITE    },WRITE      ,0,0
+MP,ARRAY_10          ,Variablenname ,C60,{              },           ,0,0
+MP,ARRAY_11          ,Variablenname ,c60,{              },           ,0,0
+MP,ARRAY_12          ,Variablenname ,c60,{              },           ,0,0
+MP,ARRAY_13          ,Variablenname ,c60,{              },           ,0,0
+MP,ARRAY_14          ,Variablenname ,c60,{              },           ,0,0
+MP,ARRAY_15          ,Variablenname ,c60,{              },           ,0,0
+MP,ARRAY_16          ,Variablenname ,c60,{              },           ,0,0
+MP,ARRAY_17          ,Variablenname ,c60,{              },           ,0,0
+MP,ARRAY_18          ,Variablenname ,c60,{              },           ,0,0
+MP,ARRAY_19          ,Variablenname ,C60,{              },           ,0,0
+MP,ARRAY_20          ,Variablenname ,c60,{              },           ,0,0
+MP,FFT_1             ,Variablenname ,C20,{              },           ,0,0
+MP,FFT_2             ,Variablenname ,c20,{              },           ,0,0
+MP,FFT_3             ,Variablenname ,c20,{              },           ,0,0
+MP,FFT_4             ,Variablenname ,C20,{              },           ,0,0
+MP,FFT_5             ,Variablenname ,c20,{              },           ,0,0
+MP,FFT_6             ,Variablenname ,c20,{              },           ,0,0
+MP,FFT_7             ,Variablenname ,c20,{              },           ,0,0
+MP,FFT_8             ,Variablenname ,c20,{              },           ,0,0
+MP,FFT_9             ,Variablenname ,c20,{              },           ,0,0
+MP,FFT_10            ,Variablenname ,c20,{              },           ,0,0
+MP,SAMPLE_COUNT      ,              ,C20,{              },           ,0,0
+MP,VOLTAGE_RANGE     ,Volt          ,c20,{              },           ,0,0
+MP,ANTIALIAS_FIL     ,kHz           ,c20,{OFF:50:100:500},OFF        ,0,0
+MP,TRANS_MODE        ,NORM/INIT/READ,c20,{NORM:INIT:READ},NORM       ,0,0
+MP,STREAM_MODE       ,NORM/INIT/START,c20,{NORM:INIT:START},NORM       ,0,0
+MP,STREAM_TRG_SOU    ,IMMEDIATE/EXT ,C14,{IMMEDIATE:EXT },IMMEDIATE  ,0,0
+MP,STREAM_TRG_SLO    ,POS/NEG       ,c60,{POS:NEG       },NEG        ,0,0
+MP,CLOCK_RATE        ,us            ,c20,{              },100        ,0,0
+MP,TRANS_TRG_SOUR    ,IMMEDIATE/EXT ,C14,{IMMEDIATE:
+ MASTER_AI:
+ AI1:
+ AI2:
+ AI3:
+ AI4:
+ AI5:
+ AI6:
+ AI7:
+ AI8:
+ EXT_ANALOG:
+ EXT_DIGITAL},IMMEDIATE  ,0,0
+MP,TRANS_TRG_MAST    ,              ,C80,{              },0          ,0,0
+MP,TRANS_TRG_LEVE    ,              ,c80,{              },0          ,0,0
+MP,TRANS_TRG_SLOP    ,POS/NEG       ,C14,{POS:NEG       },POS        ,0,0
+MP,AB9_FUNCTION      ,PEGEL1/DAUER/..,C40,{PEGEL:PEGEL1:DAUER1:INTEGRAL:DAUER},DAUER      ,0,0
+MP,AB9_EINHEIT       ,MS/US/UA/UAS  ,C5 ,{MS:US:A:UAS   },MS         ,0,0
+MP,AB9_START         ,              ,C80,{              },0          ,0,0
+MP,AB9_STOP          ,              ,c80,{              },0          ,0,0
+MP,AB9_SHUNT         ,              ,c80,{              },0          ,0,0
+MP,AB9_SLOPE         ,POS/NEG       ,c14,{POS:NEG       },POS        ,0,0
+MP,FONT              ,              ,C80,{CODE39        },CODE39     ,0,0
+MP,CHECK_MODE        ,              ,c80,{MOD43         },MOD43      ,0,0
+MP,FILESIZE          ,0..100000     ,C14,{              },1000       ,0,0
+MP,TR_INTERFACE      ,K/CAN         ,c14,{K:CAN         },K          ,0,0
+MP,TRACE_MODE        ,T_ON/READ/..  ,c14,{T_ON:T_OFF:READ},T_ON       ,0,0
+MP,CAN_ID            ,READ_ID       ,c14,{              },           ,0,0
+MP,CAN_IDLEN         ,11/29         ,c14,{              },11         ,0,0
+MP,MAXTIME           ,0..64000ms    ,c14,{              },0          ,0,0
+MP,TR_ADD            ,YES/NO/       ,c14,{YES:NO        },NO         ,0,0
+MP,E_OUT           ,YES/NO/       ,c14,{YES:NO        },YES        ,0,0
+MP,M_DMM           ,YES/NO/       ,c14,{YES:NO        },YES        ,0,0
+MP,INPUT_VARIABLE    ,              ,C14,{              },           ,0,0
+MP,START_ANALYSE     ,              ,c14,{              },           ,0,0
+MP,STOP_ANALYSE      ,              ,c14,{              },           ,0,0
+MP,TRIGGER_WERT      ,              ,c14,{              },           ,0,0
+MP,PDR_SIGNAL        ,YES/NO        ,C14,{YES:NO        },NO         ,0,0
+MP,CLOCK3_SIGNAL     ,YES/NO        ,C14,{YES:NO        },NO         ,0,0
+MP,SAMPLE_FREQ       ,Hz            ,C20,{              },           ,0,0
+MP,MODE_UPLE         ,DOWNLOAD/CMD  ,C14,{CMD:DOWNLOAD  },CMD        ,0,0
+MP,CMD_FILENAME      ,FILENAME/CMD  ,C80,{              },           ,0,0
+MP,BITLEN            ,7/8...        ,C14,{              },8          ,,
+MP,JTAG_COMMAND      ,WRITE_IR/..   ,C14,{              },COM_DR     ,,
+MP,SYNTAX            ,              ,C80,{              },           ,0,0
+MP,MSGBOX_SUBST10    ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_SUBST9     ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_SUBST8     ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_SUBST7     ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_SUBST6     ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_SUBST5     ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_SUBST4     ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_SUBST3     ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_SUBST2     ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_SUBST1     ,Ersetzungsparameter,c40,{              },           ,,
+MP,MSGBOX_DESCRIP    ,PATH_TO_DESCRIPTIONFILE,c50,{              },           ,,
+MP,MSGBOX_LAYOUT     ,Layoutname    ,c30,{              },           ,,
+MP,WT3000_MODE       ,              ,C14,{READ_INI:
+ READ:
+ CHANNEL_INI:
+ CHANNEL_RANGE:
+ INI:
+ MOT_INI:
+ MOT_INI_SPEED:
+ MOT_INI_TORQU},READ       ,,
+MP,MODUL_NR          ,1/2           ,C80,{1:2           },1          ,,
+MP,COMPLETE_SUM_C    ,1..99         ,C80,{              },10         ,,
+MP,MAX_GATECOUNTE    ,5_3_2_7_12    ,C80,{              },5_5_5_5_5  ,,
+MP,TEST_COUNT_A_I    ,COUNT         ,C80,{              },           ,,
+MP,TEST_COUNT_D_L    ,COUNT         ,C80,{              },           ,,
+MP,TEST_COUNT_C_K    ,COUNT         ,C80,{              },           ,,
+MP,TEST_COUNT_B_J    ,COUNT         ,C80,{              },           ,,
+MP,TEST_COUNT_E_M    ,COUNT         ,c80,{              },           ,,
+MP,TEST_COUNT_F_N    ,COUNT         ,c80,{              },           ,,
+MP,TEST_COUNT_G_O    ,COUNT         ,c80,{              },           ,,
+MP,TEST_COUNT_H_P    ,COUNT         ,c80,{              },           ,,
+MP,SUM_COUNTER       ,COUNT         ,C80,{              },           ,,
+MP,ERROR_NR          ,NR            ,C80,{              },           ,,
+MP,RESULT            ,TEXT          ,C80,{              },           ,,
+MP,NAME_SOURCE       ,LISTTYPE/TESTTYPE,C80,{LISTTYPE:TESTTYPE},LISTTYPE   ,,
+MP,TESTGATE_A_I      ,EP/ZP...      ,C80,{              },           ,,
+MP,TESTGATE_C_K      ,EP/ZP...      ,C80,{              },           ,,
+MP,TESTGATE_B_J      ,EP/ZP....     ,C80,{              },           ,,
+MP,TESTGATE_D_L      ,EP/ZP...      ,C80,{              },           ,,
+MP,TESTGATE_E_M      ,EP/ZP...      ,C80,{              },           ,,
+MP,TESTGATE_F_N      ,EP/ZP...      ,C80,{              },           ,,
+MP,TESTGATE_G_O      ,EP/ZP...      ,C80,{              },           ,,
+MP,TESTGATE_H_P      ,EP/ZP...      ,C80,{              },           ,,
+MP,AB9_DELAY         ,us            ,C80,{              },0          ,0,0
+
+**-------------------------------------------------------------------*
+** Definitionen der Module                                           *
+**-------------------------------------------------------------------*
+MD,M_ARRAYANALYSE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FUNKTION
+                 ,INPUT_VARIABLE
+                 ,START_ANALYSE
+                 ,STOP_ANALYSE
+                 ,TRIGGER_WERT
+                 ,RETURN_WERT
+MD,F_6083_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,GEN1_TASTVERH
+                 ,GEN2_TASTVERH
+                 ,GEN3_TASTVERH
+                 ,GEN4_TASTVERH
+                 ,TTL_TREIBER
+                 ,SELBSTTEST
+                 ,MESSBETRIEB
+MD,R_CHECKSUM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ACTION
+                 ,EXECUTION
+                 ,INPUTSTRING
+                 ,INPUTFILE
+                 ,INPUTFORMAT
+                 ,IGNORE
+                 ,CALCULATION
+                 ,GEN_POLYNOM
+                 ,INIT_VALUE
+                 ,XOR_VALUE
+                 ,BYTE_ORDER
+                 ,LINE_IN_FILE
+                 ,STARTINDEX
+                 ,STOPINDEX
+                 ,OUTPUTSTRING
+                 ,ERRORFLAG
+MD,E_UNI_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,PARA_0
+                 ,PARA_1
+                 ,PARA_2
+                 ,PARA_3
+                 ,PARA_4
+                 ,PARA_5
+                 ,PARA_6
+                 ,PARA_7
+                 ,PARA_8
+                 ,PARA_9
+                 ,PARA_10
+MD,E_ARRAY_IO
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARRAY_IO_MODE
+                 ,ARRAY_IO_TYP
+                 ,FILENAME
+                 ,SUB_DIRECTORY
+                 ,HEADER_1
+                 ,ARRAY_1
+                 ,HEADER_2
+                 ,ARRAY_2
+                 ,HEADER_3
+                 ,ARRAY_3
+                 ,HEADER_4
+                 ,ARRAY_4
+                 ,HEADER_5
+                 ,ARRAY_5
+                 ,HEADER_6
+                 ,ARRAY_6
+                 ,HEADER_7
+                 ,ARRAY_7
+                 ,HEADER_8
+                 ,ARRAY_8
+                 ,HEADER_9
+                 ,ARRAY_9
+                 ,FEHLERFLAG
+MD,R_ARRAY_WERT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARRAY_MODE
+                 ,ARRAY
+                 ,ARRAY_INDEX
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,M_TEST_IEEE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,PARA_0
+                 ,PARA_1
+                 ,PARA_2
+                 ,PARA_3
+                 ,PARA_4
+                 ,PARA_5
+                 ,PARA_6
+                 ,PARA_7
+                 ,PARA_8
+                 ,PARA_9
+                 ,EL_MODE
+                 ,EL_COUNTS
+                 ,TIMEOUT
+                 ,R_MESSWERT
+                 ,EL_ERROR
+MD,M_ZUSATZ_IEEE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,START_TEST_IEE
+                 ,END_TEST_IEEE
+                 ,START_TIMEOUT
+                 ,END_SEND
+                 ,END_RECEIVE
+                 ,DELIMITER
+                 ,ESR_TEST
+                 ,OPEN_MODE
+                 ,DEVICE_CLEAR
+                 ,ERRORFLAG
+MD,E_OUT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,STARTLISTE1
+                 ,STARTLISTE2
+                 ,STARTLISTE3
+                 ,E_OUT_FUNKTION
+MD,E_WAIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WAIT_PARAMETER
+                 ,WAIT
+                 ,WAIT_FUNKTION
+                 ,FIRST_RUN_TIME
+                 ,R_MESSWERT
+MD,F_ANSTEUER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,ANSTEUER_NAME
+                 ,ANSTEUER_WERT
+                 ,ANSTEUER_DIM
+                 ,ANSTEUER_PIN
+                 ,ANSTEUER_BEZUG
+                 ,ANSTEUER_ART
+                 ,ANSTEUER_FAKTO
+MD,M_DMM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,DMM_FUNKTION
+                 ,DMM_RANGE
+                 ,DMM_APER_TIME
+                 ,DMM_TRG_SOURCE
+                 ,DMM_TRG_COUNT
+                 ,DMM_TRG_DELAY
+                 ,DMM_SMP_SOURCE
+                 ,DMM_SMP_COUNT
+                 ,DMM_SMP_PERIOD
+                 ,DMM_AUTOZERO
+                 ,DMM_OFFSET_COM
+                 ,DMM_INTERRUPT
+                 ,DMM_MASKE
+                 ,MESS_MODUS
+                 ,R_MESSWERT
+                 ,DMM_TIMEOUT
+                 ,DIMENSION
+                 ,MESSTEILER
+MD,M_AUSWERTUNG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,R_MESSWERT
+                 ,MODULNAME
+                 ,MESSUNGSNUMMER
+                 ,ABWEICHUNGSART
+                 ,STATISTIK
+                 ,KLASS_TYP
+                 ,FEHLERART
+                 ,DIMENSION
+                 ,TUG
+                 ,TOG
+                 ,ABGLEICHSTELLE
+                 ,DIMWIDERSTAND
+                 ,DIMSTEIGUNG
+                 ,VORWIDERSTAND
+                 ,VORSTEIGUNG
+                 ,AKTWIDERSTAND
+                 ,AKTSTEIGUNG
+                 ,ANZITERATIONEN
+                 ,EXXWIDERSTAND
+                 ,MG_FEHLER
+                 ,NIO_AUSDRUCK
+                 ,RETURN_MODE
+                 ,RETURN_WERT
+                 ,INPUT_FORMAT
+MD,M_ZUWEIS
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VARIABLE
+                 ,VARIBLEN_WERT
+                 ,VAR_FUNKT
+                 ,MAKRO_NAME
+                 ,VARIABLEN_TYP
+MD,E_SCANNER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SCANNER_MODUS
+                 ,SCAN_UNIT
+                 ,PIN_HIGH
+                 ,PIN_LOW
+                 ,SCANN_UNIT_TRG
+                 ,PIN_HIGH_TRG
+                 ,PIN_LOW_TRG
+                 ,SCHALTER_FUNKT
+MD,M_COUNTER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,COUN_FUNKTION
+                 ,MESS_MODUS
+                 ,COUN_RANGE
+                 ,COUN_APERTURE
+                 ,COUN_MESSANZ
+                 ,COUN_TIMEOUT
+                 ,COUN_DELAY
+                 ,DIMENSION
+                 ,TRG_IN
+                 ,TRG_OUT
+                 ,R_MESSWERT
+MD,E_TRIGGER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,TRG_NAME
+                 ,MAX_PEGEL
+                 ,PEGEL
+                 ,FLANKE
+                 ,TRG_DELAY
+                 ,SCAN_UNIT
+                 ,TRG_LINE
+                 ,MESSTEILER
+                 ,E_TRG_MODE
+                 ,RESTZEIT
+MD,E_TRIGGER_INIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,TRG_NAME_A
+                 ,MODE_A
+                 ,TIME_A
+                 ,HYSTERESE_A
+                 ,GATE_MODE_A
+                 ,SPIKEFILT_A
+                 ,TRG_NAME_B
+                 ,MODE_B
+                 ,TIME_B
+                 ,HYSTERESE_B
+                 ,SPIKEFILT_B
+                 ,TRG_NAME_C
+                 ,MODE_C
+                 ,TIME_C
+                 ,HYSTERESE_C
+                 ,GATE_MODE_C
+                 ,SPIKEFILT_C
+                 ,TRG_NAME_D
+                 ,MODE_D
+                 ,TIME_D
+                 ,HYSTERESE_D
+                 ,SPIKEFILT_D
+MD,E_CONNECT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,TRG_NAME_A
+                 ,TRG_NAME_B
+                 ,CONNECT_MODE
+MD,P_INIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODUS
+                 ,ADRESSE
+                 ,DATUM
+                 ,ERGEBNIS
+MD,P_AUFTRAG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BEFEHL
+                 ,DATUM
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+                 ,ERGEBNIS_FELD
+MD,P_AUFTRAG_B
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BEFEHL
+                 ,SG_DATEN
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+                 ,ERGEBNIS_FELD
+MD,P_STEUER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FIRMWARE
+                 ,ANSTEUER_UNIT
+                 ,PROTOKOLL
+                 ,STELLE_BLOCKT
+                 ,FEHLERBLOCKT
+                 ,OFFSET
+                 ,OFFSET_CAN
+MD,P_ZERLEGE_STR
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODUS
+                 ,INPUT_STRING
+                 ,ZEIGER_ANF
+                 ,ZEIGER_END
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+                 ,DIMENSION
+MD,F_6046_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANST_UNIT_1
+                 ,EXT_REF_1
+                 ,EXT_REF_CH_1
+                 ,SENSE_1
+                 ,ANST_UNIT_2
+                 ,EXT_REF_2
+                 ,EXT_REF_CH_2
+                 ,SENSE_2
+MD,E_ARB
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARB_UNIT
+                 ,ARB_MODUS
+                 ,ARB_KANNAL
+                 ,ARB_KURVE
+                 ,ARB_PERIODE
+                 ,ARB_PERIOD_DIM
+                 ,ARB_CLOCK
+                 ,ARB_OUTPUT
+                 ,ARB_IMPEDANCE
+                 ,ARB_ATTENUATOR
+                 ,ARB_TIEFPASS
+                 ,ARB_AUTO_START
+                 ,ARB_START_SEQ
+                 ,ARB_RUN_STOP
+                 ,ARB_IN_TR_MODE
+                 ,ARB_IN_TTL_TR
+                 ,ARB_IN_TR_ART
+                 ,ARB_IN_TR_FLAN
+                 ,ARB_OU_TR_MODE
+                 ,ARB_OU_TTL_TR
+                 ,ARB_AMPL1_NAME
+                 ,ARB_AMPL1_WERT
+                 ,ARB_AMPL1_DIM
+                 ,ARB_AMPL2_NAME
+                 ,ARB_AMPL2_WERT
+                 ,ARB_AMPL2_DIM
+                 ,ARB_AMPL3_NAME
+                 ,ARB_AMPL3_WERT
+                 ,ARB_AMPL3_DIM
+                 ,ARB_AMPL4_NAME
+                 ,ARB_AMPL4_WERT
+                 ,ARB_AMPL4_DIM
+                 ,ARB_FREQ_PREC
+                 ,ARB_WAITTIME
+MD,E_AWG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,AWG_SIGNALFILE
+                 ,AWG_START_SIG
+                 ,AWG_CLOCK
+                 ,AWG_OUTPUT
+                 ,AWG_IMPEDANCE
+                 ,AWG_ATTENUATOR
+                 ,AWG_TIEFPASS
+                 ,AWG_RUN_MODE
+                 ,AWG_RUN_STOP
+                 ,AWG_IN_TR_MODE
+                 ,AWG_IN_TTL_TR
+                 ,AWG_IN_TR_ART
+                 ,AWG_IN_TR_FLAN
+                 ,AWG_OU_TR_MODE
+                 ,AWG_OU_TTL_TR
+                 ,AWG_FREQ_PREC
+                 ,AWG_AMPL_PREC
+MD,E_DOKU
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,AUTOR
+                 ,ERSTELLT
+                 ,PRODUKT
+                 ,AE_STAND
+                 ,KUNDENNUMMER
+                 ,EINGEFUEHRT
+                 ,GUELTIG_VON
+                 ,GUELTIG_BIS
+                 ,PASSWORT
+                 ,TYP
+                 ,VERGLEICH
+                 ,MUSTER
+                 ,PROT_ART
+                 ,FEHLER_MAX
+                 ,PROTOKOLL_EMB
+                 ,SOFTWARENUMMER
+                 ,TEST_SW_NUMMER
+                 ,SW_AE_STAND
+                 ,ADAPTERFILE
+                 ,USERMARK
+                 ,SYMADDR_FILE
+MD,L_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANST_UNIT_1
+                 ,MESS_ART_1
+                 ,MESS_HIGH_1
+                 ,MESS_LOW_1
+                 ,MESS_MODE_1
+MD,F_6051_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,SPANNUNG
+                 ,REFERENZ
+                 ,MAX_U_REF
+                 ,OUTPUT_MODE
+MD,M_NOP
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,PARA_0
+                 ,PARA_1
+                 ,PARA_2
+                 ,PARA_3
+                 ,PARA_4
+                 ,PARA_5
+                 ,PARA_6
+                 ,PARA_7
+                 ,PARA_8
+                 ,PARA_9
+MD,M_MAKRO_ENDE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MESS_MODUS
+MD,E_OBPINIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,TRG_PEGEL_P
+                 ,TRG_PEGEL_N
+                 ,U_OUT_HIGH
+                 ,U_OUT_LOW
+MD,E_OBPHS
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FLANKE
+                 ,R_PEGEL
+MD,E_INTERRUPT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,INT_TIMEOUT
+                 ,TRG_IN
+                 ,INT_FUNKTION
+MD,E_ZEITDIFF
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODUS
+                 ,ERGEBNIS
+MD,E_FUBUS3
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FU3_BNC1
+                 ,SK_BNC1
+                 ,FU3_BNC2
+                 ,SK_BNC2
+                 ,FU3_BNC3
+                 ,SK_BNC3
+                 ,FU3_BNC4
+                 ,SK_BNC4
+                 ,FU3_BNC5
+                 ,SK_BNC5
+MD,E_OUT_STR
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,INKREMENTAL
+MD,R_RECHNE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BERECHNUNG
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+                 ,RUNDUNGSART
+MD,R_ABG_RECHNE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ABG_MODE
+                 ,FEHLERFLAG
+                 ,PARA_1
+                 ,PARA_2
+                 ,PARA_3
+                 ,PARA_4
+                 ,PARA_5
+                 ,PARA_6
+                 ,PARA_7
+                 ,PARA_8
+                 ,PARA_9
+                 ,PARA_10
+                 ,PARA_11
+                 ,PARA_12
+                 ,PARA_13
+                 ,PARA_14
+MD,E_KOPPELFELD
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,KOPPELFELD_ART
+                 ,ELEMENT_NUMMER
+                 ,PIN_HIGH
+                 ,PIN_LOW
+                 ,SCHALTER_FUNKT
+MD,F_FEK_SETZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,DATEN_WORT_01
+                 ,DATEN_WORT_02
+                 ,DATEN_WORT_03
+                 ,DATEN_WORT_04
+                 ,DATEN_WORT_05
+                 ,DATEN_WORT_06
+                 ,DATEN_WORT_07
+                 ,DATEN_WORT_08
+                 ,DATEN_WORT_09
+                 ,DATEN_WORT_10
+                 ,DATEN_WORT_11
+                 ,DATEN_WORT_12
+                 ,DATEN_WORT_13
+                 ,DATEN_WORT_14
+                 ,DATEN_WORT_15
+                 ,DATEN_WORT_16
+                 ,DATEN_WORT_17
+                 ,DATEN_WORT_18
+                 ,DATEN_WORT_19
+                 ,DATEN_WORT_20
+                 ,DATEN_WORT_21
+                 ,DATEN_WORT_22
+                 ,DATEN_WORT_23
+                 ,DATEN_WORT_24
+                 ,DATEN_WORT_25
+                 ,FEK_MODUS
+MD,L_UNI_LAST
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,DATEN_BIT_00
+                 ,DATEN_BIT_01
+                 ,DATEN_BIT_02
+                 ,DATEN_BIT_03
+                 ,DATEN_BIT_04
+                 ,DATEN_BIT_05
+                 ,DATEN_BIT_06
+                 ,DATEN_BIT_07
+                 ,DATEN_BIT_08
+                 ,DATEN_BIT_09
+                 ,DATEN_BIT_10
+                 ,DATEN_BIT_11
+                 ,DATEN_BIT_12
+                 ,DATEN_BIT_13
+                 ,DATEN_BIT_14
+                 ,DATEN_BIT_15
+                 ,DATEN_WORT_UM
+MD,F_6069
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,STECKER
+                 ,REIHENWID
+                 ,DEKADEN_WERT
+                 ,V_PFAD
+                 ,ANST_PIN_1
+                 ,ANST_BEZUG_1
+                 ,ANST_PIN_2
+                 ,ANST_BEZUG_2
+                 ,ANST_PIN_3
+                 ,ANST_BEZUG_3
+                 ,ANST_PIN_4
+                 ,ANST_BEZUG_4
+                 ,ANST_PIN_5
+                 ,ANST_BEZUG_5
+                 ,ANST_PIN_6
+                 ,ANST_BEZUG_6
+                 ,BITS_63_61
+MD,L_6267_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,SENSELINE
+                 ,SENSE_HIGH
+                 ,SENSE_LOW
+                 ,MESSKANAL
+                 ,STROMMESS_R
+MD,E_KFG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,SIGNALFILE
+                 ,TRIG_SOURCE
+                 ,TRIG_SLOPE
+                 ,TRIG_EVENT
+                 ,AMPL_PRECISION
+                 ,AMPL_FACTOR
+                 ,FREQ_FACTOR
+                 ,ANALOG_PIN
+                 ,ANALOG_REF
+                 ,IMPEDANZ
+                 ,EXT_OUTREF
+                 ,TRIGGER1
+                 ,TRIGGER2
+                 ,OC1
+                 ,OC2
+                 ,OC3
+                 ,OC4
+                 ,OUTP_ENABLE
+                 ,RUN_STOP
+MD,F_MESSTEILER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,MAX_PEGEL
+                 ,MESSTEILER
+                 ,PIN_HIGH
+                 ,SCHALTER_FUNKT
+                 ,TUG
+                 ,TOG
+                 ,R_TEILER
+MD,B_INIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MULTIFUNK
+                 ,TYPENSCHILD
+                 ,TYPENSCHILD_NR
+                 ,AUSGABEDEVICE
+MD,B_MAKE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MULTIFUNK
+                 ,TYPENSCHILD
+                 ,STRING1
+                 ,STRING2
+                 ,STRING3
+                 ,STRING4
+                 ,STRING5
+                 ,STRING6
+                 ,STRING7
+                 ,STRING8
+                 ,STRING9
+MD,B_DRUCKEN
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MULTIFUNK
+                 ,TYPENSCHILD
+MD,R_KUNDDAT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MULTIFUNK
+                 ,DATENART
+                 ,DATENFORMAT
+                 ,ERGNAME
+                 ,DATENSTRING1
+                 ,DATENSTRING2
+                 ,DATENSTRING3
+                 ,R_ERGEBNIS
+                 ,EXECUTION
+                 ,ERRORSTRING
+                 ,ERRORFLAG
+MD,M_DATENBITS
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SOLL_BITS
+                 ,GEBER
+                 ,GEBER_INFO
+                 ,R_MESSWERT
+                 ,MG_FEHLER
+MD,F_UGEBR_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,REFERENZ
+                 ,REFERENZ_PIN
+                 ,MAX_U_REF
+                 ,SENSING
+                 ,SENSE_HIGH
+                 ,SENSE_LOW
+                 ,OUTPUT_MODE
+MD,F_RDEK_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,FUNK_UMPROG
+                 ,MESSKANAL_HIGH
+                 ,MESSKANAL_LOW
+                 ,SENSE_HIGH
+                 ,SENSE_LOW
+MD,R_STRFORMAT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,INPUT_STRING
+                 ,IN_FORMAT
+                 ,OUT_LEN
+                 ,OUT_NACHKOMMA
+                 ,OUT_NULLFUELL
+                 ,OUT_FORMAT
+                 ,OUTPUT_STRING
+                 ,FEHLERFLAG
+MD,R_STROPERATE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,IN_FORMAT
+                 ,INPUT_STRING1
+                 ,OPERATOR
+                 ,INPUT_STRING2
+                 ,OUTPUT_STRING
+                 ,FEHLERFLAG
+MD,R_STRCAT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ASCIISTRING1
+                 ,ASCIISTRING2
+                 ,ASCIISTRING3
+                 ,ASCIISTRING4
+                 ,ASCIISTRING5
+                 ,ASCIISTRING6
+                 ,ASCIISTRING7
+                 ,ASCIISTRING8
+                 ,ASCIISTRING9
+                 ,ASCIISTRING10
+                 ,RESULTSTRING
+MD,E_STEP
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,STEP_FUNKTION
+MD,M_ABBRUCH
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ABBRUCHART
+MD,E_KOPPELTEST
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,KOPPEL_MODUL
+                 ,KOPPEL_FUNK
+                 ,KOPPEL_OADR1
+                 ,KOPPEL_UADR1
+                 ,KOPPEL_RELAYA1
+                 ,KOPPEL_RELAYB1
+                 ,KOPPEL_RANGE1
+                 ,KOPPEL_OADR2
+                 ,KOPPEL_UADR2
+                 ,KOPPEL_RELAYA2
+                 ,KOPPEL_RELAYB2
+                 ,KOPPEL_RANGE2
+                 ,KOPPEL_OADR3
+                 ,KOPPEL_UADR3
+                 ,KOPPEL_RELAYA3
+                 ,KOPPEL_RELAYB3
+                 ,KOPPEL_RANGE3
+                 ,KOPPEL_OADR4
+                 ,KOPPEL_UADR4
+                 ,KOPPEL_RELAYA4
+                 ,KOPPEL_RELAYB4
+                 ,KOPPEL_RANGE4
+                 ,KOPPEL_OADR5
+                 ,KOPPEL_UADR5
+                 ,KOPPEL_RELAYA5
+                 ,KOPPEL_RELAYB5
+                 ,KOPPEL_RANGE5
+                 ,KOPPEL_OADR6
+                 ,KOPPEL_UADR6
+                 ,KOPPEL_RELAYA6
+                 ,KOPPEL_RELAYB6
+                 ,KOPPEL_RANGE6
+MD,F_6060_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,IGN_TRIGGER_P
+                 ,IGN_IMPULS_P
+                 ,IGN_BEZUG_P
+MD,M_TEMP
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,TEMP_EINHEIT
+                 ,R_MESSWERT
+MD,E_AD64_INIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,HI_TUG
+                 ,HI_TOG
+                 ,LO_TUG
+                 ,LO_TOG
+                 ,AKTIV_16_01
+                 ,AKTIV_32_17
+                 ,AKTIV_48_33
+                 ,AKTIV_64_49
+                 ,MASSE_ANSCHALT
+MD,M_AD64_DIGI
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,MUSTER_16_01
+                 ,MUSTER_32_17
+                 ,MUSTER_48_33
+                 ,MUSTER_64_49
+                 ,AN_MESSKANAL
+                 ,R_MEWE_ANALOG
+                 ,R_MEWE_16_01
+                 ,R_MEWE_32_17
+                 ,R_MEWE_48_33
+                 ,R_MEWE_64_49
+MD,E_QUIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,AUFTRAG
+                 ,AKTION
+MD,E_AD64
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,CHANNEL_16_01
+                 ,CHANNEL_32_17
+                 ,CHANNEL_48_33
+                 ,CHANNEL_64_49
+                 ,TRIGGER_SRC
+                 ,TRIGGER_OUT
+                 ,ADC_ZERO
+                 ,FILTER
+                 ,RANGE
+                 ,PERIOD
+MD,S_STATISTIK
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,TTNR
+                 ,SG_NUMMER
+                 ,PROT_PRINTER
+                 ,MULTI_MODE
+MD,R_SEEDKEY
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MULTIFUNK
+                 ,S_K_MODUS
+                 ,PARA_1
+                 ,PARA_2
+                 ,PARA_3
+                 ,PARA_4
+                 ,SEED
+                 ,R_ERGEBNIS
+                 ,ERRORSTRING
+                 ,ERRORFLAG
+                 ,SK_MODE
+                 ,SK_NUM_OF_OP
+MD,F_SK_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,KK1_AN_SK
+                 ,KK2_AN_KK1
+                 ,KK3_AN_KK2
+                 ,KK4_AN_KK3
+                 ,KK5_AN_KK4
+                 ,SCHALTER_01
+                 ,SCHALTER_02
+                 ,SCHALTER_03
+                 ,SCHALTER_04
+MD,E_DEVICE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,FUNCTION
+                 ,DATAFORMAT
+                 ,DATASEPARATOR
+                 ,DATARANGE
+                 ,DATARATE
+                 ,RCV_NUMBER
+                 ,TIMEOUT
+                 ,ROUTING
+                 ,MEASURE_CTRL1
+                 ,MEASURE_CTRL2
+                 ,DEVICE_OUTPUT
+                 ,TRIGGER/ARMING
+                 ,GENERAL_PRMTR1
+                 ,GENERAL_PRMTR2
+                 ,GENERAL_PRMTR3
+                 ,GENERAL_PRMTR4
+                 ,FILENAME
+                 ,RCV_CTRL1
+                 ,RCV_CTRL2
+                 ,ERRORFLAG
+MD,M_DEVICE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,IDENTIFICATION
+                 ,DATAFILTER
+                 ,ACTION
+                 ,ACTION_PRMTR1
+                 ,ACTION_PRMTR2
+                 ,CHANNEL_A
+                 ,CHANNEL_B
+                 ,START
+                 ,END
+                 ,MIN_VALUE
+                 ,MAX_VALUE
+                 ,RESULT_POS
+                 ,RESULT_VALUE
+                 ,ERRORFLAG
+MD,T_DEVICE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,DEVICE_MODUL
+                 ,DEVICE_FUNK
+MD,E_VXI_SWITCH
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SWITCH_01_08
+                 ,SWITCH_09_16
+                 ,SWITCH_17_24
+                 ,SWITCH_25_32
+                 ,SWITCH_33_40
+                 ,SWITCH_41_48
+                 ,SWITCH_49_56
+                 ,SWITCH_57_64
+MD,F_IGEBR_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,SPANNUNG
+                 ,REFERENZ
+                 ,MAX_U_REF
+                 ,OUTPUT_MODE
+                 ,STROMBEREICH
+MD,S_BDM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FILE
+                 ,MODUS_BDM
+                 ,STRING0
+                 ,MODUS_LADE
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,S_PGH
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,DRIVERNR
+                 ,SEQUENCE
+                 ,PGH_MODE
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+                 ,TIMEOUT
+MD,E_ECUMEMDATA
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SESSION
+                 ,DATENTYP
+                 ,TYPNAME
+                 ,DATENATTRIBUT
+                 ,LAENGE_RUECK
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+MD,L_KAM_KONFIG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,KON_A
+                 ,KON_B
+                 ,KON_KASK
+MD,R_PAM2SERVER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,METHOD
+                 ,VERSION
+                 ,MODE
+                 ,PS_STRING1
+                 ,PS_STRING2
+                 ,PS_STRING3
+                 ,PS_STRING4
+                 ,PS_STRING5
+                 ,PS_STRING6
+                 ,PS_STRING7
+                 ,PS_STRING8
+                 ,PS_STRING9
+                 ,PS_STRING10
+                 ,R_ERGEBNIS
+                 ,ERRORSTRING
+                 ,ERRORFLAG
+MD,L_KAM_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,SENSE_UB_UNIT
+                 ,SENSING_UB
+                 ,SENSE_UL_UNIT
+                 ,SENSING_UL
+                 ,MESS_UNIT
+                 ,MESS_KANAL
+                 ,STROMMESS_R
+                 ,ANSCHALTUNG
+MD,R_DATATABLE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ACTION
+                 ,EXECUTION
+                 ,INPUTFILE
+                 ,SEPARATOR
+                 ,INPUTKEY
+                 ,KEYFORMAT
+                 ,FIRST_COLUMN
+                 ,LAST_COLUMN
+                 ,COLUMN_A
+                 ,COLUMN_B
+                 ,COLUMN_C
+                 ,COLUMN_D
+                 ,COLUMN_E
+                 ,COLUMN_F
+                 ,COLUMN_G
+                 ,ERRORFLAG
+                 ,VALUE_CASE
+MD,E_CLOCK2
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,EXT_CLK2_LINE
+                 ,TIMEOUT_CLOCK2
+                 ,CLK2_OUT_LINE
+MD,M_KONSTANTER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,KON_UNIT
+                 ,KON_FUNKTION
+                 ,KON_MODE
+                 ,KON_HOLD
+                 ,KON_FOLD
+                 ,KON_OVP
+                 ,KON_TIMEOUT
+                 ,R_MESSWERT
+MD,R_STRCOPY
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ACTION
+                 ,EXECUTION
+                 ,INPUTSTRING
+                 ,INPUTFILE
+                 ,IGNORE
+                 ,LINE_IN_FILE
+                 ,STARTINDEX
+                 ,STOPINDEX
+                 ,FIELDNUMBER
+                 ,SEPARATOR
+                 ,OUTPUTSTRING
+                 ,ERRORFLAG
+MD,E_SERCOM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,INTERFACE
+                 ,ERRORTEXT
+                 ,FUNCTION
+                 ,CONTROL
+                 ,DATANUMBER
+                 ,DEV_TIMEOUT
+                 ,SENDDATA1
+                 ,SENDDATA2
+                 ,SENDDATA3
+                 ,SENDDATA4
+                 ,FILENAME
+                 ,RECEIVED_DATA
+                 ,PARAMETER1
+                 ,PARAMETER2
+                 ,ERRORFLAG
+                 ,WAIT
+MD,M_SERCOM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,CONTROL
+                 ,INPUT
+                 ,SELECTION
+                 ,RETURN_DIMENSI
+                 ,RETURN_FORM
+                 ,RETURN_DATA
+                 ,ERRORFLAG
+MD,E_BITS
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,BIT0
+                 ,BIT1
+                 ,BIT2
+                 ,BIT3
+                 ,BIT4
+                 ,BIT5
+                 ,BIT6
+                 ,BIT7
+MD,F_6078
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,HA_HI_PEGEL
+                 ,HA_LO_PEGEL
+                 ,VA_HI_PEGEL
+                 ,VA_LO_PEGEL
+                 ,HA_DIMENSION
+                 ,VA_DIMENSION
+                 ,HA_BYPASS
+                 ,VA_BYPASS
+                 ,HA_R
+                 ,HA_C
+                 ,VA_R
+                 ,VA_C
+                 ,RST_M_S
+                 ,MODE_2_3
+                 ,MODE_0_1
+                 ,SIGNAL_GND
+                 ,SG_GND
+                 ,C_GND
+                 ,AN_DFHR_PIN
+                 ,AN_DFHR_BEZUG
+                 ,AN_DFHL_PIN
+                 ,AN_DFHL_BEZUG
+                 ,AN_DFVR_PIN
+                 ,AN_DFVR_BEZUG
+                 ,AN_DFVL_PIN
+                 ,AN_DFVL_BEZUG
+MD,M_CONTROL
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VERZWEIGUNG
+                 ,BEDINGUNG
+                 ,BEDINGUNG2
+                 ,BEDINGUNG3
+                 ,BEDINGUNG4
+                 ,PARA_0
+                 ,PARA_1
+                 ,PARA_2
+                 ,PARA_3
+                 ,PARA_4
+                 ,PARA_5
+                 ,PARA_6
+                 ,PARA_7
+                 ,PARA_8
+MD,P_CANSTD
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BEFEHL
+                 ,ID_SENDEN
+                 ,ID_SENDEN_LEN
+                 ,ID_LESEN
+                 ,ID_LESEN_LEN
+                 ,MODUS_STD
+                 ,SG_DATEN
+                 ,PERIODE_SEND
+                 ,TIMEOUT_SKM
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+MD,M_FILECMP
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FILENAME1
+                 ,FILENAME2
+                 ,CMP_MODE
+                 ,START1
+                 ,END1
+                 ,START2
+                 ,END2
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+MD,E_ECUMEMDATA1
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,CONTAINERTYP
+                 ,SESSION
+                 ,DATENTYP
+                 ,TYPNAME
+                 ,DATENATTRIBUT
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+                 ,DEFAULT
+MD,P_LOADFILE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,CONTAINERTYP
+                 ,DATEINAME
+                 ,LADEMODUS
+                 ,START_ADR
+                 ,BLOCKLEN
+                 ,SEGMENT_HEADER
+                 ,SEGMENT_ENDE
+                 ,SEGMENT_LEN
+                 ,POSITIVE_RESP
+                 ,SCHNITTSTELLE
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+                 ,ERGEBNIS_FELD
+MD,P_LOADFILE2
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,CONTAINERTYP
+                 ,DATEINAME
+                 ,LADEMODUS
+                 ,START_ADR
+                 ,BLOCKLEN
+                 ,SEGMENT_HEADER
+                 ,SEGMENT_ENDE
+                 ,SEGMENT_LEN
+                 ,POSITIVE_RESP
+                 ,LFMODE
+                 ,TIMEOUT_SKM
+                 ,SCHNITTSTELLE
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+                 ,ERGEBNIS_FELD
+MD,E_CONVERT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VARIBLEN_WERT
+                 ,VARIABLEN_TYP
+                 ,LAENGE_RUECK
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+                 ,EXECUTION
+MD,E_VI_PSLOCK
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,PS_LOCK
+                 ,PS_MODE
+MD,S_PFK
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,PFK_MODUS
+                 ,PFKBYTE_IN1
+                 ,PFKBYTE_IN2
+                 ,PFKBYTE_IN3
+                 ,PFKBYTE_IN4
+                 ,PFKBYTE_IN5
+                 ,PFKBYTE_OUT1
+                 ,PFKBYTE_OUT2
+                 ,PFKBYTE_OUT3
+                 ,PFKBYTE_OUT4
+                 ,PFKBYTE_OUT5
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+MD,S_PFKCONFIG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,PRUEFTOR1
+                 ,PRUEFTOR2
+                 ,PRUEFTOR3
+                 ,PRUEFTOR4
+                 ,PRUEFTOR5
+                 ,PRUEFTOR6
+                 ,PRUEFTOR7
+                 ,PRUEFTOR8
+MD,S_PFK2
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,PFK_MODUS
+                 ,PRODUCT
+                 ,PFKBYTE_IN1
+                 ,PFKBYTE_IN2
+                 ,PFKBYTE_IN3
+                 ,PFKBYTE_IN4
+                 ,PFKBYTE_IN5
+                 ,PFKBYTE_IN6
+                 ,PFKBYTE_IN7
+                 ,PFKBYTE_IN8
+                 ,PFKBYTE_IN9
+                 ,PFKBYTE_IN10
+                 ,PFKBYTE_OUT1
+                 ,PFKBYTE_OUT2
+                 ,PFKBYTE_OUT3
+                 ,PFKBYTE_OUT4
+                 ,PFKBYTE_OUT5
+                 ,PFKBYTE_OUT6
+                 ,PFKBYTE_OUT7
+                 ,PFKBYTE_OUT8
+                 ,PFKBYTE_OUT9
+                 ,PFKBYTE_OUT10
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+MD,S_PFKCONFIG2
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,PRUEFTYP1
+                 ,PRUEFTYP2
+                 ,PRUEFTYP3
+                 ,PRUEFTYP4
+                 ,PRUEFTYP5
+                 ,PRUEFTYP6
+                 ,PRUEFTYP7
+                 ,PRUEFTYP8
+                 ,PRUEFTYP9
+                 ,PRUEFTYP10
+                 ,PRUEFTYP11
+                 ,PRUEFTYP12
+                 ,PRUEFTYP13
+                 ,PRUEFTYP14
+                 ,PRUEFTYP15
+                 ,PRUEFTYP16
+MD,E_MESSAGES
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,TEXT_MODE
+                 ,TEXT1
+                 ,TEXT2
+                 ,TEXT3
+                 ,TEXT4
+                 ,TEXT5
+                 ,TEXT6
+                 ,TEXT7
+                 ,TEXT8
+                 ,TEXT9
+                 ,TEXT10
+                 ,TEXT11
+                 ,TEXT12
+                 ,TEXT13
+                 ,TEXT14
+                 ,TEXT15
+                 ,TEXT16
+                 ,TEXT17
+                 ,TEXT18
+                 ,TEXT19
+                 ,TEXT20
+MD,E_ARRAY_INI
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARRAY
+                 ,ARRAY_TYP
+                 ,ARRAY_DIM1
+                 ,ARRAY_CLEAR
+MD,S_AUSWERTUNG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,R_MESSWERT
+                 ,MODULNAME
+                 ,MESSUNGSNUMMER
+                 ,ABWEICHUNGSART
+                 ,STATISTIK
+                 ,KLASS_TYP
+                 ,FEHLERART
+                 ,DIMENSION
+                 ,TUG
+                 ,TOG
+                 ,ABGLEICHSTELLE
+                 ,DIMWIDERSTAND
+                 ,DIMSTEIGUNG
+                 ,VORWIDERSTAND
+                 ,VORSTEIGUNG
+                 ,AKTWIDERSTAND
+                 ,AKTSTEIGUNG
+                 ,ANZITERATIONEN
+                 ,EXXWIDERSTAND
+                 ,MG_FEHLER
+                 ,NIO_AUSDRUCK
+MD,P_SKMTASK
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,FUNKTION
+                 ,SUBFUNKTION
+                 ,MODE
+                 ,SUBMODE
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,PARA5
+                 ,PARA6
+                 ,PARA7
+                 ,PARA8
+                 ,PARA9
+                 ,PARA10
+                 ,PARA11
+                 ,PARA12
+                 ,PARA13
+                 ,PARA14
+                 ,PARA15
+                 ,PARA16
+                 ,PARA17
+                 ,PARA18
+                 ,PARA19
+                 ,PARA20
+MD,E_SOFTWTEST
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ENABLE_PROG
+MD,M_SENSOR_WRITE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,COMMAND
+                 ,ADRESSCODE
+                 ,ADRESSARRAY
+                 ,SENDSTR
+                 ,LAUFENDENR
+                 ,FEHLERFLAG
+MD,M_SENSOR_READ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,LAUFENDENR
+                 ,ADRESSCODE
+                 ,ADRESSARRAY
+                 ,ERGEBNISMODE
+                 ,ERGEBNISARRAY
+                 ,FEHLERFLAG
+MD,E_PAMSCRIPTS
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SCRIPTNAME
+                 ,SUB_DIRECTORY
+                 ,PARA_1
+                 ,PARA_2
+                 ,PARA_3
+                 ,PARA_4
+                 ,PARA_5
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,L_6220_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,MESSPROG
+                 ,SPANNUNG_MAX
+                 ,STROM_MAX
+                 ,GRUNDLAST
+MD,L_6287_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,MESS_HIGH
+                 ,MESS_LOW
+                 ,MESS_SHUNT
+                 ,FILTER
+MD,P_VERFOLGUNG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODUS
+                 ,BEFEHL
+                 ,DATUM0
+                 ,STANDTYP_1_8
+                 ,OFFSET_1_8
+                 ,DATUM1
+                 ,DATUM2
+                 ,DATUM3
+                 ,DATUM4
+                 ,DATUM5
+                 ,DATUM6
+                 ,DATUM7
+                 ,DATUM8
+                 ,H_TUG1
+                 ,H_TOG1
+                 ,H_TUG2
+                 ,H_TOG2
+                 ,H_TUG3
+                 ,H_TOG3
+                 ,H_TUG4
+                 ,H_TOG4
+                 ,H_TUG5
+                 ,H_TOG5
+                 ,H_TUG6
+                 ,H_TOG6
+                 ,H_TUG7
+                 ,H_TOG7
+                 ,H_TUG8
+                 ,H_TOG8
+                 ,DIMENSION
+                 ,ZEIGER_ANF
+                 ,ZEIGER_END
+                 ,ERGEBNIS
+                 ,TUG_RET
+                 ,TOG_RET
+                 ,FEHLERFLAG
+MD,E_SKM_U_WANDEL
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,EINGAENGE
+                 ,ANALOGSCHALTER
+                 ,MASSESCHALTER
+                 ,AUSGAENGE
+                 ,SONDERFKT
+MD,L_6266_ZUSATZ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,MESSKANAL
+                 ,RELAIS_1
+                 ,RELAIS_14
+                 ,RELAIS_13
+                 ,RELAIS_3
+                 ,RELAIS_15
+                 ,RELAIS_4
+                 ,RELAIS_5
+MD,PROKSS_LULL
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,MODUL
+                 ,PROKSS_MODUS
+                 ,UNIT
+                 ,BEFEHL01
+                 ,BEFEHL02
+                 ,BEFEHL03
+                 ,ANTWORTEN
+                 ,TIMEOUT
+                 ,WAIT
+                 ,DIMENSION
+                 ,H_TUG1
+                 ,H_TOG1
+                 ,H_TUG2
+                 ,H_TOG2
+                 ,H_TUG3
+                 ,H_TOG3
+                 ,H_TUG4
+                 ,H_TOG4
+                 ,H_TUG5
+                 ,H_TOG5
+                 ,H_TUG6
+                 ,H_TOG6
+MD,M_ELECTR_LOAD
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,CALIBRATE
+                 ,CHANNEL
+                 ,INPUT
+                 ,MEASURE
+                 ,LIST
+                 ,TRANSIENT
+                 ,STATUS
+                 ,SYSTEM_CMD
+                 ,TRIGGER_CMD
+                 ,COMMON_CMD
+                 ,EL_MODE
+                 ,EL_COUNTS
+                 ,TIMEOUT
+                 ,R_MESSWERT
+                 ,EL_ERROR
+MD,E_PARAM_CONV
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,PATCH_0
+                 ,PATCH_1
+                 ,PATCH_2
+                 ,PATCH_3
+                 ,PATCH_4
+                 ,PATCH_5
+                 ,PATCH_6
+                 ,PATCH_7
+                 ,PATCH_8
+                 ,PATCH_9
+                 ,CODE_0
+                 ,CODE_1
+                 ,CODE_2
+                 ,CODE_3
+                 ,CODE_4
+                 ,CODE_5
+                 ,CODE_6
+                 ,CODE_7
+                 ,CODE_8
+                 ,CODE_9
+                 ,RETURN_0
+                 ,RETURN_1
+                 ,RETURN_2
+                 ,RETURN_3
+                 ,RETURN_4
+                 ,RETURN_5
+                 ,RETURN_6
+                 ,RETURN_7
+                 ,RETURN_8
+                 ,RETURN_9
+MD,M_INTERP_ARRAY
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,INTERP_MODE
+                 ,START_ARRAY
+                 ,STOP_ARRAY
+                 ,START_SLOPE
+                 ,START_LEVEL
+                 ,STOP_SLOPE
+                 ,STOP_LEVEL
+                 ,CUT_START
+                 ,CUT_END
+                 ,R_INDEX_START
+                 ,R_INDEX_END
+                 ,RETURN_WERT
+MD,M_ARRAY_INTERP
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARRAY
+                 ,INTERP_MODE
+                 ,START_ARRAY
+                 ,STOP_ARRAY
+                 ,START_SLOPE
+                 ,START_LEVEL
+                 ,STOP_SLOPE
+                 ,STOP_LEVEL
+                 ,CUT_START
+                 ,CUT_END
+                 ,R_INDEX_START
+                 ,R_INDEX_END
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+                 ,RUNDUNGSART
+MD,E_TABLEROTATE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,ACHSE
+                 ,KOORDINATE
+                 ,TR_RUNDUNG
+                 ,WINKELSPEED
+                 ,TR_MODUS
+                 ,ZIEL
+                 ,TIMEOUT
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,R_ARRAY_TRIG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARRAY
+                 ,ARRAY_START
+                 ,ARRAY_END
+                 ,ARRAY_TRIG
+                 ,HYSTERESE
+                 ,OPERATION
+                 ,COUNTS
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,M_ICS_READ
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,PORT_START
+                 ,PORT_END
+MD,M_ICS_BIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,BIT
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,E_BOSCHK_IN
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,WORD_START
+                 ,WORD_END
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,R_ACC2ANT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANT_MODE
+                 ,RTC_ID
+                 ,DATA1
+                 ,DATA2
+                 ,DATA3
+                 ,DATA4
+                 ,DATA5
+                 ,WINKEL
+                 ,REAL_BEAM1
+                 ,IMAG_BEAM1
+                 ,REAL_BEAM2
+                 ,IMAG_BEAM2
+                 ,REAL_BEAM3
+                 ,IMAG_BEAM3
+                 ,REAL_BEAM4
+                 ,IMAG_BEAM4
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,E_RACAL
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,MODUL
+                 ,FUNKTION
+                 ,TUG
+                 ,TOG
+                 ,DIMENSION
+                 ,R_WERT_1
+                 ,R_WERT_2
+MD,E_VI
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,MODUL
+                 ,VI_MODE
+                 ,VI_CUR_SOLL
+                 ,VI_CUR_RANGE
+                 ,VI_VOLT_SOLL
+                 ,VI_VOLT_RANGE
+                 ,VI_COMP_VOLT
+                 ,VI_COMP_DIR
+                 ,VI_AMPLI_GAIN
+                 ,VI_TIM_PERIOD
+                 ,VI_IGN_ILOCK
+                 ,VI_DVM_HI_OUT
+                 ,VI_DVM_LO_OUT
+                 ,VI_INST_03
+                 ,VI_INST_04
+                 ,VI_AMPL_HI_IN
+                 ,VI_AMPL_LO_IN
+                 ,VI_ATTN_HI_IN
+                 ,VI_ATTN_LO_IN
+                 ,VI_INST_09
+                 ,VI_INST_10
+                 ,VI_INST_11
+                 ,VI_INST_12
+                 ,VI_INST_13
+                 ,VI_INST_14
+                 ,VI_INST_15
+                 ,VI_INST_16
+                 ,VI_SRC_HI_OUT
+                 ,VI_SRC_LO_OUT
+                 ,VI_COMP_IN
+                 ,VI_TRIGER_OUT
+MD,PROKSS
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,MODUL
+                 ,PROKSS_MODUS
+                 ,UNIT
+                 ,BEFEHL01
+                 ,BEFEHL02
+                 ,BEFEHL03
+                 ,ANTWORTEN
+                 ,TIMEOUT
+                 ,WAIT
+                 ,DIMENSION
+                 ,H_TUG1
+                 ,H_TOG1
+                 ,H_TUG2
+                 ,H_TOG2
+                 ,H_TUG3
+                 ,H_TOG3
+                 ,H_TUG4
+                 ,H_TOG4
+                 ,H_TUG5
+                 ,H_TOG5
+                 ,H_TUG6
+                 ,H_TOG6
+MD,E_POWER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,MODUL
+                 ,FUNKTION
+                 ,POWER_ADRESSE
+                 ,TUG
+                 ,TOG
+                 ,DIMENSION
+                 ,KANNAL
+                 ,SPANNUNG
+                 ,STROM
+                 ,OUTPUT
+                 ,MESSWERT
+MD,PINMX
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODUL
+                 ,PINMX_UNIT
+                 ,PROT_PINMX
+                 ,ROW_PINMX1
+                 ,ROW_PINMX2
+                 ,ROW_PINMX3
+                 ,ROW_PINMX4
+                 ,ROW_PINMX5
+                 ,ROW_PINMX6
+                 ,ROW_PINMX7
+                 ,ROW_PINMX8
+                 ,ROW_PINMX9
+                 ,ROW_PINMX10
+                 ,ROW_PINMX11
+                 ,ROW_PINMX12
+                 ,ROW_PINMX13
+                 ,ROW_PINMX14
+                 ,ROW_PINMX15
+                 ,ROW_PINMX16
+                 ,ROW_PINMX17
+                 ,ROW_PINMX18
+                 ,ROW_PINMX19
+                 ,ROW_PINMX20
+                 ,ROW_PINMX21
+                 ,ROW_PINMX22
+                 ,ROW_PINMX23
+                 ,ROW_PINMX24
+                 ,ROW_PINMX25
+                 ,ROW_PINMX26
+                 ,ROW_PINMX27
+                 ,ROW_PINMX28
+                 ,ROW_PINMX29
+                 ,ROW_PINMX30
+                 ,ROW_PINMX31
+                 ,ROW_PINMX32
+MD,E_OPEN
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODUL
+                 ,FUNKTION
+MD,E_QUELLE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,MODUL
+                 ,FUNKTION
+                 ,MESSWERT
+                 ,TUG
+                 ,TOG
+                 ,DIMENSION
+                 ,KANNAL
+                 ,DA_MODUS
+                 ,DA_OUTPUT
+                 ,DA_REGISTER
+                 ,DA_OFFSET
+                 ,DA_GAIN
+MD,AD64
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,MODUL
+                 ,AD_FUNKTION
+                 ,MESSWERT
+                 ,N_MESSWERT
+                 ,RESOLUTION
+                 ,TRIG_MODUS
+                 ,TRIG_PERIOD
+                 ,TRIG_COUNT
+                 ,LIST_LISTS
+                 ,LIST_PERIOD
+                 ,SCAN_PERIOD
+                 ,SCAN_1_LIST
+                 ,SCAN_1_TOL
+                 ,SCAN_1_DIM
+                 ,SCAN_2_LIST
+                 ,SCAN_2_TOL
+                 ,SCAN_2_DIM
+                 ,SCAN_3_LIST
+                 ,SCAN_3_TOL
+                 ,SCAN_3_DIM
+                 ,SCAN_4_LIST
+                 ,SCAN_4_TOL
+                 ,SCAN_4_DIM
+MD,E_SWITCH
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODUL
+                 ,FUNKTION
+                 ,KARTE
+                 ,SWITCH1
+                 ,SWITCH2
+                 ,SWITCH3
+                 ,SWITCH4
+                 ,SWITCH5
+                 ,SWITCH6
+                 ,SWITCH7
+                 ,SWITCH8
+MD,F_LASTEN
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,ANSTEUER_NAME
+                 ,ANSTEUER_WERT
+                 ,ANSTEUER_DIM
+                 ,ANSTEUER_PIN
+                 ,ANSTEUER_BEZUG
+                 ,DATENWORT1
+                 ,DATENWORT2
+                 ,DATENWORT3
+                 ,DATENWORT4
+                 ,DATENWORT5
+                 ,DATENWORT6
+MD,M_SCANNER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SCANNER_MODUS
+                 ,SCAN_UNIT
+                 ,PIN_HIGH
+                 ,PIN_LOW
+                 ,SCANN_UNIT_TRG
+                 ,PIN_HIGH_TRG
+                 ,PIN_LOW_TRG
+                 ,SCHALTER_FUNKT
+MD,GENERATE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,GEN_MODULE
+                 ,GEN_COMMAND
+                 ,GEN_PARAM1
+                 ,GEN_PARAM2
+                 ,GEN_PARAM3
+                 ,GEN_PARAM4
+                 ,RETURN_WERT
+MD,E_KARTE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODUL
+                 ,KARTEN_MODUS
+                 ,KARTEN_NR
+                 ,KARTEN_OADR
+                 ,KARTEN_UADR
+                 ,KARTEN_OFFS
+                 ,KARTEN_WORDS
+                 ,DATENWORD1
+                 ,DATENWORD2
+                 ,DATENWORD3
+                 ,DATENWORD4
+MD,LOOKUP
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,LOOKUP_MODUS
+                 ,RESULT_NUMMER1
+                 ,RESULT_NUMMER2
+MD,MG_PRUEF
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,RESULTSTRING
+MD,Q_AUFTRAG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BEFEHL
+                 ,DATUM
+                 ,PARA1
+                 ,TEST_FLAG
+                 ,PARA3
+                 ,SELECT
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+MD,Q_KUNDDAT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MULTIFUNK
+                 ,DATENART
+                 ,DATENFORMAT
+                 ,ERGNAME
+                 ,DATENSTRING1
+                 ,DATENSTRING2
+                 ,DATENSTRING3
+                 ,R_ERGEBNIS
+MD,Q_AUFTRAG_B
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BEFEHL
+                 ,SG_DATEN
+                 ,PARA1
+                 ,TEST_FLAG
+                 ,PARA3
+                 ,SELECT
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+MD,A_RECHNE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BERECHNUNG
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,A_DATUM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ADATUM_MODUS
+                 ,INPUT_STRING
+                 ,RESULT_NUMMER1
+                 ,RESULT_NUMMER2
+                 ,FEHLERFLAG
+MD,R_FAULTMEM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,INPUT_STRING
+                 ,PLATFORM
+                 ,TARGET_FLTNO
+                 ,SEARCH_OPTION
+                 ,FLT_VALIDAT
+                 ,RESULT_NO
+                 ,RESULT_STATE
+                 ,RESULT_ADDR
+                 ,ERRORFLAG
+                 ,STATE_STRING
+MD,R_FAULTMEM2
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,INPUT_STRING
+                 ,ERR_COUNT
+                 ,OUTPUTFLAG
+                 ,TARGET_ERRNO
+                 ,RESULT_NUMMER1
+MD,F_POWER
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,MODUL
+                 ,FUNKTION
+                 ,POWER_ADRESSE
+                 ,TUG
+                 ,TOG
+                 ,DIMENSION
+                 ,KANNAL
+                 ,SPANNUNG
+                 ,STROM
+                 ,OUTPUT
+                 ,MESSWERT
+MD,B_PORT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,IO_FUNK
+                 ,IO_PORT
+                 ,OUT_STR
+                 ,INP_STR
+                 ,IO_STAT
+MD,A_ELECTR_LOAD
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,CALIBRATE
+                 ,CHANNEL
+                 ,INPUT
+                 ,MEASURE
+                 ,LIST
+                 ,TRANSIENT
+                 ,STATUS
+                 ,SYSTEM_CMD
+                 ,TRIGGER_CMD
+                 ,COMMON_CMD
+                 ,EL_MODE
+                 ,EL_COUNTS
+                 ,TIMEOUT
+                 ,R_MESSWERT
+                 ,EL_ERROR
+MD,Q_CANSTD
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BEFEHL
+                 ,ID_SENDEN
+                 ,ID_SENDEN_LEN
+                 ,ID_LESEN
+                 ,ID_LESEN_LEN
+                 ,MODUS_STD
+                 ,SG_DATEN
+                 ,PERIODE_SEND
+                 ,TIMEOUT_SKM
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+                 ,SYM_NAME
+                 ,SELECT
+                 ,TEST_FLAG
+MD,E_DOUBLE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DOPPLER
+MD,A_PROKIST_CALC
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIEDERHOLEN
+                 ,LABEL_END
+                 ,STOP
+                 ,MODUL
+                 ,PROKSS_MODUS
+                 ,UNIT
+                 ,BEFEHL01
+                 ,BEFEHL02
+                 ,BEFEHL03
+                 ,ANTWORTEN
+                 ,TIMEOUT
+                 ,WAIT
+                 ,DIMENSION
+                 ,H_TUG1
+                 ,H_TOG1
+                 ,H_TUG2
+                 ,H_TOG2
+                 ,H_TUG3
+                 ,H_TOG3
+                 ,H_TUG4
+                 ,H_TOG4
+                 ,H_TUG5
+                 ,H_TOG5
+                 ,H_TUG6
+                 ,H_TOG6
+                 ,SUB
+                 ,DIV
+                 ,MULT
+MD,M_UNIV_LAN
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,LAN_DEVICE
+                 ,COMMAND1
+                 ,COMMAND2
+                 ,COMMAND3
+                 ,COMMAND4
+                 ,COMMAND5
+                 ,COMMAND6
+                 ,COMMAND7
+                 ,COMMAND8
+                 ,COMMAND9
+                 ,COMMAND10
+                 ,UL_MODE
+                 ,UL_COUNTS
+                 ,UL_TIMEOUT
+                 ,UL_RETURN
+                 ,UL_ERROR
+MD,E_STUELIDATA
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BOMFUNCTION
+                 ,BOMSUBFUNCTION
+                 ,VAR1
+                 ,VAR2
+                 ,VAR3
+                 ,VAR4
+                 ,VAR5
+                 ,VAR6
+                 ,VAR7
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+MD,E_ISMC_ADD
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,TEMPERATURE
+                 ,INTENSITY
+                 ,SM_ADDRESS
+                 ,ERRORFLAG
+MD,E_ISMC_AREA
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,X_POS
+                 ,Y_POS
+                 ,WIDTH
+                 ,HEIGHT
+                 ,ERRORFLAG
+MD,E_ISMC_COM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FU_ISMC_COM
+                 ,TEMPERATURE
+                 ,TEMPSKAL
+                 ,INTENSITY
+                 ,SM_ADDRESS
+                 ,RESULT1
+                 ,RESULT2
+                 ,RESULT3
+                 ,RESULT4
+                 ,RESULT5
+                 ,RESULT6
+                 ,RESULT7
+                 ,ERRORFLAG
+MD,E_ISMC_INIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIDTH
+                 ,HEIGHT
+                 ,DYNAMICTHRES
+                 ,SNR1
+                 ,SNR2
+                 ,VIGNET_BASIC
+                 ,VIGNET_POWER
+                 ,DARKSENSOR1
+                 ,DARKSENSOR2
+                 ,DYNAMICPOWER
+                 ,POS_DEVTHRES
+                 ,NEG_DEVTHRES
+                 ,POS_SLOPETHRES
+                 ,NEG_SLOPETHRES
+                 ,FPN_CORRECTION
+                 ,DPTHRES
+                 ,OUTPUTTHRES
+                 ,ERRORFLAG
+MD,E_ISMC_STATE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FU_ISMC_STATE
+                 ,ERRORFLAG
+MD,E_SSHT_COM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SSHT_NR
+                 ,FU_SSHT_COM
+                 ,SSHT_ADR
+                 ,SSHT_VALUE
+                 ,SSHT_LENTH
+                 ,SSHT_EINHEIT
+                 ,RETURN_WERT
+                 ,ERRORFLAG
+MD,E_SSHT_INIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SSHT_NR
+                 ,FU_SSHT_INIT
+                 ,SSHT_DEVICE
+                 ,BITTIEFE
+                 ,BILDGROESSE
+                 ,BILDPOSITION
+                 ,TIMEOUT
+                 ,ERRORFLAG
+MD,E_ULBC_INIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,TIMEOUT
+                 ,GL_VERSION
+                 ,FARBTEMPERATUR
+                 ,T_FARBTEMPERAT
+                 ,T_STRAHLDICHTE
+                 ,ERRORFLAG
+MD,E_ULBC_COM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,TIMEOUT
+                 ,FU_ULBC_COM
+                 ,RETURN_WERT
+                 ,ERRORFLAG
+MD,E_ULBC_SD
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,TIMEOUT
+                 ,INTENSITY
+                 ,GL_WAIT
+                 ,ERRORFLAG
+MD,E_ULBC_CTR
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,TIMEOUT
+                 ,FU_ULBC_CRT
+                 ,ULBC_VALUE
+                 ,ERRORFLAG
+MD,E_ULBC_STATE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,TIMEOUT
+                 ,STATE
+                 ,ERRORFLAG
+MD,E_DISK_IO
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DISK_IO_MODE
+                 ,SUB_DIRECTORY
+                 ,FILENAME
+                 ,FILEFORMAT
+                 ,IO_HEADER
+                 ,ARRAY_BUF
+                 ,ARRAY_LEN
+                 ,ERRORFLAG
+MD,SOFTWTEST_WERT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VARNAME
+                 ,PARA1
+                 ,PARA2
+                 ,IO_MODE
+                 ,ERGEBNIS
+                 ,ERRORFLAG
+MD,E_WAFERMAPPING
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WAFERMAPMODE
+                 ,VAR1
+                 ,VAR2
+                 ,VAR3
+                 ,VAR4
+                 ,VAR5
+                 ,VAR6
+                 ,VAR7
+                 ,FEHLERFLAG
+                 ,ERGEBNIS
+MD,M_DMM34970
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,DMM3487_FUNK
+                 ,DMM3487_RANGE
+                 ,DMM_APER_TIME
+                 ,DIMENSION
+                 ,PIN_HIGH
+                 ,PIN_LOW
+                 ,R_MESSWERT
+                 ,EL_ERROR
+MD,E_CC_INIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,WIDTH
+                 ,HEIGHT
+                 ,MODEL_FILENAME
+                 ,PS_FLAG
+                 ,PSV_FILENAME
+                 ,IOR_ESTIM_FLAG
+                 ,IP_FILENAME
+                 ,ERRORFLAG
+MD,E_CC_RUN
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SM_ADDRESS
+                 ,RES_SKEWANGLE
+                 ,RES_ROLLANGLE
+                 ,RES_GIERANGLE
+                 ,RES_DISTANTION
+                 ,RES_RESOLUTION
+                 ,STTDEV_SKEWANG
+                 ,STTDEV_ROLLANG
+                 ,STDDEV_GUERANG
+                 ,RETURN_WERT
+                 ,ERRORFLAG
+MD,E_TOOL
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,P_START
+                 ,SUBDIR
+                 ,PROGRAMMNAME
+                 ,P_WARTE
+                 ,ABORT_SIGNAL
+                 ,TERMINAL
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,PARA5
+                 ,RETURN_WERT
+                 ,ERRORFLAG
+MD,M_LABVIEW
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,MODE_INPUTSTRI
+                 ,INPUTSTRING
+                 ,MESSMODUL
+                 ,INPUTFILE
+                 ,OUTPUTFILE
+                 ,SUB_DIRECTORY
+                 ,TIMEOUT
+                 ,RETURN_WERT
+                 ,ERRORFLAG
+MD,E_PATCH
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODE_PATCH
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,PARA5
+                 ,PARA6
+                 ,PATCH_0
+                 ,RETURN_WERT
+                 ,ERRORFLAG
+MD,E_TSVP
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FUNCTION
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,PARA5
+                 ,PARA6
+                 ,PARA7
+                 ,PARA8
+                 ,PARA9
+                 ,PARA10
+                 ,PARA11
+                 ,PARA12
+                 ,PARA13
+                 ,PARA14
+                 ,PARA15
+                 ,RETURN_1
+                 ,RETURN_2
+                 ,RETURN_3
+                 ,ERRORFLAG
+MD,R_MATLAB
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FUNKTION
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,PARA5
+                 ,PARA6
+                 ,PARA7
+                 ,PARA8
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,R_CHECKDIGIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,INPUT_STRING
+                 ,FONT
+                 ,CHECK_MODE
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,P_LIN
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,LIN_BEFEHL
+                 ,FRAME_ID
+                 ,FRAME_MODE
+                 ,LIN_DATEN
+                 ,SCHED_INDEX
+                 ,SCHED_DELAY
+                 ,NR_EXEC
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,R_ARRAY_SPLIT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,BIT_MODE
+                 ,HEX_STRING
+                 ,BIT_START
+                 ,BIT_ANZ
+                 ,BIT_REPEAT
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,R_PAS4_RPULSE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARRAY_1
+                 ,ARRAY_2
+                 ,SAMPLE_RATE
+                 ,MIN_IMP1
+                 ,MAX_IMP1
+                 ,MIN_IMP2
+                 ,MAX_IMP2
+                 ,PULSE_WIDTH
+                 ,BITMASK
+                 ,CUR_0_MIN
+                 ,CUR_0_MAX
+                 ,CUR_1_MIN
+                 ,CUR_1_MAX
+                 ,DELTA_T
+                 ,MEASURE_T
+                 ,HEX_STRING
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,R_PAS4_WPULSE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARRAY_1
+                 ,ARRAY_2
+                 ,SAMPLE_RATE
+                 ,MIN_IMP1
+                 ,MAX_IMP1
+                 ,PULSE_WIDTH
+                 ,LEVEL
+                 ,DELTA_T
+                 ,MEASURE_T
+                 ,ARRAY_3
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,P_DHP
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DHP_TESTER
+                 ,DHP_AKTION
+                 ,DHP_TIMEOUT
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,RETURN_1
+                 ,RETURN_2
+                 ,RETURN_3
+                 ,ERRORFLAG
+MD,M_NOISE_ATMO
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,NOISE_TYPE
+                 ,NOISE_CONTROL
+                 ,PARA1
+                 ,COUNTS
+                 ,ARRAY_1
+                 ,ARRAY_2
+                 ,ARRAY_3
+                 ,ARRAY_4
+                 ,ARRAY_5
+                 ,ARRAY_6
+                 ,ARRAY_7
+                 ,ARRAY_8
+                 ,ARRAY_9
+                 ,ARRAY_10
+                 ,ARRAY_11
+                 ,ARRAY_12
+                 ,ARRAY_13
+                 ,ARRAY_14
+                 ,ARRAY_15
+                 ,ARRAY_16
+                 ,ARRAY_17
+                 ,ARRAY_18
+                 ,ARRAY_19
+                 ,ARRAY_20
+                 ,FFT_1
+                 ,FFT_2
+                 ,FFT_3
+                 ,FFT_4
+                 ,FFT_5
+                 ,FFT_6
+                 ,FFT_7
+                 ,FFT_8
+                 ,FFT_9
+                 ,FFT_10
+                 ,TIMEOUT
+                 ,ERRORFLAG
+MD,M_TRANSI
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,TRANS_MODE
+                 ,SAMPLE_FREQ
+                 ,SAMPLE_COUNT
+                 ,TRANS_TRG_SOUR
+                 ,TRANS_TRG_MAST
+                 ,TRANS_TRG_LEVE
+                 ,TRANS_TRG_SLOP
+                 ,VOLTAGE_RANGE
+                 ,ARRAY_1
+                 ,ARRAY_2
+                 ,ARRAY_3
+                 ,ARRAY_4
+                 ,ARRAY_5
+                 ,ARRAY_6
+                 ,ARRAY_7
+                 ,ARRAY_8
+                 ,TIMEOUT
+                 ,SAMPLE_RATE
+                 ,ERRORFLAG
+MD,R_AB9_RECHNE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,AB9_FUNCTION
+                 ,ARRAY_1
+                 ,SAMPLE_RATE
+                 ,AB9_DELAY
+                 ,AB9_SLOPE
+                 ,AB9_START
+                 ,AB9_STOP
+                 ,AB9_EINHEIT
+                 ,AB9_SHUNT
+                 ,ERGEBNIS
+                 ,ERRORFLAG
+MD,P_TRACE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,FILENAME
+                 ,FILESIZE
+                 ,TR_INTERFACE
+                 ,TRACE_MODE
+                 ,CAN_ID
+                 ,CAN_IDLEN
+                 ,MAXTIME
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,E_SLOWMOTION
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,TR_ADD
+                 ,E_OUT
+                 ,M_DMM
+MD,E_BOSCHK_OUT
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,PDR_SIGNAL
+                 ,CLOCK3_SIGNAL
+                 ,WORD_START
+                 ,WORD_END
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,PARA5
+                 ,PARA6
+                 ,PARA7
+                 ,PARA8
+                 ,FEHLERFLAG
+MD,M_UPLE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,TIMEOUT
+                 ,MODE_UPLE
+                 ,CMD_FILENAME
+                 ,SYNTAX
+                 ,RESULTSTRING
+                 ,ERRORFLAG
+MD,P_JTAG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,JTAG_COMMAND
+                 ,DATUM
+                 ,BITLEN
+                 ,RESULTSTRING
+                 ,ERRORFLAG
+MD,E_CCL
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MG_FEHLER
+                 ,R_MESSWERT
+                 ,PARA1
+                 ,PARA2
+                 ,PARA3
+                 ,PARA4
+                 ,PARA5
+                 ,PARA6
+                 ,PARA7
+                 ,PARA8
+                 ,PARA9
+                 ,PARA10
+MD,M_MESSAGEBOX
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,RETURN_WERT
+                 ,MG_FEHLER
+                 ,MSGBOX_DESCRIP
+                 ,MSGBOX_LAYOUT
+                 ,MSGBOX_SUBST1
+                 ,MSGBOX_SUBST2
+                 ,MSGBOX_SUBST3
+                 ,MSGBOX_SUBST4
+                 ,MSGBOX_SUBST5
+                 ,MSGBOX_SUBST6
+                 ,MSGBOX_SUBST7
+                 ,MSGBOX_SUBST8
+                 ,MSGBOX_SUBST9
+                 ,MSGBOX_SUBST10
+MD,R_PAS5_WPULSE
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARRAY_1
+                 ,ARRAY_2
+                 ,SAMPLE_RATE
+                 ,IGNORE_START
+                 ,MIN_IMP1
+                 ,MAX_IMP1
+                 ,CUR_0_MIN
+                 ,CUR_0_MAX
+                 ,CUR_1_MIN
+                 ,CUR_1_MAX
+                 ,BURNCODE_1
+                 ,ARRAY_3
+                 ,ARRAY_4
+                 ,ARRAY_5
+                 ,NO_BURN_BITS
+                 ,BURNCODE_2
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,R_PAS5_PSI
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ARRAY_1
+                 ,SAMPLE_RATE
+                 ,DAUER_PAUSE
+                 ,BITS_PRO_DATA
+                 ,START_DATA
+                 ,ANZ_DATA
+                 ,CUR_0_MIN
+                 ,CUR_0_MAX
+                 ,CUR_1_MIN
+                 ,CUR_1_MAX
+                 ,ARRAY_2
+                 ,ARRAY_3
+                 ,ARRAY_4
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,M_WT3000
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,WT3000_MODE
+                 ,TIMEOUT
+                 ,PARA_0
+                 ,PARA_1
+                 ,PARA_2
+                 ,PARA_3
+                 ,PARA_4
+                 ,PARA_5
+                 ,PARA_6
+                 ,PARA_7
+                 ,PARA_8
+                 ,PARA_9
+                 ,PARA_10
+                 ,PARA_11
+                 ,PARA_12
+                 ,PARA_13
+                 ,PARA_14
+                 ,FEHLERFLAG
+MD,P_SUBSTR
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,SUBSTR_MODUS
+                 ,INPUT_STRING
+                 ,ZEIGER_ANF
+                 ,ZEIGER_END
+                 ,ERGEBNIS
+                 ,FEHLERFLAG
+MD,S_PFK3
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,PFK_MODUS
+                 ,TESTCOUNTERTYP
+                 ,MODUL_NR
+                 ,PFKBYTE_IN1
+                 ,PFKBYTE_IN2
+                 ,PFKBYTE_IN3
+                 ,PFKBYTE_IN4
+                 ,PFKBYTE_IN5
+                 ,MAX_GATECOUNTE
+                 ,COMPLETE_SUM_C
+                 ,PFKBYTE_OUT1
+                 ,PFKBYTE_OUT2
+                 ,PFKBYTE_OUT3
+                 ,PFKBYTE_OUT4
+                 ,PFKBYTE_OUT5
+                 ,TEST_COUNT_A_I
+                 ,TEST_COUNT_B_J
+                 ,TEST_COUNT_C_K
+                 ,TEST_COUNT_D_L
+                 ,TEST_COUNT_E_M
+                 ,TEST_COUNT_F_N
+                 ,TEST_COUNT_G_O
+                 ,TEST_COUNT_H_P
+                 ,SUM_COUNTER
+                 ,ERROR_NR
+                 ,RESULT
+MD,S_PFKCONFIG3
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,NAME_SOURCE
+                 ,MODUL_NR
+                 ,TESTGATE_A_I
+                 ,TESTGATE_B_J
+                 ,TESTGATE_C_K
+                 ,TESTGATE_D_L
+                 ,TESTGATE_E_M
+                 ,TESTGATE_F_N
+                 ,TESTGATE_G_O
+                 ,TESTGATE_H_P
+                 ,ERRORSTRING
+                 ,ERRORFLAG
+MD,E_INIT_USBTRIG
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,VXI_GERAET
+                 ,TRG_NAME_A
+                 ,TRIG_MODE_A
+                 ,TIME_A
+                 ,HYSTERESE_A
+                 ,TRIG_GATE_A
+                 ,SPIKEFILT_A
+                 ,OUT_TRG_A
+                 ,RESERVE_A1
+                 ,RESERVE_A2
+                 ,RESERVE_A3
+                 ,TRG_NAME_B
+                 ,TRIG_MODE_B
+                 ,TIME_B
+                 ,HYSTERESE_B
+                 ,TRIG_GATE_B
+                 ,SPIKEFILT_B
+                 ,OUT_TRG_B
+                 ,RESERVE_B1
+                 ,RESERVE_B2
+                 ,RESERVE_B3
+                 ,TRG_NAME_C
+                 ,TRIG_MODE_C
+                 ,TIME_C
+                 ,HYSTERESE_C
+                 ,TRIG_GATE_C
+                 ,SPIKEFILT_C
+                 ,OUT_TRG_C
+                 ,RESERVE_C1
+                 ,RESERVE_C2
+                 ,RESERVE_C3
+                 ,TRG_NAME_D
+                 ,TRIG_MODE_D
+                 ,TIME_D
+                 ,HYSTERESE_D
+                 ,TRIG_GATE_D
+                 ,SPIKEFILT_D
+                 ,OUT_TRG_D
+                 ,RESERVE_D1
+                 ,RESERVE_D2
+                 ,RESERVE_D3
+                 ,TRIG_IN_TTL_1
+                 ,TRIG_IN_TTL_2
+                 ,TRIG_IN_TTL_3
+                 ,TRIG_IN_TTL_4
+MD,E_FILEIO
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,MODUS
+                 ,CCS_SERVICE
+                 ,DIR
+                 ,FILENAME
+                 ,START_ADR
+                 ,BLOCKLEN
+                 ,VARIBLEN_WERT
+                 ,ERRORFLAG
+MD,E_FPGA_UNI
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANSTEUER_UNIT
+                 ,UC_FIRMWARE
+                 ,FPGA_FILE
+                 ,MODUS
+                 ,ADRESSE
+                 ,TEXT1
+                 ,TEXT2
+                 ,TEXT3
+                 ,TEXT4
+                 ,TEXT5
+                 ,TEXT6
+                 ,TEXT7
+                 ,TEXT8
+                 ,TEXT9
+                 ,TEXT10
+                 ,TEXT11
+                 ,TEXT12
+                 ,TEXT13
+                 ,TEXT14
+                 ,TEXT15
+                 ,TEXT16
+MD,E_MESSAGES_CS
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,ANST_UNIT_CS
+                 ,COMMAND_CS
+                 ,PARAMETER1_CS
+                 ,VALUE1_CS
+                 ,UNIT1_CS
+                 ,PARAMETER2_CS
+                 ,VALUE2_CS
+                 ,UNIT2_CS
+                 ,PARAMETER3_CS
+                 ,VALUE3_CS
+                 ,UNIT3_CS
+                 ,PARAMETER4_CS
+                 ,VALUE4_CS
+                 ,UNIT4_CS
+                 ,RESERVED1
+                 ,RESERVED2
+                 ,RESERVED3
+                 ,RESERVED4
+                 ,CONTINUE_CS
+                 ,RETVAL_CS
+                 ,RETURN_CS
+MD,E_AO_STREAM
+                 ,PRUEFSCHRITT
+                 ,POSITION
+                 ,DEVICENAME
+                 ,STREAM_MODE
+                 ,CLOCK_RATE
+                 ,STREAM_TRG_SOU
+                 ,STREAM_TRG_SLO
+                 ,ARRAY_1
+                 ,ARRAY_2
+                 ,ARRAY_3
+                 ,ARRAY_4
+                 ,ERGEBNIS
+                 ,ERRORFLAG

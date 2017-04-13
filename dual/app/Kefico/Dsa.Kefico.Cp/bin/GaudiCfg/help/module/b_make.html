@@ -1,0 +1,257 @@
+<HTML>
+<HEAD>
+<TITLE>B_MAKE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>B_MAKE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ Funktionsbeschreibung:                                                                                              
+    Anzahl der Uebergabeparameter und Index der expandierten                                                         
+    Pruefliste im Platz BARCODE_UNIT ablegen. Der Prozess                                                            
+    BC_DRUCKEN greift spaeter auf diese beiden Parameter zu und                                                      
+    kopiert die Ûbergabeparameter in die lokalen Arrays                                                              
+                                                                                                                     
+                                                                                                                     
+    Beschreibung der Uegergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                                                               
+         GAUDI Pruefschritt                                                                                          
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                                                                   
+         PAV- Position                                                                                               
+    ------------------------------</pre><b><a name="param3">3</a> MULTIFUNKTIONSCODE</b><pre>                                                                                         
+         Wird nicht nicht gebraucht                                                                                  
+    ------------------------------</pre><b><a name="param4">4</a> TYPENSCHILD</b><pre>                                                                                                
+         Name des Typenschildes                                                                                      
+    ------------------------------                                                                                   
+     &lt;5-13&gt; STRING1 - STRING9                                                                                        
+         Typenschildmodifizier Strings                                                                               
+ &lt;\userdoc&gt; 
+                                                                                                                     
+ Input:                                                                                                              
+                                                                                                                     
+ zeilen_info                                                                                                         
+ zeilen_wert                                                                                                         
+ index1                                                                                                              
+ anzahl                                                                                                              
+                                                                                                                     
+ Output:                                                                                                             
+                                                                                                                     
+ none                                                                                                                
+                                                                                                                     
+ ----------------------------------------------------------                                                          
+ Return Value:                                                                                                       
+    = 0:    Successful completion                                                                                    
+                                                                                                                     
+ ----------------------------------------------------------                                                          
+ Beispiel (optional):                                                                                                
+                                                                                                                     
+ ----------------------------------------------------------                                                          
+ History:                                                                                                            
+    $Log: b_make.C,v $
+    Revision 1.3  2003/04/17 09:36:02  wiese
+    $Head -&gt; $Id wegen log_message
+
+ *    Revision 1.2  2003/02/24 12:47:17  keppler
+ *    Translated to English
+ *
+ *    Revision 1.1  2002/03/26 08:15:47  sgc3sa
+ *    Anpassungen fuer QT fuer Vectorinterpreter
+ *
+ *    Revision 1.9  2002/03/25 12:34:29  juilfs
+ *    QT
+ *
+ *    Revision 1.8  2002/01/24 16:11:58  KLM3SA
+ *    userdoc for html-page implemented
+ *
+ *    Revision 1.7  2001/11/23 07:48:59  sgc3sa
+ *    BC ausschaltbar mit is_spspam = BC:OFF
+ *
+ *    Revision 1.6  2000/02/16 12:16:38  klm3sa
+ *    *** empty log message ***
+ *
+ *    Revision 1.5  2000/02/15 10:42:17  KLM3SA
+ *    Sourcen aus testsystem_21 kopiert.
+ *                                                                                               
+    Revision 7.1  99/10/28  sgc3sa (Stelzig, DCS)                                                                    
+    Abkuerzung FO fuer FORCE eingefuehrt                                                                             
+    Revision 7.0  99/08/24  sadcsst (Stelzig, DCS)                                                                   
+    Wenn in GAUDI-Parameter QString FORCE vorkommt, dann                                                              
+    wird bei error oder abbruch Normalerauftrag an                                                                   
+    barcode_ccs geschickt.                                                                                           
+    Revision 6.4  98/10/23  sadcsst (Stelzig, DCS)                                                                   
+    Buffergroesse fuer Kommunikation mit bc_drucken                                                                  
+    barcode_ccs auf 160 vergroessert.                                                                                
+    Revision 6.3  98/09/15  sadcsst (Stelzig, DCS)                                                                   
+    Ssp_vi-&gt;sg_marking &amp; MARK_BARCODE wird abgefragt                                                                 
+    Revision 2.2  97/10/17  sadcsst (Stelzig, DCS)                                                                   
+ JOB_RESULT=GOOD wird nicht mehr in Syscom als Result zurueck    geschrieben   Revision 2.1  98/09/24 (Stelzig, DCS) 
+    Wenn Error und Abbruch Handling in vorherigen Pruefschritt                                                       
+      dann Return 0                                                                                                  
+    Wenn JOB_RESULT=ERROR, dann wird Prueliste abgebrochen                                                           
+    Revision 2.0  97/04/21 (Stelzig, DCS)                                                                            
+    Anpassung an neuen Syscom                                                                                        
+    Revision 1.0  96/11/11 (Stelzig, DCS)                                                                            
+    Erstellt                                                                                                         
+                                                                                                                     
+ ----------------------------------------------------------                                                          
+ C4                                                                                                                  
+int b_make( shm_stringpointer *zeilen_wert, long index1, long anzahl)
+{
+	static char ident[] = "@(#)$Id: b_make.C,v 1.3 2003/04/17 09:36:02 wiese Exp $";
+	
+	
+	 Lokale Variablen 	
+	long         j1;                  // Laufvariable fuer Parameteruebergabe
+	char         auftrag[80];         // auftrag der ueber Messagequeue versendet wird
+	char         quittung[160];       // Quittung auf Auftrag
+	unsigned     auftrag_len;         // Laenge Auftrag QString
+	unsigned     quittung_len = 160;  // Laenge Quittungsstring
+	int          error;               // return von msg_send_wait
+	long         msgstat;
+	long         hispnr;
+	long         schritt;
+	
+	
+	 Schrittbetriebshandler 	
+	schritt = schrittbetrieb(zeilen_wert,index1);
+	
+	if (schritt!=1) {
+	    return 0;
+	}
+	
+	// Testen, ob Barcode gedruckt werden soll
+	if ( strcmp( Ssp_vi-&gt;job.liststate, PREINT ) ) {
+	    int len = strlen("BC:OFF");
+	    char* pos = strstr( &amp;Ssp_te-&gt;pruef.is_spspam[0], "BC:OFF" );
+	    if ( pos &amp;&amp; pos &gt; Ssp_te-&gt;pruef.is_spspam &amp;&amp; pos[-1] != ',' ) pos = 0;
+	    if ( pos &amp;&amp; pos[len] != ',' &amp;&amp; pos[len] != '\0' ) pos = 0;
+	    if ( pos ) {
+		 Daten an Messdatensammler senden 	
+		send_string_to_md( JOB_RESULT_GOOD "Barcode von SPS ausgeschaltet", MODULNAME,
+		     *zeilen_wert-&gt;ptr[index1 + 0], *zeilen_wert-&gt;ptr[index1 + 1] );
+		return 0;
+	    }
+	}
+	
+	 Feststellen, ob FORCE-Mode 	
+	QString multifunk = (const char*) *Ssp_expand_wert-&gt;ptr[ index1 + 2 ];
+	int multifunk_index = multifunk.find("FORCE");
+	int multifunk_index_next = multifunk_index + strlen("FORCE");
+	
+	if ( multifunk_index &lt; 0 ) {
+	    multifunk_index      = multifunk.find("FO");
+	    multifunk_index_next = multifunk_index + strlen("FO");
+	}
+	if ( multifunk.length() &gt;= multifunk_index_next ) {
+		multifunk_index_next = -1;
+	
+	}
+	int force = 0;
+	
+	if ( multifunk_index &gt;= 0 ) {
+	    if ( multifunk_index == 0 ||
+		(multifunk[multifunk_index-1] == ' ' || multifunk[multifunk_index-1] == ',') ) {
+		if ( multifunk_index_next &lt; 0 ||
+		     multifunk[multifunk_index_next] == ' ' ||
+		     multifunk[multifunk_index_next] == ',' ) {
+			force = 1;
+		}
+	    }
+	}
+	
+	 Message an bc_drucken 	
+	if ( !force &amp;&amp; Ssp_vi-&gt;multi[Ssp_vi-&gt;test.multiindex].error   != 0 ) {
+		sprintf( auftrag, "INDEX=%i;AUFTRAG=ERROR;", index1 );
+	}
+	else if ( !force &amp;&amp; Ssp_vi-&gt;multi[Ssp_vi-&gt;test.multiindex].abbruch != 0 ) {
+		sprintf( auftrag, "INDEX=%i;AUFTRAG=ABBRUCH;", index1 );
+	
+	}
+	else  {
+		sprintf( auftrag, "INDEX=%i;AUFTRAG=TYPENSCHILD;", index1 );
+	
+	}
+	auftrag_len = strlen (auftrag) + 1;
+	
+	error =  msg_send_wait (BC_DRUCKEN,
+	                        auftrag, auftrag_len,-1,160,
+	                        quittung, &amp;quittung_len,&amp;msgstat,&amp;hispnr);
+	
+	
+	 Fehlerbehandlung msg_send_wait 	
+	if (error!=0) {
+		
+		 Fehlermeldung 		
+//		error_message (ERR_ERROR, HEADER, __LINE__, "Fehler Aufruf msg_send_wait" );
+		error_message (ERR_ERROR, HEADER, __LINE__, "Error calling msg_send_wait" );
+		
+		return -1;
+	
+	}
+	else {
+		
+		 Quittung ausgeben 		
+		debug_message(__FILE__,__LINE__,2,"b_init&gt; quittung = %s\n", quittung );
+	
+	}
+	
+	 Timeout Behandlung 	
+	if (msgstat &amp; MSG_R_TIMEOUT) {
+		
+		 Fehlertext 		
+		ccl_befehl( Ssp_ss-&gt;progs[G_mypnr].result, JOB_RESULT, ERROR, RESULT_MAX );
+		
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,JOB_ERRSTR);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_GLEICH);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,"Timeout-BC");
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_SEMIKOLON);
+		
+		return -1;   // Timeout --&gt; Fehler
+	
+	}
+	
+	 JOB RESULT 	
+	if ( strstr(quittung,JOB_RESULT_ERROR) ) {
+		strcpy(Ssp_ss-&gt;progs[G_mypnr].result,JOB_RESULT_ERROR);
+		
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,JOB_ERRSTR);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_GLEICH);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,"BC: ");
+		
+		char *semi = strchr(quittung,';');
+		
+		if ( semi ) {
+			int len = strlen(semi+1);
+			
+			if ( len + 5 + strlen(Ssp_ss-&gt;progs[G_mypnr].result) &gt;= RESULT_MAX ) {
+				len = RESULT_MAX - strlen(Ssp_ss-&gt;progs[G_mypnr].result) - 6;
+			
+			}
+			strncat(Ssp_ss-&gt;progs[G_mypnr].result, semi+1, len );
+		
+		}
+		else  {
+			strcat(Ssp_ss-&gt;progs[G_mypnr].result, "unknown" );
+		
+		}
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_SEMIKOLON);
+		
+		return -1;
+	
+	}
+	
+	 Daten an Messdatensammler senden 	
+	send_string_to_md( quittung, MODULNAME, *zeilen_wert-&gt;ptr[index1 + 0], *zeilen_wert-&gt;ptr[index1 + 1] );
+	
+	return 0;
+
+}
+</PRE>
+</BODY>
+</HTML>

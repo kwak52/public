@@ -1,0 +1,435 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> CAN2000Ini []</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>CAN2000Ini []</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=10103">
+ </A>
+CAN2000Ini []</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10105">
+ </A>
+Interface [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10107">
+ </A>
+ID [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10109">
+ </A>
+BaudRate [Baud]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10111">
+ </A>
+ScanningPoint [%]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10113">
+ </A>
+TerminalResistance [Ohm]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10115">
+ </A>
+MessageArchitecture [Hex]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10117">
+ </A>
+ID_Send [Hex]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10119">
+ </A>
+ID_Send_Length [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10121">
+ </A>
+ID_Read [Hex]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10123">
+ </A>
+ID_Read_Length [INT]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10125">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=10127">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10129">
+ </A>
+Initializes the CAN interface for the KWP2000 protocol. Following successful initialization, the testing station can communicate with the control unit using the function ComBlock. The timing parameters are automatically set to default values (1000 ms) by the tester when the function is invoked  (see ISO/DIS 15765-2 Table 16 - Network layer timing parameter values). The specified timeout periods are: Timeout flowcontrol: 20 ms; timeout after flowcontrol: 50 ms; timeout after consecutive: 50 ms; timeout first frame: 50 ms; timeout after reject: 5000 ms.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10131">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10133">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10135">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10137">
+ </A>
+None</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10139">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10141">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10143">
+ </A>
+Interface</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10145">
+ </A>
+Specifies which CAN interface is to be initialized (a control unit can have more than one CAN interface). The name specified here is made up of the letters 'CAN' and a serial number (CAN1, CAN2...).</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10147">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10149">
+ </A>
+ID</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10151">
+ </A>
+Specifies whether the interface has a high-speed or low-speed transceiver. The following values are allowed:</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10154">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1358">
+ </A>
+H</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1360">
+ </A>
+High-speed (vehicle engine-compartment bus)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1366">
+ </A>
+L</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1368">
+ </A>
+Low-speed (vehicle passenger-compartment bus)</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Parameter">
+<A NAME="pgfId=178152">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10158">
+ </A>
+BaudRate</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10160">
+ </A>
+Specifies the baud rate (max. 1 Mbaud).</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10162">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10164">
+ </A>
+ScanningPoint</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10166">
+ </A>
+Time in % at which a bit received by the tester is to be scanned.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10168">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10170">
+ </A>
+TerminalResistance</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10172">
+ </A>
+Terminal resistance that has to be connected to the CAN interface by the tester. Permissible values are 60 Ohm, 120 Ohm or infinite (=Not specified). </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10174">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=178163">
+ </A>
+0 Ohm is also allowed for the short-circuit test. In that case, the function is invoked only as preparation for the short-circuit test. Afterwards, it has to be invoked again with a terminal resistance  0 Ohm in order to enable communication again.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=178164">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=178165">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10182">
+ </A>
+MessageArchitecture</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10184">
+ </A>
+Specifies the addressing types as hexadecimal value for diagnosis via CAN:</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10186">
+ </A>
+		1	Normal addressing</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10188">
+ </A>
+		2	Normal fixed addressing</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10190">
+ </A>
+		3	Extended addressing</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10192">
+ </A>
+		4	Mixed addressing</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10194">
+ </A>
+ See ISO/DIS 15765-2 Contens 8.3 Mapping of the N_PDU fields</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10196">
+ </A>
+ See ISO/DIS 15765-3 Table 12 - Definition of addressFormat values</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10198">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10200">
+ </A>
+ID_Send</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10202">
+ </A>
+Specifies the identifier for the message to be sent in hexadecimal format. If no message is to be sent, no value should be entered.</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10204">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10206">
+ </A>
+ID_Send_Length</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10208">
+ </A>
+Specifies whether the identifier is to be sent using a length of 11 bits or 29 bits. If no message is to be sent, no value should be specified. The following values are allowed:</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=178182">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=178175">
+ </A>
+11</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=178177">
+ </A>
+11 bits (default)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=178179">
+ </A>
+29</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=178181">
+ </A>
+29 bits (extended)</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Parameter">
+<A NAME="pgfId=178183">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=178184">
+ </A>
+ID_Read</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10217">
+ </A>
+Specifies the identifier for the message to be read in hexadecimal format. If no message is to be read, no value should be entered.</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10219">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10221">
+ </A>
+ID_Read_Length</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=178192">
+ </A>
+Specifies whether the message to be read has an 11-bit or a 29-bit identifier. If no message is to be read, no value should be specified. The following values are allowed:</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=178202">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=178195">
+ </A>
+11</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=178197">
+ </A>
+11 bits (default)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=178199">
+ </A>
+29</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=178201">
+ </A>
+29 bits (extended)</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=178203">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=178221">
+ </A>
+Example</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=178222">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=178228">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=178225">
+ </A>
+CAN2000Ini</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=178227">
+ </A>
+CAN1,H, 500000,75,120,1,610,11,01F,11</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=10239">
+ </A>
+CAN1= Interface					</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10241">
+ </A>
+	H			= High-speed interface</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10243">
+ </A>
+	500000			= Baud rate</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10245">
+ </A>
+	75			= Scanning point 75 %</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10247">
+ </A>
+	120			= Terminal resistor impedance in Ohms</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10249">
+ </A>
+	1			= Message architecture is normal addressing</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10251">
+ </A>
+	610			= ID_Send</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10253">
+ </A>
+	11			= ID_Send_Length 11-bit ID</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10255">
+ </A>
+	01F			= ID_Receive</P>
+<P CLASS="Normal">
+<A NAME="pgfId=178236">
+ </A>
+	11			= ID_Receive_Length 11-bit ID</P>
+<P CLASS="Normal">
+<A NAME="pgfId=178237">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=178238">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

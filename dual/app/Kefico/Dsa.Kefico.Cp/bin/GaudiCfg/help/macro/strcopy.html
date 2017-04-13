@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> StrCopy [Str]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>StrCopy [Str]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=13022">
+ </A>
+StrCopy [Str]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13024">
+ </A>
+String [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13026">
+ </A>
+StartIndex [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13028">
+ </A>
+StopIndex [INT]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13030">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=13032">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=13034">
+ </A>
+Creates an excerpt from a string.</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13036">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13038">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13040">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=13042">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13044">
+ </A>
+Parameters</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13046">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13048">
+ </A>
+String</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13050">
+ </A>
+Value (or variable containing a string) from which an excerpt is to be created.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13052">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13054">
+ </A>
+StartIndex</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13056">
+ </A>
+Specifies the index at which the excerpt is to start. The first character of String  has the index 1. <BR>
+1 &lt;= StartIndex &lt;= Length(String)</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13058">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13060">
+ </A>
+StopIndex</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13062">
+ </A>
+Specifies the index at which the excerpt is to end (the indexed character is included in the excerpt).<BR>
+1 &lt;= StartIndex &lt;= Length(String)<BR>
+If the StopIndex is less than the StartIndex, the order of the characters is reversed.</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=13064">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=13066">
+ </A>
+Example<BR>
+</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=13068">
+ </A>
+Where the variable X contains the string 'Test'.<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=13071">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6361">
+ </A>
+StrCopy</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6363">
+ </A>
+X,2,3 </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6365">
+ </A>
+-&gt; es</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6373">
+ </A>
+StrCopy</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6375">
+ </A>
+X,3,1 </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6377">
+ </A>
+-&gt; seT</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal-Indent">
+<A NAME="pgfId=13073">
+ </A>
+	</P>
+<P CLASS="Normal-Indent">
+<A NAME="pgfId=13075">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

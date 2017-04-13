@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+시험기 이름을 적습니다. {Audit78Gunpo, Audit78Vietnam, Line78, ...}
+TesterHWIdentification-Template.xml 에서 복사해서 수정한 후, TesterHWIdentification.xml 는 SVN 에 commit 하지 않습니다.
+시험기 이름(Name) 값은 CpTesterEnum 에 정의된 enumeration 이름 중 하나가 되어야 합니다.
+
+본 파일은 CPTesterConfiguration.xml 에서 추적해 올 수 있도록 자취를 남겨야 합니다.
+ToOriginPoseName 값은 "Configure\HwConfig\Audit78\ToOrg_Gunpo.poses" 로 확장됩니다.
+-->
+
+<!-- A_78KGP-->
+<CPTesterHardware 
+  Name="A_78KGP"
+  CPTesterHardwareConfigurationFolder="Configure\HwConfig\Audit78"
+  SignalDefinitionFile="SignalDefinitionAudit78.xml"
+  ToOriginPoseName="ToOrg_Gunpo"
+  Comment="GUNPO"
+/>
+
+<!-- A_78KVP-->
+<!--
+<CPTesterHardware
+  Name="A_78KVP"
+  CPTesterHardwareConfigurationFolder="Configure\HwConfig\Audit78"
+  SignalDefinitionFile="SignalDefinitionAudit78.xml"
+  ToOriginPoseName="ToOrg_Vietnam"
+  Comment="Vietnam"
+/>
+-->
+
+<!-- A_GCVT-->
+<!--
+<CPTesterHardware
+  Name="A_GCVT"
+  CPTesterHardwareConfigurationFolder="Configure\HwConfig\AuditGammaCVT"
+  SignalDefinitionFile="SignalDefinitionAuditGammaCVT.xml"
+  Comment="Audit Gamma CVT"
+/>
+-->
+
+
+<!-- L_8FF-->
+<!--
+<CPTesterHardware
+  Name="L_8FF"
+  CPTesterHardwareConfigurationFolder="Configure\HwConfig\Line8FF"
+  SignalDefinitionFile="SignalDefinitionLine8FF.xml"
+  Comment="Vietnam"
+/>
+-->

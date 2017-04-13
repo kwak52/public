@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5BB28232-269E-4AC5-BB65-573D30FE517C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CpSystem</RootNamespace>
+    <AssemblyName>CpSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CpApplciationIntrf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CpApplciationIntrf.dll</HintPath>
+    </Reference>
+    <Reference Include="CpCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CpCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="CpMngLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CpMngLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CpUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CpUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Dsu.Common.Utilities, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ExLib\Dsu.Common.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Dsu.Common.Utilities.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ExLib\Dsu.Common.Utilities.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Linq" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CpSystemManager.cs" />
+    <Compile Include="Configure\CpHaConfigure.cs" />
+    <Compile Include="Configure\CpHwConfigure.cs" />
+    <Compile Include="Configure\CpDevConfigure.cs" />
+    <Compile Include="Configure\CpSysConfigure.cs" />
+    <Compile Include="Manager\CpHwManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceSystem.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceSystem.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ResourceSystem.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceSystem.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CpTStepDevLib\CpTStepDevLib.csproj">
+      <Project>{92cb2af3-2755-4789-9140-a8e853ce3aad}</Project>
+      <Name>CpTStepDevLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devices\CpDeviceDsBase\CpDeviceDsBase.csproj">
+      <Project>{f080afd7-0a2f-4724-a652-7938da84e87a}</Project>
+      <Name>CpDeviceDsBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MngDev\Comm\CpMngDAQControl\CpMngDAQControl.csproj">
+      <Project>{5304f8db-66dd-4cc5-b8b2-b0cb59747ec1}</Project>
+      <Name>CpMngDAQControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MngDev\Comm\CpMngNetworkTcpIp\CpMngNetworkTcpIp.csproj">
+      <Project>{5d81ba02-90c3-4cea-83e9-e9867a945426}</Project>
+      <Name>CpMngNetworkTcpIp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MngDev\Comm\CpMngRS232\CpMngRS232.csproj">
+      <Project>{442e1f9a-068f-49cd-b54b-6b310b58a89e}</Project>
+      <Name>CpMngRS232</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

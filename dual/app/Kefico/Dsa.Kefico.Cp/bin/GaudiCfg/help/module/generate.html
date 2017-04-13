@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE>GENERATE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>GENERATE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/testlisten_schedule/a/src/generate.C,v 1.5 2006/01/27 14:00:29 nit3an Exp $
+   -------------------------------------------------------------------------
+   Kurzbeschreibung: Output of signal forms at RACAL module 6062 (only HP-RT)
+   -------------------------------------------------------------------------
+   Projekt:        Common Core System - BOSCH
+   Sourcefile:     generate.C
+   Autor:          AnW/FVS5   Schneider Romeo
+   Zielsystem:     HP9000 743rt vxi02 (HP-UX 9.05 ; HP-RT 02.11)
+   Sprache:        Ansi C; C++
+   -------------------------------------------------------------------------
+   Aufruf:                            &lt;GFMT KS=on TAB=8 LF=on&gt;
+
+   int  generate (shm_stringpointer *zeilen_wert, // &lt;I&gt; Zeiger auf Werte
+                  long index,                     // &lt;I&gt; Index Nummer
+                  long anzahl)                    // &lt;I&gt; Anzahl der Werte
+
+   -------------------------------------------------------------------------
+   Returnparameter:                   &lt;GFMT KS=on TAB=8 LF=on&gt;
+   -------------------------------------------------------------------------
+   Function description:              &lt;GFMT KS=on TAB=8 LF=on&gt;
+   Output of signal forms at RACAL module 6062 with option 06 connectors
+   (only for HP-RT). The 6062 is an un-isolated data acquisition and
+   generation VXI module with 4 analog inputs and 4 analog outputs.
+
+   Description of the module parameters:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>   	GAUDI teststep
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>   	PAV position
+   ------------------------------</pre><b><a name="param3">3</a> GEN_MODULE</b><pre>        module name (input)
+   ------------------------------</pre><b><a name="param4">4</a> GEN_COMMAND</b><pre>        command for generating signal forms at the RACAL module 6062 (input),
+        if the first two characters are "F:" a filename with commands for
+        generating signal forms must follow
+        (the file must be located in the CCS configuration directory)
+   ------------------------------</pre><b><a name="param5">5</a> GEN_PARAM1</b><pre>        parameter field for generator command (input)
+   ------------------------------</pre><b><a name="param6">6</a> GEN_PARAM2</b><pre>        parameter field for generator command (input)
+   ------------------------------</pre><b><a name="param7">7</a> GEN_PARAM3</b><pre>        parameter field for generator command (input)
+   ------------------------------</pre><b><a name="param8">8</a> GEN_PARAM4</b><pre>        parameter field for generator command (input)
+   ------------------------------</pre><b><a name="param8">8</a> RETURN_WERT</b><pre>        not used
+
+   -------------------------------------------------------------------------
+   Error description:                &lt;GFMT KS=on TAB=8 LF=on&gt;
+
+   LISO error handling
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<TITLE>F_6051_ZUSATZ</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>F_6051_ZUSATZ</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: f_6051_zusatz.C,v 1.3 2003/04/17 09:36:11 wiese Exp $
+   -----------------------------------------------------------------------------
+   Kurzbeschreibung: 	GAUDI-Interface im Vectorinterpreter fuer 6051 Karte
+   -----------------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		f_6051_zusatz
+   Autor:		SaW/TEF72-Oberste-Vorth (14.05.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   -----------------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   int f_6051_zusatz ( shm_stringpointer *zeilen_wert
+                      ,long              index_on_expPrfLst
+                      ,long              anzahl_parameter );
+   
+   -----------------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   ( Ssp_expand_wert
+    ,p_verwaltung-&gt;begin_modulblock
+    ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   -----------------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Ûbergabeparameter anhand der "modglobal.stl"
+   MD,F_6051_ZUSATZ</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre></pre><b><a name="param2">2</a> POSITION</b><pre></pre><b><a name="param3">3</a> ANSTEUER_UNIT</b><pre>z.B. I_GEBER_1</pre><b><a name="param4">4</a> SPANNUNG</b><pre>        Auswahl der Spannung am I-Geber der positive Wert
+                        darf "104" Volt nicht ueberschreiten;
+		        die Einheit der Spannung ist [V];</pre><b><a name="param5">5</a> REFERENZ</b><pre>        Auswahl eines Referenzkanals
+		          Parameter: "EXT" 
+			             (in diesem Fall muss eine entsprechende
+				      positive  Referenzspannung  &lt;= 20.0 Volt 
+				      angegeben werden )
+				     "INT"/"-"
+				     (in diesem Fall wird die interne Referenz 
+				      beruecksichtigt / das ist die Default-
+				      Einstellung )</pre><b><a name="param6">6</a> MAX_U_REFERENZ</b><pre>  Auswahl der Referenzspannung bei angeschalteter 
+                        externer Referenz
+			  Parameter: positive Werte  &gt; "0.0" und &lt;= "20.0" 
+			             in der Einheit [V]</pre><b><a name="param7">7</a> OUTPUT_MODE</b><pre>     Auswahl des Ausgangsmodus des Gebers:
+		          Parameter: "ON" - Ausgang eingeschaltet
+			             "UT" - Ausgang ungetaktet
+				          ( dasselbe wie "ON" )
+			             "T"  - Ausgang getaktet
+					    alle uebrigen Eingaben schalten
+					    den Ausgang ab;
+						   
+		        der Zustand des Ausgangs ist unabhaengig  von den
+			sonstigen Einstellungen;
+		        in der Default-Einstellung ist der Ausgang abgeschaltet;</pre><b><a name="param8">8</a> STROMBEREICH</b><pre>    Auswahl des einzustellenden Bereichs;
+		        damit wird die automatische Bereichswahl ausgeschaltet
+			und stoerende Umschalteffekte vermieden (hier nicht aktiv);
+   
+   ---------------------------------------------------------------------------
+
+   Revision 1.1  2001/12/18 10:13:43  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.6  2001/06/12 10:26:55  lehmann
+   Put_unitaenderung eingefuegt
+
+   Revision 1.5  2001/05/23 13:00:24  lehmann
+   put_unit_aenderung eingeführt
+
+   Revision 1.4  2000/02/15 11:15:09  KLM3SA
+   Sourcen aus testsystem_21 kopiert.
+
+   ---------------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

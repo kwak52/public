@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE>M_ICS_BIT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_ICS_BIT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: m_ics_bit.C,v 1.11 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Aufruf des Prozesses ICS_4863
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		m_ics_bit.C
+   Autor:		RtW/TEF72-Rapp (5.2.2002)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   void m_ics_bit(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Dieses Modul Übergibt seine Parameter an den Prozess ICS_4863.
+   Im Prozess ICS_4863 wird auf ein internes Feld, das zu einem 
+   früheren Zeitpunkt über das Modul m_ics_read eingelesen wurde,
+   zugegriffen und den Wert des gewünschte Bit (0-63) zurückgegeben.
+
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> IND_DEVICENAME</b><pre>   Name des Gerätes		
+   ------------------------------</pre><b><a name="param4">4</a> BIT</b><pre>   Nummer des amgeforderten Bit 
+   im Bereich 0-63 
+   -------------------------------</pre><b><a name="param5">5</a> ERGEBNIS</b><pre>   Rückgabe des Bits 0 oder 1
+   -------------------------------</pre><b><a name="param6">6</a> FEHLERFLAG</b><pre>   Fehler aufgetreten = 1; ok = 0
+   -------------------------------
+</PRE>
+</BODY>
+</HTML>

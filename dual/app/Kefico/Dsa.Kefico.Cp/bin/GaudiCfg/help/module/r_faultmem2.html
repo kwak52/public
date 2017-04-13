@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE>R_FAULTMEM2</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_FAULTMEM2</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_faultmem2.C,v 1.1 2005/01/10 12:47:02 nit3an Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	searches for a target error
+   ---------------------------------------------------------------------
+   Projekt:		testlisten_anw_module
+   Sourcefile:		r_faultmem2.C
+   Autor:		AnW/TEF7-Thomas Nickel (28.12.2004)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01), /7/C/D (HP-UX 10.20), Linux
+   Sprache:		ANSI-C/C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   
+   int r_faultmem2
+   (shm_stringpointer *zeilen_wert  // &lt;I&gt; Pointer to anzahl STRING parameters
+   ,long index   		    // &lt;I&gt; Index number
+   ,long anzahl)		    // &lt;I&gt; Number of values
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   error = r_faultmem2
+   (*zeilen_wert	// &lt;I&gt; Pointer to anzahl STRING parameters
+   ,index		// &lt;I&gt; Index number
+   ,anzahl)		// &lt;I&gt; Number of values
+   
+   if (error != 0) 	// Fehlerbeschreibung ... 
+   {
+   // Fehlerhandling ... 
+   }
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung: Searches for an error number in a hexadecimal input
+   string with ECU fault memory data and:
+   - returns error number or state flags if the target error number was found
+   - returns "0" if the target error number was not found.
+   
+   Description of module parameters:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>   GAUDI teststep</pre><b><a name="param2">2</a> POSITION</b><pre>   PAV-position</pre><b><a name="param3">3</a> INPUT_STRING</b><pre>   hexadecimal input string from ECU fault memory (got with module P_AUFTRAG).
+   Values are streams of 4 hexadecimal characters each without separation
+   characters between them. Every value has an error number and 6 state flags.
+   Bit  0 - 9: error number,
+   Bit 10 -15: state flags (values 0 or 1).
+   The first 4*ERR_COUNT (see next parameter) characters are searched for the target
+   error number. E.g.: INPUT_STRING="A753B60FCFAB89B3" will be separated into parts:
+   A753 B60F CFAB  (if ERR_COUNT=3)
+   separation into bits:
+      A753 --&gt; 1010 0111 0101 0011, B60F --&gt; 1011 0110 0000 1111, ...
+   separation into state flags and error numbers:
+          A753   		   B60F   	       CFAB
+   state: 1010 01=0x29=41   	   1011 01=0x2D=45     1100 11=0x33=51
+   error: 11 0101 0011=0x353=851   10 0000 1111=0x20F  11 1010 1011=0x3AB
+                                   =527                =939</pre><b><a name="param4">4</a> ERR_COUNT</b><pre>   Number of the error numbers in input string which are searched for from the beginning,
+   allowed values are 1 &lt;= ERR_COUNT &lt;= MAXERR (see defines); e.g.: 3</pre><b><a name="param5">5</a> OUTPUTFLAG</b><pre>   The OUTPUTFLAG can be set to ERRNO or STATE (see paragraph RESULT_NUMMER1)</pre><b><a name="param6">6</a> TARGET_ERRNO</b><pre>   A decimal error number which is searched for in the input string,
+   e.g.: TARGET_ERRNO="527"</pre><b><a name="param7">7</a> RESULT_NUMMER1</b><pre>   The result string containing in case of
+   OUTPUTFLAG=ERRNO: the TARGET_ERRNO as decimal number if found, else "0"; e.g. "527"
+   OUTPUTFLAG=STATE: the state flags as hexadecimal number if the target error number
+                     was found, else "0"; e.g. "2D"
+
+</PRE>
+</BODY>
+</HTML>

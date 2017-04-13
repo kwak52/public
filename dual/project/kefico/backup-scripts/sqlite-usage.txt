@@ -1,0 +1,7 @@
+% sqlite3 kefico.db
+
+.table
+.show
+.nullvalue {null}
+.header on
+.mode column

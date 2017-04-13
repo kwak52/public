@@ -1,0 +1,53 @@
+﻿= NI VISA manager =
+  TCP/IP, RS232, ... 등등의 거의 모든 protocol 을 하나로 통합 지원
+
+# References #
+- http://www.hivmr.com/db/dcx1cffxcjcackf71ccmamd8xz7pm1zk
+
+
+# Event handling / Monitoring #
+  상대 측에서 message 를 보내는 즉시 읽어 내는 모드
+
+- EventMechanism.Queue 와 EventMechanism.Handler 가 있는데, EventMechanism.Handler 가 더 안정적으로 보임
+- Session.SynchronizeCallbacks = true; 를 반드시 수행해야 함.
+
+## EventMechanism.Handler ##
+{{{
+    private SerialSession _rs232;
+
+	private void installMonitor()
+	{
+		_rs232 = new SerialSession("COM3") { BaudRate = 115200, };
+        _rs232.SynchronizeCallbacks = true;
+        _rs232.AnyCharacterReceived += new SerialSessionEventHandler(Serial_AnyCharacterReceived);
+        _rs232.EnableEvent(SerialSessionEventType.AnyCharacterReceived, EventMechanism.Handler);
+	}
+
+    private void Serial_AnyCharacterReceived(object sender, NationalInstruments.VisaNS.SerialSessionEventArgs e)
+    {
+        try { System.Diagnostics.Trace.WriteLine($"RS232C: { _rs232.ReadString()}"); }
+        catch(Exception ex) { System.Diagnostics.Trace.WriteLine($"EXCEPTION."); }
+    }
+}}}
+
+
+## EventMechanism.Queue - 잘 동작하지 않음 ##
+{{{
+    private SerialSession _rs232;
+
+	private void installMonitor()
+	{
+		_rs232 = new SerialSession("COM3") { BaudRate = 115200, };
+        _rs232.SynchronizeCallbacks = true;
+		_rs232.EnableEvent(SerialSessionEventType.AnyCharacterReceived, EventMechanism.Queue);
+        new System.Threading.Thread(WaitForData_SerialRead) { IsBackground = true }.Start();
+	}
+
+    private void WaitForData_SerialRead()
+    {
+        _rs232.WaitOnEvent(MessageBasedSessionEv​entType.AllEnabledEvents);
+        try { MessageBox.Show(_rs232.ReadString()); }
+        catch (VisaException ex)  { MessageBox.Show($"Exception: {ex}"); }
+    }
+}}}
+

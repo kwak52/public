@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> Berechnen [any] </TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>Berechnen [any] </b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=11389">
+ </A>
+Berechnen [any] </H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11391">
+ </A>
+Term [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11393">
+ </A>
+Rounding_Method  [INT] </P>
+<P CLASS="Normal">
+<A NAME="pgfId=11395">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=11397">
+ </A>
+Description of Function</H6>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11399">
+ </A>
+Links variables (function results) and decimal constants in a mathematical formula (parameter Term). In the case of variables, the `Berechnen' function operates exclusively with pure numerical values regardless of the units specified in the PAV. The units of the test result are also ignored by the Berechnen (Calculate) function.<BR>
+Example: the reading of 7 V obtained from a voltage measurement is assigned to the variable UB2. <BR>
+The function Berechnen(UB2+2.0) is then invoked. Following that, UB2 is passed to a D/A converter stimulus as a value with the unit mV. Result of the calculation: 9.0 mVAny units can be specified for the Berechnen function but they are treated simply as Remarks indicating to the reader how the results of the calculation are to be interpreted.<BR>
+<BR>
+ In DAPAS/Win, therefore, the units are shown in brackets.</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11401">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11403">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11405">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11407">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11409">
+ </A>
+Parameters</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11411">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11413">
+ </A>
+Term</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11415">
+ </A>
+Mathematical term consisting of a combination of variables, constants, the operators +,-,*,/, and round brackets.<BR>
+<BR>
+Note: this term must not exceed 60 characters in length.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11417">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11419">
+ </A>
+Rounding_Method</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11421">
+ </A>
+Specifies whether and how the result is to be rounded.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11423">
+ </A>
+0= No rounding; the result is a floating-point number<BR>
+1= Round to nearest whole number (2.4 becomes 2 and 2.6 becomes 3)<BR>
+2= Round down to next whole number<BR>
+3= Round up to next whole number<BR>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11425">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11427">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11429">
+ </A>
+Example: calculating a total current figure from two separate measurements<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11432">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2281">
+ </A>
+Measurement</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2283">
+ </A>
+Measurement Parameters</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2285">
+ </A>
+Measured Value</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2293">
+ </A>
+x=DCI</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2295">
+ </A>
+1,0.02,0.1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2297">
+ </A>
+2.0 A</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2305">
+ </A>
+y=DCI</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2307">
+ </A>
+1,0.02,0.1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2309">
+ </A>
+0.3 A</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2317">
+ </A>
+Berechnen</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2319">
+ </A>
+x+y,0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2321">
+ </A>
+2.3 (A)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2329">
+ </A>
+Berechnen</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2331">
+ </A>
+2.9,2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2333">
+ </A>
+2</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2341">
+ </A>
+Berechnen</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2343">
+ </A>
+2.1,3</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2345">
+ </A>
+3</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2353">
+ </A>
+Berechnen</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2355">
+ </A>
+-2.9,3</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2357">
+ </A>
+-2</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2365">
+ </A>
+Berechnen</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2367">
+ </A>
+-2.1,2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2369">
+ </A>
+-3</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=11434">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

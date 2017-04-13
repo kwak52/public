@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> OBPInit1 []</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>OBPInit1 []</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=11206">
+ </A>
+OBPInit1 []</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11208">
+ </A>
+ECU_Continue_Pin [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11210">
+ </A>
+ECU_Continue_Reference_Pin [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11212">
+ </A>
+TS_Continue_Pin [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11214">
+ </A>
+TS_Continue_Reference_Pin [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11216">
+ </A>
+TS_Continue_TriggerLevel_Pos [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11218">
+ </A>
+TS_Continue_TriggerLevel_Neg [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11220">
+ </A>
+ECU_Continue_High [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11222">
+ </A>
+ECU_Continue_Low [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11224">
+ </A>
+ECU_Continue_Init [high, low, -]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11226">
+ </A>
+Unit [Str]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11228">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=11230">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11232">
+ </A>
+Initializes the pins for the handshake during the on-board test.  This function must be invoked before the first call for the function <EM CLASS="HelpSprung">
+OBPHS</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_OBPHS</EM>
+. It replaces the previous function <EM CLASS="HelpSprung">
+OBPInit</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_OBPInit</EM>
+; OBPInit may no longer be used in new PAVs. This function does not return a value.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11234">
+ </A>
+The parameters TS_Continue ... Unit are not analyzed on the CCS.</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11236">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11238">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11240">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11242">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11244">
+ </A>
+Parameters</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11246">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11248">
+ </A>
+ECU_Continue_Pin</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11250">
+ </A>
+Specifies the control unit pin number for the handshake signal ECU_Continue.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11252">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11254">
+ </A>
+ECU_Continue_Reference_Pin</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11256">
+ </A>
+Specifies the control unit reference pin number for the handshake signal ECU_Continue.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11258">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11260">
+ </A>
+TS_Continue_Pin</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11262">
+ </A>
+Specifies the control unit pin number for the handshake signal TS_Continue.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11264">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11266">
+ </A>
+TS_Continue_Reference_Pin</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11268">
+ </A>
+Specifies the control unit reference pin number for the handshake signal TS_Continue.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11270">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11272">
+ </A>
+TS_Continue_TriggerLevel_Pos</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11274">
+ </A>
+Specifies the trigger level for the positive edge of the handshake signal TS_Continue.<BR>
+<BR>
+Default value: 3 V (A different level from this is only permitted in justifiable special cases; the trigger level can not be set on all testing stations.)</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11276">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11278">
+ </A>
+TS_Continue_TriggerLevel_Neg</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11280">
+ </A>
+Specifies the trigger level for the negative edge of the handshake signal TS_Continue.<BR>
+<BR>
+Default value: 3 V (A different level from this is only permitted in justifiable special cases; the trigger level can not be set on all testing stations.)</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11282">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11284">
+ </A>
+ECU_Continue_High</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11286">
+ </A>
+Specifies the High level for the handshake signal CU_Continue (numerical value or '-' for disconnect).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11288">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11290">
+ </A>
+ECU_Continue_Low</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11292">
+ </A>
+Specifies the Low level for the handshake signal ECU_Continue (numerical value or '-' for disconnect). </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11294">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11296">
+ </A>
+ECU_Continue_Init</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11298">
+ </A>
+Specifies the initial level for the handshake signal ECU_Continue (High or Low).  This ECU_Continue signal level is set by the function OBPInit1.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11300">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11302">
+ </A>
+Unit</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11304">
+ </A>
+Specifies the units for the values ECU_Continue_High and ECU_Continue_Low. All units that are allowed for stimulus settings and which require a numerical value are permitted. The unit Sa is only permitted in conjunction with the reference point index 0 (corresponds to TS_Continue reference pin).</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11306">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11308">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11310">
+ </A>
+Example<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11313">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2270">
+ </A>
+OBPInit1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2272">
+ </A>
+11, 12, 20, 21, 3 , 3, 12, 0, high, V</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11315">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11317">
+ </A>
+The above settings signify the following:</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11319">
+ </A>
+			ECU_Continue pin is Pin 11; reference point is Pin 12</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11321">
+ </A>
+			TS_Continue pin is Pin 20; reference point is Pin 21</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11323">
+ </A>
+			The trigger levels for recording the TS_Continue signal are both 3 V.</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11325">
+ </A>
+			ECU_Continue_High = 12 V, ECU_Continue_Low = 0 V; communication starts with the High level.<BR>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11327">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11329">
+ </A>
+</P>
+</DIV>
+</DIV>
+<DIV>
+<H5 CLASS="Heading-2">
+<A NAME="pgfId=11341">
+ </A>
+<A NAME="_Toc507840588">
+ </A>
+<A NAME="_Toc535125007">
+ </A>
+<A NAME="_Toc535125283">
+ </A>
+<A NAME="_Toc2671039">
+ </A>
+<A NAME="_Toc331377926">
+ </A>
+	Others</H5>
+</DIV>
+</BODY>
+</HTML>

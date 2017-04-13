@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<TITLE>E_KFG</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_KFG</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ Funktionsbeschreibung:                                              
+    Index der expandierten Pruefliste, und der Name der              
+    anzusteuerenden Unit werden ermittelt und via Message-Queue      
+    an den Prozess KURVENFORMGENERATOR uebermittelt.                 
+                                                                     
+    Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                               
+         GAUDI Pruefschritt                                          
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                   
+         PAV- Position                                               
+    ------------------------------</pre><b><a name="param3">3</a> ANSTEUER_UNIT</b><pre>                                              
+         z.B.: GEN_AMPL1_1 (siehe aktuelles HW-Config-File)          
+    ------------------------------</pre><b><a name="param4">4</a> SIGNALFILE</b><pre>                                                 
+         Name der Signaldatei ohne Extension (".cnf")                
+    ------------------------------</pre><b><a name="param5">5</a> TRIG_SOURCE</b><pre>                                                
+         Triggerquelle (EXT1, EXT2, CLK2, INTERN, "-")               
+    ------------------------------</pre><b><a name="param6">6</a> TRIG_SLOPE</b><pre>                                                 
+         POS-/NEG-Triggerflanke                                      
+    ------------------------------</pre><b><a name="param7">7</a> TRIG_EVENT</b><pre>                                                 
+         SYNC / ASYNC                                                
+         (Anstarten eines Signals erst nach Beendigung des           
+          zuvor aktiven oder unmittelbares Anstarten)                
+    ------------------------------</pre><b><a name="param8">8</a> AMPL_PRECISION</b><pre>                                             
+         Wert (in Proz.) steuert den Algorithmus zur Optimierung     
+         der Signalamplituden;                                       
+    ------------------------------</pre><b><a name="param9">9</a> AMPL_FACTOR</b><pre>                                                
+         veraendert den Amplitudenfaktor am Referenz-DAC des KFG3    
+         (Abschwaecher mit Werten zwischen 1.00 und 0.1);            
+         Wichtig: Ausfuehrung ist langsamer als Aenderung von        
+                  Amplitudenwerten mittels Ansteuerparametern !      
+    ------------------------------</pre><b><a name="param10">10</a> FREQ_FACTOR</b><pre>                                                
+         veraendert die Ausgabefrequenz eines Signals durch          
+         Manipulation der N,M-Paramter des Phasenrechenwerks im KFG3 
+         (Werte zw. 0.1, .., 1.0, .., 10.0 sind moeglich);           
+         Wichtig: Ausfuehrung ist langsamer als Aenderung von        
+                  Amplitudenwerten mittels Ansteuerparametern !      
+    ------------------------------</pre><b><a name="param11">11</a> ANALOG_PIN</b><pre>                                                 
+         Steuergeraete-bezogener PIN-Bezeichner (s. Adapterfile)     
+         zur Anschaltung des Analogausgangs;                         
+    ------------------------------</pre><b><a name="param12">12</a> ANALOG_REF</b><pre>                                                 
+         dito                                                        
+    ------------------------------</pre><b><a name="param13">13</a> IMPEDANZ</b><pre>                                                   
+         LOW / NORM / 500R(Kombination aus LOW und 500Ohm-Widerstand 
+                           auf der Zwischenkarte);                   
+    ------------------------------</pre><b><a name="param14">14</a> EXT_OUTREF</b><pre>                                                 
+         Aktivierung des ext. Referenzeingangs mit Angabe eines      
+         Steuergeraete-bezogener PIN-Bezeichner (s. Adapterfile);    
+    ------------------------------</pre><b><a name="param15">15</a> TRIGGER1</b><pre>                                                   
+         IN / OUT (Aktivierung des ext. Triggereingangs oder -       
+                   alternativ - Ausgabe eines Digitalsignals);       
+    ------------------------------</pre><b><a name="param16">16</a> TRIGGER2</b><pre>                                                   
+         dito                                                        
+    ------------------------------</pre><b><a name="param17">17</a> OC1</b><pre>                                                        
+         Steuergeraete-bezogener PIN-Bezeichner (s. Adapterfile)     
+         zur Anschaltung des OpenCollector-Ausgangs;                 
+    ------------------------------</pre><b><a name="param18">18</a> OC2</b><pre>                                                        
+         dito                                                        
+    ------------------------------</pre><b><a name="param19">19</a> OC3</b><pre>                                                        
+         dito                                                        
+    ------------------------------</pre><b><a name="param20">20</a> OC4</b><pre>                                                        
+         dito                                                        
+    ------------------------------</pre><b><a name="param21">21</a> OUTP_ENABLE</b><pre>                                                
+         ON / OFF                                                    
+    ------------------------------</pre><b><a name="param22">22</a> RUN_STOP</b><pre>                                                   
+         SINGLE / FREE / STOP (SWEEP - noch nicht aktiv)             
+                                                                     
+                                                                     
+ Weitergehende Dokumentation zum Thema KFG befindet sich             
+ in der CCS-Gesamtdokumentation.                                     
+</PRE>
+</BODY>
+</HTML>

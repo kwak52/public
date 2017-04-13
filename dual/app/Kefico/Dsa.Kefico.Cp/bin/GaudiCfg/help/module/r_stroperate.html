@@ -1,0 +1,752 @@
+<HTML>
+<HEAD>
+<TITLE>R_STROPERATE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_STROPERATE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ Funktionsbeschreibung:                                                        
+                                                                               
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                          
+          GAUDI-Pruefschritt                                                   
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                              
+          PAV-Position                                                         
+    ------------------------------</pre><b><a name="param3">3</a> IN_FORMAT</b><pre>                                                             
+          Gibt an, welches Darstellungsformat der uebergebene                  
+          'INPUT_STRING' hat:                                                  
+             BIN   - binaeres Zahlenformat:                                    
+                       Auswertung erfolgt als vorzeichenlose Zahl;             
+                       eine fuehrende '1' hat nicht die Bedeutung, dass        
+                       die Zahl als negative Zahl zu bewerten ist;             
+                                                                               
+             HEX   - sedezimales Zahlenformat:                                 
+                       Auswertung erfolgt als vorzeichenlose Zahl;             
+                       ein in der Integer-Darstellung gesetztes hoechst-       
+                       wertiges Bit hat nicht die Bedeutung, dass die Zahl     
+                       als negative Zahl zu bewerten ist;                      
+                                                                               
+             OKT   - oktales Zahlenformat:                                     
+                       Auswertung erfolgt als vorzeichenlose Zahl;             
+                       ein in der Integer-Darstellung gesetztes hoechst-       
+                       wertiges Bit hat nicht die Bedeutung, dass die Zahl     
+                       als negative Zahl zu bewerten ist;                      
+                                                                               
+    ------------------------------</pre><b><a name="param4">4</a> INPUT_STRING1</b><pre>                                                         
+          konstanter String mit max. 14 Zeichen Laenge, der eine               
+          Zahl in einer der zuvor aufgefuehrten Darstellungen repraesentiert   
+          oder ein ueber eine '&amp;'-Variable empfangener String gleichen         
+          Inhalts (bestehend aus moeglicherweise mehr als 14 Zeichen,          
+           z.Zt. maximal 80 Zeichen);                                          
+                                                                               
+          Ein leerer Input erzeugt eine Fehlermeldung!                         
+                                                                               
+    ------------------------------</pre><b><a name="param5">5</a> OPERATOR</b><pre>                                                              
+          Einer der folgenden binaeren Operatoren (s. Wahrheitstabelle):       
+            AND:  0 &amp; 0 = 0                                                    
+                  0 &amp; 1 = 0                                                    
+                  1 &amp; 0 = 0                                                    
+                  1 &amp; 1 = 1                                                    
+                                                                               
+            OR:   0 | 0 = 0                                                    
+                  0 | 1 = 1                                                    
+                  1 | 0 = 1                                                    
+                  1 | 1 = 1                                                    
+                                                                               
+            XOR:  0 ^ 0 = 0                                                    
+                  0 ^ 1 = 1                                                    
+                  1 ^ 0 = 1                                                    
+                  1 ^ 1 = 0                                                    
+                                                                               
+            NAND: !(0 &amp; 0) = 1                                                 
+                  !(0 &amp; 1) = 1                                                 
+                  !(1 &amp; 0) = 1                                                 
+                  !(1 &amp; 1) = 0                                                 
+                                                                               
+            NOR:  !(0 | 0) = 1                                                 
+                  !(0 | 1) = 0                                                 
+                  !(1 | 0) = 0                                                 
+                  !(1 | 1) = 0                                                 
+                                                                               
+            XNOR: !(0 ^ 0) = 1                                                 
+                  !(0 ^ 1) = 0                                                 
+                  !(1 ^ 0) = 0                                                 
+                  !(1 ^ 1) = 1                                                 
+                                                                               
+          oder der unaere Operator:                                            
+            NOT,                                                               
+          darueberhinaus die Shift-Operatoren SHL und SHR.                     
+                                                                               
+          Die Operatoren wirken Bit-weise auf die durch die                    
+          in den 'INPUT_STRING1/2' uebergebenen Ziffernstrings.                
+                                                                               
+          Beispiel1: 'INPUT_STRING1' -   A6748                                 
+                     'OPERATOR'      -     XOR                                 
+                     'INPUT_STRING2' - 7DE4F5A                                 
+                ===&gt; 'OUTPUT_STRING' - 7D42812                                 
+                                                                               
+          Beispiel2: 'INPUT_STRING1' -   A6748                                 
+                     'OPERATOR'      -     SHR                                 
+                     'INPUT_STRING2' -       5                                 
+                ===&gt; 'OUTPUT_STRING' -   0533A                                 
+                                                                               
+          Beispiel3: 'INPUT_STRING1' -   A6748                                 
+                     'OPERATOR'      -     SHL                                 
+                     'INPUT_STRING2' -       6                                 
+                ===&gt; 'OUTPUT_STRING' -   9D200                                 
+                                                                               
+          Beispiel4: 'INPUT_STRING1' -   A6748                                 
+                     'OPERATOR'      -     NOT                                 
+                     'INPUT_STRING2' -                                         
+                ===&gt; 'OUTPUT_STRING' -   598B7                                 
+                                                                               
+          Wichtig: Im Falle des 'NOT'-Operators darf kein                      
+                   'INPUT_STRING2' eingegeben werden!                          
+                   Bei 'SHL' bzw. 'SHR' wird ueber 'INPUT_STRING2'             
+                   die Anzahl der Stellen, um die der uebergebene              
+                   'INPUT_STRING2' 'geshiftet' werden soll,                    
+                   eingegeben!                                                 
+                                                                               
+    ------------------------------</pre><b><a name="param6">6</a> INPUT_STRING2</b><pre>                                                         
+          konstanter String mit max. 14 Zeichen Laenge, der eine               
+          Zahl in (fast) beliebiger Darstellung repraesentiert                 
+          oder ein ueber eine '&amp;'-Variable empfangener String                  
+          gleichen Inhalts (bestehend aus moeglicherweise mehr                 
+          als 14 Zeichen, z.Zt. maximal 80 Zeichen);                           
+                                                                               
+          Wichtig: Ein leerer Input erzeugt eine Fehlermeldung,                
+                   sofern nicht der unaere 'NOT'-Operator                      
+                   verwendet wird!                                             
+                   Bei 'SHL' bzw. 'SHR' muss ueber 'INPUT_STRING2'             
+                   immer eine dezimale Zahl eingegeben werden!                 
+                                                                               
+    ------------------------------</pre><b><a name="param7">7</a> OUTPUT_STRING</b><pre>                                                         
+          Ausgabe-String, der das Ergebnis der durchgefuehrten                 
+          Operation enthaelt;                                                  
+          die Weitergabe an andere Module erfolgt durch eine                   
+          '&amp;'-Variable;                                                        
+          die Laenge der Ausgabe ist gleich der Laenge des laengsten           
+          'INPUT_STRING';                                                      
+                                                                               
+          Wichtig: In sedezimaler Darstellung werden die                       
+                   Zahlenwerte 10 bis 15 (entspr. A bis F) als                 
+                   Grossbuchstaben ausgegeben!                                 
+                                                                               
+                                                                               
+ Input:  Zeiger auf den relevanten "Wert" einer Zeile der                      
+         expandierten Pruefliste;                                              
+         Index im entsprechenden Speicherbereich fuer                          
+         Moduldaten;                                                           
+         Anzahl der Modulparameter;                                            
+                                                                               
+ Output: none                                                                  
+                                                                               
+ ----------------------------------------------------------                    
+ Return Value:                                                                 
+    = 0:    Successful completion                                              
+     -1:    kein 'INPUT_STRING1' bzw. 'INPUT_STRING2';                         
+            der 'INPUT'-String repraesentiert keine Zahl in einem              
+            der gueltigen Formate;                                             
+                                                                               
+ ----------------------------------------------------------                    
+ Beispiel (optional):                                                          
+                                                                               
+ ----------------------------------------------------------                    
+ &lt;\userdoc&gt; 
+ C4                                                                            
+int r_stroperate( shm_stringpointer  *zeilen_wert
+                 ,long               index_on_expPrfLst
+                 ,long               anzPrmtr )
+{
+	
+	 r_stroperate 	
+	
+	 lokale Variablen 	
+	
+	       ua. Schleifenparameter fuer Datenkopie: 	
+	long  indx;
+	
+	
+	       uebernimmt den an die Funktion uebergebenen Index fuer Datenkopie: 	
+	long  indx_o_ePL;
+	
+	
+	       speichert den Index zur Unitnummer, die fuer den Zugriff auf die dem  
+	       Modul zugeordnete Speicherbereiche notwendig ist:                     	
+	long  unit_indexPtr;
+	
+	
+	         Speicher fuer Modulparameter: 	
+	STRING  wert[ANZAHL_PARAMETER +1];
+	
+	
+	                 Vorzeichenflag: -1  negatives Vorzeichen          
+	                                  0  kein Vorzeichen (dh. positiv) 
+	                                  1  positives Vorzeichen          	
+	short           signum;
+	
+	
+	                 Startposition im InputString der fuer die Auswertung   
+	                 relevanten Ziffern (nur aus Kompatibilitaetsgruenden): 	
+	unsigned short  pos_no_blanks_no_sign1, pos_no_blanks_no_sign2;
+	
+	unsigned short  relevant_InputLength1, relevant_InputLength2;
+	unsigned short  InputLength;
+	
+	unsigned short  IntegerLength;
+	
+	
+	                 (nur aus Kompatibilitaetsgruenden) 	
+	BOOLEAN         with_decimal_point;
+	
+	
+	                 hierin befindet sich nach Aufruf der Funktion  
+	                 'analyze_InputPrmtr()' die im GAUDI angegebene 
+	                 Formatangabe in kodierter Form:                	
+	unsigned short  coded_InpFormat1, coded_InpFormat2;
+	
+	char  DigitString1[MAX_STRFORMAT_LEN];
+	char  DigitString2[MAX_STRFORMAT_LEN];
+           
+	 laenge eines STRING Variable 
+        char szHil[81];
+        
+	      Rueckgabewert der Funktion 'schrittbetrieb()': 	
+	int  schritt_aktiv;
+	
+	int  ret_val = 0;
+	
+	
+	 Schrittbetriebs-Handling 	
+	schritt_aktiv = schrittbetrieb( zeilen_wert, index_on_expPrfLst );
+	
+	if ( schritt_aktiv != 1 ) {
+		return( ret_val );
+	
+	}
+	
+	 keine Aktivitaeten im Ruestlauf: 	
+	if ( strcmp( Ssp_vi-&gt;job.liststate, PREINT ) ) {
+		indx_o_ePL = index_on_expPrfLst;
+		
+		if ( anzPrmtr == ANZAHL_PARAMETER - 1 ) {
+			
+			 Kopie der Modulparameter aus dem Shared Memory in den lokalen Bereich: 			
+			for ( indx = 1; indx &lt; anzPrmtr; indx++ ) {
+				wert[indx] = *zeilen_wert-&gt;ptr[indx_o_ePL];
+				indx_o_ePL++;
+			
+			}
+			// der Positionszaehler 'indx_o_ePL' zeigt nun bereits auf 
+			// die entsprechende Einfuegeposition fuer den Ergebnisstring
+			
+			
+			 GAUDI-Parameter ausgeben 			
+			debug_message( __FILE__, __LINE__, DEB_GAUDI
+			              ,"Input fuer Modul \"R_STROPERATE\": \
+                \n[%s][%s] \
+                \n[%s][%s]"
+			              ,(const char *)wert[INPUT_FORMAT]
+			              ,(const char *)wert[INPUT_STRING1]
+			              ,(const char *)wert[OPERATOR]
+			              ,(const char *)wert[INPUT_STRING2] );
+		
+		}
+		else if ( anzPrmtr == ANZAHL_PARAMETER ) {
+			
+			 Kopie der Modulparameter aus dem Shared Memory in den lokalen Bereich: 			
+			for ( indx = 1; indx &lt;= anzPrmtr; indx++ ) {
+				wert[indx] = *zeilen_wert-&gt;ptr[indx_o_ePL];
+				indx_o_ePL++;
+			
+			}
+			// den Positionszaehler 'indx_o_ePL' auf die entsprechende
+			// Einfuegeposition fuer den Ergebnisstring setzen.
+			
+			indx_o_ePL -= 2;
+			
+			
+			 GAUDI-Parameter ausgeben 			
+			debug_message( __FILE__, __LINE__, DEB_GAUDI
+			              ,"Input fuer Modul \"R_STROPERATE\": \
+                \n[%s][%s] \
+                \n[%s][%s][%s]"
+			              ,(const char *)wert[INPUT_FORMAT]
+			              ,(const char *)wert[INPUT_STRING1]
+			              ,(const char *)wert[OPERATOR]
+			              ,(const char *)wert[INPUT_STRING2]
+			              ,(const char *)wert[FEHLERFLAG] );
+		
+		}
+		
+		 Auswertung des ersten InputStrings: 		
+		ret_val = analyze_InputPrmtr( (const char *)wert[INPUT_STRING1]
+		                             ,(const char *)wert[INPUT_FORMAT]
+		                             ,(const char *)wert[INPUT_FORMAT]
+		
+		                             ,&amp;signum
+		                             ,&amp;pos_no_blanks_no_sign1
+		                             ,&amp;IntegerLength
+		                             ,&amp;relevant_InputLength1
+		                             ,&amp;with_decimal_point
+		
+		                             ,&amp;coded_InpFormat1 );
+		
+		
+		 Ermittlung der gewuenschten Operation und entsprechend  
+		 Auswertung des zweiten InputStrings,                    
+		 Ermittlung der max. Inputlaenge                         		
+		if ( 0 == ret_val ) {
+			if ( strcmp( (const char *)wert[OPERATOR], "AND" ) == 0 ) {
+				
+				 bitweises 'AND': 				
+				
+				 Auswertung des zweiten InputStrings: 				
+				ret_val = analyze_InputPrmtr( (const char *)wert[INPUT_STRING2]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				
+				                             ,&amp;signum
+				                             ,&amp;pos_no_blanks_no_sign2
+				                             ,&amp;IntegerLength
+				                             ,&amp;relevant_InputLength2
+				                             ,&amp;with_decimal_point
+				
+				                             ,&amp;coded_InpFormat2 );
+				
+				if ( 0 == ret_val ) {
+					
+					 max. Inputlaenge: 					
+					InputLength = 
+					((relevant_InputLength2 &gt; relevant_InputLength1) ? relevant_InputLength2 : relevant_InputLength1);
+					
+					
+					 Formatierung der Inputstrings: 					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING1] + pos_no_blanks_no_sign1)
+					                      ,relevant_InputLength1
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString1 );
+					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING2] + pos_no_blanks_no_sign2)
+					                      ,relevant_InputLength2
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString2 );
+					
+					
+					 Operation ausfuehren und Ergebnis an GAUDI(SHM-)-Schnittstelle zuweisen: 					
+					str_opAND( DigitString1
+					          ,DigitString2
+					          ,InputLength
+					          ,szHil );
+                                                  *zeilen_wert-&gt;ptr[indx_o_ePL] = szHil;
+				
+				}
+			}
+			else if ( strcmp( (const char *)wert[OPERATOR], "NAND" ) == 0 ) {
+				
+				 bitweises 'NAND': 				
+				
+				 Auswertung des zweiten InputStrings: 				
+				ret_val = analyze_InputPrmtr( (const char *)wert[INPUT_STRING2]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				
+				                             ,&amp;signum
+				                             ,&amp;pos_no_blanks_no_sign2
+				                             ,&amp;IntegerLength
+				                             ,&amp;relevant_InputLength2
+				                             ,&amp;with_decimal_point
+				
+				                             ,&amp;coded_InpFormat2 );
+				
+				if ( 0 == ret_val ) {
+					
+					 max. Inputlaenge: 					
+					InputLength = 
+					((relevant_InputLength2 &gt; relevant_InputLength1) ? relevant_InputLength2 : relevant_InputLength1);
+					
+					
+					 Formatierung der Inputstrings: 					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING1] + pos_no_blanks_no_sign1)
+					                      ,relevant_InputLength1
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString1 );
+					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING2] + pos_no_blanks_no_sign2)
+					                      ,relevant_InputLength2
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString2 );
+					
+					
+					 Operation ausfuehren und Ergebnis an GAUDI(SHM-)-Schnittstelle zuweisen: 					
+					str_opNAND( DigitString1
+					           ,DigitString2
+					           ,InputLength
+					           ,coded_InpFormat1
+					           ,szHil );
+                                        *zeilen_wert-&gt;ptr[indx_o_ePL] = szHil;
+				}
+			}
+			else if ( strcmp( (const char *)wert[OPERATOR], "OR" ) == 0 ) {
+				
+				 bitweises 'OR': 				
+				
+				 Auswertung des zweiten InputStrings: 				
+				ret_val = analyze_InputPrmtr( (const char *)wert[INPUT_STRING2]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				
+				                             ,&amp;signum
+				                             ,&amp;pos_no_blanks_no_sign2
+				                             ,&amp;IntegerLength
+				                             ,&amp;relevant_InputLength2
+				                             ,&amp;with_decimal_point
+				
+				                             ,&amp;coded_InpFormat2 );
+				
+				if ( 0 == ret_val ) {
+					
+					 max. Inputlaenge: 					
+					InputLength = 
+					((relevant_InputLength2 &gt; relevant_InputLength1) ? relevant_InputLength2 : relevant_InputLength1);
+					
+					
+					 Formatierung der Inputstrings: 					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING1] + pos_no_blanks_no_sign1)
+					                      ,relevant_InputLength1
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString1 );
+					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING2] + pos_no_blanks_no_sign2)
+					                      ,relevant_InputLength2
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString2 );
+					
+					
+					 Operation ausfuehren und Ergebnis an GAUDI(SHM-)-Schnittstelle zuweisen: 					
+					str_opOR( DigitString1
+					         ,DigitString2
+					         ,InputLength
+					         ,szHil );
+                                                 *zeilen_wert-&gt;ptr[indx_o_ePL] = szHil;
+				
+				}
+			}
+			else if ( strcmp( (const char *)wert[OPERATOR], "NOR" ) == 0 ) {
+				
+				 bitweises 'NOR': 				
+				
+				 Auswertung des zweiten InputStrings: 				
+				ret_val = analyze_InputPrmtr( (const char *)wert[INPUT_STRING2]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				
+				                             ,&amp;signum
+				                             ,&amp;pos_no_blanks_no_sign2
+				                             ,&amp;IntegerLength
+				                             ,&amp;relevant_InputLength2
+				                             ,&amp;with_decimal_point
+				
+				                             ,&amp;coded_InpFormat2 );
+				
+				if ( 0 == ret_val ) {
+					
+					 max. Inputlaenge: 					
+					InputLength = 
+					((relevant_InputLength2 &gt; relevant_InputLength1) ? relevant_InputLength2 : relevant_InputLength1);
+					
+					
+					 Formatierung der Inputstrings: 					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING1] + pos_no_blanks_no_sign1)
+					                      ,relevant_InputLength1
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString1 );
+					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING2] + pos_no_blanks_no_sign2)
+					                      ,relevant_InputLength2
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString2 );
+					
+					
+					 Operation ausfuehren und Ergebnis an GAUDI(SHM-)-Schnittstelle zuweisen: 					
+					str_opNOR( DigitString1
+					          ,DigitString2
+					          ,InputLength
+					          ,coded_InpFormat1
+					          ,szHil );
+                                        *zeilen_wert-&gt;ptr[indx_o_ePL] = szHil;
+				}
+			}
+			else if ( strcmp( (const char *)wert[OPERATOR], "XOR" ) == 0 ) {
+				
+				 bitweises 'XOR': 				
+				
+				 Auswertung des zweiten InputStrings: 				
+				ret_val = analyze_InputPrmtr( (const char *)wert[INPUT_STRING2]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				
+				                             ,&amp;signum
+				                             ,&amp;pos_no_blanks_no_sign2
+				                             ,&amp;IntegerLength
+				                             ,&amp;relevant_InputLength2
+				                             ,&amp;with_decimal_point
+				
+				                             ,&amp;coded_InpFormat2 );
+				
+				if ( 0 == ret_val ) {
+					
+					 max. Inputlaenge: 					
+					InputLength = 
+					((relevant_InputLength2 &gt; relevant_InputLength1) ? relevant_InputLength2 : relevant_InputLength1);
+					
+					
+					 Formatierung der Inputstrings: 					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING1] + pos_no_blanks_no_sign1)
+					                      ,relevant_InputLength1
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString1 );
+					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING2] + pos_no_blanks_no_sign2)
+					                      ,relevant_InputLength2
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString2 );
+					
+					
+					 Operation ausfuehren und Ergebnis an GAUDI(SHM-)-Schnittstelle zuweisen: 					
+					str_opXOR( DigitString1
+					          ,DigitString2
+					          ,InputLength
+					          ,szHil );
+                                        *zeilen_wert-&gt;ptr[indx_o_ePL] = szHil;
+				}
+			}
+			else if ( strcmp( (const char *)wert[OPERATOR], "XNOR" ) == 0 ) {
+				
+				 bitweises 'XNOR': 				
+				
+				 Auswertung des zweiten InputStrings: 				
+				ret_val = analyze_InputPrmtr( (const char *)wert[INPUT_STRING2]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				                             ,(const char *)wert[INPUT_FORMAT]
+				
+				                             ,&amp;signum
+				                             ,&amp;pos_no_blanks_no_sign2
+				                             ,&amp;IntegerLength
+				                             ,&amp;relevant_InputLength2
+				                             ,&amp;with_decimal_point
+				
+				                             ,&amp;coded_InpFormat2 );
+				
+				if ( 0 == ret_val ) {
+					
+					 max. Inputlaenge: 					
+					InputLength = 
+					((relevant_InputLength2 &gt; relevant_InputLength1) ? relevant_InputLength2 : relevant_InputLength1);
+					
+					
+					 Formatierung der Inputstrings: 					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING1] + pos_no_blanks_no_sign1)
+					                      ,relevant_InputLength1
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString1 );
+					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING2] + pos_no_blanks_no_sign2)
+					                      ,relevant_InputLength2
+					                      ,InputLength
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString2 );
+					
+					
+					 Operation ausfuehren und Ergebnis an GAUDI(SHM-)-Schnittstelle zuweisen: 					
+					str_opXNOR( DigitString1
+					           ,DigitString2
+					           ,InputLength
+					           ,coded_InpFormat1
+					           ,szHil );
+                                        *zeilen_wert-&gt;ptr[indx_o_ePL] = szHil;
+				}
+			}
+			else if ( strcmp( (const char *)wert[OPERATOR], "NOT" ) == 0 ) {
+				
+				 bitweises 'NOT': 				
+				
+				 Formatierung des Inputstrings: 				
+				generate_OutputFormat( (const char *)(wert[INPUT_STRING1] + pos_no_blanks_no_sign1)
+				                      ,relevant_InputLength1
+				                      ,relevant_InputLength1
+				                      ,signum
+				                      ,VON_VORNE
+				                      ,DigitString1 );
+				
+				
+				 Operation ausfuehren und Ergebnis an GAUDI(SHM-)-Schnittstelle zuweisen: 				
+				str_opNOT( DigitString1
+				          ,relevant_InputLength1
+				          ,coded_InpFormat1
+				          , szHil);
+                                *zeilen_wert-&gt;ptr[indx_o_ePL] = szHil;
+			}
+			else if ( strcmp( (const char *)wert[OPERATOR], "SHL" ) == 0 ) {
+				
+				 'SHIFT LEFT': 				
+				
+				 Auswertung des zweiten InputStrings (Anzahl an Shift-Operationen): 				
+				ret_val = analyze_InputPrmtr( (const char *)wert[INPUT_STRING2]
+				                             ,INTEGER_FORMAT_STRING
+				                             ,INTEGER_FORMAT_STRING
+				
+				                             ,&amp;signum
+				                             ,&amp;pos_no_blanks_no_sign2
+				                             ,&amp;IntegerLength
+				                             ,&amp;relevant_InputLength2
+				                             ,&amp;with_decimal_point
+				
+				                             ,&amp;coded_InpFormat2 );
+				
+				if ( 0 == ret_val ) {
+					if ( signum != 0 ) {
+//						error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//						              ,"Parameter fuer SHIFT LEFT ist ungueltig, da nicht vorzeichenlos!" );
+						error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+						              ,"Parameter for SHIFT LEFT is invalid, as it is not unsigned!" );
+						ret_val = -1;
+					
+					}
+				}
+				if ( 0 == ret_val ) {
+					
+					 Formatierung des Inputstrings: 					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING1] + pos_no_blanks_no_sign1)
+					                      ,relevant_InputLength1
+					                      ,relevant_InputLength1
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString1 );
+					
+					
+					 Operation ausfuehren und Ergebnis an GAUDI(SHM-)-Schnittstelle zuweisen: 					
+					str_opSHL( DigitString1
+					          ,relevant_InputLength1
+					          ,coded_InpFormat1
+					          ,(unsigned short)atoi( (const char *)(wert[INPUT_STRING2] + pos_no_blanks_no_sign2) )
+					          , szHil);
+                                        *zeilen_wert-&gt;ptr[indx_o_ePL] = szHil;
+				}
+			}
+			else if ( strcmp( (const char *)wert[OPERATOR], "SHR" ) == 0 ) {
+				
+				 'SHIFT RIGHT': 				
+				
+				 Auswertung des zweiten InputStrings (Anzahl an Shift-Operationen): 				
+				ret_val = analyze_InputPrmtr( (const char *)wert[INPUT_STRING2]
+				                             ,INTEGER_FORMAT_STRING
+				                             ,INTEGER_FORMAT_STRING
+				
+				                             ,&amp;signum
+				                             ,&amp;pos_no_blanks_no_sign2
+				                             ,&amp;IntegerLength
+				                             ,&amp;relevant_InputLength2
+				                             ,&amp;with_decimal_point
+				
+				                             ,&amp;coded_InpFormat2 );
+				
+				if ( 0 == ret_val ) {
+					if ( signum != 0 ) {
+//						error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//						              ,"Parameter fuer SHIFT RIGHT ist ungueltig, da nicht vorzeichenlos!" );
+						error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+						              ,"Parameter for SHIFT RIGHT is invalid, as it is not unsigned!" );
+						ret_val = -1;
+					
+					}
+				}
+				if ( 0 == ret_val ) {
+					
+					 Formatierung des Inputstrings: 					
+					generate_OutputFormat( (const char *)(wert[INPUT_STRING1] + pos_no_blanks_no_sign1)
+					                      ,relevant_InputLength1
+					                      ,relevant_InputLength1
+					                      ,signum
+					                      ,VON_VORNE
+					                      ,DigitString1 );
+					
+					
+					 Operation ausfuehren und Ergebnis an GAUDI(SHM-)-Schnittstelle zuweisen: 					
+					str_opSHR( DigitString1
+					          ,relevant_InputLength1
+					          ,coded_InpFormat1
+					          ,(unsigned short)atoi( (const char *)(wert[INPUT_STRING2] + pos_no_blanks_no_sign2) )
+					          , szHil);
+                                        *zeilen_wert-&gt;ptr[indx_o_ePL] = szHil;
+				}
+			}
+			else  {
+//				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//				              ,"Ungueltige String-Operation: [%s]"
+//				              ,(const char *)wert[OPERATOR] );
+				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+				              ,"Invalid string operation: [%s]"
+				              ,(const char *)wert[OPERATOR] );
+				ret_val = -1;
+			
+			}
+		}
+		
+		 Fehlerflag an die &amp;-Variable zurueckgeben 		
+		if (anzPrmtr == ANZAHL_PARAMETER) {
+		    if (ret_val){
+			*zeilen_wert-&gt;ptr[index_on_expPrfLst + FEHLERFLAG - 1] = "1";
+		    }
+		    else{
+			*zeilen_wert-&gt;ptr[index_on_expPrfLst + FEHLERFLAG - 1] = "0";
+		    }
+		}
+		
+		
+		
+		 Ergebnis ausgeben: 		
+		debug_message( __FILE__, __LINE__, DEB_DATA
+		              ,"Output von Modul \"R_STROPERATE\": \
+                \n[%s]"
+		              ,(const char *)(*zeilen_wert-&gt;ptr[indx_o_ePL]) );
+		
+		// Ende von 'if ( strcmp( Ssp_vi-&gt;job.liststate, PREINT ) )'
+	
+	}
+	return 0;
+
+}
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE>UK_READ</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>UK_READ</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: uk_read.C,v 1.4 2005/09/21 12:16:53 pv73rt Exp $
+   ------------------------------------------------------------------------
+   Kurzbeschreibung: 	Kommunikation mit dem UK-Prozess
+   ------------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		uk_read.C 
+   Autor:		RtP/TEF32-Rapp (30.06.2005)
+   Zielsystem:		Linux
+   ------------------------------------------------------------------------
+   Prototyp:
+      bool uk_read( const QString&amp;	strName, 
+                         int             iTimeout,
+                         QString&amp;	strRead )
+   
+   ------------------------------------------------------------------------
+   Aufruf: 					&lt;GFMT KS=on TAB=8 LF=on&gt;
+      bOk = uk_read ( "DMM_01", 10000, strRead );
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   uk_read:
+      Lesen eines beliebig langen Strings von einem Geraet. Es wird ein 
+      Lesebefehl an den Prozess UK ueber die Messagequeue geschickt, 
+      der dann von dem spezifizierten Geraet einen String einliest.
+
+</PRE>
+</BODY>
+</HTML>

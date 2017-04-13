@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>56453d58-9f83-4a8a-9ec7-15f54ac5a07a</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DriverTestConsoleApp.FS</RootNamespace>
+    <AssemblyName>DriverTestConsoleApp.FS</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
+    <Name>DriverTestConsoleApp.FS</Name>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <Tailcalls>false</Tailcalls>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>bin\Debug\DriverTestConsoleApp.FS.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <Tailcalls>true</Tailcalls>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>bin\Release\DriverTestConsoleApp.FS.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '11.0'">
+      <PropertyGroup Condition="Exists('$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets')">
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets')">
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <Import Project="$(FSharpTargetsPath)" />
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="..\..\..\..\CommonAssemblyInfo.fs">
+      <Link>CommonAssemblyInfo.fs</Link>
+    </Compile>
+    <None Include="App.config" />
+    <Content Include="DriverTestLog4net.xml" />
+    <Compile Include="TestStatistics.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <Choose>
+    <When Condition=" '$(PlatformTarget)'=='x86' ">
+      <ItemGroup>
+        <Reference Include="NationalInstruments.DAQmx, Version=15.5.45.109, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=x86">
+          <HintPath>..\ExLib\x86\NationalInstruments.DAQmx.dll</HintPath>
+          <SpecificVersion>True</SpecificVersion>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(PlatformTarget)'=='x64' ">
+      <ItemGroup>
+        <Reference Include="NationalInstruments.DAQmx, Version=15.5.45.109, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=x64">
+          <HintPath>..\ExLib\x64\NationalInstruments.DAQmx.dll</HintPath>
+          <SpecificVersion>True</SpecificVersion>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="NationalInstruments.DAQmx, Version=15.5.45.109, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=MSIL">
+          <HintPath>..\ExLib\x64\NationalInstruments.DAQmx.dll</HintPath>
+          <SpecificVersion>False</SpecificVersion>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <ProjectReference Include="..\Dsu.Driver.Base.FS\Dsu.Driver.Base.FS.fsproj">
+      <Name>Dsu.Driver.Base.FS</Name>
+      <Project>{054dddbf-2fd8-47b6-a083-537c394bf077}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.Etc.FS\Dsu.Driver.Etc.FS.fsproj">
+      <Name>Dsu.Driver.Etc.FS</Name>
+      <Project>{9828ede8-200d-468b-95be-574f32ed22c2}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.Math.FS\Dsu.Driver.Math.FS.fsproj">
+      <Name>Dsu.Driver.Math.FS</Name>
+      <Project>{0b975d84-7857-431d-8791-535758d0b051}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.NiDAQ.FS\Dsu.Driver.NiDAQ.FS.fsproj">
+      <Name>Dsu.Driver.NiDAQ.FS</Name>
+      <Project>{414fad91-80ce-4258-a0de-876a75d66da8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.PaixWrapper\Dsu.Driver.PaixWrapper.csproj">
+      <Name>Dsu.Driver.PaixWrapper</Name>
+      <Project>{f3fe565b-b00a-49a8-bd21-df514774ff44}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.UI\Dsu.Driver.UI.csproj">
+      <Name>Dsu.Driver.UI</Name>
+      <Project>{8f4ff035-86c7-452f-be2d-ed2b5fffc35a}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <Reference Include="DevExpress.XtraCharts.v16.1" />
+    <Reference Include="DevExpress.XtraCharts.v16.1.UI" />
+    <Reference Include="FSharp.Charting">
+      <HintPath>..\..\..\..\open-sources\bin\FSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Collections.ParallelSeq">
+      <HintPath>..\..\..\..\open-sources\bin\FSharp.Collections.ParallelSeq.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\open-sources\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NationalInstruments.Common">
+      <HintPath>..\ExLib\NationalInstruments.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.VisaNS">
+      <HintPath>..\ExLib\NationalInstruments.VisaNS.dll</HintPath>
+    </Reference>
+    <Reference Include="Polly">
+      <HintPath>..\..\..\..\open-sources\bin\Polly.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\..\..\..\open-sources\bin\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\..\..\..\open-sources\bin\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\..\..\..\open-sources\bin\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.FS\Dsu.Common.Utilities.FS.fsproj">
+      <Name>Dsu.Common.Utilities.FS</Name>
+      <Project>{4e5d41d3-c394-4c16-8690-7a6e1a62bca8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

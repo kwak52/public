@@ -1,0 +1,129 @@
+<HTML>
+<HEAD>
+<TITLE>P_ZERLEGE_STR</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>P_ZERLEGE_STR</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: p_zerlege_str.C,v 1.28 2005/12/09 12:20:24 krf3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Strings von der PSS fœr die Auswertung aufbereiten.
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		p_zerlege_str.C
+   Autor:		RtW/TEF72-Keppler (29.04.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void p_init(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer    *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+      ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Mit Hilfe dieses Moduls kŒnnen die Strings, die von der PSS, SKM kommen
+   oder als Parameter INPUT_STRING uebergeben werden,so zerlegt werden,
+   daﬁ das Ergebnis vom Modul "m_auswertung" ausgewertet werden kann. Hierbei 
+   sind die Restriktionen von m_auswertung befœcksichtigt, d.h. die Strings 
+   kŒnnen nicht beliebig lang sein. Die zulÃssige lÃnge ist vom gewÃhlten 
+   Modus abhÃngig.
+   
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------   
+   
+   Eingabeparameter:</pre><b><a name="param3">3</a> MODUS</b><pre>	Art der Verarbeitung 
+    	ASCII_STR:	Bei diesem Mode wird eine Integer-Ascii Wandlung
+			durchgefœhrt. D. h. der Eingabestring ist eine Folge 
+			von hexadezimal Zifferpaaren, die einen ASCII-String 
+			codieren:
+			
+			Beispiel:      
+			Eingabestring: 65666768696A6B6C (65=e, 66=f, ..)
+			Zeigeranfang:  4
+			Zeigerende:    7
+			Ausgabestring: hijk
+
+       CHR_STR (STR): Die eingegebenen Zeichen werden als Characters
+			interpretiert. Dieser Modus dient zur Zeichenver-
+			arbeitung im herkoemmlichen Sinne.
+			
+			Beispiel:      
+			Eingabestring: Donaudampfschiff
+			Zeigeranfang:  4
+			Zeigerende:    7
+			Ausgabestring: auda     (DIM: (CHR_)STR, STRCMP
+						   audampfs	(DIM: HEX_32, sonst)
+			Achtung: doppelte Ergebnisstringlaenge fuer HEX_32, 
+														sonst
+						   
+		default: Falls keiner der obigen Modi ausgewaehlt 
+			wurde,(evtl veraltete Notationen etc.) 
+			tritt dieser Modus in Kraft.
+			
+			Beispiel:      
+			Eingabestring: Donaudampfschiff
+			Zeigeranfang:  4
+			Zeigerende:    7
+			Ausgabestring: ampf	    (DIM: (CHR_)STR, STRCMP)
+						   ampfschi (DIM: HEX_32, sonst)
+			Achtung: 
+			Doppelte Ergebnisstringlaenge fuer HEX_32, sonst
+			In beiden wird die Startposition verdoppelt!</pre><b><a name="param4">4</a> INPUT_STRING</b><pre>String der zerlegt werden soll
+    	STRING1:	Der String der von der PSS/SKM als letztes empfangen
+			wurde und im Shared Memory abgelegt ist.
+		sonst:		
+		String der hier eingetragen wird kann zerlegt werden.
+		Z.B. Messwertestrings aus beliebigen Modulen.</pre><b><a name="param5">5</a> ZEIGER_ANF</b><pre>Anfangsstelle der auszuwertenden Werte im String</pre><b><a name="param6">6</a> ZEIGER_END</b><pre>Endstelle der auszuwertenden Werte im String
+    
+   Rœckgabeparamter:</pre><b><a name="param7">7</a> ERGEBNIS</b><pre> 	Stringteil von ZEIGER_ANF - ZEIGER_END (STRING)</pre><b><a name="param8">8</a> FEHLERFLAG</b><pre>	Fehlerblocktitel vom SG</pre><b><a name="param9">9</a> DIM</b><pre>  	 	Dimension des Ergebnisstrings
+    	STR         Verarbeitung von Strings.
+					maximale Ergebnisstringlaenge: 16
+		STRCMP      Wie STR
+		HEX_32      Fuer Hex-Werte von 00000000...FFFFFFFF
+					maximale Ergebnisstringlaenge: 8
+		sonst       maximale Ergebnisstringlaenge: 540
+    	
+   Zusammenfassung (tabellarische Uebersicht)
+   
+   
+   
+Modus     DIM       Eingabestring     ANF ENDE   Ergebnisstring
+_______________________________________________________________
+ASCII_STR alle      65666768696A6B6C   4   7     hijk (h=68)
+
+CHR_STR   (CHR_)STR Donaudampfschiff   4   7     auda
+		  STRCMP                       
+		  HEX_32                       4   7     audampfs
+		  sonst
+sonst     (CHR_)STR Donaudampfschiff   4   7     ampf
+		  STRCMP
+		  HEX_32                       4   7     ampfschi
+		  sonst
+</PRE>
+</BODY>
+</HTML>

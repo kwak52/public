@@ -1,0 +1,101 @@
+#
+# Do *NOT* use #!/bin/sh
+# use like this, in your shell
+# % source bash_functions
+#
+# Usage : 
+#  select_partition; partition=${__}
+#
+
+function setenvironment()
+{
+  if [ "x$database" = "x" -o "x$table" = "x" ]; then
+    # http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+    mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    source $mydir/setenv
+  fi
+}
+
+# http://stackoverflow.com/questions/24676564/bash-return-a-string-from-bash-function
+function select_partition() {
+  
+  __=""
+
+  setenvironment
+
+  partitions=$(cat << EOF | mysql -N
+    SELECT PARTITION_NAME 
+     FROM information_schema.PARTITIONS
+     WHERE TABLE_SCHEMA = '$database' AND TABLE_NAME = '$table';
+EOF
+  )
+  
+  echo "Available partitions: ${partitions//$'\n'/ }"		# http://stackoverflow.com/questions/7218781/replace-newline-character-in-bash-variable
+  echo -n "Select partition :"
+  read p
+  
+  # http://stackoverflow.com/questions/229551/string-contains-in-bash
+  if [[ $partitions != *"$p"* ]]; then
+    echo "Selected partition $p does not exists."
+    return
+  #  exit
+  fi
+  
+  # echo "You selected partition $p"
+  
+   __=$p
+}
+
+
+function is_exists_partition()
+{
+  setenvironment
+  partition=$1
+  count=$(
+    $mysql -N -e"
+      SELECT COUNT(PARTITION_NAME)
+       FROM information_schema.PARTITIONS
+       WHERE TABLE_SCHEMA = '$database'
+        AND TABLE_NAME = '$table'
+        AND PARTITION_NAME = '$partition';"
+  )
+
+  [ $count -eq 1 ] && __="true" || __="false"
+}
+  
+
+# 윤년 검사
+# https://bash.cyberciti.biz/time-and-date/find-whether-year-ls-leap-or-not/
+# returns "true" on leap_year
+function is_leap_year() {
+  yy=$1
+  isleap="false"
+  # find out if it is a leap year or not
+  if [ $((yy % 4)) -ne 0 ] ; then
+     : #  not a leap year : means do nothing and use old value of isleap
+  elif [ $((yy % 400)) -eq 0 ] ; then
+     # yes, it's a leap year
+     isleap="true"
+  elif [ $((yy % 100)) -eq 0 ] ; then
+     : # not a leap year do nothing and use old value of isleap
+  else
+     # it is a leap year
+     isleap="true"
+  fi
+
+  __=$isleap
+}
+
+
+function is_succeeded() {
+  last_code=$?
+  if [ $last_code -ne 0 ]; then
+    __=$last_code
+  else
+    __="true"
+  fi
+}
+
+function arithmatic() {
+  __=$(echo "$1" | bc -l)
+}

@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE>B_PORT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>B_PORT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ $Id: b_port.C,v 1.9 2004/03/24 08:44:42 lehmann Exp $                  
+ ------------------------------------------------------------------------- 
+ Kurzbeschreibung:    serial IO modul for port B                           
+ ------------------------------------------------------------------------- 
+ Projekt:        Common Core System - BOSCH                                
+ Sourcefile:     b_port.C                                                  
+ Autor:          AnW/TEF7   Schneider Romeo                                
+ Zielsystem:     HP9000 743rt vxi02 (HP-UX 10.20; HP-RT 03.01)             
+ Sprache:        Ansi C; C++                                               
+ ------------------------------------------------------------------------- 
+ Aufruf:                            &lt;GFMT KS=on TAB=8 LF=on&gt;               
+                                                                           
+ int  b_port  (shm_stringpointer *zeilen_wert, // &lt;I&gt; Zeiger auf Werte     
+               long index,                     // &lt;I&gt; Index Nummer         
+               long anzahl)                    // &lt;I&gt; Anzahl der Werte     
+                                                                           
+  Parameter :     SCHRITT   wert[00]                                       
+  Parameter :     POSITION  wert[01]                                       
+  Parameter :     IO_FUNK   wert[02]  INIT (PREINT) else TX,RX,TX_RX       
+  Parameter :     IO_PORT   wert[03]  B for port B (A is always uses)      
+  Parameter :     OUT_STR   wert[04]  data to send out on: TX oder TX_RX   
+  Parameter :     INP_STR   wert[05]  received data    on: RX oder TX_RX   
+  Parameter :     IO_STAT   wert[06]  transmission log (&lt;0 error)          
+                                                                           
+  default parameter for the interface :                                    
+  BAUD-rate : 9600                                                         
+  CharSize  : CS8                                                          
+  Timeout   : 5000 ms [steps of 100ms are possible]                        
+  Terminator : &lt;cr&gt;&lt;lf&gt; or &lt;lf&gt; or Timeout                                 
+                                                                           
+  to change the default:                                                   
+  IO_FUNK = INIT and OUT_STR = B19200:CS7:TO3000                           
+                                                                           
+                                                                           
+ ------------------------------------------------------------------------- 
+ Returnparameter:                   &lt;GFMT KS=on TAB=8 LF=on&gt;               
+ ------------------------------------------------------------------------- 
+ Funktionsbeschreibung:             &lt;GFMT KS=on TAB=8 LF=on&gt;               
+                                                                           
+                                                                           
+                                                                           
+ ------------------------------------------------------------------------- 
+ Fehlerbeschreibung:                &lt;GFMT KS=on TAB=8 LF=on&gt;               
+                                                                           
+</PRE>
+</BODY>
+</HTML>

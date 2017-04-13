@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{92CB2AF3-2755-4789-9140-A8E853CE3AAD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CpTStepDevLib</RootNamespace>
+    <AssemblyName>CpTStepDevLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CpCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CpCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="CpMngLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CpMngLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CpUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CpUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="PsCommon, Version=2.8.2.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CPEditor\PsCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="PsCpDxUiLib, Version=2.8.2.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CPEditor\PsCpDxUiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="PsCpUtility, Version=2.8.2.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CPEditor\PsCpUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="PsKGaudi, Version=2.8.2.6, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CPEditor\PsKGaudi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assist\ClsInstrumentList.cs" />
+    <Compile Include="CpTStepDevLib.cs" />
+    <Compile Include="Info\DeviceInfo\ClsICControllerInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsTorqueMeterInfo.cs" />
+    <Compile Include="Interface\Device\IICController.cs" />
+    <Compile Include="Interface\Device\IUPS.cs" />
+    <Compile Include="Interface\Device\ITorqueMeter.cs" />
+    <Compile Include="Properties\GlobalAssemblyInfo.cs" />
+    <Compile Include="Info\CommInfo\ClsCanInfo.cs" />
+    <Compile Include="Info\CommInfo\ClsNetworkTcpIpInfo.cs" />
+    <Compile Include="Info\CommInfo\ClsNetworkUdpInfo.cs" />
+    <Compile Include="Info\CommInfo\ClsDAQControllerInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsAnalogInputInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsCounterInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsCounterInputInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsDIOControlInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsDMMInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsFGNInfo.cs" />
+    <Compile Include="Info\CommInfo\ClsGPIBInfo.cs" />
+    <Compile Include="Info\ClsDeviceInfoBase.cs" />
+    <Compile Include="Info\DeviceInfo\ClsLaserMarkerInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsLCRMeterInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsLoadInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsLVDTInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsMeasuringDevInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsMotionInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsOscilloInfo.cs" />
+    <Compile Include="Info\CommInfo\ClsPLCInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsPowerSupplyInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsSmuInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsResistorInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsRelayInfo.cs" />
+    <Compile Include="Info\CommInfo\ClsRS232Info.cs" />
+    <Compile Include="Info\DeviceInfo\ClsStimuliInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsSwitchInfo.cs" />
+    <Compile Include="Info\DeviceInfo\ClsTriggerIOInfo.cs" />
+    <Compile Include="Interface\Comm\ICan.cs" />
+    <Compile Include="Interface\Comm\IComm.cs" />
+    <Compile Include="Interface\Comm\INetworkUdp.cs" />
+    <Compile Include="Interface\Comm\IDAQController.cs" />
+    <Compile Include="Interface\Comm\INetworkTcpIp.cs" />
+    <Compile Include="Interface\Device\IAnalogInput.cs" />
+    <Compile Include="Interface\Device\ICounterInput.cs" />
+    <Compile Include="Interface\Device\IDAQIO.cs" />
+    <Compile Include="Interface\Device\IDIOControl.cs" />
+    <Compile Include="Interface\Device\ILaserMarker.cs" />
+    <Compile Include="Interface\Device\ILCRMeter.cs" />
+    <Compile Include="Interface\Device\ILVDT.cs" />
+    <Compile Include="Interface\Device\IMotion.cs" />
+    <Compile Include="Interface\Device\IPLC.cs" />
+    <Compile Include="Interface\Device\ITriggerIO.cs" />
+    <Compile Include="Interface\IDevice.cs" />
+    <Compile Include="Interface\Device\IDigitizer.cs" />
+    <Compile Include="Interface\Device\IDmm.cs" />
+    <Compile Include="Interface\Device\IFgn.cs" />
+    <Compile Include="Interface\Comm\IGpib.cs" />
+    <Compile Include="Interface\Device\ILoad.cs" />
+    <Compile Include="Interface\Device\IPowerSupply.cs" />
+    <Compile Include="Interface\Device\IRelayMatrix.cs" />
+    <Compile Include="Interface\Device\ISmu.cs" />
+    <Compile Include="Interface\Device\IRelay.cs" />
+    <Compile Include="Interface\Device\ISwitchBlock.cs" />
+    <Compile Include="Interface\Device\IResistor.cs" />
+    <Compile Include="Interface\Comm\IRS232.cs" />
+    <Compile Include="Interface\Device\IScope.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853D287B-5D4B-4167-83A5-EEDBB1EEA448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dsu.Driver.NiDAQ.FS\Dsu.Driver.NiDAQ.FS.fsproj">
+      <Project>{414fad91-80ce-4258-a0de-876a75d66da8}</Project>
+      <Name>Dsu.Driver.NiDAQ.FS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

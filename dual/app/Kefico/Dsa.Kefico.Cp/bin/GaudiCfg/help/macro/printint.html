@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> PrintInt [Str]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>PrintInt [Str]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=12683">
+ </A>
+PrintInt [Str]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12685">
+ </A>
+Value [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12687">
+ </A>
+Characters [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12689">
+ </A>
+Leading_Zeros [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12691">
+ </A>
+Format [Str]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12693">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=12695">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12697">
+ </A>
+Represents an integer value as a formatted string.<BR>
+<BR>
+In the case of decimal format, the minus sign is always shown but the plus sign only if the relevant presentation format is selected. In the case of binary, octal and hexadecimal formats, negative values are converted according to the following formula:</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12699">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12702">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=5482">
+ </A>
+<IMG SRC="funktionen-27.gif" ALIGN="BASELINE">
+- abs(int)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=5484">
+ </A>
+base = 2, 8 or 16 for BIN, OCT or HEX format<BR>
+int is the negative integer value to be represented</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12704">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12706">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12708">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12710">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12712">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12714">
+ </A>
+Value</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12716">
+ </A>
+Value (or variable containing the integer value) to be represented as a formatted string.<BR>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12718">
+ </A>
+Characters</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12720">
+ </A>
+The number of characters to be used to represent the value as a string. If no leading zeros are to be shown, only as many characters as necessary are used. The parameter Characters is then interpreted as the maximum permissible number of characters; if the specified number is insufficient, an error message is returned.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12722">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12724">
+ </A>
+Leading_Zeros</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12726">
+ </A>
+Specifies whether leading zeros are to be shown or not.<BR>
+J = Yes, show leading zeros<BR>
+N = No, do not show leading zeros</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12728">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12730">
+ </A>
+Format</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12732">
+ </A>
+Format for representation of the integer value as a string.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12735">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5491">
+ </A>
+HEX</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5493">
+ </A>
+Value in hexadecimal format</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5499">
+ </A>
+DEZ</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5501">
+ </A>
+Value in decimal format</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5507">
+ </A>
+VDEZ</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5509">
+ </A>
+Value in decimal format with mathematical sign (including '+').</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5515">
+ </A>
+BIN</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5517">
+ </A>
+Value in binary format</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5523">
+ </A>
+OCT</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5525">
+ </A>
+Value in octal format</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5531">
+ </A>
+ReverseHEX</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=5533">
+ </A>
+HEX format with reversed byte order (Low byte first) (only even numbers of characters allowed).</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=12737">
+ </A>
+	</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=12739">
+ </A>
+Examples</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12742">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5536">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5538">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5542">
+ </A>
+Result</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5550">
+ </A>
+PrintInt</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5552">
+ </A>
+10,6,J,HEX</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5554">
+ </A>
+00000A</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5562">
+ </A>
+PrintInt</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5564">
+ </A>
+74565,6,J,HEX</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5566">
+ </A>
+012345</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5574">
+ </A>
+PrintInt</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5576">
+ </A>
+74565,6,J,ReverseHEX</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5578">
+ </A>
+452301</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5586">
+ </A>
+PrintInt</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5588">
+ </A>
+W1,8,J,BIN</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5590">
+ </A>
+00000101 if Variable W1= 5</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=12744">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

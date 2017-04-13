@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{03B1D182-82A2-4D86-93F3-8D21030900DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CpMngMotion</RootNamespace>
+    <AssemblyName>CpMngMotion</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin\MngDev\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin\MngDev\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CpCommon">
+      <HintPath>..\..\..\CpPlatform\CpCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="CpMngLib">
+      <HintPath>..\..\..\CpPlatform\CpMngLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CpMngMotion.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853D287B-5D4B-4167-83A5-EEDBB1EEA448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Dsu.Driver.Util\Dsu.Driver.Util.csproj">
+      <Project>{73ADFEFB-0162-4C29-A679-9A8897F707B5}</Project>
+      <Name>Dsu.Driver.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\CpTStepDevLib\CpTStepDevLib.csproj">
+      <Project>{92cb2af3-2755-4789-9140-a8e853ce3aad}</Project>
+      <Name>CpTStepDevLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Devices\CpDeviceDsBase\CpDeviceDsBase.csproj">
+      <Project>{f080afd7-0a2f-4724-a652-7938da84e87a}</Project>
+      <Name>CpDeviceDsBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Devices\Normal\CpDevMotion_PAIXCtrl\CpDevMotion_PAIXCtrl.csproj">
+      <Project>{113be1db-bc88-4556-acb9-efc538e86625}</Project>
+      <Name>CpDevMotion_PAIXCtrl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Devices\Normal\CpDevPaix\CpDevPaix.csproj">
+      <Project>{174941e7-b8a4-4487-b92f-fca455dcb44d}</Project>
+      <Name>CpDevPaix</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Devices\Normal\CpDevRobot_PAIXCtrl\CpDevRobot_PAIXCtrl.csproj">
+      <Project>{266cf3d3-0926-46ee-910d-18edd659af8c}</Project>
+      <Name>CpDevRobot_PAIXCtrl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

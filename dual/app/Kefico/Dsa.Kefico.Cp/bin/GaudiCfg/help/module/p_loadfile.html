@@ -1,0 +1,194 @@
+<HTML>
+<HEAD>
+<TITLE>P_LOADFILE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>P_LOADFILE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: p_loadfile.C,v 1.24 2005/09/28 13:52:25 cvs Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Load Files to SG over SKM/PSS
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		p_loadfile.C
+   Autor:		RtW2/TEF72-Wiese (13.09.00)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01)
+   Sprache:		ANSI-C/C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   
+   int  p_loadfile
+   (shm_stringpointer *zeilen_wert	// &lt;I&gt; Inputfield of INTERPRETERLIST
+   ,long  index1			// &lt;I&gt; INDEX in list
+   ,long anzahl)			// &lt;I&gt; Number of Elements for Loaddfile
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   
+   error = p_loadfile
+   (zeilen_wert	// &lt;I&gt; Inputfield of INTERPRETERLIST
+   ,index1	// &lt;I&gt; INDEX in list
+   ,anzahl)	// &lt;I&gt; Number of Elements for Loaddfile
+
+   
+   if (error != 0) 	// Errordescription ... 
+   {
+   // Errorhandling ... 
+   }
+   
+   ---------------------------------------------------------------------
+   Functiondescription:
+   
+   This modul handel's the communication to the SKM/PSS for programming
+   SG's over serialcommunicationports. (Dolles Wort :-)  )
+   
+   This modul creates the files for programming by itself. p_loadfile 
+   checks for files with the specified name (see make_flash_path.C in 
+   project libser). If the file dosn'exist, this File will be created. 
+   For creation, the process (vxi_pss/vxi_skm) forks.
+   
+   The creation of the file could take about 60 Seconds (HEX - file with more
+   than 4 MB). Please change the Timeout of the Process (vxi_pss, vxi_skm)
+   in this way.
+   
+   The long names for the files require a new Version of the firmware
+   SKM: Version &gt;= 3.0
+   PSS: Version &gt;= 6.3
+   The errormessage is F9: "Eingabe fehlerhaft" or "// or || not found...."
+   The you have to update the firmware.
+   
+   Input parameter description:</pre><b><a name="param1">1</a> PRUEFSCHRITT:</b><pre>Step in plist</pre><b><a name="param2">2</a> POSITION:</b><pre>	Position of step</pre><b><a name="param3">3</a> CONTAINERTYP:</b><pre>FSW -&gt; Containertyp of File
+			   /hw/flash/%TTNR%/%SWNR&amp;
+			TSW -&gt; Testsoftwarecontainer
+			   /hw/flash/tsw/%TSWNR%
+			WP -&gt; Factoryprogrammingcontainer
+			   /hw/flash/wp/%WPNR% (not implemented)</pre><b><a name="param4">4</a> DATEINAME:</b><pre>	Name of the File to be programmed
+			A File with this name and extention ".hex" and ".s19"
+			or with ".nop" has to be in the directory
+			NOP: File with extention ".nop" is searched
+			RBIN: A File with this filename has to exist.</pre><b><a name="param5">5</a> LADEMODUS:</b><pre>	BIN: Programming a bin-File of the Inputfile
+			SORTBIN1: Sorting for segmented Programming of Golden OAK
+			VLB: Variable Lengh File. The protokolls DS2 and K71 
+			     are implemented
+                        NECF: Special mode for programming the Bootloader for Phoenix-F from NEC (APA)
+			NOP: A Nopfile will be convertet an programmed
+			PCC: Handle a PCC - File (not tested, inputs necessary)
+			RBIN: Send the File "as is" to the ECU without Protokoll
+			      information.
+			ALD1: 2Byte Adress - 1 Byte Len - Data Mode: .
+			ALD2: 3Byte Adress - 1 Byte Len - Data Mode: .
+			AD1 : 3Byte Adress - Data Mode
+			DLM : (just for SKMlight) A downloadable "CAN-Restbussimulator" (Download Module, DLM)
+			       is an executable, that can be downloaded into the RAM of the SKMlight at runtime
+			       by the SKMlight firmware. A DLM extends the functionality of the firmware. At 
+			       one time, just one DLM can reside in the SKMlight. While a DLM is running, no 
+			       further download can be done.
+                        SCRIPT_T32:
+                           Is used for programming the DUT with the Lauterbach Tool 
+                           In DATEINAME is the data file name expected, which is needed for 
+                           Programming the DUT.
+                           In START_ADR is the script name expected. 
+                           The TRACE32 is started and works the given script.
+                              The parameter BLOCKLEN,SEGMENT_LEN must be set to "0".
+                              The parameter SEGMENT_HEADER,SEGMENT_ENDE has to be empty.
+                              The parameter SCHNITTSTELLE has to set to JTAG. The function 
+                              SCRIPT_T32 is only supported for this SCHNITTSTELLE.
+                           If the script for the TRACE32 program needs parameters so the first 
+                           parameter is given in POSITIVE_RESP and the second is given in DATEINAME.
+                           For IVS the parameters are &lt;checksum&gt; &lt;datafilename&gt;.
+                           So the Command to TRACE32 is:
+                              do "&lt;scriptname&gt; &lt;checksum&gt; &lt;datafilename&gt;" 
+                           or if DATEINAME and POSITIVE_RESP empty
+                              do "&lt;scriptname&gt;"   
+                           Attention:
+                              Every script must give back an "OK" message or an error message. Only with
+                              an OK message the result of this step will be good.    
+                        STORE_&lt;LADEMODUS&gt; with LADEMODUS=BIN,VLB:
+                           Is used to store the data of the file, signed in DATEINAME, in a field signed 
+                           in ERGEBNIS_FELD.
+                           So you can work with the data of the file for example with the module p_zerlege_str.                         
+                        VERIFY01:
+                           The programmed Data will read back from the ECU and compared 
+                           with the modified File &lt;DATEINAME&gt; (equal to the &lt;DATEINAME&gt; if you want to program).
+                           The String to the ECU is given with  
+                           
+                              &lt;SEGMENT_HEADER&gt;&lt;3 Byte START_ADR&gt;&lt;SEGMENT_ENDE&gt;
+                                     |               |                |
+                              (i.e. 23            000000             10 
+                                    |                |                |
+                                 Command          3 Byte Startadr.   number of Bytes read back
+                                                                     
+                                 
+                              means in KP2000 Read Request: from Adr 0 read back 16 Bytes)
+                              So here &lt;SEGMENT_ENDE&gt; means the number of Date read back from
+                              the ECU.
+                           The START_ADR will incremented with SEGMENT_LEN from loop 
+                           to loop. So BLOCKLEN data from START_ADR will be verified.
+                           SEGMENT_LEN must be identical to the data in one comunication block
+                           from the ECU.
+                        VERIFY02: like VERIFY01 but there are only 2 Byte START_ADR
+                              &lt;SEGMENT_HEADER&gt;&lt;2 Byte START_ADR&gt;&lt;SEGMENT_ENDE&gt;
+                                     |               |                |
+                              (i.e. 23             0000              10 
+                                    |                |                |
+                                 Command          2 Byte Startadr.   number of Bytes read back
+                        VERIFY03 oder VERIFY_ALD2:
+                           The programmed Data will read back from the ECU and compared 
+                           with the modified File &lt;DATEINAME&gt; (equal to the &lt;DATEINAME&gt; if you want to program).
+                           The String to the ECU is given with  
+                           
+                              &lt;SEGMENT_HEADER&gt;&lt;3 Byte START_ADR&gt;&lt;SEGMENT_LEN&gt;
+                                     |               |                |
+                              (i.e. 23            000000             10 
+                                    |                |                |
+                                 Command          3 Byte Startadr.   number of Bytes read back
+                                                                     
+                                 
+                              means in KP2000 Read Request: from Adr 0 read back 16 Bytes)
+                           The START_ADR will incremented with SEGMENT_LEN from loop 
+                           to loop. So BLOCKLEN data from START_ADR will be verified.
+                           At the last block the SEGMENT_LEN will be modified automaticly so, 
+                           that only BLOCKLEN data are read back from the ECU.
+                        VERIFY04 oder VERIFY_ALD1: like VERIFY03 but there are only 2 Byte START_ADR
+                              &lt;SEGMENT_HEADER&gt;&lt;2 Byte START_ADR&gt;&lt;SEGMENT_LEN&gt;
+                                     |               |                |
+                              (i.e. 23             0000              10 
+                                    |                |                |
+                                 Command          2 Byte Startadr.   number of Bytes read back
+                        READ:
+                           This mode is necessary to read back files from the SKM. 
+                           You must insert the filename in DATEINAME. The Data are stored
+                           in ERGEBNIS_FELD as a string. You can check the data with
+                           BLOCKINT or p_zerlege_str and m_auswertung.</pre><b><a name="param6">6</a> START_ADR:</b><pre>	Startadress of the binary (hex). Default: 0
+			Not allowd by NOP, PCC and RBIN</pre><b><a name="param7">7</a> BLOCKLEN</b><pre>	Len of the Filesegment (dez). 0: the hole file
+			Not allowd by NOP, PCC and RBIN</pre><b><a name="param8">8</a> SEGMENT_HEADER:</b><pre>Header of the segment sended to the ECU (i.e. Blocktitle) (hex)</pre><b><a name="param9">9</a> SEGMENT_ENDE:</b><pre>Trailer of the segment sended to the ECU     		(hex)</pre><b><a name="param10">10</a> SEGMENT_LEN:</b><pre>	Max length of the segment sended to the ECU. (dez)</pre><b><a name="param11">11</a> POSITIVE_RESP:</b><pre>Response of the ECU after every segment (hex)</pre><b><a name="param12">12</a> SCHNITTSTELLE:</b><pre>Line for kommunikation (only K and JTAG implemented)</pre><b><a name="param13">13</a> FEHLERFLAG:</b><pre>  	Returns 0 for OK and 1 for ERROR</pre><b><a name="param14">14</a> ERGEBNIS:</b><pre>  	Returns an resultstring like FILENAME OK</pre><b><a name="param15">15</a> ERGEBNIS_FELD:</b><pre> Returns data into an STRING-Field if in parameter LADEMODUS 
+                        STORE_&lt;lademodus&gt; is used.
+   The Modul searches for Files with the name in DATEINAME.
+   If it is found, it is preread.
+   If ther is a 'S' in the beginning, it must be a Motorola - S - Record - File
+   If there is a ':' in the beginning, it must be a Intelhex - Record - File
+   If there is a "*STARTNOP" in the beginning of the File, it is a NOPFILE
+   else the File is used as a binary - File and send to the ecu as is.
+   
+   If the file dosn't exist, for Files with extention ".s19", ".hex", ".bin" ".nop" is
+   searched. If it exists, the Filetype is used of the extention. 
+   	
+   Mode VLB, NOP, AD1, ALD1 make a File for the SKM in Format VLB or VLB2
+   The SKM could interpret the File VLB: 1 Byte Len and Number Len - Data
+   For Files with a segmentlen of &gt; 255 Format VLB2 is used
+   Since Version SKM V4.3 SKM could interpret VLB2: 
+   1. "VLB2\0" at the top of the File
+   2. 4 - Byte Len of the following Bytes
+   3. Number of LEN Data
+   4. 2 Byte Checksumm - Summation of Block (1 - 3)
+</PRE>
+</BODY>
+</HTML>

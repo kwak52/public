@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE>M_NOISE_ATMO</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_NOISE_ATMO</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: m_noise_atmo.C,v 1.5 2005/10/19 09:12:47 pv73rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Aufruf des Prozesses EL
+   ---------------------------------------------------------------------
+   Sourcefile:		m_noise_atmo.C
+   Autor:		RtP/TEF32-Rapp (26.06.2005)
+   Zielsystem:		Linux
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void m_noise_atmo(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Dieses Modul dient zur Kommunikation zu dem ATMO Geräuschtest-
+   prüfstand. Die Kommunikation findet über den Prozess ELECTRONICAL_LOAD
+   statt. 
+   
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> GERAET</b><pre>   Geraetename		
+   ------------------------------</pre><b><a name="param4">4</a> NOISE_TYPE</b><pre>   Type		
+   ------------------------------</pre><b><a name="param5">5</a> NOISE_CONTROL</b><pre>   Control READ/WRITE		
+   ------------------------------</pre><b><a name="param6">6</a> Param1</b><pre>   Parameterstring
+   ------------------------------</pre><b><a name="param7">7</a> COUNTS</b><pre>   Anzahl der erwarteten Messergebnis in den 
+   Feldern 1-20
+   ------------------------------</pre><b><a name="param8">8</a> -</b><pre></pre><b><a name="param17">17</a> ARRAY_1-10</b><pre>   Ergebnisarrays CH1 ORD 1-10
+   ------------------------------</pre><b><a name="param18">18</a> -</b><pre></pre><b><a name="param27">27</a> ARRAY_11-20</b><pre>   Ergebnisarrays CH2 ORD 1-10
+   -------------------------------</pre><b><a name="param28">28</a> -</b><pre></pre><b><a name="param31">31</a> FFT</b><pre>   Ergebnisse CH1 FFT 1-5
+   -------------------------------</pre><b><a name="param32">32</a> -</b><pre></pre><b><a name="param34">34</a> FFT</b><pre>   Ergebnisse CH2 FFT 1-5
+   -------------------------------</pre><b><a name="param35">35</a> TIMEOUT</b><pre>   Timeout in msec
+   -------------------------------</pre><b><a name="param36">36</a> ERRORFLAG</b><pre>   Rueckgabe einer Fehlervariablen
+   -------------------------------
+</PRE>
+</BODY>
+</HTML>

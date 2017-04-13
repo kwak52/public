@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<TITLE>R_AB9_RECHNE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_AB9_RECHNE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_ab9_rechne.C,v 1.2 2006/01/31 15:29:02 nit3an Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Auswertung eines Pulszuges
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		r_ab9_rechne.C
+   Autor:		Rtp/TEF32-Rapp (04.08.2005)
+   Zielsystem:		Linux
+   Sprache:		C++ 
+   ---------------------------------------------------------------------
+   Prototyp:
+   
+   void r_ab9_rechne(
+	   ,shm_stringpointer   *zeilen_wert 
+	   ,long index1
+	   ,long anzahl)
+  ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Das Modul wertet ein Datenfeld anhand der vorgegebenen Funktion aus.
+
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Pruefschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> AB9_FUNCTION</b><pre>   Angabe der Funktion die zu dem Berechnen des Ergebnisses verwendet 
+   werden soll.
+   PEGEL1:
+                                    Mittelwert
+                             10%  -|&lt;------&gt;| 10%
+                                +-------------+
+                                /             /             
+                    AB9_START -&gt;/             / &lt;- AB9_STOP            
+                                /             /             
+          ----------------------+             +--------------------
+      Mittlerer Pegel des ersten Impulses (10% vom 1. relevanten Abtastwert
+      bis 10% vor dem letzten relevanten Abtastwert.
+      
+   DAUER1:
+                                    Dauer
+                                &lt;-------------&gt;
+                                +-------------+
+                                /             /             
+                    AB9_START -&gt;/             / &lt;- AB9_STOP            
+                                /             /             
+          ----------------------+             +--------------------
+      Dauer des ersten Impulses
+
+   DAUER:
+                                            Dauer
+                                &lt;---------------------------&gt;
+                                +---+   +---+   +---+   +---+
+                                /   /   /   /   /   /   /   /       
+                    AB9_START -&gt;/   /   /   /   /   /   /   /&lt;- AB9_STOP            
+                                /   /   /   /   /   /   /   /       
+          ----------------------+   +---+   +---+   +---+   +--------------
+      Dauer des gesamten Pulszuges
+
+   INTEGRAL:
+      Integral ueber den gesamten Pulszug
+   ------------------------------</pre><b><a name="param4">4</a> ARRAY_1</b><pre>   Variablenname in der die gesampelte Werte gespeichert sind
+   ------------------------------</pre><b><a name="param5">5</a> SAMPLE_RATE</b><pre>   Abtastrate in us der gesampelten Daten.
+   ------------------------------</pre><b><a name="param6">6</a> AB9_START</b><pre>   Pulsauswertung beginnt beim ersten Ueberschreiten von AB9_START
+   ------------------------------</pre><b><a name="param7">7</a> AB9_STOP</b><pre>   Pulsauswertung wird beendet beim letzmaligen ueberschreiten von AB9_STOP
+   ------------------------------</pre><b><a name="param8">8</a> AB9_EINHEIT</b><pre>   Messwert wird in der gewaehlten Einheit zurueckgegeben,
+   moegliche Werte:
+      DAUER/DAUER1: US,MS
+      PEGEL1:       A
+      INTEGRAL:     UAS
+   ------------------------------</pre><b><a name="param9">9</a> AB9_SHUNT</b><pre>   Widerstandswert in Ohm, wird zur Umrechnung von Spannung auf Strom benoetigt.
+   ------------------------------</pre><b><a name="param10">10</a> ERGEBNIS</b><pre>   errechnetes Ergebnis, falls ein Fehler aufgetreten ist wird -1234567890
+   zurueckgegeben.
+   ------------------------------</pre><b><a name="param11">11</a> FEHLERFLAG</b><pre>   Fehlerflag 0= ok
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,508 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> LoadFile1 []</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>LoadFile1 []</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=12186">
+ </A>
+LoadFile1 []</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12188">
+ </A>
+Container_Type [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12190">
+ </A>
+File_Name [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12192">
+ </A>
+Load_Mode [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12194">
+ </A>
+Start_Address [Hex]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12196">
+ </A>
+Block_Length [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12198">
+ </A>
+Segment_Header [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12200">
+ </A>
+Segment_Footer [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12202">
+ </A>
+Segment_Length [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12204">
+ </A>
+Positive_Response [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12206">
+ </A>
+Interface [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=279072">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=12208">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12210">
+ </A>
+This function is used to load a file that is in the ECU memory container in the form of a data block into the control unit. The reference to the valid ECU memory container is embedded in the components list. The permissible data formats for the file in the container are binary, VLB (Variable Length Binary; the file already contains segmented data), NOP format, IntelHex and Motorola S0..9 format. Those formats are clearly recognizable on the basis of their structure alone. </P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12212">
+ </A>
+The data is read from the file in accordance with the specified starting address and block length and converted as required depending on load mode and file format, provided with a segment header and segment footer and made available in hexadecimal string format in blocks of the specified segment length. That hexadecimal string is  sent to the selected interface of the control unit by a communications device (KIC, SIC, SKM...). Transfer of the data from the tester to the control unit takes place in binary mode.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12214">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12216">
+ </A>
+At present, this function can only be used in DAPAS/Win in conjunction with the protocol KWP2000 and the formats S0..9. The contiguous address range must not exceed a size of 2.1 MB.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12218">
+ </A>
+This function does not return a value.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12220">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12222">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12224">
+ </A>
+None</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12226">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12228">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12230">
+ </A>
+Container_Type</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12232">
+ </A>
+Specifies the type of ECU memory container. Values currently allowed are FSW (vehicle software), TSW (test software) and WP (factory programming).</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12234">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12236">
+ </A>
+File_Name</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12238">
+ </A>
+Specifies the name of the data block in the ECU memory container (&lt;ECU-MEM&gt; &lt;MEM&gt; &lt;DATABLOCK&gt; &lt;DATABLOCK-NAME&gt;). <BR>
+Example: (&lt;ECU memory container&gt;&lt;Memory information&gt;&lt;Data block&gt;&lt;Mboot_1&gt;)</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12240">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12242">
+ </A>
+Load_Mode</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=279127">
+ </A>
+Specifies the procedure by which the file must be loaded into the control unit. The following procedures have been defined:</P>
+<P CLASS="List-2">
+<A NAME="pgfId=279120">
+ </A>
+AD1:  Address-Data mode: a segment is transferred in the format &lt;Segment header&gt;&lt;Address (3 bytes)&gt; &lt; Data&gt;&lt;Segment footer&gt;t. The total length of the block from the segment header to the segment footer must not exceed the specified maximum segment length.</P>
+<P CLASS="List-2">
+<A NAME="pgfId=12248">
+ </A>
+ALD1:  Address-Length-Data mode: a segment is transferred in the format&lt;Segment header&gt;&lt;Address (2 bytes)&gt;&lt;Length of the following data (1 byte)&gt;&lt;Data&gt;&lt;Segment footer&gt;. The total length of the block from the segment header to the segment footer must not exceed the specified maximum segment length.</P>
+<P CLASS="List-2">
+<A NAME="pgfId=12250">
+ </A>
+BIN	Binary file is packaged according to the communication protocol using &quot;Segment_Header&quot; and &quot;Segment_Footer&quot;. Maximum block length for the protocol blocks is the &quot;Segment_Length&quot; (standard for KP2000).</P>
+<P CLASS="List-2">
+<A NAME="pgfId=279135">
+ </A>
+SORTBINx:			(x=1....9999): Sorted binary file, e.g. for parallel programming of multiple segments in the Flash<BR>
+x in this case is managed in this document and may only be extended with the agreement of AK-PAV.<BR>
+x=1: Sorting for MPC555 RevK3 (max. 14 segments (32 bytes each) with 512 pages of 64 bytes each). </P>
+<P CLASS="List-2">
+<A NAME="pgfId=12254">
+ </A>
+VLB		Binary file is packaged according to the communication protocol using &quot;Segment_Header&quot; and &quot;Segment_Footer&quot;. The length is determined from the file thus: one byte specifies length, following bytes contain data of specified length, 1 byte specifies length ......</P>
+<P CLASS="List-2">
+<A NAME="pgfId=12256">
+ </A>
+NOP:		NOP file is transferred according to the specifications of the protocol.</P>
+<P CLASS="List-2">
+<A NAME="pgfId=12258">
+ </A>
+PCC:		Driver for PROKIST interpreter (K8/EKS4) is loaded into control unit.</P>
+<P CLASS="List-2">
+<A NAME="pgfId=12260">
+ </A>
+RBIN: 		RAW BIN file is sent to the control unit without being packaged according to a protocol.</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12262">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12264">
+ </A>
+Start_Address</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12266">
+ </A>
+Specifies the start address for the data block to be written to the control unit. </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12268">
+ </A>
+Block length = 0 (complete file): <BR>
+For load modes with address details the following applies:  </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12270">
+ </A>
+Start_Address = Address of the first segment regardless of the address in the file. With IntelHex files, any gaps are padded out with 'FF' up to the EndOfFileRecord.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12272">
+ </A>
+Block length  0 (load part of file): </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12274">
+ </A>
+   For load modes with address details the following applies:  </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12276">
+ </A>
+Start_Address = Start address of the data in the file = address in first segment </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12278">
+ </A>
+If load modes with address details are used, address ranges not specified in the file are not automatically padded out; in such cases the function is terminated and an error message returned.<BR>
+ </P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12280">
+ </A>
+Block_Length</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12282">
+ </A>
+Specifies the length of the data block to be written to the control unit. 0 = Complete file<BR>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12284">
+ </A>
+Segment_Header</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12286">
+ </A>
+Bytes in the form of a hexadecimal string to be placed at the beginning of every segment (this parameter may also be left blank).<BR>
+<BR>
+In the case of KW2000, the segment header, the segment data and the segment footer together form the useful data (see ComBlock).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12288">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12290">
+ </A>
+In the case of EASY, the segment header starts with the block title; the block length is generated automatically when the message is sent to the control unit.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12292">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12294">
+ </A>
+Segment_Footer</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12296">
+ </A>
+Bytes in the form of a hexadecimal string to be placed at the end of every segment (this parameter may also be left blank).<BR>
+<BR>
+In the case of KW2000, the segment header, the segment data and the segment footer together form the useful data (see ComBlock).</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12298">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12300">
+ </A>
+Segment_Length</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12302">
+ </A>
+Specifies the maximum segment length (useful data).<BR>
+In the case of data formats that already contain segmented data (VLB) the segment length parameter is ignored (parameter does not therefore have to be specified).</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12304">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12306">
+ </A>
+In the case of KW2000, the segment header, the segment data and the segment footer together form the useful data (see ComBlock).</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12308">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12310">
+ </A>
+Positive_Response</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12312">
+ </A>
+Positive response from control unit which the tester must wait for after every segment sent to the control unit. The bytes specified here are compared with the first bytes of the response. If more response bytes are sent, the surplus bytes are ignored. The negative-response messages from the control unit which cause the tester to repeat the request and read further responses are handled automatically by the tester and are not specified in this parameter.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12314">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12316">
+ </A>
+Interface</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12318">
+ </A>
+Specifies the interface via which the data transfer to the control unit is to take place. E.g. 'K' for communication via diagnosis lead, CAN1..4  for communication via CAN interface.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12320">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12322">
+ </A>
+</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12324">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=12326">
+ </A>
+Examples</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=12328">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12331">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5174">
+ </A>
+LoadFile1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5176">
+ </A>
+FSW,Hex_Bsp,AD1,80,0,36,,7,76,K</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5172">
+ </A>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12333">
+ </A>
+Reads from the file Hex_Bsp starting at the first data byte regardless of the address specified in the file and adds the address according to load mode AD1 (in first segment = start address 0x80). All data bytes are read from the file and transferred.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12339">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=279205">
+ </A>
+</P>
+<DIV>
+<MAP NAME="funktionen-23">
+</MAP>
+<IMG SRC="funktionen-23.gif" USEMAP="#funktionen-23">
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12398">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5244">
+ </A>
+LoadFile1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5246">
+ </A>
+FSW,Bin_Bsp,AD1,80,0,36,,7,76,K</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5242">
+ </A>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12400">
+ </A>
+Reads from the file Bin_Bsp starting at the first data byte and adds the address 0x80 according to load mode AD1 and the start address in the first segment. All data bytes are read from the file and transferred.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=279298">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=279313">
+ </A>
+</P>
+<DIV>
+<MAP NAME="funktionen-24">
+</MAP>
+<IMG SRC="funktionen-24.gif" USEMAP="#funktionen-24">
+</DIV>
+<P CLASS="Parameter">
+<A NAME="pgfId=12458">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12461">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5314">
+ </A>
+LoadFile1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5316">
+ </A>
+FSW,Hex_Bsp,AD1,8000,512,36,,7,76,K</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5312">
+ </A>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12463">
+ </A>
+Reads the data bytes from the file Hex_Bsp starting at the address 0x8000 and adds the addresses according to load mode AD1. Only 512 data bytes are read from the file and transferred.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=279341">
+ </A>
+</P>
+<DIV>
+<MAP NAME="funktionen-25">
+</MAP>
+<IMG SRC="funktionen-25.gif" USEMAP="#funktionen-25">
+</DIV>
+<P CLASS="Parameter">
+<A NAME="pgfId=279342">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12535">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12538">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5398">
+ </A>
+LoadFile1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5400">
+ </A>
+FSW,Bin_Bsp,AD1,05,3,36,23,7,76,K</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5396">
+ </A>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12540">
+ </A>
+This requires that the first character in the binary file has the address 0x00.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12542">
+ </A>
+Reads three data bytes from the file Bin_Bsp starting at the address 0x05 and adds the addresses according to load mode AD1. Only 3 data bytes are read from the file and transferred.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=279397">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=279398">
+ </A>
+</P>
+<DIV>
+<MAP NAME="funktionen-26">
+</MAP>
+<IMG SRC="funktionen-26.gif" USEMAP="#funktionen-26">
+</DIV>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

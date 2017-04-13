@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<TITLE>M_AD64_DIGI</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_AD64_DIGI</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: m_ad64_digi.C,v 1.2 2002/02/27 09:48:44 wiese Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Auswerten des AD64 und &amp;-Variablen weiterreichen
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		m_ad64_digi.C
+   Autor:		RtW/TEF72-Juilfs (16.10.97)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void m_ad64_digi(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Mit diesem Modul werden die gemessenen Spannungswerte des AD64 
+   mit den Toleranzen aus dem Modul E_AD64_INIT verglichen.
+   Hierbei werden die ToleranzbÃnder die im AD64_init Modul festgelegt wurden,
+   mit den gemessenen werten verglichen. Sollte aein Kanal innerhalb der
+   Toleranz sein so wird diesen der Wert 0 zugeordnet. Fehlerhafte
+   KanÃle bekommen eine 1. 
+   Grund: Da die Auswertung Hexadezimal erfolgt, wird immer der defekte 
+   Kanal angezeigt.
+   Mit diesem Modul ist es auch mŒglich zusaetzlich sich aus den 64
+   KanÃlen einen Analogwert zurœck geben zu lassen. Dieser Wert
+   kann im M_AUSERTUNG Modul speziel auf Toleranzen verglichen werden.
+   Es ist sinnvoll die Auswertung in einem Makro abzulegen.
+   Makroname        : AD64_32
+   €bergabeparameter: $POSITION		PAV Position
+                      $MO               Messobjekt (Text)
+   
+   
+   
+   
+
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> VXI_GERAET</b><pre>   	Name des GerÃtes laut PAM Beschreibungsfile	
+	:AD64_01
+	
+   ------------------------------ 
+   Auswertung der Muster.
+   L=Low Toleranzen  an Kanal œberprœfen
+   H=High Toleranzen an Kanal œberprœfen 
+   Die im AD64_INIT Modul ausgeblendeten KanÃle werden
+   mit dem Wert 0 besetzt. Die Auswertung erfolgt immer so,
+   das der Kanal mit log 1 besetzt wird, wenn der Messwert innerhalb 
+   der Toleranz liegt.
+   Das Auswerte Ergebnis wird œber &amp;-Variablen an das Modul M_AUSWERTUNG
+   œbergeben, das den Wert Hexadezimal darstellt.</pre><b><a name="param4">4</a> MUSTER_16_01</b><pre>      :LLLLLLLLLLLLLLLH</pre><b><a name="param5">5</a> MUSTER_32_17</b><pre>      :LLLLLLLLLLLLLLLH</pre><b><a name="param6">6</a> MUSTER_48_33</b><pre>      :LLLLLLLLLLLLLLLH</pre><b><a name="param7">7</a> MUSTER_64_49</b><pre>      :LLLLLLLLLLLLLLLH</pre><b><a name="param8">8</a> ANALOG_MESSKANAL</b><pre>      :Angabe des Kanales der in als Analogwert in die Statistik geht.
+      :Bei Eingabe von "-" gibt es keine Auswertung</pre><b><a name="param9">9</a> R_MEWE_ANALOG</b><pre>
+      :&amp;-Variable zum M_AUSWERTUNG Modul</pre><b><a name="param10">10</a> R_MEWE_16_01</b><pre>      :&amp;-Variable zum M_AUSWERTUNG Modul</pre><b><a name="param11">11</a> R_MEWE_32_17</b><pre>
+      :&amp;-Variable zum M_AUSWERTUNG Modul</pre><b><a name="param12">12</a> R_MEWE_48_33</b><pre> 
+      :&amp;-Variable zum M_AUSWERTUNG Modul</pre><b><a name="param13">13</a> R_MEWE_64_49</b><pre>      :&amp;-Variable zum M_AUSWERTUNG Modul
+</PRE>
+</BODY>
+</HTML>

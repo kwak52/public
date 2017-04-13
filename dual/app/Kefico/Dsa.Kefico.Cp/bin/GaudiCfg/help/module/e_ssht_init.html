@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE>E_SSHT_INIT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_SSHT_INIT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_ssht_init.C,v 1.4 2003/12/05 09:48:39 gueltlin Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Initialisieren Slingshot Karte
+   ---------------------------------------------------------------------
+   Projekt:		IVS
+   Sourcefile:		e_ssht_init.C
+   Autor:		RtW/TEF32-Gueltling (18.11.2003)
+   Zielsystem:		SuSE Linux 8.2
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_ssht_init(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Aufrufparameter laut Modglobal.
+   
+  &lt; 1&gt; PRUEFSCHRITT
+  &lt; 2&gt; POSITION
+  &lt; 3&gt; SSHT_NR          SSHT-Nr z.B. SSHT_1
+  &lt; 4&gt; FU_SSHT_INIT     Init oder Close            
+  &lt; 5&gt; SSHT_DEVICE      Better / David Connection
+  &lt; 6&gt; BITTIEFE         8,10 od 12 Bit
+  &lt; 7&gt; BILDGROESSE      z.B. 640x480
+  ( 8) BILDPOSITION
+  ( 9) TIMEOUT          Angabe in Sek
+  (10) MG_ERROR
+   
+   Aufgabe des Modules ist es, die Frame Grabber Karte Slingshot zu 
+   initialisieren.
+   
+  
+</PRE>
+</BODY>
+</HTML>

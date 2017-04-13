@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+<TITLE>S_BDM</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>S_BDM</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: s_bdm.C,v 1.6 2004/03/25 09:09:18 lehmann Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	BMS43/46-Prœfung mit PG333_Programmierstation 
+   ---------------------------------------------------------------------
+   Projekt:		BDM43/46-Tester
+   Sourcefile:		s_bdm.C
+   Autor:		RtW2/TEF72-Petrovic Ivica (14.05.98)
+   Zielsystem:		V743 (HP-RT 3.01), /7/C/D (HP-UX 9.0)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   
+   int s_bdm(shm_stringpointer *zeilen_wert //-I- Beginn der Pruefliste
+   ,long index1			            //-I- Array zeiger in Prufliste
+   ,long anzahl)		    	    //-I- Anzahl €bergabeparameter
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   
+   error = int s_bdm(shm_stringpointer *zeilen_wert //-I- Beginn der Pruefliste
+   ,long index1			                    //-I- Array zeiger in Prufliste
+   ,long anzahl)			            //-I- Anzahl €bergabeparameter
+   
+   if (error != 0) 	Fehler bei der Programmierung eines BDM-SteuergerÃte 
+   {
+	error = -1: GerÃt nicht erfolgreich programmiert
+   }
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Dieses Modul dient zur Kommunikation mit der PG333-Programmierstation.
+   Im Rœstlauf wird das Device des MEN-MUX mit welchem die 
+   PG333-Programmierstation verbunden ist initialisiert. Zu beachten ist,
+   daﬁ auf zwei verschiedenen Prœfsektionen programmiert werden soll. Das
+   bedeutet, daﬁ zwei Prœfkammern einschlieﬁlich Zusatzplatine, welche 
+   jeweils programmiert und gesteuert werden mœssen, zweimal vorhanden sind.
+   Nach dem Rœstlauf wird der Status der PG333-Programmierstation œberprœft.
+   Sind die Daten auf der PG333-Programmierstation gœltig wird sektioniert 
+   die Zusatzplatine auf ihre Daten œberprœft und wenn nŒtig programmiert.
+   Sind die Daten auf der PG333-Programmierstation nicht gœltig, werden die
+   Daten auf der PG333-Programmierstation aktuallisiert und danach die 
+   Zusatzplatine ebenfalls auf ihre Daten œberprœft und wenn nŒtig
+   programmiert.
+   Ist diese erfolgreich, wird der Datensatz der PG333-Programmierstation 
+   œberprœft und bei bedarf œberschrieben.
+   In Normalmodus (Prœfmodus) wird aus Sicherheitsgrœnden der Status der
+   PG333-Programmierstation und der Zusatzplatine bei jedem Durchlauf 
+   œberprœft. Ist diese €berprœfung erfolgreich wird das SteuergerÃt
+   programmiert.
+   
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> FILENAME</b><pre>	
+   Hier wird der Name der Datei eingegeben, welche
+   fœr den Download zu der BDM-Programmierstation
+   benŒtigt werden.
+   Format: z.B. 67355939
+   ------------------------------</pre><b><a name="param4">4</a> MODUS_BDM</b><pre>   Hier wird der Befehssatz eingegeben welchen die 
+   BDM-Programmierstation auszufœhren hat.
+   P:		Zielsystem programmieren		
+   E:		Zielsystem lŒschen
+   V:		Vergleich von Zielsystem-Speicher und PG333-Speicher		
+   T:		Leertest des Zielsystems
+   D:		CRC-€berprœfung des Zielsystems
+   BD:		CRC-œberprœfung des Adapter-Flash-EPROMs (Zusatzplatine)		
+   BV:		Adapter-Flash-EPROMs und PG333-Speicher vergleichen</pre><b><a name="param5">5</a> STRING0</b><pre>	
+   Hier wird der Refrenzparameter von FILENAME œbergeben.
+   Dieser wird benŒtigt um zu testen ob die Daten die
+   zur PG333-Programmierstation geladen wurden auch 
+   die Richtigen sind.
+   Format: z.B. 01118300BD05
+   ----------------------------------------------------------</pre><b><a name="param6">6</a> MODUS_LADE</b><pre>
+   Hier wird der Befehlsatz fœr die Initialisierung der
+   Zusatzplatine œbergeben. Dieser wird benŒtigt um das
+   Adapter-Flash-EPROMs mit den richtigen Daten zu 
+   versorgen.
+   BD:		CRC-œberprœfung des Adapter-Flash-EPROMs (Zusatzplatine)		
+   BP:		Adapter-Flash-EPROMs (Zusatzplatine) programmieren  		
+   BE:		Adapter-Flash-EPROMs (Zusatzplatine) lŒschen
+   BV:		Adapter-Flash-EPROMs und BDM-Speicher vergleichen
+   BT:		Leertest des Adapter-Flash-EPROMs
+   --------------------------------------------------------------</pre><b><a name="param7">7</a> ERGEBNIS</b><pre>   Hier wird ein Fehlertext vom Modul and das System
+   zurœckgegeben.
+   --------------------------------------------------------------</pre><b><a name="param8">8</a> FEHLERFLAG</b><pre>
+   Fehlerflag des Systems
+   0 -&gt; Programmieren OK
+   1 -&gt; Fehler aufgetreten (siehe Fehlertext) 
+
+   Revision 1.1  2001/12/18 10:06:49  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.8  2000/03/14 09:04:13  wiese
+   ‹berschreiber raus
+
+   Revision 1.7  1999/12/22 10:06:22  keppler
+   $ID -&gt; $Id
+
+   Revision 1.6  1999/12/22 09:12:52  keppler
+   $Header -&gt; $Id
+
+   Revision 1.5  1999/12/07 12:48:49  gueltlin
+   Aenderungen Herr Petrovic
+
+Revision 1.4  98/08/03  10:04:57  10:04:57  petrovic (Ivica Petrovic)
+no entry
+
+Revision 1.3  98/08/03  10:01:17  10:01:17  petrovic (Ivica Petrovic)
+no entry
+
+Revision 1.2  98/07/31  17:13:56  17:13:56  wiese (Stefan Wiese)
+SectionabhÃngigkeit des Firstruns ermitteln
+
+Revision 1.1  98/07/21  12:34:14  12:34:14  wiese (Stefan Wiese)
+Initial revision
+
+   ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

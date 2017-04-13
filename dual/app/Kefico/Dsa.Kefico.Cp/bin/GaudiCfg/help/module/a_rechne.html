@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE>A_RECHNE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>A_RECHNE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/testlisten_anw_module/src/a_rechne.C,v 1.4 2003/04/17 09:36:25 wiese Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Berechnungen durchfuehren
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		a_rechne.C
+   Autor:		RtW/TEF72-juilfs/Lehmann (28.11.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void a_rechne(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Aufgabe des Rechenmodule ist es, Berechnungen anhand der Eingabezeile
+   vorzunehmen. Das Ergebnis wird im Ergebnisstring uebertragen.
+   Der gesamte Ausdruck muss geklammert werden.
+
+   
+   Parameterbeschreibung:</pre><b><a name="param1">1</a> INPUT</b><pre>	Beschreibung des aritmethischen Ausdrucks,
+                        Laenge des Strings 60 Zeichen
+
+   Beispiele fuer Inputstrings:
+      (10+4)
+      (&amp;MEWE*&amp;MEWE2+(&amp;MEWE3/20))
+      INT(&amp;MEWE1)
+      RND(1)
+   
+   Folgende Funktionen werden unterstuetzt
+	SIN
+	COS
+	LOG
+	LOG10
+	EXP
+	ABS
+	SQRT
+	INT	Ganzzahl bilden, zB. 5.93 wird 5.00
+	RND	Zufallszahlengenerator, Bereich: 0.000 - 0.999, das
+		Ergebnis wird mit dem RND-Argument multipliziert
+        RUND	Runden von Zahlen ohne Nachkommastellen,
+	        Beispiel: 5.9   -----&gt; 6</pre><b><a name="param2">2</a> ERGEBNIS</b><pre>	Ausgabe des Ergebnisses in einer &amp;Variable</pre><b><a name="param3">3</a> FEHLER</b><pre>	Fehlerbeschreibung in einer &amp;Variable
+   ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

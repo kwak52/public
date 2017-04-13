@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE>R_KUNDDAT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_KUNDDAT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------                                                          
+ Funktionsbeschreibung:                                                                                              
+    Anzahl der Uebergabeparameter und Index der expandierten                                                         
+    Pruefliste im Platz KUNDDAT_UNIT ablegen. Der Prozess                                                            
+    kunddat greift spaeter auf diese beiden Parameter zu und                                                         
+    kopiert die Ûbergabeparameter in die lokalen Arrays                                                              
+                                                                                                                     
+    Dokumentation siehe:
+    http://rice.rt.de.bosch.com/prot_ccs/CCS-SW-Doc/6_testmodul_pool/kunddat/doc/r_kunddat.pdf
+                                                                                                                     
+    Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                                                                 
+         GAUDI Pruefschritt                                                                                          
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                                                                     
+         PAV- Position                                                                                               
+    ------------------------------</pre><b><a name="param3">3</a> MULTIFUNKTIONSCODE</b><pre>                                                                                           
+         -                                                                                                           
+         N    Kein String-Protokoll zum Messdatensammler                                                             
+              Ergebnis in R_ERGEBNIS und TE_INFO schreiben                                                           
+                                                                                                                     
+         P    Ergebnis nur nach R_ERGEBNIS schreiben                                                                 
+              und/oder                                                                                               
+                                                                                                                     
+         S    Ergebnis nur nach TE_INFO schreiben                                                                    
+              (fuer bc_drucken benoetigt)                                                                            
+                                                                                                                     
+         U    Ergebnis in R_ERGEBNIS in UPPER-Case                                                                   
+                                                                                                                     
+         L    Ergebnis in R_ERGEBNIS in lower-Case                                                                   
+                                                                                                                     
+       Optionen N, P, S, U und L                                                                                     
+       koennen beliebig kombiniert werden                                                                            
+                                                                                                                     
+    ------------------------------</pre><b><a name="param4">4</a> DATENART</b><pre>                                                                                                     
+         Datenart z.B. LN                                                                                            
+         char*2                                                                                                      
+         siehe &lt;a href="http://rice.rt.de.bosch.com/prot_ccs/CCS-SW-Doc/cs_6_testmodul_pool_kunddat_doc--r_kunddat.pdf"&gt;r_kunddat - Possible data types and formats&lt;/a&gt;
+    ------------------------------</pre><b><a name="param5">5</a> DATENFORMAT</b><pre>                                                                                                  
+         Datenformat z.B. 0                                                                                          
+         int                                                                                                         
+         siehe &lt;a href="http://rice.rt.de.bosch.com/prot_ccs/CCS-SW-Doc/cs_6_testmodul_pool_kunddat_doc--r_kunddat.pdf"&gt;r_kunddat - Possible data types and formats&lt;/a&gt;
+    ------------------------------</pre><b><a name="param6">6</a> ERGNAME</b><pre>                                                                                                      
+         Keywordname unter welchem das Ergebnis nach te_info                                                         
+         geschrieben werden soll                                                                                     
+         char*14                                                                                                     
+    ------------------------------</pre><b><a name="param7">7</a> DATENSTRING1</b><pre>                                                                                                 
+         zusaetzlicher Parameter fuer spezielle Anwendungen                                                          
+         char*14                                                                                                     
+    ------------------------------</pre><b><a name="param8">8</a> DATENSTRING2</b><pre>                                                                                                 
+         zusaetzlicher Parameter fuer spezielle Anwendungen                                                          
+         char*14                                                                                                     
+    ------------------------------</pre><b><a name="param9">9</a> DATENSTRING1</b><pre>                                                                                                 
+         zusaetzlicher Parameter fuer spezielle Anwendungen                                                          
+         char*14                                                                                                     
+    ------------------------------</pre><b><a name="param10">10</a> R_ERGEBNIS</b><pre>                                                                                                  
+         GAUDI-Rueckgabe-Variable                                                                                    
+    ------------------------------</pre><b><a name="param11">11</a> EXECUTION</b><pre>                                                                                                   
+         LOAD        Ergebnis wird nur im Ruestlauf bestimmt                                                         
+         FIRST       Ergebnis wird nur im FIRSTRUN bestimmt                                                          
+         TEST        Ergebnis wird in jeder Pruefung bestimmt                                                        
+    ------------------------------</pre><b><a name="param12">12</a> ERRORSTRING</b><pre>                                                                                                 
+         -           Es wird kein Text nach ERRORSTRING                                                              
+                     geschrieben                                                                                     
+         Fehlerstring (GAUDI-Variable)                                                                               
+    ------------------------------</pre><b><a name="param13">13</a> ERRORFLAG</b><pre>                                                                                                   
+         -           Es wird kein Text nach ERRORFLAG                                                                
+                     geschrieben                                                                                     
+         Fehlerflag:                                                                                                 
+            0        Kein Fehler                                                                                     
+            1        Fehler, Text in ERRORSTRING                                                                     
+    ------------------------------                                                                                   
+                                                                                                                     
+ ----------------------------------------------------------                                                          
+</PRE>
+</BODY>
+</HTML>

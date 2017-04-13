@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE>E_SLOWMOTION</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_SLOWMOTION</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   ---------------------------------------------------------------------
+   Kurzbeschreibung:Timingprobleme durch 'ausbremsen' unter linux reduzieren
+   ---------------------------------------------------------------------
+   Projekt:		Projektname
+   Sourcefile:		e_slowmotion.C
+   Autor:		SzP/TEF72-Gebhardt(121205)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x),Suse Linux
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_slow,otion(shm_stringpointer *zeilen_info
+   ,shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+
+   MD,E_WAIT
+   ,PRUEFSCHRITT       10
+   ,POSITION           10
+   ,TR_ADD	       YES/NO
+   ,E_OUT   	       YES/NO
+   ,M_DMM	       YES/NO</pre><b><a name="param3">3</a> TR_ADD:</b><pre>
+   Angabe ob Treiberwartezeit und Prüflistenwartezeit sich additiv auswirken.(nur Linux)
+   Default: NO</pre><b><a name="param4">4</a> E_OUT:</b><pre>
+   Wartezeit bei E_OUT aufrufen.(nur Linux)
+   Default: YES</pre><b><a name="param5">5</a> M_DMM:</b><pre>
+   Wartezeit bei M_DMM aufrufen.(nur Linux)
+   Default: YES
+                   
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SignalDefiniitions>
+  <Signals>
+    <!-- 
+      Signal configuration file for AUDIT tester.
+      
+      If you add any entry here, you should add enumeration entry in SignalEnum enumeration in EmergencySignal.cs
+      Naming convention:
+        - PLC signal name starts with 'P', with type "PLC".
+        - DUIO signal name starts with 'U' with type "DI" for input, "DO" for output.
+        - All DeviceId should be unique.  you can not use same device id for both PLC and UDIO.
+      
+      todo : 7/8 speed sensor, origin sensor(kiss)
+      
+    -->
+    
+    <Signal Name="UDoor1"         Type="DI" DeviceId="UDIO_CPU1" Address="0" Message="Side Door1" Comment=""/>
+    <Signal Name="UDoor2"         Type="DI" DeviceId="UDIO_CPU1" Address="1" Message="Side Door2" Comment=""/>
+    <Signal Name="UDoor3"         Type="DI" DeviceId="UDIO_CPU1" Address="13" Message="Front Door1" Comment=""/>
+    <Signal Name="UDoor4"         Type="DI" DeviceId="UDIO_CPU1" Address="14" Message="Front Door2" Comment=""/>
+
+    <Signal Name="UDoorLock1"         Type="DO" DeviceId="UDIO_CPU1" Address="5" Message="Side Door1" Comment=""/>
+    <Signal Name="UDoorLock2"         Type="DO" DeviceId="UDIO_CPU1" Address="6" Message="Side Door2" Comment=""/>
+    <Signal Name="UDoorLock3"         Type="DO" DeviceId="UDIO_CPU1" Address="10" Message="Front Door1" Comment=""/>
+    <Signal Name="UDoorLock4"         Type="DO" DeviceId="UDIO_CPU1" Address="11" Message="Front Door2" Comment=""/>
+
+    <Signal Name="UEmergency"     Type="DI" DeviceId="UDIO_CPU1" Address="8" Message="Emergency signal from UDIO" Comment=""/>
+    <Signal Name="UStart1"        Type="DI" DeviceId="UDIO_CPU1" Address="9" Message="Start1 push button" Comment=""/>
+    <Signal Name="UStart2"        Type="DI" DeviceId="UDIO_CPU1" Address="10" Message="Start2 push button" Comment=""/>
+
+    <Signal Name="USpare1"        Type="DI" DeviceId="UDIO_CPU1" Address="11" Message="spare1 button" Comment=""/>
+    <Signal Name="USpare2"        Type="DI" DeviceId="UDIO_CPU1" Address="12" Message="spare2 button" Comment=""/>
+
+    <Signal Name="UOriginSensor"  Type="DI" DeviceId="UDIO_CPU1" Address="15" Message="Origin sensor" Comment=""/>
+
+    <Signal Name="UPart7"         Type="DI" DeviceId="UDIO_CPU1" Address="6"
+            Message="9024160001;9024160002;9024160005;9024160006;9024160007;9024160008"
+            Comment="7속 품번"/>
+    <Signal Name="UPart8"         Type="DI" DeviceId="UDIO_CPU1" Address="5"
+            Message="9024180021=BLACK;9024180022=YELLOW;9024180023=RED;9024180024=GRAY"
+            Comment="8속 품번"/>
+
+
+
+
+    <Signal Name="UColorPower1"   Type="DO" DeviceId="UDIO_CPU1" Address="24" Message="Power switch1" Comment=""/>
+    <Signal Name="UColorPower2"   Type="DO" DeviceId="UDIO_CPU1" Address="25" Message="Power switch2" Comment=""/>
+
+    <Signal Name="ULampRed"       Type="DO" DeviceId="UDIO_CPU1" Address="12" Message="Emergency red lamp" Comment=""/>
+    <Signal Name="ULampYellow"    Type="DO" DeviceId="UDIO_CPU1" Address="13" Message="Emergency yellow lamp" Comment=""/>
+    <Signal Name="ULampGreen"     Type="DO" DeviceId="UDIO_CPU1" Address="14" Message="Emergency green lamp" Comment=""/>
+    <Signal Name="ULampBuzzer"    Type="DO" DeviceId="UDIO_CPU1" Address="15" Message="Emergency buzzer" Comment=""/>
+
+    <Signal Name="UColorBit1"    Type="DI" DeviceId="UDIO_CPU1" Address="16" Message="Color Black" Comment=""/>
+    <Signal Name="UColorBit2"    Type="DI" DeviceId="UDIO_CPU1" Address="17" Message="Color Yellow" Comment="UColorBit2 and UColorBit3 is Color Red"/>
+    <Signal Name="UColorBit3"    Type="DI" DeviceId="UDIO_CPU1" Address="18" Message="Color Gray" Comment="UColorBit2 and UColorBit3 is Color Red"/>
+
+    <Signal Name="UPower1"        Type="DO" DeviceId="UDIO_CPU1" Address="0" Message="Power switch1" Comment=""/>
+    <Signal Name="UPower2"        Type="DO" DeviceId="UDIO_CPU1" Address="1" Message="Power switch2" Comment=""/>
+    <Signal Name="UPower3"        Type="DO" DeviceId="UDIO_CPU1" Address="2" Message="Power switch3" Comment=""/>
+    <Signal Name="UPower4"        Type="DO" DeviceId="UDIO_CPU1" Address="3" Message="Power switch4" Comment=""/>
+    <Signal Name="UPower5"        Type="DO" DeviceId="UDIO_CPU1" Address="4" Message="Power switch5" Comment=""/>
+
+    <Signal Name="UBreakZ"        Type="DO" DeviceId="UDIO_CPU1" Address="8" Message="Break1" Comment="Z axis Break"/>
+    <Signal Name="UBreakTilt"     Type="DO" DeviceId="UDIO_CPU1" Address="9" Message="Break2" Comment="Tilt axis Break"/>
+
+    <Signal Name="PMessageM1901"     Type="PLC" DeviceId="PLC_READ" Address="M1901" Message="[M1901]EMERGENCY ERROR" Comment=""/>
+    <Signal Name="PMessageM1902"     Type="PLC" DeviceId="PLC_READ" Address="M1902" Message="[X400]MAIN AIR PRESSURE ERROR" Comment=""/>
+    <Signal Name="PMessageM1903"     Type="PLC" DeviceId="PLC_READ" Address="M1903" Message="[M1903]DOOR OPEN ERROR_FRONT" Comment=""/>
+    <Signal Name="PMessageM1904"     Type="PLC" DeviceId="PLC_READ" Address="M1904" Message="[M1904]DOOR OPEN ERROR_REAR" Comment=""/>
+    <Signal Name="PMessageM1905"     Type="PLC" DeviceId="PLC_READ" Address="M1905" Message="[M1905]DOOR OPEN ERROR_LEFT" Comment=""/>
+    <Signal Name="PMessageM1906"     Type="PLC" DeviceId="PLC_READ" Address="M1906" Message="[M1906]DOOR OPEN ERROR_RIGHT" Comment=""/>
+    <Signal Name="PMessageM1907"     Type="PLC" DeviceId="PLC_READ" Address="M1907" Message="INDEX INTERLOCK SENSOR ERROR" Comment=""/>
+    <Signal Name="PMessageM1908"     Type="PLC" DeviceId="PLC_READ" Address="M1908" Message="[M1908]SERVO_1 NFB ERROR" Comment=""/>
+    <Signal Name="PMessageM1909"     Type="PLC" DeviceId="PLC_READ" Address="M1909" Message="[M1909]SERVO_2 NFB ERROR" Comment=""/>
+    <Signal Name="PMessageM1910"     Type="PLC" DeviceId="PLC_READ" Address="M1910" Message="[M1910]SERVO_3 NFB ERROR" Comment=""/>
+    <Signal Name="PMessageM1911"     Type="PLC" DeviceId="PLC_READ" Address="M1911" Message="[M1911]SERVO_4 NFB ERROR" Comment=""/>
+    <Signal Name="PMessageM1912"     Type="PLC" DeviceId="PLC_READ" Address="M1912" Message="[M1912]SERVO_5 NFB ERROR" Comment=""/>
+    <Signal Name="PMessageM1913"     Type="PLC" DeviceId="PLC_READ" Address="M1913" Message="[M1913]SERVO_6 NFB ERROR" Comment=""/>
+    <Signal Name="PMessageM1914"     Type="PLC" DeviceId="PLC_READ" Address="M1914" Message="[M1914]SERVO_7 NFB ERROR" Comment=""/>
+    <Signal Name="PMessageM1915"     Type="PLC" DeviceId="PLC_READ" Address="M1915" Message="[M1915]SERVO_8 NFB ERROR" Comment=""/>
+    <Signal Name="PMessageM1916"     Type="PLC" DeviceId="PLC_READ" Address="M1916" Message="[M1916]SERVO_9 NFB ERROR" Comment=""/>
+    <Signal Name="PMessageM1917"     Type="PLC" DeviceId="PLC_READ" Address="M1917" Message="[M1917]SERVO_1 ERROR" Comment=""/>
+    <Signal Name="PMessageM1918"     Type="PLC" DeviceId="PLC_READ" Address="M1918" Message="[M1918]SERVO_2 ERROR" Comment=""/>
+    <Signal Name="PMessageM1919"     Type="PLC" DeviceId="PLC_READ" Address="M1919" Message="[M1919]SERVO_3 ERROR" Comment=""/>
+    <Signal Name="PMessageM1920"     Type="PLC" DeviceId="PLC_READ" Address="M1920" Message="[M1920]SERVO_4 ERROR" Comment=""/>
+    <Signal Name="PMessageM1921"     Type="PLC" DeviceId="PLC_READ" Address="M1921" Message="[M1921]SERVO_5 ERROR" Comment=""/>
+    <Signal Name="PMessageM1922"     Type="PLC" DeviceId="PLC_READ" Address="M1922" Message="[M1922]SERVO_6 ERROR" Comment=""/>
+    <Signal Name="PMessageM1923"     Type="PLC" DeviceId="PLC_READ" Address="M1923" Message="[M1923]SERVO_7 ERROR" Comment=""/>
+    <Signal Name="PMessageM1924"     Type="PLC" DeviceId="PLC_READ" Address="M1924" Message="[M1924]SERVO_8 ERROR" Comment=""/>
+    <Signal Name="PMessageM1925"     Type="PLC" DeviceId="PLC_READ" Address="M1925" Message="[M1925]SERVO_9 ERROR" Comment=""/>
+    <Signal Name="PMessageM1926"     Type="PLC" DeviceId="PLC_READ" Address="M1926" Message="[M1926]N.G PRODUCT NO SENSING ERROR" Comment=""/>
+    <Signal Name="PMessageM1927"     Type="PLC" DeviceId="PLC_READ" Address="M1927" Message="[M1927]PRODUCT N.G" Comment=""/>
+    <Signal Name="PMessageM1928"     Type="PLC" DeviceId="PLC_READ" Address="M1928" Message="[M1928]SAFETY SENSOR ERROR" Comment=""/>
+    <Signal Name="PMessageM1929"     Type="PLC" DeviceId="PLC_READ" Address="M1929" Message="[M1929]PC READY OFF ERROR" Comment=""/>
+    <Signal Name="PMessageM1930"     Type="PLC" DeviceId="PLC_READ" Address="M1930" Message="[M1930]PC AUTO MODE OFF ERROR" Comment=""/>
+    <Signal Name="PMessageM1931"     Type="PLC" DeviceId="PLC_READ" Address="M1931" Message="[M1931]PRODUCT NOT CLEAR ERROR" Comment=""/>
+    <Signal Name="PMessageM1932"     Type="PLC" DeviceId="PLC_READ" Address="M1932" Message="[X420,1]FD CHECK PUSHER_1 UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1933"     Type="PLC" DeviceId="PLC_READ" Address="M1933" Message="[X422,3]FD CHECK PUSHER_2 UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1934"     Type="PLC" DeviceId="PLC_READ" Address="M1934" Message="[X424,5]FD CHECK PUSHER_3 UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1935"     Type="PLC" DeviceId="PLC_READ" Address="M1935" Message="[X426,7]FD CHECK_1 ADV/RET ERROR" Comment=""/>
+    <Signal Name="PMessageM1936"     Type="PLC" DeviceId="PLC_READ" Address="M1936" Message="[X428,9]FD CHECK_2 ADV/RET ERROR" Comment=""/>
+    <Signal Name="PMessageM1937"     Type="PLC" DeviceId="PLC_READ" Address="M1937" Message="[X42A,B]FD CHECK_3 ADV/RET ERROR" Comment=""/>
+    <Signal Name="PMessageM1938"     Type="PLC" DeviceId="PLC_READ" Address="M1938" Message="[X430,1]S2_CONNECTOR UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1939"     Type="PLC" DeviceId="PLC_READ" Address="M1939" Message="[X440,1]S3_PUSHER_1 UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1940"     Type="PLC" DeviceId="PLC_READ" Address="M1940" Message="[X442,3]S3_PUSHER_2 UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1941"     Type="PLC" DeviceId="PLC_READ" Address="M1941" Message="[X444,5]S3_PUSHER_3 UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1942"     Type="PLC" DeviceId="PLC_READ" Address="M1942" Message="[X446,7]S3_CONNECTOR UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1943"     Type="PLC" DeviceId="PLC_READ" Address="M1943" Message="[X448,9]S5_PUSHER_1 UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1944"     Type="PLC" DeviceId="PLC_READ" Address="M1944" Message="[X44A,B]S5_PUSHER_2 UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1945"     Type="PLC" DeviceId="PLC_READ" Address="M1945" Message="[X44C,D]S5_PUSHER_3 UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1946"     Type="PLC" DeviceId="PLC_READ" Address="M1946" Message="[X44E,F]S5_CONNECTOR UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1947"     Type="PLC" DeviceId="PLC_READ" Address="M1947" Message="[X450,1]GOOD MARKING ADV/RET ERROR" Comment=""/>
+    <Signal Name="PMessageM1948"     Type="PLC" DeviceId="PLC_READ" Address="M1948" Message="[X452,3]MARKING COVER UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1949"     Type="PLC" DeviceId="PLC_READ" Address="M1949" Message="[X470,1]FD CHECK SIDE BACKUP ERROR" Comment=""/>
+    <Signal Name="PMessageM1950"     Type="PLC" DeviceId="PLC_READ" Address="M1950" Message="[M1950]MIDDLE ADV/RET SERVO LIMIT- ERROR" Comment=""/>
+    <Signal Name="PMessageM1951"     Type="PLC" DeviceId="PLC_READ" Address="M1951" Message="[M1951]MIDDLE ADV/RET SERVO LIMIT+ ERROR" Comment=""/>
+    <Signal Name="PMessageM1952"     Type="PLC" DeviceId="PLC_READ" Address="M1952" Message="[M1952]MIDDLE UP/DOWN SERVO LIMIT- ERROR" Comment=""/>
+    <Signal Name="PMessageM1953"     Type="PLC" DeviceId="PLC_READ" Address="M1953" Message="[M1953]MIDDLE UP/DOWN SERVO LIMIT+ ERROR" Comment=""/>
+    <Signal Name="PMessageM1954"     Type="PLC" DeviceId="PLC_READ" Address="M1954" Message="[M1954]INPUT ADV/RET SERVO LIMIT- ERROR" Comment=""/>
+    <Signal Name="PMessageM1955"     Type="PLC" DeviceId="PLC_READ" Address="M1955" Message="[M1955]INPUT ADV/RET SERVO LIMIT+ ERROR" Comment=""/>
+    <Signal Name="PMessageM1956"     Type="PLC" DeviceId="PLC_READ" Address="M1956" Message="[M1956]INPUT UP/DOWN SERVO LIMIT- ERROR" Comment=""/>
+    <Signal Name="PMessageM1957"     Type="PLC" DeviceId="PLC_READ" Address="M1957" Message="[M1957]INPUT UP/DOWN SERVO LIMIT+ ERROR" Comment=""/>
+    <Signal Name="PMessageM1958"     Type="PLC" DeviceId="PLC_READ" Address="M1958" Message="[M1958]OUTPUT ADV/RET SERVO LIMIT- ERROR" Comment=""/>
+    <Signal Name="PMessageM1959"     Type="PLC" DeviceId="PLC_READ" Address="M1959" Message="[M1959]OUTPUT ADV/RET SERVO LIMIT+ ERROR" Comment=""/>
+    <Signal Name="PMessageM1960"     Type="PLC" DeviceId="PLC_READ" Address="M1960" Message="[M1960]OUTPUT UP/DOWN SERVO LIMIT- ERROR" Comment=""/>
+    <Signal Name="PMessageM1961"     Type="PLC" DeviceId="PLC_READ" Address="M1961" Message="[M1961]OUTPUT UP/DOWN SERVO LIMIT+ ERROR" Comment=""/>
+    <Signal Name="PMessageM1962"     Type="PLC" DeviceId="PLC_READ" Address="M1962" Message="[M1962]MIDDLE SERVO ORIGIN SIG OFF ERROR" Comment=""/>
+    <Signal Name="PMessageM1963"     Type="PLC" DeviceId="PLC_READ" Address="M1963" Message="[M1963]MIDDLE SERVO ORIGIN SIG OFF ERROR" Comment=""/>
+    <Signal Name="PMessageM1964"     Type="PLC" DeviceId="PLC_READ" Address="M1964" Message="[M1964]MIDDLE SERVO ORIGIN SIG OFF ERROR" Comment=""/>
+    <Signal Name="PMessageM1965"     Type="PLC" DeviceId="PLC_READ" Address="M1965" Message="[M1965]MIDDLE SERVO ORIGIN SIG OFF ERROR" Comment=""/>
+    <Signal Name="PMessageM1966"     Type="PLC" DeviceId="PLC_READ" Address="M1966" Message="[M1966]MIDDLE SERVO ORIGIN SIG OFF ERROR" Comment=""/>
+    <Signal Name="PMessageM1967"     Type="PLC" DeviceId="PLC_READ" Address="M1967" Message="[M1967]MIDDLE SERVO ORIGIN SIG OFF ERROR" Comment=""/>
+    <Signal Name="PMessageM1968"     Type="PLC" DeviceId="PLC_READ" Address="M1968" Message="[M1968]R/C CHECK TIME OVER ERROR" Comment=""/>
+    <Signal Name="PMessageM1969"     Type="PLC" DeviceId="PLC_READ" Address="M1969" Message="[M1969]FUNCTION_1 TEST TIME OVER ERROR" Comment=""/>
+    <Signal Name="PMessageM1970"     Type="PLC" DeviceId="PLC_READ" Address="M1970" Message="[M1970]FUNCTION_2 TEST TIME OVER ERROR" Comment=""/>
+    <Signal Name="PMessageM1971"     Type="PLC" DeviceId="PLC_READ" Address="M1971" Message="[X46B,C]R/C CHECK CLAMP UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1972"     Type="PLC" DeviceId="PLC_READ" Address="M1972" Message="[M1972]COLOR CHECK TYPE ERROR" Comment=""/>
+    <Signal Name="PMessageM1973"     Type="PLC" DeviceId="PLC_READ" Address="M1973" Message="[M1973]FD CEHCK TIME OVER ERROR" Comment=""/>
+    <Signal Name="PMessageM1974"     Type="PLC" DeviceId="PLC_READ" Address="M1974" Message="[M1974]S1_FD CHECK N.G" Comment=""/>
+    <Signal Name="PMessageM1975"     Type="PLC" DeviceId="PLC_READ" Address="M1975" Message="[M1975]S2_COLOR CHECK N.G" Comment=""/>
+    <Signal Name="PMessageM1976"     Type="PLC" DeviceId="PLC_READ" Address="M1976" Message="[M1976]S2_R/C TEST N.G" Comment=""/>
+    <Signal Name="PMessageM1977"     Type="PLC" DeviceId="PLC_READ" Address="M1977" Message="[M1977]S3_FUNCTION(IN/MIDDLE) TEST N.G" Comment=""/>
+    <Signal Name="PMessageM1978"     Type="PLC" DeviceId="PLC_READ" Address="M1978" Message="[M1978]S5_FUNCTION(OUTPUT) TEST N.G" Comment=""/>
+    <Signal Name="PMessageM1979"     Type="PLC" DeviceId="PLC_READ" Address="M1979" Message="" Comment=""/>
+    <Signal Name="PMessageM1980"     Type="PLC" DeviceId="PLC_READ" Address="M1980" Message="[X475,6]S1_GOOD MARKING ADV/RET ERROR" Comment=""/>
+    <Signal Name="PMessageM1981"     Type="PLC" DeviceId="PLC_READ" Address="M1981" Message="" Comment=""/>
+    <Signal Name="PMessageM1982"     Type="PLC" DeviceId="PLC_READ" Address="M1982" Message="[X472,3]S1_CONNECTOR UP/DOWN ERROR" Comment=""/>
+    <Signal Name="PMessageM1983"     Type="PLC" DeviceId="PLC_READ" Address="M1983" Message="[X477,8]S2_GOOD MARKING ADV/RET ERROR" Comment=""/>
+    <Signal Name="PMessageM1984"     Type="PLC" DeviceId="PLC_READ" Address="M1984" Message="" Comment=""/>
+    <Signal Name="PMessageM1985"     Type="PLC" DeviceId="PLC_READ" Address="M1985" Message="" Comment=""/>
+    <Signal Name="PMessageM1986"     Type="PLC" DeviceId="PLC_READ" Address="M1986" Message="" Comment=""/>
+    <Signal Name="PMessageM1987"     Type="PLC" DeviceId="PLC_READ" Address="M1987" Message="" Comment=""/>
+    <Signal Name="PMessageM1988"     Type="PLC" DeviceId="PLC_READ" Address="M1988" Message="" Comment=""/>
+    <Signal Name="PMessageM1989"     Type="PLC" DeviceId="PLC_READ" Address="M1989" Message="" Comment=""/>
+    <Signal Name="PMessageM1990"     Type="PLC" DeviceId="PLC_READ" Address="M1990" Message="[M1990]INDEX ON POSITION ERROR X40A" Comment=""/>
+    <Signal Name="PMessageM1991"     Type="PLC" DeviceId="PLC_READ" Address="M1991" Message="" Comment=""/>
+    <Signal Name="PMessageM1992"     Type="PLC" DeviceId="PLC_READ" Address="M1992" Message="" Comment=""/>
+    <Signal Name="PMessageM1993"     Type="PLC" DeviceId="PLC_READ" Address="M1993" Message="" Comment=""/>
+    <Signal Name="PMessageM1994"     Type="PLC" DeviceId="PLC_READ" Address="M1994" Message="" Comment=""/>
+    <Signal Name="PMessageM1995"     Type="PLC" DeviceId="PLC_READ" Address="M1995" Message="" Comment=""/>
+    <Signal Name="PMessageM1996"     Type="PLC" DeviceId="PLC_READ" Address="M1996" Message="" Comment=""/>
+    <Signal Name="PMessageM1997"     Type="PLC" DeviceId="PLC_READ" Address="M1997" Message="" Comment=""/>
+    <Signal Name="PMessageM1998"     Type="PLC" DeviceId="PLC_READ" Address="M1998" Message="" Comment=""/>
+    <Signal Name="PMessageM1999"     Type="PLC" DeviceId="PLC_READ" Address="M1999" Message="" Comment=""/>
+    <Signal Name="PMessageM2900"     Type="PLC" DeviceId="PLC_READ" Address="M2900" Message="GOOD PRODUCT UNLOADING STATION ERROR" Comment=""/>
+    <Signal Name="PMessageM2901"     Type="PLC" DeviceId="PLC_READ" Address="M2901" Message="GOOD PRODUCT UNLOADING CHECK" Comment=""/>
+    <Signal Name="PMessageM2902"     Type="PLC" DeviceId="PLC_READ" Address="M2902" Message="" Comment=""/>
+    <Signal Name="PMessageM2903"     Type="PLC" DeviceId="PLC_READ" Address="M2903" Message="" Comment=""/>
+    <Signal Name="PMessageM2904"     Type="PLC" DeviceId="PLC_READ" Address="M2904" Message="" Comment=""/>
+    <Signal Name="PMessageM2905"     Type="PLC" DeviceId="PLC_READ" Address="M2905" Message="" Comment=""/>
+    <Signal Name="PMessageM2906"     Type="PLC" DeviceId="PLC_READ" Address="M2906" Message="" Comment=""/>
+    <Signal Name="PMessageM2907"     Type="PLC" DeviceId="PLC_READ" Address="M2907" Message="" Comment=""/>
+    <Signal Name="PMessageM2908"     Type="PLC" DeviceId="PLC_READ" Address="M2908" Message="" Comment=""/>
+    <Signal Name="PMessageM2909"     Type="PLC" DeviceId="PLC_READ" Address="M2909" Message="" Comment=""/>
+  </Signals>.
+  
+</SignalDefiniitions>
+

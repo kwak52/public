@@ -1,0 +1,103 @@
+<HTML>
+<HEAD>
+<TITLE>E_FUBUS3</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_FUBUS3</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_fubus3.C,v 1.4 2004/12/08 15:08:00 kj73rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Anschalten von VXI Modulen œber die Scannermatrix
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_fubus3.C
+   Autor:		RtW/TEF72-Juilfs(080696)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_fubus(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+ 
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Diese Routine schaltet die 5 BNC EingÃnge und 4 FunktionskanÃle
+   per Schaltermatrix zum FU3 Funktionsstecker.
+   Die Anschaltung ist bitweise orientiert.
+   Parameterbeschreibung:
+   FU3_BNC1	8 Bits	
+   SK_BNC1      4 Bits
+   FU3_BNC2	8 Bits	
+   SK_BNC2      4 Bits
+   FU3_BNC3	8 Bits	
+   SK_BNC3      4 Bits   
+   FU3_BNC4	8 Bits	
+   SK_BNC4      4 Bits   
+   FU3_BNC5	8 Bits	
+   SK_BNC5      4 Bits 
+   
+   Beispiel:
+   FU3_BNC1   = 11000000
+   BNC 1 wird mit dem Funktionsbus 3 Pin a1 und c1 verbunden
+   Eine '1' schaltet eine Verbindung an.
+   Eine '0' schaltet eine Verbindung ab.
+   Ein  'X' laesst eine Verbindung unveraendert (-&gt; don't care).
+   
+   
+   Besonderheiten:
+   Im Modul mœssen immer 8 und 4 Bits per Parameter eingeben werden.
+   Insgesamt also 60 Bits. Sollte die Anzahl nicht stimmen, wird die
+   Prœfliste abgebrochen und ein Fehler gesendet.
+   
+   
+   
+   
+   
+   ...
+
+   Revision 1.1  2001/12/18 10:27:20  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.3  1999/12/22 10:06:18  keppler
+   $ID -&gt; $Id
+
+   Revision 1.2  1999/12/22 09:17:07  keppler
+   $Header -&gt; $Id
+
+   Revision 1.1  1999/11/23 14:15:01  katzenma
+   Initial Version by Sniff
+
+Revision 1.1  97/12/02  14:24:43  14:24:43  juilfs (Joerg Juilfs)
+Initial revision
+
+Revision 1.1  96/07/10  10:26:01  10:26:01  keppler (Fritz Keppler)
+Initial revision
+
+   ---------------------------------------------------------------------
+
+</PRE>
+</BODY>
+</HTML>

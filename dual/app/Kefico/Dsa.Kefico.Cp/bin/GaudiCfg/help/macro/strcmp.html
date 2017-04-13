@@ -1,0 +1,1442 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> StrCmp [INT]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>StrCmp [INT]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=12932">
+ </A>
+StrCmp [INT]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12934">
+ </A>
+String1 [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12936">
+ </A>
+String2 [Str]</P>
+<DIV>
+<H6 CLASS="AliasTitel">
+<A NAME="pgfId=12938">
+ </A>
+</H6>
+</DIV>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=12940">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12942">
+ </A>
+Comparison between String1 and String2. Starting from the first character in each case, the two strings are compared character by character until a non-matching pair of characters is found or the end of one of the strings is reached.  No distinction is made between upper and lower-case characters; lower-case characters are treated as upper-case. The function can return any of the following results:</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12944">
+ </A>
+0		String1 = String2</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12946">
+ </A>
+1		String1 &gt; String2</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12948">
+ </A>
+2		String1 &lt; String2</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12950">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12952">
+ </A>
+'&lt;' means that String1 precedes String2 alphabetically. </P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12954">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12956">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12958">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=12960">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=12962">
+ </A>
+Parameters</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12964">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12966">
+ </A>
+String1</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12968">
+ </A>
+First string (or variable containing the first string).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12970">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12972">
+ </A>
+String2</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12974">
+ </A>
+Second string (or variable containing the second string).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12976">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=12978">
+ </A>
+Examples<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12981">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5645">
+ </A>
+Function call</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5647">
+ </A>
+Result</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5653">
+ </A>
+StrCmp ( A, B)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5655">
+ </A>
+2</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5661">
+ </A>
+StrCmp ( B, A)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5663">
+ </A>
+1</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5669">
+ </A>
+StrCmp ( AB, AB)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5671">
+ </A>
+0</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5677">
+ </A>
+StrCmp ( AB, AB)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=5679">
+ </A>
+0</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=12983">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12985">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12987">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12989">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12991">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12993">
+ </A>
+</P>
+<P CLASS="Header">
+<A NAME="pgfId=12995">
+ </A>
+Order of characters</P>
+<P CLASS="Header">
+<A NAME="pgfId=12997">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=13000">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5698">
+ </A>
+ASCII Value</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5700">
+ </A>
+Character</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5686">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5702">
+ </A>
+ASCII Value</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5704">
+ </A>
+Character</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5692">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5706">
+ </A>
+ASCII Value</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5708">
+ </A>
+Character</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5726">
+ </A>
+32</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5728">
+ </A>
+Space</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5714">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5730">
+ </A>
+55</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5732">
+ </A>
+7</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5720">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5734">
+ </A>
+78 (110)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5736">
+ </A>
+N (n)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5754">
+ </A>
+33</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5756">
+ </A>
+!</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5742">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5758">
+ </A>
+56</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5760">
+ </A>
+8</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5748">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5762">
+ </A>
+79 (111)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5764">
+ </A>
+O (o)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5782">
+ </A>
+34</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5784">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5770">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5786">
+ </A>
+57</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5788">
+ </A>
+9</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5776">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5790">
+ </A>
+80 (112)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5792">
+ </A>
+P (p)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5810">
+ </A>
+35</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5812">
+ </A>
+#</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5798">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5814">
+ </A>
+58</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5816">
+ </A>
+:</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5804">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5818">
+ </A>
+81 (113)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5820">
+ </A>
+Q (q)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5838">
+ </A>
+36</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5840">
+ </A>
+$</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5826">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5842">
+ </A>
+59</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5844">
+ </A>
+;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5832">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5846">
+ </A>
+82 (114)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5848">
+ </A>
+R (r)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5866">
+ </A>
+37</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5868">
+ </A>
+%</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5854">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5870">
+ </A>
+60</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5872">
+ </A>
+&lt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5860">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5874">
+ </A>
+83 (115)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5876">
+ </A>
+S (s)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5894">
+ </A>
+38</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5896">
+ </A>
+&amp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5882">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5898">
+ </A>
+61</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5900">
+ </A>
+=</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5888">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5902">
+ </A>
+84 (116)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5904">
+ </A>
+T (t)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5922">
+ </A>
+39</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5924">
+ </A>
+`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5910">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5926">
+ </A>
+62</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5928">
+ </A>
+&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5916">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5930">
+ </A>
+85 (117)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5932">
+ </A>
+U (u)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5950">
+ </A>
+40</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5952">
+ </A>
+(</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5938">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5954">
+ </A>
+63</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5956">
+ </A>
+?</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5944">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5958">
+ </A>
+86 (118)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5960">
+ </A>
+V (v)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5978">
+ </A>
+41</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5980">
+ </A>
+)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5966">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5982">
+ </A>
+64</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5984">
+ </A>
+@</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5972">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5986">
+ </A>
+87 (119)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=5988">
+ </A>
+W (w)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6006">
+ </A>
+42</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6008">
+ </A>
+*</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=5994">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6010">
+ </A>
+65 (97)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6012">
+ </A>
+A (a)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6000">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6014">
+ </A>
+88 (120)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6016">
+ </A>
+X (x)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6034">
+ </A>
+43</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6036">
+ </A>
++</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6022">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6038">
+ </A>
+66 (98)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6040">
+ </A>
+B (b)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6028">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6042">
+ </A>
+89 (121)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6044">
+ </A>
+Y (y)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6062">
+ </A>
+44</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6064">
+ </A>
+,</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6050">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6066">
+ </A>
+67 (99)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6068">
+ </A>
+C (c)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6056">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6070">
+ </A>
+90 (122)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6072">
+ </A>
+Z (z)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6090">
+ </A>
+45</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6092">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6078">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6094">
+ </A>
+68 (100)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6096">
+ </A>
+D (d)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6084">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6098">
+ </A>
+91 </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6100">
+ </A>
+[</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6118">
+ </A>
+46</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6120">
+ </A>
+.</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6106">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6122">
+ </A>
+69 (101)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6124">
+ </A>
+E (e)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6112">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6126">
+ </A>
+92</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6128">
+ </A>
+\</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6146">
+ </A>
+47</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6148">
+ </A>
+/</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6134">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6150">
+ </A>
+70 (102)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6152">
+ </A>
+F (f)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6140">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6154">
+ </A>
+93</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6156">
+ </A>
+]</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6174">
+ </A>
+48</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6176">
+ </A>
+0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6162">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6178">
+ </A>
+71 (103)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6180">
+ </A>
+G (g)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6168">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6182">
+ </A>
+94</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6184">
+ </A>
+^</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6202">
+ </A>
+49</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6204">
+ </A>
+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6190">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6206">
+ </A>
+72 (104)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6208">
+ </A>
+H (h)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6196">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6210">
+ </A>
+95</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6212">
+ </A>
+_</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6230">
+ </A>
+50</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6232">
+ </A>
+2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6218">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6234">
+ </A>
+73 (105)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6236">
+ </A>
+I (i)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6224">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6238">
+ </A>
+96</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6240">
+ </A>
+&#180;</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6258">
+ </A>
+51</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6260">
+ </A>
+3</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6246">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6262">
+ </A>
+74 (106)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6264">
+ </A>
+J (j)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6252">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6266">
+ </A>
+123</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6268">
+ </A>
+{</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6286">
+ </A>
+52</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6288">
+ </A>
+4</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6274">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6290">
+ </A>
+75 (107)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6292">
+ </A>
+K (k)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6280">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6294">
+ </A>
+124</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6296">
+ </A>
+|</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6314">
+ </A>
+53</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6316">
+ </A>
+5</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6302">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6318">
+ </A>
+76 (108)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6320">
+ </A>
+L (l)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6308">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6322">
+ </A>
+125</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6324">
+ </A>
+}</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6342">
+ </A>
+54</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6344">
+ </A>
+6</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6330">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6346">
+ </A>
+77 (109)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6348">
+ </A>
+M (m)</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6336">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6350">
+ </A>
+126</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Header">
+<A NAME="pgfId=6352">
+ </A>
+~</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Header">
+<A NAME="pgfId=13002">
+ </A>
+</P>
+<P CLASS="Header">
+<A NAME="pgfId=13004">
+ </A>
+</P>
+<P CLASS="Header">
+<A NAME="pgfId=13006">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,217 @@
+# Chap 7. Set Operations #
+[[CollapsibleStart(Listing 7-2. SQL for the Union of Two Compatible Tables)]]
+{{{
+SELECT * FROM ClubA
+UNION
+SELECT * FROM ClubB
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-3. Ensuring the Tables Have Columns in the Same Order)]]
+{{{
+SELECT MemberID, LastName, FirstName, Handicap, MemberType FROM ClubC
+UNION
+SELECT MemberID, LastName, FirstName, Handicap, MemberType FROM ClubD
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-4. Ensuring the Tables Have Columns of the Same Type)]]
+{{{
+SELECT MemberID, LastName, FirstName, Handicap, MemberType FROM ClubC
+UNION
+SELECT MemberID, LastName, FirstName, CONVERT(INT, Handicap), MemberType FROM ClubD
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-6. SQL to Project the Appropriate Columns Before the Union)]]
+{{{
+SELECT FamilyName, Name FROM ClubA
+UNION
+SELECT LastName, FirstName FROM ClubB
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-8. SQL for Finding IDs of Members Who Have Entered Either Tournament 24 or 40)]]
+{{{
+SELECT MemberID FROM Entry
+WHERE TourID = 24
+UNION
+SELECT MemberID FROM Entry
+WHERE TourID = 40
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-9. Finding IDs of Members Who Have Entered Either Tournament 24 or 40)]]
+ {{{
+SELECT MemberID FROM Tournament
+WHERE TourID = 24 OR TourID = 40
+}}}
+ [[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-10. A Full Outer Join Expressed As the Union Between a Left and Right Outer Join)]]
+{{{
+SELECT * FROM Member LEFT JOIN Type ON MemberType = Type
+UNION
+SELECT * FROM Member RIGHT JOIN Type ON MemberType = Type
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-12. Finding the Names That Are in Both ClubA and ClubB)]]
+{{{
+SELECT FamilyName, Name FROM ClubA
+INTERSECT
+SELECT LastName, FirstName FROM ClubB
+}}}
+[[CollapsibleEnd]]
+
+[[CollapsibleStart(Listing 7-14. SQL to Retrieve IDs of Members Entered in Both Tournaments 25 and 36)]]
+{{{
+SELECT MemberID FROM Entry WHERE TourID = 25
+INTERSECT
+SELECT MemberID FROM Entry WHERE TourID = 36
+}}}
+
+{{{
+SELECT DISTINCT e1.MemberID
+FROM Entry e1, Entry e2
+WHERE e1.MemberID = e2.MemberID
+ AND e1.TourID = 25 AND e2.TourID = 36
+}}}
+[[CollapsibleEnd]]
+
+[[CollapsibleStart(Listing 7-16. Giving the Subquery an Alias, for a Derived Table (Does Work!))]]
+{{{
+SELECT LastName, FirstName
+FROM Member m INNER JOIN
+ (SELECT e1.MemberID FROM Entry e1 WHERE e1.TourID = 25
+ INTERSECT
+ SELECT e2.MemberID FROM Entry e2 WHERE e2.TourID = 36) NewTable
+ON m.MemberID = NewTable.MemberID
+}}}
+{{{
+SELECT m.MemberID, LastName, FirstName
+FROM Member m INNER JOIN
+ (SELECT DISTINCT e1.MemberID
+  FROM Entry e1, Entry e2
+  WHERE e1.MemberID = e2.MemberID
+   AND e1.TourID = 25 AND e2.TourID = 36) NewTable
+ON m.MemberID = NewTable.MemberID
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-17. Using a Nested Query to Find Names Associated with the Intersection)]]
+{{{
+SELECT LastName, FirstName
+FROM Member
+WHERE MemberID IN
+ (SELECT MemberID FROM Entry WHERE TourID = 25
+ INTERSECT
+ SELECT MemberID FROM Entry WHERE TourID = 36)
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-18. This Intersection Will Not Return Anything)]]
+{{{
+SELECT * FROM Entry WHERE TourID = 25
+INTERSECT
+SELECT * FROM Entry WHERE TourID = 36
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-19. What Will the Intersection Return with These Columns Projected?)]]
+{{{
+SELECT MemberID, Year FROM Entry WHERE TourID = 25
+INTERSECT
+SELECT MemberID, Year FROM Entry WHERE TourID = 36
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-20. Finding Members Who Have Entered Both Tournaments 25 and 36 Without the)]]
+{{{
+SELECT DISTINCT e1.MemberID
+FROM Entry e1, Entry e2
+WHERE e1.MemberID=e2.MemberID
+AND e1.TourID=25 AND e2.TourID=36
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-21. Finding People in Both ClubA and ClubB Without the INTERSECT Keyword)]]
+{{{
+SELECT DISTINCT a.MemberID
+FROM ClubA a, ClubB b
+WHERE a.FamilyName=b.LastName
+AND a.Name=b.FirstName
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-22. Finding the Names That Are in ClubA But Not ClubB)]]
+{{{
+SELECT FamilyName, Name FROM ClubA
+EXCEPT
+SELECT LastName, FirstName FROM ClubB
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-23. Members Who Have Not Entered Tournament 25 (Incorrect))]]
+{{{
+SELECT MemberID FROM Entry
+WHERE TourID <> 25
+}}}
+[[CollapsibleEnd]]
+
+[[CollapsibleStart(Listing 7-25. SQL to Retrieve IDs of Members Who Have Not Entered Tournament 25)]]
+{{{
+SELECT MemberID FROM Member
+EXCEPT
+SELECT MemberID FROM Entry WHERE TourID = 25
+}}}
+[[CollapsibleEnd]]
+
+[[CollapsibleStart(Listing 7-26. Including the Names Before Taking the Difference)]]
+{{{
+SELECT MemberID, LastName, FirstName FROM Member
+EXCEPT
+SELECT m.MemberID, m.LastName, m.FirstName
+FROM Entry e inner join Member m on e.MemberID = m.MemberID
+WHERE TourID = 25
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-27. SQL to Find Members Who Have Not Entered Tournament 25 (Without)]]
+{{{
+SELECT m.LastName, m.FirstName
+FROM Member m
+WHERE NOT EXISTS
+ (SELECT * FROM Entry e
+ WHERE e.MemberID = m.MemberID
+ AND e.TourID = 25)
+}}}
+[[CollapsibleEnd]]
+
+
+[[CollapsibleStart(Listing 7-32. SQL to Find the Names of Members Who Have Entered Every Tournament)]]
+{{{
+SELECT m.LastName, m.FirstName FROM Member m
+WHERE NOT EXISTS
+ (SELECT * FROM Tournament t
+  WHERE NOT EXISTS
+  (SELECT * FROM Entry e
+   WHERE e.MemberID = m.MemberID AND e.TourID = t.TourID)
+ )
+}}}
+[[CollapsibleEnd]]

@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <ProjectGuid>{50071A30-4A98-451B-8863-BD2A2809D294}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dsa.Kefico.MWS</RootNamespace>
+    <AssemblyName>Kefico.MWS</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
+    <TargetFrameworkProfile />
+    <PublishUrl>D:\CP_MWS_RELEASE\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <PublisherName>Lime Info</PublisherName>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationVersion>0.9.1.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>819070F1F81E53E53B7A5B5ECEE8EEA99F3F1BE0</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Dsa.Kefico.MWS_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v16.1.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v16.1.Wizard, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraLayout.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v16.1">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\open-sources\bin\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Design">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Chart\ChartSPC.cs" />
+    <Compile Include="Enumeration\EnumEventResult.cs" />
+    <Compile Include="Enumeration\EnumRibbon.cs" />
+    <Compile Include="EventHandler\EventChart.cs" />
+    <Compile Include="EventHandler\EventMySql.cs" />
+    <Compile Include="Filter\FilterMWS.cs" />
+    <Compile Include="frmMain_Control.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain_Function.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSplash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSplash.Designer.cs">
+      <DependentUpon>frmSplash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MySQL\MySqlSchemaMWS.cs" />
+    <Compile Include="MySQL\MySqlViewQuery.cs" />
+    <Compile Include="MySQL\MySqlMWSClient.cs" />
+    <Compile Include="Document.cs" />
+    <Compile Include="Enumeration\EnumViewTables.cs" />
+    <Compile Include="EventHandler\EventGrid.cs" />
+    <Compile Include="Forms\frmGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmGrid.Designer.cs">
+      <DependentUpon>frmGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmChart.Designer.cs">
+      <DependentUpon>frmChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain_Event.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\frmGrid.resx">
+      <DependentUpon>frmGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmChart.resx">
+      <DependentUpon>frmChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSplash.resx">
+      <DependentUpon>frmSplash.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Program.resx">
+      <DependentUpon>Program.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppIcon.ico" />
+    <None Include="Resources\show_32x32.png" />
+    <None Include="Resources\convert_32x32.png" />
+    <None Include="Resources\printstartdate_32x321.png" />
+    <None Include="Resources\printstartdate_32x32.png" />
+    <None Include="Resources\showproduct_16x16.png" />
+    <None Include="Resources\showproduct_32x321.png" />
+    <None Include="Resources\showproduct_32x32.png" />
+    <None Include="Resources\hide_16x161.png" />
+    <None Include="Resources\hide_32x321.png" />
+    <None Include="Resources\hide_32x32.png" />
+    <None Include="Resources\hide_16x16.png" />
+    <None Include="Resources\converttoparagraphs_16x16.png" />
+    <None Include="Resources\chart_16x16.png" />
+    <None Include="Resources\cards_16x16.png" />
+    <None Include="Resources\converttoparagraphs_32x32.png" />
+    <None Include="Resources\groupheader_32x32.png" />
+    <None Include="Resources\chart_32x32.png" />
+    <None Include="Resources\cards_32x32.png" />
+    <None Include="Resources\checkbox_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\Dsu.Common.Utilities.FS\Dsu.Common.Utilities.FS.fsproj">
+      <Project>{4e5d41d3-c394-4c16-8690-7a6e1a62bca8}</Project>
+      <Name>Dsu.Common.Utilities.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\Dsu.DB.MySQL\Dsu.DB.MySQL.csproj">
+      <Project>{8cb64b50-f590-4903-a910-cf12dccab9dc}</Project>
+      <Name>Dsu.DB.MySQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\Dsu.UI.Grid\Dsu.UI.Grid.csproj">
+      <Project>{6984b72b-51e3-4892-92af-854dc60fa892}</Project>
+      <Name>Dsu.UI.Grid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\Dsu.UI.XbarChart\Dsu.UI.XbarChart.csproj">
+      <Project>{4807b06b-8222-4122-8216-a8990fee9aba}</Project>
+      <Name>Dsu.UI.XbarChart</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsa.Kefico.Cp\Dsu.Kefico.Cp.FS\Dsu.Kefico.Cp.FS.fsproj">
+      <Project>{bff0abc3-b37f-43ca-ab2e-ceceb07a24c6}</Project>
+      <Name>Dsu.Kefico.Cp.FS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

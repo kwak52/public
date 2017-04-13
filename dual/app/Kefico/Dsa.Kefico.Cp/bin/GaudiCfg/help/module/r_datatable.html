@@ -1,0 +1,222 @@
+<HTML>
+<HEAD>
+<TITLE>R_DATATABLE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_DATATABLE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------                       
+ Funktionsbeschreibung:                                                           
+                                                                                  
+    Dieses Vektorinterpreter-Modul kann auf beliebig grosse Tabellen              
+    zugreifen.                                                                    
+    Tabellenformat: # Kommentarzeilen                                             
+                    START_OF_TABLE                                                
+                    :                                                             
+                    Tabellendaten                                                 
+                    :                                                             
+                    END_OF_TABLE                                                  
+                                                                                  
+                    Die Tabellendaten koennen folgendes Format haben:             
+                    EXCEL csv-Format                                              
+                    bzw.                                                          
+                    key_1 separator datum separator datum separator ...           
+                    :                                                             
+                    :                                                             
+                    key_n separator datum separator datum separator ...           
+                                                                                  
+                    Hierbei ist 'datum' jede beliebige Zeichenkette,              
+                     die keinen 'separator' enthaelt;                             
+                     'separator' ist ein/eine vom Anwender vorzugebende(s)        
+                     Zeichen/Zeichenfolge in Hochkommata "   ",                   
+                     (z.B. ";" fuer ein Semikolon)                                
+                     'key_..' ist das Element in der ersten Spalte einer          
+                     Tabellenzeile, es kann wie 'datum' eine beliebige            
+                     Zeichenkette sein.                                           
+                     Mit 'key..' kann auf die uebrigen Zeilenelemente             
+                     zugegriffen werden (Zugriffsschluessel).                     
+                     Bei numerischen Schluesseln (siehe Parameter KEYFORMAT)      
+                     wird erwartet, dass diese in sortierter Reihenfolge          
+                     vorliegen.                                                   
+    Tabellenort:    diese Tabellen muessen vom Pruefautomaten ueber das           
+                    primaere Verzeichnis '/pruef/' (gemounted vom                 
+                    Leitrechner Verzeichnis, z.B. in SaW,                         
+                    'lrp3:/daten/pruef_ccs/') geholt werden.                      
+                                                                                  
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                             
+          GAUDI Pruefschritt                                                      
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                                 
+          PAV- Position                                                           
+    ------------------------------</pre><b><a name="param3">3</a> ACTION</b><pre>                                                                   
+          INIT                                                                    
+            Der erstmalige Aufruf von R_DATATABLE in einer Pruefliste             
+            muss einer mit INIT sein (sonstige Parameter werden ignoriert).       
+          GET / ~_UC / ~_LC                                                       
+            Es wird ein Zugriff auf eine bereits gespeicherte Tabelle             
+            ausgefuehrt und die entsprechenden Eintraege an die                   
+            Schnittstelle (COLUMN_A ...) uebergeben.                              
+            Der Parameter INPUTFILE muss mit einem gueltigen Dateipfad            
+            versehen sein.                                                        
+            Mit dem Parameter EXECUTION wird gesteuert, wann der Tabellen-        
+            zugriff stattfinden soll.                                             
+          READFILE / ~_UC / ~_LC                                                  
+            Es wird eine Tabellendatei eingelesen und im lokalen                  
+            Memory gespeichert. Bei allen weiteren Tabellenzugriffen              
+            wird diese Datei nicht mehr eingelesen.                               
+            Der Parameter INPUTFILE muss mit einem gueltigen Dateipfad            
+            versehen sein.                                                        
+            Mit dem Parameter EXECUTION wird gesteuert, wann die Tabellen-        
+            datei gelesen werden soll.                                            
+                                                                                  
+            Durch das Suffix '_LC' (lowercase) bzw. '_UC' (uppercase)             
+            kann bestimmt werden, dass der angegebene Dateiname (inkl.Pfad)       
+            entweder komplett in Klein- oder komplett in Grossbuchstaben          
+            zu wandeln ist. Fehlt ein Suffix, wird davon ausgegangen,             
+            dass der Dateipfad so zu uebernehmen ist, wie er von der              
+            GAUDI-Schnittstelle angeboten wird.                                   
+    ------------------------------</pre><b><a name="param4">4</a> EXECUTION</b><pre>                                                                
+          Hiermit steuert der Anwender die durchzufuehrenden Taetigkeiten:        
+            Laden einer Datei                                                     
+            Tabellenzugriff                                                       
+          LOAD                                                                    
+            Ausfuehrung nur im Ruestlauf.                                         
+          FIRST                                                                   
+            Ausfuehrung nur im ersten Listenlauf nach einem Ruestlauf.            
+          TEST                                                                    
+            Ausfuehrung nach einem Ruestlauf mit jedem weiteren Listenlauf.       
+          ALWAYS                                                                  
+            Ausfuehrung im Ruestlauf und mit jedem weiteren Listenlauf.           
+    ------------------------------</pre><b><a name="param5">5</a> INPUTFILE</b><pre>                                                                
+          - oder leer   kein Dateiname vorgegeben                                 
+          Dateiname     Datei '/pruef/Dateipfad/Dateiname' wird geladen           
+                        und lokal gespeichert.                                    
+                        Benutzeingabe hier: &gt;dect/datei1.csv                      
+                        Das Zeichen '&gt;' sorgt dafuer, dass der Dateiname          
+                        nicht interpretiert und somit direkt auf die Datei        
+                        zugegriffen wird.                                         
+          Spezialnamen  Zeichenketten ohne das Zeichen '&gt;' werden interpretiert   
+                        und daraus ein Dateipfad nebst Dateinamen gebildet.       
+                        Liste der Namen:                                          
+                          SW_AESTAND wird interpretiert/expandiert zu             
+                                    flash/'produkt'/'aestand'.csv                 
+                                     (z.B.: product = 0281001756                  
+                                            aestand = 28SA1234N1 )                
+                          SEED_KEY_DEF wird interpretiert/expandiert zu           
+                                     config/seed_key_def.cnf                      
+                          IRI wird interpretiert/expandiert zu                    
+                                     iri/&lt;PAM&gt;_sec&lt;SECNUM&gt;_multi&lt;MULTINUM&gt;.csv    
+                                      (z.B.: PAM      = ccs1129                   
+                        SECNUM   = 01 [Pamsection]                                
+                        MULTINUM = 02 [Prüflistenteil] )                          
+                                                                                  
+                        Eine Datei wird nicht nochmals geladen, wenn zuvor        
+                        bereits ein Aufruf mit ACTION = READFILE erfolgt ist.     
+    ------------------------------</pre><b><a name="param6">6</a> SEPARATOR</b><pre>                                                                
+          ein oder mehrere ASCII-Zeichen, mit dem/denen die Zeichen               
+          eines Strings (in einer Datei) voneinander getrennt sind;               
+          das/die Zeichen werden zwischen Anfuehrungszeichen gesetzt;             
+                                                                                  
+          Beispiel: ", , "                                                        
+                    der Separator besteht aus 4 Zeichen einem Komma,              
+                    einem Leerzeichen, einem weiteren Komma und                   
+                    einem weiteren Leerzeichen;                                   
+    ------------------------------</pre><b><a name="param7">7</a> INPUTKEY</b><pre>                                                                 
+          Dies ist der Schluessel mit dem auf eine Tabelle zugegriffen wird,      
+          um darunter abgelegte Eintraege zu ermitteln.                           
+          Hierbei wird davon ausgegangen, dass die erste Spalte einer             
+          Tabelle die Schluesel fuer den Zugriff auf die entsprechenden           
+          Zeilen enthaelt.                                                        
+          Ein Schluessel kann ein numerischer oder ein nicht-numerischer          
+          Schluessel sein (siehe KEYFORMAT).                                      
+          Ein numerischer Schluessel muss ein geordneter Schluessel sein,         
+          ein nicht-numerischer Schluessel kann geordnet sein.                    
+    ------------------------------</pre><b><a name="param8">8</a> KEYFORMAT</b><pre>                                                                
+          Hiermit wird angegeben, wie die Elemente der ersten Tabellenspalte      
+          zu bewerten sind und wie die Suchstrategie ist.                         
+                                                                                  
+          ALPHA                                                                   
+            Nicht-numerischer, jedoch geordneter Schluessel.                      
+          STRING                                                                  
+            Nicht-numerischer und nicht geordneter Schluessel.                    
+          HEX                                                                     
+          FLOAT                                                                   
+          DEZ                                                                     
+            Numerischer, geordneter Schluessel.                                   
+                                                                                  
+          Geordnete Schluessel sind in ihrer natuerlichen Reihenfolge             
+          aufsteigend oder absteigend sortiert. Ein Zugriff erfolgt               
+          mittels binaerer Suche in einer Zeit proportional 'ln(#key)'.           
+          Kann beim Zugriff mittels eines numerischen, geordneten                 
+          Schluessels keine exakte Entsprechung gefunden werden, wird             
+          der naechstliegende 'key' als gueltig angenommen.                       
+          Im Gegensatz dazu wird bei nicht-numerischen Schluesseln                
+          eine eindeutige Uebereinstimmung zwischen dem INPUTKEY und              
+          einem der in der ersten Tabellenspalte eingetragenen                    
+          Schluesseln erwartet.                                                   
+    ------------------------------</pre><b><a name="param9">9</a> FIRST_COLUMN</b><pre>                                                             
+          ACTION = READFILE:                                                      
+            Nummer der ersten Spalte, ab der aus der Tabellendatei gelesen        
+            werden soll.                                                          
+            Der Wert muss &gt;= 1 und &lt; LAST_COLUMN sein (gezaehlt wird von 1 an).   
+            Sind FIRST_COLUMN und LAST_COLUMN identisch 0, werden saemtliche      
+            Spalten einer Tabellendatei eingelesen.                               
+          ACTION = GET:                                                           
+            Nummer der ersten Spalte deren Element an die Schnittstelle           
+            zu uebergeben ist.                                                    
+            Der Wert muss &gt;= 2 und &lt;= LAST_COLUMN sein (gezaehlt wird von 1 an).  
+    ------------------------------</pre><b><a name="param10">10</a> LAST_COLUMN</b><pre>                                                              
+          ACTION = READFILE:                                                      
+            Nummer der letzten Spalte, bis zu der aus der Tabellendatei gelesen   
+            werden soll.                                                          
+            Der Wert muss &gt; 1 und &gt; FIRST_COLUMN sein (gezaehlt wird von 1 an).   
+            Sind FIRST_COLUMN und LAST_COLUMN identisch 0, werden saemtliche      
+            Spalten einer Tabellendatei eingelesen.                               
+          ACTION = GET:                                                           
+            Nummer der letzten Spalte deren Element an die Schnittstelle          
+            zu uebergeben ist.                                                    
+            Der Wert muss &gt;= 2 und &gt;= FIRST_COLUMN sein (gezaehlt wird von 1 an). 
+            Es koennen maximal 7 Elemente mit einem Modulaufruf einer             
+            Tabelle entnommen werden.                                             
+    ------------------------------</pre><b><a name="param11">11</a> COLUMN_A</b><pre></pre><b><a name="param12">12</a> COLUMN_B</b><pre></pre><b><a name="param13">13</a> COLUMN_C</b><pre></pre><b><a name="param14">14</a> COLUMN_D</b><pre></pre><b><a name="param15">15</a> COLUMN_E</b><pre></pre><b><a name="param16">16</a> COLUMN_F</b><pre></pre><b><a name="param17">17</a> COLUMN_G</b><pre>                                                                 
+          GAUDI-Variablen, die die gewuenschten Tabellenelemente enthalten.       
+          oder 
+          Angabe von Spezialnamen die das Shared-Memory mit den Tabellenelementen 
+          füllen (Spezialnamen sind Zeichenketten ohne das Zeichen '&amp;').        
+          gültige Spezialnamen sind:
+            - SOFTWARENUMMER 
+                Der Eintrag vom E_DOKU SOFTWARENUMMER (FSW1) wird im Shared-Memory
+                mit dem Tabellenelement überschrieben.
+            - TEST_SW_NUMMER
+                Der Eintrag vom E_DOKU TEST_SW_NUMMER (TSW) wird im Shared-Memory
+                mit dem Tabellenelement überschrieben.
+            - WP_SW_NUMMER
+                Der Eintrag vom E_DOKU WP_SW_NUMMER (WP) wird im Shared-Memory
+                mit dem Tabellenelement überschrieben.
+            - SOFTWARENUMMER2
+                Der Eintrag vomSOFTWARENUMMER2 (FSW2) wird im Shared-Memory
+                mit dem Tabellenelement überschrieben.
+            - AE_STAND
+                Der Eintrag vom E_DOKU AE_STAND wird im Shared-Memory
+                mit dem Tabellenelement überschrieben.
+                
+           Achtung ! Als Execution-Parameter muss hier TEST angegeben werden, da
+           E_DOKU auch mit jedem Listenlauf augerufen wird und die Werte wieder
+           überschreiben würde.
+            
+    ------------------------------</pre><b><a name="param18">18</a> ERRORFLAG</b><pre>                                                                
+          GAUDI-Variable                                                          
+            0   kein Fehler                                                       
+            1   es ist ein Fehler aufgetreten                                     
+          Der Wert der Variablen kann von nachfolgend aufgerufenen Modulen        
+          (z.B. M_AUSWERTUNG) ausgewertet werden.                                 
+</PRE>
+</BODY>
+</HTML>

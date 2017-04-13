@@ -1,0 +1,239 @@
+<HTML>
+<HEAD>
+<TITLE>M_KONSTANTER</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_KONSTANTER</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Anzahl der €bergabeparameter und Index der expandierten
+   Prœfliste im Platz READ_HPIB_STRING ablegen. Der Prozess 
+   KONSTANTER_HPIB greift spÃter auf diese beiden Parameter zu und
+   kopiert die €bergabeparameter in die localen Arrays
+   
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>   	GAUDI-Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>   	PAV-Position
+   ------------------------------</pre><b><a name="param3">3</a> KON_UNIT</b><pre>   	Name des GerÃtes laut PAM-Beschreibungsfile (KON_U_1, KON_U_2, ...)
+   ------------------------------</pre><b><a name="param4">4</a> KON_FUNKTION</b><pre>   	INIT / READ / RESET
+   ------------------------------</pre><b><a name="param5">5</a> KON_MODE</b><pre>   	CURRENT / VOLTAGE  (nur bei KON_FUNKTION = 'READ')
+   ------------------------------</pre><b><a name="param6">6</a> KON_HOLD</b><pre>   	z.Z. inaktiv
+   ------------------------------</pre><b><a name="param7">7</a> KON_FOLD</b><pre>   	z.Z. inaktiv
+   ------------------------------</pre><b><a name="param8">8</a> KON_OVP</b><pre>   	Zur Einstellung der Overvoltage Protection des Konstanters.
+           Achtung!: Es erfolgt aus Gr¸nden der Pr¸fzeit keine Abfrage an den Konstanter,
+           ob die OVP zugeschlagen hat! Der Konstanter schaltet bei Erkennung der OVP
+           auf 0.0V und l‰sst sich nicht mehr steuern! Der Konstanter bekommt keinen
+           programmatischen Reset! Erst wenn der Konstanter einen handischen Reset bekommt
+          ( debterm F4-Abbruch oder Switch OFF/ON) l‰sst er sich wieder programmieren.
+   ------------------------------</pre><b><a name="param9">9</a> KON_TIMEOUT</b><pre>   	Timeout zum Konstanter-Auslesen (z.Z. inaktiv)
+   ------------------------------</pre><b><a name="param10">10</a> R_MESSWERT</b><pre>   
+   	Return-Wert vom Konstanter (in &amp;Variable)  [nur bei 'READ']
+   ------------------------------
+   
+   ---------------------------------------------------------------------
+ &lt;\userdoc&gt; 
+
+-- pragmas -----------------------------------------------------------
+#pragma  COPYRIGHT "Robert Bosch Elektronik GmbH Salzgitter, SaW/TEF72"
+#pragma  VERSIONID "$Id: m_konstanter.C,v 1.9 2005/10/25 09:33:17 pij3sa Exp $"
+
+-- defines -----------------------------------------------------------
+#define HEADER "$Id: m_konstanter.C,v 1.9 2005/10/25 09:33:17 pij3sa Exp $" 
+#define EXTERN extern			        Bei allen Subroutinen 
+
+ Whatstring 
+#ifndef VERSION
+#define VERSION "m_konstanter.C: Version ist nicht definiert"
+#endif
+#ifndef VERSIONNR
+#define VERSIONNR "x.x"
+#endif
+
+#define PRUEFSCHRITT		0
+#define POSITION		1
+#define KON_UNIT		2
+#define KON_FUNKTION		3
+#define KON_MODE		4
+#define KON_HOLD		5
+#define KON_FOLD		6
+#define KON_OVP			7
+#define KON_TIMEOUT		8
+#define R_MESSWERT		9
+
+#define UNIT_NAME_VOLTAGE	"KON_U_"
+
+#define ANZAHL_KON_STR_DATEN	5
+#define ANZAHL_KON_INT_DATEN	2
+
+#define STRING_VERWALTUNG	2
+#define INT_VERWALTUNG		3
+
+-- includes ----------------------------------------------------------
+#include &lt;string.h&gt;
+
+#include "shm_syscom.H"
+#include "ccl_defines.H"
+#include "libccs.H"			// Zentrale Lib
+#include "libtestmodul_pool.H"		// Modul Lib
+#include "unit_nummern.H"		// Modul Lib
+
+
+-- external functions / variables ------------------------------------
+
+
+-- global variables (nur im  "main" erlaubt) -------------------------
+
+static char ident[] = "@(#)$Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/konstanter/hpib/module_qt/src/m_konstanter.C,v 1.9 2005/10/25 09:33:17 pij3sa Exp $";
+
+ -Begin---------------------------------------------------------------
+   Aufruf des Prozesses KONSTANTER_HPIB
+   ---------------------------------------------------------------------
+int m_konstanter   (shm_stringpointer *zeilen_wert
+		    ,long index1
+		    ,long anzahl)
+{
+   
+   int		err1;		// Fehler beim Starten des KONSTANTER_HPIB
+   long 	i1;		// Laufvariable fœr Parameterœbergabe
+   long int	schritt;	// Schritt ausfœhren
+   
+   long		unit_index;	// Index Zeiger auf Unit
+   
+   int		Call_Kon;	// Starten des KONSTANTER_HPIB-Prozesses
+   
+   char 	ch80[80]; 	// Sende-String
+   unsigned int len1;		// Sende-Stringlaenge
+   unsigned int len2;		// Empf-Stringlaenge
+   long int 	hispnr;		// Programmnummer Zielprogramm
+   long int 	msgstat;	// Return Status msg_send_wait()      
+   
+   
+   //------------------------------------------------------------------
+   // Schrittbetriebshandler
+   //------------------------------------------------------------------ 
+   schritt = schrittbetrieb (zeilen_wert, index1);   
+   if (schritt != 1) return 0;
+   
+   
+   if (strstr((const char*)(*zeilen_wert-&gt;ptr[index1+KON_UNIT]),UNIT_NAME_VOLTAGE) == 0)
+   {
+//      error_message (ERR_ERROR,HEADER,__LINE__,
+//		     "Falscher Kon-Unit-Name (muss mit KON_U_ beginnen)!");
+      error_message (ERR_ERROR,HEADER,__LINE__,
+		     "Wrong Kon-unit name (must begin with KON_U_)!");
+      return 0;
+   }
+   
+   //------------------------------------------------------------------
+   // Anzahl der €bergabeparameter und Index der expandierten
+   // Prœfliste im Platz KON_UNIT ablegen. Der Prozess 
+   // KONSTANTER_HPIB greift spÃter auf diese beiden Parameter zu
+   // und kopiert die €bergabeparameter in die localen Arrays
+   //------------------------------------------------------------------
+   Call_Kon = FALSE;
+   
+   unit_index  = suche_unit_index (*zeilen_wert-&gt;ptr[index1+KON_UNIT]);
+   
+   if ((*zeilen_wert-&gt;ptr[index1+KON_FUNKTION]) == "INIT")
+   {
+      i1 = get_platzmemory (STRING_VERWALTUNG,
+			    unit_index,
+			    ANZAHL_KON_STR_DATEN);
+      
+      Ssp_pp_verwaltung-&gt;string_f[i1+0] = *zeilen_wert-&gt;ptr[index1+KON_MODE   ];
+      Ssp_pp_verwaltung-&gt;string_f[i1+1] = *zeilen_wert-&gt;ptr[index1+KON_HOLD   ];
+      Ssp_pp_verwaltung-&gt;string_f[i1+2] = *zeilen_wert-&gt;ptr[index1+KON_FOLD   ];
+      Ssp_pp_verwaltung-&gt;string_f[i1+3] = *zeilen_wert-&gt;ptr[index1+KON_OVP    ];
+      Ssp_pp_verwaltung-&gt;string_f[i1+4] = *zeilen_wert-&gt;ptr[index1+KON_TIMEOUT];
+      
+      strcpy(ch80,"");					// "" = EINSTELLEN
+      Call_Kon = TRUE;
+   }
+   
+   else if ((*zeilen_wert-&gt;ptr[index1+KON_FUNKTION]) == "READ")
+   {
+      i1 = get_platzmemory (INT_VERWALTUNG,
+			    unit_index,
+			    ANZAHL_KON_INT_DATEN);
+      
+      Ssp_pp_verwaltung-&gt;int_f[i1+0] = anzahl;	// Anzahl und Index 
+      Ssp_pp_verwaltung-&gt;int_f[i1+1] = index1; 	//  fœr Prozess KONSTANTER_HPIB
+      
+      //------------------------------------------------------------------
+      // Damit der Prozess KONSTANTER_HPIB den unit_index findet, wird der
+      // unit_index unter 'READ_HPIB_STRING' abgelegt.
+      //------------------------------------------------------------------
+      i1 = get_platzmemory (INT_VERWALTUNG, READ_HPIB_STRING, 1);
+      Ssp_pp_verwaltung-&gt;int_f[i1+0] = unit_index;	// Anzahl und Index
+      
+      strcpy(ch80,"HK_MODE=MEASURE;");
+      Call_Kon = TRUE; 
+   }
+   
+   else if ((*zeilen_wert-&gt;ptr[index1+KON_FUNKTION]) == "RESET")
+   {
+      i1 = get_platzmemory (INT_VERWALTUNG,
+			    unit_index,
+			    ANZAHL_KON_INT_DATEN);
+      
+      Ssp_pp_verwaltung-&gt;int_f[i1+0] = anzahl;	// Anzahl und Index 
+      Ssp_pp_verwaltung-&gt;int_f[i1+1] = index1; 	//  fœr Prozess KONSTANTER_HPIB
+      
+      //------------------------------------------------------------------
+      // Damit der Prozess KONSTANTER_HPIB den unit_index findet, wird der
+      // unit_index unter 'READ_HPIB_STRING' abgelegt.
+      //------------------------------------------------------------------
+      i1 = get_platzmemory (INT_VERWALTUNG, READ_HPIB_STRING, 1);
+      Ssp_pp_verwaltung-&gt;int_f[i1+0] = unit_index;	// Anzahl und Index
+      
+      strcpy(ch80,"HK_MODE=MOD_RESET;");   	// MOD_RESET = Reset vom Modul
+      Call_Kon = TRUE; 
+   }
+   
+   //------------------------------------------------------------------
+   // Starten des Prozesses KONSTANTER_HPIB.
+   //------------------------------------------------------------------
+   if (Call_Kon)
+   {
+      len1  = (unsigned int) strlen(ch80) + 1;		// Laenge  + \0
+      err1  = 0;
+      
+      err1  = msg_send_wait (HPIB_KONSTANTER,
+			     ch80,len1,-1,80,
+			     ch80,&amp;len2,&amp;msgstat,&amp;hispnr);
+      
+      if (err1 != 0)					// Error?
+      {
+//	 error_message (ERR_ERROR,HEADER,__LINE__,
+//			"Error bei 'konstanter_hpib'-Aufruf: %d!",err1);
+	 error_message (ERR_ERROR,HEADER,__LINE__,
+			"Error calling 'konstanter_hpib': %d!",err1);
+      }
+      if (msgstat &amp; MSG_R_TIMEOUT)			// Timeout --&gt; Fehler
+      {
+//	 error_message (ERR_ERROR,HEADER,__LINE__,
+//			"'konstanter_hpib'-Aufruf hatte timeout!");
+	 error_message (ERR_ERROR,HEADER,__LINE__,
+			"'konstanter_hpib' call timed out!");
+      }
+   }
+   
+   return 0;
+}
+
+
+ -End of file---------------------------------------------------------
+   Historie:
+   
+</PRE>
+</BODY>
+</HTML>

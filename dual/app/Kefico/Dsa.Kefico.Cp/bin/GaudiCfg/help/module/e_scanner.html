@@ -1,0 +1,139 @@
+<HTML>
+<HEAD>
+<TITLE>E_SCANNER</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_SCANNER</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_scanner.C,v 1.34 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Anschaltung der Meﬁscanner œber Koppelfeld
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_scanner.C
+   Autor:		RtW/TEF72-Juilfs (1.2.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void m_dmm(shm_stringpointer *zeilen_info
+   ,shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer]) 
+   (Ssp_expand_zeile
+   ,Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Aufgabe des Modules ist es das Meﬁkoppelfeld anzusprechen. Das Modul
+   kann die MesskanÃle sowie die TriggerkanÃle fœr ein MeﬁgerÃt
+   anschalten. In der Standard-PAV werden die TriggerkanÃle mit dem
+   Kœrzel "I" fœr intern bezeichnet. Dies bedeutet das die TriggerkanÃle
+   gleich den MeﬁkanÃlen sind. Dies wird im Modul berœcksichtigt. 
+   Die Meﬁ - und TriggerkanÃle werden in einem Struct abgelegt. Erst mit
+   dem Aufruf des Modules E_OUT werden die MeﬁkanÃle im Koppelfeld 
+   durchgeschaltet. Es ist aber mŒglich, die Durschaltung in diesem
+   Modul zu erreichen. Dafœr gibt es einen Parameter (SCANNER_MODUS). 
+
+   
+   €bergabeparameter    
+   
+   
+   MD,E_SCANNER
+   ,PRUEFSCHRITT	1
+   ,POSITION		2
+   ,SCANNER_MODUS	3
+   ,SCAN_UNIT		4
+   ,PIN_HIGH		5
+   ,PIN_LOW		6
+   ,SCANN_UNIT_TRG 	7
+   ,PIN_HIGH_TRG   	8
+   ,PIN_LOW_TRG   	9
+   ,SCHALTER_FUNKT	10</pre><b><a name="param3">3</a> SCANNER_MODUS:</b><pre>   Mit dem Scannermodus wird entschieden ob der Prozess 
+   BOSCH_OUT gestartet wird. Mit dem Prozess BOSCH_OUT
+   werden die Meﬁscanner im Meﬁeinschub geschaltet.
+   Dies bedeutet, dass mit dieser Maﬁnahme die Scanner vor den
+   œbrigen Anschaltungen gesetzt werden kŒnnen.
+   SCANNER_MODUS = OUT	Koppelfeld anschalten
+   SCANNER_MODUS = INIT	PIN_HIGH und PIN_LOW ins Array
+   legen.</pre><b><a name="param4">4</a> SCANN_UNIT</b><pre>  :
+   Die Scannunit zeigt auf die Dekodiermatrix im  Meﬁeinschub.Diese
+   Information steht im PAM-Beschreibungsdile. Folgende Eingaben sind
+   derzeit vereinbart.
+   DVM_01_MESS	DVM Kanal
+   DVM_01_RATIO DVM Kanal 4 Punktmessung</pre><b><a name="param5">5</a> PIN_HIGH</b><pre>    :
+   Highkanal der Anschaltung Bereich 0 - 200</pre><b><a name="param6">6</a> PIN_LOW</b><pre>     :
+   Lowkanal  der Anschaltung Bereich 0 - 200</pre><b><a name="param7">7</a> SCANN_UNIT_TRG:</b><pre>   Die Scannunit zeigt auf die Dekodiermatrix im Meﬁeinschub</pre><b><a name="param8">8</a> PIN_HIGH_TRG</b><pre>    :
+   Highkanal der Anschaltung Bereich 0 - 200 Trigger
+   I Bedeutet es werden die MeﬁkanÃle zu Triggerung herangezogen</pre><b><a name="param9">9</a> PIN_LOW_TRG</b><pre>      :
+   Lowkanal  der Anschaltung Bereich 0 - 200 Trigger  
+   I Bedeutet es werden die MeﬁkanÃle zu Triggerung herangezogen</pre><b><a name="param10">10</a> SCHALTER_FUNKT</b><pre>:
+   Mit der Schalterfunktion werden die Schalter
+   ein oder ausgeschaltet.
+   SCHALTER_FUNKT=ON	einschalten der Scanner
+   SCHALTER_FUNKT=OFF	ausschalten der Scanner	
+                   
+                   
+                   
+                   
+                   
+       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+       Lˆsungen f¸r zeitliche probleme
+       1.) Abfragen ob IC prrozess Aktiv            
+                   
+                   
+                   
+                   
+                   
+                   
+   ...
+
+   Revision 1.1  2001/12/18 10:42:06  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.8  2001/12/07 09:32:00  nickelth
+   #ifdefs added
+
+   Revision 1.7  2001/08/21 12:27:10  ssm3bw
+   anw- and rtw-version merged
+
+   Revision 1.6  2001/05/23 15:27:58  lehmann
+   *** empty log message ***
+ 
+   Revision 1.3  1999/12/22 10:06:58  keppler
+   $ID -&gt; $Id
+ 
+   Revision 1.2  1999/12/22 09:17:39  keppler
+   $Header -&gt; $Id
+ 
+   Revision 1.1  1999/11/23 14:17:16  katzenma
+   Initial Version by Sniff
+ 
+Revision 1.1  97/12/02  14:24:51  14:24:51  juilfs (Joerg Juilfs)
+Initial revision
+
+   Revision 1.1  96/07/10  10:26:27  10:26:27  keppler (Fritz Keppler)
+   Initial revision
+   
+   ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

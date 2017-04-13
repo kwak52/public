@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE>E_STUELIDATA</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_STUELIDATA</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_stuelidata.C,v 1.4 2004/07/29 15:34:52 wiese Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	set and read paras for bom or stueckliste
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_stuelidata
+   Autor:		RtW2/TEF32-Wiese (27.10.03)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01), /7/C/D (HP-UX 10.20)
+   Sprache:		ANSI-C
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_stuelidata(shm_stringpointer *zeilen_info
+	     ,shm_stringpointer *zeilen_wert
+	     ,long index1
+	     ,long anzahl)
+   Parameter:
+      PRUEFSCHRITT	0
+      POSITION		1
+      FUNCTION   	2
+      SUBFUNCTION	3
+      VAR1		4
+      VAR2		5
+      VAR3		6
+      VAR4		7
+      VAR5		8
+      VAR6		9
+      VAR7		10
+      FEHLERFLAG	11
+      ERGEBNIS		12
+   
+   ------------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   error =  (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	    ,Ssp_expand_wert
+	    ,p_verwaltung-&gt;begin_modulblock
+	    ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   if (error == -1)
+   {
+   // Fehlerbehandlung
+   }
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   This modul sets and reads some parameter for setting variables in shm</pre><b><a name="param3">3</a> FUNCTION:</b><pre>   Container: Set and read the Containernumbers</pre><b><a name="param4">4</a> SUBFUNKTION</b><pre>   Depending on FUNKTION: 
+   FUNKTION Container:
+      get: Ausgabe des Containers
+      set: Setzen der Containernummer
+   
+   VAR1-7: Variables depending on FUNKTION and SUBFUNKTION
+   
+   This modul sets and reads some parameter for setting variables in shm
+   the following functions are defined:
+   
+   Set Container Softwarenumber
+   Function: Container
+   Subfunction: SET
+   VAR1: Containerertype (FSW(1-n) // TSW // WP) or something else
+   VAR2: Softwarenumber for this container
+   VAR3-n: reserved by this document
+   
+   Read Container Softwarenumber
+   Function: Container
+   Subfunction: GET
+   VAR1: Containerertype (FSW(1-n) // TSW // WP) or something else
+   VAR2-n: reserved by this document
+   ERGEBNIS: Softwarenumber
+
+</PRE>
+</BODY>
+</HTML>

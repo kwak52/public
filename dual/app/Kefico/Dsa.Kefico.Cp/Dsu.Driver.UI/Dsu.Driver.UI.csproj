@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8F4FF035-86C7-452F-BE2D-ED2B5FFFC35A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dsu.Driver.UI</RootNamespace>
+    <AssemblyName>Dsu.Driver.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <Choose>
+    <When Condition=" '$(PlatformTarget)'=='x86' ">
+      <ItemGroup>
+        <Reference Include="NationalInstruments.DAQmx, Version=15.5.45.109, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=x86">
+          <HintPath>..\ExLib\x86\NationalInstruments.DAQmx.dll</HintPath>
+          <SpecificVersion>True</SpecificVersion>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <When Condition=" '$(PlatformTarget)'=='x64' ">
+      <ItemGroup>
+        <Reference Include="NationalInstruments.DAQmx, Version=15.5.45.109, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=x64">
+          <HintPath>..\ExLib\x64\NationalInstruments.DAQmx.dll</HintPath>
+          <SpecificVersion>True</SpecificVersion>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise />
+  </Choose>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraBars.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v16.1.UI, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v16.1.Wizard, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\DevExpress.XtraTreeList.v16.1.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="LanguageExt.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\open-sources\bin\LanguageExt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LanguageExt.FSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\open-sources\bin\LanguageExt.FSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\open-sources\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.DAQmx, Version=15.5.45.109, Culture=neutral, PublicKeyToken=4febd62461bf11a4, processorArchitecture=AMD64">
+      <HintPath>..\ExLib\x64\NationalInstruments.DAQmx.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExLib\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExLib\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExLib\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="NiDaq\ChartControl\DaqChartCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NiDaq\ChartControl\SwiftChartCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NiDaq\DeviceTreeCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NiDaq\DeviceTreeCtrl.Designer.cs">
+      <DependentUpon>DeviceTreeCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\ChartControl\EmDevChartSeries.cs" />
+    <Compile Include="NiDaq\FormCpTesterDaq.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormCpTesterDaq.Designer.cs">
+      <DependentUpon>FormCpTesterDaq.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\FormGenerateAO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormGenerateAO.Designer.cs">
+      <DependentUpon>FormGenerateAO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\FormGeneratePerChannelAO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormGeneratePerChannelAO.Designer.cs">
+      <DependentUpon>FormGeneratePerChannelAO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\FormMeasureAI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormMeasureAI.Designer.cs">
+      <DependentUpon>FormMeasureAI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\FormMeasureAI_Continuous.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormDaqChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormDaqChart.Designer.cs">
+      <DependentUpon>FormDaqChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\FormNiDaqExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormNiDaqExplorer.Designer.cs">
+      <DependentUpon>FormNiDaqExplorer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\FormObjectBrowser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormObjectBrowser.Designer.cs">
+      <DependentUpon>FormObjectBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\FormTeethAnalysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormTeethAnalysis.Designer.cs">
+      <DependentUpon>FormTeethAnalysis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\FormWaveAnaysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NiDaq\FormWaveAnaysis.Designer.cs">
+      <DependentUpon>FormWaveAnaysis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\MeasureParameters.cs" />
+    <Compile Include="NiDaq\ChartControl\TimeSeriesChartCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NiDaq\ChartControl\TimeSeriesChartCtrl.Designer.cs">
+      <DependentUpon>TimeSeriesChartCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NiDaq\WaveNumericCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NiDaq\WaveNumericCtrl.Designer.cs">
+      <DependentUpon>WaveNumericCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Paix\AuditPose78.cs" />
+    <Compile Include="Paix\AuditPoseGCVT.cs" />
+    <Compile Include="Paix\AuditPoses.cs" />
+    <Compile Include="Paix\AuditPoses78.cs" />
+    <Compile Include="Paix\AuditPose.cs" />
+    <Compile Include="Paix\AuditPosesGCVT.cs" />
+    <Compile Include="Paix\FormPathPlanner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Paix\FormPathPlanner.Designer.cs">
+      <DependentUpon>FormPathPlanner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Paix\FormPathPlanner_Event.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Paix\FormPathPlanner_File.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Paix\FormPathPlanner_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Paix\FormRelativeMove.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Paix\FormRelativeMove.Designer.cs">
+      <DependentUpon>FormRelativeMove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="NiDaq\DeviceTreeCtrl.resx">
+      <DependentUpon>DeviceTreeCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\FormCpTesterDaq.resx">
+      <DependentUpon>FormCpTesterDaq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\FormGenerateAO.resx">
+      <DependentUpon>FormGenerateAO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\FormGeneratePerChannelAO.resx">
+      <DependentUpon>FormGeneratePerChannelAO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\FormMeasureAI.resx">
+      <DependentUpon>FormMeasureAI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\FormDaqChart.resx">
+      <DependentUpon>FormDaqChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\FormNiDaqExplorer.resx">
+      <DependentUpon>FormNiDaqExplorer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\FormObjectBrowser.resx">
+      <DependentUpon>FormObjectBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\FormTeethAnalysis.resx">
+      <DependentUpon>FormTeethAnalysis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\FormWaveAnaysis.resx">
+      <DependentUpon>FormWaveAnaysis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\ChartControl\TimeSeriesChartCtrl.resx">
+      <DependentUpon>TimeSeriesChartCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NiDaq\WaveNumericCtrl.resx">
+      <DependentUpon>WaveNumericCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Paix\FormPathPlanner.resx">
+      <DependentUpon>FormPathPlanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Paix\FormRelativeMove.resx">
+      <DependentUpon>FormRelativeMove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\common\Dsu.Common.Resources\Dsu.Common.Resources.csproj">
+      <Project>{5b5804ce-0652-4bd8-bcd0-e3c038ac9fea}</Project>
+      <Name>Dsu.Common.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.DX\Dsu.Common.Utilities.DX.csproj">
+      <Project>{0f4ee0d1-1642-4d97-89ec-3fd475298ecf}</Project>
+      <Name>Dsu.Common.Utilities.DX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.FS\Dsu.Common.Utilities.FS.fsproj">
+      <Project>{4e5d41d3-c394-4c16-8690-7a6e1a62bca8}</Project>
+      <Name>Dsu.Common.Utilities.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities\Dsu.Common.Utilities.csproj">
+      <Project>{825711E0-451F-4EDA-9560-A624350DE411}</Project>
+      <Name>Dsu.Common.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.Base.FS\Dsu.Driver.Base.FS.fsproj">
+      <Project>{054dddbf-2fd8-47b6-a083-537c394bf077}</Project>
+      <Name>Dsu.Driver.Base.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.Base\Dsu.Driver.Base.csproj">
+      <Project>{DEDF4176-E7D3-45D4-832D-A09E0BAEDD1C}</Project>
+      <Name>Dsu.Driver.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.Etc.FS\Dsu.Driver.Etc.FS.fsproj">
+      <Project>{9828ede8-200d-468b-95be-574f32ed22c2}</Project>
+      <Name>Dsu.Driver.Etc.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.Math.FS\Dsu.Driver.Math.FS.fsproj">
+      <Project>{0b975d84-7857-431d-8791-535758d0b051}</Project>
+      <Name>Dsu.Driver.Math.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.NiDAQ.FS\Dsu.Driver.NiDAQ.FS.fsproj">
+      <Project>{414FAD91-80CE-4258-A0DE-876A75D66DA8}</Project>
+      <Name>Dsu.Driver.NiDAQ.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.PaixWrapper\Dsu.Driver.PaixWrapper.csproj">
+      <Project>{f3fe565b-b00a-49a8-bd21-df514774ff44}</Project>
+      <Name>Dsu.Driver.PaixWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Driver.Util\Dsu.Driver.Util.csproj">
+      <Project>{73adfefb-0162-4c29-a679-9a8897f707b5}</Project>
+      <Name>Dsu.Driver.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

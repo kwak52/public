@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<TITLE>E_MESSAGES</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_MESSAGES</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_messages.C,v 1.17 2005/12/19 13:19:42 wes3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Weitergabe von Messages an einem Prozess
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_messages.C
+   Autor:		RtW/TEF32-juilfs (07.07.01)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_messages(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Universelles Modul um an Prozesse Texte zu übergeben.
+   
+   Erster Anwendungsfall:
+   Unterdrückung von Fehlermeldungen im 
+   Koppelfeldprozess die durch Globale Signale im Hardwaretreiber
+   generiert werden.
+   Folgende Meldung soll unterdrückt werden
+   130337 E#1 #16284 KO PROGID:koppelfeld&gt;File nicht eingecheckt/590&gt;
+   130337 E#1 #16284 KO TESTID:ebab/99/0281010338 
+   130337 E#1 #16284 KO ERROR :FGN-Verbindung nicht ausgefÏhrt!
+   
+   130337 E#1 #16284 KO PROGID:koppelfeld&gt;File nicht eingecheckt/590&gt;
+   130337 E#1 #16284 KO TESTID:ebab/99/0281010338 
+   130337 E#1 #16284 KO ERROR :DIAK-Verbindung nicht ausgefÏhrt!
+   
+   Bitte unter TEXT1 folgendes eingeben
+   FGN;DIAK;UB
+ 
+   
+   Ûbergabeparameter anhand der Modglobal.stl
+   MD,e_messages
+   ,PRUEFSCHRITT	1
+   ,POSITION		2
+   ,ANSTEUER_UNIT	3
+   ,MODE		4
+      ERROR_CODE
+      Damit wird eine Position gekenzeichnet die bei einem fehler, einen Errorcode
+      in das shm schreibt.
+      postion;error_code
+      Beispiel;2000;12     
+      
+   ,TEXT1		5
+      Übergabe texte
+   ,TEXT2		6  
+   ,TEXT3		7
+   ,TEXT4		8   
+   ,TEXT5		9   
+   ,TEXT6		10  
+========================= Ansteuerun der E1466 VXI karte =====================================================
+   ANSTEUER_UNIT 
+   REL_MATRIX      
+   MODE
+      E1466
+      Treiber für die VXI Karte E1465 - E1466    
+      Text1			BANK_A,BANK_B,BANK_C,BANK_D,RESET
+                                Ansteuerung der Bank
+      Text2			Line 1
+      Text3			Line 2      
+      Text4			Line 3 
+      Text5			Line 4 
+                                
+ Es kann immer eine BANK komplett geschaltet werden (REL_BANK)
+  Mögliche Werte für REL_BANK: "BANK_A", "BANK_B", ... "BANK_C" oder RESET
+  
+  In REL_LINE&lt;X&gt; werden 4 X 16 Relais geschaltet; Angabe in Binärform; Wertigkeit von links nach rechts.
+  "1" schließt ein relais; "0" öffnet es; alles andere lässt es unverändert. Werden weniger als 16 Zeichen 
+  eingegeben, so werden die restlichen Relais unverändert gelassen.
+  
+  Z.B.: "1XXXXXXXXXXXXXXX" schließt das erste Relais ein; alle anderen bleiben unverändert.
+        "0100000000000001" schaltet das zweite und 16 Relais ein alle anderen aus
+        
+  BANK_A , LINE1 schalte die Relais 0000 - 0015
+  BANK_A , LINE2 schalte die Relais 0100 - 0115
+  BANK_A , LINE3 schalte die Relais 0200 - 0215
+  BANK_A , LINE4 schalte die Relais 0300 - 0315
+  
+  BANK_B , LINE1 schalte die Relais 0400 - 0415
+  BANK_B , LINE2 schalte die Relais 0500 - 0515
+  BANK_B , LINE3 schalte die Relais 0600 - 0615
+  BANK_B , LINE4 schalte die Relais 0700 - 0715
+  
+  BANK_C , LINE1 schalte die Relais 0800 - 0815
+  BANK_C , LINE2 schalte die Relais 0900 - 0915
+  BANK_C , LINE3 schalte die Relais 1000 - 1015
+  BANK_C , LINE4 schalte die Relais 1100 - 1115
+  
+  BANK_D , LINE1 schalte die Relais 1200 - 1215
+  BANK_D , LINE2 schalte die Relais 1300 - 1315
+  BANK_D , LINE3 schalte die Relais 1400 - 1415
+  BANK_D , LINE4 schalte die Relais 1500 - 1515 
+== Ansteuerung der VXK5000 Triggerkarte mit dem Prozess VXK5000 ==
+   USED with MAKRO TRIGDIR and TRIGSELF
+   
+   Ûbergabeparameter anhand der Modglobal.stl
+   MD,e_messages
+   ,PRUEFSCHRITT	1
+   ,POSITION		2
+   ,ANSTEUER_UNIT	3
+      TRIG_01
+   ,MODE          4
+      VXK5000-DIR      Mode Direct connection to triggercard
+      VXK5000-SELF     Mode Selftest starting and checking on triggercard
+   ,TEXT1		   5   Komparatorspannung A1 (32 Bit)
+   ,TEXT2         6   Komparatorspannung A2 (32 Bit)
+   ,TEXT3		   7   Komparatorspannung B1 (32 Bit)
+   ,TEXT4		   8   Komparatorspannung B2 (32 Bit)
+   ,TEXT5		   9   Komparatorspannung C1 (32 Bit)   
+   ,TEXT6		   10  Komparatorspannung C2 (32 Bit)  
+   ,TEXT7		   11  Komparatorspannung D1 (32 Bit)    
+   ,TEXT8		   12  Komparatorspannung D2 (32 Bit)
+   ,TEXT9		   13  Timer A (32 Bit)
+   ,TEXT10		   14  Timer B (32 Bit)
+   ,TEXT11		   15  Timer C (16 Bit)
+   ,TEXT12		   16  Timer D (16 Bit)
+   ,TEXT13		   17  Multiplexer1  (32 Bit)
+   ,TEXT14		   18  Multiplexer2 OUT (32 Bit)
+   ,TEXT15		   19  Multiplexer3 INPUT (32 Bit)
+   ,TEXT16		   20  BNC (16 Bit)
+   ,TEXT17		   21  MODE und GATE (16 Bit)
+   ,TEXT18		   22  Selbsttest DA (16 Bit)
+   ,TEXT19		   23  Steuerbits Selbsttest (32 Bit)
+   
+   with MODE VXK5000-SELF the following parameter are defined:
+     TEXT1        Stopnumber Selftest -&gt; D0
+     the following parameters are returnparameter
+     The result of selftest is returned
+     TEXT2        Fail
+     TEXT3        Direct
+     TEXT4        V_Direct
+     TEXT5        Y_FUNCT_X
+     TEXT6        Multiplexer_o
+     TEXT7        Multiplexer_i
+     TEXT8        hold_off
+     TEXT9        delay
+     TEXT10       Spikefilter am Stück
+     TEXT11       Analog
+     TEXT12       steig_falle_analog am Stück
+     TEXT13       Vorteiler
+     TEXT14       hold_spike
+     TEXT15       delay_spike
+     TEXT16       single_shot
+     TEXT17       FUNCT_6x8
+   
+</PRE>
+</BODY>
+</HTML>

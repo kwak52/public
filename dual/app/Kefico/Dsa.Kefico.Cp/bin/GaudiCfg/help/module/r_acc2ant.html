@@ -1,0 +1,142 @@
+<HTML>
+<HEAD>
+<TITLE>R_ACC2ANT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_ACC2ANT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_acc2ant.C,v 1.18 2005/06/01 16:07:48 gew3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Normierung und Berechnung Antennendiagramm fuer ACC2
+   ---------------------------------------------------------------------
+   Projekt:			CCS
+   Sourcefile:		r_acc2ant.C
+   Autor:			RtW2/TEF32-Greule (15.11.02)
+   Zielsystem:		LINUX bzw. HP9000/V743 (HP-RT 3.01), /7/C/D (HP-UX 10.20)
+   Sprache:			ANSI-C
+   ---------------------------------------------------------------------
+   Prototyp:
+
+   void r_acc2ant(
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Einlesen von 9 Feldern (Winkel, Realteil Beam1 ... Imaginaerteil Beam4),
+   In Abhaengigkeit vom Mode entweder folgendes tun:
+   - Normierung Antennendiagramm =&gt; Mode = NORM1. 
+     Rueckgabe sind Flash-Daten fuer ACC2; Groesse der Flash-Daten = 0x2000 Byte =&gt; 8192 Byte!
+     Daten des Antennendiagramms, Beginn und Ende des Datenbereichs fürs Antennendiagramm und die 
+     Checksumme werden als Ergebnisstring dieser Funktion zurueckgeliefert 
+     
+     Aktivitaeten: 
+     
+      Winkelwerte werden ueberprüft auf Gueltigkeit: 
+          Bereich -10 .. +10Grad mit einer Aufloesung von 0.1 Grad
+          
+      Ergebnisdaten werden in einem STRING-Feld zurückgegeben;
+         Definition des Feldes mit Modul "E_ARRAY_INI"; es erfolgt hier eine Ueberpruefung 
+         auf die Laenge des Feldes mit den zu erwartenden Daten. 
+         Auf die Daten vom Ergebnis-Feld kann anschliessend mit dem Modul "P_ZERLEGE_STR" 
+         zugegriffen werden. Hier ist beim Parameter "INPUT_STRING" die &amp;-Variable für das
+         Feld anzugeben. Weitere Zugriffsmöglichkeit soll mit dem Modul "P_AUFTRAG" realisiert
+         werden. 
+      
+      Datumsinformationen (Jahr, Monat, Tag, Std, Min) werden beim Programm-Durchlauf generiert,
+      aufbereitet und in das Ergebnis-Feld an die entsprechende Stelle eingetragen
+      
+      RTC-Nummer kann optional angegeben werden; bei Angabe werden max 24 Zeichen ins Ergebnisfeld
+      eingetragen
+      
+      Parameter DATA1 .. DATA5 sind z.Z. noch ohne Funktion!
+      
+      Daten der vier Beams und des Aufnahmewinkelbereichs werden nach Lastenheft berechnet und ebenfalls
+      ins Ergebnisfeld eingetragen.
+      
+      Abschliessend erfolgt die Berechnung einer Checksumme ueber die Daten des Antennendiagramms
+
+      
+        
+   - Berechnung Kennwerte (Figure of Merit) =&gt; FIG_OF_MER_01
+     Überprüfung der Gültigkeit der Daten auf Basis des Winkelbereichs und der minimalen Leistung 
+     
+     Aktivitäten:
+     
+     Überprüfung des vorhandenen Winkelbereichs mit den übergebenen Daten - Parameter: DATA1 = WINKEL;
+     Bestimmung, ob das Signal für den jeweiligen Winkelindex im Rauschen liegt - Parameter: DATA2 
+     und die Felder WINKEL, REAL_BEAM1 ... IMAG_BEAM4
+     Suchen des stärksten Beams für den Index, Selektierung des Wertes nach Bereich und Eintrag des 
+     Bereichwertes in das Ergebnisfeld  
+     Ergebnis ist ein Feld folgender Struktur:
+     ERGEBNIS = {0,0,..0,0,3,3,...3,3,2,2,....2,2,1,1,....0,0,...0}
+     Das Antennendiagramm wird somit von links ausgehend in den Bereich 0_Links, 3, 2, 1, 0_Rechts aufgeteilt.
+      
+   
+  - Berechnung Kennwerte (Figure of Merit) =&gt; FIG_OF_MER_02  
+    Bestimmung der Steigungswerte fuer Betrag und Phase, 
+    Eingabewerte sind:
+    DATA1 = linker Index des Bereichs 3
+    DATA2 = linker Index des Bereichs 2
+    DATA3 = linker Index des Bereichs 1
+    DATA4 = linker Index des rechten Bereichs 0
+    DATA0 = BETRAG oder PHASE 
+    
+    Felder WINKEL, REAL_BEAM1 ... IMAG_BEAM4
+    
+    Im Ergebnisfeld sind ist nun für den Betrag bzw. für die Phase die komplette Steigungkennlinie
+    über den aufgenommenen Winkelbereich einhalten.
+  
+   ...
+   
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Pruefschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> ANT_MODE</b><pre>   Auszufuehrende Aktion bei diesem Modul 
+   NORM1: Normierung Antennendiagramm
+   FIG_OF_MER_01: Bereichsberechnung
+   FIG_OF_MER_02: Steigungsberechnung für Betrag bzw. Phase
+   ------------------------------</pre><b><a name="param4">4</a> RTC_ID</b><pre>
+   ID des verbauten RTCs.
+   ------------------------------</pre><b><a name="param5">5</a> DATA1</b><pre>   Vorhalt fuer weitere Uebergabedaten;
+   Bei ANT_MODE = FIG_OF_MER_01: Winkelbereich 
+   Bei ANT_MODE = FIG_OF_MER_02: linker Index des Bereichs 3
+    ------------------------------</pre><b><a name="param6">6</a> DATA2</b><pre>   Vorhalt fuer weitere Uebergabedaten;
+   Bei ANT_MODE = FIG_OF_MER_01: minimale Leistung
+   Bei ANT_MODE = FIG_OF_MER_02: linker Index des Bereichs 2 
+   ------------------------------</pre><b><a name="param7">7</a> DATA3</b><pre>   Bei ANT_MODE = FIG_OF_MER_02: linker Index des Bereichs 1
+      ------------------------------</pre><b><a name="param8">8</a> DATA4</b><pre>   Bei ANT_MODE = FIG_OF_MER_02: linker Index des rechten Bereichs 0
+   ------------------------------</pre><b><a name="param9">9</a> DATA5</b><pre>   Bei ANT_MODE = FIG_OF_MER_02: BETRAG oder PHASE
+   ------------------------------</pre><b><a name="param10">10</a> WINKEL</b><pre>   Arrayvariable 1 fuer das Winkelfeld
+   ------------------------------</pre><b><a name="param11">11</a> REAL_BEAM1</b><pre>   Arrayvariable 2 fuer den Realteil BEAM1
+   ------------------------------</pre><b><a name="param12">12</a> IMAG_BEAM1</b><pre>   Arrayvariable 3 fuer den Imaginaerteil BEAM1
+   ------------------------------</pre><b><a name="param13">13</a> REAL_BEAM2</b><pre>   Arrayvariable 4 fuer den Realteil BEAM2
+   ------------------------------</pre><b><a name="param14">14</a> IMAG_BEAM2</b><pre>   Arrayvariable 5 fuer den Imaginaerteil BEAM2
+   ------------------------------</pre><b><a name="param15">15</a> REAL_BEAM3</b><pre>   Arrayvariable 6 fuer den Realteil BEAM3
+   ------------------------------</pre><b><a name="param16">16</a> IMAG_BEAM3</b><pre>   Arrayvariable 7 fuer den Imaginaerteil BEAM3
+   ------------------------------</pre><b><a name="param17">17</a> REAL_BEAM4</b><pre>   Arrayvariable 8 fuer den Realteil BEAM4
+   ------------------------------</pre><b><a name="param18">18</a> IMAG_BEAM4</b><pre>   Arrayvariable 9 fuer den Imaginaerteil BEAM4
+   ------------------------------</pre><b><a name="param19">19</a> ERGEBNIS</b><pre>   -  1 Feld mit xxx Daten 
+   ------------------------------</pre><b><a name="param20">20</a> FEHLERFLAG</b><pre>   Fehlerflag 
+</PRE>
+</BODY>
+</HTML>

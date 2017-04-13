@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE>SENSOR_WRITE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>SENSOR_WRITE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: sensor_write.C,v 1.4 2003/07/18 15:26:38 lehmann Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Liest Messwerte von dem 
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		sensor_write.C
+   Autor:		RtW/TEF72-Juilfs (12.12.95)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   bool sensor_write(
+           const QString &amp;strCmd,    	// Kommando
+           const QString &amp;strCode,    	// Codestring SIB oder IR
+           int    	 iLfdnrSend,    // Laufendenr mit dem der Befehl gesendet werden soll
+                                        // bei -1 vergibt der Server die laufende Nummer
+           long int      aAddresses[],  // Feld in dem gespeichert ist ob die entsprechende
+                                        // Adresse gesendet werden soll
+           int    	 iAnzAdresses,  // Anzahl der Feldelemente
+           const QString &amp;strSend,   	// String der gesendet werden soll (nur bei IR)
+           int    	 &amp;iLfdnrRead)   // Laufende Nummer mit der die Daten versendet wurden
+
+   return wert = true Uebertragung Ok   
+   ---------------------------------------------------------------------
+
+   sensor_write( "MIS", "SIB", -1, aiAddressen, 10, "", iLfdnr, iStatus);
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Dieses Modul konvertiert die uebergebenen Daten in einen String und 
+   sendet diesen an den Server, der wiederum die einzelnen Pakete an
+   die entsprechenden Interfacerechner sendet.
+   
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> FGN_Trigger [], FGN1_Trigger []</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>FGN_Trigger [], FGN1_Trigger []</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=11945">
+ </A>
+FGN_Trigger [], FGN1_Trigger []</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11947">
+ </A>
+SignalType [Int]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11949">
+ </A>
+StartEdge [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11951">
+ </A>
+StartLevel [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11953">
+ </A>
+TriggerEdge [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11955">
+ </A>
+TriggerLevel [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11957">
+ </A>
+TriggerHigh [CU pin [INT]/Test Pt[Str]]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11959">
+ </A>
+TriggerLow [CU pin [INT]/Test Pt[Str]]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11961">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11963">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=11965">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11967">
+ </A>
+Prepares for triggered signal output on a signal generator. The trigger event is defined using the parameters TriggerEdge, TriggerLevel, TriggerHigh and TriggerLow.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11969">
+ </A>
+Signal output is specified by means of the parameters SignalType, StartEdge and StartLevel. At present, only the value 0 V is allowed for StartLevel. Signal output starts when the trigger event occurs at the TriggerHigh pin and ends the next time the function is invoked.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11971">
+ </A>
+In similar fashion to FGN_Trigger for the FGN signal, FGN1_Trigger is provided for the function generator FGN1.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11973">
+ </A>
+This function does not return a value.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11975">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11977">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11979">
+ </A>
+None</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11981">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11983">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11985">
+ </A>
+Signal Type</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11987">
+ </A>
+Specifies the FGN type for the periodic signal to be generated (at present 1;4; 5 or 6).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11989">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11991">
+ </A>
+StartEdge</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11993">
+ </A>
+Specifies the signal edge with which the signal generator starts its signal. Permissible values: p/n</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11995">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11997">
+ </A>
+StartLevel</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11999">
+ </A>
+Specifies the absolute signal level (inc. offset) with which the signal generator is to start its signal. At present, only the value 0 V is allowed.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12001">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12003">
+ </A>
+TriggerEdge</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12005">
+ </A>
+Specifies the signal edge that is to be interpreted by the signal generator as the active trigger signal. Permissible values: p/n</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12007">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12009">
+ </A>
+TriggerLevel</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12011">
+ </A>
+Specifies the signal level at which the signal generator is to detect a High or Low signal at the trigger input.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12013">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12015">
+ </A>
+TriggerHigh</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12017">
+ </A>
+Specifies the pin to which the trigger input of the signal generator is to be connected. The pin is deactivated by ,-,</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12019">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=12021">
+ </A>
+TriggerLow</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=12023">
+ </A>
+Specifies the pin to which the trigger input reference of the signal generator is to be connected. The pin is deactivated by ,-,</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=12025">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=12027">
+ </A>
+Example:<BR>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=12029">
+ </A>
+FGN_Trigger (6, p, 0, n, 2.5, 15,22)</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=12031">
+ </A>
+Signal output is started using signal type 6 with a starting level of 0 V if a negative trigger edge of 2.5 V is detected at the trigger input. The trigger input is connected to Pin 15 with Pin 22 as the reference.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12033">
+ </A>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=12035">
+ </A>
+FGN_Trigger (,,,,,-,-)</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=12037">
+ </A>
+The connections to the frequency generator trigger input are deactivated.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12039">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=12041">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12044">
+ </A>
+<IMG SRC="funktionen-22.gif">
+</H6>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=12046">
+ </A>
+</H6>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

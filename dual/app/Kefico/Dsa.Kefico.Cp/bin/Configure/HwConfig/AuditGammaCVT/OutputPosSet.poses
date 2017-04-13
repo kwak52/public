@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Poses>
+  <Pose Group="OUTPUT POS" Comment="" V0="0" V1="108" V2="17920" V3="1260" Checked="true">
+    <AxisSpecs>
+      <Axis Number="0" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+      <Axis Number="1" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+      <Axis Number="2" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+      <Axis Number="3" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+    </AxisSpecs>
+  </Pose>
+  <Pose Group="OUTPUT POS" Comment="" V0="0" V1="108" V2="17920" V3="1260" Checked="true">
+    <AxisSpecs>
+      <Axis Number="0" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+      <Axis Number="1" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+      <Axis Number="2" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+      <Axis Number="3" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+    </AxisSpecs>
+  </Pose>
+</Poses>

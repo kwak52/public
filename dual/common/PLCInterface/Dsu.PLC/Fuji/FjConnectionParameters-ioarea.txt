@@ -1,0 +1,59 @@
+[Profile]
+...
+
+[I]
+...
+
+[Q]
+...
+										memory addressing				PLC I/O ÀÐ±â offset			e.g
+[Config]
+Unit=256
+1=Ùí @Not
+2=DC_Input_64points @IO IW 4			IW[0..3].						IW[0..3]					IW2.0
+3=T_Link_Master @LNK Config.1			Config.1 ¿¡ ÇØ´ç»çÇ× ¾øÀ½
+4=DC_Input_64points @IO IW 4			IW[4..7].
+5=Source_Output_64points @IO OW 4		IW[8..11].
+6=DC_Input_16points(DC48V) @IO IW 1		IW12.
+7=T_Link_Master @LNK Config.2			// offset 23 word
+8=Sink_Output_64points @IO OW 4			QW[13..16].						QW[33..36]					QW8.0
+9=Ùí @Not
+10=Ùí @Not
+11=Ùí @Not
+...
+255=Ùí @Not
+256=Ùí @Not
+ExMode=0
+
+[Config.1]
+MstMdkind=0xD8
+MstRprsnt=0x85
+Unit=0
+
+[Config.2]								// ÃÑ 23 word = 4 + 2 + 1 + 1 + .. + 4
+MstMdkind=0xD8
+MstRprsnt=0x85
+Unit=10									// ÇöÀç offset 13
+0=DC_Input_64points @IO IW 4			IW7.0.[0..3].					IW[13..16].					IW7.0.1
+4=Sink_Output_32points @IO OW 2			QW7.4.[0..3].					QW[13..16].					QW7.4.1
+6=DC/AC_Input_16points @IO IW 1
+7=DC/AC_Input_16points @IO IW 1
+8=DC/AC_Input_16points @IO IW 1
+9=DC/AC_Input_16points @IO IW 1
+10=DC_Input_64points @IO IW 4
+14=DC/AC_Input_16points @IO IW 1
+15=DC_Input_64points @IO IW 4
+19=DC_Input_64points @IO IW 4
+
+[Config.3]
+
+[Config.4]
+
+[Config.5]
+
+[Config.6]
+
+[Config.7]
+
+[Config.8]
+...

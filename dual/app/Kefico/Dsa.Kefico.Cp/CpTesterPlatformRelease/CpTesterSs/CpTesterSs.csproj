@@ -1,0 +1,685 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{326A8A95-5429-45B2-B96E-E92332B3441F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CpTesterSs</RootNamespace>
+    <AssemblyName>CpTesterSs</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\..\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="Akka, Version=1.1.2.29, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ExLib\Akka.dll</HintPath>
+    </Reference>
+    <Reference Include="CpApplciationIntrf">
+      <HintPath>..\CpPlatform\CpApplciationIntrf.dll</HintPath>
+    </Reference>
+    <Reference Include="CpApplication">
+      <HintPath>..\CpPlatform\CpApplication.dll</HintPath>
+    </Reference>
+    <Reference Include="CpCommon, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CpCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="CpLogUtil, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CpPlatform\CpLogUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="CpMathCalLib">
+      <HintPath>..\CpPlatform\CpMathCalLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CpMngLib, Version=4.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\TEST solutions\app\Kefico\Dsa.Kefico.Cp\CpTesterPlatformRelease\CpPlatform\CpMngLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CpTStepDevLib">
+      <HintPath>..\bin\CpTStepDevLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CpTStepFncBase">
+      <HintPath>..\CpPlatform\CpTStepFncBase.dll</HintPath>
+    </Reference>
+    <Reference Include="CpTStepFncLib">
+      <HintPath>..\CpPlatform\CpTStepFncLib.dll</HintPath>
+    </Reference>
+    <Reference Include="CpUtility">
+      <HintPath>..\CpPlatform\CpUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="CpXbarChart, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\TEST solutions\app\Kefico\Dsa.Kefico.Cp\CpTesterPlatformRelease\CpPlatform\CpXbarChart.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.BonusSkins.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Diagram.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Images.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Sparkline.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v16.1.UI, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraDiagram.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraGauges.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGauges.v16.1.Win, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraVerticalGrid.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="Dsu.Common.Docking">
+      <HintPath>..\..\ExLib\Dsu.Common.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="Dsu.Common.Interfaces">
+      <HintPath>..\..\ExLib\Dsu.Common.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Dsu.Common.Resources">
+      <HintPath>..\..\ExLib\Dsu.Common.Resources.dll</HintPath>
+    </Reference>
+    <Reference Include="DxUtility">
+      <HintPath>..\CpPlatform\DxUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="LanguageExt.Core">
+      <HintPath>..\..\ExLib\LanguageExt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LanguageExt.FSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\open-sources\bin\LanguageExt.FSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ExLib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PsCommon">
+      <HintPath>..\CpPlatform\CPEditor\PsCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="PsCpDxUiLib">
+      <HintPath>..\CpPlatform\CPEditor\PsCpDxUiLib.dll</HintPath>
+    </Reference>
+    <Reference Include="PsCpUtility">
+      <HintPath>..\CpPlatform\CPEditor\PsCpUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="PsKGaudi">
+      <HintPath>..\CpPlatform\CPEditor\PsKGaudi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Dynamic, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\..\ExLib\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\..\ExLib\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\..\ExLib\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\..\ExLib\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading">
+      <HintPath>..\..\ExLib\System.Reactive.Windows.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Configure\AppConfig\CpInfo.cs" />
+    <Compile Include="CpTesterSs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CpTesterSs.Designer.cs">
+      <DependentUpon>CpTesterSs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Event\CpSignalManager.cs" />
+    <Compile Include="Event\EventHandle.cs" />
+    <Compile Include="Event\FormError.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Event\FormError.Designer.cs">
+      <DependentUpon>FormError.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAppSs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAppSs.designer.cs">
+      <DependentUpon>FormAppSs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAppSs_Serialize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSgDocFrame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSgDocFrame.Designer.cs">
+      <DependentUpon>frmSgDocFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAppSs_UIAssist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IF\PlcUtil.cs" />
+    <Compile Include="IF\PLCResult.cs" />
+    <Compile Include="IF\DIO.cs" />
+    <Compile Include="IF\plcIF.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceEnglish.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceEnglish.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceKorean.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceKorean.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CpTesterSplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CpTesterSplashScreen.designer.cs">
+      <DependentUpon>CpTesterSplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Task\TaskCpCtrBlock.cs" />
+    <Compile Include="Task\TaskSgPostTask.cs" />
+    <Compile Include="Task\TaskSgBackground.cs" />
+    <Compile Include="Task\TaskSgPreTask.cs" />
+    <Compile Include="Task\TaskSgTest.cs" />
+    <Compile Include="UIManual\FormDaqDisplaySelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormDaqDisplaySelector.designer.cs">
+      <DependentUpon>FormDaqDisplaySelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormDoorControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormDoorControl.Designer.cs">
+      <DependentUpon>FormDoorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualRobotAudit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualRobotAuditDeveloperMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualRobotAuditDeveloperMode.Designer.cs">
+      <DependentUpon>FormManualRobotAuditDeveloperMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualRobotAuditGCVT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualRobotAuditGCVT.Designer.cs">
+      <DependentUpon>FormManualRobotAuditGCVT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormStartConditionSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormStartConditionSelector.Designer.cs">
+      <DependentUpon>FormStartConditionSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormAdmin.Designer.cs">
+      <DependentUpon>FormAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormDeveloper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormDeveloper.Designer.cs">
+      <DependentUpon>FormDeveloper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManual.Designer.cs">
+      <DependentUpon>FormManual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormTestlistSelectorA78.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormTestlistSelectorA78.Designer.cs">
+      <DependentUpon>FormTestlistSelectorA78.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormTestlistSelectorAGCVT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormTestlistSelectorAGCVT.Designer.cs">
+      <DependentUpon>FormTestlistSelectorAGCVT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormTotalResult7DCT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormTotalResult7DCT.Designer.cs">
+      <DependentUpon>FormTotalResult7DCT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormTotalResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormTotalResult.Designer.cs">
+      <DependentUpon>FormTotalResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualDAQ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualDAQ.Designer.cs">
+      <DependentUpon>FormManualDAQ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualDCPower.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualDCPower.Designer.cs">
+      <DependentUpon>FormManualDCPower.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualDigitIO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualDigitIO.Designer.cs">
+      <DependentUpon>FormManualDigitIO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualLCR.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualLCR.Designer.cs">
+      <DependentUpon>FormManualLCR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualAirGap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualAirGap.Designer.cs">
+      <DependentUpon>FormManualAirGap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualLVDT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualLVDT.Designer.cs">
+      <DependentUpon>FormManualLVDT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualRobotAudit78.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualRobotAudit78.Designer.cs">
+      <DependentUpon>FormManualRobotAudit78.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualMotion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualMotion.Designer.cs">
+      <DependentUpon>FormManualMotion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualPLC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualPLC.Designer.cs">
+      <DependentUpon>FormManualPLC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\FormManualTempHumi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIManual\FormManualTempHumi.Designer.cs">
+      <DependentUpon>FormManualTempHumi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\ucTestMonitor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIManual\ucTestMonitor.Designer.cs">
+      <DependentUpon>ucTestMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\ucPLCMonitor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIManual\ucPLCMonitor.Designer.cs">
+      <DependentUpon>ucPLCMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIManual\ucSetItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIManual\ucSetItem.Designer.cs">
+      <DependentUpon>ucSetItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UcDaqChartCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcTResultChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcTResultChart.Designer.cs">
+      <DependentUpon>UcTResultChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UcTStepInformation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcTStepInformation.Designer.cs">
+      <DependentUpon>UcTStepInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UcTStepList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcTStepList.designer.cs">
+      <DependentUpon>UcTStepList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UcMainViewSs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcMainViewSs.Designer.cs">
+      <DependentUpon>UcMainViewSs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UcTStepStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcTStepStatus.Designer.cs">
+      <DependentUpon>UcTStepStatus.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CpTesterSs.resx">
+      <DependentUpon>CpTesterSs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Event\FormError.resx">
+      <DependentUpon>FormError.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAppSs.resx">
+      <DependentUpon>FormAppSs.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSgDocFrame.resx">
+      <DependentUpon>frmSgDocFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceEnglish.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceEnglish.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ResourceKorean.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceKorean.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CpTesterSplashScreen.resx">
+      <DependentUpon>CpTesterSplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormDaqDisplaySelector.resx">
+      <DependentUpon>FormDaqDisplaySelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormAdmin.resx">
+      <DependentUpon>FormAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormDeveloper.resx">
+      <DependentUpon>FormDeveloper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormDoorControl.resx">
+      <DependentUpon>FormDoorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManual.resx">
+      <DependentUpon>FormManual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualRobotAuditDeveloperMode.resx">
+      <DependentUpon>FormManualRobotAuditDeveloperMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualRobotAuditGCVT.resx">
+      <DependentUpon>FormManualRobotAuditGCVT.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormTestlistSelectorA78.resx">
+      <DependentUpon>FormTestlistSelectorA78.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormTestlistSelectorAGCVT.resx">
+      <DependentUpon>FormTestlistSelectorAGCVT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormTotalResult7DCT.resx">
+      <DependentUpon>FormTotalResult7DCT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormTotalResult.resx">
+      <DependentUpon>FormTotalResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualDAQ.resx">
+      <DependentUpon>FormManualDAQ.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualDCPower.resx">
+      <DependentUpon>FormManualDCPower.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualDigitIO.resx">
+      <DependentUpon>FormManualDigitIO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualLCR.resx">
+      <DependentUpon>FormManualLCR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualAirGap.resx">
+      <DependentUpon>FormManualAirGap.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualLVDT.resx">
+      <DependentUpon>FormManualLVDT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualRobotAudit78.resx">
+      <DependentUpon>FormManualRobotAudit78.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualMotion.resx">
+      <DependentUpon>FormManualMotion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualPLC.resx">
+      <DependentUpon>FormManualPLC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\FormManualTempHumi.resx">
+      <DependentUpon>FormManualTempHumi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\ucTestMonitor.resx">
+      <DependentUpon>ucTestMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\ucPLCMonitor.resx">
+      <DependentUpon>ucPLCMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIManual\ucSetItem.resx">
+      <DependentUpon>ucSetItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcMainViewSs.resx">
+      <DependentUpon>UcMainViewSs.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcTResultChart.resx">
+      <DependentUpon>UcTResultChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcTStepInformation.resx">
+      <DependentUpon>UcTStepInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcTStepList.resx">
+      <DependentUpon>UcTStepList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcTStepStatus.resx">
+      <DependentUpon>UcTStepStatus.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CpTesterPlatformLog4net.xml" />
+    <None Include="Resources\8.jpg" />
+    <None Include="Resources\7.png" />
+    <Content Include="Resources\App.ico" />
+    <Content Include="Resources\button_off.jpg" />
+    <Content Include="Resources\button_on.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\Dsu.Common.Utilities.DX\Dsu.Common.Utilities.DX.csproj">
+      <Project>{0f4ee0d1-1642-4d97-89ec-3fd475298ecf}</Project>
+      <Name>Dsu.Common.Utilities.DX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\Dsu.Common.Utilities.FS\Dsu.Common.Utilities.FS.fsproj">
+      <Project>{4e5d41d3-c394-4c16-8690-7a6e1a62bca8}</Project>
+      <Name>Dsu.Common.Utilities.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\common\Dsu.Common.Utilities\Dsu.Common.Utilities.csproj">
+      <Project>{825711e0-451f-4eda-9560-a624350de411}</Project>
+      <Name>Dsu.Common.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dsu.Driver.Base\Dsu.Driver.Base.csproj">
+      <Project>{DEDF4176-E7D3-45D4-832D-A09E0BAEDD1C}</Project>
+      <Name>Dsu.Driver.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dsu.Driver.Etc.FS\Dsu.Driver.Etc.FS.fsproj">
+      <Project>{9828ede8-200d-468b-95be-574f32ed22c2}</Project>
+      <Name>Dsu.Driver.Etc.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dsu.Driver.Math.FS\Dsu.Driver.Math.FS.fsproj">
+      <Project>{0b975d84-7857-431d-8791-535758d0b051}</Project>
+      <Name>Dsu.Driver.Math.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dsu.Driver.PaixWrapper\Dsu.Driver.PaixWrapper.csproj">
+      <Project>{f3fe565b-b00a-49a8-bd21-df514774ff44}</Project>
+      <Name>Dsu.Driver.PaixWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dsu.Driver.UI\Dsu.Driver.UI.csproj">
+      <Project>{8f4ff035-86c7-452f-be2d-ed2b5fffc35a}</Project>
+      <Name>Dsu.Driver.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Dsu.Driver.Util\Dsu.Driver.Util.csproj">
+      <Project>{73ADFEFB-0162-4C29-A679-9A8897F707B5}</Project>
+      <Name>Dsu.Driver.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CpFunctions\CpBase\CpBase.csproj">
+      <Project>{f511fd68-6b01-4da9-9920-c28b130a85fa}</Project>
+      <Name>CpBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CpFunctions\CpFunctionDefault\CpFunctionDefault.csproj">
+      <Project>{739A5790-B479-4E8E-B857-690EC053865D}</Project>
+      <Name>CpFunctionDefault</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CpResultViewTable\CpResultViewTable.csproj">
+      <Project>{8DE8C38D-7953-4DAD-84C0-03A33C56178D}</Project>
+      <Name>CpResultViewTable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CpSystem\CpSystem.csproj">
+      <Project>{5bb28232-269e-4ac5-bb65-573d30fe517c}</Project>
+      <Name>CpSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CpTrendViewChart\CpTrendViewChart.csproj">
+      <Project>{5FDFAF20-DF91-4660-9F64-010FCA3D35EB}</Project>
+      <Name>CpTrendViewChart</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Devices\CpDeviceDsBase\CpDeviceDsBase.csproj">
+      <Project>{f080afd7-0a2f-4724-a652-7938da84e87a}</Project>
+      <Name>CpDeviceDsBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MngDev\Comm\CpMngDAQControl\CpMngDAQControl.csproj">
+      <Project>{5304f8db-66dd-4cc5-b8b2-b0cb59747ec1}</Project>
+      <Name>CpMngDAQControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MngDev\Comm\CpMngNetworkTcpIp\CpMngNetworkTcpIp.csproj">
+      <Project>{5d81ba02-90c3-4cea-83e9-e9867a945426}</Project>
+      <Name>CpMngNetworkTcpIp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MngDev\Comm\CpMngRS232\CpMngRS232.csproj">
+      <Project>{442e1f9a-068f-49cd-b54b-6b310b58a89e}</Project>
+      <Name>CpMngRS232</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

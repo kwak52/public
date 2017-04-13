@@ -1,0 +1,245 @@
+<HTML>
+<HEAD>
+<TITLE>SOFTWTEST_WERT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>SOFTWTEST_WERT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: softwtest_wert.C,v 1.5 2005/04/08 15:25:52 lehmann Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	lesen/schreiben einer globalen Variablen
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		softwtest_wert.C
+   Autor:		RtW/TEF32-Juilfs (28.01.2004)
+   Zielsystem:		Linux
+   Sprache:		C++ 
+   ---------------------------------------------------------------------
+   Prototyp:
+   void softwtest_wert(
+	   ,shm_stringpointer   *zeilen_wert 
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Über dieses Modul kann der Wert ausgewaehlter Variablen  gelesen bzw. 
+   beschrieben werden.
+   
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> VARNAME</b><pre>   Variablen Name erlaubt sind:
+   Im Modus R
+   G_ERROR_ABORT    	: Bei Abbruch des VI wird die Fehlernummer in die Variable gespeichert.
+                          Sie wird im Ruestlauf zurueckgesetzt oder durch dieses Modul.
+   G_ERROR_ABORT_ENABLE : Mit dem setzen der Variablen auf 0 kann verhindert werden, dass
+                          der Vectorinterpreter sich bei einem Modulfehler beendet.
+                          Im Ruestlauf wird dieser Variable auf True gesetzt.
+   ANSTVAR_WERT         : Wert einer Anszeuervariablen zurueckgeben.
+   
+   Im Modus W
+   G_ERROR_ABORT    	: dieser Wert wird automatisch auf 0 gesetzt.
+   G_ERROR_ABORT_ENABLE : disable = 0; enable  != 0
+   ------------------------------</pre><b><a name="param4">4</a> PARA1</b><pre>   zu dem Befehl VARNAM spwzifischer Parameter
+   VARNAM = ANSTVAR_WERT :  Name der Ansteuervariablen
+   ------------------------------</pre><b><a name="param5">5</a> Para2</b><pre>   zu dem Befehl VARNAM spwzifischer Parameter
+   zurzeit nicht benoetigt
+   ------------------------------</pre><b><a name="param6">6</a> IO_MODE</b><pre>   R = lesen  einer Variablen
+   W = setzen einer Variablen
+   ------------------------------</pre><b><a name="param7">7</a> ERGEBNIS</b><pre>   Wert der gelesen wurde (R Mode)
+   Wert mit dem ein Variable belegt werden soll (W Mode)
+   ------------------------------</pre><b><a name="param8">8</a> FEHLERFLAG</b><pre>   Fehlerflag 
+   &lt;userdoc&gt;
+   ---------------------------------------------------------------------
+
+-- pragmas -----------------------------------------------------------
+#pragma  COPYRIGHT "Robert Bosch GmbH Reutlingen, RtW/TEF72"
+#pragma  VERSIONID "$Id: softwtest_wert.C,v 1.5 2005/04/08 15:25:52 lehmann Exp $"
+
+-- defines -----------------------------------------------------------
+#define HEADER "$Id: softwtest_wert.C,v 1.5 2005/04/08 15:25:52 lehmann Exp $" 
+#define EXTERN extern	 Bei allen Subroutinen 
+
+#define IND_PRUEFSCHRITT	1
+#define IND_VARNAME		3
+#define IND_PARA1		4
+#define IND_PARA2		5
+#define IND_MODE  		6
+#define IND_WERT		7
+#define IND_FEHLERFLAG		8
+-- includes ----------------------------------------------------------
+#include "shm_syscom.H"
+#include &lt;stdlib.h&gt; 
+#include &lt;string.h&gt;  
+#include "libstr.H"  
+#include "libccs.H"
+#include "libtestmodul_pool.H"
+#include "ccl_defines.H"         ccl_definition   PREINT              
+
+-- external functions / variables ------------------------------------
+extern int	G_Softwaretest_error_abort; 
+extern bool	G_Softwaretest_error_abort_enable; 
+-- global variables (nur im  "main" erlaubt) -------------------------
+ -Begin---------------------------------------------------------------
+   ---------------------------------------------------------------------
+int softwtest_wert(shm_stringpointer *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+{
+   
+//cout&lt;&lt;" softwtest_wert: "&lt;&lt;endl;
+#ifdef LINUX
+-- local variables --------------------------------------------------- 
+   bool			bOk;   			// true = Ok
+   double		dWert;			// double Wert
+   long			ind;			// index 
+   int			iWert;			// integer Wert
+   int          	typ;   			// Variablen typ
+   STRING		mode;			// Modus
+   STRING		name;			// name der Variablen
+   STRING		wert;			// Wert
+   QString		strVarname;   		// Variablenname 
+   QString		strWert;		// Wert
+   Variablenverwaltung	*V_ADRESS;      	// Variablenadresse
+
+   //------------------------------------------------------------------
+   //------------------------------------------------------------------ 
+   ind = index1 - 1;
+   bOk = true;
+
+   strVarname = (const char*)*zeilen_wert-&gt;ptr[ind+IND_VARNAME];
+   V_ADRESS = (Variablenverwaltung *)zeilen_wert-&gt;ptr[ind+IND_WERT]; 
+
+//cout&lt;&lt;"strVarname: "&lt;&lt;strVarname.latin1()&lt;&lt;" Mode: "&lt;&lt;(const char*)*zeilen_wert-&gt;ptr[ind+IND_MODE]&lt;&lt;" Wert: "&lt;&lt;(const char*)*zeilen_wert-&gt;ptr[ind+IND_WERT]&lt;&lt;endl;
+   if (*zeilen_wert-&gt;ptr[ind+IND_MODE] == "R")
+   {
+      if (strVarname == "G_ERROR_ABORT")
+      {
+         typ   = VARMEM_TYP_INT;
+         iWert = G_Softwaretest_error_abort;
+      }
+      else if (strVarname == "G_ERROR_ABORT_ENABLE")
+      {
+         typ   = VARMEM_TYP_INT;
+         if (G_Softwaretest_error_abort_enable)
+              iWert = 1;
+         else iWert = 0;
+      }
+      else if (strVarname == "ANSTVAR_WERT")
+      {
+         long  	   iAnstvar;		// Index auf Ansteuervariable
+	 STRING    anst_name;   	// Name
+
+         anst_name = *zeilen_wert-&gt;ptr[ind+IND_PARA1];
+         iAnstvar  = suche_ansteuerparameter(anst_name);
+//cout&lt;&lt;"anst_name: "&lt;&lt;(char*)anst_name&lt;&lt;" iAnstvar: "&lt;&lt;iAnstvar&lt;&lt;endl;
+         typ = VARMEM_TYP_STRING;
+         if (iAnstvar &gt;= 0)
+            Ssp_pp_verwaltung-&gt;ansteuerblock[iAnstvar].get_wert(wert);
+         else
+            wert = "?????";
+      }
+      else
+      {
+         typ = -1; 
+         bOk  = false;
+	 error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+            "illegal variable name: %s", strVarname.latin1());
+      }
+      if (typ == VARMEM_TYP_INT)
+      {
+         QString    strNum;
+         STRING	    wert;
+         
+         wert  = strNum.setNum(iWert).latin1();
+         V_ADRESS-&gt;put_wertTyp(wert, typ);
+      }
+      else if (typ == VARMEM_TYP_DOUBLE)
+      {
+         QString    strNum;
+         STRING	    wert;
+         
+         wert  = strNum.setNum(dWert).latin1();
+         V_ADRESS-&gt;put_wertTyp(wert, typ);
+      }
+      else if (typ == VARMEM_TYP_STRING)
+      {
+         V_ADRESS-&gt;put_wertTyp(wert, typ);
+//cout&lt;&lt;"wert: " &lt;&lt;(char*)wert&lt;&lt;endl;        
+      }
+   }
+   else if (*zeilen_wert-&gt;ptr[ind+IND_MODE] == "W")
+   {
+      V_ADRESS-&gt;get_wert(strWert);
+      if (strVarname == "G_ERROR_ABORT")
+      {
+         G_Softwaretest_error_abort = 0;
+      }
+      else if (strVarname == "G_ERROR_ABORT_ENABLE")
+      {
+         iWert = strWert.toInt(&amp;bOk);
+//cout&lt;&lt;"G_ERROR_ABORT_ENABLE: "&lt;&lt;iWert&lt;&lt;" ok: "&lt;&lt;bOk&lt;&lt;endl;         
+         G_Softwaretest_error_abort_enable = !bOk || (iWert != 0);
+      }
+      else
+      {
+         bOk = false;
+	 error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+            "variable can not be written or wrong name: %s", strVarname.latin1());
+      }
+   }
+   else
+   {
+      bOk = false;
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+         "illegal mode: %s", (const char*)*zeilen_wert-&gt;ptr[ind+IND_MODE] );
+   }
+   if (bOk)
+      *zeilen_wert-&gt;ptr[ind + IND_FEHLERFLAG] = "0";
+   else 
+      *zeilen_wert-&gt;ptr[ind + IND_FEHLERFLAG] = "1";
+#endif
+   return 0;
+}
+ -End of file---------------------------------------------------------
+   Historie:
+   
+   $Log: softwtest_wert.C,v $
+   Revision 1.5  2005/04/08 15:25:52  lehmann
+   _VI_5.2.7_R520000_TT42_RA_put_typ durch Methode put_wertTyp ersetzt
+
+   Revision 1.4  2004/07/19 09:13:31  lehmann
+   ra vi ANSTVAR_WERT eingefuehrt
+
+   Revision 1.3  2004/07/08 10:05:40  lehmann
+   ra Kommentarausgabe raus
+
+   Revision 1.2  2004/03/24 08:57:22  lehmann
+   ra char* nach const char* geaendert
+
+   Revision 1.1  2004/02/05 12:55:43  lehmann
+   ra vi Erstellung
+
+   ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

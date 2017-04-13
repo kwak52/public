@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<TITLE>S_PFKCONFIG</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>S_PFKCONFIG</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: s_pfkconfig.C,v 1.3 2004/12/08 15:07:58 kj73rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Konfiguration der Prueffortschrittskennung
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		s_pfkconfig.C
+   Autor:		RtW2/TEF72-Keppler (18.10.00)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01), /7/C/D (HP-UX 10.20)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototype:
+   MPI Schnittstelle
+   void s_pfkconfig(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer    *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   
+   ---------------------------------------------------------------------
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI PrÏfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------ 
+   Folgende Parameter stehen jeder fuer ein Prueftor. Die Reihenfolge der Prüftore 
+   wird durch die Eintraege in den folgenden Parametern festgelegt. 
+   Z.B. PRUEFTOR1 = FO 
+	PRUEFTOR2 = LT 
+	Jetzt werden nur die Prueftore FO und LT erwartet, wobei FO als erstes Prueftor 
+	definiert ist.
+    
+    ACHTUNG: Ist ein Prueftor nicht definiert, so kann die Pruefung an diesem 
+	     Stand nicht durchgeführt werden.</pre><b><a name="param3">3</a> PRUEFTOR1</b><pre>		IC = In Circuit Tester		
+		PF = Flashprogrammierung	(Programming Flash)
+		FO = Funktionspruefung am offenen Geraet	(Function test Open ecu)
+		LT = Tieftemperatur am geschlossenen Geraet	(Low Temperature funktion test)
+		HT = Hochtempreatur am geschlossenen Geraet	(High Temperature funktion test)
+		IR = Inline Run in
+		FR = Endpruefung nach IRI oder Screening
+		REP= REPair</pre><b><a name="param4">4</a> PRUEFTOR2</b><pre>s.o.</pre><b><a name="param5">5</a> PRUEFTOR3</b><pre>s.o.</pre><b><a name="param6">6</a> PRUEFTOR4</b><pre>s.o.</pre><b><a name="param7">7</a> PRUEFTOR5</b><pre>s.o.</pre><b><a name="param8">8</a> PRUEFTOR6</b><pre>s.o.</pre><b><a name="param9">9</a> PRUEFTOR7</b><pre>s.o.</pre><b><a name="param10">10</a> PRUEFTOR8</b><pre>s.o.
+    
+    HINWEIS:
+       Der Zusammenhang zwischen Standtyp und den oben genannten Prueftypen wird durch ein
+       Configfile hergestellt, welches in jedem Werk verschieden sein kann. Dieses File 
+       wird im Ruestlauf vom Modul S_PFK eingelesen und interpretiert.
+		
+ 
+
+   Revision 1.1  2001/12/18 10:08:56  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.3  2001/08/03 11:08:41  keppler
+   Doku erweitert
+
+   Revision 1.2  2000/11/24 13:12:20  keppler
+   Ermittlung der Standtypen aus Configfile
+
+   Revision 1.1  2000/10/23 13:15:27  keppler
+   Initial Version
+
+   ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

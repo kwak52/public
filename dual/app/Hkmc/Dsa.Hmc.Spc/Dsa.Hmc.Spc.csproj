@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A0921877-9EA9-495B-B013-7CCF957754C4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dsa.Hmc.Spc</RootNamespace>
+    <AssemblyName>Dsa.Hmc.Spc</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v16.1" />
+    <Reference Include="DevExpress.Data.v16.1" />
+    <Reference Include="DevExpress.Utils.v16.1" />
+    <Reference Include="DevExpress.XtraBars.v16.1" />
+    <Reference Include="DevExpress.XtraEditors.v16.1" />
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v16.1" />
+    <Reference Include="DevExpress.Printing.v16.1.Core" />
+    <Reference Include="MySql.Data, Version=7.0.2.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\open-sources\bin\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\ConfigData.cs" />
+    <Compile Include="Data\TagData.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MySQL\MySqlClient.cs" />
+    <Compile Include="MySQL\MySqlQuery.cs" />
+    <Compile Include="PLC\PlcMXComp.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RS232\SerialLVDT.cs" />
+    <Compile Include="View\LogPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\LogPage.Designer.cs" />
+    <Compile Include="View\SettingPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\SettingPage.Designer.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="View\LogPage.resx" />
+    <EmbeddedResource Include="View\SettingPage.resx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="image\MAIN_SPC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\common\Dsu.Common.Interfaces\Dsu.Common.Interfaces.csproj">
+      <Project>{4a9c406e-bea1-4470-b9d1-09605eaa44f3}</Project>
+      <Name>Dsu.Common.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\Dsu.Common.Resources\Dsu.Common.Resources.csproj">
+      <Project>{5b5804ce-0652-4bd8-bcd0-e3c038ac9fea}</Project>
+      <Name>Dsu.Common.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\Dsu.Common.Utilities\Dsu.Common.Utilities.csproj">
+      <Project>{825711e0-451f-4eda-9560-a624350de411}</Project>
+      <Name>Dsu.Common.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\Dsu.DB.MySQL\Dsu.DB.MySQL.csproj">
+      <Project>{8cb64b50-f590-4903-a910-cf12dccab9dc}</Project>
+      <Name>Dsu.DB.MySQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\Dsu.UI.Grid\Dsu.UI.Grid.csproj">
+      <Project>{6984b72b-51e3-4892-92af-854dc60fa892}</Project>
+      <Name>Dsu.UI.Grid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\Dsu.UI.XbarChart\Dsu.UI.XbarChart.csproj">
+      <Project>{4807b06b-8222-4122-8216-a8990fee9aba}</Project>
+      <Name>Dsu.UI.XbarChart</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\PLCInterface\Dsu.PLC\Dsu.PLC.Melsec.csproj">
+      <Project>{dcc845f6-be3b-4553-a4de-e679fc69cd8e}</Project>
+      <Name>Dsu.PLC.Melsec</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

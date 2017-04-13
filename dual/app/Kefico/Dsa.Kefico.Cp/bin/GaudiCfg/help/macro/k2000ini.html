@@ -1,0 +1,1118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> K2000Ini []</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>K2000Ini []</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=10864">
+ </A>
+K2000Ini []</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10866">
+ </A>
+Target_Address [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10868">
+ </A>
+Initialization_Type [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10870">
+ </A>
+Initialization_Line [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10872">
+ </A>
+P1max [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10874">
+ </A>
+P2max [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10876">
+ </A>
+P3min [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10878">
+ </A>
+P3max [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10880">
+ </A>
+P4min [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10882">
+ </A>
+W1 [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10884">
+ </A>
+W2 [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10886">
+ </A>
+W3 [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10888">
+ </A>
+W4min [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10890">
+ </A>
+W4max [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10892">
+ </A>
+W5 [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10894">
+ </A>
+TiniL [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10896">
+ </A>
+TWuP [ms]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10898">
+ </A>
+BaudRate [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10900">
+ </A>
+KeepTesterPresent [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10902">
+ </A>
+Target_Address 5Baud_Stimulation [INT]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10904">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=10906">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10908">
+ </A>
+Initializes and establishes communication via the diagnosis interface for the KW2000 protocol. In contrast with the function <EM CLASS="HelpSprung">
+ComInit</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_ComInit</EM>
+, which applies to all protocols (but does not permit any protocol-specific parameter settings), the function K2000Ini specifies all parameters that are required to establish serial communication. For KWP2000 communication via the CAN, the function CAN2000Ini can be used.<BR>
+<BR>
+This function only supports physical addressing.<BR>
+<BR>
+This function does not return a value.<BR>
+<BR>
+Caution!															The timing parameters to be specified in the testing function apply to the tester and are generally different from the settings programmed on the control unit.</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10910">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10912">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10914">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10916">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10918">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10920">
+ </A>
+Target_Address</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10922">
+ </A>
+Specifies the KW2000 address of the control unit. Permissible values are 0 ... 255.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10924">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10926">
+ </A>
+Initialization_Type</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10928">
+ </A>
+Specifies the type of initialization (stimulation)</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10930">
+ </A>
+0 &AElig; No initialization <BR>
+(This mode is used to set/alter communication parameters for the tester without re-establishing communication or interrupting communication in progress.)</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10932">
+ </A>
+1&AElig; 			5-Baud initialization</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10934">
+ </A>
+2&AElig; 			Quick initialization</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10936">
+ </A>
+3&AElig; 			Terminate communication</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10938">
+ </A>
+Default setting: 2</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10940">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10942">
+ </A>
+Initialization_Line</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10944">
+ </A>
+Specifies the lines on which initialization (stimulation) is to take place.<BR>
+0 &AElig; K + L lead<BR>
+1 &AElig; L lead<BR>
+2 &AElig; K lead<BR>
+<BR>
+Default setting: 0</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10946">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10948">
+ </A>
+Timing parameters for communication between tester and control unit (parameters P1 .. P4 as per Keyword Protocol 2000; for explanations, refer to <EM CLASS="HelpSprung">
+Diagram</EM>
+<EM CLASS="HelpSprungverweis">
+TimingParameter1</EM>
+ with the same title. The suffix min or max is appended to the parameter name in order to indicate that either the minimum or maximum figure is to be specified).</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10950">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10952">
+ </A>
+P1max</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10954">
+ </A>
+Specifies the maximum time the tester must wait between the receipt of 2 bytes.<BR>
+<BR>
+Default value: 20 <BR>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10956">
+ </A>
+P2max</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10958">
+ </A>
+Specifies the maximum time the tester must wait for a response from the control unit.<BR>
+<BR>
+Default value for normal timing: 50 ms<BR>
+Default value for extended timing: 1000 ms<BR>
+Resolution: 25 ms (to 6 s; beyond that, the resolution becomes coarser; refer to Keyword Protocol 2000 documentation).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10960">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10962">
+ </A>
+P3min</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10964">
+ </A>
+Specifies the time the tester has to wait after a response from the control unit before it can start a new query.<BR>
+<BR>
+Default value for normal timing: 55 ms<BR>
+Default value for extended timing: 0 ms<BR>
+Resolution: 0.5 ms</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10966">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10968">
+ </A>
+P3max</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10970">
+ </A>
+Specifies the maximum period that is allowed to elapse after a response from the control unit before the tester has to start a new query (to prevent communication breaking down). (Special case: P3Max = 0 ms is interpreted as no time limit, i.e. P3Max = &#183;.)<BR>
+<BR>
+Default value: 5000 ms<BR>
+Resolution: 250 ms</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10972">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10974">
+ </A>
+P4min</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10976">
+ </A>
+Specifies the minimum time the tester must wait between sending 2 bytes.<BR>
+<BR>
+Default value: 5 ms<BR>
+Resolution: 0.5 ms</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10978">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10980">
+ </A>
+Timing parameters for 5-baud initialization (parameters W1 .. P4 as per Keyword Protocol 2000; for explanations, refer to <EM CLASS="HelpSprung">
+Diagram</EM>
+<EM CLASS="HelpSprungverweis">
+TimingParameter2</EM>
+ with the same title. The suffix min or max is appended to the parameter in order to indicate that either the minimum or maximum figure is to be specified).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10982">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10984">
+ </A>
+W1max</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10986">
+ </A>
+Specifies the maximum period the tester must wait during 5-baud initialization for the synchronization word from the control unit after sending the address.<BR>
+<BR>
+Default value: 300 ms</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10988">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10990">
+ </A>
+W2max</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10992">
+ </A>
+Specifies the maximum period the tester must wait for KB1 during 5-baud initialization after receipt of the synchronization word.<BR>
+<BR>
+Default value: 20 ms</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10994">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10996">
+ </A>
+W3max</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10998">
+ </A>
+Specifies the maximum period the tester must wait for KB2 during 5-baud initialization after receipt of KB1.<BR>
+<BR>
+Default value: 20 ms</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11000">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11002">
+ </A>
+W4min</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11004">
+ </A>
+Specifies the maximum period the tester must wait during 5-baud initialization after receiving KB2 before it can send the inverted KB2 back to the control unit.<BR>
+<BR>
+Default value: 25 ms</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11006">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11008">
+ </A>
+W4max</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11010">
+ </A>
+Specifies the maximum period the tester must wait during 5-baud initialization for the response from the control unit (inverted control unit address) after sending the inverted KB2.<BR>
+<BR>
+Default value: 50 ms</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11012">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11014">
+ </A>
+W5min</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11016">
+ </A>
+Specifies the minimum period the tester must wait (after control unit is switched on) before it can start establishing communication (sending the address byte). This figure applies both to 5-baud initialization and to quick initialization.<BR>
+<BR>
+Default value: 300 ms<BR>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11018">
+ </A>
+Timing parameters for quick initialization (Parameters TiniL and TWuP as per Keyword Protocol 2000; for explanation see <EM CLASS="HelpSprung">
+diagram</EM>
+<EM CLASS="HelpSprungverweis">
+TimingParameter3</EM>
+ of the same name.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11020">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11022">
+ </A>
+TiniL</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11024">
+ </A>
+Specifies Low period for the wake-up pattern.<BR>
+<BR>
+Default value: 25 ms</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11026">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11028">
+ </A>
+TWuP</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11030">
+ </A>
+Specifies total duration of wake-up pattern (Low phase + High phase).<BR>
+<BR>
+Default value: 50 ms<BR>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11032">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11034">
+ </A>
+Other parameters:</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11036">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11038">
+ </A>
+BaudRate</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11040">
+ </A>
+Specifies the baud rate for communication.<BR>
+<BR>
+Default value: 10400</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11042">
+ </A>
+ </P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11044">
+ </A>
+KeepTesterPresent</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11046">
+ </A>
+Specifies whether the tester should send Tester Present messages to the control unit of its own accord to prevent communication breaking down.<BR>
+<BR>
+The following values are allowed:<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11049">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2036">
+ </A>
+0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2038">
+ </A>
+Do not send Tester Present messages</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2044">
+ </A>
+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2046">
+ </A>
+Automatically send Tester Present message if the period specified by P3max has elapsed since the last communication.</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11051">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11053">
+ </A>
+Default setting: 0</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11055">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11057">
+ </A>
+Target_Address 5Baud_Stimulation [Dec]</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11059">
+ </A>
+Target address for 5-baud stimulation.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11061">
+ </A>
+</P>
+<P CLASS="Beschreibung">
+<A NAME="pgfId=11063">
+ </A>
+<EM CLASS="HelpFu&szlig;note">
+ </EM>
+Timing parameters for communication between tester and control unit (excerpt from Keyword Protocol 2000 Part 2)</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11065">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11068">
+ </A>
+<IMG SRC="funktionen-18.gif" ALIGN="BASELINE">
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11070">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11072">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11074">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11076">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11078">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11080">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11083">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2053">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Value</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2055">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Description</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2061">
+ </A>
+<EM CLASS="KWP2000TNR10">
+P1</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2063">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Inter byte time for server (ECU) response</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2069">
+ </A>
+<EM CLASS="KWP2000TNR10">
+P2</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2071">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Time between client (tester) request and server (ECU) response or two server (ECU) responses</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2077">
+ </A>
+<EM CLASS="KWP2000TNR10">
+P3</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2079">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Time between end of server (ECU) responses and start of new client (tester) request</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2085">
+ </A>
+<EM CLASS="KWP2000TNR10">
+P4</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TableKWP2000TNR9">
+<A NAME="pgfId=2087">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Inter byte time for client (tester) request</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beschreibung">
+<A NAME="pgfId=11085">
+ </A>
+</P>
+<P CLASS="Beschreibung">
+<A NAME="pgfId=11087">
+ </A>
+Timing parameters for 5-baud initialization (excerpt from Keyword Protocol 2000 Part 2)</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11089">
+ </A>
+</P>
+<P CLASS="Beschreibung">
+<A NAME="pgfId=11092">
+ </A>
+<IMG SRC="funktionen-19.gif" ALIGN="BASELINE">
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11095">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2098">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Timing</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="2">
+<P CLASS="Normal">
+<A NAME="pgfId=2100">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Values in ms</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2096">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2110">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Parameters</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2112">
+ </A>
+<EM CLASS="KWP2000TNR10">
+min.</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2114">
+ </A>
+<EM CLASS="KWP2000TNR10">
+max.</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2116">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Description</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2126">
+ </A>
+<EM CLASS="KWP2000TNR10">
+W1</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2128">
+ </A>
+<EM CLASS="KWP2000TNR10">
+60</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2130">
+ </A>
+<EM CLASS="KWP2000TNR10">
+300</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2132">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Time from end of the address byte to start of synchronisation pattern</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2142">
+ </A>
+<EM CLASS="KWP2000TNR10">
+W2</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2144">
+ </A>
+<EM CLASS="KWP2000TNR10">
+5</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2146">
+ </A>
+<EM CLASS="KWP2000TNR10">
+20</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2148">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Time from end of the synchronisation pattern to the start of key byte 1</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2158">
+ </A>
+<EM CLASS="KWP2000TNR10">
+W3</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2160">
+ </A>
+<EM CLASS="KWP2000TNR10">
+0</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2162">
+ </A>
+<EM CLASS="KWP2000TNR10">
+20</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2164">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Time between key byte 1 and key byte 2</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2174">
+ </A>
+<EM CLASS="KWP2000TNR10">
+W4</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2176">
+ </A>
+<EM CLASS="KWP2000TNR10">
+25</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2178">
+ </A>
+<EM CLASS="KWP2000TNR10">
+50</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2180">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Time between key byte 2 (from the server (ECU)) and its inversion from the client (tester). Also the time from the inverted key byte 2 from the client (tester) and the inverted address from the server (ECU)</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2190">
+ </A>
+<EM CLASS="KWP2000TNR10">
+W5</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2192">
+ </A>
+<EM CLASS="KWP2000TNR10">
+300</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2194">
+ </A>
+<EM CLASS="KWP2000TNR10">
+-</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2196">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Time before the client (tester) starts to transmit the address byte</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Standardtext">
+<A NAME="pgfId=11097">
+ </A>
+</H6>
+<P CLASS="Beschreibung">
+<A NAME="pgfId=11099">
+ </A>
+Timing parameters for quick initialization (excerpt from Keyword Protocol 2000 Part 2)</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11102">
+ </A>
+<IMG SRC="funktionen-20.gif">
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11104">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11106">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11109">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2207">
+ </A>
+<EM CLASS="KWP2000TNR10">
+timing parameter</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2209">
+ </A>
+<EM CLASS="KWP2000TNR10">
+minimum timing  value</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2211">
+ </A>
+<EM CLASS="KWP2000TNR10">
+timing value</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2213">
+ </A>
+<EM CLASS="KWP2000TNR10">
+maximum timing value</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2223">
+ </A>
+<EM CLASS="KWP2000TNR10">
+TiniL</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2225">
+ </A>
+<EM CLASS="KWP2000TNR10">
+24 ms</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2227">
+ </A>
+<EM CLASS="KWP2000TNR10">
+25 +/- 1 ms</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2229">
+ </A>
+<EM CLASS="KWP2000TNR10">
+26 ms</EM>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2239">
+ </A>
+<EM CLASS="KWP2000TNR10">
+TWuP</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2241">
+ </A>
+<EM CLASS="KWP2000TNR10">
+49 ms</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2243">
+ </A>
+<EM CLASS="KWP2000TNR10">
+50 +/- 1 ms</EM>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2245">
+ </A>
+<EM CLASS="KWP2000TNR10">
+51 ms</EM>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11111">
+ </A>
+<EM CLASS="KWP2000TNR10">
+</EM>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=278968">
+ </A>
+<EM CLASS="KWP2000TNR10">
+</EM>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=278969">
+ </A>
+<EM CLASS="KWP2000TNR10">
+</EM>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=278970">
+ </A>
+<EM CLASS="KWP2000TNR10">
+</EM>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=278971">
+ </A>
+<EM CLASS="KWP2000TNR10">
+</EM>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=278972">
+ </A>
+<EM CLASS="KWP2000TNR10">
+Tidle = W5</EM>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=11113">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11115">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11117">
+ </A>
+Example (Target address: 1; otherwise default settings for extended timing, target address for 5-baud stimulation: 1)</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=11119">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11122">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2252">
+ </A>
+K2000Ini</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2254">
+ </A>
+1, 2, 0, 20, 1000, 0, 5000, 5, 300, 20, 20, 25, 50, 300, 25, 50 ,10400,0,1</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=11124">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11126">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11128">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

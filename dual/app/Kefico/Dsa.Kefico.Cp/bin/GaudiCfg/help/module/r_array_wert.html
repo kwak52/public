@@ -1,0 +1,455 @@
+<HTML>
+<HEAD>
+<TITLE>R_ARRAY_WERT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_ARRAY_WERT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_array_wert.C,v 1.18 2005/09/28 13:50:37 cvs Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	lesen/schreiben eine Feldelementes
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		r_array_wert.C
+   Autor:			RtW/TEF72-Juilfs (20.10.2001)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++ 
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void r_array_wert(
+	   ,shm_stringpointer   *zeilen_wert 
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Über dieses Modul kann der Wert eines Feldelementes gelesen bzw. 
+   beschrieben werden.
+   
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> ARRAY_MODE</b><pre>   R = lesen  eines Feldelementes
+   W = setzen eines Feldelementes
+   
+   Hinweis zu String-Feldern:
+   Modus "R" bei String-Feldern nicht moeglich; hier ist das Modul P_ZERLEGE_STR 
+   einzusetzen. Der Grund hierfuer liegt darin, dass in diesem Modul kein Bereich
+   fuer Strings angegeben werden kann.
+   Im Mode "W" bei String-Feldern wird der komplette Inhalt der uebergebenen Variablen
+   ab der Stelle, die mit ARRAY_INDEX bezeichnet ist, eingefuegt. Sind Feld-Elemente 
+   vor dem einzufuegendem Element nicht belegt, so werden diese mit dem Wert "F" 
+   belegt!
+   ------------------------------</pre><b><a name="param4">4</a> ARRAY</b><pre>   Variablen Name		
+   ------------------------------</pre><b><a name="param5">5</a> ARRAY_INDEX</b><pre>   Feldinindex auf das Feldelement das gelesen bzw. beschrieben werden soll.
+   Der Index beginnt bei 1
+   ------------------------------</pre><b><a name="param6">6</a> ERGEBNIS</b><pre>   Wert der gelesen wurde (R Mode)
+   Wert mit dem ein Feldelement belegt werden soll (W Mode)
+   ------------------------------</pre><b><a name="param7">7</a> FEHLERFLAG</b><pre>   Fehlerflag 
+   &lt;userdoc&gt;
+   ---------------------------------------------------------------------
+
+-- pragmas -----------------------------------------------------------
+#pragma  COPYRIGHT "Robert Bosch GmbH Reutlingen, RtW/TEF72"
+#pragma  VERSIONID "$Id: r_array_wert.C,v 1.18 2005/09/28 13:50:37 cvs Exp $"
+
+-- defines -----------------------------------------------------------
+#define HEADER "$Id: r_array_wert.C,v 1.18 2005/09/28 13:50:37 cvs Exp $" 
+#define EXTERN extern	 Bei allen Subroutinen 
+
+#define IND_PRUEFSCHRITT	1
+#define IND_MODE  		3
+#define IND_ARRAY		4
+#define IND_ARRAY_INDEX		5
+#define IND_WERT		6
+#define IND_FEHLERFLAG		7
+-- includes ----------------------------------------------------------
+#include "shm_syscom.H"
+#include &lt;stdlib.h&gt; 
+#include &lt;string.h&gt;  
+#include "libstr.H"  
+#include "libccs.H"
+#include "ccl_defines.H"         ccl_definition   PREINT              
+#include &lt;math.h&gt;
+#include "libtestmodul_pool.H"	// Modul Lib
+
+-- external functions / variables ------------------------------------
+long round_wert(double wert_d, STRING rundungsart, STRING &amp;ergebnis );
+-- global variables (nur im  "main" erlaubt) -------------------------
+ -Begin---------------------------------------------------------------
+   ---------------------------------------------------------------------
+
+//#define test_ra
+#ifdef test_ra
+void xxx(shm_stringpointer *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+{
+   int			i;
+   int    		ind;
+   bool			bOk;
+   STRING   		w_hilf;
+   QString   		w_strHilf;
+   char   		w_szHilf[1000];
+   STRING   		r_hilf;
+   QString   		r_strHilf;
+   char   		r_szHilf[1000];
+   Variablenverwaltung	*v_address;   
+   
+   ind       = index1 - 1;
+   v_address = (Variablenverwaltung *)(zeilen_wert-&gt;ptr[ind+IND_ARRAY]); 
+
+   r_strHilf = "W";
+   r_hilf    = "W";
+   if (*zeilen_wert-&gt;ptr[ind+IND_MODE] == "W")
+      cout&lt;&lt;"== W  true"&lt;&lt;endl;
+   else
+      cout&lt;&lt;"== W  false"&lt;&lt;endl;
+   if (*zeilen_wert-&gt;ptr[ind+IND_MODE] == (const char*)r_strHilf)
+      cout&lt;&lt;"== W  true"&lt;&lt;endl;
+   else
+      cout&lt;&lt;"== W  false"&lt;&lt;endl;
+   if (*zeilen_wert-&gt;ptr[ind+IND_MODE] == r_hilf)
+      cout&lt;&lt;"== W  true"&lt;&lt;endl;
+   else
+      cout&lt;&lt;"== W  false"&lt;&lt;endl;
+   
+   if (*zeilen_wert-&gt;ptr[ind+IND_MODE] != "W")
+      cout&lt;&lt;"!= W  true"&lt;&lt;endl;
+   else
+      cout&lt;&lt;"!= W  false"&lt;&lt;endl;
+   if (*zeilen_wert-&gt;ptr[ind+IND_MODE] != (const char*)r_strHilf)
+      cout&lt;&lt;"!= W  true"&lt;&lt;endl;
+   else
+      cout&lt;&lt;"!= W  false"&lt;&lt;endl;
+   if (*zeilen_wert-&gt;ptr[ind+IND_MODE] != r_hilf)
+      cout&lt;&lt;"!= W  true"&lt;&lt;endl;
+   else
+      cout&lt;&lt;"!= W  false"&lt;&lt;endl;
+   
+   w_strHilf = "";
+   for (i = 0; i &lt; 8; i++)
+      w_strHilf += "1234567890";
+   strcpy(w_szHilf,w_strHilf.latin1());
+   w_hilf = w_strHilf;
+   
+   cout&lt;&lt;"1. kurzer Wert setzen QSTRING "&lt;&lt;endl;
+   w_strHilf[0] = 'A';
+   v_address-&gt;put_wert(w_strHilf);
+   v_address-&gt;get_wert(r_hilf);
+   cout&lt;&lt;"   read Wert STRING: "&lt;&lt;(char*)r_hilf&lt;&lt;endl;
+   v_address-&gt;get_wert(r_strHilf);
+   cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+   strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+   cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+   
+   cout&lt;&lt;"2. kurzer Wert setzen const char "&lt;&lt;endl;
+   w_szHilf[0] = 'B';
+   v_address-&gt;put_wert(w_szHilf);
+   v_address-&gt;get_wert(r_hilf);
+   cout&lt;&lt;"   read Wert STRING: "&lt;&lt;(char*)r_hilf&lt;&lt;endl;
+   v_address-&gt;get_wert(r_strHilf);
+   cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+   strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+   cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+   
+   cout&lt;&lt;"3. kurzer Wert setzen Zusweisung const char*"&lt;&lt;endl;
+   w_szHilf[0] = 'C';
+   *zeilen_wert-&gt;ptr[ind+IND_ARRAY] = w_szHilf;
+   v_address-&gt;get_wert(r_hilf);
+   cout&lt;&lt;"   read Wert STRING: "&lt;&lt;(char*)r_hilf&lt;&lt;endl;
+   v_address-&gt;get_wert(r_strHilf);
+   cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+   strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+   cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+
+   cout&lt;&lt;"4. kurzer Wert setzen Zusweisung const char*"&lt;&lt;endl;
+   w_strHilf[0] = 'D';
+   *zeilen_wert-&gt;ptr[ind+IND_ARRAY] = w_strHilf;
+   v_address-&gt;get_wert(r_hilf);
+   cout&lt;&lt;"   read Wert STRING: "&lt;&lt;(char*)r_hilf&lt;&lt;endl;
+   v_address-&gt;get_wert(r_strHilf);
+   cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+   strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+   cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+
+   cout&lt;&lt;"5. kurzer Wert setzen Zusweisung STRING"&lt;&lt;endl;
+   w_hilf[0] = 'E';
+   *zeilen_wert-&gt;ptr[ind+IND_ARRAY] = w_hilf;
+   v_address-&gt;get_wert(r_hilf);
+   cout&lt;&lt;"   read Wert STRING: "&lt;&lt;(char*)r_hilf&lt;&lt;endl;
+   v_address-&gt;get_wert(r_strHilf);
+   cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+   strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+   cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+
+   cout&lt;&lt;"6. kurzer Wert setzen STRING "&lt;&lt;endl;
+   w_hilf[0] = 'F';
+   v_address-&gt;put_wert(w_hilf);
+   v_address-&gt;get_wert(r_hilf);
+   cout&lt;&lt;"   read Wert STRING: "&lt;&lt;(char*)r_hilf&lt;&lt;endl;
+   v_address-&gt;get_wert(r_strHilf);
+   cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+   strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+   cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+      
+   if (v_address-&gt;isArrayVariable())
+   {
+      w_strHilf = "";
+      for (i = 0; i &lt; 10; i++)
+         w_strHilf += "1234567890";
+      strcpy(w_szHilf,w_strHilf.latin1());
+      
+      cout&lt;&lt;"7. langer Wert setzen QSTRING "&lt;&lt;endl;
+      w_strHilf[0] = 'G';
+      v_address-&gt;put_wert(w_strHilf);
+      v_address-&gt;get_wert(r_strHilf);
+      cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+      strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+      cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+      
+      cout&lt;&lt;"8. langer Wert setzen const char "&lt;&lt;endl;
+      w_szHilf[0] = 'H';
+      v_address-&gt;put_wert(w_szHilf);
+      v_address-&gt;get_wert(r_strHilf);
+      cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+      strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+      cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+      
+      cout&lt;&lt;"9. langer Wert setzen Zusweisung const char*"&lt;&lt;endl;
+      w_szHilf[0] = 'I';
+      *zeilen_wert-&gt;ptr[ind+IND_ARRAY] = w_szHilf;
+      v_address-&gt;get_wert(r_strHilf);
+      cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+      strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+      cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+
+      cout&lt;&lt;"10. langer Wert setzen Zusweisung qstring "&lt;&lt;endl;
+      w_strHilf[0] = 'J';
+      *zeilen_wert-&gt;ptr[ind+IND_ARRAY] = w_strHilf;
+      v_address-&gt;get_wert(r_strHilf);
+      cout&lt;&lt;"   read Wert QSTRING: "&lt;&lt;(const char*)r_strHilf&lt;&lt;endl;
+      strcpy(r_szHilf, *zeilen_wert-&gt;ptr[ind+IND_ARRAY]);
+      cout&lt;&lt;"   read Wert Zuweisung: "&lt;&lt;(const char*)r_szHilf&lt;&lt;endl;
+   }
+}
+#endif
+
+
+
+
+
+int r_array_wert(shm_stringpointer *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+{
+
+-- local variables --------------------------------------------------- 
+   int			loop1;
+   int			laenge_eingabe;
+   int			laenge_gesamt;
+
+   varmem_typen		dat_in;		// Feldpointer auf die Daten
+   long			ind;			// index 
+   long			ind_wert;		// index auf den Wert
+   long			ind_wert_ext;	// externer index auf den Wert
+   long			Anzahl;			// Anzahl
+   long			MaxAnzahl;		// maximale Anzahl
+   STRING		mode;			// Modus
+   STRING		name;			// name der Variablen
+   long			schritt;		// Schritt
+   long			typ;			// Datenfeldtyp
+   Variablenverwaltung	*v_array;   	// Variablenpointer 
+   long			erg;		// ergebnis funktion
+
+   //------------------------------------------------------------------
+   // Schrittbetriebshandler
+   // Dieser kann je nach ModulfunktionalitÌt auch im Modul
+   // spÌter aufgerufen werden
+   //------------------------------------------------------------------ 
+   
+   ind = index1 - 1;
+   *zeilen_wert-&gt;ptr[ind + IND_FEHLERFLAG] = "0"; 
+
+   schritt = schrittbetrieb(zeilen_wert,index1);   
+   if(schritt!=1) return 0; 
+   if (*zeilen_wert-&gt;ptr[ind+IND_MODE] == "R")  
+   {
+    if(strcmp(Ssp_vi-&gt;job.liststate,PREINT)==0) return 0; 
+   }
+   // Abfrage ob im Rüstlauf der Index 0 übergeben wird (&amp;Variable) dann darf die funktion nicht durchlaufen werden  
+   if(strcmp(Ssp_vi-&gt;job.liststate,PREINT)==0  ) 
+   {
+     ind_wert_ext = atoi((const char*)*zeilen_wert-&gt;ptr[ind+IND_ARRAY_INDEX]);
+     if(ind_wert_ext&lt;=0) return 0;
+   }  
+#ifdef test_ra
+   xxx(zeilen_wert, index1, anzahl);
+   return 0;
+#endif
+
+   v_array = (Variablenverwaltung *)zeilen_wert-&gt;ptr[ind + IND_ARRAY]; 
+   v_array-&gt;get_name(name);
+   if (!v_array-&gt;mem_getpoi (dat_in, typ, Anzahl, MaxAnzahl))
+   {  
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+         "variable: %s is not a array", (char*)name );
+      return -1;
+   }
+   // externer Index beginnt bei 1, interner bei 0
+   ind_wert_ext = atoi((const char*)*zeilen_wert-&gt;ptr[ind+IND_ARRAY_INDEX]);
+   ind_wert     = ind_wert_ext - 1;
+//cout&lt;&lt;"ind_wert: "&lt;&lt;ind_wert&lt;&lt;" Anzahl: "&lt;&lt;Anzahl&lt;&lt;" MaxAnzahl: "&lt;&lt;MaxAnzahl&lt;&lt;endl;
+   if (*zeilen_wert-&gt;ptr[ind+IND_MODE] == "R")
+   {
+      erg = 0;
+      if ((ind_wert &lt; 0) || (ind_wert &gt;= Anzahl))
+      {
+	 error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+            "illegal index: %d there are only %d elements", ind_wert_ext, Anzahl );
+	 return -1;
+      }
+      if (typ == VARMEM_TYP_BYTE)
+      {
+         int		iValue;
+         QString 	strNum;
+         
+         iValue = (unsigned char)dat_in.c[ind_wert];
+         strNum.setNum(iValue);
+         zeilen_wert-&gt;ptr[ind+IND_WERT]-&gt;put_wertTyp(strNum, typ);
+      }
+      else if (typ == VARMEM_TYP_INT)
+      {
+         char szHil[80];
+	 sprintf(szHil, "%ld", dat_in.i[ind_wert]);
+         zeilen_wert-&gt;ptr[ind+IND_WERT]-&gt;put_wertTyp(szHil, typ);
+      }
+      else if (typ == VARMEM_TYP_DOUBLE)
+      {
+         STRING	hil;
+         erg = round_wert(dat_in.d[ind_wert], "0",  hil);
+         zeilen_wert-&gt;ptr[ind+IND_WERT]-&gt;put_wertTyp(hil, typ);
+      }
+      else if (typ == VARMEM_TYP_STRING)
+      {
+         error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+                   "Lesen des Feldes %s nur mit P_ZERLEGE_STR !!", (char*)name );
+         return -1;
+      }
+      return erg;
+   }
+   else if (*zeilen_wert-&gt;ptr[ind+IND_MODE] == "W")
+   {
+      if ((ind_wert &lt; 0) || (ind_wert &gt;= MaxAnzahl))
+      {
+	 error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+            "illegal index: %d max. array dimension: %d", ind_wert_ext, MaxAnzahl );
+	 return -1;
+      }
+      if (typ == VARMEM_TYP_BYTE)
+      {
+         int 	iValue;
+         
+         iValue = atoi((const char*)*zeilen_wert-&gt;ptr[ind+IND_WERT]);
+         if (iValue &gt; 255)
+         {
+            error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+               "value &gt; 255: %i", iValue );
+            iValue = 255;
+         }
+	 dat_in.c[ind_wert] = iValue;
+         if (ind_wert &gt;= Anzahl)
+         {
+             v_array-&gt;mem_setanzahl ( ind_wert+1 );
+         }
+      }
+      else if (typ == VARMEM_TYP_INT)
+      {
+	 dat_in.i[ind_wert] = atoi((const char*)*zeilen_wert-&gt;ptr[ind+IND_WERT]);
+         if (ind_wert &gt;= Anzahl)
+         {
+             v_array-&gt;mem_setanzahl ( ind_wert+1 );
+         }
+      }
+      else if (typ == VARMEM_TYP_DOUBLE)
+      {
+	 dat_in.d[ind_wert] = atof((const char*)*zeilen_wert-&gt;ptr[ind+IND_WERT]);
+//printf("ind_wert: %d offset: %d\n",ind_wert,xx);
+         if (ind_wert &gt;= Anzahl)
+         {
+             v_array-&gt;mem_setanzahl ( ind_wert+1 );
+         }
+      }
+      else if (typ == VARMEM_TYP_STRING)
+      {
+         laenge_eingabe = strlen((const char *)*zeilen_wert-&gt;ptr[ind+IND_WERT]);
+         laenge_gesamt = laenge_eingabe + ind_wert;
+         
+         if (laenge_gesamt &gt; MaxAnzahl)
+         {
+              error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+                "illegal index: Var %s has %d Digits, max. array dimension: %d",(char*)name, ind_wert+laenge_eingabe, MaxAnzahl );
+               return -1;
+         }
+         debug_message (__FILE__,__LINE__,DEB_DATA,
+             " Feld %s hat Inhalt %s vor schreiben und ist %i Zeichen lang",
+                    (char*)name, dat_in.c, strlen(dat_in.c));
+         if ( Anzahl &lt;= ind_wert)       // Uebergabewert an Feld anhaengen
+         {
+               for (loop1=Anzahl; loop1&lt;ind_wert; loop1++)
+               {
+                    str_cat(dat_in.c,"F",ind_wert+1);
+               }  
+               v_array-&gt;mem_setanzahl (ind_wert);            
+               str_cat(dat_in.c, (const char *)*zeilen_wert-&gt;ptr[ind+IND_WERT],laenge_gesamt+1); 
+               v_array-&gt;mem_setanzahl (laenge_gesamt); 
+         } 
+         else  if ( laenge_gesamt &lt;=  Anzahl )  // vorhandenen Wert mit Uebergabewert ueberschreiben 
+         {
+              memmove(dat_in.c+ind_wert,(const char *)*zeilen_wert-&gt;ptr[ind+IND_WERT],laenge_eingabe);
+         }
+         else 
+         {
+              memmove(dat_in.c+ind_wert,(const char *)*zeilen_wert-&gt;ptr[ind+IND_WERT],laenge_eingabe);  
+              v_array-&gt;mem_setanzahl (laenge_gesamt); 
+         }
+         debug_message (__FILE__,__LINE__,DEB_DATA,
+             " Feld %s hat Inhalt %s nach schreiben und ist %i Zeichen lang",
+                    (char*)name, dat_in.c, strlen(dat_in.c));
+// cout &lt;&lt; "Feld " &lt;&lt; (char*)name  &lt;&lt; " hat Inhalt " &lt;&lt; dat_in.c &lt;&lt; " und ist lang: " &lt;&lt; strlen(dat_in.c) &lt;&lt; endl;       
+      }     
+   }
+   else
+   {
+      error_message (ERR_ERROR_TTNR, HEADER,__LINE__,
+         "illegal mode: %s", (const char*)*zeilen_wert-&gt;ptr[ind+IND_MODE] );
+      return -1;
+   }
+
+   return 0;
+}
+ -End of file---------------------------------------------------------
+   Historie:
+   
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<TITLE>R_FAULTMEM</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_FAULTMEM</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_faultmem.C,v 1.5 2006/01/17 15:20:27 nit3an Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	checks for target errors and states
+   ---------------------------------------------------------------------
+   Projekt:		testlisten_anw_module
+   Sourcefile:		r_faultmem.C
+   Autor:		AnW/TEF7-Thomas Nickel (09.08.2004)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01), /7/C/D (HP-UX 10.20), Linux
+   Sprache:		ANSI-C/C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   
+   int r_faultmem 
+   (shm_stringpointer *zeilen_wert  // &lt;I&gt; Pointer to anzahl STRING parameters
+   ,long index   		    // &lt;I&gt; Index number
+   ,long anzahl)		    // &lt;I&gt; Number of values
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   error = r_faultmem
+   (*zeilen_wert	// &lt;I&gt; Pointer to anzahl STRING parameters
+   ,index		// &lt;I&gt; Index number
+   ,anzahl)		// &lt;I&gt; Number of values
+   
+   if (error != 0) 	// Fehlerbeschreibung ... 
+   {
+   // Fehlerhandling ... 
+   }
+   
+   ---------------------------------------------------------------------
+   Function description: This module parses a hexadecimal ECU fault
+   memory input string for a target fault number depending on platform
+   and search option.
+   The fault memory number is returned in RESULT_NO (0 if not found)
+   The state flags are returned in RESULT_STATE.
+   The position of the fault memory number is returned in RESULT_ADDRESS.
+   
+   When using this module you should pay attention to the call sequence:
+   - 1st search all fault memory numbers which must exist (ALWAYS),
+   - 2nd search possible fault memory numbers which may exist (POSSIBLE),
+   - 3rd search for unknown errors (TARGET_FLTNO = 0).
+
+
+   Description of module parameters:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>   GAUDI teststep</pre><b><a name="param2">2</a> POSITION</b><pre>   PAV position</pre><b><a name="param3">3</a> INPUT_STRING</b><pre>(input)
+   Hexadecimal ECU fault memory string (got with module P_AUFTRAG),
+   e.g. for platform AB9:
+   INPUT_STRING="A753B60FCFAB" will be separated into the parts:
+        A753 B60F CFAB
+   separation into bits:
+      A753 --&gt; 1010 0111 0101 0011, B60F --&gt; 1011 0110 0000 1111, ...
+   separation into state flags and error numbers:
+          A753   		   B60F   	       CFAB
+   state: 1010 01=0x29=41   	   1011 01=0x2D=45     1100 11=0x33=51
+   error: 11 0101 0011=0x353=851   10 0000 1111=0x20F  11 1010 1011=0x3AB
+                                   =527                =939</pre><b><a name="param4">4</a> PLATFORM</b><pre>(input)
+   The INPUT_STRING is evaluated depending on PLATFORM
+   Possible values:
+   AB9:  A fault memory cell has 2 bytes:
+         The 6 high bits contain error state flags,
+         the 10 low bits contain the error number;
+         Bit  0 - 9: error number,
+         Bit 10 -15: state flags (values 0 or 1)
+   AB10: not yet implemented, for future use.</pre><b><a name="param5">5</a> TARGET_FLTNO</b><pre>(input)
+   A target fault number as a decimal value.
+   If TARGET_FLTNO = 0: it is expected that all not already processed
+   fault memory cells are empty (value 0).</pre><b><a name="param6">6</a> SEARCH_OPTION</b><pre>(input)
+   Search options for TARGET_FLTNO, possible values:
+   ALWAYS:   TARGET_FLTNO must exist in INPUT_STRING,
+   POSSIBLE: TARGET_FLTNO may  exist in INPUT_STRING.</pre><b><a name="param7">7</a> FLT_VALIDAT</b><pre>(input/output)
+   A string with bit flags for every fault memory cell position:
+      - not processed fault memory cells are marked with 0,
+      - processed fault memory cells are marked with "1".
+   If FLT_VALIDAT = "", "0" or "-": it is initialized with
+      number of fault memory cells "0"s.</pre><b><a name="param8">8</a> RESULT_NO</b><pre>(output)
+   Decimal error number
+
+   Case TARGET_FLTNO &gt; 0:
+        RESULT_NO = TARGET_FLTNO if TARGET_FLTNO was found,
+                  = -1           if TARGET_FLTNO was not found;
+
+   Case TARGET_FLTNO = 0:
+        Case: all not already processed fault memory cells are empty:
+           RESULT_NO = 0
+        else Case:
+           RESULT_NO = first fault memory number not already found &gt; 0</pre><b><a name="param9">9</a> RESULT_STATE</b><pre>(output)
+   A hexadecimal result string containing 8 bits for the error state.
+   The state flags are filled with 1 bits at the lower end to 8 bits if
+   less than 8 state flags exist. The result is written as a hexadecimal
+   string, e.g. 101010 --&gt; 10101011 --&gt; AB
+   If TARGET_FLTNO was not found or in error case, the result is "FF".</pre><b><a name="param10">10</a> RESULT_ADDR</b><pre>(output)
+   The position of TARGET_FLTNO in INPUT_STRING (the first position has
+   address 0).</pre><b><a name="param11">11</a> ERRORFLAG</b><pre>(output)
+   =0 o.k.; &gt;0: error case
+
+   ...
+</PRE>
+</BODY>
+</HTML>

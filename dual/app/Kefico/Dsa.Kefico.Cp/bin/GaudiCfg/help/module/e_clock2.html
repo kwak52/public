@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE>E_CLOCK2</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_CLOCK2</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_clock2.C,v 1.4 2004/05/21 07:31:49 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung:Initialisieren des externenen Clock2 fuer BOSCH_OUT
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_clock2.C
+   Autor:		RtW/TEF72-Wiese (30.04.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_clock2(shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   if (error == -1)
+   {
+   	// Fehlerbehandlung
+   }   
+   ---------------------------------------------------------------------
+   €bergabeparameter anhand der Modglobal.stl
+   MD,e_clock2</pre><b><a name="param1">1</a> ,PRUEFSCHRITT</b><pre>1</pre><b><a name="param2">2</a> ,POSITION</b><pre>	2
+   ,EXT_CLK2_LINE	3
+   ,TIMEOUT		4   
+   ,CLK2_OUT_LINE	5 
+   
+   Funktionsbeschreibung:
+   Das Einstell - Modul e_clock2 setzt Variablen, die den E_OUT in 
+   der CLOCK2 Funktion steuern.
+   Der CLOCK 2 ist das Signal auf dem Boschbus, das die Karten nach
+   dem Beschreiben mit den entsprechenden Daten aktiviert. Bei Ausgabe des 
+   Clock2 werden die Daten aus dem Primaerspeicher der Karten in den 
+   sekundaerspeicher der Karten umgeschpeichert und damit die Relais oder
+   Steuersignale geschaltet.
+   Bei Aktivierung des EXTERNEN CLOCK2 wird der CLOCK2 
+   nicht sofort nach Ausgabe der Daten ausgegeben, sondern erst nach 
+   Generierung des Trigger auf der gesetzten VXI - Triggerline.
+         
+   Nach jedem e_clock2 muss immer ein E_OUT erfolgen, um die Funktion zu 
+   aktivieren. Das E_clock2 ist nur eine Steuerfunktion fuer den E_OUT</pre><b><a name="param3">3</a> EXT_CLK2_LINE:</b><pre>Linie, auf die getriggert werden soll 
+                        (0-7) -1: Abschalten</pre><b><a name="param4">4</a> TIMEOUT:</b><pre>	Timeout in ms, innerhalb dieser Zeit 
+                        der Trigger kommen muss. Der Timeout muﬁ kleiner als 
+			der Timeout des Boschout - Prozesses sein.</pre><b><a name="param5">5</a> CLK2_OUT_LINE</b><pre>= Ausgabe eines Triggers auf der jeweiligen Triggerline,
+		       wenn ein Clock2 ausgegeben wird. (0-7) -1: Abschalten
+		   
+   Fuer die Funktion externer Clock2 gibt es verschiedene Aufrufmodi:
+   EXT_CLK2_LINE&lt;0, 
+      -&gt; Wegschalten der Funktion 
+      -&gt; Normaler Clock2
+      
+   0&lt;=EXT_CLK2_LINE&lt;=7, TIMEOUT==0
+      -&gt; Initialisieren der Funktion 
+      -&gt; scharfmachen der vxk5010 beim naechsten e_out auf eine Triggerline, 
+      Ausgabe des Clock2 wenn ein Trigger auf dieser Linie erfolgt ist. Der 
+      naechste Clock2 wartet nicht auf den Trigger
+      
+   0&lt;=EXT_CLK2_LINE&lt;=7, TIMEOUT&gt;0  -&gt; Initialisieren der Funktion falls es noch 
+      nicht erfolgt ist und warten auf den Trigger. Falls in der Zwischzeit
+      schon ein Trigger erfolgt ist wird die vxk5010 daraufhin verifiziert 
+      und das Modul verlassen. Wenn innerhalb der Timeoutzeit kein Trigger 
+      erfolgt, wird eine Errormessage ausgegeben.
+
+   Revision 1.1  2001/12/18 10:24:34  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.3  1999/12/22 10:06:06  keppler
+   $ID -&gt; $Id
+
+   Revision 1.2  1999/12/22 09:16:56  keppler
+   $Header -&gt; $Id
+
+   Revision 1.1  1999/11/23 14:14:18  katzenma
+   Initial Version by Sniff
+
+Revision 1.1  98/09/10  17:24:02  17:24:02  wiese (Stefan Wiese)
+Initial revision
+
+Revision 1.1  97/12/02  14:24:42  14:24:42  juilfs (Joerg Juilfs)
+Initial revision
+
+   Revision 1.1  96/07/10  10:26:04  10:26:04  keppler (Fritz Keppler)
+   Initial revision
+   
+   ---------------------------------------------------------------------
+
+
+
+</PRE>
+</BODY>
+</HTML>

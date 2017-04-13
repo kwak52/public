@@ -1,0 +1,130 @@
+<HTML>
+<HEAD>
+<TITLE>R_RECHNE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_RECHNE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_rechne.C,v 1.22 2005/07/07 12:01:32 pv73rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Berechnungen durchfÏhren
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		r_rechne.C
+   Autor:		RtW/TEF72-juilfs/Lehmann (28.11.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void r_rechne(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Aufgabe des Rechenmodule ist es, Berechnungen anhan der Eingabezeile
+   vorzunehmen. Das Ergebnis wird wird im Ergebnisstring uebertragen.
+   Der gesamte Ausdruck muss geklammert werden.
+
+   
+   Parameterbeschreibung:
+   INPUT		Beschreibung des aritmethischen Ausdruckes
+                        Laange des Strings 60 Zeichen
+   ERGEBNIS		Ausgabe des Ergebnisses in einer &amp;Variable
+   FEHLER		Fehlerbeschreibung in einer &amp;Variable
+   RUNDUNGSART		Rundart bei Integer Operationen
+			0	Keine Rundung IND_ERGEBNIS ist eine floatzahl
+			1	math. Runden zur nächsten Integerzahl
+				2.49 --&gt; 2
+				2.5 --&gt; 3
+			2	Abrunden zur naechsten Integerzahl
+				2.1  --&gt;  2
+				2.9  --&gt;  2 
+				-2.1 --&gt; -3 
+				-2.9 --&gt; -3
+			3	Aufrunden zur naechsten Integerzahl
+				2.1  --&gt;  3
+				2.9  --&gt;  3 
+				-2.1 --&gt; -2 
+				-2.9 --&gt; -2	
+                    	4	stat. Runden zur naechsten Integerzahl (IEEE 754)
+                                "liegt die zu rundende Zahl genau zwischen zwei
+                                Zahlen, dann wird zur naechsten geraden Zahl gerundet
+                                2.49 --&gt; 2
+				2.5 --&gt; 2
+                                2.51 -&gt; 3
+                                3.49 --&gt; 3
+				3.5 --&gt; 4
+                                3.51 -&gt; 4					
+   
+   Beispiele des Inputstrings:
+   (10+4)
+   (&amp;MEWE*&amp;MEWE2+(&amp;MEWE3/20))
+   INT(&amp;MEWE1)
+   RND(1)
+   
+   +------  String
+   | +----  interger Array 
+   | | +--  double   Array
+   | | |
+          Folgende Operanten werden unterstützt
+   x x x    +  Addition
+   x x x    -  Subtraktion
+   x x x    *  Multiplikation
+   x x x    /  Division
+   x x x    ^  Potenzierung
+   x x x    %  modular 
+          Folgende Funktionen werden unterstuetzt
+   x x x    SIN
+   x x x    ASIN
+   x x x    COS
+   x x x    ACOS
+   x x x    TAN
+   x x x    ATAN
+   x x x    LOG
+   x x x    LOG10
+   x x x    EXPONENT/EXP10
+   x x x    STELLEN
+   x x x    EXP
+   x x x    ABS
+   x x x    SQRT
+   x x x    INT	(Ganzzahl bilden, zB. 5.93 wird 5.00)
+   x x x    RND/RAND (Zufallszahlgenerator, Range: 0.000 - 0.999...
+	         und wird dann mit RND-Argument mutlipliziert)
+   x x x    RUND    Runden von Zahlen ohne Nachkommastellen
+	        Beispiel: 5.9   -----&gt; 6
+     x x    AVERAGE/MITTEL
+     x x    SUMME
+     x x    MIN/IMIN
+     x x    MAX/IMAX
+   x x x    POTENZ
+     x x    MEDIAN
+   x        ACC2CRC
+     x x    SIGMA
+     x x    SHL shift left, das Array wird von unten um ein element nach oben
+                geschoben. Element 1 wird mit 0 belegt.     
+
+   ...
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2DF04660-6A49-493A-ACC6-8131DECC86EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dsu.PLC.Siemens</RootNamespace>
+    <AssemblyName>Dsu.PLC.Siemens</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>3</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LanguageExt.Core">
+      <HintPath>..\..\..\open-sources\bin\LanguageExt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Siemens.Engineering">
+      <HintPath>..\..\..\app\bin\Release\Siemens.Engineering.dll</HintPath>
+    </Reference>
+    <Reference Include="Siemens.Engineering.Hmi">
+      <HintPath>..\..\..\app\bin\Release\Siemens.Engineering.Hmi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\..\..\app\bin\Release\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\..\..\app\bin\Release\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\..\..\app\bin\Release\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\ChannelRequestExecutor.cs" />
+    <Compile Include="Common\ConnectionBase.cs" />
+    <Compile Include="Common\ConnectionParametersEthernet.cs" />
+    <Compile Include="Common\PlcException.cs" />
+    <Compile Include="Common\IObservableEvent.cs" />
+    <Compile Include="Common\TagBase.cs" />
+    <Compile Include="IConnection.cs" />
+    <Compile Include="IConnectionParameters.cs" />
+    <Compile Include="ICpu.cs" />
+    <Compile Include="ITag.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ErrorStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\strings-en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings-en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\strings-fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings-fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Siemens\S7ChannelRequestExecutor.cs" />
+    <Compile Include="Siemens\S7ConnectionParameters.cs" />
+    <Compile Include="Siemens\S7Connection.cs" />
+    <Compile Include="Siemens\S7Cpu.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Configuration.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\ConnectionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\ConnectionEditor.Designer.cs">
+      <DependentUpon>ConnectionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\C_PropertyNck.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\NckTagEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\NckTagEditor.Designer.cs">
+      <DependentUpon>NckTagEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\NckTagUITypeEditor.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\PLCConnectionUITypeEditor.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\PLCTagEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\PLCTagEditor.Designer.cs">
+      <DependentUpon>PLCTagEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\PLCTagUITypeEditor.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\FetchWrite\ErrorCodes.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\FetchWrite\FetchWriteConnection.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\FetchWrite\OperationCode.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\FetchWrite\OrgTypes.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\FetchWrite\RequestHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\FetchWrite\ResponseHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\LibNoDave\IDaveConnection.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\LibNoDave\IPDU.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\LibNoDave\IresultSet.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\LibNoDave\libnodave.net.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\ByteFunctions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Connection.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\ConnectionConfig.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Interfaces\Interface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Interfaces\ISONetworkInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Interfaces\NetLinkLiteInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Interfaces\NetLinkProInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Interfaces\NetworkInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Interfaces\S7OnlineInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Interfaces\SerialInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Interfaces\TCPInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\internal\SocketExtensions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\internal\TCPConnection.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Pdus\daveConst.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Pdus\Pdu.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\Pdus\PduRequest.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\ResultSet.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Library\TcpNETdave.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Networking\SocketExtensions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\Networking\TCPFunctionsAsync.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\PLCConnection.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\PLCConnectionConfiguration.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\PLCNckTag.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\PLCTag.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\PLCTagGeneric.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\PLCTagReadHelper.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\S7_xxx\SZLData.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Communication\S7_xxx\SZLDatasets.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\AWL\Step7V5\S7ConvertingOptions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\BitByteAddress.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Block.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\DataBlockRow.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\FunctionBlockRow.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\IBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\IDataBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\IDataRow.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\IFunctionBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\IProjectBlockInfo.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Network.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\ProjectBlockInfo.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\ProjectPlcBlockInfo.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\ReferenceDataEntry.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\ReferencePoint.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5Block.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5CommentBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5DataBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5FunctionBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5FunctionBlockNetwork.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5FunctionBlockRow.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5Parameter.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5ParameterFormat.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5ParameterType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step5\S5ProjectBlockInfo.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V11\TIABlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V11\TIADataBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V11\TIADataRow.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V11\TIAFunctionBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V11\TIAProgrammBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V11\TIAProjectBlockInfo.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\PLCFunctionBlockAdressType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7AnyPointer.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7Block.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7DataBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7DataBlockExpandOptions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7DataRow.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7DataRowSubType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7DataRowType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7FunctionBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7FunctionBlockNetwork.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7FunctionBlockParameter.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7FunctionBlockParameterDirection.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7FunctionBlockRow.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7ProjectBlockInfo.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7ProjectSourceInfo.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7SourceBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7VATBlock.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\Step7V5\S7VATRow.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Blocks\TiaAndSTep7DataBlockRow.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\ConnectionTargetPLCType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\DiagnosticEntry.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Hardware\Step7V5\MasterSystem.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Hardware\Step7V5\Network.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Hardware\Step7V5\Node.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Hardware\Step7V5\ProfibusMasterSystem.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Hardware\Step7V5\ProfibusNetwork.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Hardware\Step7V5\ProfibusNode.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Hardware\Step7V5\ProfinetMasterSystem.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Hardware\Step7V5\ProfinetNode.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\LibNoDaveConnectionLibraryException.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\LibNoDaveConnectionLibraryExceptionType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\MemoryArea.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\MnemonicLanguage.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\MultiLanguangeString.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Network\EthernetNetworkInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Network\MpiProfiBusNetworkInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Network\Network.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Network\NetworkInterface.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Network\NetworkType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\PLCBlockName.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\PLCBlockType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\PLCLanguage.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\PLCMemoryInfo.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\PLCState.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\PLCTriggerVarTab.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\PLCType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Pointer.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\IBlocksFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\IHardwareFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\IPLCBlocksFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\IProgrammFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\IProjectFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\IRootProgrammFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\ISymbolTable.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\OnlineBlocksFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\ProjectFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step5\ReferenceData.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step5\Step5BlocksFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step5\Step5ProgrammFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step5\Step5ProjectFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step5\SymbolTable.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V11\TIABlocksFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V11\TIACPUFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V11\TIAProjectFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V11\TIASymbolTableEntry.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V11\TIASymTabFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\BlocksOfflineFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\CommunicationProcessorFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\CPFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\CPUFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\HardwareConfigFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\S7ProgrammFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\SourceFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\StationConfigurationFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\Step7ProjectFolder.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\Step7V5\SymbolTable.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Projectfolders\SymbolTableEntry.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\ProjectItem.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\ReferenceDataAccessMode.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\Step7Attribute.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\TagDataType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\TagDisplayDataType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Enums\dBaseType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Enums\TagHeaderKeyFormat.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Enums\TagKeyFormat.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Index\BTree.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Index\Field.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Index\Index.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Index\MDX\MDX.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Index\MDX\MDXFile.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Index\MDX\MNode.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Index\Node.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Index\NodeFloat.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Index\NodeKey.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\ParseDBF.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Structures\DBFHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Structures\DBT\DBTHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Structures\DBT\MemoHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Structures\FieldDescriptor.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Structures\MDX\MDX4TagTableHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Structures\MDX\MDX7TagTableHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Structures\MDX\MDXHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Structures\MDX\MDXTagHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\DBF\Util.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\ChunkedMemoryStream.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\CrcHelper.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\DictionarySerializer.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\EndianAttribute.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\EnumListBoxExtensions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\IEnumerableExtensions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\InputBox.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\NumericComparer.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\SerializeToString.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\SingleExtensions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\StringExtensions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\StringLogicalComparer.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\TiaCrcHelper.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\General\ZipHelper.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S5\MC5\MC5LIB_SYMTAB.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S5\MC5\MC5toAWL.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S5\MC5\MC5toComment.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S5\MC5\MC5toDB.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_1xyy\VariableLengthQuantityHelper.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\AWLCodeOptimizer.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\AWLtoMC7.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\AWLToSource.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\CallConverter.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\DBtoMC7.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\FBStaticAccessConverter.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\Helper.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\JumpMarks.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\LocalDataConverter.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\MC7Converter.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\MC7toAWL.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\MC7toDB.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\Mnemonic.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\NetWork.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\Parameter.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\PLCs\S7_xxx\MC7\StaticDataConverter.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\Project.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\Projects.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\SelectPartType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\SelectProjectPart.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\SelectProjectPartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\SelectProjectPartForm.Designer.cs">
+      <DependentUpon>SelectProjectPartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\SelectProjectPartMultiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\SelectProjectPartMultiForm.designer.cs">
+      <DependentUpon>SelectProjectPartMultiForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\Step5Project.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\Step7ProjectV11.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\Step7ProjectV11Tia.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\Step7ProjectV5.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\AttribSets\CoreAttributes.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\BinaryReaderExtensions.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Enums\TiaAttribSets.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Enums\TiaFileProtocol.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Enums\TiaFileType.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Enums\TiaFixedRootObjectInstanceIds.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Enums\TiaObjectStates.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Enums\TiaObjectStatesLegacy.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Enums\TiaTypeIds.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Structs\TiaFileHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Structs\TiaMarker.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Structs\TiaObjectHeader.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\Structs\TiaObjectHeaderLegacy.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\TiaCompression.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\TiaFileObject.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\TiaHelper.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\TiaObjectId.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\TiaRootObjectEntry.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\TiaRootObjectList.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\AttributeClasses\BaseTiaAttributeSet.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\AttributeClasses\BaseTiaExpandoAttributeSet.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\AttributeClasses\CoreAttributes.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\Attributes\TiaAttributeIdAttribute.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\Attributes\TiaTypeIdAttribute.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\ParentLink.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\TiaObject.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\TiaObjectStructure.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\TiaXmlWriter.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\TIA\UsingTiaDlls\TypeClasses\TiaStorrageObject.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Simulator\Simulator.cs" />
+    <Compile Include="Siemens\LibNoDaveConnectionLibrary\Source\AWLSourceParser.cs" />
+    <Compile Include="Siemens\S7Tag.cs" />
+    <Compile Include="Utilities\ExtensionMethods.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ErrorStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\strings-en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings-en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\strings-fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings-fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\ConnectionEditor.en.resx">
+      <DependentUpon>ConnectionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\ConnectionEditor.es.resx">
+      <DependentUpon>ConnectionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\ConnectionEditor.resx">
+      <DependentUpon>ConnectionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\NckTagEditor.en.resx">
+      <DependentUpon>NckTagEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\NckTagEditor.es.resx">
+      <DependentUpon>NckTagEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\NckTagEditor.resx">
+      <DependentUpon>NckTagEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\PLCTagEditor.en.resx">
+      <DependentUpon>PLCTagEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\PLCTagEditor.es.resx">
+      <DependentUpon>PLCTagEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Communication\Editors\PLCTagEditor.resx">
+      <DependentUpon>PLCTagEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\DiagnosticEntry.en.resx">
+      <DependentUpon>DiagnosticEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\DiagnosticEntry.es.resx">
+      <DependentUpon>DiagnosticEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\DataTypes\DiagnosticEntry.resx">
+      <DependentUpon>DiagnosticEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\SelectProjectPartForm.resources" />
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\SelectProjectPartForm.resx">
+      <DependentUpon>SelectProjectPartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Siemens\LibNoDaveConnectionLibrary\Projectfiles\SelectProjectPartMultiForm.resx">
+      <DependentUpon>SelectProjectPartMultiForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Siemens\LibNoDaveConnectionLibrary\Documentation\System Software for S7-300 and S7-400 System and Standard Functions.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\DBFsInBlocksOfflineFolder.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\Info.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\Licence.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\MC5CodeOfParameterAndDBinProjectFileAndOnline.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\PDUs.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\S5D-Baustein1.bmp" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\SDBs.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\StatusOfPLCBlock.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\Step5ProjectInfo.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\Step7ProjectFileCommentRowInSubblkDBF.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\Step7Projectfiles.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\SZLs.txt" />
+    <Content Include="Siemens\LibNoDaveConnectionLibrary\Documentation\TIA CRC.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

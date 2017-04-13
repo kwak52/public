@@ -1,0 +1,110 @@
+<HTML>
+<HEAD>
+<TITLE>M_CONTROL</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_CONTROL</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: m_control.C,v 1.5 2005/04/19 14:40:57 lehmann Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Verzweigungsmodul fœr IF/THEN/ELSE
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		m_control.C
+   Autor:		RtW2/TEF72-Juilfs (15.7.99)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void m_control(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+
+MD,M_CONTROL
+                ,PRUEFSCHRITT		
+                ,POSITION
+                ,VERZWEIGUNG		
+                ,BEDINGUNG
+		
+Aufgabe der Funktion ist es, ein Verzweigunssymbol mit einem Bedingsymbol
+zussammen zu fœhren, und im Vectorinterpreter eventuell eine 
+Verzweigung durch fœhren zu lassen. Besetzung der Variable erfolgt
+oft durch die Funktion M_ZUWEIS. Um einen Vergleich durchfœhren zu kŒnnen,
+muﬁ der Variablentyp (INT/FLOAT/STRING) eingegeben werden.
+Variablen, die aus Standardmakros kommen werden automatisch mit dem
+richtigen Typ versehen.
+
+
+Symbole fœr eine Verzweigung.</pre><b><a name="param3">3</a> VERZWEIGUNG</b><pre>	IF
+				ELSE
+				ENDIF
+				WHILE
+				ENDWHILE</pre><b><a name="param4">4</a> BEDINGUNG</b><pre>	( &amp;VARIABLE1 &gt; &amp;VARIABLE2 )		
+Die Blanks zwischen den Anweisungen sind unbedingt nŒtig!!!!!!!!!!!!!    
+
+   Vergleichsoperatoren
+          ==		Gleich  
+          !=            Ungleich  
+          &lt;&gt;            Ungleich (Gaudifehler 31.08.99) 
+          &lt;             Kleiner     
+          &gt;             GrŒﬁer    
+ 	  &gt;=		GrŒﬁer gleich
+	  &lt;=		Kleiner gleich
+   
+
+    
+
+   1.) Aufbau eines IF THEN ELSE Strukturblockes   
+   ==========================================================================
+   Beispiel:
+   if( &amp;omo &gt; 100  )
+
+   else  
+     
+   endif  
+  
+   2.) Aufbau einer WHILE Schleife 
+   ===========================================================================
+   Beispiel:   
+   while ( &amp;omo &lt; 10 )  
+          
+    break( &amp;OMO == 10 )  Bei TRUE wird nach dem naechsten 
+                         Pruefschritt nach ENDWHILE gesprungen
+   endwhile  
+
+   3.) Verwendung von UND / ODER Vergnœpfungen   
+   ==========================================================================         
+    	&amp;&amp;	UND	    
+    	||	ODER	    
+
+    if( &amp;omo &gt; 100  &amp;&amp;  &amp;dash == 50 ) THEN   
+		
+		
+</PRE>
+</BODY>
+</HTML>

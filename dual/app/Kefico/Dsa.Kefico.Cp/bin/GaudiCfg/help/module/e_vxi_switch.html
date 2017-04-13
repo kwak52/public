@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<TITLE>E_VXI_SWITCH</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_VXI_SWITCH</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_vxi_switch.C,v 1.9 2004/12/08 15:08:00 kj73rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Anschalten von VXI Modulen œber die Scannermatrix
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_vxi_switch.C
+   Autor:		SaW/TEF72-Hibon()
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_vxi_switch(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+ 
+   ---------------------------------------------------------------------
+   #C3
+   Funktionsbeschreibung:
+ 
+   Diese Routine schaltet 64 switch von der vxi-Karte HP E1442A .
+   Die Anschaltung ist bitweise orientiert.
+   Ubergabeparameter anhand der "modglobal.stl"
+   MD,E_VXI_SWITCH</pre><b><a name="param1">1</a> ,PRUEFSCHRITT</b><pre></pre><b><a name="param2">2</a> ,POSITION</b><pre></pre><b><a name="param3">3</a> ,SWITCH01_08</b><pre>	(schaltet ac32 bis ac25  Stecker X1)</pre><b><a name="param4">4</a> ,SWITCH09_16</b><pre>	(schaltet ac24 bis ac17  Stecker X1)</pre><b><a name="param5">5</a> ,SWITCH17_24</b><pre>	(schaltet ac16 bis ac09  Stecker X1)</pre><b><a name="param6">6</a> ,SWITCH25_32</b><pre>	(schaltet ac08 bis ac01  Stecker X1)
+	
+	                        ------------------------------------</pre><b><a name="param7">7</a> ,SWITCH33_40</b><pre>	(schaltet ac32 bis ac25  Stecker X2)</pre><b><a name="param8">8</a> ,SWITCH41_48</b><pre>	(schaltet ac24 bis ac17  Stecker X2)</pre><b><a name="param9">9</a> ,SWITCH49_56</b><pre>	(schaltet ac16 bis ac09  Stecker X2)</pre><b><a name="param10">10</a> ,SWITCH57_64</b><pre>	(schaltet ac08 bis ac01  Stecker X2) 	
+
+	
+                HP E1442A
+       ----------------------------
+      | a32 - c32	channel 00 | Stecker X1	--&gt; switch 01
+      |	a31 - c31	channel 01 | Stecker X1	--&gt; switch 02
+      |	a30 - c30	channel 02 | Stecker X1	--&gt; switch 03
+      |	- - - - -       - - - - -  | 
+      |	a02 - c02	channel 30 | Stecker X1	--&gt; switch 31
+      |	a01 - c01	channel 31 | Stecker X1	--&gt; switch 32
+      |	                           |
+      |	= = = = = = = = = = = = =  | = = = = = = = = = = = = =
+      |	                           |
+      |	a32 - c32	channel 32 | Stecker X2	--&gt; switch 33
+      |	a31 - c31	channel 33 | Stecker X2	--&gt; switch 34
+      |	a30 - c30	channel 34 | Stecker X2	--&gt; switch 35
+      |	- - - - -       - - - - -  |
+      |	a02 - c02	channel 62 | Stecker X2	--&gt; switch 63
+      |	a01 - c01	channel 63 | Stecker X2	--&gt; switch 64	
+       ----------------------------
+
+       
+   Eine '1' schaltet eine Verbindung an.
+   Eine '0' schaltet eine Verbindung ab.
+   Ein  'X' laesst eine Verbindung unveraendert (-&gt; don't care).
+   
+   Beispiel:
+   	SWITCH01_08 = 110000X1
+   		
+		- Pin a32 und c32 verbunden 	  (Stecker X1)
+		- Pin a31 und c31 verbunden 	  (Stecker X1)
+		- Pin a30 und c30 nicht verbunden (Stecker X1)
+		- Pin a29 und c29 nicht verbunden (Stecker X1)
+		- Pin a28 und c28 nicht verbunden (Stecker X1)
+		- Pin a27 und c27 nicht verbunden (Stecker X1)
+		- Pin a26 und c26 unveraendert    (Stecker X1)
+		- Pin a25 und c25 verbunden       (Stecker X1)
+
+		
+   	SWITCH33_40 = 110000X1
+   		
+		- Pin a32 und c32 verbunden 	  (Stecker X2)
+		- Pin a31 und c31 verbunden 	  (Stecker X2)
+		- Pin a30 und c30 nicht verbunden (Stecker X2)
+		- Pin a29 und c29 nicht verbunden (Stecker X2)
+		- Pin a28 und c28 nicht verbunden (Stecker X2)
+		- Pin a27 und c27 nicht verbunden (Stecker X2)
+		- Pin a26 und c26 unveraendert    (Stecker X2)
+		- Pin a25 und c25 verbunden       (Stecker X2)
+		
+
+   Besonderheiten:
+   Im Modul mœssen immer 8 Bits per Parameter eingeben werden.
+   Insgesamt also 64 Bits. Sollte die Anzahl nicht stimmen, wird die
+   Prœfliste abgebrochen und ein Fehler gesendet.
+   
+   
+</PRE>
+</BODY>
+</HTML>

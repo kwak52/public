@@ -1,0 +1,269 @@
+Listing 1-1. SQL to Create the Member Table
+Listing 1-2 shows the SQL to enter one complete row in our Member table. The data items
+Listing 1-2. Inserting a Complete Row into the Member Table
+Listing 1-3. Inserting a Row into the Member Table When Only Some Attributes Have Values
+Listing 1-4. Updating a Row in the Member Table
+Listing 1-5 shows the SQL for creating the Member table with a foreign key constraint.
+Listing 1-5. SQL to Create the Member Table with a Foreign Key
+Listing 1-6. SQL to Retrieve the Names of Senior Members from the Member Table
+Listing 1-7. The Select Operation to Retrieve the Subset of Rows for Seniors
+Listing 1-8. The Project Operation to Retrieve a Subset of Columns
+Listing 1-9. The Complete Algebra Expression
+Listing 1-10. General Form of a Query Expressed in Relational Calculus
+Listing 1-11. Relational Calculus to Retrieve Senior Members
+Listing 1-12. Relational Calculus to Retrieve the Names of Senior Members
+Listing 2-1 shows the notation for this operation. The Greek letter sigma (σ) is shorthand for select, the table we are applying the operation to is in parentheses (Member), and
+Listing 2-1. The Select Operation to Retrieve All the Men from the Member Table
+Listing 2-2. The Select Operation Used to Retrieve Members with Handicaps Under 12
+Listing 2-3 shows the shorthand for expressing the calculus for retrieving men from the
+Listing 2-3. The Calculus Expression to Retrieve All the Men from the Member Table
+Listing 2-4 shows the SQL statement for retrieving information about the men in our
+Listing 2-4. The SQL Statement to Retrieve All the Men from the Member Table
+Listing 2-5. The Project Operation to Retrieve Names and Phone Numbers from the
+Listing 2-6. The part on the left describes what information we want to retrieve (in this
+Listing 2-6. The Calculus Expression to Retrieve Names and Phone Numbers from the
+Listing 2-7. The SQL for Retrieving Names and Phone Numbers from the Member Table
+Listing 2-8. Prefacing Attribute Names with the Table Name
+Listing 2-9. Using an Alias
+Listing 2-10. Combining a Select and Project Operation
+Listing 2-11. Calculus Expression to Retrieve Handicaps of Junior Members
+Listing 2-11 says that our finger m is going to scan rows in the Member table and include
+Listing 2-12. SQL Statement to Retrieve Handicaps of Junior Members
+Listing 2-13. Creating a View So You Can Use the Same Query Many Times
+Listing 2-14. Using a View in a Query
+Listing 2-15. Selecting Rows Where the Case of a Text Value Is Not Important
+Listing 2-16. Finding All the Junior Girls
+Listing 2-17. SQL for Creating a Table with a Required Field
+Listing 2-18. What Rows Will Match Each of These Conditions
+Listing 2-19. Finding the Members with No Value for MemberType
+Listing 2-20. Retrieving Information About Members Who Have a Handicap
+Listing 2-21. Retrieving a List of Unique Membership Types
+Listing 2-22. Retrieving the Members in Order of LastName
+Listing 2-23. Retrieving the Senior Members Ordered by LastName and Then FirstName
+Listing 2-24  Shows a simple query to return the number of records in the Member table.
+Listing 2-24. Retrieving the Number of Records in a Table
+Listing 2-25. Retrieving the Number of Senior Members
+Listing 2-26. Retrieving the Number of Records with a Non-Null Value for Handicap
+Listing 2-27. Retrieving the Number of Different Values for Handicap
+Listing 2-27. There is usually a way to work around this and find an equivalent query, and
+Listing 2-28 shows the SQL for the last question. (Recall that e is just an alias referring to
+Listing 2-28. Who Entered Tournament 36 in 2006
+Listing 2-29. Incorrect SQL to Retrieve People Who Have Entered Both Tournaments 36 and 38
+Listing 2-30. Incorrect SQL to Retrieve People Who Have Not Entered Tournament 36
+--
+-- Chap 3. A First Look at Joins
+--
+Listing 3-1. Cartesian Product Between Two Tables
+Listing 3-2. A Join (Left Side) Is Defined As a Cartesian Product Followed by a Select
+Listing 3-3. SQL for a Cartesian Product to Produce Table in Figure 3-3a
+Listing 3-4. SQL for a Join to Produce Table in Figure 3-3b
+Listing 3-5 shows the relational calculus expression.
+Listing 3-5. Relational Calculus for Cartesian Product
+Listing 3-6 shows the SQL that is very similar to this relational calculus expression.
+Listing 3-6. Alternative SQL for a Cartesian Product to Produce Table in Figure 3-3a
+Listing 3-7. Relational Calculus for Join
+Listing 3-8. Alternative SQL for a Join to Produce the Table in Figure 3-3b
+Listing 3-4, which uses the INNER JOIN key phrase. Once again, which one you use does
+Listing 3-9. Join the Member and Entry Tables
+Listing 3-10. Join the Tournament Table to the Result of Joining the Member and Entry Tables
+Listing 3-11. SQL to Create a View to Join Three Tables
+Listing 3-12. Algebra to Retrieve Subset of Information from the View AllTourInfo
+Listing 3-13. SQL to Retrieve Subset of Information from the View AllTourInfo
+Listing 3-14. SQL to Retrieve Information from Original Tables
+Listing 3-15. Relational Calculus Expression to Find Members Entered in 2006
+Listing 3-16. SQL to Find Members Entered in 2006 Open Tournaments
+Listing 3-17. Algebra Expression for Left Outer Join Between Member and Type Tables
+Listing 3-18 shows the SQL for the outer join depicted in Figure 3-14. It is the same as
+Listing 3-18. SQL Statement for an Outer Join
+Listing 3-19. SQL Statement for an Outer Join
+--
+-- Chap 4. Nested Queries
+--
+Listing 4-1. Using OR Operations
+Listing 4-2. Using the IN Keyword
+Listing 4-3. Using NOT IN Keyword
+Listing 4-4. Finding the IDs of All Open Tournaments
+Listing 4-5. A Nested Query to Find All Entries in Open Tournaments
+Listing 4-6. Using a Join to Find All Entries in Open Tournaments
+Listing 4-7. Using NOT IN: What Does This Query Retrieve?
+Listing 4-8. Using <>: What Does This Query Retrieve?
+Listing 4-8 is actually retrieving those members who have entered something other
+Listing 4-9. Relational Calculus Expression to Retrieve Members Who Have Entered a
+Listing 4-10. SQL Statement to Retrieve Members Who Have Entered a Tournament
+Listing 4-11. SQL Statement to Retrieve Members Who Have NOT Entered a Tournament
+Listing 4-12. SQL Statement to Retrieve Members Who Have NOT Entered an Open Tournament
+Listing 4-13. SQL Statement to Retrieve Members with Handicaps Less Than 16
+Listing 4-14. SQL Statement to Retrieve Members with Handicaps Less Than Barbara Olson’s
+Listing 4-15. SQL Statement to Retrieve Members with Handicaps Less Than the Average
+Listing 4-16. SQL Statement to Retrieve Juniors with Handicaps Less Than the Average Senior
+Listing 4-17. SQL Statement to Retrieve Entries for Senior Members
+Listing 4-18. SQL Statement to Retrieve Members Who Have Entered a Tournament
+Listing 4-19. What Does This Query Return?
+Listing 4-20. Updating a Single Phone Number
+Listing 4-21. Inserting a Row into the Entry Table
+Listing 4-22. This query is a little different from others we have looked at because it has
+Listing 4-22. Constructing New Entry Rows for Junior Members
+Listing 4-23. Inserting Entries for Juniors into Tournament 25 for 2007
+Listing 4-24. Deleting Entries from Tournament 25, 2007, for Low Handicap Members
+--
+-- Chap 5. Self Joins
+--
+Listing 5-1. Self Join on Member Table to Find Information About Members and Their Coaches
+Listing 5-2. Finding the Names of the Coaches
+Listing 5-3. Finding Rows for Members Being Coached by Someone with a Higher Handicap
+Listing 5-4. Names of Members Along with the Names of Their Coach (If Any)
+Listing 5-5. People and Their Mothers
+Listing 5-6. People and Their Mothers and Maternal Grandmothers
+Listing 5-7. Calculus Expression to Find the Name of Melissa’s Coach
+Listing 5-8. SQL to Find the Name of Melissa’s Coach
+Listing 5-9. Calculus Expression to Find the People with a Lower Handicap Than Their Coach
+Listing 5-10. SQL to Find the People with a Lower Handicap Than Their Coach
+Listing 5-11. SQL to Find Members Who Have Entered Both Tournaments 24 and 36
+Listing 5-12. Calculus Expression to Find the Members Who Have Entered Both Tournaments 24
+Listing 5-13. SQL to Find Members Who Have Entered Both Tournaments 24 and 36 (Will Work!)
+Listing 5-14. SQL to Find Members Who Have Entered Both Tournaments 24 and 36
+--
+-- Chap 6. More Than One Relationship Between Tables
+--
+Listing 6-1. Teams with Additional Information About Their Managers
+Listing 6-2. Members with Additional Information About Their Teams
+Listing 6-3. Joining an Additional Copy of the Member Table to See Names of Managers
+Listing 6-5. Calculus Expression for Information About Members, Their Team, and Their
+Listing 6-6. SQL Statement for Information About Members, Their Team, and Their
+Listing 6-7. Calculus Expression to Find Teams Where the Manager Is Not a Member of the Team
+Listing 6-8. SQL to Find Teams Where the Manager Is Not a Member of the Team (Based
+Listing 6-9. SQL to Find Teams Where the Manager Is Not a Member of the Team (Based
+Listing 6-10. Part of a SQL Server Trigger to Prevent Adding Invalid Team Managers
+--
+-- Chap 7. Set Operations
+--
+Listing 7-1. Algebra Expresion for the Union of Two Compatible Tables
+Listing 7-2. SQL for the Union of Two Compatible Tables
+Listing 7-3. Ensuring the Tables Have Columns in the Same Order
+Listing 7-4. Ensuring the Tables Have Columns of the Same Type
+Listing 7-5. Relational Algebra to Project the Appropriate Columns Before the Union
+Listing 7-6. SQL to Project the Appropriate Columns Before the Union
+Listing 7-7. Relational Algebra for Finding IDs of Members Who Have Entered Either
+Listing 7-8. SQL for Finding IDs of Members Who Have Entered Either Tournament 24 or 40
+Listing 7-9. Finding IDs of Members Who Have Entered Either Tournament 24 or 40
+Listing 7-10. A Full Outer Join Expressed As the Union Between a Left and Right Outer Join
+Listing 7-11. Algebra to Retrieve Names That Are in Both ClubA and ClubB
+Listing 7-12. Finding the Names That Are in Both ClubA and ClubB
+Listing 7-16. Giving the Subquery an Alias, for a Derived Table (Does Work!)
+Listing 7-17. Using a Nested Query to Find Names Associated with the Intersection
+Listing 7-18. This Intersection Will Not Return Anything
+Listing 7-19. What Will the Intersection Return with These Columns Projected?
+Listing 7-20. Finding Members Who Have Entered Both Tournaments 25 and 36 Without the
+Listing 7-21. Finding People in Both ClubA and ClubB Without the INTERSECT Keyword
+Listing 7-22. Finding the Names That Are in ClubA But Not ClubB
+Listing 7-23. Members Who Have Not Entered Tournament 25 (Incorrect)
+Listing 7-26. Including the Names Before Taking the Difference
+Listing 7-27. SQL to Find Members Who Have Not Entered Tournament 25 (Without
+Listing 7-28. Algebra for Finding Members Who Have Entered All Tournaments
+Listing 7-29. Algebra for Finding Members Who Have Entered All Open Tournaments
+Listing 7-30. Calculus Expression to Find Members Who Have Entered Every Tournament
+Listing 7-31. Alternative Calculus Expression to Find Members Who Have Entered Every
+Listing 7-32. SQL to Find the Names of Members Who Have Entered Every Tournament
+--
+-- Chap 8. Aggregate Operations
+--
+Listing 8-1. Return the Number of Members in the Club
+Listing 8-2. Return the Number of Women in the Club
+Listing 8-3. Return the Number of Members Who Are Not Women
+Listing 8-4. Return the Number of Members with No Value for Gender
+Listing 8-5. Return the Number of Members Who Have a Coach (One Method)
+Listing 8-6. Return the Number of Members Who Have a Coach (Another Method)
+Listing 8-7. Return the Number of Different Coaches
+Listing 8-8. Alternative SQL for Access Where COUNT(DISTINCT) Is Not Supported
+Listing 8-9. Return the Average Handicap
+Listing 8-10. Calculate an Average Where Null Values Are Counted As Zero
+Listing 8-11. Convert Integers to Floating-Point Numbers to Get a Floating-Point Average
+Listing 8-12. Round the Result to Two Decimal Places
+Listing 8-13. Find the Average Cost
+Listing 8-14. Return the Average Handicap of Junior Members
+Listing 8-15. Return the Maximum, Minimum, and Average Handicaps of Members
+Listing 8-16. Find How Many Tournaments Member 235 Has Entered
+Listing 8-17. Find How Many Tournaments Each Member Has Entered
+Listing 8-18. Include the MemberID (the Grouping Field) in the Output
+Listing 8-19. Join Entry and Member Tables First to Show the Names of Members
+Listing 8-20. Find the Number of Entries in Each Tournament
+Listing 8-21. Find the Number of Entries in Each Tournament for the Year 2006
+Listing 8-22. Find the Number of Entries in Each Tournament for Each Year
+Listing 8-23. Find the Average Handicaps of Members Grouped by Gender
+Listing 8-24. Find Tournaments with Three or More Entries
+Listing 8-25. Find Members Who Have Entered More Than Four Tournaments
+Listing 8-26. Find Members Who Have Entered More Than Four Open Tournaments
+Listing 8-27. Count the Distinct Tournaments Entered by Each Member
+Listing 8-28. Find Members Who Have Entered Five Different Tournaments
+Listing 8-29. Find Members Who Have Entered All the Different Tournaments in the Tournament Table
+Listing 8-30. Return Members with a Handicap Greater Than Average
+Listing 8-31. Find Members Who Have Entered More Than Three Tournaments
+Listing 8-32. Find the Number of Entries for Each Member
+Listing 8-33. Find the Average Number of Tournaments Entered by Members (Doesn’t
+Listing 8-34. Using a Derived Table to Find the Average of Counts
+--
+-- Chap 9. Efficiency Considerations
+--
+Listing 9-1. Creating Two Indexes on the Entry Table
+Listing 9-2. Creating a Clustered Index on the Primary Key Fields of the Entry Table
+Listing 9-3. Retrieving Member Information in Alphabetical Order
+Listing 9-4. Joining the Entry and Member Tables
+Listing 9-5. Two Algebra Expressions to Fin
+Listing 9-6. SQL to Find the Tournaments That Member 235 Has Entered
+Listing 9-6. Does it matter which we choose? It might. The answer depends on how smart
+Listing 9-7. A Join Expressed with a Calculus-like Expression
+Listing 9-8. A Join Expressed with an Inner Join Operation
+Listing 9-9. A Join Expressed with a Nested Query
+Listing 9-10. Using NOT EXISTS
+Listing 9-11. Using a Join and Then a Difference Operator (EXCEPT)
+Listing 9-12. Using a Nested Query and a Difference Operator
+Listing 9-13. Selecting a Field from a Table
+Listing 9-14. Selecting All the Fields from a Table
+Listing 10-1. SQL for Creating the Member Table
+Listing 10-2. Joining the Tournament and Entry Tables
+Listing 10-3. Joining the Tournament and Entry Tables and Then Joining the Member Table
+Listing 10-4. Retrieving the Rows for Men and Leeston Tournament
+Listings 10-5 and 10-6 show two options for the SELECT clause reflecting these two
+Listing 10-5. The Names and IDs of Men Who Have Entered Leeston Tournaments
+Listing 10-6. Information About Entries of Men in Leeston Tournaments
+Listing 10-7 shows a first attempt at the SQL for creating a view that retains all the fields
+Listing 10-7. Creating a View for the Join of the Tournament, Entry, and Member Tables (First
+Listing 10-8. Retrieving the Names of Men Who Have Entered a Leeston Tournament Using
+Listing 10-9. Both Conditions Can Be Checked in a Single WHERE Clause
+Listing 10-10. Finding Members Who Have Entered Both Tournaments Using a Self Join
+Listing 10-11. Finding Members Who Have Entered Both Tournaments Using an Intersection
+Listing 10-12. Finding Members Who Have Never Entered a Tournament Using EXCEPT
+Listing 10-13. Finding Members Who Have Never Entered a Tournament Using a Nested Query
+Listing 10-14. Relational Calculus Expression for Finding Teams with a Coach As a Manager
+Listing 10-15. Finding Teams with Coaches As Managers (One Way)
+Listing 10-16. Finding Teams with Coaches As Managers (Another Way)
+Listing 10-15, so I would probably prefer to use that one.
+Listing 10-17. Finding Teams with Coaches As Managers Using an Inner Join
+Listing 11-1. Finding the Fee for Senior Members
+Listing 11-2. Finding Members of TeamA
+Listing 11-3. Creating a New Membership Table
+Listing 11-4. Creating Rows in the Membership Table for TeamA
+Listing 11-5. Finding Rows with Duplicate Values in the Potential Primary Key
+Listing 11-6. Creating a New Table with Distinct Rows
+Listing 11-7. Finding Unmatched MemberIDs in the Membership Table (Using Difference)
+Listing 11-8. A View to Retrieve Information About Coaches
+Listing 11-9. Adding (Some) Converted Values to a New Table
+Listing 11-10. Using the Wildcard % to Retrieve Different Names Beginning with “Phil”
+Listing 11-11. Finding Inconsistent Data in a Categorical Column Such As MemberType
+Listing 11-12. Trimming Trailing Spaces Before Making a Text Comparison
+Listing 11-13. Removing All Leading and Trailing Spaces from the FirstName Values
+Listing 11-14. Finding Dan’s Information Regardless of the Case in the Database Table
+Listing 11-15. Including a Constraint on the Values of MemberType
+Listing 11-16. Getting Case Consistency for the Junior Member Types
+Listing 11-17. SQL Statement to Retrieve Juniors with Handicaps Lower Than the Average
+Listing 11-18. How Are the Tables Being Combined?
+Listing 11-19. Incorrectly Using a Select Condition for Questions Involving “And” or “Both”
+Listing 11-20. First Attempt at Finding Name and Fee Information for Members
+Listing 11-21. Finding Members Without a Low Handicap
+Listing 11-22. First Attempt at Finding Members Who Have Entered Tournaments 25 and 36
+Listing 11-23. First Attempt at Finding Members Who Have Not Entered Tournament 25
+Listing 11-24. Finding Members Who Have Not Entered Tournament 25 with a Nested Query
+Listing 11-25. Finding Members Who Have Not Entered Tournament 25 with a
+Listing 11-26. Finding the Cities Where Customers Reside
+Listing 7-13. Algebra to Retrieve IDs of Members Entered in Both Tournaments 25 and 36
+Listing 7-14. SQL to Retrieve IDs of Members Entered in Both Tournaments 25 and 36

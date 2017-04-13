@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Poses>
+  <Pose Group="INPUT TO OUTPUT" Comment="" V0="-65603" V1="264524" V2="-300000" V3="0" Checked="true">
+    <AxisSpecs>
+      <Axis Number="0" StartSpeed="60000" Acceleraion="60000" Deceleraion="60000" DriveSpeed="60000" />
+      <Axis Number="1" StartSpeed="60000" Acceleraion="60000" Deceleraion="60000" DriveSpeed="60000" />
+      <Axis Number="2" StartSpeed="50000" Acceleraion="50000" Deceleraion="50000" DriveSpeed="50000" />
+      <Axis Number="3" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+    </AxisSpecs>
+  </Pose>
+  <Pose Group="INPUT TO OUTPUT" Comment="" V0="-90106" V1="264524" V2="-300000" V3="0" Checked="true">
+    <AxisSpecs>
+      <Axis Number="0" StartSpeed="60000" Acceleraion="60000" Deceleraion="60000" DriveSpeed="60000" />
+      <Axis Number="1" StartSpeed="60000" Acceleraion="60000" Deceleraion="60000" DriveSpeed="60000" />
+      <Axis Number="2" StartSpeed="50000" Acceleraion="50000" Deceleraion="50000" DriveSpeed="50000" />
+      <Axis Number="3" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+    </AxisSpecs>
+  </Pose>
+  <Pose Group="INPUT TO OUTPUT" Comment="" V0="-90106" V1="264524" V2="-118627" V3="0" Checked="true">
+    <AxisSpecs>
+      <Axis Number="0" StartSpeed="60000" Acceleraion="60000" Deceleraion="60000" DriveSpeed="60000" />
+      <Axis Number="1" StartSpeed="60000" Acceleraion="60000" Deceleraion="60000" DriveSpeed="60000" />
+      <Axis Number="2" StartSpeed="50000" Acceleraion="50000" Deceleraion="50000" DriveSpeed="50000" />
+      <Axis Number="3" StartSpeed="1000" Acceleraion="1000" Deceleraion="1000" DriveSpeed="1000" />
+    </AxisSpecs>
+  </Pose>
+</Poses>

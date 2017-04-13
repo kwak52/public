@@ -1,0 +1,393 @@
+<HTML>
+<HEAD>
+<TITLE>L_KAM_ZUSATZ</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>L_KAM_ZUSATZ</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------          
+ Funktionsbeschreibung:                                              
+                                                                     
+    Einstellung der fuer Ueberwachung/Messung notwendigen            
+    Parameter                                                        
+                                                                     
+    Dieses Modul stellt - ebenso wie das 'F_ANSTEUER'-Modul -        
+    die Schnittstelle vom GAUDI zum nachgeordneten Hardware-         
+    Treiber dar.                                                     
+    Der Hardwaretreiber fuer das KAM kann sowohl durch aus-          
+    schliesslichen Aufruf des 'F_ANSTEUER'-Moduls (mit den           
+    entsprechenden, in der Datei 'hw_units_....cnf',                 
+    angegebenen Ansteuerunits) bedient werden, als auch              
+    zusaetzlich mit diesem Modul.                                    
+    Dieses Modul wird nur fuer spezielle Features, die in            
+    der PAV keine Erwaehnung finden (Sensing, Messkanaele),          
+    benoetigt.                                                       
+    Seine Verwendung ist auf solche PAM's beschraenkt, die mit       
+    neuer Hardware (6278) ausgestattet sind!                         
+                                                                     
+                                                                     
+    Die 6278 verfuegt ueber insgesamt 6 Ausgangskanaele:             
+                  ULAST, UBATT 1 - 5                                 
+    Mit dem 'F_ANSTEUER'-Modul koennen diese gesteuert werden,       
+    benutzt man die Ansteuerunits:                                   
+       U_KON_ULx,                                                    
+       U_KON_UAx, U_KON_UBx, U_KON_UCx, U_KON_UDx, U_KON_UEx         
+       (mit x = 2, 4)                                                
+                                                                     
+    Vorgehensweise fuer die Nutzung des F_ANSTEUER-Moduls:           
+       - Auswahl der Ansteuer-Unit;                                  
+       - Vergabe eines Ansteuernamens;                               
+       - Vorbelegung der Parameter ANSTEUER_PIN und ANSTEUER_BEZUG   
+         mit den im Adapterfile definierten Bezeichnern;             
+       - Vorbelegung des Parameters ANSTEUER_ART auf ANSTEUER_PAR    
+       - zum Schalten der UBatt-/ULast-Zweige ist im Ansteuerblock   
+         nur noch der Parameter fuer den ANSTEUER_WERT zu belegen,   
+         z.B. mit dem Namen UB (fuer U-Batterie)                     
+         zum einfachen Abschalten wird ANSTEUER_WERT mit dem         
+         Minus-Zeichen ('-') belegt;                                 
+                                                                     
+                                                                     
+    Zuordnung der Unit-Namen zu den Ausgangs-Pin's:                  
+         U_KON_UAx - d18/d24                                         
+         U_KON_UBx - d28/d30      kompatibel zu KON_UB_x (in SaW)    
+         U_KON_UCx - b18/b24                                         
+         U_KON_UDx - z28/z30      kompatibel zu KON_UD_x (in SaW)    
+         U_KON_UEx - z18/z24                                         
+         U_KON_ULx - dbz16/dbz32  kompatibel zu KON_UL_x (in SaW)    
+                                                                     
+       Die Zuordnung der Units U_KON_UBx, U_KON_UDx, U_KON_ULx       
+       ist derart gewaehlt, dass sie kompatibel zu den bisher        
+       fuer das aeltere KAM (6267) festgelegten  Units sind          
+                                                                     
+    Besonderheit:                                                    
+    Der fuenfte UBATT-Zweig (U_KON_UEx) kann verpolt (durch          
+    Vertauschen von PIN und BEZUG im 'F_ANSTEUER'-Modul)             
+    angeschaltet werden.  Dann darf jedoch kein weiterer             
+    UBATT-Zweig angeschaltet werden!                                 
+                                                                     
+                                                                     
+    Dieses Modul wird mit der Ansteuerunit U_KON_KONFIGx             
+    kontrolliert (vgl. L_KAM_KONFIG), welche nicht im Modul          
+    F_ANSTEUER benutzt werden darf.                                  
+                                                                     
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                 
+         GAUDI Pruefschritt                                          
+                                                                     
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                     
+         PAV- Position                                               
+                                                                     
+    ------------------------------</pre><b><a name="param3">3</a> ANSTEUER_UNIT</b><pre>                                                
+         aktueller Unitname (siehe 'hw_units....cnf')                
+         z.Zt. gemaess Uebereinkunft RtW/SaW: U_KON_KONFIG2          
+                                              U_KON_KONFIG4          
+                                                                     
+    ------------------------------</pre><b><a name="param4">4</a> SENSE_UB_UNIT</b><pre>                                                
+         Anschaltung einer der 5 moeglichen UBATT-SenseLeitungen     
+         an einen KonstanterEingang;                                 
+                                                                     
+         Prmtr.: U_KON_UAx --&gt; d20/d24                               
+                 U_KON_UBx --&gt; b28/b30  (kompatibel zur 6267)        
+                 U_KON_UCx --&gt; b20/b22                               
+                 U_KON_UDx --&gt; b26/z26                               
+                 U_KON_UEx --&gt; z20/z22                               
+                 INTERN  (internes Sensing ohne ext. Anschaltung;    
+                          ohne Funktion bei 6267)                    
+                 -       (=Default, dh. autom. Sensing bei           
+                                  U_KON_UBx, sonst kein Sensing)     
+                                                                     
+         Wichtig:                                                    
+         Es wird - auch wenn mit F_ANSTEUER mehrere UBATT-           
+         Ausgaenge belegt wurden - stets nur eine SenseLeitung       
+         angeschaltet!                                               
+         Die Anschaltung erfolgt auch nur dann, wenn die             
+         zugehoerige UBATT-Anschaltung komplett (+/-) erfolgt        
+         ist!                                                        
+           Bei EIN-Konstanter-Betrieb kann nur auf einem der         
+         beiden moeglichen Kanaele (ULAST oder UBATT) ein Sensing    
+         durchgefuehrt werden.                                       
+           Bei ZWEI-Konstanter-Betrieb koennen die SenseLeitungen    
+         unabhaengig voneinander - sowohl fuer KON_A als auch        
+         KON_B - gewaehlt werden.                                    
+         Bei Kaskadierung erfolgt kein automatisches Sensing auf     
+         U_KON_UBx!                                                  
+                                                                     
+         Kompatibilitaet zum 6267:                                   
+         Ohne Angabe einer SenseUnit wird bei Auswahl von            
+         U_KON_UBx automatisch die entsprechende SenseLeitung        
+         angeschaltet (es wird dann eine Fehlermeldung ausgegeben),  
+         das gleiche gilt bei Auswahl U_KON_ULx.                     
+         Werden beide Zweige angeschaltet, erfolgt allerdings        
+         nur auf dem UBATT-Zweig ein automatisches Sensing.          
+                                                                     
+    ------------------------------</pre><b><a name="param5">5</a> SENSING_UB</b><pre>                                                   
+         Auswahl des an KON_A/KON_B angeschlossenen Konstanters,     
+         der mit der Senseleitung verbunden werden soll;             
+         der hier angegebene Parameter sollte mit dem im             
+         Modul "L_KAM_KONFIG" angegebenen Parametern in Einklang     
+         stehen:                                                     
+         Prmtr.: KON_A   (hat dokumentarischen Charakter)            
+                 KON_B   (hat dokumentarischen Charakter)            
+                 -       (=Default)                                  
+                                                                     
+         Beispiel:                                                   
+            L_KAM_KONFIG:                                            
+            KON_A - ULAST                                            
+            KON_B - UBATT                                            
+            L_KAM_ZUSATZ:                                            
+            SENSE_UB_UNIT - U_KON_UAx                                
+            SENSING_UB    - KON_B                                    
+                                                                     
+    ------------------------------</pre><b><a name="param6">6</a> SENSE_UL_UNIT</b><pre>                                                
+         Anschaltung der ULAST-SenseLeitung an den entspr.           
+         KonstanterEingang;                                          
+                                                                     
+         Prmtr.: U_KON_ULx --&gt; dbz16/dbz32 (kompatibel zur 6267)     
+                 INTERN  (internes Sensing ohne ext. Anschaltung;    
+                          ohne Funktion bei 6267)                    
+                 -       (=Default, dh. autom. Sensing, wenn         
+                                    U_KON_UBx nicht benutzt wird)    
+                                                                     
+         Wichtig:                                                    
+         Die Anschaltung erfolgt auch nur dann, wenn die             
+         zugehoerige ULAST-Anschaltung komplett (+/-) erfolgt        
+         ist!                                                        
+           Bei EIN-Konstanter-Betrieb kann nur auf einem der         
+         beiden moeglichen Kanaele (ULAST oder UBATT) ein Sensing    
+         durchgefuehrt werden.                                       
+           Bei ZWEI-Konstanter-Betrieb koennen die SenseLeitungen    
+         unabhaengig voneinander - sowohl fuer KON_A als auch        
+         KON_B - gewaehlt werden.                                    
+         Bei Kaskadierung erfolgt kein automatisches Sensing auf     
+         U_KON_ULx!                                                  
+                                                                     
+         Kompatibilitaet zum 6267:                                   
+         Ohne Angabe einer SenseUnit wird bei Auswahl von            
+         U_KON_ULx (und ohne Benutzung von U_KON_UBx) automatisch    
+         die entsprechende SenseLeitung angeschaltet; ein Eintrag    
+         an dieser Stelle erzeugt in diesem Fall eine Fehlermeldung. 
+                                                                     
+    ------------------------------</pre><b><a name="param7">7</a> SENSING_UL</b><pre>                                                   
+         Auswahl des an KON_A/KON_B angeschlossenen Konstanters,     
+         der mit der Senseleitung verbunden werden soll;             
+         (siehe "L_KAM_KONFIG")                                      
+         der hier angegebene Parameter sollte mit dem im             
+         Modul "L_KAM_KONFIG" angegebenen Parametern in Einklang     
+         stehen:                                                     
+         Prmtr.: KON_A   (hat dokumentarischen Charakter)            
+                 KON_B   (hat dokumentarischen Charakter)            
+                 -       (=Default)                                  
+                                                                     
+         Beispiel:                                                   
+            L_KAM_KONFIG:                                            
+            KON_A - ULAST                                            
+            KON_B - UBATT                                            
+            L_KAM_ZUSATZ:                                            
+            SENSE_UB_UNIT - U_KON_ULx                                
+            SENSING_UB    - KON_A                                    
+                                                                     
+    ------------------------------</pre><b><a name="param8">8</a> MESS_UNIT</b><pre>                                                    
+         Auswahl eines der 5 moeglichen UBATT-Zweige fuer eine       
+         Strom- oder Spannungsmessung (nur U_KON_UEx);               
+                                                                     
+         Prmtr.: U_KON_UAx, U_KON_UBx, U_KON_UCx, U_KON_UDx,         
+                 U_KON_UEx                                           
+                 -          (=Default, keine Messung)                
+                                                                     
+    ------------------------------</pre><b><a name="param9">9</a> MESS_KANAL</b><pre>                                                   
+         Auswahl eines der moeglichen Messkanaele;                   
+         Prmtr.: MESSKA_A  (Strommesskanal: d10/b10)                 
+                 MESSKA_AB (Spannungs- und Strommessung              
+                            ausschliesslich fuer U_KON_UEx)          
+                 MESSKA_B  (Spannungsmesskanal ausschliesslich       
+                            fuer U_KON_UEx: z10/d12)                 
+                 MESSKA_BC (Spannungs- und Strommessung              
+                            ausschliesslich fuer U_KON_UEx)          
+                 MESSKA_C  (Strommesskanal: b12/z12)                 
+                 -         (=Default, kein Messkanal)                
+         Wichtig:                                                    
+         Eine Messanschaltung wird nur fuer einen komplett           
+         angeschalten UBATT-Zweig ausgefuehrt!                       
+                                                                     
+    ------------------------------</pre><b><a name="param10">10</a> STROMMESS_R</b><pre>                                                  
+         Auswahl eines der moeglichen Shunt-Widerstaende:            
+         0.1 / 1.0 / 10.0 / 100.0 / 1000.0 / 1K                      
+         (die Einheit ist jeweils Ohm)                               
+         -        (=Default, kein MessShunt)                         
+                                                                     
+         Kompatibilitaet zum 6267:                                   
+         Diese Hardware unterstuetzt nur die Widerstaende 0.1        
+         und 10 Ohm.                                                 
+                                                                     
+    ------------------------------</pre><b><a name="param11">11</a> ANSCHALTUNG</b><pre>                                                  
+         Auswahl von UBATT-Anschaltungsmodi des KAM's:               
+            die Hardware ermoeglicht die alleinige Anschaltung       
+            saemtlicher Pfade ohne ein tatsaechliches                
+            Durchschalten (dh. ohne Relais K41/RQZ) der UBATT        
+            (Prmtr. ==&gt; PFAD);                                       
+            in einem weiteren Aufruf dieses Moduls kann dann -       
+            unter Einsparung zeitintensiver Ablaeufe - die           
+            vollstaendige Anschaltung erzielt werden                 
+            (Prmtr. ==&gt; SCHNELL);                                    
+            desweiteren kann eine - etwas langsamere -               
+            vollstaendige Anschaltung unmittelbar gewaehlt           
+            werden (Prmtr. ==&gt; KOMPLETT);                            
+                                                                     
+         Prmtr.: PFAD     (nur Pfade schalten bis auf RQZ/K41;       
+                           hiermit wird die Anschaltung also         
+                           vorbereitet;)                             
+                 SCHNELL  (Schnellanschaltung unter Umgehung         
+                           interner Ablaeufe - bedingt einen         
+                           erneuten Aufruf dieses Moduls mit         
+                           denselben sonstigen Parametern und        
+                           ein erneutes E_OUT)                       
+                 KOMPLETT (komplette Anschaltung unter               
+                           Beruecksichtigung der Reihenfolge der     
+                           entsprechenden Relaisanschaltungen und    
+                           daher langsamer)                          
+                 -        (=Default, wie KOMPLETT)                   
+                                                                     
+         Kompatibilitaet zum 6267:                                   
+         Hat fuer die 6267 keine Bedeutung.                          
+                                                                     
+ Input:                                                              
+                                                                     
+ Output:                                                             
+    none                                                             
+                                                                     
+ ----------------------------------------------------------          
+ Return Value:                                                       
+    = 0:    Successful completion                                    
+    sonst   Fehler                                                   
+ ----------------------------------------------------------          
+ Beispiel (optional):                                                
+                                                                     
+ ----------------------------------------------------------          
+ &lt;\userdoc&gt; 
+ C4                                                                  
+int l_kam_zusatz( shm_stringpointer  *zeilen_wert
+               ,long               index_on_expPrfLst
+               ,long               anzahl_parameter )
+{
+	
+	 define lokale Variablen 	
+	int ret_val = 0;
+	int unit_index = -1;
+	int i;
+	int schritt;
+	
+	
+	 Modul-Parameter fuer KAM_ZUSATZ umladen 	
+	unit_index = suche_unit_index( *zeilen_wert-&gt;ptr[index_on_expPrfLst + ANST_UNIT] );
+	
+	if ( unit_index &gt;= 0 )  {
+		i = get_platzmemory( STRING_VERWALTUNG, unit_index, ANZAHL_PARAMETER ); 
+		
+		Ssp_pp_verwaltung-&gt;unit_ablage[unit_index].put_unit_aenderung(1);
+		Ssp_pp_verwaltung-&gt;string_f[i + 3] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSE_UB_UNIT];
+		Ssp_pp_verwaltung-&gt;string_f[i + 4] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSING_UB];
+		Ssp_pp_verwaltung-&gt;string_f[i + 5] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSE_UL_UNIT];
+		Ssp_pp_verwaltung-&gt;string_f[i + 6] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSING_UL];
+		Ssp_pp_verwaltung-&gt;string_f[i + 7] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + MESS_UNIT];
+		Ssp_pp_verwaltung-&gt;string_f[i + 8] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + MESS_KANAL];
+		Ssp_pp_verwaltung-&gt;string_f[i + 9] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + STROMMESS_R];
+		Ssp_pp_verwaltung-&gt;string_f[i + 10]= *zeilen_wert-&gt;ptr[index_on_expPrfLst + ANSCHALTUNG];
+		
+		debug_message( __FILE__, __LINE__, DEB_GAUDI
+		        ,"\nkam_zusatz Unit-Index       : %d"
+		         "\nkam_zusatz Anzahl Parameter : %d"
+		         "\nkam_zusatz Pruefschritt     : %s"
+		         "\nkam_zusatz Pruefposition    : %s"
+		         "\nkam_zusatz Ansteuer Unit    : %s"
+		         "\nkam_zusatz SENSE_UB_UNIT    : %s"
+		         "\nkam_zusatz SENSING_UB       : %s"
+		         "\nkam_zusatz SENSE_UL_UNIT    : %s"
+		         "\nkam_zusatz SENSING_UL       : %s"
+		         "\nkam_zusatz MESS_UNIT        : %s"
+		         "\nkam_zusatz MESS_KANAL       : %s"
+		         "\nkam_zusatz STROMMESS_R      : %s"
+		         "\nkam_zusatz ANSCHALTUNG      : %s\n"
+		        ,unit_index 
+		        ,anzahl_parameter
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + PRUEFSCHRITT]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + PRUEFPOSITION]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + ANST_UNIT]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSE_UB_UNIT]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSING_UB]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSE_UL_UNIT]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSING_UL]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + MESS_UNIT]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + MESS_KANAL]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + STROMMESS_R]
+		        ,(const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + ANSCHALTUNG]
+		 );
+		
+		
+		 nicht initialisierte Felder belegen: 		
+		if (    (Ssp_pp_verwaltung-&gt;string_f[i + 0] == "UBATT_ULAST")
+		     || (Ssp_pp_verwaltung-&gt;string_f[i + 0] == "ULAST")
+		     || (Ssp_pp_verwaltung-&gt;string_f[i + 0] == "UBATT")
+		     || (Ssp_pp_verwaltung-&gt;string_f[i + 0] == "-") ) {
+			;
+		
+		}
+		else {
+			debug_message( __FILE__, __LINE__, DEB_GAUDI
+			              ,"Feld 'KON_A' von 'L_KAM_KONFIG' nicht initialisiert" );
+			
+			Ssp_pp_verwaltung-&gt;string_f[i + 0] = "-";
+		
+		}
+		if (    (Ssp_pp_verwaltung-&gt;string_f[i + 1] == "UBATT_ULAST")
+		     || (Ssp_pp_verwaltung-&gt;string_f[i + 1] == "ULAST")
+		     || (Ssp_pp_verwaltung-&gt;string_f[i + 1] == "UBATT")
+		     || (Ssp_pp_verwaltung-&gt;string_f[i + 1] == "-") ) {
+			;
+		
+		}
+		else {
+			debug_message( __FILE__, __LINE__, DEB_GAUDI
+			              ,"Feld 'KON_B' von 'L_KAM_KONFIG' nicht initialisiert" );
+			
+			Ssp_pp_verwaltung-&gt;string_f[i + 1] = "-";
+		
+		}
+		if (    (Ssp_pp_verwaltung-&gt;string_f[i + 2] == "NEIN")
+		     || (Ssp_pp_verwaltung-&gt;string_f[i + 2] == "JA")
+		     || (Ssp_pp_verwaltung-&gt;string_f[i + 2] == "-") ) {
+			;
+		
+		}
+		else {
+			debug_message( __FILE__, __LINE__, DEB_GAUDI
+			              ,"Feld 'KON_KASK' von 'L_KAM_KONFIG' nicht initialisiert" );
+			
+			Ssp_pp_verwaltung-&gt;string_f[i + 2] = "-";
+		
+		}
+	}
+	else  {
+		 ret_val = -1;
+	
+	}
+	
+	 Pruefprogramm Stepbetrieb 	
+	schritt = schrittbetrieb( zeilen_wert, index_on_expPrfLst );
+	
+	if ( schritt != 1 ) {
+		ret_val = 0;
+	
+	}
+	return( ret_val );
+
+}
+</PRE>
+</BODY>
+</HTML>

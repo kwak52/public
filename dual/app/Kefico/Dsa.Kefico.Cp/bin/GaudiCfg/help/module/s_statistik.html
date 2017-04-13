@@ -1,0 +1,133 @@
+<HTML>
+<HEAD>
+<TITLE>S_STATISTIK</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>S_STATISTIK</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: s_statistik.C,v 1.10 2005/04/22 12:25:49 pij3sa Exp $
+   ------------------------------------------------------------------------
+   Kurzbeschreibung: 	Statistik-Steuerung fuer Multilisten.
+   ------------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		s_statistik.C
+   Autor:		SaW/TEF72-Twardowski (21.05.97)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ------------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void s_statistik(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ------------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   ------------------------------------------------------------------------
+   Funktionsbeschreibung:
+
+   Aufgabe des Modules ist es, eine Multi-Prœfliste zu erstellen.
+   Mit einer Multi-Prœfliste entsteht eine Prœfliste fœr mehrere
+   Prœflinge (zB. Mehrfachnutzen).
+   Die Prœfablaufsteuerung (Vectorinterpreter) sorgt dafœr, das
+   die entsprechend geforderten Prœflistenabschnitte durchlaufen
+   oder œbersprungen werden, falls Prœflinge geprœft oder ausgelassen
+   werden sollen.
+   Der Aufruf dieses Moduls stellt also aus Sicht des Prœfablaufes
+   Sprung-Schritte zur Verfœgung, von denen weg gesprungen werden
+   oder zu denen hingesprungen werden kann.
+   Diese Schritte 'rahmen' sozusagen Prœfabschnitte fœr einzelne
+   Prœflinge ein.
+   
+   Der Prœfling Nummer '0' (Null) hat eine besondere Bedeutung:
+   Abschnitte, die mit SG_NUMMER = 0 gekennzeichnet sind, werden
+   immer durchlaufen!
+   Allerdings dœrfen in solchen Bereichen KEINE Messwerte-Telegramme
+   (zB. mit Modul 'm_auswertung()') entstehen!
+   Falls es unbedingt sein muss, ein Messwerte-Telegramm innerhalb
+   dieses 'Nr-0'-Bereiches zu erzeugen, so MUSS unbedingt unter
+   TTNR eine bisher unbenutzte TypTeileNummer dem Prœfling 0 zuge-
+   wiesen werden, da andernfalls (bei gleicher TypTeileNummer, also
+   ein '-' bei TTNR) die mittl. Prœfzeit bei Statistik-Auswertungen
+   durch dieses 'Nr-0'-Geraet stark beeinflusst wird!
+   
+
+   €bergabeparameter
+
+   MD,S_STATISTIK</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre></pre><b><a name="param2">2</a> POSITION</b><pre></pre><b><a name="param3">3</a> TTNR</b><pre>	Soll der weitere Prœfverlauf unter der TTNr laufen, die
+	beim Laden der aktuellen Prœfliste angegeben wurde, so ist
+	hier ein '-' einzugeben.
+	Andersfalls ist hier die 10stellige TTNr einzugeben, die
+	fœr den weiteren Prœfverlauf (bzw. bis zum nÃchsten
+	'S_Statistik()') gelten soll.
+	Eine 10stellige TTNr fœr eine SG_NUMMER '0' fœhrt auch zu
+	separaten Statistik-Daten fœr diesen 'Nr-0'-Prœfling.
+	Ein '-' bei TTNR fœr eine SG_NUMMER '0' unterdrœckt eine
+	Vereinzelung der Statistik-Daten zu diesem Prœfling, da
+	es verboten ist, bei so einem 'Nr-0'-Prœfling Messwerte-
+	Telegramme zu verursachen.
+	
+	-&gt; Siehe auch oben unter 'Funktionsbeschreibung'!</pre><b><a name="param4">4</a> SG_NUMMER</b><pre>	ZulÃssiger Wertebereich z. Z. : 0-19 (= MAX_MULTI).
+        Hier ist die Nummer des Prœflings anzugeben, fœr den der
+	weitere Prœflistenabschnitt, also bis zum nÃchsten
+	'S_Statistik()', gilt.
+	Bei einer zB. Vierfach-Multiliste fœr einen Vierfachnutzen
+	werden hier die Ziffern '1' bis '4' verwendet.
+	Auch bei differierender TTNR muss hier weiter hochgezÃhlt
+	werden!
+	Die SG_Nummer '0' (Null) hat eine spezielle Bedeutung: Sie
+	kennzeichnet Prœflistenabschnitte, die immer (!) durchlaufen
+	werden sollen, weil sie keinem Prœfling zugeordnet sind.
+	
+	-&gt; Siehe auch oben unter 'Funktionsbeschreibung'!</pre><b><a name="param5">5</a> PROT_PRINTER</b><pre>        Hier kann fœr jeden Prœflistenabschnitt, also bis zum
+	nÃchsten 'S_Statistik()', ein symbolische Druckername
+	angegeben werden, falls der PAM mit mehreren Fehlerdruckern
+	ausgestattet ist.
+	Die mŒglichen symb. Druckernamen findet man im Configfile
+	zum Prozess 'Protokoll_drucken'.
+	Keine Angabe bedeutet, dass der PAM-Standard-Drucker
+	verwendet werden soll.
+	Achtung: Dabei mischen sich u.U. die Einzelprotokolle der
+	         Prœflinge auf einem Protokollausdruck!</pre><b><a name="param6">6</a> MULTI_MODE</b><pre>        Mˆgliche Eingaben:
+	 START        - Hier beginnt fœr einen Prœfling ein Prœflistenabschnitt.
+	 ENDE         - Hier enden endgœltig Prœflistenschritte fœr einen Prœfling.
+	 CONT         -  Hier geht die Prœfliste fœr einen Prœfling weiter.
+	 KT_SCHLECHT  - F¸r Inline-Run-In. Ist der Kontaktr‰gertest
+			schlecht, so wird CONT und Ende-Telegramm f¸r jedes SG an MD gesendet.
+	  
+	  
+	  
+
+   Revision 1.1  2001/12/18 10:49:31  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 2.1  2001/08/07 13:38:10  LEA3SA
+   MULTI_MODE = KT_ABBRUCH F¸r Inline-Run-In.
+    Korrektur strcpy ( Ssp_vi-&gt;test.ss_daten.prueflingsnummer, temp_str.chunk(0,1)); // Rev2.1
+
+
+   
+   Revision 2.0  2001/07/20 08:47:12  LEA3SA
+   MULTI_MODE = KT_ABBRUCH
+   F¸r Inline-Run-In. Ist der Kontaktr‰gertest schlecht, so wird EndeTelegramm an MD gesendet.
+
+   
+    
+   
+</PRE>
+</BODY>
+</HTML>

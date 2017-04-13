@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+echo "Adding Windows" >&2
+cat << EOF
+menuentry "Windows" {
+  set root=(hd0,1)
+  chainloader +1
+}
+EOF

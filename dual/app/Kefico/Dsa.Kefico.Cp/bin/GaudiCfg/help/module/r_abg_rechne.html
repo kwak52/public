@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<TITLE>R_ABG_RECHNE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_ABG_RECHNE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: r_abg_rechne.C,v 1.11 2005/07/11 13:49:54 wes3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Abgleich Berechnungen durchfÏhren
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		r_abg_rechne.C
+   Autor:		RtW/TEF72-Wiese (16.09.99)
+   Zielsystem:		HP9000/V743 (HP-RT 3.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void r_abg_rechne(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   GAIN_SGG: Nach Rechenvorschrift sind die Parameter so zugeordnet
+   I_GainCorr 			PARA_1
+   I_proggedGain 		PARA_2
+   B_GainRouter 		PARA_3
+   FactorGainRouter		PARA_4
+   C_GainFactor			PARA_5
+   C_GainFixValue 		PARA_7
+   B_GainRouterMemory 		PARA_8
+   C_MaskGainHigh 		PARA_9
+   F_measured	 		PARA_10
+   SendGainHigh	 		PARA_11
+   SendGainCorr	 		PARA_12
+   UBATT_SGG: Nach Rechenvorschrift sind die Parameter so zugeordnet
+   I_GainCorr 			PARA_1
+   U_low			PARA_2
+   B_GainRouter 		PARA_3
+   FactorGainRouter		PARA_4
+   wSupplyHigh 			PARA_5
+   wSupplyLow			PARA_6
+   U_high			PARA_7
+   B_GainRouterMemory 		PARA_8
+   C_MaskGainHigh 		PARA_9
+   SendOffset	 		PARA_10
+   SendGainHigh	 		PARA_11
+   SendGainCorr	 		PARA_12
+   CRC_SGG: Nach Rechenvorschrift sind die Parameter so zugeordnet
+   memoryNeu 			PARA_1
+   chk 				PARA_2
+   chklow 			PARA_3
+   chkhigh			PARA_4
+
+   USS4_AB_INIT: Initialisierung des USS4 Abgleiches. Es wrid der gewuenschte Grenzwert
+                 vorgegeben, das Modul liefert den Abgleichwert zurueck.
+   Grenzwert 			PARA_1
+   Abgleichwert			PARA_2
+   USS4_AB: USS4 Abgleich ermittelt anhand des Messwertes und des im Init Aufruf 
+            uebergebenen Grenzwert den Abgleichwert. Konnte kein Abgleichwert 
+            ermittelt werden wird als Abglweichwert -1 zurückgeliefert und das 
+            Fehlerflag gesetzt.
+   Messwert 			PARA_1
+   Abgleichwert			PARA_2
+   USS4_AB_RESULT: gibt den Abgleichwert zurueck dessen Messwert am naechsten 
+                   oberhalb des Grenzwertes liegt. Wurde noch nicht der komplette
+                   Abgleich durchgefuehrt ist das Ergebnis -1 und das Fehlerflag
+                   gesetzt.
+   Ergebnis 			PARA_1
+</PRE>
+</BODY>
+</HTML>

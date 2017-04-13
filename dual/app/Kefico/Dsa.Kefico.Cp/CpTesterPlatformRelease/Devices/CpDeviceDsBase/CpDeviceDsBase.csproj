@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F080AFD7-0A2F-4724-A652-7938DA84E87A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CpDeviceDsBase</RootNamespace>
+    <AssemblyName>CpDeviceDsBase</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CpCommon, Version=4.1.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CpPlatform\CpCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="CpLogUtil">
+      <HintPath>..\..\CpPlatform\CpLogUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="CpMngLib">
+      <HintPath>..\..\CpPlatform\CpMngLib.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="LanguageExt.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\open-sources\bin\LanguageExt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="LanguageExt.FSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\open-sources\bin\LanguageExt.FSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\open-sources\bin\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\open-sources\bin\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\open-sources\bin\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CpDeviceManagerDsBase.cs" />
+    <Compile Include="DeviceManagers\CpMngAIControl.cs" />
+    <Compile Include="DeviceManagers\CpMngDIOControl.cs" />
+    <Compile Include="DeviceManagers\CpMngLCRMeter.cs" />
+    <Compile Include="DeviceManagers\CpMngLVDT.cs" />
+    <Compile Include="DeviceManagers\CpMngMotion.cs" />
+    <Compile Include="DeviceManagers\CpMngPlc.cs" />
+    <Compile Include="DeviceManagers\CpMngPowerSupply.cs" />
+    <Compile Include="DeviceManagers\CpMngTriggerIO.cs" />
+    <Compile Include="NormalDevices\CpDevDIOControl_PAIXCtrl.cs" />
+    <Compile Include="NormalDevices\CpDevLCR_Hioki.cs" />
+    <Compile Include="NormalDevices\CpDevLVDT_Sony.cs" />
+    <Compile Include="NormalDevices\CpDevNormalBase.cs" />
+    <Compile Include="NormalDevices\CpDevPaixMotion.cs" />
+    <Compile Include="NormalDevices\CpDevPaixMotor.cs" />
+    <Compile Include="NormalDevices\CpDevPaixRobot.cs" />
+    <Compile Include="NormalDevices\CpDevPaixRobot_HomeMove.cs" />
+    <Compile Include="NormalDevices\CpDevPLC_Mitsubishi.cs" />
+    <Compile Include="NormalDevices\CpDevPowerSupply_Sorensen.cs" />
+    <Compile Include="NormalDevices\CpDevUPS_APC.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VirtualDevices\CpVDevAI_NIDAQ.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\common\Dsu.Common.Utilities.FS\Dsu.Common.Utilities.FS.fsproj">
+      <Project>{4e5d41d3-c394-4c16-8690-7a6e1a62bca8}</Project>
+      <Name>Dsu.Common.Utilities.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\common\PLCInterface\Dsu.PLC\Dsu.PLC.Melsec.csproj">
+      <Project>{dcc845f6-be3b-4553-a4de-e679fc69cd8e}</Project>
+      <Name>Dsu.PLC.Melsec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.Base.FS\Dsu.Driver.Base.FS.fsproj">
+      <Project>{054dddbf-2fd8-47b6-a083-537c394bf077}</Project>
+      <Name>Dsu.Driver.Base.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.Base\Dsu.Driver.Base.csproj">
+      <Project>{dedf4176-e7d3-45d4-832d-a09e0baedd1c}</Project>
+      <Name>Dsu.Driver.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.Etc.FS\Dsu.Driver.Etc.FS.fsproj">
+      <Project>{9828ede8-200d-468b-95be-574f32ed22c2}</Project>
+      <Name>Dsu.Driver.Etc.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.NiDAQ.FS\Dsu.Driver.NiDAQ.FS.fsproj">
+      <Project>{414fad91-80ce-4258-a0de-876a75d66da8}</Project>
+      <Name>Dsu.Driver.NiDAQ.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.PaixWrapper\Dsu.Driver.PaixWrapper.csproj">
+      <Project>{f3fe565b-b00a-49a8-bd21-df514774ff44}</Project>
+      <Name>Dsu.Driver.PaixWrapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.UI\Dsu.Driver.UI.csproj">
+      <Project>{8f4ff035-86c7-452f-be2d-ed2b5fffc35a}</Project>
+      <Name>Dsu.Driver.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dsu.Driver.Util\Dsu.Driver.Util.csproj">
+      <Project>{73adfefb-0162-4c29-a679-9a8897f707b5}</Project>
+      <Name>Dsu.Driver.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CpFunctions\CpBase\CpBase.csproj">
+      <Project>{f511fd68-6b01-4da9-9920-c28b130a85fa}</Project>
+      <Name>CpBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CpTStepDevLib\CpTStepDevLib.csproj">
+      <Project>{92cb2af3-2755-4789-9140-a8e853ce3aad}</Project>
+      <Name>CpTStepDevLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MngDev\Comm\CpMngDAQControl\CpMngDAQControl.csproj">
+      <Project>{5304f8db-66dd-4cc5-b8b2-b0cb59747ec1}</Project>
+      <Name>CpMngDAQControl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

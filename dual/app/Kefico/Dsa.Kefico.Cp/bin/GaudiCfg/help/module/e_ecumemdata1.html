@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE>E_ECUMEMDATA1</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_ECUMEMDATA1</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_ecumemdata1.C,v 1.8 2005/10/10 13:14:34 wes3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Modulroutine fuer MAKRO ECUMemDataNum und ECUMemDataStr
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_ecumemdata1.C
+   Autor:		RtW2/TEF72-Wiese (29.08.00)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01)
+   Sprache:		ANSI-C/C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   
+   int  e_ecumemdata1
+   (shm_stringpointer *zeilen_wert // &lt;I&gt; eingabeparameterfeld
+   ,long  index1		// &lt;I&gt; Stelle der Eingabeparameter
+   ,long  anzahl)		// &lt;I&gt; Anzahl der Parametert
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   
+   error = e_ecumemdata1
+   (*zeilen_wert 	// &lt;I&gt; eingabeparameterfeld
+   ,index1		// &lt;I&gt; Stelle der Eingabeparameter
+   ,anzahl)		// &lt;I&gt; Anzahl der Parametert
+
+   
+   if (error != 0) 	// Fehlerbeschreibung ... 
+   {
+   // Fehlerhandling ... 
+   }</pre><b><a name="param1">1</a> #define</b><pre>               PRUEFSCHRITT	0</pre><b><a name="param2">2</a> #define</b><pre>               POSITION		1
+       #define                CONTAINERTYP	2
+       #define                SESSIONNAME	3
+       #define                DATENTYP		4
+       #define                DATENTYPNAME	5
+       #define                DATENATTRIBUT	6
+       #define                FEHLERFLAG	7
+       #define                ERGEBNIS		8
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Dieses Modul dient dazu, ECUMEM - Container - Beschreibungsfiles 
+   "ecumemdata1.xml" zu lesen. Diese Files haben ein spezielles (XML - angeehntes)
+   Format, um die Daten eines Containers aufzubereiten. Dazu müssen die Files
+   mit Metamorphosis und dem Script "xpath.mm" mit dem Aufruf 
+     "mmx -M $MMBINDIR/xpath.mm -S $SWNR.sgs -F sgm -T ecumemdata1.xml"
+   erzuegt werden.
+   Diese Daten dieses Files werden eingelesen und in einem Structfeld zwischen-
+   gespeichert. Das Auslesen aus dem Structfeld kann wesentlich schneller erfolgen.</pre><b><a name="param3">3</a> CONTAINERTYP:</b><pre>FSW: Fahrsoftwarecontainer: %FLASHROOT/%TTNR/%SWNR/ecumemdata1.xml
+		 TSW: Testsoftwarecontainer: %FLASHROOT/tsw/%TSWNR/ecumemdata1.xml
+		 WP: Werksprogrammiercontainer: %FLASHROOT/wp/%WPSWNR/ecumemdata1.xml</pre><b><a name="param4">4</a> SESSIONNAME:</b><pre>Name der Session im Block MEM/SESSIONS</pre><b><a name="param5">5</a> DATENTYP:</b><pre>CHECKSUM: Daten aus dem Bereich Checksumme
+		DATAPOINTER: Daten aus dem Bereich der Datenpointer
+		KWP2000-SECURITY
+		KWP2000-TIMING
+		KWP2000-SETUP</pre><b><a name="param6">6</a> DATENATTRIBUT:</b><pre>Welches Datum soll zurückgegben werden (z.B. TARGET-START-ADR)</pre><b><a name="param7">7</a> FEHLERFLAG:</b><pre>Fehlerrückgabe: 0 alles ok, 1: Fehler</pre><b><a name="param8">8</a> ERGEBNIS:</b><pre>Ausgabe des Datums
+   
+   Das Datum wird unverändert aus dem Container ausgegeben.
+</PRE>
+</BODY>
+</HTML>

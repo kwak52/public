@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsu.Common.Utilities", "Dsu.Common.Utilities.csproj", "{825711E0-451F-4EDA-9560-A624350DE411}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{825711E0-451F-4EDA-9560-A624350DE411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825711E0-451F-4EDA-9560-A624350DE411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825711E0-451F-4EDA-9560-A624350DE411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825711E0-451F-4EDA-9560-A624350DE411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BBD26CF-BD24-46C9-B7EF-CCB166AB2F31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BBD26CF-BD24-46C9-B7EF-CCB166AB2F31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BBD26CF-BD24-46C9-B7EF-CCB166AB2F31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BBD26CF-BD24-46C9-B7EF-CCB166AB2F31}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

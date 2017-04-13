@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<TITLE>E_AD64_INIT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_AD64_INIT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_ad64_init.C,v 1.3 2002/03/06 08:45:49 lehmann Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Initialisierung des AD64 Toleranzen
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_ad64_init.C
+   Autor:		RtW/TEF72-Juilfs (16.10.97)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_ad64_init(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Aufgabe des Modules ist es, die Toleranzen sowie die Aktiven KanÃle
+   festzulegen.
+   Mit dem Modul kŒnnen zwei ToleranzbÃnder festgelegt werden, die pro Kanal
+   spÃter ausgewertet werden kŒnnen. Jeder Kanal (1-64) ist mit den Parametern
+   AKTIV_xx zu definieren ob er fœr die Auswertung verwendet wird.
+   Setzen eines Kanales wird mit "S" gekennzeichnet, ausgeblendete KanÃle
+   werden mit "-" bezeichnet.
+
+   
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> VXI_GERAET</b><pre>   	Name des GerÃtes laut PAM Beschreibungsfile	
+	:AD64_01
+   ------------------------------</pre><b><a name="param4">4</a> HI_TUG</b><pre>      Toleranzgrenze fœr die Highauswertung
+   ------------------------------</pre><b><a name="param5">5</a> HI_TOG</b><pre>      Toleranzgrenze fœr die Highauswertung
+   ------------------------------</pre><b><a name="param6">6</a> LO_TUG</b><pre>      Toleranzgrenze fœr die Lowauswertung
+   ------------------------------</pre><b><a name="param7">7</a> LO_TOG</b><pre>      Toleranzgrenze fœr die Lowauswertung
+   ------------------------------</pre><b><a name="param8">8</a> AKTIV_16_01</b><pre>       Setzen der aktiven KanÃle
+           Default:SSSSSSSSSSSSSSSS       (setzen)
+       Ausblenden:-
+   ------------------------------</pre><b><a name="param9">9</a> AKTIV_32_17</b><pre>           Default:SSSSSSSSSSSSSSSS       (setzen)
+       Ausblenden:-
+   -------------------------------</pre><b><a name="param10">10</a> AKTIV_48_33</b><pre>           Default:SSSSSSSSSSSSSSSS       (setzen)
+       Ausblenden:-
+   -------------------------------</pre><b><a name="param11">11</a> AKTIV_64_49</b><pre>           Default:SSSSSSSSSSSSSSSS       (setzen)
+       Ausblenden:-
+   -------------------------------</pre><b><a name="param12">12</a> MASSE_ANSCHALT</b><pre>      Default -
+   ...
+</PRE>
+</BODY>
+</HTML>

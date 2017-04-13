@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE>E_SOFTWTEST</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_SOFTWTEST</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_softwtest.C,v 1.5 2004/01/22 16:40:40 lehmann Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Initialisierung von Array-Variablen
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_softwtest.C
+   Autor:		RtW/TEF72-Juilfs (12.12.95)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_softwtest(
+     ,shm_stringpointer   *zeilen_wert
+     ,long index1
+     ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+          (Ssp_expand_zeile
+           ,Ssp_expand_wert
+           ,p_verwaltung-&gt;begin_modulblock
+           ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Dieses Modul legt fest, von welchen Prozessen die IO-Daten durch den
+   Prozess CCS_Softwaretest gespeichert werden sollen.
+   Dies erfolgt durch die Uebergabe der einzelenen Prozess-
+   kuerzel, durch ";" getrennt. Sollen alle Prozesse aktiviert werden,
+   erfolgt dies durch die Uebergabe von "ALL".
+   Vorsicht !! wird dieses Modul aufgerufen, werden die bis dahin
+   erfassten Daten gelöscht, von daher sollte dieses Modul direkt nach
+   dem E_DOKU Modul eingefuegt werden.
+   
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> Liste</b><pre>der zu aktivierenden Prozesse mit ; getrennt
+   z.B. BO;VI;
+   falls alle Prozesse aktiviert werden sollen 
+   kann dies mit ALL erfolgen
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> BlockInt [INT/ Hex/ Bin/ Oct]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>BlockInt [INT/ Hex/ Bin/ Oct]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=9945">
+ </A>
+BlockInt [INT/ Hex/ Bin/ Oct]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9947">
+ </A>
+LowByte [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9949">
+ </A>
+HighByte[INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9951">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=9953">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=9955">
+ </A>
+This function can only be carried out after a read operation by the function <EM CLASS="HelpSprung">
+ComBlock or CANBlock</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_ComBlock</EM>
+. As its result, it returns the bytes specified in the column Testing Parameters from low byte to high byte of a loaded measured data block and interprets them as integers.<BR>
+If LowByte = HighByte, the result returned is only one byte.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=9957">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=9959">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9961">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=9963">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=9965">
+ </A>
+Parameters</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=9967">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9969">
+ </A>
+LowByte</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9971">
+ </A>
+Number of the low byte of a loaded measured data block with n bytes.<BR>
+1 &lt;= LowByte &lt;= n. More information on the protocols can be found in the description of the function ComBlock.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9973">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9975">
+ </A>
+HighByte</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9977">
+ </A>
+Number of the high byte of a loaded measured data block with n bytes.<BR>
+1 &lt;= HighByte &lt;= n. More information on the protocols can be found in the description of the function ComBlock.</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=9979">
+ </A>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9981">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=9983">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=9985">
+ </A>
+Example</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=9987">
+ </A>
+Reading a 2-byte number from the control unit:</P>
+<P CLASS="Normal">
+<A NAME="pgfId=9989">
+ </A>
+Byte 1 = 0101 0010;			Byte 2 = 0100 0010;</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=9992">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1246">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1248">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1252">
+ </A>
+Result</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1260">
+ </A>
+BlockInt</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1262">
+ </A>
+1,2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1264">
+ </A>
+21058 [Int]</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1272">
+ </A>
+BlockInt</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1274">
+ </A>
+1,2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1276">
+ </A>
+5242 [Hex]</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=9994">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=9996">
+ </A>
+Reading the 10-digit BOSCH no. 1 234 567 890 whose digits are stored as hexadecimal numbers.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=9998">
+ </A>
+Byte 2 = 0001 0010 (12 Hex);				Byte 3 = 0011 0100 (34 Hex);				Byte 4 = 0101 0110 (56 Hex) </P>
+<P CLASS="Normal">
+<A NAME="pgfId=10000">
+ </A>
+Byte 5 = 0111 1000 (78 Hex);				Byte 6 = 1001 0000 (90 Hex)</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10003">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1279">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1281">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1285">
+ </A>
+Result [Hex]</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1293">
+ </A>
+BlockInt</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1295">
+ </A>
+2,6</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1297">
+ </A>
+1234567890</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

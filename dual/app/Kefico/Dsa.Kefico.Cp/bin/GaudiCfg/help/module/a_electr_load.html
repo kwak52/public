@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<TITLE>A_ELECTR_LOAD</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>A_ELECTR_LOAD</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/testlisten_schedule/a/src/a_electr_load.C,v 1.2 2005/03/04 15:54:58 lehmann Exp $
+   -------------------------------------------------------------------------
+   Kurzbeschreibung:  Gaudi Modul  HPIB Ansteuerung / Ruecklesen
+   -------------------------------------------------------------------------
+   Projekt:        Common Core System - BOSCH
+   Sourcefile:      a_electr_load.C
+   Autor:          AnW/TEF7   Schneider Romeo
+   Zielsystem:     HP9000 743rt vxi02 (HP-UX 10.20  HP-RT 03.01)
+   Sprache:        Ansi C; C++
+   -------------------------------------------------------------------------
+   Aufruf:                            &lt;GFMT KS=on TAB=8 LF=on&gt;
+
+   int a_electr_load (shm_stringpointer *zeilen_wert,// &lt;I&gt; Zeiger auf Werte
+                long index,                     // &lt;I&gt; Index Nummer
+                long anzahl)                    // &lt;I&gt; Anzahl der Werte
+
+
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Pruefschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> UNIT_NAME</b><pre>   Unit Name		
+   ------------------------------</pre><b><a name="param4">4</a> CALIBRATE</b><pre>
+   Kalibrieungs Kommandos
+   ------------------------------</pre><b><a name="param5">5</a> CHANEL</b><pre>   Kanalanwahl Kommandos
+   ------------------------------</pre><b><a name="param6">6</a> INPUT</b><pre>
+   Input Kommandos
+   ------------------------------</pre><b><a name="param7">7</a> MEASURE</b><pre>
+   Messwert Anfrage
+   ------------------------------</pre><b><a name="param8">8</a> LIST</b><pre>
+   List Kommandos
+   ------------------------------</pre><b><a name="param9">9</a> TRANSIENT</b><pre>
+   Transienten Kommandos
+   ------------------------------</pre><b><a name="param10">10</a> STATUS</b><pre>   Status Kommandos
+   -------------------------------</pre><b><a name="param11">11</a> SYTEM_CMD</b><pre>
+   System Kommandos
+   -------------------------------</pre><b><a name="param12">12</a> TRIGGER_CMD</b><pre>   Trigger Befehle
+   -------------------------------</pre><b><a name="param13">13</a> COMMON_CMD</b><pre>   Allgemeine Befehle
+   -------------------------------</pre><b><a name="param14">14</a> EL_MODE</b><pre>   Read/write Mode
+   -------------------------------</pre><b><a name="param15">15</a> EL_COUNTS</b><pre>   Anzahl zu lesender Werte
+   -------------------------------</pre><b><a name="param16">16</a> TIMEOUT</b><pre>   Timeout in msec
+   -------------------------------</pre><b><a name="param17">17</a> R_MESSWERT</b><pre>   Rueckgabe des Messwertes
+   -------------------------------</pre><b><a name="param18">18</a> EL_ERROR</b><pre>   Rueckgabe einer Fehlervariablen
+   -------------------------------
+
+   -------------------------------------------------------------------------
+   Returnparameter:                   &lt;GFMT KS=on TAB=8 LF=on&gt;
+   -------------------------------------------------------------------------
+   Funktionsbeschreibung:             &lt;GFMT KS=on TAB=8 LF=on&gt;
+
+   Uebernimmt die Parameter und deutet Sie moeglichst so, wie sie in der
+   modglobal.stl definiert worden sind.
+   Das Modul ist in der Lage, einen Befehl ueber HPIB-Bus an ein Geraet
+   auszugeben und wenn gewuenscht eine Antwort zurueckzulesen.
+   Die Antwort wird als Nachricht an die Messdatenauswertung weiter-
+   gereicht.
+
+   -------------------------------------------------------------------------
+   Fehlerbeschreibung:                &lt;GFMT KS=on TAB=8 LF=on&gt;
+
+   LISO Fehlerbehandlung
+</PRE>
+</BODY>
+</HTML>

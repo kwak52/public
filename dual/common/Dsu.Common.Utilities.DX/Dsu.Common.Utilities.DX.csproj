@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F4EE0D1-1642-4D97-89EC-3FD475298ECF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dsu.Common.Utilities.DX</RootNamespace>
+    <AssemblyName>Dsu.Common.Utilities.DX</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>true</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PRODUCT|AnyCPU'">
+    <OutputPath>$(SolutionDir)\bin\PRODUCT\</OutputPath>
+    <DefineConstants>PRODUCT</DefineConstants>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>true</RegisterForComInterop>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\open-sources\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL" />
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL" />
+    <Reference Include="System.Reactive.Linq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\..\open-sources\bin\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="DXFormAppCommon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DXFormContainer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DXFormContainer.Designer.cs">
+      <DependentUpon>DXFormContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DXFormDockableLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DXFormDockableLog.Designer.cs">
+      <DependentUpon>DXFormDockableLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DXFormDockableLogBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DXFormGridView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DXFormGridView.Designer.cs">
+      <DependentUpon>DXFormGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DxFormLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DxFormLog.Designer.cs">
+      <DependentUpon>DxFormLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExtensionMethods\EmDxForm.cs" />
+    <Compile Include="ExtensionMethods\EmDXGridControl.RepositoryItemButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExtensionMethods\EmDXTreeControl.ContextMenu.cs" />
+    <Compile Include="DXFormLogController.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DXFormLogController.Designer.cs">
+      <DependentUpon>DXFormLogController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProgressAndSplash\DXWaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressAndSplash\DXWaitForm.Designer.cs">
+      <DependentUpon>DXWaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DXGridViewOptionHolder.cs" />
+    <Compile Include="ExtensionMethods\EmDXGridControl.cs" />
+    <Compile Include="ExtensionMethods\EmDXTreeControl.cs" />
+    <Compile Include="MultiSelectionEditingHelper.cs" />
+    <Compile Include="ProgressAndSplash\EmSplashScreenManager.cs" />
+    <Compile Include="ProgressAndSplash\SplashScreenProgressWaitor.cs" />
+    <Compile Include="ProgressAndSplash\SplashScreenWaitor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DXFormContainer.resx">
+      <DependentUpon>DXFormContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DXFormDockableLog.ko.resx">
+      <DependentUpon>DXFormDockableLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DXFormDockableLog.resx">
+      <DependentUpon>DXFormDockableLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DXFormGridView.resx">
+      <DependentUpon>DXFormGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DxFormLog.resx">
+      <DependentUpon>DxFormLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DXFormLogController.resx">
+      <DependentUpon>DXFormLogController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressAndSplash\DXWaitForm.resx">
+      <DependentUpon>DXWaitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dsu.Common.Docking\Dsu.Common.Docking.csproj">
+      <Project>{03e4a28d-708d-4ea0-8a78-bd059a8bdfc6}</Project>
+      <Name>Dsu.Common.Docking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Common.Interfaces\Dsu.Common.Interfaces.csproj">
+      <Project>{4a9c406e-bea1-4470-b9d1-09605eaa44f3}</Project>
+      <Name>Dsu.Common.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Common.Resources\Dsu.Common.Resources.csproj">
+      <Project>{5b5804ce-0652-4bd8-bcd0-e3c038ac9fea}</Project>
+      <Name>Dsu.Common.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853D287B-5D4B-4167-83A5-EEDBB1EEA448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Common.Utilities\Dsu.Common.Utilities.csproj">
+      <Project>{825711e0-451f-4eda-9560-a624350de411}</Project>
+      <Name>Dsu.Common.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlusMinus.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

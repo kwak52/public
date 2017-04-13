@@ -1,0 +1,401 @@
+<HTML>
+<HEAD>
+<TITLE>F_UGEBR_ZUSATZ</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>F_UGEBR_ZUSATZ</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------                 
+ Funktionsbeschreibung:                                                     
+ Dieses Modul stellt - ebenso wie das 'F_ANSTEUER'-Modul - die              
+ Schnittstelle vom GAUDI zum nachgeordneten Hardware-Treiber dar.           
+ Je einer der beiden Gleichspannungsgeber kann durch Aufruf                 
+ eines 'F_ANSTEUER'- und - im Bedarfsfall - 'F_6073'-Moduls                 
+ programmiert werden.                                                       
+ Die im 'F_6073' uebergebenen Daten sind nicht Bestandteil der              
+ PAV und werden daher ueber dieses spezielle Modul an die                   
+ vorgegebene Stelle im 'Shared Memory' kopiert.                             
+                                                                            
+    Beschreibung der Ansteuerparameter:                                     
+                                                                            
+    1  PRUEFSCHRITT                                                         
+         GAUDI Pruefschritt                                                 
+    ------------------------------                                          
+    2  POSITION                                                             
+         PAV- Position                                                      
+    ------------------------------                                          
+    3  ANSTEUER_UNIT                                                        
+         Unitname wie er im PAM-Beschreibungsfile definiert ist;            
+    ------------------------------                                          
+    4  ANSTEUER_NAME                                                        
+         PAV-bezogener Name,                                                
+         der sich auf einen Steuergeraete-Pin bezieht;                      
+    ------------------------------                                          
+    5  ANSTEUER_WERT                                                        
+         Abschalten der Karte erfolgt mit Eingabe von "-";                  
+         Interpretation bei interner Referenz:                              
+          - gewuenschter Spannungswert (von 0.0 (inkl.) bis 20.0 Volt);     
+         Interpretation bei externer Referenz:                              
+          - Prozentangabe ==&gt; Ausgabespannung ist x% der max.               
+            (0 bis 100)       Referenzspannung von 20.0 Volt;               
+                                                 U_Referenz                 
+                              U = Ansteuerwert * ----------                 
+                                                    100                     
+                                                                            
+          - Spannungswert ==&gt; Ausgabespannung ist proportional              
+            ( wird nicht )    zur anliegenden Referenzspannung              
+            ( supported  )    und ergibt sich aus folgender                 
+                              Formel (s.Moduldaten):                        
+                                    U_Referenz                              
+                              U = -------------- * Ansteuerwert             
+                                  MAX_U_REFERENZ                            
+                                                 (nur sinnvoll, wenn     )  
+                                                 (  Ansteuerwert         )  
+                                                 ( -------------- &lt;= 1.0 )  
+                                                 ( MAX_U_REFERENZ        )  
+         Wichtig:                                                           
+         Bei Verwendung der externen Referenz ist die Aufloesung            
+         um den Faktor 2 schlechter!                                        
+    ------------------------------                                          
+    6  ANSTEUER_DIM                                                         
+         Parameter: "V" / "Volt" (Default) oder "%"                         
+                                                                            
+         Wichtig: bei Angabe eines Prozentwertes muss externe               
+                  Referenz im Modulparameter aktiviert und                  
+                  der entspr. Anschalte-Pin ausgewaehlt werden!             
+    ------------------------------                                          
+    7  ANSTEUER_PIN                                                         
+         Steuergeraete-bezogener Pin (wird mit den Daten aus                
+         Adapterfile und PAM-Beschreibungsfile referenziert),               
+         ueber den der Bezug zum Bus-Pin hergestellt werden kann;           
+         mit diesem Pin wird die '+'Ausgabespannung angeschaltet;           
+         Default: "-", dh. keine Anschaltung;                               
+                                                                            
+    &gt;6072, 6064&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         a01, a06, a11, a31,   (gleichzeitige Anschaltung des ersten        
+         a15 nur 6064           und zweiten Gebers auf Pin 'a31'            
+         ('+'Ausgabespg.)       wird von der SW unterbunden )               
+                                                                            
+         a02, a07, a12, a32,   (kein Kaskadieren und kein ext.              
+         a16 nur 6064           Sensing moeglich)                           
+         (normalerw. fuer)     (gleichzeitige Anschaltung des ersten        
+         (Anschaltung von)      und zweiten Gebers auf Pin 'a32'            
+         ('Sense_High'   )      wird von der SW unterbunden )               
+                                                                            
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         a04, a09, a13, a31,   (gleichzeitige Anschaltung des ersten        
+         a17 nur 6064           und zweiten Gebers auf Pin 'a31'            
+         ('+'Ausgabespg.)       wird von der SW unterbunden )               
+                                                                            
+         a05, a10, a14, a32    (kein Kaskadieren und kein ext.              
+         a18 nur 6064           Sensing moeglich)                           
+         (normalerw. fuer)      (gleichzeitige Anschaltung des ersten       
+         (Anschaltung von)      und zweiten Gebers auf Pin 'a32'            
+         ('Sense_High'   )      wird von der SW unterbunden )               
+                                                                            
+         &gt;&gt;&gt;&gt;&gt; Geber 1 + Geber 2 (kaskadiert) &lt;&lt;&lt;&lt;&lt;:                        
+         (eine Kaskadierung wird durch Aufruf von "F_ANSTEUER" im GAUDI     
+          fuer einen der beiden Geber bewirkt - nur die ausgewaehlten Pin's 
+          sind fuer die Kaskadierung massgeblich (!!!);                     
+          der dann eingegebene Spannungswert wird zu gleichen Teilen in     
+          beiden Gebern programmiert;                                       
+          der BezugsPin 'c31' kann bei Kaskadierung nur dann eindeutig      
+          gewaehlt werden, wenn die einzustellende Spannung groesser        
+          als 20.0 Volt ist;                                                
+          denn sowohl Geber1 als auch 2 sind auf diesen Pin schaltbar;)     
+         a01 - c04, c09, c13, c17, c31; (c17 nur 6064)                      
+         a06 - c04, c09, c13, c17, c31; (c17 nur 6064)                      
+         a11 - c04, c09, c13, c17, c31; (c17 nur 6064)                      
+         a31 - c04, c09, c13, c17, c31; (c17 nur 6064)                      
+         bzw.                                                               
+         a04 - c01, c06, c11, c15, c31; (c15 nur 6064)                      
+         a09 - c01, c06, c11, c15, c31; (c15 nur 6064)                      
+         a13 - c01, c06, c11, c15, c31; (c15 nur 6064)                      
+         a31 - c01, c06, c11, c15, c31; (c15 nur 6064)                      
+                                                                            
+    &gt;6073, 6065&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         a19, a23, a27, a31    (gleichzeitige Anschaltung des ersten        
+         ('+'Ausgabespg.)       und zweiten Gebers auf Pin 'a31'            
+                                wird von der SW unterbunden )               
+         a20, a24, a28, a32    (kein Kaskadieren und kein ext.              
+         (normalerw. fuer)      Sensing moeglich)                           
+         (Anschaltung von)     (gleichzeitige Anschaltung des ersten        
+         ('Sense_High'   )      und zweiten Gebers auf Pin 'a32'            
+                                wird von der SW unterbunden )               
+                                                                            
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         a21, a25, a29, a31    (gleichzeitige Anschaltung des ersten        
+         ('+'Ausgabespg.)       und zweiten Gebers auf Pin 'a31'            
+                                wird von der SW unterbunden )               
+         a22, a26, a30, a32    (kein Kaskadieren und kein ext.              
+         (normalerw. fuer)      Sensing moeglich)                           
+         (Anschaltung von)     (gleichzeitige Anschaltung des ersten        
+         ('Sense_High'   )      und zweiten Gebers auf Pin 'a32'            
+                                wird von der SW unterbunden )               
+                                                                            
+         &gt;&gt;&gt;&gt;&gt; Geber 1 + Geber 2 (kaskadiert) &lt;&lt;&lt;&lt;&lt;:                        
+         (eine Kaskadierung wird durch Aufruf von "F_ANSTEUER" im GAUDI     
+          fuer einen der beiden Geber bewirkt - nur die ausgewaehlten Pin's 
+          sind fuer die Kaskadierung massgeblich (!!!);                     
+          der dann eingegebene Spannungswert wird zu gleichen Teilen in     
+          beiden Gebern programmiert;                                       
+          der BezugsPin 'c31' kann bei Kaskadierung nur dann eindeutig      
+          gewaehlt werden, wenn die einzustellende Spannung groesser        
+          als 20 Volt ist;                                                  
+          denn sowohl Geber1 als auch 2 sind auf diesen Pin schaltbar;)     
+         a19 - c21, c25, c29, c31                                           
+         a23 - c21, c25, c29, c31                                           
+         a27 - c21, c25, c29, c31                                           
+         a31 - c21, c25, c29, c31                                           
+         bzw.                                                               
+         a21 - c19, c23, c27, c31                                           
+         a25 - c19, c23, c27, c31                                           
+         a29 - c19, c23, c27, c31                                           
+         a31 - c19, c23, c27, c31                                           
+                                                                            
+    ------------------------------                                          
+    8  ANSTEUER_BEZUG                                                       
+         Steuergeraete-bezogener Pin (wird mit den Daten aus                
+         Adapterfile und PAM-Beschreibungsfile referenziert),               
+         ueber den der Bezug zum Bus-Pin hergestellt werden kann;           
+         an diesen Pin wird die '-'Ausgabespannung angeschaltet;            
+         Default: "-", dh. keine Anschaltung;                               
+                                                                            
+    &gt;6072, 6064&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         c01, c06, c11, c31,   (gleichzeitige Anschaltung des ersten        
+         c15 nur 6064           und zweiten Gebers auf Pin 'c31'            
+         ('-'Ausgabespg.)       wird von der SW unterbunden )               
+                                                                            
+         c02, c07, c12, c32,   (kein Kaskadieren und kein ext.              
+         c16 nur 6064           Sensing moeglich)                           
+         (normalerw. fuer)     (gleichzeitige Anschaltung des ersten        
+         (Anschaltung von)      und zweiten Gebers auf Pin 'c32'            
+         ('Sense_High'   )      wird von der SW unterbunden )               
+                                                                            
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         c04, c09, c13, c31,(gleichzeitige Anschaltung des ersten           
+         c17 nur 6064        und zweiten Gebers auf Pin 'c31'               
+         ('-'Ausgabespg.)    wird von der SW unterbunden )                  
+                                                                            
+         c05, c10, c14, c32,(kein Kaskadieren und kein ext.                 
+         c18 nur 6064        Sensing moeglich)                              
+         (normalerw. fuer)  (gleichzeitige Anschaltung des ersten           
+         (Anschaltung von)   und zweiten Gebers auf Pin 'c32'               
+         ('Sense_High'   )   wird von der SW unterbunden )                  
+                                                                            
+         &gt;&gt;&gt;&gt;&gt; Geber 1 + Geber 2 (kaskadiert) &lt;&lt;&lt;&lt;&lt;:                        
+         (eine Kaskadierung wird durch Aufruf von "F_ANSTEUER" im GAUDI     
+          fuer einen der beiden Geber bewirkt - nur die ausgewaehlten Pin's 
+          sind fuer die Kaskadierung massgeblich (!!!);                     
+          der dann eingegebene Spannungswert wird zu gleichen Teilen in     
+          beiden Gebern programmiert;                                       
+          Pin 'a31' kann bei Kaskadierung nur dann eindeutig                
+          gewaehlt werden, wenn der einzustellende Spannungswert            
+          groesser als 20.0 Volt ist)                                       
+         c01 - a04, a09, a13, a17, a31; (a17 nur 6064)                      
+         c06 - a04, a09, a13, a17, a31; (a17 nur 6064)                      
+         c11 - a04, a09, a13, a17, a31; (a17 nur 6064)                      
+         c31 - a04, a09, a13, a17, a31; (a17 nur 6064)                      
+         bzw.                                                               
+         c04 - a01, a06, a11, a15, a31; (a15 nur 6064)                      
+         c09 - a01, a06, a11, a15, a31; (a15 nur 6064)                      
+         c13 - a01, a06, a11, a15, a31; (a15 nur 6064)                      
+         c31 - a01, a06, a11, a15, a31; (a15 nur 6064)                      
+                                                                            
+    &gt;6073, 6065&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         c19, c23, c27, c31    (gleichzeitige Anschaltung des ersten        
+                und zweiten Gebers auf Pin 'c31'                            
+                                wird von der SW unterbunden )               
+         c20, c24, c28, c32    (kein Kaskadieren und kein ext.              
+         (normalerw. fuer)      Sensing moeglich)                           
+         (Anschaltung von)     (gleichzeitige Anschaltung des ersten        
+         ('Sense_High'   )      und zweiten Gebers auf Pin 'c32'            
+                                wird von der SW unterbunden )               
+                                                                            
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         c21, c25, c29, c31 (gleichzeitige Anschaltung des ersten           
+         ('-'Ausgabespg.)    und zweiten Gebers auf Pin 'c31'               
+                             wird von der SW unterbunden )                  
+         c22, c26, c30, c32 (kein Kaskadieren und kein ext.                 
+         (normalerw. fuer)   Sensing moeglich)                              
+         (Anschaltung von)  (gleichzeitige Anschaltung des ersten           
+         ('Sense_High'   )   und zweiten Gebers auf Pin 'c32'               
+                             wird von der SW unterbunden )                  
+                                                                            
+         &gt;&gt;&gt;&gt;&gt; Geber 1 + Geber 2 (kaskadiert) &lt;&lt;&lt;&lt;&lt;:                        
+         (eine Kaskadierung wird durch Aufruf von "F_ANSTEUER" im GAUDI     
+          fuer einen der beiden Geber bewirkt - nur die ausgewaehlten Pin's 
+          sind fuer die Kaskadierung massgeblich (!!!);                     
+          der dann eingegebene Spannungswert wird zu gleichen Teilen in     
+          beiden Gebern programmiert;                                       
+          Pin 'a31' kann bei Kaskadierung nur dann eindeutig                
+          gewaehlt werden, wenn der einzustellende Spannungswert            
+          groesser als 20 Volt ist)                                         
+         c19 - a21, a25, a29, a31                                           
+         c23 - a21, a25, a29, a31                                           
+         c27 - a21, a25, a29, a31                                           
+         c31 - a21, a25, a29, a31                                           
+         bzw.                                                               
+         c21 - a19, a23, a27, a31                                           
+         c25 - a19, a23, a27, a31                                           
+         c29 - a19, a23, a27, a31                                           
+         c31 - a19, a23, a27, a31                                           
+                                                                            
+                                                                            
+                                                                            
+    Beschreibung der Modulparameter:                                        
+    (Bei Kaskadierung der beiden Geber einer Karte sind die Modulparameter  
+     ohne Bedeutung!)</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                      
+         GAUDI Pruefschritt                                                 
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                          
+         PAV- Position                                                      
+    ------------------------------</pre><b><a name="param3">3</a> ANST_UNIT</b><pre>                                                         
+         Unitname wie er im PAM-Beschreibungsfile definiert ist;            
+    ------------------------------</pre><b><a name="param4">4</a> REFERENZ</b><pre>                                                          
+         Auswahl, ob der ueber den Unitnamen ausgewaehlte                   
+         Gleichspannungsgeber mit externer Referenz betrieben               
+         werden soll oder nicht:                                            
+         Parameter:"-" / "INT" / "EXT" (Default: "-" bzw. "INT")            
+         bei Betrieb mit externer Referenz wird die Ausgangs-               
+         spannung auf die Referenzspannung bezogen;                         
+                                                                            
+         Wichtig: ein Betrieb mit externer Referenz ist nicht               
+                  moeglich, wenn die beiden Gleichspannungs-                
+                  geber einer Karte kaskadiert werden!                      
+    ------------------------------</pre><b><a name="param5">5</a> REFERENZ_PIN</b><pre>                                                      
+         Steuergeraete-bezogener Pin (wird mit den Daten aus                
+         Adapterfile und PAM-Beschreibungsfile referenziert),               
+         ueber den der Bezug zum Bus-Pin hergestellt werden kann;           
+         an diesen Pin wird die '+'Referenzspannung angeschaltet;           
+         die '-'Referenzspannung wird intern auf 'Sense_Low' bezogen        
+         und muss daher nicht separat angeschaltet werden;                  
+         Default: "-", dh. keine Anschaltung;                               
+                                                                            
+    &gt;6072, 6064&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         a03, a16                                                           
+                                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         c03, c16                                                           
+                                                                            
+    &gt;6073, 6065&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         a03, a16                                                           
+                                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         c03, c16                                                           
+    ------------------------------</pre><b><a name="param6">6</a> MAX_U_REFERENZ</b><pre>                                                    
+         Angabe der max. Spannung am Referenzeingang;                       
+         Parameter: positive Werte &gt; 0.0 und &lt;= 20.0 Volt;                  
+         ==&gt; Modulation der Ausgangsspannung mit der Referenz-              
+             spannung, dh. der Ansteuerparam. wird erreicht,                
+             sobald am Referenzeingang der hiermit angegebene               
+             Spannungswert anliegt;                                         
+    ------------------------------</pre><b><a name="param7">7</a> SENSING</b><pre>                                                           
+         Anschaltung der Sense-Leitungen (Sense_High und Sense_Low)         
+         an die Ausgaenge oder internes Sensing;                            
+         Parameter:"-" / "INT" / "EXT" (Default: "-" bzw. "INT")            
+                                                                            
+         Wichtig: ein externes Sensing ist nicht moeglich,                  
+                  wenn die beiden Gleichspannungsgeber einer                
+                  Karte kaskadiert werden oder die entspr.                  
+                  Kartenpins bereits fuer die Anschaltung der               
+                  Gleichspannung verwendet werden!                          
+    ------------------------------</pre><b><a name="param8">8</a> SENSE_HIGH</b><pre>                                                        
+         Steuergeraete-bezogener Pin (wird mit den Daten aus                
+         Adapterfile und PAM-Beschreibungsfile referenziert),               
+         ueber den der Bezug zum Bus-Pin hergestellt werden kann;           
+         an diesen Pin wird die Referenzspannung angeschaltet;              
+         Default: "-", dh. keine Anschaltung;                               
+                                                                            
+    &gt;6072, 6064&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         a02, a07, a12, a16, a32; (a16 nur 6064)                            
+                                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         a05, a10, a14, a18, a32; (a18 nur 6064)                            
+                                                                            
+    &gt;6073, 6065&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         a20, a24, a28, a32                                                 
+                                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         a22, a26, a30, a32                                                 
+   ------------------------------</pre><b><a name="param9">9</a> SENSE_LOW</b><pre>                                                         
+         Steuergeraete-bezogener Pin (wird mit den Daten aus                
+         Adapterfile und PAM-Beschreibungsfile referenziert),               
+         ueber den der Bezug zum Bus-Pin hergestellt werden kann;           
+         an diesen Pin wird die Referenzspannung angeschaltet;              
+         Default: "-", dh. keine Anschaltung;                               
+                                                                            
+    &gt;6072, 6064&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         c02, c07, c12, c16, c32; (c16 nur 6064)                            
+                                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         c05, c10, c14, c18, c32; (c18 nur 6064)                            
+                                                                            
+    &gt;6073, 6065&lt;                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 1 &lt;&lt;&lt;&lt;&lt;:                                               
+         c20, c24, c28, c32                                                 
+                                                                            
+         folgende Pin's koennen angesprochen werden fuer                    
+         &gt;&gt;&gt;&gt;&gt; Geber 2 &lt;&lt;&lt;&lt;&lt;:                                               
+         c22, c26, c30, c32                                                 
+                                                                            
+   ------------------------------</pre><b><a name="param10">10</a> OUTPUT_MODE</b><pre>                                                       
+         nur 6064, 6065:                                                    
+		- "-"		Spannungsbereich 0V - 20V; Default            
+		- "20V"		Spannungsbereich 0V - 20V                     
+		- "40V"		Spannungsbereich 0V - 40V                     
+                                                                            
+ Input:  Zeiger auf den relevanten "Wert" einer Zeile der                   
+         expandierten Pruefliste;                                           
+         Index im entsprechenden Speicherbereich fuer                       
+         Moduldaten;                                                        
+         Anzahl der Modulparameter;                                         
+                                                                            
+ Output: none                                                               
+                                                                            
+ ----------------------------------------------------------                 
+ Return Value:                                                              
+    = 0:    Successful completion                                           
+     -1:    wenn eine Zuordnung im Hardware-Beschreibungsfile               
+            bzw. Adapterfile fehlt, so dass ein Aufruf der                  
+            Funktion 'suche_unit_index()' fehlschlaegt;                     
+                                                                            
+                                                                            
+ ----------------------------------------------------------                 
+ Beispiel (optional):                                                       
+                                                                            
+ ----------------------------------------------------------                 
+</PRE>
+</BODY>
+</HTML>

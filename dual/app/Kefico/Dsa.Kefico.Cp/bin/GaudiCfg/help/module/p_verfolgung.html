@@ -1,0 +1,161 @@
+<HTML>
+<HEAD>
+<TITLE>P_VERFOLGUNG</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>P_VERFOLGUNG</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: p_verfolgung.C,v 1.9 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Prœfvortschrittskontrolle durch Fertigung
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		p_verfolgung.C
+   Autor:		RtW/TEF72-Keppler (10.12.97)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void p_verfolgung(shm_stringpointer *zeilen_info
+   ,shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_zeile
+   ,Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Aufgabe des Moduls ist, die Fertigungfortschrittskontrolle fœr die 
+   SteuergerÃte zu gewÃhrleisten. Mit diesem Modul kŒnnen StandtypabhÃngig
+   verschiedene Aktionen durchgefœhrt werden, wobei der volle Funktionsumfang
+   der SKM und PSS bereitgestellt ist.
+   Die Aktion wird nur ausgefœhrt, wenn 
+   	- die Prœfliste bisher FEHLERFREI durchlaufen wurde
+	- der Schrittbetrieb NICHT aktiviert wurde
+	
+   
+   €bergabeparameter    
+   
+   
+   MD,P_VERFOLGUNG
+   ,PRUEFSCHRITT	1
+   ,POSITION		2
+   ,MODUS		3
+   ,BEFEHL		4
+   ,DATUM0		5
+   ,STANDTYP_1_8	6
+   ,OFFSET_1_8		7
+   ,DATUM1		8
+   ,DATUM2		9
+   ,DATUM3		10
+   ,DATUM4		11
+   ,DATUM5		12
+   ,DATUM6		13
+   ,DATUM7		14
+   ,DATUM8		15
+   ,TUG_S1		16
+   ,TOG_S1		17
+   ,TUG_S2		18
+   ,TOG_S2		19
+   ,TUG_S3		20
+   ,TOG_S3		21
+   ,TUG_S4		22
+   ,TOG_S4		23
+   ,TUG_S5		24
+   ,TOG_S5		25
+   ,TUG_S6		26
+   ,TOG_S6		27
+   ,TUG_S7		28
+   ,TOG_S7		29
+   ,TUG_S8		30
+   ,TOG_S8		31
+   ,CODE_WAHL		32
+   ,ZEIGER_ANF		33
+   ,ZEIGER_END		34
+   ,ERGEBNIS		35
+   ,FEHLERFLAG		36
+   
+ ----- Eingabeprameter ------------</pre><b><a name="param3">3</a> MODUS:</b><pre>                                      
+   	SCHREIB: Hiermit kann Komunikation mit dem SG auf-
+   		genommen werden. Der Sendestring zum SG, setzt
+   		sich aus DATUM0 und DATUMx wie unter DATUM0
+   		beschrieben, zusammen.
+		Evtl. mit SAMMLE eingestellte Daten werden hiermit
+		ebenfalls œbertragen.
+   		Die vom SG als Antwort kommenden Daten kŒnnen
+   		auf ihre Richtigkeit œberprœft werden.
+   		Um den zurœckgekommenen String auswerten zu 
+   		kŒnnen, muﬁ der ZEIGER_ANF auf den Anfang der
+   		auszuwertenden Daten zeigen.
+   		Der ZEIGER_END zeigt bis an welche Stelle der 
+   		String ausgewertet werden soll.
+   		Die Differenz von ZEIGER_ANF und ZEIGER_END
+   		darf maximal 3 betragen.
+   		Die Art der Auswertung wird unter CODE_WAHL
+   		eingetragen.
+	SAMMLE:
+		Hiermit kŒnnen beliebig Strings zusammengebaut 
+		werden mittels mehrfachem Aufruf dieses Moduls.
+		Es gilt wie unter modus SCHREIB, daﬁ die unter DATUM0
+		stehenden Daten StandtypunabhÃngig in den String eingebaut
+		werden.
+   	INCR_ERRCOUNTER: 
+	        Mit diesem Modus kann z.B. ein Fehlerflag im SG 
+   		inkrementiert werden. Hierzu muﬁ das Fehlerflag in einem
+		frœheren Prœfschritt mit diesem Modul oder p_auftrag ausgelesen
+		werden und per Variable an DATUM1 || ... || DATUM8 œbergeben 
+		werden. Jetzt wird dieser Wert um 1 inkrementiert, und wie mit 
+		Modus SAMMLE in den Datenstring zum SG eingebaut.</pre><b><a name="param4">4</a> BEFEHL:</b><pre>Siehe p_auftrag:</pre><b><a name="param6">6</a> STANDTYP_1_8:</b><pre>Hier wird die Standtypen eingetragen, bei denen das 
+   		entsprechende Datum eingetragen wird.
+   		Z.B. (HT||EP||TT||AB||TT||TT||TT||TT)
+   		Taucht ein Standtyp mehr als 1 mal auf, so wird bei 
+   		jeder zugehŒrigen Toleranz geprœft ob der Messwert
+   		innerhalb dieser Toleranz ist.</pre><b><a name="param7">7</a> OFFSET_1_8:</b><pre>  Offset zum ZEIGER_ANF und ZEIGER_END abhaengig vom 
+   		Standtyp. Z.B. (00||04||00||00||00||00||00||00)</pre><b><a name="param5">5</a> DATUM0:</b><pre> 	    Die hier eingetragenen Daten wie Befehlsbyte
+   		(Blocktitel) oder Adressen werden StandtypunabhÃngig  
+   		zum SG gesendet. Der Datenstring zum SG
+   		wird wie folgt zusammengesetzt.       
+   		Zuerst alle DATUM0 bis XX
+   		Dann der StandtpabhÃngige String (z.b. DATUM1)</pre><b><a name="param8">8</a> DATUM1</b><pre>  :  Daten an das SteuergerÃt               
+       DATUM1 - DATUM4 werden abhÃngig vom Standtyp
+   		an das SG gesendet. NÃmlich DATUM1 bei STANDTYP1
+   		usw.
+   
+   	:</pre><b><a name="param15">15</a> DATUM8:</b><pre></pre><b><a name="param16">16</a> TUG_S1:</b><pre>Toleranz fœr Standtyp 1                  
+   	:</pre><b><a name="param31">31</a> TOG_S8:</b><pre>Toleranz fœr Standtyp 8</pre><b><a name="param33">33</a> ZEIGER_ANF:</b><pre>    Zeigt auf den Anfang des Rœckgabestrings nach
+   		dem Antwortblocktitel (sofern forhanden) wenn
+   		er auf 1 gesetzt ist.</pre><b><a name="param34">34</a> ZEIGER_END:</b><pre>    Die Auswertung ergfolgt bis zu diesem Zeiger-
+   		stand. Er darf maximal 3 grŒﬁer sein als
+   		ZEIGER_ANF wenn in CODE_WAHL nichts eingetragen
+   		ist.
+		
+ ----- Rueckgabeparameter ------------</pre><b><a name="param35">35</a> ERGEBNIS:</b><pre>Hier wird das Ergebnis innerhalb der Zeiger (Hexstring)
+   		im Gutfall,
+   		oder eine Fehlermeldung im Schlechtfall zurœckgegeben.</pre><b><a name="param36">36</a> TUG_RET:</b><pre>Hier wird die verwendete Toleranzuntergrenze zurueckgegeben.
+   		(Fuer gleiche Standtypen koennen verschieden Toleranzen 
+		verwendet werden. ACHTUNG: Statistik)</pre><b><a name="param37">37</a> TOG_RET:</b><pre>Hier wird die verwendete Toleranzobergrenze zurueckgegeben.
+   		(Fuer gleiche Standtypen koennen verschiedene Toleranzen
+		verwendet werden. ACHTUNG: Statistik)</pre><b><a name="param38">38</a> FEHLERFLAG:</b><pre> Wird kein Messwert innerhalb der Toleranz gefunden, oder tritt
+   		ein anderer Fehler auf, so wird dieses Flag gesetzt.
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+<TITLE>E_TRIGGER_INIT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_TRIGGER_INIT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_trigger_init.C,v 1.11 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	
+   ---------------------------------------------------------------------
+   Projekt:		TS2000
+   Sourcefile:		
+   Autor:		RtW/TEF72-Name (10.11.95)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_out_bosch(shm_stringpointer *zeilen_info
+   ,shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_zeile
+   ,Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+
+neu ab 1.2.98: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+   MD,E_TRIGGER_INIT
+   ,PRUEFSCHRITT		1	1
+   ,POSITION			2	2
+   ,VXI_GERAET			3	3
+   ,TRG_NAME_A			4	4
+   ,MODE_A			5	5
+   ,TIME_A			6	6
+   ,HYSTERESE_A			7	7
+   ,GATE_MODE_A			8	8
+   ,SPIKEFILT_A			9	
+   ,TRG_NAME_B			10	9
+   ,MODE_B			11	10
+   ,TIME_B			12	11
+   ,HYSTERESE_B			13	12
+   ,SPIKEFILT_B			14	
+   ,TRG_NAME_C			15	13
+   ,MODE_C			16	14
+   ,TIME_C			17	15
+   ,HYSTERESE_C			18	16
+   ,GATE_MODE_C			19	17
+   ,SPIKEFILT_C			20	
+   ,TRG_NAME_D			21	18
+   ,MODE_D			22	19
+   ,TIME_D			23	20
+   ,HYSTERESE_D			24	21
+   ,SPIKEFILT_D			25
+   
+   
+Dieses Modul ist fœr die Vorbelegung der Triggerkarte mit kanalspezifischen 
+Parametern zustÃndig. Die kanalspezifischen Parameter sind im Modul als 
+Parameter abgebildet. 
+Die Parameter die im Modul E_TRIGGER besetzt werden, sind Spannung und Flanke.</pre><b><a name="param3">3</a> VXI</b><pre>- Geraet:Hier wird ausgewÃhlt, welche Triggerkarte im System zugelassen 
+                wurde. Dieser Parameter muﬁ auf TRIG_01 gesetzt werden, da nur 
+                eine Triggerkarte unterstœtzt wird.</pre><b><a name="param4">4</a> TRG_NAME</b><pre>_x:Logischer Name, mit dem dieser Kanal angesprochen werden soll
+                Der logische Name dient dem E_TRIGGER, herauszufinden, auf wel
+                chem Kanal die Triggerkarte arbeitet. Dadurch kŒnnen die unter
+                schiedlichen Hardware - Funktionen der Triggerkarte den 
+                Erfordernissen eines Prœfprogramms zugeordnet werden. Dazu ist 
+                nur ein erneutes Aufrufen des Moduls erforderlich.</pre><b><a name="param5">5</a> MODE_x:</b><pre>	Umschaltung der digitalen Filterung -&gt;
+      DIR: 	   Keine digitale Filterung
+      HLD:(A/B)	   Hold - Funktion -&gt; das erzeugte Trigger -Signal ist immer 
+                   TIME_x lang
+      SPI:	   Das Trigger-Signal muﬁ TIME_x lang sein, um zu triggern
+      DEL:(A/B)	   Delayfunktion: Das Trigger-Signal wird um TIME_x verzŒgert
+                   Dieser Modus ist erforderlich, wenn auf die TRG_DELAY - Funk
+                   tion im E_TRIGGER zugegriffen werden soll.
+      xxx_S:(A/B)  Single_shot mit Funktion wie oben</pre><b><a name="param6">6</a> TIME_x:</b><pre>        Zeit fœr MODE_x</pre><b><a name="param7">7</a> HYSTERESE:</b><pre>Hysterese in Volt oder in (%) der Pegels (im E_TRIGGER bezogen 
+                auf 0). Umschaltung (%/absolut) durch Eintragen eines 
+		(%)-Zeichens. 
+                Die Hysterese wird dem Pegel je nach Flanke hinzuaddiert oder 
+                abgezogen. Der Pegel ist immer exakt der Pegel, bei dem 
+		getriggert wird!</pre><b><a name="param8">8</a> GATE_MODE_x:</b><pre>   Umschaltung der Gate - Funktion (nur verfœgbar bei A und C)
+      DIR: 	           Keine Gate - Funktion
+      KANAL_x: 	   Kanal x (A-D) wird fœr die Gatefunktion benutzt
+      INV_KANAL_x: 	   Der invertierte Kanal x (A-D) wird fœr die Gatefunktion benutzt
+                   (ab Version B)
+      HOLD_OFF_x: 	   Hold_Off - Signal des Kanal x (A/B) wird fœr die Gatefunktion 
+                   hinzugezogen
+      INV_HOLD_OFF_x:  Das Invertierte Hold_Off - Signal des Kanal x (A/B) wird fœr 
+  		   die Gatefunktion hinzugezogen (ab Version B)
+      FUNKT_0, FUNKT_1:Ausgaben des Triggerkartenprozessors werden zum Gaten ver
+                   wendet (zur Zeit noch nicht definiert) (ab Version C mŒglich)
+      OFF: 	           Kanal wird Tristate geschaltet
+      Logischer Name:  Der Logische Name wird gesucht und ev. angelegt. Triggerline wird
+  		   ev. definiert und an das GATE angeschaltet.</pre><b><a name="param9">9</a> SPIKEFILTER_x:</b><pre>ein ab Version B verfœgbarer zusÃtzlicher digitaler Spikefilter 
+		wird eingeschleift und mit der hier eingetragenen Zeit besetzt.
+		Der Spikefilter ist nicht aktiv, wenn MODE_x=SPI 
+		(Hintereinaderschaltung von 2 Spikefiltern ist tŒdlich)
+		Maximalzeit &lt; 64,00 ms
+</PRE>
+</BODY>
+</HTML>

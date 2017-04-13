@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3844819C-1D12-4401-ABBC-FE8A6B76B962}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dsu.PLC.Logix</RootNamespace>
+    <AssemblyName>Dsu.PLC.Logix</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeContractsEnableRuntimeChecking>True</CodeContractsEnableRuntimeChecking>
+    <CodeContractsRuntimeOnlyPublicSurface>False</CodeContractsRuntimeOnlyPublicSurface>
+    <CodeContractsRuntimeThrowOnFailure>True</CodeContractsRuntimeThrowOnFailure>
+    <CodeContractsRuntimeCallSiteRequires>False</CodeContractsRuntimeCallSiteRequires>
+    <CodeContractsRuntimeSkipQuantifiers>False</CodeContractsRuntimeSkipQuantifiers>
+    <CodeContractsRunCodeAnalysis>True</CodeContractsRunCodeAnalysis>
+    <CodeContractsNonNullObligations>True</CodeContractsNonNullObligations>
+    <CodeContractsBoundsObligations>True</CodeContractsBoundsObligations>
+    <CodeContractsArithmeticObligations>True</CodeContractsArithmeticObligations>
+    <CodeContractsEnumObligations>True</CodeContractsEnumObligations>
+    <CodeContractsRedundantAssumptions>True</CodeContractsRedundantAssumptions>
+    <CodeContractsAssertsToContractsCheckBox>True</CodeContractsAssertsToContractsCheckBox>
+    <CodeContractsRedundantTests>True</CodeContractsRedundantTests>
+    <CodeContractsMissingPublicRequiresAsWarnings>True</CodeContractsMissingPublicRequiresAsWarnings>
+    <CodeContractsMissingPublicEnsuresAsWarnings>False</CodeContractsMissingPublicEnsuresAsWarnings>
+    <CodeContractsInferRequires>True</CodeContractsInferRequires>
+    <CodeContractsInferEnsures>False</CodeContractsInferEnsures>
+    <CodeContractsInferEnsuresAutoProperties>True</CodeContractsInferEnsuresAutoProperties>
+    <CodeContractsInferObjectInvariants>False</CodeContractsInferObjectInvariants>
+    <CodeContractsSuggestAssumptions>False</CodeContractsSuggestAssumptions>
+    <CodeContractsSuggestAssumptionsForCallees>False</CodeContractsSuggestAssumptionsForCallees>
+    <CodeContractsSuggestRequires>False</CodeContractsSuggestRequires>
+    <CodeContractsNecessaryEnsures>True</CodeContractsNecessaryEnsures>
+    <CodeContractsSuggestObjectInvariants>False</CodeContractsSuggestObjectInvariants>
+    <CodeContractsSuggestReadonly>True</CodeContractsSuggestReadonly>
+    <CodeContractsRunInBackground>True</CodeContractsRunInBackground>
+    <CodeContractsShowSquigglies>True</CodeContractsShowSquigglies>
+    <CodeContractsUseBaseLine>False</CodeContractsUseBaseLine>
+    <CodeContractsEmitXMLDocs>False</CodeContractsEmitXMLDocs>
+    <CodeContractsCustomRewriterAssembly />
+    <CodeContractsCustomRewriterClass />
+    <CodeContractsLibPaths />
+    <CodeContractsExtraRewriteOptions />
+    <CodeContractsExtraAnalysisOptions />
+    <CodeContractsSQLServerOption />
+    <CodeContractsBaseLineFile />
+    <CodeContractsCacheAnalysisResults>True</CodeContractsCacheAnalysisResults>
+    <CodeContractsSkipAnalysisIfCannotConnectToCache>False</CodeContractsSkipAnalysisIfCannotConnectToCache>
+    <CodeContractsFailBuildOnWarnings>False</CodeContractsFailBuildOnWarnings>
+    <CodeContractsBeingOptimisticOnExternal>True</CodeContractsBeingOptimisticOnExternal>
+    <CodeContractsRuntimeCheckingLevel>Full</CodeContractsRuntimeCheckingLevel>
+    <CodeContractsReferenceAssembly>Build</CodeContractsReferenceAssembly>
+    <CodeContractsAnalysisWarningLevel>3</CodeContractsAnalysisWarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LanguageExt.Core">
+      <HintPath>..\..\..\open-sources\bin\LanguageExt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Siemens.Engineering">
+      <HintPath>..\..\..\app\bin\Release\Siemens.Engineering.dll</HintPath>
+    </Reference>
+    <Reference Include="Siemens.Engineering.Hmi">
+      <HintPath>..\..\..\app\bin\Release\Siemens.Engineering.Hmi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\..\..\app\bin\Release\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\..\..\app\bin\Release\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\..\..\app\bin\Release\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AB\AbChannelRequestExecutor.cs" />
+    <Compile Include="AB\AbConnection.cs" />
+    <Compile Include="AB\AbConnectionParameters.cs" />
+    <Compile Include="AB\controllogixnet\CIP\CIPKey.cs" />
+    <Compile Include="AB\controllogixnet\CIP\CIPType.cs" />
+    <Compile Include="AB\controllogixnet\CIP\ClassCode.cs" />
+    <Compile Include="AB\controllogixnet\CIP\CMObject_Attributes.cs" />
+    <Compile Include="AB\controllogixnet\CIP\CommonPaths.cs" />
+    <Compile Include="AB\controllogixnet\CIP\ConnectionObject_Attributes.cs" />
+    <Compile Include="AB\controllogixnet\CIP\ConnectionParameters.cs" />
+    <Compile Include="AB\controllogixnet\CIP\ForwardCloseReply.cs" />
+    <Compile Include="AB\controllogixnet\CIP\ForwardCloseRequest.cs" />
+    <Compile Include="AB\controllogixnet\CIP\ForwardOpenReply.cs" />
+    <Compile Include="AB\controllogixnet\CIP\ForwardOpenRequest.cs" />
+    <Compile Include="AB\controllogixnet\CIP\GeneralStatus.cs" />
+    <Compile Include="AB\controllogixnet\CIP\GeneralStatusCode.cs" />
+    <Compile Include="AB\controllogixnet\CIP\GetConnectionDataReply.cs" />
+    <Compile Include="AB\controllogixnet\CIP\GetConnectionDataRequest.cs" />
+    <Compile Include="AB\controllogixnet\CIP\IdentityItem.cs" />
+    <Compile Include="AB\controllogixnet\CIP\InterfaceInformation.cs" />
+    <Compile Include="AB\controllogixnet\CIP\IOI.cs" />
+    <Compile Include="AB\controllogixnet\CIP\LinkConsumer.cs" />
+    <Compile Include="AB\controllogixnet\CIP\LinkProducer.cs" />
+    <Compile Include="AB\controllogixnet\CIP\MessageRouter.cs" />
+    <Compile Include="AB\controllogixnet\CIP\MR_Request.cs" />
+    <Compile Include="AB\controllogixnet\CIP\MR_Response.cs" />
+    <Compile Include="AB\controllogixnet\CIP\NetworkConnectionParams.cs" />
+    <Compile Include="AB\controllogixnet\CIP\ObjectClass.cs" />
+    <Compile Include="AB\controllogixnet\CIP\PortSegmentR.cs" />
+    <Compile Include="AB\controllogixnet\CIP\RoutingErrors.cs" />
+    <Compile Include="AB\controllogixnet\CIP\SearchConnectionDataRequest.cs" />
+    <Compile Include="AB\controllogixnet\CIP\Services.cs" />
+    <Compile Include="AB\controllogixnet\CIP\SockAddrInfo.cs" />
+    <Compile Include="AB\controllogixnet\CIP\UnconnectedSend.cs" />
+    <Compile Include="AB\controllogixnet\CIP\UnconnectedSendReply.cs" />
+    <Compile Include="AB\controllogixnet\ConnectionManager.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\CommonDataServiceReply.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\ConversionHelper.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\Exceptions.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\GetStructAttribsRequest.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\LicenseCheck.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\LogixErrors.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\LogixProcessor.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\LogixRead.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\LogixServices.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\LogixTag.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\LogixTagGroup.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\LogixTagInfo.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\LogixTypes.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\MultiServiceRequest.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\NamespaceDoc.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\ProcessorFaultState.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\ProcessorKeySwitch.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\ProcessorResetType.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\ProcessorState.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\ReadDataServiceReply.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\ReadDataServiceRequest.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\ReadTemplateRequest.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\SequenceNumberGenerator.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\TemplateInfo.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\TestLogix.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\TypeConverter.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\UtilityBelt.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\WriteDataServiceReply.cs" />
+    <Compile Include="AB\controllogixnet\ControlLogixNET\WriteDataServiceRequest.cs" />
+    <Compile Include="AB\controllogixnet\ControlNetService.cs" />
+    <Compile Include="AB\controllogixnet\EIP\CommonPacket.cs" />
+    <Compile Include="AB\controllogixnet\EIP\CommonPacketTypeId.cs" />
+    <Compile Include="AB\controllogixnet\EIP\EncapsCommand.cs" />
+    <Compile Include="AB\controllogixnet\EIP\EncapsPacket.cs" />
+    <Compile Include="AB\controllogixnet\EIP\EncapsPacketFactory.cs" />
+    <Compile Include="AB\controllogixnet\EIP\EncapsReply.cs" />
+    <Compile Include="AB\controllogixnet\EIP\EncapsRRData.cs" />
+    <Compile Include="AB\controllogixnet\EIP\EncapsStatusCode.cs" />
+    <Compile Include="AB\controllogixnet\EIP\EncapsUnitData.cs" />
+    <Compile Include="AB\controllogixnet\EIP\ListIdentityReply.cs" />
+    <Compile Include="AB\controllogixnet\EIP\ListInterfacesReply.cs" />
+    <Compile Include="AB\controllogixnet\EIP\ListServicesReply.cs" />
+    <Compile Include="AB\controllogixnet\EIP\RegisterSession_Reply.cs" />
+    <Compile Include="AB\controllogixnet\EIP\SessionInfo.cs" />
+    <Compile Include="AB\controllogixnet\EIP\SessionManager.cs" />
+    <Compile Include="AB\controllogixnet\ICommon\IDevice.cs" />
+    <Compile Include="AB\controllogixnet\ICommon\ITag.cs" />
+    <Compile Include="AB\controllogixnet\ICommon\TagQuality.cs" />
+    <Compile Include="AB\controllogixnet\IDataLinkLayer.cs" />
+    <Compile Include="AB\controllogixnet\IExpandable.cs" />
+    <Compile Include="AB\controllogixnet\IPackable.cs" />
+    <Compile Include="AB\controllogixnet\LocalModification\LogixServices_Dualsoft.cs" />
+    <Compile Include="AB\controllogixnet\LocalModification\ReadMultipleDataServiceReply.cs" />
+    <Compile Include="AB\AbCpu.cs" />
+    <Compile Include="AB\ExtensionAB.cs" />
+    <Compile Include="AB\AbTag.cs" />
+    <Compile Include="Common\ChannelRequestExecutor.cs" />
+    <Compile Include="Common\ConnectionBase.cs" />
+    <Compile Include="Common\ConnectionParametersEthernet.cs" />
+    <Compile Include="Common\PlcException.cs" />
+    <Compile Include="Common\IObservableEvent.cs" />
+    <Compile Include="Common\TagBase.cs" />
+    <Compile Include="IConnection.cs" />
+    <Compile Include="IConnectionParameters.cs" />
+    <Compile Include="ICpu.cs" />
+    <Compile Include="ITag.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ErrorStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\strings-en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings-en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\strings-fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings-fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ExtensionMethods.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ErrorStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\strings-en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings-en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\strings-fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings-fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AB\controllogixnet\CIP\CIPModel.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AB\controllogixnet\ControlLogixNET\ChangeLog.txt" />
+    <Content Include="AB\controllogixnet\ControlLogixNET\ControlLogixNET.csproj" />
+    <Content Include="AB\controllogixnet\ControlLogixNET\Known Issues.txt" />
+    <Content Include="AB\controllogixnet\ICommon\ICommon.csproj" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

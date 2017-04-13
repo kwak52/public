@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE>F_6046_ZUSATZ</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>F_6046_ZUSATZ</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: f_6046_zusatz.C,v 1.2 2002/02/27 09:39:46 wiese Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Verbinden der 6046 Karte mit der Unit
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		f_6046_zusatz.C
+   Autor:		RtW/TEF72-Juilfs (30.04.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void f_6046(shm_stringpointer *zeilen_info
+   ,shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_zeile
+   ,Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Ûbergabeparameter anhand der Modglobal.stl
+MD,F_6046_ZUSATZ
+                ,PRUEFSCHRITT	1
+                ,POSITION	2
+                ,ANST_UNIT_1	3
+                ,EXT_REF_1	4
+                ,EXT_REF_CH_1	5
+                ,SENSE_1	6		
+                ,ANST_UNIT_2	7		
+                ,EXT_REF_2	8
+                ,EXT_REF_CH_2	9
+                ,SENSE_2	10
+
+Aufgabe dieses Modules ist es, die Zusatzdaten zu einer 6046 Karte
+an den Hardwaretreiberprozess zu geben. Die 6046 Karte hat 2 getrennte
+Spannungsgeber. Die Ansteuerwerte werden per F_ANSTEUER Modul an den
+Hardwaretreiber gegeben. Die Zusatzdaten sind in der Regel kein Bestandteil
+der PAV und werden daher Ïber dieses spezielle Modul abgewickelt.</pre><b><a name="param3">3</a> ANST_UNIT_1:</b><pre>Symbolischer Namen aus dem PAM-Beschreibungsfile</pre><b><a name="param4">4</a> EXT_REF_1:</b><pre>Einschalten der externen Referenz mit der Eingabe 
+            "EXT"</pre><b><a name="param5">5</a> EXT_REF_CH_1:</b><pre>Zuweisen der Pinnummer wo die externe Spannung in die Karte eingespeist wird.
+            " a01/a03/a16"</pre><b><a name="param6">6</a> SENSE_1:</b><pre>Einschalten der Senseleitung fÏr die Ausgangsspannung
+            "EIN"
+
+
+
+   Revision 1.1  2001/12/18 10:34:55  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.5  2001/06/12 10:26:56  lehmann
+   Put_unitaenderung eingefuegt
+
+   Revision 1.4  2001/05/23 13:00:24  lehmann
+   put_unit_aenderung eingeführt
+
+   Revision 1.3  1999/12/22 10:08:19  keppler
+   $ID -&gt; $Id
+
+   Revision 1.2  1999/12/22 09:15:13  keppler
+   $Header -&gt; $Id
+
+   Revision 1.1  1999/11/23 14:22:21  katzenma
+   Initial Version by Sniff
+
+Revision 1.1  97/12/02  14:22:15  14:22:15  juilfs (Joerg Juilfs)
+Initial revision
+
+   ---------------------------------------------------------------------
+
+
+
+</PRE>
+</BODY>
+</HTML>

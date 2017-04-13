@@ -1,0 +1,209 @@
+<HTML>
+<HEAD>
+<TITLE>R_STRCAT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_STRCAT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------                 
+ Funktionsbeschreibung:                                                     
+                                                                            
+    Aus den maximal 10 Einzel-Strings (Zeichenketten) wird durch            
+    Aneinanderhaengen ein Gesamtstring gebildet, dessen Laenge eine         
+    Maximallaenge von 80 Zeichen nicht ueberschreiten darf.                 
+    Anderenfalls wird eine Fehlermeldung ausgegeben, und der (an die        
+    GAUDI-Schnittstelle) uebergebene Ergebnis-String enthaelt kein Zeichen. 
+                                                                            
+    Da der GAUDI fuer Leerzeichen und Sonderzeichen nicht transparent       
+    ist, gibt es die Moeglichkeit, diese als Zahlenwert in sedezimaler      
+    Darstellung anzugeben. Zum Beispiel:                                    
+       \X0D    CarriageReturn                                               
+       \X0A    Linefeed                                                     
+       \X20    Leerzeichen (dezimaler Wert ist 32)                          
+                                                                            
+       \X0D\X0A\X20  mehrere Zeichen hintereinander                         
+                                                                            
+                                                                            
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                       
+            GAUDI Pruefschritt                                                
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                           
+            PAV- Position                                                     
+    ------------------------------</pre><b><a name="param3">3</a> MODE</b><pre>                                                               
+            Steuerparameter, mit dem (s.o.) entschieden werden kann,          
+            ob die Zeichenketten wie sie sind zu konkatenieren sind,          
+            oder ob Sonderzeichen in oben aufgefuehrter Darstellung           
+            zu uebersetzen sind;                                              
+              TRANSPARENT - Defaultfall, die Zeichenketten werden so,         
+                            wie sie sind uebernommen und konkateniert;        
+              COMPILE     - die mit oben aufgefuehrter Syntax angegeben       
+                            Sonderzeichen werden entsprechend gewandelt;      
+    ------------------------------</pre><b><a name="param4">4</a> ASCIISTRING1</b><pre>                                                       
+            konstanter String mit max. 14 Zeichen Laenge oder                 
+            ein ueber eine '&amp;'-Variable empfangener String mit                
+            - innerhalb der Grenzen von 80 Zeichen - beliebiger Laenge;       
+    ------------------------------</pre><b><a name="param5">5</a> ASCIISTRING2</b><pre>                                                       
+            dito                                                              
+    ------------------------------</pre><b><a name="param6">6</a> ASCIISTRING3</b><pre>                                                       
+            dito                                                              
+    ------------------------------</pre><b><a name="param7">7</a> ASCIISTRING4</b><pre>                                                       
+            dito                                                              
+    ------------------------------</pre><b><a name="param8">8</a> ASCIISTRING5</b><pre>                                                       
+            dito                                                              
+    ------------------------------</pre><b><a name="param9">9</a> ASCIISTRING6</b><pre>                                                       
+            dito                                                              
+    ------------------------------</pre><b><a name="param10">10</a> ASCIISTRING7</b><pre>                                                       
+            dito                                                              
+    ------------------------------</pre><b><a name="param11">11</a> ASCIISTRING8</b><pre>                                                       
+            dito                                                              
+    ------------------------------</pre><b><a name="param12">12</a> ASCIISTRING9</b><pre>                                                       
+            dito                                                              
+    ------------------------------</pre><b><a name="param13">13</a> ASCIISTRING10</b><pre>                                                      
+            dito                                                              
+    ------------------------------</pre><b><a name="param14">14</a> RESULTSTRING</b><pre>                                                       
+            konstanter String mit max. 80 Zeichen Laenge wird                 
+            an eine vom Anwender einzugebende '&amp;'-Variable uebergeben;        
+                                                                            
+                                                                            
+ Input:  Zeiger auf den relevanten "Wert" einer Zeile der                   
+         expandierten Pruefliste;                                           
+         Index im entsprechenden Speicherbereich fuer                       
+         Moduldaten;                                                        
+         Anzahl der Modulparameter;                                         
+                                                                            
+ Output: none                                                               
+                                                                            
+ ----------------------------------------------------------                 
+ Return Value:                                                              
+    = 0:    Successful completion                                           
+     -1:    bei Ueberschreitung der Gesamtlaenge von 80 Zeichen;            
+                                                                            
+ ----------------------------------------------------------                 
+ Beispiel (optional):                                                       
+                                                                            
+ &lt;\userdoc&gt; 
+ ----------------------------------------------------------                 
+ C4                                                                         
+int r_strcat( shm_stringpointer  *zeilen_wert
+             ,long               index_on_expPrfLst
+             ,long               anzPrmtr )
+{
+	
+	 r_strcat 	
+	
+	 lokale Variablen 	
+	int  ret_val = 0;
+	
+	
+	 Schrittbetriebs-Handling 	
+	int  schritt_aktiv = schrittbetrieb( zeilen_wert, index_on_expPrfLst );
+	
+	if ( schritt_aktiv != 1 ) {
+		return( ret_val );
+	
+	}
+	
+	 Strings vorinitialisieren 		
+	QString  ResultString  = "";
+	QString  asciistring1  = "";
+	QString  asciistring2  = "";
+	QString  asciistring3  = "";
+	QString  asciistring4  = "";
+	QString  asciistring5  = "";
+	QString  asciistring6  = "";
+	QString  asciistring7  = "";
+	QString  asciistring8  = "";
+	QString  asciistring9  = "";
+	QString  asciistring10 = "";
+        
+        Variablenverwaltung *verwa_ptr1;           // Zugriff auf Variablenverwaltung
+	
+	 GAUDI-Parameter ausgeben: 		
+	QString  pruefschritt(*zeilen_wert-&gt;ptr[index_on_expPrfLst + PRUEFSCHRITT]);
+	QString  position(*zeilen_wert-&gt;ptr[index_on_expPrfLst + POSITION]);
+	//QString  mode(*zeilen_wert-&gt;ptr[index_on_expPrfLst + MODE]);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING1];
+        verwa_ptr1-&gt;get_wert(asciistring1);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING2];
+        verwa_ptr1-&gt;get_wert(asciistring2);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING3];
+        verwa_ptr1-&gt;get_wert(asciistring3);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING4];
+        verwa_ptr1-&gt;get_wert(asciistring4);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING5];
+        verwa_ptr1-&gt;get_wert(asciistring5);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING6];
+        verwa_ptr1-&gt;get_wert(asciistring6);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING7];
+        verwa_ptr1-&gt;get_wert(asciistring7);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING8];
+        verwa_ptr1-&gt;get_wert(asciistring8);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING9];
+        verwa_ptr1-&gt;get_wert(asciistring9);
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + ASCIISTRING10];
+        verwa_ptr1-&gt;get_wert(asciistring10);
+       
+	debug_message( __FILE__, __LINE__, DEB_GAUDI
+		      ,"Input fuer Modul \"R_STRCAT\":\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]\n"
+		      "[%s]"
+		      ,pruefschritt.latin1(), position.latin1()
+		      ,asciistring1.latin1(), asciistring2.latin1(), asciistring3.latin1()
+		      ,asciistring4.latin1(), asciistring5.latin1(), asciistring6.latin1()
+		      ,asciistring7.latin1(), asciistring8.latin1(), asciistring9.latin1()
+		      ,asciistring10.latin1() );
+	
+	
+	 Einzelstrings aneinanderhaengen, bei Bedarf Sonderzeichen und waehrenddessen die Gesamtlaenge ueberpruefen: 		
+	ResultString = ResultString + asciistring1;
+	ResultString = ResultString + asciistring2;
+	ResultString = ResultString + asciistring3;
+	ResultString = ResultString + asciistring4;
+	ResultString = ResultString + asciistring5;
+	ResultString = ResultString + asciistring6;
+	ResultString = ResultString + asciistring7;
+	ResultString = ResultString + asciistring8;
+	ResultString = ResultString + asciistring9;
+	ResultString = ResultString + asciistring10;
+	
+	
+	 Steuerinformation bei Bedarf auswerten und Sonderzeichen generieren: 		
+	Utilities::konvert_symbolics( ResultString );
+	
+	
+	 Gesamtlaenge pruefen entfällt seit Variablenhandling mit langen Variablen &gt; 80 Zeichen 		
+	
+	 Gesamtstring zurueckgeben an die SharedMemory-Schnittstelle: 		
+	if ( 0 == ret_val ) {
+
+           verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + RESULTSTRING];
+           verwa_ptr1-&gt;put_wert(ResultString);
+           
+	   debug_message( __FILE__, __LINE__, DEB_DATA
+			 ,"Outputstring des Moduls \"R_STRCAT\":\n[%s]",ResultString.latin1() );
+	   
+	}
+	
+	return( ret_val );
+
+}
+</PRE>
+</BODY>
+</HTML>

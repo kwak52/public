@@ -1,0 +1,903 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> ECUMemDataStr [Str]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>ECUMemDataStr [Str]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=11817">
+ </A>
+ECUMemDataStr [Str]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11819">
+ </A>
+Container_Type [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11821">
+ </A>
+Session_Name [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11823">
+ </A>
+Data_Type [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11825">
+ </A>
+Data_Type_Name [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11827">
+ </A>
+Data_Attribute [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11829">
+ </A>
+PAV_Format [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11831">
+ </A>
+Characters [INT]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11833">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=11835">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11837">
+ </A>
+This function provides the facility for accessing data that is in the ECU memory container or is deducible from it. That data is related to the function LoadFile. A detailed list of the possible functions is given below.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11839">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11841">
+ </A>
+The data does not have to be redetermined for every test. In order to minimize the access time, the data is retrieved once (or each time it is altered) from the ECU memory container and stored internally on the testing station in a form that allows rapid access. The conversion of the data into the internal format can also be performed manually which makes it possible to use the function before a valid ECU memory container is available.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11843">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11845">
+ </A>
+The return value is always a string.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11847">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11849">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11851">
+ </A>
+None</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11853">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11855">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11857">
+ </A>
+Container_Type</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11859">
+ </A>
+Specifies the type of ECU memory container. Values currently allowed are FSW (vehicle software), TSW (test software) and WP (factory programming).</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11861">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11863">
+ </A>
+Session_Name</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11865">
+ </A>
+Specifies the name of the session in the ECU memory container from which the required data is to be read.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11867">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11869">
+ </A>
+Data_Type</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11871">
+ </A>
+Specifies the type of the data to be read.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11873">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11875">
+ </A>
+Data_Type_Name</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11877">
+ </A>
+Specifies the name of the required data type (if the entry is not accessible by name, Data_Type_Name is left blank).</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11879">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11881">
+ </A>
+Data_Attribute</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11883">
+ </A>
+Specifies which attribute of the data is to be returned.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11885">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11887">
+ </A>
+PAV_Format</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11889">
+ </A>
+Specifies the format in which the data read is to be returned to the PAV. B=Binary, F=Floating-point number, H=Integer in hexadecimal format, I=Integer in decimal format, S=String. Data in the container starting with 0x and consisting of the strings of the characters 0..9, A..F are interpreted as hexadecimal numbers. In integer format, x.0 is accepted as a whole number but any other number with a decimal fraction produces an error message. Container data that cannot be formatted or interpreted unambiguously also produces an error message. </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11891">
+ </A>
+</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11893">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11895">
+ </A>
+</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11897">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11899">
+ </A>
+Characters</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11901">
+ </A>
+Specifies the number of characters to be returned. If the specified character string in the ECU memory container is shorter than the length specified by this parameter, the appropriate number of leading zeros is added. If the character string is longer than the number of characters specified by this parameter, an error message is generated. If no figure is specified or the number of characters specified is 0, the character string is returned unmodified. </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11903">
+ </A>
+The character - is not permissible as a specified number of characters.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11905">
+ </A>
+In the case of format F (floating-point number), the specified number of characters is interpreted as the number of decimal places. Surplus decimal places are truncated without rounding the number.  </P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11907">
+ </A>
+In the case of format S, the container data is copied to the return string unmodified. If a figure is specified for the number of characters, the string is padded out to the required length by adding leading zeros.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11909">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11911">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11913">
+ </A>
+The following table shows some examples of the representation of the measured data in the PAV line according to container data, the selected PAV format and the number of characters:</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11916">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="2">
+<P CLASS="Tabelle">
+<A NAME="pgfId=3145">
+ </A>
+Runtime Parameter</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="5">
+<P CLASS="Tabelle">
+<A NAME="pgfId=3147">
+ </A>
+Container Data</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=3163">
+ </A>
+PAV_Format</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=3165">
+ </A>
+No. of  Characters</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=3167">
+ </A>
+0x12</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=3169">
+ </A>
+12</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=3171">
+ </A>
+12.0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=3173">
+ </A>
+12.789</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=3175">
+ </A>
+0xHallo</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3191">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=3193">
+ </A>
+I</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3179">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3195">
+ </A>
+,18`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3197">
+ </A>
+,12`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3199">
+ </A>
+,12`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3201">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3203">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3205">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3219">
+ </A>
+1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3221">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3223">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3225">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3227">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3229">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3231">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3245">
+ </A>
+4</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3247">
+ </A>
+,0018`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3249">
+ </A>
+,0012`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3251">
+ </A>
+,0012`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3253">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3255">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3271">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=3273">
+ </A>
+B</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3259">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3275">
+ </A>
+,10010`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3277">
+ </A>
+,1100`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3279">
+ </A>
+,1100`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3281">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3283">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3285">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3299">
+ </A>
+3</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3301">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3303">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3305">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3307">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3309">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3311">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3325">
+ </A>
+6</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3327">
+ </A>
+,010010`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3329">
+ </A>
+,001100`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3331">
+ </A>
+,001100`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3333">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3335">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3351">
+ </A>
+H</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3339">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3353">
+ </A>
+,12`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3355">
+ </A>
+,C`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3357">
+ </A>
+,C`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3359">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3361">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3363">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3377">
+ </A>
+4</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3379">
+ </A>
+,0012`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3381">
+ </A>
+,000C`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3383">
+ </A>
+,000C`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3385">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3387">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3403">
+ </A>
+F</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3391">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3405">
+ </A>
+,18.0`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3407">
+ </A>
+,12.0`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3409">
+ </A>
+,12.0`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3411">
+ </A>
+,12.789`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3413">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3415">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3429">
+ </A>
+2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3431">
+ </A>
+,18.00`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3433">
+ </A>
+,12.00`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3435">
+ </A>
+,12.00`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3437">
+ </A>
+,12.78`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3439">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3455">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=3457">
+ </A>
+S</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3443">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3459">
+ </A>
+,0x12`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3461">
+ </A>
+,12`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3463">
+ </A>
+,12.0`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3465">
+ </A>
+,12.789`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3467">
+ </A>
+'0xHallo'</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3469">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3483">
+ </A>
+2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3485">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3487">
+ </A>
+,12`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3489">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3491">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3493">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3495">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3509">
+ </A>
+4</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3511">
+ </A>
+,0x12`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3513">
+ </A>
+,0012`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3515">
+ </A>
+,12.0`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3517">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3519">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3521">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3535">
+ </A>
+7</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3537">
+ </A>
+,0000x12`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3539">
+ </A>
+,0000012`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3541">
+ </A>
+,00012.0`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3543">
+ </A>
+,012.789`</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=3545">
+ </A>
+'0xHallo'</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,178 @@
+<HTML>
+<HEAD>
+<TITLE>M_SCANNER</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_SCANNER</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: m_scanner.C,v 1.7 2004/01/23 11:00:50 nickelth Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Anschaltung des Koppelfeldes
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		m_scanner.C
+   Autor:		RtW/TEF72-Juilfs (31.1.97)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void m_dmm(shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   MD,E_KOPPELFELD
+   ,PRUEFSCHRITT	1
+   ,POSITION		2
+   ,KOPPELFELD_ART	3
+   ,ELEMENT_NUMMER	4   
+   ,PIN_HIGH		5
+   ,PIN_LOW		6
+   ,SCHALTER_FUNKT	7   
+
+   
+   Das CCS Koppelfeld ist in der Lage, 5 verschiedene Arten von Anschaltungen
+   vorzunehmen. Dies wird mit dem Parameter "KOPPELFELD_ART" realisiert.
+   
+   1. -  Anschaltung Messkoppelfeld		MESS_KF
+   2. -  Anschaltung Stimulikoppelfeld		STIMULI_KF  oder LOCAL_BUS
+   3. -  Anschaltung Schalterkoppelfeld		SCHALTER_KF
+   4. -  Anschaltung FU-Koppelfeld		FU_KF
+   5. -  Anschaltung Sonderkoppelfeld   	SONDER_KF
+   6. -  Anschaltung Lastkoppelfeld   		LAST_KF   
+   
+   Die Koppelfeldanschaltungen werden mit Hilfe von 5 Structs realisiert. Diese
+   Structs werden in dieser Routine besetzt.         
+   Jeder Struct besteht aus n-Elementen die wiederum in 3 Einzelelementen
+   gesplittet sind. Die Einzelelemente verwalten folgende Information.
+   
+   - Element1    Pinnumer
+   - Element2    Bezugspin
+   - Element3    Funktion der Schalter ON oder OFF
+   
+   Beispiel: Belegung eines Structs
+   
+   Elementnr.   
+            ------
+   1        | UB |      Pinnumer 
+            |----|   
+            | UZ |      Bezugspin  
+            |----|
+            | ON |      Anschaltungsfunktion
+   ---------|----|   
+   2        | 23 |      Pinnumer    
+            |----|   
+            | 44 |      Bezugspin  
+            |----|   
+            | OFF|      Anschaltungsfunktion   
+   ---------|----|
+   3        | 55 |      Pinnumer 
+            |----|   
+            | 66 |      Bezugspin  
+            |----|   
+            | ON |      Anschaltungsfunktion	 
+   ---------|----|   
+   4        |    |	
+               .
+               .
+               .
+               .
+            ------   
+   
+   
+   Der Koppelfeldprozess erkennt nun an den Informationen der einzelnen
+   Structs welche Verbindungen benŒtigt werden.
+
+   
+   €bergabeparameter:</pre><b><a name="param3">3</a> KOPPELFELD_ART</b><pre> : Welche Koppelfeldeinheit soll angesprochen werden
+   
+   			 MESS_KF		Messkoppelfeld
+			 STIMULI_KF		Stimulikoppelfeld
+			 SCHALTER_KF		Schalterkoppelfeld
+			 FU_KF			FU-Koppelfeld
+			 SONDER_KF		Sonderkoppelfeld 
+			 LAST_KF		Lastkoppelfeld</pre><b><a name="param4">4</a> ELEMENT_NUMMER</b><pre>  : Welches Element vom Struct soll besetzt werden
+                     fœr  MESS_KF
+                         &gt;1   20
+			 oder Eingabe der symbolischen Namen
+                         TRIG_01_A
+                         TRIG_01_B
+                         TRIG_01_C
+                         TRIG_01_D
+                         DVM_01_MESS
+                         DVM_01_MESS_R	
+                         COUN_01_A
+                         COUN_01_B
+                         COUN_01_GATE
+                         EXT_CLOCK2
+			 
+		     fœr  STIMULI_KF 	 
+                         &gt;1   20
+			 oder Eingabe der symbolischen Namen
+			 U_GEBER_31
+			 U_GEBER_32	
+			 I_GEBER_15
+			 R_DEK_100
+			 
+                    fœr  SCHALTER_KF   
+                         &gt;1  200
+		    fœr  FU_KF   	 
+                         &gt;1   10
+		    fœr  SONDER_KF      	 
+                         &gt;1   10</pre><b><a name="param5">5</a> PIN_HIGH</b><pre>       :High Pin vom SteuergerÃt (Codiert im Adapterfile)
+                        &gt;MK1 - &gt;MK200
+                        &gt;SK1 - &gt;SK200
+                        &gt;SK1 - &gt;SK200
+                        &gt;SK1 - &gt;SK200
+                        &gt;SK1 - &gt;SK200
+			- oder 0 keine Angabe
+			
+                        Highkanal der Anschaltung Bereich 0 - 200</pre><b><a name="param6">6</a> PIN_LOW</b><pre>        :Low  Pin vom SteuergerÃt (Codiert im Adapterfile) 
+                        &gt;MK1 - &gt;MK200
+                        &gt;SK1 - &gt;SK200
+                        &gt;SK1 - &gt;SK200
+                        &gt;SK1 - &gt;SK200
+                        &gt;SK1 - &gt;SK200
+			- oder 0 keine Angabe   
+                        Lowkanal  der Anschaltung Bereich 0 - 200</pre><b><a name="param7">7</a> SCHALTER_FUNKT</b><pre> :Mit der Schalterfunktion werden die Schalter  
+                        ein oder ausgeschaltet.
+			
+                        SCHALTER_FUNKT=ON	Einschalten der Scanner.
+                        SCHALTER_FUNKT=OFF	Ausschalten der Scanner.
+                        SCHALTER_FUNKT=&gt;xx;yy;	Einschalten der Scanner
+						 auf Zwischenkanal xx und
+						 yy (High/Low-Kanal).
+						Bei SCHALTER_KF wird nur eine
+						Angabe benŒtigt.
+   
+   !!!!!!!!!!! Wichtig !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   
+   Dieses Modul bedient sich der selben €bergabestructs an den
+   Koppelfeldprozess wie das Modul E_SCANNER in den Funktionsmakros.
+   D.h. Sollte in Modul E_KOPPELFELD ein Meﬁscanner besetzt werden
+   und anschlieﬁend ein Funktionsmakro gerufen  wird, gewinnt immer
+   der Aufruf im Funktionsmakro. Das selbe gilt fœr den Schalterstuct.
+   
+</PRE>
+</BODY>
+</HTML>

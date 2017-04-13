@@ -1,0 +1,12 @@
+#
+# Do *NOT* use #!/bin/sh
+# use like this, in your shell
+# % source setenv
+#
+
+database=kefico
+table=bundle
+dblocation=/var/lib/mysql/kefico
+#dblocation=/mysql/kefico
+mysql="mysql -ukwak"
+export database table mysql

@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<TITLE>F_R_KONSTANTER</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>F_R_KONSTANTER</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: f_r_konstanter.C,v 1.2 2002/02/27 09:45:08 wiese Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Verbinden der RtW-Konstanter mit der Unit
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		f_r_konstanter.C
+   Autor:		RtW/TEF72-juilfs (30.04.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   void f_r_konstanter(shm_stringpointer  *zeilen_info
+	    ,shm_stringpointer *zeilen_wert
+	    ,long  index1
+	    ,long  anzahl)   
+
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   void	 (*funktionen[modulnummer])
+	    (expand_zeile
+	     ,expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter-1);   
+
+   Dieses Modul wird im Vectorinterpreter aufgerufen. Der Aufruf 
+   wird Ïber die MPI Schnittstelle realisiert.
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Aufgabe des Modules ist es, Ansteuerparameter mit seiner 
+   Ansteuerinformation mit einer Hardwareunit zu verbinden   
+   
+   
+   Ûbergabeparameter anhand der Modglobal.stl
+
+MD,F_R_KONSTANTER
+                ,PRUEFSCHRITT
+                ,POSITION
+                ,ANSTEUER_UNIT		
+                ,ANSTEUER_NAME
+                ,SPANNUNG
+                ,ANSTEUER_DIM
+                ,ANSTEUER_PIN		
+                ,ANSTEUER_BEZUG
+                ,ANSTEUER_NAME		
+                ,STROM
+                ,ANSTEUER_NAME			
+                ,STEUERWORT
+                ,ANSTEUER_NAME			
+                ,DAUERPLUS		
+                ,MESSPROG
+                ,SPANNUNG_MAX
+                ,STROM_MAX
+                ,GRUNDLAST	   
+
+   Revision 1.1  2001/12/18 10:31:26  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.5  2001/06/12 10:26:54  lehmann
+   Put_unitaenderung eingefuegt
+
+   Revision 1.4  2000/02/16 12:15:49  klm3sa
+   *** empty log message ***
+
+   Revision 1.3  1999/12/22 10:09:12  keppler
+   $ID -&gt; $Id
+
+   Revision 1.2  1999/12/22 09:16:11  keppler
+   $Header -&gt; $Id
+
+   Revision 1.1  1999/11/23 14:12:41  katzenma
+   Initial Version by Sniff
+
+Revision 1.1  97/12/02  14:22:21  14:22:21  juilfs (Joerg Juilfs)
+Initial revision
+
+   ---------------------------------------------------------------------
+
+</PRE>
+</BODY>
+</HTML>

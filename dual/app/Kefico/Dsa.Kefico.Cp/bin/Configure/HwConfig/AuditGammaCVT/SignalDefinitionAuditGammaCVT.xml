@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SignalDefiniitions>
+  <Signals>
+    <!-- 
+      Signal configuration file for AUDIT tester.
+      
+      If you add any entry here, you should add enumeration entry in SignalEnum enumeration in EmergencySignal.cs
+      Naming convention:
+        - PLC signal name starts with 'P', with type "PLC".
+        - DUIO signal name starts with 'U' with type "DI" for input, "DO" for output.
+        - All DeviceId should be unique.  you can not use same device id for both PLC and UDIO.
+      
+      todo : 7/8 speed sensor, origin sensor(kiss)
+      
+    -->
+    
+    <Signal Name="UDoor1"         Type="DI" DeviceId="UDIO_CPU1" Address="0" Message="Side Door1" Comment=""/>
+    <Signal Name="UDoor2"         Type="DI" DeviceId="UDIO_CPU1" Address="1" Message="Side Door2" Comment=""/>
+    <Signal Name="UDoor3"         Type="DI" DeviceId="UDIO_CPU1" Address="19" Message="Front Door1" Comment=""/>
+    <Signal Name="UDoor4"         Type="DI" DeviceId="UDIO_CPU1" Address="20" Message="Front Door2" Comment=""/>
+
+    <Signal Name="UTiltPusherAdvanced"   Type="DI" DeviceId="UDIO_CPU1" Address="2" Message="" Comment=""/>
+    <Signal Name="UTiltPusherReturned"   Type="DI" DeviceId="UDIO_CPU1" Address="3" Message="" Comment=""/>
+
+    <Signal Name="UGcvtPartSensorTurbine"   Type="DI" DeviceId="UDIO_CPU1" Address="4" Message="Part Sensor1(Turbine)" Comment=""/>
+    <Signal Name="UGcvtPartSensorPrimary"   Type="DI" DeviceId="UDIO_CPU1" Address="5" Message="Part Sensor1(Primary)" Comment=""/>
+    <Signal Name="UGcvtPartSensorOutput"    Type="DI" DeviceId="UDIO_CPU1" Address="6" Message="Part Sensor1(Output)" Comment=""/>
+    <!-- 
+      7=ON, 8=OFF : Output
+      7,8=ON : Turbine
+      9=ON : Primary
+      -->
+    <Signal Name="UGcvtWheelSensorBit1"         Type="DI" DeviceId="UDIO_CPU1" Address="7" Message="" Comment=""/>
+    <Signal Name="UGcvtWheelSensorBit2"         Type="DI" DeviceId="UDIO_CPU1" Address="8" Message="" Comment=""/>
+    <Signal Name="UGcvtWheelSensorBit3"         Type="DI" DeviceId="UDIO_CPU1" Address="9" Message="" Comment=""/>
+
+    <Signal Name="UEmergency"                   Type="DI" DeviceId="UDIO_CPU1" Address="10" Message="" Comment=""/>
+    <Signal Name="UStart1"                      Type="DI" DeviceId="UDIO_CPU1" Address="11" Message="Start1 push button" Comment=""/>
+    <Signal Name="UStart2"                      Type="DI" DeviceId="UDIO_CPU1" Address="12" Message="Start2 push button" Comment=""/>
+
+    <Signal Name="UGcvtMotorSlideAdvanced"      Type="DI" DeviceId="UDIO_CPU1" Address="14" Message="Start1 push button" Comment=""/>
+    <Signal Name="UGcvtMotorSlideReturned"      Type="DI" DeviceId="UDIO_CPU1" Address="13" Message="Start2 push button" Comment=""/>
+
+    <Signal Name="UGcvtAreaSensor"              Type="DI" DeviceId="UDIO_CPU1" Address="15" Message="Start1 push button" Comment=""/>
+
+    <Signal Name="UGcvtZAxisHomeMoveCompleted"  Type="DI" DeviceId="UDIO_CPU1" Address="16" Message="Z Axis Home Move Completed" Comment=""/>
+    <Signal Name="UGcvtYAxisHomeMoveCompleted"  Type="DI" DeviceId="UDIO_CPU1" Address="17" Message="Y Axis Home Move Completed" Comment=""/>
+
+
+    <!--<Signal Name="UDoor3"         Type="DI" DeviceId="UDIO_CPU1" Address="13" Message="Front Door1" Comment=""/>
+    <Signal Name="UDoor4"         Type="DI" DeviceId="UDIO_CPU1" Address="14" Message="Front Door2" Comment=""/>-->
+
+
+    <Signal Name="UMotorMC"                   Type="DO" DeviceId="UDIO_CPU1" Address="0" Message="Servo motor power switch" Comment=""/>
+    <Signal Name="UTiltMC"                    Type="DO" DeviceId="UDIO_CPU1" Address="1" Message="Tilt motor power switch" Comment=""/>
+    <Signal Name="UTiltPusher"                Type="DO" DeviceId="UDIO_CPU1" Address="2" Message="Power switch1" Comment=""/>
+    <Signal Name="UMotorSlidePusher"          Type="DO" DeviceId="UDIO_CPU1" Address="3" Message="Power switch2" Comment=""/>
+
+    <Signal Name="UDoorLock1"                 Type="DO" DeviceId="UDIO_CPU1" Address="4" Message="Side Door1" Comment="Right"/>
+    <Signal Name="UDoorLock2"                 Type="DO" DeviceId="UDIO_CPU1" Address="5" Message="Side Door2(Left)" Comment="Left"/>
+
+    <Signal Name="UZAxisHomeMovePulse"        Type="DO" DeviceId="UDIO_CPU1" Address="8" Message="Side Door1" Comment="Right"/>
+    <Signal Name="UYAxisHomeMovePulse"        Type="DO" DeviceId="UDIO_CPU1" Address="9" Message="Side Door1" Comment="Right"/>
+
+    <!--<Signal Name="UDoorLock3"         Type="DO" DeviceId="UDIO_CPU1" Address="10" Message="Front Door1" Comment=""/>
+    <Signal Name="UDoorLock4"         Type="DO" DeviceId="UDIO_CPU1" Address="11" Message="Front Door2" Comment=""/>-->
+
+    <Signal Name="UEmergencyOut"              Type="DO" DeviceId="UDIO_CPU1" Address="11" Message="Emergency signal from UDIO" Comment="???"/>
+
+    <Signal Name="ULampRed"                   Type="DO" DeviceId="UDIO_CPU1" Address="12" Message="Emergency red lamp" Comment=""/>
+    <Signal Name="ULampYellow"                Type="DO" DeviceId="UDIO_CPU1" Address="13" Message="Emergency yellow lamp" Comment=""/>
+    <Signal Name="ULampGreen"                 Type="DO" DeviceId="UDIO_CPU1" Address="14" Message="Emergency green lamp" Comment=""/>
+    <Signal Name="ULampBuzzer"                Type="DO" DeviceId="UDIO_CPU1" Address="15" Message="Emergency buzzer" Comment=""/>
+
+
+
+  </Signals>.
+  
+</SignalDefiniitions>
+

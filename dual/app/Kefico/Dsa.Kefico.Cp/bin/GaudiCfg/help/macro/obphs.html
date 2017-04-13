@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> OBPHS []</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>OBPHS []</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=11140">
+ </A>
+OBPHS []</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11142">
+ </A>
+Edge [p/n]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11144">
+ </A>
+Timeout [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11146">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=11148">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11150">
+ </A>
+This function is used to perform the OBP handshake between the testing station and the control unit. It can not be executed until the handshake pin has been initialized by means of the function <EM CLASS="HelpSprung">
+OBPInit1</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_OBPInit1</EM>
+. If a malfunction occurs during the OBP handshake, the test is normally aborted.<BR>
+<BR>
+This first step sets the level of the ECU_Continue signal according to the specified signal edge. The testing system then waits for the appropriate edge of the TS_Continue signal.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11152">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11154">
+ </A>
+The basis for the function OBPHS is the procedure defined by the OBP Standard Working Party.<BR>
+<BR>
+This function does not return a value.</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11156">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11158">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11160">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11162">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11164">
+ </A>
+Parameters</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11166">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11168">
+ </A>
+Edge</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11170">
+ </A>
+Specifies the signal edge polarity for the handshake with the control unit. This relates to the TS_Continue signal (p = positive edge, n = negative edge of the TS_Continue signal). In order to force the desired edge at the ECU_Continue pin, the first time the function OBPHS is invoked, the voltage level at the ECU_Continue input on the control unit must be suitably initialized beforehand.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11172">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11174">
+ </A>
+Timeout</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11176">
+ </A>
+If the handshake does not take place within the period specified for the timeout, the complete test is aborted.<BR>
+<BR>
+Standard value: 1s</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11178">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11180">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11182">
+ </A>
+<EM CLASS="HelpFu&szlig;note">
+ </EM>
+Example<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11185">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2261">
+ </A>
+OBPHS</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2263">
+ </A>
+n,1</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=11187">
+ </A>
+	</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=11190">
+ </A>
+<BR>
+Diagram:<BR>
+<BR>
+<IMG SRC="funktionen-21.gif" ALIGN="BASELINE">
+<BR>
+<BR>
+Figure 11: Correlation of ECU_Continue, TS_Continue</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

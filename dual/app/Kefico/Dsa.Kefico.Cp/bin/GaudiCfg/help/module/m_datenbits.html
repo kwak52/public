@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE>M_DATENBITS</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_DATENBITS</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: m_datenbits.C,v 1.5 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	€berprœfen von Datenbits
+   ---------------------------------------------------------------------
+   Projekt:		Projektname
+   Sourcefile:		Filename
+   Autor:		RtW/TEF72-Juilfs 18.06.97
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		ANSI-C
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void m_datenbits(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:</pre><b><a name="param3">3</a> SOLL_BITS</b><pre>  Eingabe eines 16 Bit Wortes zum €berprœfen der EingangsgrŒﬁe
+               0---&gt;Low
+               1---&gt;High
+               X---&gt;dont care</pre><b><a name="param4">4</a> GEBER</b><pre>     SPS
+              BOSCHKARTE</pre><b><a name="param5">5</a> GEBER_INFO</b><pre>Zusatzinfo fuer Geber
+              -</pre><b><a name="param6">6</a> R_MESSWERT</b><pre> Gelesene Ist Bits vom Geber</pre><b><a name="param7">7</a> MG_FEHLER</b><pre> Returnwert
+              0 ---&gt; Vergleich OK
+              1 ---&gt; Vergleich Schlecht   
+
+
+
+
+   Revision 1.2  2002/02/22 10:03:50  gueltlin
+   mode SPS2 included
+
+   Revision 1.1  2001/12/18 10:54:04  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.3  1999/12/22 10:07:29  keppler
+   $ID -&gt; $Id
+
+   Revision 1.2  1999/12/22 09:18:05  keppler
+   $Header -&gt; $Id
+
+   Revision 1.1  1998/11/27 16:47:37  wiese
+   Initial revision
+
+Revision 1.1  97/12/02  14:25:25  14:25:25  juilfs (Joerg Juilfs)
+Initial revision
+
+   ---------------------------------------------------------------------
+
+
+
+
+
+</PRE>
+</BODY>
+</HTML>

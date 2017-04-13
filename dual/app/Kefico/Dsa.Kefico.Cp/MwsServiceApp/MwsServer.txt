@@ -1,0 +1,35 @@
+﻿MySql.Data.MySqlClient.MySqlException (0x80004005): Packets larger than max_allowed_packet are not allowed.
+
+mysql> show variables like 'max_allowed%';
++--------------------+-----------+
+| Variable_name      | Value     |
++--------------------+-----------+
+| max_allowed_packet | 268435456 |
++--------------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SET GLOBAL max_allowed_packet=256*1024*1024;
+--> 세션 끝내고 새로운 session 에서 봐야 변경된 값이 보임.
+
+% cat /etc/my.cnf
+[mysqld]
+max_allowed_packet = 256M   # 268435456
+
+[mysqldump]
+max_allowed_packet = 256M
+
+
+
+
+
+
+    let checkMaxAllowedPacket() =
+        // max_allowed_packet 설정 수행하고 session 밖에서 확인 가능하므로 설정을 위한 독립적 connection 필요함.
+        use conn = mysqlCreateConnection(MwsConfig.getConnectionString())
+        let max_allowed_packet = mysqlExecScalar conn "SELECT @@max_allowed_packet;" :?> uint64
+        if max_allowed_packet < uint64(64 * 1024 * 1024) then
+            logWarn "Adjusting max_allowed_packet: %d -> %d" max_allowed_packet (256*1024*1024)
+            mysqlExecNonQuery conn "SET GLOBAL max_allowed_packet=256*1024*1024;" |> ignore
+
+    checkMaxAllowedPacket()
+

@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE>M_UNIV_LAN</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_UNIV_LAN</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Aufruf des Prozesses UNIVERSAL_LAN
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		m_univ_lan.C
+   Autor:		SaW/TEF72-Pietzsch (11.09.2003)
+   Zielsystem:		Suse-Linux
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   Schnittstelle
+   void m_univ_lan(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+  
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Dieses Modul Übergibt seine Parameter an den Prozess UNIVERSAL_LAN.
+   Im Prozess UNIVERSAL_LAN wird dann die Ansteuerung durchgeführt.
+   Das Messergebnis wird per Returnparameter aus diesem Modul weiter 
+   an das Modul M_AUSWERTUNG gegeben. 
+   
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------------------------------------</pre><b><a name="param3">3</a> LAN_DEVICE</b><pre>   Unit Name     (muss in universal_lan.cnf eingetragen werden)
+   ------------------------------------------------------------</pre><b><a name="param4">4</a> -</b><pre></pre><b><a name="param13">13</a> String</b><pre>1-10
+   Kommandos     (Geraeteabhaengige Kommandos)
+   ------------------------------------------------------------</pre><b><a name="param14">14</a> UL_MODE</b><pre>  (for future use)
+   READ/READ_STR/leer=nur Ausgabe
+   -------------------------------------------------------------</pre><b><a name="param15">15</a> UL_COUNTS</b><pre>(for future use)
+   Anzahl zu lesender Werte
+   -------------------------------------------------------------</pre><b><a name="param16">16</a> TIMEOUT</b><pre>  (for future use)
+   Timeout in msec
+   -------------------------------------------------------------</pre><b><a name="param17">17</a> R_MESSWERT</b><pre>   Rückgabe des Messwertes
+   -------------------------------------------------------------</pre><b><a name="param18">18</a> UL_ERROR</b><pre>   Rückgabe einer Fehlervariablen
+   -------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

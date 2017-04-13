@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{853D287B-5D4B-4167-83A5-EEDBB1EEA448}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dsu.Common.Utilities.Core</RootNamespace>
+    <AssemblyName>Dsu.Common.Utilities.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Actions\Action.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Actions\ActionCollection.cs" />
+    <Compile Include="Actions\ActionList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Actions\Design.cs" />
+    <Compile Include="Actions\ImageIndexEditor.cs" />
+    <Compile Include="Container\CircularBuffer.cs" />
+    <Compile Include="CursorChanger.cs" />
+    <Compile Include="ExtensionMethods\Task\EmCancellationToken.cs" />
+    <Compile Include="FSharpInterOp\EmFSharpInteropFunction.cs" />
+    <Compile Include="FSharpInterOp\EmFSharpOption.cs" />
+    <Compile Include="HardwareId.cs" />
+    <Compile Include="InterOp\ComSurrogateRegistry.cs" />
+    <Compile Include="Security.cs" />
+    <Compile Include="Async\ExProgressbar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Async\ExProgressbar.Designer.cs">
+      <DependentUpon>ExProgressbar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Async\FormProgressbar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Async\FormProgressbar.Designer.cs">
+      <DependentUpon>FormProgressbar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Async\FormProgressbarCancelable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bit\EmBit.cs" />
+    <Compile Include="Cache\Cache.cs" />
+    <Compile Include="Cache\CacheItem.cs" />
+    <Compile Include="Cache\CacheManager.cs" />
+    <Compile Include="Cache\HashType.cs" />
+    <Compile Include="Cache\HashUtil.cs" />
+    <Compile Include="Clipboard\ClipWrapper.cs" />
+    <Compile Include="Clipboard\EmClipboard.cs" />
+    <Compile Include="Clipboard\IClippable.cs" />
+    <Compile Include="Concurrency\AsyncPump.cs" />
+    <Compile Include="Concurrency\SynchronizationContextEx.cs" />
+    <Compile Include="Container\FixedSizedQueue.cs" />
+    <Compile Include="Container\MultiKeyDictionary.cs" />
+    <Compile Include="Container\Multimap.cs" />
+    <Compile Include="Controls\ComboBoxStringSelector.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ComponentGeometrySerializer.cs" />
+    <Compile Include="Controls\ControlUpdator.cs" />
+    <Compile Include="Controls\CustomOpenFileDialog\Enums.cs" />
+    <Compile Include="Controls\CustomOpenFileDialog\OpenFileDialogEx.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomOpenFileDialog\OpenFileDialogEx.Designer.cs">
+      <DependentUpon>OpenFileDialogEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomOpenFileDialog\structs.cs" />
+    <Compile Include="Controls\CustomOpenFileDialog\Win32.cs" />
+    <Compile Include="Controls\EnumEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EnumFlagsSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EnumFlagsSelector.Designer.cs">
+      <DependentUpon>EnumFlagsSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FilterableTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\GhostLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\IDisabledChildControlTooltipSupporter.cs" />
+    <Compile Include="Controls\MultiSelectTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\NumericTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\RepeatButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ResizablePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Transparent\TransparentComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Transparent\TransparentControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Transparent\TransparentDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Transparent\TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Transparent\TransparentListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Transparent\TransparentPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Transparent\TransparentTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Transparent\TransparentTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Crypto\Crypto.cs" />
+    <Compile Include="Crypto\CryptoAgent.cs" />
+    <Compile Include="Crypto\CryptoType.cs" />
+    <Compile Include="Crypto\CryptoUtil.cs" />
+    <Compile Include="Crypto\SymetricKey.cs" />
+    <Compile Include="DataTypes\ObjectValueParser.cs" />
+    <Compile Include="DataTypes\Pair.cs" />
+    <Compile Include="DataTypes\TriState.cs" />
+    <Compile Include="Debugging\DEBUG.cs" />
+    <Compile Include="Debugging\DEBUG_DetectingIDE.cs" />
+    <Compile Include="Debugging\DEBUG_Mode.cs" />
+    <Compile Include="Debugging\FmtTrace.cs" />
+    <Compile Include="Debugging\FormStackTrace.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Debugging\FormStackTrace.Designer.cs">
+      <DependentUpon>FormStackTrace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Exceptions\CustomExceptions.cs" />
+    <Compile Include="Exceptions\ExceptionSample.cs" />
+    <Compile Include="Exceptions\FormException.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Exceptions\FormException.Designer.cs">
+      <DependentUpon>FormException.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExtensionMethods\EmBitmap.cs" />
+    <Compile Include="ExtensionMethods\EmBuffer.cs" />
+    <Compile Include="ExtensionMethods\EmCollections.cs" />
+    <Compile Include="ExtensionMethods\EmCOM.cs" />
+    <Compile Include="ExtensionMethods\EmComboBox.cs" />
+    <Compile Include="ExtensionMethods\EmComparable.cs" />
+    <Compile Include="ExtensionMethods\EmReflection.cs" />
+    <Compile Include="ExtensionMethods\EmZip.cs" />
+    <Compile Include="ExtensionMethods\Linq\EmConsecutive.cs" />
+    <Compile Include="ExtensionMethods\EmControl.cs" />
+    <Compile Include="ExtensionMethods\EmConversion.cs" />
+    <Compile Include="ExtensionMethods\EmDataGrid.cs" />
+    <Compile Include="ExtensionMethods\EmDataRow.cs" />
+    <Compile Include="ExtensionMethods\EmDataType.cs" />
+    <Compile Include="ExtensionMethods\EmDraggable.cs" />
+    <Compile Include="ExtensionMethods\EmDrawing.cs" />
+    <Compile Include="ExtensionMethods\EmEndian.cs" />
+    <Compile Include="ExtensionMethods\EmEnum.cs" />
+    <Compile Include="ExtensionMethods\EmForm.cs" />
+    <Compile Include="ExtensionMethods\EmGeneral.cs" />
+    <Compile Include="ExtensionMethods\EmHelpProvider.cs" />
+    <Compile Include="ExtensionMethods\Linq\EmLinq.cs" />
+    <Compile Include="ExtensionMethods\EmMenu.cs" />
+    <Compile Include="ExtensionMethods\EmString.cs" />
+    <Compile Include="ExtensionMethods\EmSynchronizationContext.cs" />
+    <Compile Include="ExtensionMethods\EmTreeView.cs" />
+    <Compile Include="ExtensionMethods\EmXml.cs" />
+    <Compile Include="ExtensionMethods\Linq\EmLinq_Enumerable.cs" />
+    <Compile Include="ExtensionMethods\Linq\EmLinq_Func.cs" />
+    <Compile Include="ExtensionMethods\Linq\EmLinq_Task.cs" />
+    <Compile Include="ExtensionMethods\Task\EmTask.cs" />
+    <Compile Include="File\FileSpec.cs" />
+    <Compile Include="Forms\CustomDisposer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\FormComboSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormComboSelector.Designer.cs">
+      <DependentUpon>FormComboSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormListboxSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormListboxSelector.Designer.cs">
+      <DependentUpon>FormListboxSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormOKCancel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormOKCancelOnCloseDisposable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormOKCancelOnCloseDisposable.Designer.cs">
+      <DependentUpon>FormOKCancelOnCloseDisposable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormOnCloseDisposable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormPropertyGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormPropertyGrid.Designer.cs">
+      <DependentUpon>FormPropertyGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormRadioSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormRadioSelector.designer.cs">
+      <DependentUpon>FormRadioSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormSimpleEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSimpleEditor.Designer.cs">
+      <DependentUpon>FormSimpleEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormUninqueNameAndDescriptionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormUninqueNameAndDescriptionEditor.designer.cs">
+      <DependentUpon>FormUninqueNameAndDescriptionEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SystemMenu.cs" />
+    <Compile Include="GetOpt\Getopt.cs" />
+    <Compile Include="GetOpt\LongOpt.cs" />
+    <Compile Include="Graph\Edge.cs" />
+    <Compile Include="Graph\Graph.cs" />
+    <Compile Include="Graph\Graph_Algorithms.cs" />
+    <Compile Include="Guid\CGuid.cs" />
+    <Compile Include="InterOp\ComConstants.cs" />
+    <Compile Include="InterOp\Marshaler.cs" />
+    <Compile Include="InterOp\NativeMethods.cs" />
+    <Compile Include="Math\SequenceGenerator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyGrids\ComboBox\EnumGridComboBox.cs" />
+    <Compile Include="PropertyGrids\ComboBox\GridComboBox.cs" />
+    <Compile Include="PropertyGrids\ComboBox\ListGridComboBox.cs" />
+    <Compile Include="PropertyGrids\ComboBox\OrderedDisplayNameAttribute.cs" />
+    <Compile Include="PropertyGrids\Converters\IDisplay.cs" />
+    <Compile Include="PropertyGrids\Converters\ListConverter.cs" />
+    <Compile Include="PropertyGrids\Converters\ListExpandableConverter.cs" />
+    <Compile Include="PropertyGrids\Converters\ListNonExpandableConverter.cs" />
+    <Compile Include="PropertyGrids\Converters\ListPropertyDescriptor.cs" />
+    <Compile Include="PropertyGrids\CPropertyBase.cs" />
+    <Compile Include="PropertyGrids\CustomControl\ObjectCreatedEventArgs.cs" />
+    <Compile Include="PropertyGrids\Data\DataListAttribute.cs" />
+    <Compile Include="PropertyGrids\Data\EnumListAttribute.cs" />
+    <Compile Include="PropertyGrids\Data\IAddNew.cs" />
+    <Compile Include="PropertyGrids\Data\ListAttribute.cs" />
+    <Compile Include="PropertyGrids\FilteredPropertyGrid\FilteredPropertyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PropertyGrids\FilteredPropertyGrid\FilteredPropertyGrid.Designer.cs">
+      <DependentUpon>FilteredPropertyGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyGrids\FilteredPropertyGrid\ObjectWrapper.cs" />
+    <Compile Include="PropertyGrids\PropertyGridItemBooleanAttributeChanger.cs" />
+    <Compile Include="PropertyGrids\PropertySorter.cs" />
+    <Compile Include="PropertyGrids\Rule\LengthRuleAttribute.cs" />
+    <Compile Include="PropertyGrids\Rule\PatternRuleAttribute.cs" />
+    <Compile Include="PropertyGrids\Rule\RuleBaseAttribute.cs" />
+    <Compile Include="PropertyGrids\Utilities\ClassType.cs" />
+    <Compile Include="PropertyGrids\Utilities\PathParser.cs" />
+    <Compile Include="PropertyGrids\Utilities\Property.cs" />
+    <Compile Include="PropertyGrids\Utilities\Reflect.cs" />
+    <Compile Include="Reflection\CDynamicClassBase.cs" />
+    <Compile Include="Reflection\Enum\Enumeration.cs" />
+    <Compile Include="Reflection\Reflection.cs" />
+    <Compile Include="Reflection\Relfection_Assembly.cs" />
+    <Compile Include="Reflection\RTTI.cs" />
+    <Compile Include="StaticMethods\SmTuple.cs" />
+    <Compile Include="String\StringHelper.cs" />
+    <Compile Include="SupportedCultures.cs" />
+    <Compile Include="Tools\ActionStopWatch.cs" />
+    <Compile Include="Tools\HighResolutionTimer.cs" />
+    <Compile Include="Tools\Tools.cs" />
+    <Compile Include="Tools\Tools.TypeParser.cs" />
+    <Compile Include="Tools\Tools_Control.cs" />
+    <Compile Include="Tools\Tools_MinMaxEtc.cs" />
+    <Compile Include="Tools\Tools_TypeConversion.cs" />
+    <Compile Include="Wizard\Enums.cs" />
+    <Compile Include="Wizard\EventArgs.cs" />
+    <Compile Include="Wizard\WizardExceptions.cs" />
+    <Compile Include="Wizard\WizardFormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizard\WizardFormBase.Designer.cs">
+      <DependentUpon>WizardFormBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizard\WizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wizard\WizardPage.Designer.cs">
+      <DependentUpon>WizardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizard\WizardPageChain.cs" />
+    <Compile Include="Wizard\WizardUtility.cs" />
+    <Compile Include="Xml\BasicXmlReader.cs" />
+    <Compile Include="Xml\BasicXmlWriter.cs" />
+    <Compile Include="Xml\IBasicXmlReader.cs" />
+    <Compile Include="Xml\IBasicXmlWriter.cs" />
+    <Compile Include="Xml\ICommonXmlSerializable.cs" />
+    <Compile Include="Xml\XmlBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Actions\Action.resx">
+      <DependentUpon>Action.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Actions\ActionList.resx">
+      <DependentUpon>ActionList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Async\ExProgressbar.resx">
+      <DependentUpon>ExProgressbar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Async\FormProgressbar.resx">
+      <DependentUpon>FormProgressbar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CustomOpenFileDialog\OpenFileDialogEx.resx">
+      <DependentUpon>OpenFileDialogEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\EnumFlagsSelector.resx">
+      <DependentUpon>EnumFlagsSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\RepeatButton.resx">
+      <DependentUpon>RepeatButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Debugging\FormStackTrace.resx">
+      <DependentUpon>FormStackTrace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Exceptions\FormException.resx">
+      <DependentUpon>FormException.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormListboxSelector.resx">
+      <DependentUpon>FormListboxSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormOKCancel.resx">
+      <DependentUpon>FormOKCancel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormPropertyGrid.resx">
+      <DependentUpon>FormPropertyGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormRadioSelector.resx">
+      <DependentUpon>FormRadioSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormScriptManager.resx" />
+    <EmbeddedResource Include="Forms\FormSimpleEditor.resx">
+      <DependentUpon>FormSimpleEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormUninqueNameAndDescriptionEditor.resx">
+      <DependentUpon>FormUninqueNameAndDescriptionEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GetOpt\MessagesBundle.resx" />
+    <EmbeddedResource Include="Wizard\WizardFormBase.resx">
+      <DependentUpon>WizardFormBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizard\WizardPage.resx">
+      <DependentUpon>WizardPage.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PropertyGrids\FilteredPropertyGrid\FilteredPropertyGrid.csproj" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(frameworkdir)\$(frameworkversion)\regasm.exe /tlb  "$(TargetPath)" /tlb: "$(TargetDir)$(TargetName).tlb"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+<TITLE>E_ECUMEMDATA</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_ECUMEMDATA</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_ecumemdata.C,v 1.9 2005/06/27 12:35:59 wes3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Auslesen von ECUMEM-Daten aus ecumemconfig
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_ecumemdata.C
+   Autor:		RtW/TEF72-wiese(170398)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_ecumemdata(shm_stringpointer *zeilen_info
+   ,shm_stringpointer   *zeilen_wert
+   ,long index
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_zeile
+   ,Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);</pre><b><a name="param1">1</a> #define</b><pre>               PRUEFSCHRITT	0</pre><b><a name="param2">2</a> #define</b><pre>               POSITION		1
+       #define                SESSION		2
+       #define                DATENTYP		3
+       #define                TYPNAME		4
+       #define                DATENATTRIBUT	5
+       #define                RET_LEN		6</pre><b><a name="param8">8</a> #define</b><pre>               FEHLERFLAG	7</pre><b><a name="param9">9</a> #define</b><pre>               ERGEBNIS		8
+   
+   ---------------------------------------------------------------------
+   DEBUG: VI (Vectorinterpreter)
+   	DEB_DATA: "Daten Ausgabe" der im Container gelesenen Daten
+   	DEB_GAUDI: "Gaudi Parameter" der Prœfliste (rein und raus)
+   
+   Funktionsbeschreibung:
+   Dieses Modul liest fœr den jeweiligen Softwarestand zugehŒrigen Daten
+   aus einem File namens "ecumemconfig" aus, das immer im Directory 
+   z.B. /hw/flash/ "Erzeugnissnummer" / "aus E_DOKU die Softwarenummer" 
+   besteht.
+   
+   Parameterbeschreibung:</pre><b><a name="param3">3</a> SESSION</b><pre>: Gibt den Namen der Session im ECU - Memory - Container an,
+   	aus der die gewœnschten Daten gelesen werden sollen
+	z.B. fast_serial, slow_serial</pre><b><a name="param4">4</a> DATENTYP:</b><pre>Gibt den Typ der gewœnschten Daten an:
+   	checksum, datapointer, kwp2000-setup, kwp2000-timing, 
+	kwp2000-security</pre><b><a name="param5">5</a> TYPNAME:</b><pre>gibt den Namen der gewœnschten Daten an</pre><b><a name="param6">6</a> DATENATTRIBUT:</b><pre>gibt an, welches Attribut der Daten zurœckgegeben werden 
+   	soll. (target-start-adr, target-end-adr, checksum-alg, checksum-result,
+	target-length, adress-5-baud, wup, target, source, p2min, p2max,
+	p3min, p3max, p4min, baudrate, ecu-security-alg, datablock-name)</pre><b><a name="param7">7</a> RET_LEN:</b><pre>Gibt die Anzahl der zurœckzugebenden Zeichen an. Ist der im 
+        ECU_Memory-Container angegebene String kœrzer, werden '0'en avoran-
+	gestellt. Ist der String lÃnger, wird eine Fehlermeldung generiert. 
+	Wird kein Wert angegeben, so wird der String ohne Anpassung 
+	zurœckgegeben. 		Achtung: 
+	HEXWERTE werden mit halber LÃnge eingegeben (2 Zeichen pro Byte)
+
+   Revision 1.1  2001/12/18 10:26:29  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.11  2001/09/06 08:19:28  wiese
+   Container vor neubeschreiben immer lˆschen, auch wenn die Datei nicht vorhanden ist
+
+   Revision 1.10  2001/01/11 15:49:43  wiese
+   LINUX ok
+
+   Revision 1.9  2001/01/11 15:14:31  juilfs
+   Linux ‹berarbeitung
+
+   Revision 1.8  2000/08/31 14:05:02  wiese
+   str_cpy eingebaut
+
+   Revision 1.7  1999/12/22 10:05:44  keppler
+   $ID -&gt; $Id
+
+   Revision 1.6  1999/12/22 09:16:35  keppler
+   $Header -&gt; $Id
+
+   Revision 1.5  1999/11/08 11:20:34  wiese
+   0x am Anfang muﬁ erhalten bleiben
+
+Revision 1.4  99/06/30  15:03:35  15:03:35  wiese (Stefan Wiese)
+Flag fœr einmal lesen eingefœhrt.
+Ausblenden Fehlermeldung bei KWP2000-SECURITY
+
+Revision 1.3  99/06/09  08:04:14  08:04:14  wiese (Stefan Wiese)
+DEFINE DATA in DATAPOINTER umbenannt
+
+Revision 1.2  99/03/31  17:06:40  17:06:40  wiese (Stefan Wiese)
+50 Structs mŒglich
+KWP2000-SECURITY neu
+Filename mit soft_nr
+Debugs erweitert
+Lesen des Files bei jedem Laden
+Return 0 bei DATENATTRIBUT=ECU-SECURITY-PARAMETER fœr Makro SEEDKEY
+
+Revision 1.1  98/06/29  15:18:19  15:18:19  wiese (Stefan Wiese)
+Initial revision
+
+Revision 1.1  98/05/20  11:31:31  11:31:31  wiese (Stefan Wiese)
+Initial revision
+
+   ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

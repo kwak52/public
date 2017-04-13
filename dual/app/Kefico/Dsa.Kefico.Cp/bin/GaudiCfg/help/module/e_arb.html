@@ -1,0 +1,187 @@
+<HTML>
+<HEAD>
+<TITLE>E_ARB</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_ARB</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_arb.C,v 1.4 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Aufruf des Prozesses ARB
+   ---------------------------------------------------------------------
+   Projekt:		BOSCH ccs
+   Sourcefile:		e_arb.C
+   Autor:		NœW/FVB1.5 Romeo Schneider
+   Zielsystem:		HP9000/HP743rt (HP-RT 2.11),(HP-UX 9.0x)
+   Sprache:		Ansi-C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_arb(shm_stringpointer *zeilen_info
+	     ,shm_stringpointer   *zeilen_wert
+	     ,long index1
+	     ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	    ,Ssp_expand_wert
+	    ,p_verwaltung-&gt;begin_modulblock
+	    ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Anzahl der €bergabeparameter und Index der expandierten
+   Prœfliste im Platz VXI_ARB ablegen. Der Prozess 
+   ARB greift spÃter auf diese beiden Parameter zu und
+   kopiert die €bergabeparameter in die localen Arrays
+   
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------   
+      
+   ...
+   &lt;userdoc&gt;
+   ---------------------------------------------------------------------
+
+**********************************************************************
+-- pragmas -----------------------------------------------------------
+**********************************************************************
+
+#pragma  COPYRIGHT "Robert Bosch GmbH Ansbach NœW/FVB1.5"
+#pragma  VERSIONID "$Id: e_arb.C,v 1.4 2005/09/01 07:11:40 sniff Exp $"
+
+**********************************************************************
+-- defines -----------------------------------------------------------
+**********************************************************************
+#define EXTERN extern	 Bei allen Subroutinen 
+#define HEADER "$Id: e_arb.C,v 1.4 2005/09/01 07:11:40 sniff Exp $" 
+
+#define MILLISECOND(x)     (1.0 * (x) / TIMER_MILLISECOND)
+
+**********************************************************************
+-- includes ----------------------------------------------------------
+**********************************************************************
+#include "shm_syscom.H"
+#include &lt;stdlib.h&gt;
+#include "unit_nummern.H"
+#include "libccs.H"                       error_message              
+#include "ccl_defines.H"
+#include "libtestmodul_pool.H"
+
+
+**********************************************************************
+-- external functions / variables ------------------------------------
+**********************************************************************
+
+**********************************************************************
+-- global variables (nur im  "main" erlaubt) -------------------------
+**********************************************************************
+
+**********************************************************************
+ -Begin--- Aufruf des Prozesses ARB ----------------------------------
+**********************************************************************
+
+int e_arb(shm_stringpointer *zeilen_wert
+	  ,long index1
+	  ,long anzahl)
+{
+
+**********************************************************************
+-- local variables ------------------------------------------------------  
+**********************************************************************
+
+   char ident[] = 
+       "@(#)e_arb.C            Romeo Schneider AnW/FVS5 12.11.97 Rev.4.0";
+   int		err1;		//Fehler beim Starten des ARB 
+   long 	j1;		//Laufvariable fœr Parameterœbergabe
+   long int	schritt;	//Schritt ausfœhren
+   unsigned short int nickname;	// Nickname des Prozesses
+   unsigned short int prozess_vorhanden;	//  
+   unsigned short int prozess_disable;
+   unsigned short int pruefliste_init;	//   
+   char		text[80]="";
+   long		startstatus;   
+   STRING       prozessname;	// Prozessname
+   
+   //------------------------------------------------------------------
+   // Schrittbetriebshandler
+   //------------------------------------------------------------------ 
+   
+   //------------------------------------------------------------------
+   // Anzahl der €bergabeparameter und Index der expandierten
+   // Prœfliste im Platz ARB_UNIT ablegen. Der Prozess 
+   // ARB greift spÃter auf diese beiden Parameter zu und
+   // kopiert die €bergabeparameter in die localen Arrays
+   //------------------------------------------------------------------  
+
+   j1 = get_platzmemory(3,VXI_ARB,2);
+   Ssp_pp_verwaltung-&gt;int_f[j1+0] = anzahl;	// Anzahl und Index 
+   Ssp_pp_verwaltung-&gt;int_f[j1+1] = index1; 	// fœr Prozess ARB
+   
+   //IF KANAL2 THEN
+   //Ssp_pp_verwaltung-&gt;int_f[j1+2] = anzahl;	// Anzahl und Index 
+   //Ssp_pp_verwaltung-&gt;int_f[j1+3] = index1; 	// fœr Prozess ARB   
+
+   //------------------------------------------------------------------
+   // Eintragen das der Prozess vorhanden ist.
+   //------------------------------------------------------------------
+   if(strcmp(Ssp_vi-&gt;job.liststate,PREINT)==0)
+   {
+      for (j1 = 0 ;j1 &lt;Ssp_pp_verwaltung-&gt;anzahl_start_prozesse; j1++) 
+      {
+	 
+	 Ssp_pp_verwaltung-&gt;Startliste_E_out[j1]
+	    .get_info(prozessname,nickname,startstatus,prozess_vorhanden,prozess_disable,pruefliste_init);
+	 if(nickname==ARB &amp;&amp; pruefliste_init==1)
+	 {
+	    Ssp_pp_verwaltung-&gt;Startliste_E_out[j1].set_prozess_vorhanden();
+	    break;
+	 }
+      }
+   }
+   schritt = schrittbetrieb(zeilen_wert,index1);   
+   if(schritt!=1) return 0;   
+   //------------------------------------------------------------------
+   // Starten des Prozesses ARB
+   //------------------------------------------------------------------    
+   //DELAY ticks = timer_ticks(), ticks2;
+   err1=start_prozess(ARB,text);
+   if(err1!=0)
+   {
+//      error_message	(ERR_ERROR, HEADER,__LINE__,	
+//      			 "Fehler beim Starten des ARB"); 
+      error_message	(ERR_ERROR, HEADER,__LINE__,	
+      			 "Error starting ARB"); 
+      return -1;
+   } 
+   //ticks2 = timer_ticks();
+   //printf("%s !!!!!!!!!!!!!!!!!!!!!Setup : %8.3f ms\n",Ssp_vi-&gt;test.pschr,
+   //	     MILLISECOND(ticks2-ticks));
+   
+   return 0;
+}
+
+**********************************************************************
+ -End of file---------------------------------------------------------
+  Historie: 24.04.96 Romeo Schneider : Erstellung                     
+            08.11.96 Romeo Schneider : neue Directory Struktur.       
+**********************************************************************
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE>E_STEP</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_STEP</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_step.C,v 1.2 2002/02/27 09:35:11 wiese Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Aus / Einschalten des Stepbetriebes
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_step.C
+   Autor:		RtW/TEF72-juilfs (08.08.97)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_step(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   €bergabeparameter anhand der Modglobal.stl
+   MD,e_step
+   ,PRUEFSCHRITT	1
+   ,POSITION		2
+   ,STEP_FUNKTION 	3 
+   		OFF	= Stepbetrieb Ausschalten 
+   		ON	= Stepbetrieb wieder einschalten
+   
+   Mit diesem Modul kann der Stepbetrieb aus oder wieder eingeschaltet
+   werden. Dies bedeutet, das ein nicht StepfÃhiger Prœfschrittsbereich
+   von 2 E_STEP Modulen geklammert wird. 
+   1. Aufruf  STEP_FUNKTION= OFF
+      .
+      .
+      .      
+      .
+   2. Aufruf  STEP_FUNKTION= ON      
+      
+   
+   Grund: Es gibt Prœfpositionen  (Low Dump Dioden) wo nicht angehalten
+          werden darf. 
+   
+</PRE>
+</BODY>
+</HTML>

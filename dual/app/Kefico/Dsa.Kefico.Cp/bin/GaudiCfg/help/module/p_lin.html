@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<TITLE>P_LIN</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>P_LIN</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: p_lin.C,v 1.8 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Eingabemodul fuer LIN-Protokoll (SKMlight)
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		p_lin.C
+   Autor:		RtW2/TEF72-Kaeppeler (25.01.2005)
+   Zielsystem:		Linux
+   Sprache:		ANSI-C/C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   
+   int  p_lin
+   (shm_stringpointer *zeilen_wert	// &lt;I&gt; Inputfield of INTERPRETERLIST
+   ,long  index1			// &lt;I&gt; INDEX in list
+   ,long anzahl)			// &lt;I&gt; Number of Elements for Loaddfile
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   
+   error = p_lin
+   (zeilen_wert	// &lt;I&gt; Inputfield of INTERPRETERLIST
+   ,index1	// &lt;I&gt; INDEX in list
+   ,anzahl)	// &lt;I&gt; Number of Elements for Loaddfile
+
+   
+   if (error != 0) 	// Errordescription ... 
+   {
+   // Errorhandling ... 
+   }
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Dieses Modul dient zur Auftragsvergabe an die SKMlight. Es bereitet die 
+   Eingangsdaten zu einem SKMlight-verstaendlichen String auf und veranlasst 
+   die gewuenschten Aktionen.
+   Die Antwort wird im shared Memory abgelegt und kann dort z.B. vom Modul 
+   p_zerlege_string geholt und verarbeitet werden.
+   
+   ACHTUNG: nur SKMlight
+   
+   Beschreibung der ModulÏbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> LIN_BEFEHL</b><pre>
+                        Steuerbefehle für LIN
+        INIT_VER_LI:	DIESER BEFEHL MUSS (MEIST MEHRMALS) ZU ANFANG VERWENDET WERDEN, UM FESTZULEGEN
+                        AUF WELCHEN IDs GESENDET UND EMPFANGEN WIRD UND WIEVIEL DATENBYTES DIESEN IDs
+                        ZUGEORDNET SIND.
+                        Der Befehl dient zur Initialisierung/Änderung einer Zeile der LIN-Verarbeitungs-
+                        tabelle. Die Verarbeitungstabelle besteht aus 64 Zeilen (entsprechend den für 
+                        LIN gültigen Frame-IDs 0...63) und den Spalten FRAME_ID, FRAME_MODE und LIN_DATEN.
+                        Über FRAME_ID wird die gewünschte Zeile angesprochen. 
+                        Für die Frame-IDs, auf welchen Daten empfangen werden sollen, muss jeweils 
+                        der FRAME_MODE auf RECEIVE gesetzt und die erwartete Datenlänge in LIN_DATEN 
+                        angegeben werden. 
+                        Für die Frame-IDs auf welchen Daten gesendet werden sollen (nur für Master), 
+                        muss jeweils der FRAME_MODE auf RESPOND gesetzt und die Sende-LIN_DATEN vermerkt 
+                        werden.
+                        Benötigte Parameter: FRAME_ID, FRAME_MODE, ggf. LIN_DATEN
+        FRAME_DIRECT:	Nur für LIN-Master: Dieser Befehl ist eine sehr flexible Alternative zum 
+                        Scheduler. Dabei bestimmt der Host wann welche Frame-ID (ggf. mit den 
+                        übergebenen Daten) auf den Bus gelegt werden. Die Sendedaten der 
+                        Verarbeitungstabelle werden in diesem Fall nicht verwendet. Jedoch muss der 
+                        FRAME_MODE der Verarbeitungstabelle beachtet werden. Ggf. empfangene Daten 
+                        werden zurückgegeben.
+                        Benötigte Parameter: FRAME_ID, ggf. LIN_DATEN
+
+                        DIE FOLGENDEN BEFEHLE BETREFFEN DEN SCHEDULER (nur für LIN-Master):
+        CLEAR_SCHE:	Nur für LIN-Master: Dieser Befehl löscht die komplette Schedule-Tabelle.
+                        Benötigte Parameter: -
+        ADD_SCHE_LI:	Nur für LIN-Master: Fügt der Schedule-Tabelle hinten (d.h. am niedrigsten freien
+                        Index) eine neue Zeile an. Hinweis: Die Schedule-Tabelle kann max. 255 Zeilen 
+                        enthalten (1...255) und besteht aus den Spalten SCHED_INDEX, FRAME_ID und 
+                        SCHED_DELAY.
+                        Benötigte Parameter: FRAME_ID, SCHED_DELAY
+        INSERT_SCHE_LI:	Nur für LIN-Master: Fügt der Schedule-Tabelle am übergebenen Index eine neue Zeile
+                        an. Alle Zeilen ab diesem Index werden dadurch um eine Position nach hinten 
+                        verschoben. Lücken in der Schedule-Tabelle sind nicht erlaubt; wenn der übergebene
+                        Index zu groß ist, wird die Zeile am niedrigsten freien Index angehängt, d.h. der
+                        übergebene Index wird in diesem Fall ignoriert. Hinweis: Die Schedule-Tabelle kann 
+                        max. 255 Zeilen enthalten (1...255) und besteht aus den Spalten SCHED_INDEX, 
+                        FRAME_ID und SCHED_DELAY.
+                        Benötigte Parameter: SCHED_INDEX, FRAME_ID, SCHED_DELAY
+        DELETE_SCHE_LI:	Nur für LIN-Master: Löscht aus der Schedule-Tabelle eine Zeile am übergebenen Index. 
+                        Alle Zeilen ab diesem Index werden dadurch um eine Position nach vorne verschoben. 
+                        Hinweis: Die Schedule-Tabelle kann max. 255 Zeilen enthalten (1...255) und besteht 
+                        aus den Spalten SCHED_INDEX, FRAME_ID und SCHED_DELAY.
+                        Benötigte Parameter: SCHED_INDEX
+        START_SCHE:	Nur für LIN-Master: Startet den Scheduler, d.h. die Schedule-Tabelle wird
+                        abgearbeitet.
+                        Benötigte Parameter: -
+        STOP_SCHE 	Nur für LIN-Master: Stoppt den Scheduler.
+                        Benötigte Parameter: -
+   ------------------------------</pre><b><a name="param4">4</a> FRAME_ID</b><pre>
+                        LIN Frame-ID. Gültige Werte 0...63. Auf dem LIN-Bus wird die ID (6 Bits) 
+                        automatisch mit 2 CRC-Bits ergänzt. Beispiel: ID 33 = 0x21. Auf dem LIN-Bus 
+                        wird 0x61 gesendet. Die beiden CRC-Bits liegen am oberen Ende.
+                        FRAME_ID wird für die Befehle INIT_VER_LI, FRAME_DIRECT, ADD_SCHE_LI und 
+                        INSERT_SCHE_LI benötigt.                        
+   ------------------------------</pre><b><a name="param5">5</a> FRAME_MODE</b><pre>
+                        FRAME_MODE ist eine Spalte der Verarbeitungstabelle und wird für den Befehl 
+                        INIT_VER_LI benötigt. Dort wird angegeben, wie der LIN-Knoten auf den 
+                        Empfang der jeweiligen Frame-ID reagiert.
+                        RESPOND: Bei Empfang der entspr. Frame-ID werden Daten gesendet (s. LIN_DATEN).
+                        RECEIVE: Bei Empfang der entspr. Frame-ID werden Daten empfangen; die 
+                          erwartete Datenlänge muss in LIN_DATEN angegeben sein.
+                        IGNORE:  Es soll weder gesendet noch empfangen werden.
+   ------------------------------</pre><b><a name="param6">6</a> LIN_DATEN</b><pre>
+                        LIN-Daten (1...8 Bytes). Wird für den Befehl INIT_VER_LI benötigt, um
+                        Daten in die Verarbeitungstabelle zu schreiben. 
+                        a) Diese Daten werden gesendet, sobald die entspr. Frame-ID empfangen und 
+                           RESPOND eingestellt ist.
+                        b) Da LIN-Frames keine Datenlängeninformation besitzen, ist die Angabe der
+                           erwarteten Datenlänge auch für RECEIVE notwendig. Dazu werden Dummy-
+                           Daten mit der entsprechenden Länge in die Verarbeitungstabelle 
+                           geschrieben.
+
+                        Dieser Parameter wird ebenfalls für den Befehl FRAME_DIRECT benötigt, um 
+                        Sendedaten für den zu sendenden Frame anzugeben.
+   ------------------------------</pre><b><a name="param7">7</a> SCHED_INDEX</b><pre>
+                        Zeilennummer der Schedule-Tabelle. Gültige Werte 1...255. Wird für den Befehl
+                        INSERT_SCHE_LI und DELETE_SCHE_LI benötigt.
+   ------------------------------</pre><b><a name="param8">8</a> SCHED_DELAY</b><pre>
+                        SCHED_DELAY ist eine Spalte der Schedule-Tabelle und wird für den Befehl
+                        ADD_SCHE_LI und INSERT_SCHE_LI benötigt. Dort wird die Verzögerungszeit (in ms) 
+                        angegeben, die der Scheduler nach der Ausführung dieser Zeile warten soll, 
+                        bevor die nächste Zeile abgearbeitet wird. Gültige Werte 0...255 ms.
+   ------------------------------</pre><b><a name="param9">9</a> NR_EXEC</b><pre>	Wird z.Zt. nicht verwendet. Reserviert für zukünftige Erweiterungen.
+   ------------------------------</pre><b><a name="param10">10</a> FEHLERFLAG</b><pre>	Wird gesetzt bei aufgetretenem Fehler
+   ------------------------------</pre><b><a name="param11">11</a> ERGEBNIS</b><pre>	Pointer auf den Antwortstring der PSS/SKM
+</PRE>
+</BODY>
+</HTML>

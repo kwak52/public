@@ -1,0 +1,311 @@
+<HTML>
+<HEAD>
+<TITLE>E_DEVICE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_DEVICE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ Funktionsbeschreibung:                                                                               
+                                                                                                      
+ Mit diesem Modul werden Einstellparameter an ein SICL-Device                                         
+ (Schnittstelle: HPIB- oder VXI) gesendet.                                                            
+                                                                                                      
+ Wichtig: Fuer den zugrundeliegenden Prozess muss eine                                                
+          Konfigurationsdatei existieren, "sicl_device_com.cnf".                                      
+          In dieser Datei werden je Device Aktionsprofile fuer                                        
+          Fehlerbearbeitung bei Sende- bzw. Leseoperationen                                           
+          hinterlegt.                                                                                 
+          Darueberhinaus enthaelt diese Datei Device-spezifische                                      
+          und somit fuer jeden Devicetyp einmalig festlegbare                                         
+          Konfigurationsinformationen.                                                                
+                                                                                                      
+          Eine detaillierte Beschreibung des Dateiaufbaus findet                                      
+          sich u.a. auch in der Framemaker-Datei:                                                     
+      ".../6_testmodul_pool/sicl_device_com/doc/device_process.frm".                                  
+                                                                                                      
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                                               
+          GAUDI Pruefschritt                                                                          
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                                                   
+          PAV- Position                                                                               
+    ------------------------------</pre><b><a name="param3">3</a> DEVICENAME</b><pre>                                                                                 
+          z.B. DIGITIZER_01                                                                           
+          hiermit wird mithin ein Devicename angegeben, der (z.Zt. noch)                              
+          in der Datei "hw_vxi_geraete_x...xx.cnf" angegeben sein muss                                
+          (dies braucht nicht vom Anwender dieses Moduls getan zu werden);                            
+          mit den darin enthaltenen Informationen laesst sich ein                                     
+          SICL-Device am VXI- bzw. HPIB-Bus ueber seine Adresse identifizieren                        
+          und ansteuern;                                                                              
+    ------------------------------</pre><b><a name="param4">4</a> FUNCTION</b><pre>                                                                                   
+          mit jeder Verwendung dieses Moduls kann einer der folgenden                                 
+          Schluessel angegeben werden:                                                                
+            INIT (=initialisieren)                                                                    
+              Die ab CHANNEL_PRMTR und/oder durch vorangegangene mehrmalige                           
+              Aufrufe mit FUNCTION = 'CONT' hinterlegten Datenstrings werden                          
+              unmittelbar nach dem Ruestlauf, dh. im ersten(!) Listenlauf an                          
+              das ausgewaehlte Device uebertragen.                                                    
+                  &gt;&gt;&gt;  In allen weiteren Listenlaeufen findet   &lt;&lt;&lt;                                   
+                  &gt;&gt;&gt;  keine Uebertragung dieser Daten statt!   &lt;&lt;&lt;                                   
+                  &gt;&gt;&gt; (wird durch den Prozess selbst gesteuert) &lt;&lt;&lt;                                   
+                                                                                                      
+            SEND (=senden)                                                                            
+              Die ab CHANNEL_NO und/oder durch vorangegangene mehrmalige                              
+              Aufrufe mit FUNCTION = 'CONT' (s.u.) hinterlegten Datenstrings                          
+              werden mit jedem Listenlauf (ausser im Ruestlauf) an das                                
+              ausgewaehlte Device uebertragen.                                                        
+                                                                                                      
+            RCV / RCVFAST / RCV_n / RCVFAST_n / RCV_n_m / RCVFAST_n_m                                 
+              (=senden+lesen / 'send+receive fast' Channel n (bis m) )                                
+              Wie zuvor 'SEND', jedoch wird nach dem Senden der Daten (in der                         
+              Regel ein Abfragekommando) eine Antwort vom Device ausgelesen.                          
+              Aus der Antwort koennen anschliessend mit Hilfe des Moduls                              
+              "M_DEVICE" (evtl. mehrmals nacheinander) die fuer die Auswertung                        
+              (mit "M_AUSWERTUNG") relevanten Bestandteile extrahiert werden.                         
+              Im FAST-Modus werden Daten in 16 oder 32 Bit Integerformat                              
+              uebertragen (in der Konfigurationsdatei muss dazu ein entsprechender                    
+              Eintrag vorhanden sein - Default ist 16).                                               
+              Die 'n'- bzw. 'm'-Parameter ermoeglichen die Zuordnung der                              
+              empfangenen Daten zu einem bestimmten oder mehreren Kanaelen:                           
+              Beispiele:                                                                              
+              RCV          es werden ASCII-Daten fuer Kanal 1 gelesen;                                
+                           dies ist die normale Verwendung bei Devices, die nicht ueber               
+                           mehrere Kanaele verfuegen oder dies nach aussen nicht                      
+                           unmittelbar darstellen koennen (dennoch kann der empfangene                
+                           Datenstrom ueber eine interne Struktur verfuegen, dh.                      
+                           mehrdimensional sein);                                                     
+              RCV_n        es werden ASCII-Daten fuer den Kanal n gelesen;                            
+              RCVFAST_n_m  es werden Daten im "fast access mode" fuer Kanal                           
+                           n bis m gelesen;                                                           
+                                                                                                      
+              Wichtig: Die interne Struktur des zu lesenden Datenstroms muss                          
+                       in der Konfigurationsdatei spezifiziert worden sein!                           
+                       Dies ist fuer den nachfolgenden Auswerteschritt mit                            
+                       M_DIGITIZER wichtig.                                                           
+                                                                                                      
+            CONT (=continue, fuer groessere Datenmengen, dh. laengere                                 
+                             Kommandosequenzen)                                                       
+              Die Daten werden Prozess-intern gespeichert und mit jedem                               
+              Aufruf, der auch das FUNCTION-Schluesselwort 'CONT' enthaelt,                           
+              zeilenrichtig (fuer den Fall, dass die Einstellung eines Device                         
+              von der Reihenfolge der dargebotenen Informationen abhaengt)                            
+              aneinandergehaengt.                                                                     
+                                                                                                      
+            FILE (=Datei uebertragen)                                                                 
+              im Feld FILENAME kann ein Dateiname (inkl. Pfad) angegeben werden;                      
+              der Dateiinhalt wird unmittelbar nach dem Ruestlauf mit Beginn                          
+              des ersten Listenlaufs (und nur dann) komplett an das angegebene                        
+              Device uebertragen;                                                                     
+                                                                                                      
+              Wichtig: Intern wird 'FILE' wie 'CONT' behandelt, dh. ohne einen                        
+                       nachfolgenden Modulaufruf mit FUNCTION = 'INIT', bei                           
+                       der dann auch noch ein Nachspann (--&gt; GENERAL_PRMTR01)                         
+                       angegeben werden kann, findet keine Dateiuebertragung                          
+                       statt.                                                                         
+             SYNC                                                                                     
+               Spielt mit dem Konfigfileeintrag "DEVICENAME_OPERATIONCOMPLETE_CMD = Zeichenkette"     
+               zusammen. Hiermit kann ein Kommando angegeben werden, mit dem ein Device               
+               die vollstaendige Abarbeitung eines oder mehrerer Kommandos                            
+               im Event- oder Statusbyte anzeigt;                                                     
+               bei SCPI-konformen Devices handelt es sich um das Kommando '*OPC';                     
+               dieses Kommando wird im Modus 'SYNC' des GAUDI-Moduls 'E_DEVICE'                       
+               im Anschluss an eine Folge von Kommandos an das jeweilige Device                       
+               uebertragen, um anschliessend auf einen ServiceRequest zu warten;                      
+               diese Vorgehensweise bedingt, dass das Device ueber ein Eventbyte                      
+               mit OperationComplete-Bit und ueber ein jenem zugeordnetes Bit im                      
+               Statusbyte verfuegt;fuer 80 Zeichen aus);                                              
+               der Anwender muss zur Aktivierung ein Kommando der Art                                 
+               '*ESE xx;*SRE yy' waehrend der Initialisierung an das Device senden;                   
+               (Default: keine Zeichenkette)                                                          
+    ------------------------------</pre><b><a name="param5">5</a> RCV_DATAFORMAT</b><pre>                                                                             
+          STRING / ASCII / BINARY16 / SBINARY16 / BINARY32 / SBINARY32                                
+                                                                                                      
+          STRING:                                                                                     
+             Devices deren Antwort eine Folge von ASCII-Zeichen ist;                                  
+             diese Antwort kann ueber eine interne Struktur verfuegen                                 
+             und aus mehr als einem Wert (in ASCII-Darstellung) bestehen;                             
+             der Anwender waehlt diese Formatangabe, wenn er gezielt einzelne                         
+             Bereiche einer Geraete-Antwort analysieren moechte;                                      
+             dazu sind im Modul 'M_DEVICE' folgende Angaben notwendig:                                
+              - Auswahl der ACTION = GET_FIELD;                                                       
+                                                                                                      
+              bei Auswahl eines bestimmten durch Begrenzer abgetrennten Feldes:                       
+              - ACTION_PRMTR erhaelt die Nummer des Feldes                                            
+                             (gezaehlt wird von 1 an!)                                                
+              - Angabe eines DATA_SEPARATOR in Hochkommata,                                           
+                das ist der Begrenzer des Feldes;                                                     
+                                                                                                      
+              bei Auswahl eines Bereichs innerhalb der empfangenen Antwort:                           
+              - ACTION_PRMTR erhaelt in diesem Fall ein "-";                                          
+              - START / END  erhalten die Start- und Endeposition des ersten                          
+                und letzten Zeichens des Abschnitts, der aus der Antwort extrahiert                   
+                werden soll; (gezaehlt wird von 1 an!)                                                
+                                                                                                      
+                z.B.: Device meldet: "Hallo, mein Sohn Brutus, Du Moerder!"                           
+                                      (natuerlich ohne Hochkommata!)                                  
+                                     ACTION          GET_FIELD                                        
+                                     ACTION_PRMTR1    2                                               
+                                     ACTION_PRMTR2   ","                                              
+                                     RESULT_VALUE    " mein Sohn Brutus"                              
+                      oder                                                                            
+                                     ACTION          GET_FIELD                                        
+                                     ACTION_PRMTR1    -                                               
+                                     ACTION_PRMTR2    -                                               
+                                     START           8                                                
+                                     END             23                                               
+                                     RESULT_VALUE    "mein Sohn Brutus"                               
+                                                                                                      
+              Wichtig: Das/der erste Feld/Abschnitt beginnt natuerlich nicht                          
+                       mit einem Begrenzungszeichen.                                                  
+                       Das/der letzte Feld/Abschnitt beginnt mit dem angegebenen                      
+                       Begrenzungszeichen und endet mit einer evtl. vom Device                        
+                       uebertragenen Endekennung (z.B. CR/LF).                                        
+                                                                                                      
+          ASCII:                                                                                      
+             Device-Antworten als Folge von Messwerten in ASCII-Darstellung.                          
+             Die interne Struktur soll ausgewertet (&gt;DATASEPARATOR) und fuer                          
+             weitere Aktionen - ACTION - in Floatingpoint-Werte gewandelt werden.                     
+             Der Parameter DATASEPARATOR muss fuer den Fall das/die ASCII-Zeichen                     
+             enthalten, mit dem/denen die Daten voneinander getrennt werden.                          
+             Enthaelt die Device-Antwort Daten fuer mehrere Kanaele, muss dies                        
+             im Parameter FUNCTION = RCV... des Moduls 'E_DEVICE' angegeben worden                    
+             sein.                                                                                    
+                                                                                                      
+          BINARY16/SBINARY16                                                                          
+             Device-Antworten als Folge von Binaerwerten (ohne/mit Vorzeichen-Bit).                   
+             Die interne Struktur dieser Daten wird in der Konfiguratonsdatei                         
+             fuer den entsprechenden Devicetyp angegeben (s.Dokumentation in                          
+             'device_process.frm').                                                                   
+             Enthaelt die Device-Antwort Daten fuer mehrere Kanaele, muss dies                        
+             im Parameter FUNCTION = RCV... des Moduls 'E_DEVICE' angegeben worden                    
+             sein.                                                                                    
+                                                                                                      
+          BINARY32/SBINARY32                                                                          
+             Device-Antworten als Folge von Binaerwerten (ohne/mit Vorzeichen-Bit).                   
+             Die interne Struktur dieser Daten (z.B. 2 Datenwerte zu 16Bit pro                        
+             32Bit-Wort) wird in der Konfiguratonsdatei fuer den entsprechenden                       
+             Devicetyp angegeben (s.Dokumentation in 'device_process.frm').                           
+             Enthaelt die Device-Antwort Daten fuer mehrere Kanaele, muss dies                        
+             im Parameter FUNCTION = RCV... des Moduls 'E_DEVICE' angegeben worden                    
+             sein.                                                                                    
+    ------------------------------</pre><b><a name="param6">6</a> DATASEPARATOR</b><pre>                                                                              
+          Ein oder mehrere ASCII-Zeichen, mit dem/denen die von einem Device                          
+          empfangenen Daten voneinander getrennt sind (unterschieden werden koennen).                 
+          Das/die Zeichen werden zwischen Anfuehrungszeichen gesetzt.                                 
+          Beispiel:  ", ,"                                                                            
+                    Der Datenseparator besteht aus 3 Zeichen einem Komma, einem                       
+                    Leerzeichen und einem weiteren Komma.                                             
+    ------------------------------</pre><b><a name="param7">7</a> RCV_DATARANGE</b><pre>                                                                              
+          Angabe des Wertebereichs (inkl. Einheit) des Kanals bzw. der Kanaele,                       
+          fuer den/die Daten aufbereitet werden sollen.                                               
+          Die minimale Angabe beschraenkt sich auf den Kanal der mit diesem Aufruf                    
+          bearbeitet werden soll.                                                                     
+          Beispiel: CH1:U20V;CH2:B10V;...                                                             
+                    Kanal1: Range 20 Volt unipolar                                                    
+                    Kanal2: Range 10 Volt bipolar                                                     
+          Es können auch Kanalbereiche mit der Syntax CH&lt;min_kanal&gt;-CH&lt;max_kanal&gt;                     
+          angegeben werden, z.B.: CH1-CH10:B40V                                                       
+    ------------------------------</pre><b><a name="param8">8</a> RCV_DATARATE</b><pre>                                                                               
+          Fuer Auswertungen ueber einen Zeitbereich wird hier spezifiziert, mit                       
+          welcher Datenrate Daten empfangen wurden.                                                   
+          Einheit ist 1/sec.                                                                          
+          Ein Wert von 10000 bedeutet, dass 10000 Werte pro Sekunde vom                               
+               Device ermittelt wurden;                                                               
+          Beispiel: CH1:10000;CH2:20000;...                                                           
+    ------------------------------</pre><b><a name="param9">9</a> RCV_NUMBER</b><pre>                                                                                 
+          Der Anwender gibt hiermit die Anzahl der Bytes an, die nach einem                           
+          FETCH:...? oder anderen Abfragekommando mindestens gelesen werden                           
+          sollen.                                                                                     
+          Die Angabe ist notwendig, sofern von einem Device stark differierende                       
+          Datenmengen (mit evtl. unterschiedl. Datenformaten) ausgelesen werden                       
+          koennen. Anderenfalls gilt der Eintrag in der Konfigurationsdatei (s.u.).                   
+                                                                                                      
+          Im Fast-Mode (RCVF...) werden - entgegen der sonst ueblichen Weise -                        
+          nicht Bytes, sondern (per direktem Registerzugriff) Datenwoerter                            
+          (16/32Bit) eingelesen. Hierbei entspricht jedes Datenwort mindestens                        
+          einem Messwert.                                                                             
+          Die Groesse eines Datenwortes in Bytes muss in der Konfigurationsdatei                      
+          spezifiziert worden sein (s.Dokumentation in 'device_process.frm').                         
+                                                                                                      
+          Diese Information wird nur im Modus FUNCTION = 'RCV...' benoetigt.                          
+                                                                                                      
+          Default: '-' die MaxAnzahl-Information aus der Konfigurationsdatei                          
+                       wird genommen (s.Dokumentation);                                               
+    ------------------------------</pre><b><a name="param10">10</a> TIMEOUT</b><pre>                                                                                    
+          Wert in Millisekunden, der die maximale Wartezeit fuer eine                                 
+          Geraeteantwort festlegt (nur bei FUNCTION = 'RCV...' von Bedeutung);                        
+                                                                                                      
+          Default-Einstellung: 10000ms = 10s                                                          
+    ------------------------------                                                                    
+     Wichtig: Bei Function 'CONT' werden die in aufeinanderfolgenden Modul-                           
+              aufrufen jeweils angegebenen Daten unmittelbar aneinander gehaengt.                     
+              Das bedeutet, dass zunaechst saemtliche Parameter von Position 8                        
+              verknuepft werden, dann die von Position 9 usw.:                                        
+              ==&gt; 81 82 83 ... 91 92 93 ... usw.                                                      
+              Ausnahme: die Parameter der Positionen 12 bis 16, sie werden mit                        
+                        jedem Modulaufruf unmittelbar aneinandergehaengt:                             
+                         ==&gt; 121 131 141 151 161 122 132 142 152 162 ...</pre><b><a name="param11">11</a> ROUTING</b><pre>                                                                                    
+          Hiermit koennen z.B. die aktiven Kanaele definiert werden:                                  
+            z.B.: ROUTe:OPEN|CLOSE|? [&lt;channel list&gt;]                                                 
+    ------------------------------</pre><b><a name="param12">12</a> MEASURE_CTRL1</b><pre>                                                                              
+          Hiermit lassen sich saemtliche Kommandos fuer die Steuerung der                             
+          Datenaufnahme eingeben:                                                                     
+            z.B.: FREQency:RANGe [&lt;frequency&gt;] [&lt;group list&gt;]                                         
+                  [SENSe:]ROSCillator:SOURce INTernal | CLK10                                         
+                  SWEEP:POINts &lt;record length&gt; [&lt;group list&gt;]                                         
+    ------------------------------</pre><b><a name="param13">13</a> MEASURE_CTRL2</b><pre>                                                                              
+          Hiermit kann z.B. fuer jeden Kanal der Messbereich eingestellt werden:                      
+            z.B.: [SENSe:]VOLTage[:DC]:RANGe[:UPPer] ,voltage&gt; [&lt;channel list&gt;]                       
+    ------------------------------</pre><b><a name="param14">14</a> SIGNAL_GEN</b><pre>                                                                                 
+          Hier lassen sich Daten fuer Signalgenerierung eingeben.                                     
+    ------------------------------</pre><b><a name="param15">15</a> TRIGGER/ARMING</b><pre>                                                                             
+          Hiermit lassen sich die Triggerbedingungen spezifizieren und                                
+          das Device scharf machen:                                                                   
+            z.B.: ARM:SOURce EXTernal | IMMediate [&lt;group id&gt;]                                        
+                  TRIGger:SOURce IMMediate ...                                                        
+                  OUTOut:TRIGger:SLOPe POSitive | NEGative ...                                        
+    ------------------------------</pre><b><a name="param16">16</a> GENERAL_PRMTR1</b><pre>                                                                             
+          Hierin kann der Anwender beliebige sonstige an das Device zu                                
+          uebertragende Daten eingeben.                                                               
+          Keine Abfrage-Kommandos, dies wuerde zu Fehlfunktionen fuehren!                             
+                                                                                                      
+          Wichtig: Diese Daten (~_PRMTR1 - ~_PRMTR4 FILENAME) werden je Modulaufruf                   
+                   unmittelbar aneinandergefuegt:                                                     
+                     ~PRMTR1 ... ~PRMTR4 ~PRMTR1 ... ~PRMTR4 usw.                                     
+    ------------------------------</pre><b><a name="param17">17</a> GENERAL_PRMTR2</b><pre>                                                                             
+          dito                                                                                        
+    ------------------------------</pre><b><a name="param18">18</a> GENERAL_PRMTR3</b><pre>                                                                             
+          dito                                                                                        
+    ------------------------------</pre><b><a name="param19">19</a> GENERAL_PRMTR4</b><pre>                                                                             
+          dito                                                                                        
+    ------------------------------</pre><b><a name="param20">20</a> FILENAME</b><pre>                                                                                   
+          Name der Datei (inkl. Pfad), deren Inhalt im ersten(!) Listenlauf                           
+          vom Leitrechner (im SaW ist es der 'lrp3') geladen und an das                               
+          Device uebertragen werden soll.                                                             
+          Der Zugriffspfad muss im Konfigurationsfile (s.o.) angegeben sein!                          
+    ------------------------------</pre><b><a name="param21">21</a> RCV_CTRL1</b><pre>                                                                                  
+          Hiermit lassen sich die Steuer-Parameter fuer den Datenzugriff                              
+          eingeben (vgl. FUNCTION RCV_... / RCVFAST_...)                                              
+            z.B.: VXI:FDC:MODE ...                                                                    
+                  FORMAT:OVERrun &lt;boolean&gt;                                                            
+                  FETCh:Data? [&lt;count&gt;][,&lt;starting address&gt;] [&lt;channel id&gt;]                           
+                                                                                                      
+          Wichtig: Bei mehrkanaligen Devices ist es wichtig, im FUNCTION-Parameter                    
+                   zu spezifizieren, fuer welche Kanaele die Daten vorliegen!                         
+    ------------------------------</pre><b><a name="param22">22</a> RCV_CTRL2</b><pre>                                                                                  
+          dito                                                                                        
+    ------------------------------</pre><b><a name="param23">23</a> ERRORFLAG</b><pre>                                                                                  
+          Dies Flag wird nur dann auf den Wert 1 gesetzt, sollte bei                                  
+          FUNCTION = 'INIT', 'SEND', 'RCV...' oder 'RCVFAST..' ein Schreib-                           
+          bzw. Lesefehler  erkannt worden sein.                                                       
+          Bei FUNCTION = 'FILE' wird das Errorflag gesetzt, wenn die Datei                            
+          nicht gelesen werden kann.                                                                  
+</PRE>
+</BODY>
+</HTML>

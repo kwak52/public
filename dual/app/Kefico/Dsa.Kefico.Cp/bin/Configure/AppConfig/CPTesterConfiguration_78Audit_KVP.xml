@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ROOT>
+    <SystemConfigure>
+    <HaConfigure>
+  
+      <CAN>False</CAN>      <RS232>False</RS232>      <GPIB>False</GPIB>      <NETWORKUDP>False</NETWORKUDP>     <NETWORKTCPIP>False</NETWORKTCPIP>
+      <DMM>False</DMM>      <SMU>False</SMU>      <LASERMARKER>False</LASERMARKER>      <COUNTER_INPUT>False</COUNTER_INPUT>      <RESISTOR>False</RESISTOR>
+      <FGN>False</FGN>      <LOAD>False</LOAD>      <SCOPE>False</SCOPE>      <RELAY>False</RELAY>
+
+      <DAQ_CONTROLLER>true</DAQ_CONTROLLER>
+      <ANALOG_INPUT>true</ANALOG_INPUT>
+      <PLC>false</PLC>
+      <POWER_SUPPLY>true</POWER_SUPPLY>
+      <LVDT>true</LVDT>
+      <LCRMETER>true</LCRMETER>
+      <MOTION>true</MOTION>
+      <DIGITAL_IO>true</DIGITAL_IO>
+      <TRIGGER_IO>true</TRIGGER_IO> <!--UPS APC-->
+      
+    </HaConfigure>
+  </SystemConfigure>
+  
+
+  <ApplicationConfigure>
+    <SystemInfo>
+      <Title>8FF 7DCT AUDIT</Title>
+      <LastBuildDate>2016-10-08-09:19:23</LastBuildDate>
+      <SystemVersion>Ver 1.0.0</SystemVersion>
+      <HardwareVersion>Ver 1.0.0</HardwareVersion>
+    </SystemInfo>
+    <ApplicationInfo>
+      <ParserApiVer>Ver 1.0.0</ParserApiVer>
+      <ParserLastBuildDate>2016-10-03-19:40:02</ParserLastBuildDate>
+      <ParserApiDll>PsKGaudi.dll</ParserApiDll>
+      <FunctionExeLastBuildDate>2016-10-03-19:40:02</FunctionExeLastBuildDate>
+      <FunctionExeDll>CpFunctionDefault.dll</FunctionExeDll>
+      <ShowLogLevel>INFO</ShowLogLevel>
+      <SaveLogPath>D:\CPLog\</SaveLogPath>
+      <CnfPath>\Configure\HwConfig\</CnfPath>
+      <TestListPath>\Configure\TestList\</TestListPath>
+    </ApplicationInfo>
+    <StationConfigure>
+
+      <SgStation>
+        <StationID>0</StationID>
+        <Name>8FF(A8MF1)BLACK(9024180021)</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>p9024180021</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>2</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+
+
+      <SgStation>
+        <StationID>1</StationID>
+        <Name>8FF(A8MF1)YELLOW(9024180022)</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>p9024180022</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>2</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+
+      <SgStation>
+        <StationID>2</StationID>
+        <Name>8FF(A8MF1)RED(9024180023)</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>p9024180023</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>2</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+
+      <SgStation>
+        <StationID>3</StationID>
+        <Name>8FF(A8MF1)GRAY(9024180024)</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>p9024180024</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>50</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+
+      <SgStation>
+        <StationID>4</StationID>
+        <Name>7 DCT(9024160001)</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>p9024160001</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>2</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+
+      <SgStation>
+        <StationID>5</StationID>
+        <Name>7 DCT(9024160002)</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>p9024160002</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>2</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+
+
+
+      <SgStation>
+        <StationID>6</StationID>
+        <Name>7 DCT(9024160003)</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>p9024160003</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>2</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+      
+
+      <SgStation>
+        <StationID>7</StationID>
+        <Name>7 DCT(9024160004)</Name>
+        <Enable>True</Enable>
+        <TcConfigure>
+          <Type>MMXX</Type>
+          <Variant>1</Variant>
+          <TTNR>p9024160004</TTNR>
+          <EFList>CpXml</EFList>
+          <Gate>R</Gate>
+          <StartStep>1000</StartStep>
+          <RepeatTest>True</RepeatTest>
+          <RepeatNum>2</RepeatNum>
+          <ResetTime>3000</ResetTime>
+          <WhileControl>True</WhileControl>
+          <FailStop>false</FailStop>
+        </TcConfigure>
+        <DeviceList>
+          <SgDevice>
+            <ID>AI0</ID>
+          </SgDevice>
+        </DeviceList>
+      </SgStation>
+
+
+
+
+
+    </StationConfigure>
+  </ApplicationConfigure>
+  <HwConfigure>
+    <CommDevices>
+      <Device>
+        <ID>RS232_0</ID>
+        <Type>RS232</Type>
+        <DllName>CpDevRS232</DllName>
+        <HwName>COM3</HwName>
+        <Attributes COMMENT = "" BAUDRATE = "0" DATABITS="8" CR="True" LF="True" TIMEOUT ="500"/>
+      </Device>
+      <Device>
+        <ID>TCPIP_POWERSUPPLY0</ID>
+        <Type>NETWORKTCPIP</Type>
+        <DllName>CpDevNetworkTCPIP</DllName>
+        <HwName>TCPIP0</HwName>
+        <Attributes COMMENT = "" IP_ADDRESS="192.168.0.100" PORT_NO="9221" CR="False" LF="True"/>
+      </Device>
+      <Device>
+        <ID>NI_DAQ_CONTROLLER0</ID>
+        <Type>DAQ_CONTROLLER</Type>
+        <DllName>CpDevDAQ_NI</DllName>
+        <HwName>Dev1</HwName>
+        <Attributes COMMENT = "" SAMPLING_PER_SEC ="1000000" SAMPLE_PER_BUFFER="1"/>
+      </Device>
+    </CommDevices>
+    <Devices>
+
+      <Device>
+        
+        <ID>U_SRN1</ID>
+        <Type>POWER_SUPPLY</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevPowerSupply_Sorensen</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.0.100</HwName>
+        <Attributes COMMENT = "INPUT" VOLTAGE_LIMIT="30" CURRENT_LIMIT="3" MAX_TEMP="100" CHANNEL ="1"/>
+      </Device>
+      
+   
+      
+      <Device>
+        <ID>LCR0</ID>
+        <Type>LCRMETER</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevLCR_Hioki</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.0.51</HwName>
+        <Attributes COMMENT = "" CHANNEL ="1"/>
+      </Device>
+    
+      <Device>
+        <ID>AI0</ID>
+        <Type>ANALOG_INPUT</Type>
+        <Virtual>true</Virtual>
+        <DllName>CpVDevAI_NIDAQ</DllName>
+        <CommDevID>NI_DAQ_CONTROLLER0</CommDevID>
+        <HwName>Dev1/ai0</HwName>
+        <Attributes COMMENT ="INPUT"  />
+      </Device>
+
+
+      <Device>
+        <ID>MT</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevMotion_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.0.14</HwName>
+        <Attributes COMMENT = "" AXIS_ROBOT = "False" AXIS_ID = "0" AXIS_DIRECTION = "CW" CFG_ACC_RPM_RER_SEC="1500" CFG_DEC_RPM_RER_SEC="1500" CFG_MAX_RPM="2010" CFG_DISTANCE_PER_REVOLUTION ="100" />
+      </Device>
+
+      <Device>
+        <ID>ROBOT_4AXIS</ID>
+        <Type>MOTION</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevRobot_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.0.13</HwName>
+        <Attributes  COMMENT = "" AXIS_ROBOT = "True" AXIS_ID = "+0;+1;+2;+3" AXIS_DIRECTION = "CW" CFG_ACC_RPM_RER_SEC="1" CFG_DEC_RPM_RER_SEC="1" CFG_MAX_RPM="10" CFG_DISTANCE_PER_REVOLUTION ="1000" />
+      </Device>
+
+
+      <Device>
+        <ID>UDIO_CPU0</ID>
+        <Type>DIGITAL_IO</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevDIOControl_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.0.11</HwName>
+        <Attributes COMMENT = "" DIGITAL_INPUT_POINT = "16" DIGITAL_OUTPUT_POINT="48"/>
+      </Device>
+
+
+    
+      <Device>
+        <ID>UDIO_CPU1</ID>
+        <Type>DIGITAL_IO</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevDIOControl_PAIXCtrl</DllName>
+        <CommDevID></CommDevID>
+        <HwName>192.168.0.12</HwName>
+        <Attributes COMMENT = "" DIGITAL_INPUT_POINT = "48" DIGITAL_OUTPUT_POINT="16"/>
+      </Device>
+
+
+      <Device>
+        <ID>UPS0</ID>
+        <Type>TRIGGER_IO</Type>
+        <Virtual>false</Virtual>
+        <DllName>CpDevUPS_APC</DllName>
+        <CommDevID></CommDevID>
+        <HwName></HwName>
+        <Attributes COMMENT = "" IP_ADDRESS="192.168.0.30" PORT_NO="9221" CR="False" LF="True"/>
+      </Device>
+      
+    </Devices>
+  </HwConfigure>
+</ROOT>

@@ -1,0 +1,430 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> DCITrg [A]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>DCITrg [A]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=8833">
+ </A>
+DCITrg [A]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8835">
+ </A>
+Shuntresistor [Ohm]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8837">
+ </A>
+MaxSignalAmplitude [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8839">
+ </A>
+TriggerEdge [p/n]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8841">
+ </A>
+TriggerLevel [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8843">
+ </A>
+TriggerDelay [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8845">
+ </A>
+IntegrationPeriod [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8847">
+ </A>
+TriggerHigh [i/CU pin [INT]/Test Pt[Str]]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8849">
+ </A>
+TriggerLow [i/CU pin [INT]/Test Pt[Str]]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8851">
+ </A>
+Timeout [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8853">
+ </A>
+Mode [m/s]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=8855">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=8857">
+ </A>
+Description of Function</H6>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8859">
+ </A>
+Indirect measurement of current by means of internally or externally triggered integrating DC voltage measurement. Currents flowing into the control unit register as positive. Depending on mode, this function acts as a control function or a measurement function. If it is used as a control function, the test result can be established with the aid of the function <EM CLASS="HelpSprung">
+RDCITrg</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_RDCITrg</EM>
+.<BR>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=8861">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8863">
+ </A>
+The control unit pin is specified as the test point and the reference point.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=8865">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=8867">
+ </A>
+Parameters</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=8869">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8871">
+ </A>
+Shuntresistor</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8873">
+ </A>
+For selection of the impedance level: <BR>
+a) If a component of a simulated load, see MSL Catalogue, Implementation of Modules (Simulated Loads) <BR>
+b) If exclusively a current measurement resistor, see MSL Catalogue, Current Measurement Using Series Resistor. The maximum permissible testing impedance is specified as the parameter.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=8875">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8877">
+ </A>
+MaxSignalAmplitude</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8879">
+ </A>
+Largest amplitude occurring on the signal. Can be used to establish the measurement range or to select a suppressor circuit.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8881">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8883">
+ </A>
+TriggerEdge</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8885">
+ </A>
+Specification of which signal edge is to act as trigger (p = positive edge, n = negative edge).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8887">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8889">
+ </A>
+TriggerLevel</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8891">
+ </A>
+Trigger level for the measurement relative to the trigger signal reference (see <EM CLASS="HelpSprung">
+example </EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel_DCITrg</EM>
+).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8893">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8895">
+ </A>
+TriggerDelay</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8897">
+ </A>
+Trigger delay for measurement (see <EM CLASS="HelpSprung">
+example </EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel_DCITrg</EM>
+).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8899">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8901">
+ </A>
+IntegrationPeriod</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8903">
+ </A>
+Period over which the signal is integrated.<BR>
+In the event of superimposed interference signals, it is advisable - wherever possible - to select a multiple of the interference signal period as the integration period.<BR>
+If the integration period determined is less than the testing instrument's shortest integration period, the testing system may use a sample &amp; hold measurement instead of an integrating measurement.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8905">
+ </A>
+</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=8907">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8909">
+ </A>
+TriggerHigh</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8911">
+ </A>
+Specification of trigger signal: <BR>
+In the case of external triggering, the control unit pin (e.g. 73) or a (user-) defined signal name from the Signals Table (e.g. UB) is entered here.<BR>
+In the case of internal triggering (trigger signal = test signal), &#180;i&#180; is entered here.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8913">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8915">
+ </A>
+TriggerLow</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8917">
+ </A>
+Specification of trigger signal reference: <BR>
+In the case of external triggering, the control unit pin (e.g. 68) or a (user-) defined signal name from the Signals Table (e.g. UB) is entered here.<BR>
+In the case of internal triggering (trigger signal = test signal reference), &#180;i&#180; is entered here.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8919">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8921">
+ </A>
+Timeout</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8923">
+ </A>
+If the test read function receives no measured reading input within the period specified for the timeout, the measurement is aborted.<BR>
+Standard value: 1s</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8925">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=8927">
+ </A>
+Mode</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=8929">
+ </A>
+The Mode indicates whether the function returns a result (m) or whether the testing instrument is simply prepared for the test (s).<BR>
+Mode m can only be used with periodic test signals. In the case of non-periodic test signals, the test signal is applied and the testing instrument prepared (modes).&nbsp; The trigger event is subsequently activated and then the test read function <EM CLASS="HelpSprung">
+RDCITrg</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_RDCITrg</EM>
+ invoked.</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=8931">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=8933">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=8935">
+ </A>
+Example		<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=8938">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=735">
+ </A>
+DCITrg</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=737">
+ </A>
+1,7,p,2.5,10E-6,10E-6,i,i,1,m</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=8941">
+ </A>
+<BR>
+Test circuit:<BR>
+<BR>
+<IMG SRC="funktionen-8.gif" ALIGN="BASELINE">
+<BR>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=8944">
+ </A>
+<BR>
+Diagram:<BR>
+<BR>
+<IMG SRC="funktionen-9.gif" ALIGN="BASELINE">
+<BR>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=8947">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=744">
+ </A>
+tID,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=746">
+ </A>
+Integration period after triggering by positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=752">
+ </A>
+tID,n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=754">
+ </A>
+Integration period after triggering by negative edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=760">
+ </A>
+tD,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=762">
+ </A>
+Delay period after triggering by positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=768">
+ </A>
+tD,n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=770">
+ </A>
+Delay period after triggering by negative edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=776">
+ </A>
+UTr,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=778">
+ </A>
+Trigger level, positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=784">
+ </A>
+UTr,n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=786">
+ </A>
+Trigger level, negative edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=792">
+ </A>
+Ulow</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=794">
+ </A>
+Low potential of test signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=800">
+ </A>
+Uhigh</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=802">
+ </A>
+High potential of test signal</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=8949">
+ </A>
+<BR>
+	Figure 4: Ignition output stage with regulated current <BR>
+</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=8951">
+ </A>
+Trigger level:				UTr,p = 0.5(Uhigh - Ulow) + Ulow<BR>
+UTr,n = 0.5(Uhigh - Ulow) + Ulow</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=8953">
+ </A>
+Trigger delay:				tD,p = 0.4(t3 - t2) + (t2 - t1)<BR>
+tD,n = 0.4(t6 - t5) + (t5 - t4)</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=8955">
+ </A>
+Integration period:				tID,p = 0.2(t3 - t2)<BR>
+tID,n = 0.2(t6 - t5)</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,732 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> CANBlock [Str]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>CANBlock [Str]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=10273">
+ </A>
+CANBlock [Str]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10275">
+ </A>
+ID_Send [Hex]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10277">
+ </A>
+ID_Send_Length [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10279">
+ </A>
+ID_Read [Hex]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10281">
+ </A>
+ID_Read_Length [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10283">
+ </A>
+Mode [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10285">
+ </A>
+Data [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10287">
+ </A>
+Period [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10289">
+ </A>
+Timeout [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10291">
+ </A>
+Interface [Str]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10293">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=10295">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10297">
+ </A>
+Sends and/or receives messages via a CAN interface. This function may only be invoked once the interface has been initialized by means of the function CANInit. If the function reads a received message, that message is returned and at the same time written to a received messages memory (see also function ComBlock) which can be accessed using the standard functions BlockInt and BlockStr. </P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10299">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10301">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10303">
+ </A>
+None</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10305">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10307">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10309">
+ </A>
+ID_Send</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10311">
+ </A>
+Specifies the identifier for the message to be sent in hexadecimal format. If no message is to be sent, no value should be entered.</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10313">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10315">
+ </A>
+ID_Send_Length</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10317">
+ </A>
+Specifies whether the identifier is to be sent using a length of 11 bits or 29 bits. If no message is to be sent, no value should be specified. The following values are allowed:</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10320">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1418">
+ </A>
+11</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1420">
+ </A>
+11 bits (default)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1426">
+ </A>
+29</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1428">
+ </A>
+29 bits (extended)</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Parameter">
+<A NAME="pgfId=10322">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10324">
+ </A>
+ID_Read</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10326">
+ </A>
+Specifies the identifier for the message to be read in hexadecimal format. If no message is to be read, no value should be entered.</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10328">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10330">
+ </A>
+ID_Read_Length</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10332">
+ </A>
+Specifies whether the message to be read has an 11-bit or a 29-bit identifier. If no message is to be read, no value should be specified. The following values are allowed:</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10335">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1435">
+ </A>
+11</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1437">
+ </A>
+11 bits (default)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1443">
+ </A>
+29</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1445">
+ </A>
+29 bits (extended)</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Parameter">
+<A NAME="pgfId=10337">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10339">
+ </A>
+Mode</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10341">
+ </A>
+Specifies whether a message is to be sent and/or received. The following values are allowed:</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10344">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1452">
+ </A>
+D</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1454">
+ </A>
+instructs the CAN controller on the testing station to delete the message with the identifier specified by ID_Read . If CANBlock is invoked with this mode before a function call for reading data, it ensures that the read function waits for new data or that expired data is not returned. ( ID_Send , ID_Send_Length and Data do not make sense in this context and remain blank).</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1460">
+ </A>
+E</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1462">
+ </A>
+Echo board function: instructs the CAN controller on the testing station to send data received from the control unit back to the control unit as complementary data. No entry must be made for Data. CANBlock does not return a result; the control unit reaction can be checked by means of the function ComBlock.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1468">
+ </A>
+Init</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=1470">
+ </A>
+Provides the facility to instruct the CAN controller to receive messages with a specified ID. There is no return value. Specification of Period and Timeout makes no sense with this mode and can be omitted. Data and ID_Send, if specified, are sent after initialization of the CAN controller.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1476">
+ </A>
+L</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1478">
+ </A>
+Read (and control) function: if the parameters ID_Send, ID_Send_Length and Dataspecify a message, it is sent using the identifier specified by ID_Send. A message with the identifier specified by ID_Read is expected in return and read.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=1480">
+ </A>
+In the case of a message that is sent cyclically by the control unit and does not have to be requested by the tester by means of a send message, ID_Send, ID_Send_Length and Data are left blank. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1486">
+ </A>
+R</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1488">
+ </A>
+A message is read using Remote Frame. The tester sends a message identified as remote frame and containing no data (ID_Send, ID_Send_Length are specified). The control unit incorporates its data in the same message. The tester reads the resulting message. </P>
+<P CLASS="Parameter">
+<A NAME="pgfId=1490">
+ </A>
+(ID_Read, ID_Read_Length and Data do not make sense in this context and remain blank). </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1496">
+ </A>
+S</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1498">
+ </A>
+Control function: a message is simply sent using Data Frame; no response is expected.</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Parameter">
+<A NAME="pgfId=10346">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10348">
+ </A>
+Data</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10350">
+ </A>
+Specifies the data to be sent in the form of a hexadecimal string. In the case of the read-only function, no entry is made here.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10352">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10354">
+ </A>
+Periode</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10356">
+ </A>
+Specifies whether the message is to be sent once only or cyclically. In the case of read-only or delete functions, this entry is ignored (and may also be blank). The following values are allowed:</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10359">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1505">
+ </A>
+0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1507">
+ </A>
+Send once only (not cyclically)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1513">
+ </A>
+nn</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1515">
+ </A>
+Send cyclically at an interval of nn ms </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1521">
+ </A>
+-1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=1523">
+ </A>
+Send a cyclic message for the specified identifier.</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10361">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10363">
+ </A>
+Timeout</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10365">
+ </A>
+If the interface tester does not receive a response within the period specified here, the test function is aborted and an error message returned (if no response is expected, no timeout should be specified).</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10367">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10369">
+ </A>
+Interface</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10371">
+ </A>
+Specifies which CAN interface is to be addressed. The name specified here should be the name used to initialize the interface using the function CANInit.</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=10373">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10375">
+ </A>
+<BR>
+Example 1: Requesting data using remote frame</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10377">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10380">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1530">
+ </A>
+CANBlock</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1532">
+ </A>
+610, 11, , , R, , 0 , 1, CAN1</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=10382">
+ </A>
+<BR>
+	610		= ID_Send</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10384">
+ </A>
+11			= ID_Send_Length 11-bit ID</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10386">
+ </A>
+R= Send Remote Frame					</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10388">
+ </A>
+0			= Send once only</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10390">
+ </A>
+1			= Timeout 1s</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10392">
+ </A>
+CAN1= Interface					</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10394">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10396">
+ </A>
+Example 2: Sending a message cyclically (control function)</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10398">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10401">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1539">
+ </A>
+CANBlock</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1541">
+ </A>
+3FE, 11, , , S, 00453EFFFF23E9FF, 500, , CAN2</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10403">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10405">
+ </A>
+3FE= ID_Send				</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10407">
+ </A>
+11			= ID_Send_Length 11-bit ID</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10409">
+ </A>
+S= Control function					</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10411">
+ </A>
+00..FF= Sent data (					8 bytes)</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10413">
+ </A>
+500			= Send cyclically every 500 ms</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10415">
+ </A>
+CAN2= Interface					</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10417">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10419">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10421">
+ </A>
+Example 3: Terminating cyclical message in Example 2</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10423">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10426">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1548">
+ </A>
+CANBlock</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1550">
+ </A>
+ 3FE, , , , , , 0, , CAN2</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10428">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10430">
+ </A>
+3FE= ID_Send				</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10432">
+ </A>
+-1			= End cyclical message transmission</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10434">
+ </A>
+CAN2= Interface					</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10436">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10438">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10440">
+ </A>
+Example 4: Request message from control unit by sending another message</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10442">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10445">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1557">
+ </A>
+CANBlock</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1559">
+ </A>
+3FE, 11, 01F, 11, L, 00453EFF, 1000, 1, CAN2</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10447">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10449">
+ </A>
+3FE= ID_Send				</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10451">
+ </A>
+11			= ID_Send_Length 11-bit ID</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10453">
+ </A>
+01F= ID_Read				</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10455">
+ </A>
+11			= ID_Send_Length 11-bit ID</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10457">
+ </A>
+L= Read function				</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10459">
+ </A>
+00..FF= Sent data (					4 bytes)</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10461">
+ </A>
+1000			= Send cyclically every 1000 ms</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10463">
+ </A>
+1			= Timeout 1 sec.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10465">
+ </A>
+CAN2= Interface					</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10467">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10469">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10471">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10473">
+ </A>
+Example 5: Delete previously received message from received messages memory</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10475">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10478">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1566">
+ </A>
+CANBlock</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1568">
+ </A>
+00F, 11, , , D, , , , CAN1</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=10480">
+ </A>
+<BR>
+	00F= ID_Read			</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10482">
+ </A>
+11			= ID_Read_Length 11-bit ID</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10484">
+ </A>
+D= Delete messages with ID =						00F from received messages memory</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10486">
+ </A>
+CAN1= Interface					</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10488">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10490">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

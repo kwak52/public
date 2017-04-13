@@ -1,0 +1,508 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> TimeA [s] 															(period)</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>TimeA [s] 															(period)</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=9564">
+ </A>
+TimeA [s] 															(period)</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9566">
+ </A>
+MaxSignalAmplitude [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9568">
+ </A>
+First TriggerEdge [p/n]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9570">
+ </A>
+First TriggerLevel [V], </P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9572">
+ </A>
+Second TriggerEdge [p/n]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9574">
+ </A>
+Second TriggerLevel [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9576">
+ </A>
+Hold-off [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9578">
+ </A>
+Timeout [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9580">
+ </A>
+Mode [m/s]</P>
+<P CLASS="Beschreibung">
+<A NAME="pgfId=9582">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=9584">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=9586">
+ </A>
+Measurement of duration of a positive or negative pulse or period. Depending on mode, this function acts as a control function or a measurement function.<BR>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=9588">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9590">
+ </A>
+Test point + Reference point</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=9592">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=9594">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9596">
+ </A>
+MaxSignalAmplitude</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9598">
+ </A>
+Largest amplitude occurring on the signal. Can be used to establish the measurement range or to select a suppressor circuit.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9600">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9602">
+ </A>
+First TriggerEdge</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9604">
+ </A>
+Specification of which signal edge is to act as trigger for the start of the measurement (p = positive edge, n = negative edge). The preferred option for period measurement is the negative edge.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9606">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9608">
+ </A>
+First TriggerLevel</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9610">
+ </A>
+Trigger level for start of measurement relative to the Ground potential applicable for this signal.<BR>
+For standard value with positive or negative pulse, see <EM CLASS="HelpSprung">
+Example 1</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel1_TimeA<BR>
+</EM>
+For standard value for period duration, see <EM CLASS="HelpSprung">
+Example 2</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel2_TimeA</EM>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9612">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9614">
+ </A>
+Second TriggerEdge			</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9616">
+ </A>
+Specification of which signal edge is to act as trigger for the end of the measurement (p = positive edge, n = negative edge).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9618">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9620">
+ </A>
+Second TriggerLevel</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9622">
+ </A>
+Trigger level for measurement relative to the Ground potential applicable for this signal.<BR>
+For standard value with positive or negative pulse, see <EM CLASS="HelpSprung">
+Example 1</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel1_TimeA<BR>
+</EM>
+For standard value for period duration, see <EM CLASS="HelpSprung">
+Example 2</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel2_TimeA</EM>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9624">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9626">
+ </A>
+Hold-off</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9628">
+ </A>
+Period after the start of the measurement (triggered by First TriggerEdge) within which the trigger for ending the measurement (Second TriggerEdge) is not accepted. The purpose of this is to prevent false triggering by sporadic interference pulses on the signal (e.g. due to switch bounce).<BR>
+<BR>
+Note: the hold-off period can not be implemented with all timers. It is not specified in the MSL Catalogue.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9630">
+ </A>
+</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=9632">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9634">
+ </A>
+</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=9636">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9638">
+ </A>
+Timeout</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9640">
+ </A>
+If the test function receives no measured reading input within the period specified for the timeout, the measurement is aborted.<BR>
+Standard value: 1s</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9642">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9644">
+ </A>
+Mode</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9646">
+ </A>
+The Mode indicates whether the function returns a result (m) or whether the testing instrument is simply prepared for the test (s). Mode m can only be used with periodic test signals. In the case of non-periodic test signals, the test signal is applied and the testing instrument prepared (modes).&nbsp; The trigger event can then be activated and afterwards the test read function <EM CLASS="HelpSprung">
+RTimeA</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_RTimeA</EM>
+ invoked.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9648">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=9650">
+ </A>
+<EM CLASS="HelpFu&szlig;note">
+ </EM>
+Example 1<BR>
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=9653">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1078">
+ </A>
+TimeA</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1080">
+ </A>
+15,p,7,n,6,1E-3,1,m</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9656">
+ </A>
+<BR>
+	Diagram:<BR>
+<BR>
+<IMG SRC="funktionen-15.gif" ALIGN="BASELINE">
+<BR>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=9659">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1087">
+ </A>
+Ulow</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1089">
+ </A>
+Low potential of test signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1095">
+ </A>
+Uhigh</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1097">
+ </A>
+High potential of test signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1103">
+ </A>
+UTr,n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1105">
+ </A>
+Trigger level, negative edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1111">
+ </A>
+UTr,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1113">
+ </A>
+Trigger level, positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1119">
+ </A>
+tHO</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1121">
+ </A>
+Hold-off period</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1127">
+ </A>
+tp</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1129">
+ </A>
+Pulse width</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9661">
+ </A>
+	Figure 8: Pulse duration measurement</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9663">
+ </A>
+For triggering by the edges of a signal pulse, the following applies:</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9665">
+ </A>
+Trigger level:				UTr,p = 0.5(Uhigh - Ulow) + Ulow<BR>
+UTr,n = 0.4(Uhigh - Ulow) + Ulow<BR>
+</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9667">
+ </A>
+</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9669">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=9671">
+ </A>
+<EM CLASS="HelpFu&szlig;note">
+ </EM>
+Example 2<BR>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=9674">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1136">
+ </A>
+Period</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1138">
+ </A>
+15,n,7,n,8,1E-3,1,m</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9677">
+ </A>
+<BR>
+	Diagram:<BR>
+<BR>
+<IMG SRC="funktionen-16.gif" ALIGN="BASELINE">
+<BR>
+<BR>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=9680">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1145">
+ </A>
+Ulow</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1147">
+ </A>
+Low potential of test signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1153">
+ </A>
+Uhigh</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1155">
+ </A>
+High potential of test signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1161">
+ </A>
+UTr,n1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1163">
+ </A>
+Trigger level, 1st negative edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1169">
+ </A>
+UTr,n2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1171">
+ </A>
+Trigger level, 2nd negative edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1177">
+ </A>
+tper</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1179">
+ </A>
+Period duration</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9682">
+ </A>
+	Figure 9: Duration of injection period</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9684">
+ </A>
+For triggering by the negative edge for measuring period duration, the following applies:</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9686">
+ </A>
+Trigger level:				UTr,n1 = 0.5(Uhigh - Ulow) + Ulow<BR>
+UTr,n2 = 0.6(Uhigh - Ulow) + Ulow</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9688">
+ </A>
+</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9690">
+ </A>
+For triggering by the positive edge for measuring period duration, the following applies:</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=133135">
+ </A>
+Trigger level:				UTr,p1 = 0.6(Uhigh - Ulow) + Ulow<BR>
+UTr,p2 = 0.5(Uhigh - Ulow) + Ulow</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SignalDefiniitions>
+  <Signals>
+    <!-- 
+      Signal configuration file for AUDIT tester.
+      
+      If you add any entry here, you should add enumeration entry in SignalEnum enumeration in EmergencySignal.cs
+      Naming convention:
+        - PLC signal name starts with 'P', with type "PLC".
+        - DUIO signal name starts with 'U' with type "DI" for input, "DO" for output.
+        - All DeviceId should be unique.  you can not use same device id for both PLC and UDIO.
+      
+      todo : 7/8 speed sensor, origin sensor(kiss)
+      
+    -->
+    
+    <Signal Name="UDoor1"         Type="DI" DeviceId="UDIO_CPU1" Address="0" Message="Side Door1" Comment=""/>
+    <Signal Name="UDoor2"         Type="DI" DeviceId="UDIO_CPU1" Address="1" Message="Side Door2" Comment=""/>
+    <Signal Name="UDoor3"         Type="DI" DeviceId="UDIO_CPU1" Address="13" Message="Front Door1" Comment=""/>
+    <Signal Name="UDoor4"         Type="DI" DeviceId="UDIO_CPU1" Address="14" Message="Front Door2" Comment=""/>
+
+    <Signal Name="UEmergency"     Type="DI" DeviceId="UDIO_CPU1" Address="8" Message="Emergency signal from UDIO" Comment=""/>
+    <Signal Name="UStart1"        Type="DI" DeviceId="UDIO_CPU1" Address="9" Message="Start1 push button" Comment=""/>
+    <Signal Name="UStart2"        Type="DI" DeviceId="UDIO_CPU1" Address="10" Message="Start2 push button" Comment=""/>
+
+    <Signal Name="USpare1"        Type="DI" DeviceId="UDIO_CPU1" Address="11" Message="spare1 button" Comment=""/>
+    <Signal Name="USpare2"        Type="DI" DeviceId="UDIO_CPU1" Address="12" Message="spare2 button" Comment=""/>
+
+    <Signal Name="UOriginSensor"  Type="DI" DeviceId="UDIO_CPU1" Address="15" Message="Origin sensor" Comment=""/>
+
+    <Signal Name="UPart7"         Type="DI" DeviceId="UDIO_CPU1" Address="6"
+            Message="9024160001;9024160002;9024160005;9024160006;9024160007;9024160008"
+            Comment="7속 품번"/>
+    <Signal Name="UPart8"         Type="DI" DeviceId="UDIO_CPU1" Address="5"
+            Message="9024180021=BLACK;9024180022=YELLOW;9024180023=RED;9024180024=GRAY"
+            Comment="8속 품번"/>
+
+    <Signal Name="UColorBit1"     Type="DI" DeviceId="UDIO_CPU1" Address="16" Message="Color Black" Comment=""/>
+    <Signal Name="UColorBit2"     Type="DI" DeviceId="UDIO_CPU1" Address="17" Message="Color Yellow" Comment="UColorBit2 and UColorBit3 is Color Red"/>
+    <Signal Name="UColorBit3"     Type="DI" DeviceId="UDIO_CPU1" Address="18" Message="Color Gray" Comment="UColorBit2 and UColorBit3 is Color Red"/>
+    <!--
+      Color sensor 설정 방법
+          Ch1=검정, Ch2=노랑, Ch3=빨강, Ch4=회색
+      Bit 을 이용한 검출 방법
+          검정=Bit1(16), 노랑=Bit2(17), 빨강(None), 회색=Bit3(18), 
+    -->
+    
+
+    <Signal Name="UDoorLock1"     Type="DO" DeviceId="UDIO_CPU1" Address="5" Message="Side Door1" Comment=""/>
+    <Signal Name="UDoorLock2"     Type="DO" DeviceId="UDIO_CPU1" Address="6" Message="Side Door2" Comment=""/>
+    <Signal Name="UDoorLock3"     Type="DO" DeviceId="UDIO_CPU1" Address="10" Message="Front Door1" Comment=""/>
+    <Signal Name="UDoorLock4"     Type="DO" DeviceId="UDIO_CPU1" Address="11" Message="Front Door2" Comment=""/>
+
+    <Signal Name="UColorPower1"   Type="DO" DeviceId="UDIO_CPU1" Address="24" Message="Power switch1" Comment=""/>
+    <Signal Name="UColorPower2"   Type="DO" DeviceId="UDIO_CPU1" Address="25" Message="Power switch2" Comment=""/>
+
+    <Signal Name="ULampRed"       Type="DO" DeviceId="UDIO_CPU1" Address="12" Message="Emergency red lamp" Comment=""/>
+    <Signal Name="ULampYellow"    Type="DO" DeviceId="UDIO_CPU1" Address="13" Message="Emergency yellow lamp" Comment=""/>
+    <Signal Name="ULampGreen"     Type="DO" DeviceId="UDIO_CPU1" Address="14" Message="Emergency green lamp" Comment=""/>
+    <Signal Name="ULampBuzzer"    Type="DO" DeviceId="UDIO_CPU1" Address="15" Message="Emergency buzzer" Comment=""/>
+
+
+    <Signal Name="UPower1"        Type="DO" DeviceId="UDIO_CPU1" Address="0" Message="Power switch1" Comment=""/>
+    <Signal Name="UPower2"        Type="DO" DeviceId="UDIO_CPU1" Address="1" Message="Power switch2" Comment=""/>
+    <Signal Name="UPower3"        Type="DO" DeviceId="UDIO_CPU1" Address="2" Message="Power switch3" Comment=""/>
+    <Signal Name="UPower4"        Type="DO" DeviceId="UDIO_CPU1" Address="3" Message="Power switch4" Comment=""/>
+    <Signal Name="UPower5"        Type="DO" DeviceId="UDIO_CPU1" Address="4" Message="Power switch5" Comment=""/>
+
+    <Signal Name="UBreakZ"        Type="DO" DeviceId="UDIO_CPU1" Address="8" Message="Break1" Comment="Z axis Break"/>
+    <Signal Name="UBreakTilt"     Type="DO" DeviceId="UDIO_CPU1" Address="9" Message="Break2" Comment="Tilt axis Break"/>
+
+  </Signals>.
+  
+</SignalDefiniitions>
+

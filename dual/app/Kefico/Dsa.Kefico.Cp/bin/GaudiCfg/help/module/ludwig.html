@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE>LUDWIG</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>LUDWIG</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/testlisten_anw_module/src/ludwig.C,v 1.7 2003/09/15 11:07:21 lehmann Exp $
+   -------------------------------------------------------------------------
+   Kurzbeschreibung: gibt unterschiedliche Daten in Abhaengigkeit vom Modus
+   aus, z.B. ECUID, NUMBER oder das Datum in verschiedenen Formaten
+   -------------------------------------------------------------------------
+   Projekt:        Common Core System - BOSCH
+   Sourcefile:     ludwig.C
+   Autor:          AnW/TEF7   Ludwig Schroll (fuer Audi)
+   Zielsystem:     HP9000 743rt       (HP-UX 10.20; HP-RT  3.01)
+   Sprache:        Ansi C; C++
+   -------------------------------------------------------------------------
+   Aufruf:                            &lt;GFMT KS=on TAB=8 LF=on&gt;
+
+     int  ludwig (shm_stringpointer *zeilen_wert,// &lt;I&gt; Zeiger auf Werte
+                  long index,                     // &lt;I&gt; Index-Nummer
+                  long anzahl)                    // &lt;I&gt; Anzahl der Werte
+
+    int  ludwig (STRING     PRUEFSCHRITT
+                  STRING     POSITION
+                  STRING     ADATUM_MODUS
+                  STRING     INPUT_STRING
+                  STRING     RESULTSTRING1
+                  STRING     RESULTSTRING2)
+
+   -------------------------------------------------------------------------
+   Returnparameter:                   &lt;GFMT KS=on TAB=8 LF=on&gt;
+   -------------------------------------------------------------------------
+   Funktionsbeschreibung:             &lt;GFMT KS=on TAB=8 LF=on&gt;
+   Das Modul verarbeitet eine Vielfalt von Daten. In Abhaengigkeit vom Modus
+   wird ein Eingabestring ausgewertet. Das Ergebnis wird in zwei
+   Ausgabestrings geschrieben, z.B. ECUID, NUMBER oder das Datum in
+   verschiedenen Formaten (genaueres s. unter ADATUM_MODUS).
+
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Pruefschritt</pre><b><a name="param2">2</a> POSITION</b><pre>   PAV-Position</pre><b><a name="param3">3</a> MODUS</b><pre>   Die folgenden Modi koennen eingegeben werden:</pre><b><a name="param4">4</a> INPUT_STRING</b><pre>   einzulesende Zeichenkette
+   abhaengig von ADATUM_MODUS: s. "Input :"</pre><b><a name="param5">5</a> RESULTSTRING1</b><pre>   erste Ergebnis-Zeichenkette
+   abhaengig von ADATUM_MODUS: s. "Output: RETURN1 :"</pre><b><a name="param6">6</a> RESULTSTRING2</b><pre>   zweite Ergebnis-Zeichenkette
+   abhaengig von ADATUM_MODUS: s. "Output: RETURN2 :"
+
+</PRE>
+</BODY>
+</HTML>

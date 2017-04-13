@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<TITLE>E_QUIT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_QUIT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_quit.C,v 1.4 2004/12/23 10:33:40 jsj3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Kontaktierung SPS ansprechen
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_quit.C
+   Autor:		RtW/TEF72-Gueltling (22.10.97)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_quit(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Ûbergabeparameter anhand der Modglobal.stl
+   MD,e_out_bosch
+   ,PRUEFSCHRITT
+   ,POSITION
+   ,AUFTRAG
+   		DECKELV
+		VAKUUM
+		STECKERANFAHR
+		STEMPELN
+		TEST
+		NIEDERHALTER
+		EINZELNUTZEN
+   ,Aktion
+   		AUSFUEHREN
+		ZU
+		AUF
+		EIN
+		AUS
+		VOR
+		ZURUECK
+		SERIELL_VOR
+		HALTEFEDER
+		ANWAEHLEN
+		ERGEBNIS
+		
+   moegliche Kombinationen:
+   ----------------------------------------
+	DECKELV:	AUF,ZU
+	VAKUUM:		EIN,AUS
+	STECKERANFAHR:	VOR,ZURUECK,SERIELL_VOR
+	STEMPELN:	AUSFUEHREN
+	TEST:		HALTEFEDER
+	NIEDERHALTER	VOR,ZURUECK
+
+
+
+   Mit diesem Modul koennen die moeglichen Einzelaktionen der
+   Kontaktierung angesprochen werden.
+   Es sind nur bestimmte Kombinationen zugelassen
+   z.B. Vakuum ein / aus
+</PRE>
+</BODY>
+</HTML>

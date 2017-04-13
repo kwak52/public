@@ -1,0 +1,521 @@
+<HTML>
+<HEAD>
+<TITLE>R_SEEDKEY</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_SEEDKEY</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------                  
+ Funktionsbeschreibung:                                                      
+                                                                             
+    Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                         
+         GAUDI Pruefschritt                                                  
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                             
+         PAV- Position                                                       
+    ------------------------------</pre><b><a name="param3">3</a> MULTIFUNKTIONSCODE</b><pre>                                                   
+         -          Stringtelegramm wird zum Messdatensammler                
+                    geschickt                                                
+         N          Es wird kein Stringtelegramm zum                         
+                    Messdatensammler geschickt.                              
+    ------------------------------</pre><b><a name="param4">4</a> MODE</b><pre>                                                                 
+         Datenart z.B. SBV                                                   
+         char*14                                                             
+    ------------------------------</pre><b><a name="param5">5</a> PARA1</b><pre>                                                                
+         Maskenfeldnummer                                                    
+         char*14                                                             
+    ------------------------------</pre><b><a name="param6">6</a> PARA2</b><pre>                                                                
+         Maskennummer                                                        
+         char*14                                                             
+    ------------------------------</pre><b><a name="param7">7</a> PARA3</b><pre>                                                                
+         Anzahl fuer SBV                                                     
+         char*14                                                             
+    ------------------------------</pre><b><a name="param8">8</a> PARA4</b><pre>                                                                
+         nicht verwendet                                                     
+         char*14                                                             
+    ------------------------------</pre><b><a name="param9">9</a> SEED</b><pre>                                                                 
+                                                                             
+         char*14                                                             
+    ------------------------------</pre><b><a name="param10">10</a> R_ERGEBNIS</b><pre>                                                          
+         -              Kein Ergebnis                                        
+         &amp;&lt;Variable&gt;    GAUDI-Rueckgabe-Variable                             
+                        Ergebnis Key                                         
+    ------------------------------</pre><b><a name="param11">11</a> ERRORSTRING</b><pre>                                                         
+         -              Keine Rueckgabe                                      
+         &amp;&lt;Variable&gt;    Fehlertext                                           
+    ------------------------------</pre><b><a name="param12">12</a> ERRORFLAG</b><pre>                                                           
+         -              Kein Errorflag                                       
+         &amp;&lt;Variable&gt;                                                         
+             0          Gut                                                  
+             1          Error                                                
+    ------------------------------</pre><b><a name="param13">13</a> SK_MODE</b><pre>                                                             
+         -              nicht gesetzt                                        
+         Dezimalzahl    Mode fuer SK-Verfahren                               
+                        RB_SEEDKEY_TYPE1/2                                   
+    ------------------------------</pre><b><a name="param14">14</a> SK_NUM_OF_OPERATIONS</b><pre>                                                
+         -              nicht gesetzt                                        
+         Dezimalzahl    Anzahl Shifts fuer SK-Verfahren                      
+                        RB_SEEDKEY_TYPE1/2                                   
+                        Offset von 35 wird hinzuaddiert                      
+    ------------------------------                                           
+                                                                             
+                                                                             
+    Implementierte Seed &amp; Key Verfahren:                                     
+    ====================================                                     
+                                                                             
+    1.) Standard-Bosch-Verfahren (SBV)                                       
+                                                                             
+        MODE   = "SBV"                                                       
+        PARA1  = Maskenfeldnummer                                            
+        PARA2  = Maskennummer oder TOYOTA                                    
+        PARA3  = Anzahl Shifts fuer Seed&amp;Key Algorithmus                     
+        PARA4  = nicht benutzt                                               
+        SEED   = 4 Byte Hexadezimalzahl                                      
+                                                                             
+        R_ERGEBNIS = Ermittelter Key                                         
+                                                                             
+    2.) File basiertes Seed&amp;Key Verfahren (ALGO)                             
+                                                                             
+        MODE   = "ALGO"                                                      
+        PARA1  = Keydateiname z.B. "algo011"                                 
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = 2 Byte Hexadezimalzahl                                      
+                                                                             
+        R_ERGEBNIS = Ermittelter Key                                         
+                                                                             
+    3.) Daimler-Benz-Verfahren (DB)                                          
+                                                                             
+        MODE   = "DB"                                                        
+        PARA1  = Maske (4 Zeichen Hexstring)                                 
+        PARA2  = Tabellennummer (Dezimal, 1-4)                               
+        PARA3  = Seedbreite (Dezimal, 2-4)                                   
+        PARA4  = nicht benutzt                                               
+        SEED   = 2-4 Byte Hexadezimalzahl                                    
+                                                                             
+        R_ERGEBNIS = Ermittelter Key                                         
+                                                                             
+    4.) Passwort-Verfahren (PW)                                              
+                                                                             
+        MODE   = "PW"                                                        
+        PARA1  = nicht benutzt                                               
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = Schluesselwort fuer Passwortabfrage                         
+                                                                             
+        R_ERGEBNIS = Ermitteltes Passwort                                    
+                                                                             
+    5.) Dummy-Verfahren                                                      
+                                                                             
+        MODE   = "RB_DUMMY"                                                  
+        PARA1  = Vorbesetzter Key (Hexadezimalzahl)                          
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = nicht benutzt                                               
+                                                                             
+        R_ERGEBNIS = PARA1                                                   
+                                                                             
+    6.) RB_SEEDKEY_TYPE1                                                     
+                                                                             
+        MODE   = "RB_SEEDKEY_TYPE1"                                          
+        PARA1  = Maskenfeldnummer wie bei SBV                                
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = 4 Byte Hexadezimalzahl                                      
+                                                                             
+        SK_MODE = Mode -&gt; Maske = (Mode+1) div 2                             
+        SK_NUM_OF_OPERATIONS = Dezimalzahl                                   
+                                                                             
+        R_ERGEBNIS = Ermittelter Key                                         
+                                                                             
+    7.) RB_SEEDKEY_TYPE2                                                     
+                                                                             
+        MODE   = "RB_SEEDKEY_TYPE2"                                          
+        PARA1  = Maskenfeldnummer wie bei SBV                                
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = 4 Byte Hexadezimalzahl                                      
+                                                                             
+        SK_MODE = Mode -&gt; Maske = (Mode-1) div 2                             
+        SK_NUM_OF_OPERATIONS = Dezimalzahl                                   
+                                                                             
+        R_ERGEBNIS = Ermittelter Key                                         
+                                                                             
+    8.) FORD                                                                 
+                                                                             
+        MODE   = "FORD"                                                      
+        PARA1  = nicht benutzt                                               
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = 2 Byte Hexadezimalzahl                                      
+                                                                             
+        R_ERGEBNIS = Ermittelter Key                                         
+                                                                             
+    9.) RSA                                                                  
+                                                                             
+        MODE   = "RSA"                                                       
+        PARA1  = nicht benutzt                                               
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = RSA-SEED als HEX-String                                     
+                                                                             
+        R_ERGEBNIS = RSA-Key als HEX-String                                  
+                                                                             
+    10.) BMW                                                                 
+                                                                             
+        MODE   = "BMW"                                                       
+        PARA1  = USERID 8 Zeichen HEX                                        
+        PARA2  = SGID   8 Zeichen HEX                                        
+        PARA3  = LEVEL  1-5 Default 3                                        
+        PARA4  = nicht benutzt                                               
+        SEED   = BMW-SEED als HEX-String                                     
+                                                                             
+        R_ERGEBNIS = BMW-Key als HEX-String                                  
+                                                                             
+    11.) BMWASYMM                                                            
+                                                                             
+        MODE   = "BMWASYMM                                                   
+        PARA1  = USERID 8 Zeichen HEX                                        
+        PARA2  = SGID   8 Zeichen HEX                                        
+        PARA3  = LEVEL  1-5 Default 3                                        
+        PARA4  = nicht benutzt                                               
+        SEED   = BMW-SEED als HEX-String                                     
+                                                                             
+        R_ERGEBNIS = BMW-Key als HEX-String                                  
+                                                                             
+    12.) Standard-Bosch-Verfahren fuer GM                                    
+                                                                             
+        MODE   = "SBVGM"                                                     
+        PARA1  = nicht benutzt                                               
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = 4 Byte Hexadezimalzahl                                      
+                                                                             
+        R_ERGEBNIS = Ermittelter Key                                         
+                                                                             
+    13.) Zufallszahlen für AUDI-WFS4                                         
+                                                                             
+        MODE   = "AUDIWFS4"                                                  
+        PARA1  = PIN oder SKC                                                
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = nicht benutzt                                               
+                                                                             
+        R_ERGEBNIS = 4  Zeichen HEX-String bei PARA1 = PIN                   
+                   = 12 Zeichen HEX-String bei PARA1 = SKC                   
+                                                                             
+    14) Verfahren 1 für VW (VW1)                                             
+                                                                             
+        MODE = "VW1"                                                         
+        PARA1  = nicht benutzt                                               
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = seed                                                        
+                                                                             
+        R_ERGEBNIS = VW1-Key als HEX-String                                  
+                                                                             
+    15) Verfahren für EDC17                                                  
+                                                                             
+        MODE = "EDC17_V1"                                                    
+        PARA1  = nicht benutzt                                               
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = seed                                                        
+                                                                             
+        R_ERGEBNIS = Key als HEX-String                                      
+                                                                             
+    16) Verfahren für Acryl2                                                 
+                                                                             
+        MODE = "ACRYL2_KEY_1" oder "ACRYL2_CHECK_1"                          
+        PARA1  = nicht benutzt                                               
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = seed                                                        
+                                                                             
+        R_ERGEBNIS = Key oder Cjecksumme als HEX-String                      
+                                                                             
+    17) Verfahren für ME9.8 Ford                                             
+                                                                             
+        MODE = "FORD_2"                                                      
+        PARA1  = nicht benutzt                                               
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = seed (2 Byte)                                               
+                                                                             
+        R_ERGEBNIS = Key als HEX-String                                      
+                                                                             
+    18) RB_SEEDKEY_TYPE3                                                     
+                                                                             
+        MODE   = "RB_SEEDKEY_TYPE3"                                          
+        PARA1  = Maskenfeldnummer wie bei SBV                                
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = 4 Byte Hexadezimalzahl                                      
+                                                                             
+        SK_MODE = Mode -&gt; Maske = (Mode+1) div 2                             
+        SK_NUM_OF_OPERATIONS = Dezimalzahl                                   
+                                                                             
+        R_ERGEBNIS = Ermittelter Key                                         
+                                                                             
+    19) RB_SEEDKEY_TYPE4                                                     
+                                                                             
+        MODE   = "RB_SEEDKEY_TYPE2"                                          
+        PARA1  = Maskenfeldnummer wie bei SBV                                
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = 4 Byte Hexadezimalzahl                                      
+                                                                             
+        SK_MODE = Mode -&gt; Maske = (Mode+1) div 2                             
+        SK_NUM_OF_OPERATIONS = Dezimalzahl                                   
+                                                                             
+        R_ERGEBNIS = Ermittelter Key                                         
+                                                                             
+        MODE = "MAN_DCU15"                                                   
+        PARA1  = nicht benutzt                                               
+        PARA2  = nicht benutzt                                               
+        PARA3  = nicht benutzt                                               
+        PARA4  = nicht benutzt                                               
+        SEED   = seed (2 Byte)                                               
+                                                                             
+        R_ERGEBNIS = Key als HEX-String                                      
+                                                                             
+    ====================================                                     
+                                                                             
+ Input:                                                                      
+                                                                             
+ zeilen_wert                                                                 
+ index1                                                                      
+ anzahl                                                                      
+                                                                             
+ Output:                                                                     
+    none                                                                     
+                                                                             
+ ----------------------------------------------------------                  
+ Return Value:                                                               
+    = 0:    Successful completion                                            
+                                                                             
+ ----------------------------------------------------------                  
+ Beispiel (optional):                                                        
+                                                                             
+ ----------------------------------------------------------                  
+ &lt;\userdoc&gt; 
+ History:                                                                    
+    $Log: r_seedkey.C,v $
+    Revision 1.11  2005/11/30 08:48:29  erd3sa
+    _VI_6.0.28_R6100000_TT2426_ER_R-SEEDKEY schickte falsche Schrittnummer zum MD.
+
+    Revision 1.10  2005/11/07 08:37:26  erd3sa
+    _SK_7.24_R0510S02_TT2214_ER_Neues S&amp;K-Verfahren für DCU15.
+
+    Revision 1.9  2005/10/25 12:21:43  erd3sa
+    _SK_7.21_R0510S01_TT2215_ER_Erweiterung für S&amp;K SBV-Verfahren.
+
+    Revision 1.8  2003/04/17 09:36:19  wiese
+    $Head -&gt; $Id wegen log_message
+
+ *    Revision 1.7  2003/03/20 13:41:10  sgc3sa
+ *    Fuer AUDIWFS4 PARA1= SKC werden 12 Zeichen Hexstring zurueckgegeben.
+ *    Fuer AUDIWFS4 statt PARA1=KEY jetzt PARA1=SKC
+ *
+ *    Revision 1.6  2003/03/10 09:55:16  sgc3sa
+ *    Verfahren SBVGM eingebaut
+ *
+ *    Revision 1.5  2003/02/25 09:01:33  keppler
+ *    Translated to English
+ *
+ *    Revision 1.4  2003/02/24 12:07:50  keppler
+ *    Translated to English
+ *
+ *    Revision 1.3  2002/11/12 10:58:45  sgc3sa
+ *    Doku in r_seedkey Modul erweitert
+ *
+ *    Revision 1.2  2002/02/14 09:14:07  PIJ3SA
+ *    userdoc for html-page inserted
+ *
+ *    Revision 1.1  2002/02/12 13:22:16  sgc3sa
+ *    Seedkey fuer Linux
+ *
+ *    Revision 1.6  2001/03/29 15:01:59  lehmann
+ *    RSA Inbetrieb genommen
+ *
+ *    Revision 1.5  2000/07/07 09:43:20  sgc3sa
+ *    Kommentar fuer SBV geaendert: Maskennummer jetzt auch TOYOTA
+ *                                                    
+    Revision 3.0  99/05/26  sadcsst (Stelzig, DCS)                           
+    Verfahren RB_DUMMY, RB_SEEDKEY_TYPE1/2 eingebaut                         
+    Um Parameter SK_MODE, SK_NUM_OF_OPERATIONS erweitert                     
+      fuer RB_SEEDKEY_TYPE1/2                                                
+    Revision 2.3  98/09/14  sadcsst (Stelzig, DCS)                           
+ Rueckgabeparameter ERRORFLAG eingebaut                                      
+    Revision 1.2  97/10/17  sadcsst (Stelzig, DCS)                           
+ JOB_RESULT=GOOD wird nicht mehr in Syscom als Result zurueck    geschrieben 
+    Revision 1.1  97/09/25 (Stelzig, DCS)                                    
+    Bei JOB_RESULT=ERROR wird Abbruch erzeugt                                
+    Revision 1.0  97/07/16 (Stelzig, DCS)                                    
+    Erstellt                                                                 
+                                                                             
+ ----------------------------------------------------------                  
+ C4                                                                          
+int r_seedkey( shm_stringpointer *zeilen_wert, long index1, long anzahl_parameter )
+{
+	static char ident[] = "@(#)$Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/seedkey/module_qt/src/r_seedkey.C,v 1.11 2005/11/30 08:48:29 erd3sa Exp $";
+	
+	
+	 Lokale Variablen 	
+	char         auftrag[80];         // auftrag der ueber Messagequeue versendet wird
+	char         quittung[80];        // Quittung auf Auftrag
+	unsigned     auftrag_len;         // Laenge Auftrag String
+	unsigned     quittung_len = 80;   // Laenge Quittungsstring
+	int          error;               // return von msg_send_wait
+	long         msgstat;
+	long         hispnr;
+	long         schritt;
+	int          revision = 1;
+	
+	
+	 Schrittbetriebshandler 	
+	schritt = schrittbetrieb(zeilen_wert,index1);
+	
+	if (schritt!=1) {
+		return 0;
+	
+	}
+	
+	 Modulstatus setzen 	
+	Ssp_ss-&gt;progs[G_mypnr].status = 1;         // Testdatenladen laeuft
+	
+	
+	 Revision bestimmen 	
+	switch ( anzahl_parameter ) {
+		case 14:
+		{
+			revision = 3;
+			break;
+		
+		}
+		case 12:
+		{
+			revision = 2;
+			break;
+		
+		}
+		case 10:
+		{
+			revision = 1;
+			break;
+		
+		}
+		default :
+		{
+			revision = 1;
+		
+		}
+	}
+	
+	 Message an seedkey 	
+	sprintf(auftrag,"INDEX=%d;REVISION=%d;", index1, revision );
+	
+	auftrag_len = strlen (auftrag) + 1;
+	
+	error =  msg_send_wait (SK_SEEDKEY,
+	                        auftrag, auftrag_len,-1,200,
+	                        quittung, &amp;quittung_len,&amp;msgstat,&amp;hispnr);
+	
+	
+	 Fehlerbehandlung msg_send_wait 	
+	if (error!=0) {
+		
+		 Fehlermeldung 		
+//		error_message (ERR_ERROR, HEADER, __LINE__, "Fehler Aufruf msg_send_wait" );
+		error_message (ERR_ERROR, HEADER, __LINE__, "Error calling msg_send_wait" );
+		
+		return -1;
+	
+	}
+	else  {
+		
+		 Quittung ausgeben 		
+		debug_message(__FILE__,__LINE__,2,"r_kunddat&gt; quittung = %s\n", quittung );
+	
+	}
+	
+	 Timeout Behandlung 	
+	if (msgstat &amp; MSG_R_TIMEOUT) {
+		
+		 Fehlertext 		
+		ccl_befehl( Ssp_ss-&gt;progs[G_mypnr].result, JOB_RESULT, ERROR, RESULT_MAX );
+		
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,JOB_ERRSTR);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_GLEICH);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,"Timeout-SK");
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_SEMIKOLON);
+		
+		return -1;   // Timeout --&gt; Fehler
+	
+	}
+	
+	 JOB RESULT 	
+	if ( strstr(quittung,JOB_RESULT_ERROR) ) {
+		strcpy(Ssp_ss-&gt;progs[G_mypnr].result,JOB_RESULT_ERROR);
+		
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,JOB_ERRSTR);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_GLEICH);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,"SK: ");
+		
+		char *semi = strchr(quittung,';');
+		
+		if ( semi ) {
+			int len = strlen(semi+1);
+			
+			if ( len + 5 + strlen(Ssp_ss-&gt;progs[G_mypnr].result) &gt;= RESULT_MAX ) {
+				len = RESULT_MAX - strlen(Ssp_ss-&gt;progs[G_mypnr].result) - 6;
+			
+			}
+			strncat(Ssp_ss-&gt;progs[G_mypnr].result, semi+1, len );
+		
+		}
+		else  {
+			strcat(Ssp_ss-&gt;progs[G_mypnr].result, "unknown" );
+		
+		}
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_SEMIKOLON);
+		
+		return -1;
+	
+	}
+	
+	 Wenn Option N nicht gesetzt ist, Daten an Messdatensammler senden 	
+	QString multicode = (const char*) *Ssp_expand_wert-&gt;ptr[index1+2];
+	
+	if ( multicode.find('N') &lt; 0 ) {
+		send_string_to_md( quittung, MODULNAME, Ssp_vi-&gt;test.pschr, *zeilen_wert-&gt;ptr[index1 + 1] );
+	
+	}
+	return 0;
+
+}
+</PRE>
+</BODY>
+</HTML>

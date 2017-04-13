@@ -1,0 +1,1175 @@
+<HTML>
+<HEAD>
+<TITLE>R_CHECKSUM</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_CHECKSUM</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------                
+ Funktionsbeschreibung:                                                    
+                                                                           
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                      
+          GAUDI Pruefschritt                                               
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                          
+          PAV- Position                                                    
+    ------------------------------</pre><b><a name="param3">3</a> ACTION</b><pre>                                                            
+          INIT          erster Aufruf von R_CHECKSUM muss immer            
+                        ACTION = INIT sein                                 
+          CONT / ~_UC / ~_LC                                               
+                        Berechnung einer Teilchecksumme                    
+                        Die endgueltige Checksumme wird mit                
+                        MAKE berechnet                                     
+          MAKE / ~_UC / ~_LC                                               
+                        Checksumme wird berechnet und in                   
+                        die GAUDI-Variable OUTPUTSTRING                    
+                        kopiert.                                           
+          READFILE / ~_UC / ~_LC                                           
+                        Es wird eine Datei eingelesen und                  
+                        im Memory gespeichert. Bei Checksummen             
+                        Berechnungen wird dann dieses File                 
+                        nicht mehr eingelesen.                             
+                        Parameter INPUTFILE muss vorgegeben                
+                        werden.                                            
+                        Mit dem Parameter EXECUTION wird vorgeben          
+                        wann die Datei eingelesen wird.                    
+                                                                           
+                        Durch das Suffix '_LC' (lowercase) bzw. '_UC'      
+                        (uppercase) kann bestimmt werden, dass der         
+                        angegebene Dateiname (inkl.Pfad) entweder          
+                        komplett in Klein- oder komplett in Grossbuch-     
+                        staben zu wandeln ist.                             
+                        Fehlt ein Suffix, wird davon ausgegangen,          
+                        dass der Dateipfad so zu uebernehmen ist,          
+                        wie er von der GAUDI-Schnittstelle angeboten wird. 
+    ------------------------------</pre><b><a name="param4">4</a> EXECUTION</b><pre>                                                         
+          LOAD          Checksumme wird im Ruestlauf berechnet             
+          FIRST         Checksumme wird im Firstrun berechnet              
+          TEST          Checksumme wird bei jeder Pruefung                 
+                        neu berechnet                                      
+    ------------------------------</pre><b><a name="param5">5</a> INPUTSTRING</b><pre>                                                       
+          - oder Leer   Keine direkte String Vorgabe                       
+          sonst         Uber String wird Checksumme berechnet              
+                                                                           
+        Hinweis:                                                           
+              Es darf nur INPUTSTRING oder INPUTFILE vorgegeben            
+              werden (nie beide gleichzeitig).                             
+    ------------------------------</pre><b><a name="param6">6</a> INPUTFILE</b><pre>                                                         
+          - oder Leer   Kein Filename vorgegeben                           
+          Filename      File /pruef + Filename wird geladen                
+                        und die Checksumme berechnet                       
+                                                                           
+        Hinweis:                                                           
+              Es darf nur INPUTSTRING oder INPUTFILE vorgegeben            
+              werden (nie beide gleichzeitig).                             
+                                                                           
+              Die Datei wird nicht geladen, wenn vorher                    
+              das Modul mit dem MODE = READFILE und INPUTFILE              
+              aufgerufen wurde.                                            
+    ------------------------------</pre><b><a name="param7">7</a> INPUTFORMAT</b><pre>                                                       
+          - oder Leer   entspricht ASCII                                   
+          ASCII         Ueber INPUTSTRING oder die Datei                   
+                        INPUTFILE wird direkt die Checksumme               
+                        berechnet                                          
+          HEX           INPUTSTRING bzw. die Datei INPUTFILE               
+                        enthaelt in HEX dargestellte Zeichen               
+                        z.B. 0A0D   fuer LFCR                              
+                        oder 1D0762 fuer 290798                            
+    ------------------------------</pre><b><a name="param8">8</a> IGNORE</b><pre>                                                            
+          - oder Leer   Keine Funktion                                     
+          CR            Alle 0D in INPUTSTRING/INPUTFILE                   
+                        werden ignoriert                                   
+          LF            Alle 0A in INPUTSTRING/INPUTFILE                   
+                        werden ignoriert                                   
+          CRLF          Alle 0D0A in INPUTSTRING/INPUTFILE                 
+                        werden ignoriert                                   
+          \Xyy          Zeichen mit ASCII-Code yy in Hex                   
+                        werden ignoriert                                   
+          "..."         Alle Zeichen in "..." incl. Leerzeichen            
+                        als ein String werden ignoriert                    
+                        z.B. "\X0D\X0A"  0D0A als Zeichenkette             
+                        werden ignoriert                                   
+                                                                           
+          Alle Angaben koennen durch Leerzeichen getrennt                  
+          gleichzeitig angegeben werden.                                   
+          z.B.  CR LF  : Alle 0D und alle 0A werden ignoriert              
+    ------------------------------</pre><b><a name="param9">9</a> CALCULATION</b><pre>                                                       
+          CRC16         Standard CRC16 Verfahren                           
+          CRC16REV      CRC16 Reverse                                      
+          CRC32                                                            
+          CRC32REV                                                         
+    ------------------------------</pre><b><a name="param10">10</a> GEN_POLYNOM</b><pre>                                                       
+          Polynom fuer CRC-Vefahren CRC16, CRC16REV, CRC32,                
+                                    CRC32REV                               
+          Parameter ist eine Zahl in Hex                                   
+            z.B. 1021 fuer CRC16                                           
+                 8408 fuer CRC16REV                                        
+                                                                           
+          Hinweis:                                                         
+             Es wird die Anzahl der Zeichen geprueft.                      
+             4 Hex-Ziffern fuer CRC16, CRC16REV                            
+             8 Hex-Ziffern fuer CRC32, CRC32REV                            
+   ------------------------------</pre><b><a name="param11">11</a> INIT_VALUE</b><pre>                                                        
+          - oder Leer   entspricht 0                                       
+                        (0000     bei CRC16,                               
+                         00000000 bei CRC32)                               
+          Startwert fuer CRC-Berechnung in Hex                             
+          Parameter ist eine Zahl in Hex                                   
+            z.B. 0000 fuer CRC16                                           
+                 FFFF fuer CRC16REV                                        
+                                                                           
+          Hinweis:                                                         
+             Es wird die Anzahl der Zeichen geprueft.                      
+             4 Hex-Ziffern fuer CRC16, CRC16REV                            
+             8 Hex-Ziffern fuer CRC32, CRC32REV                            
+    ------------------------------</pre><b><a name="param12">12</a> XOR_VALUE</b><pre>                                                         
+          - oder Leer   entspricht 0                                       
+          Wert mit dem der CRC exclusiv verodert wird in Hex               
+          Parameter ist eine Zahl in Hex                                   
+            z.B. 0000 fuer CRC16                                           
+                 FFFF fuer CRC16REV                                        
+                                                                           
+          Hinweis:                                                         
+             Es wird die Anzahl der Zeichen geprueft.                      
+             4 Hex-Ziffern fuer CRC16, CRC16REV                            
+             8 Hex-Ziffern fuer CRC32, CRC32REV                            
+    ------------------------------</pre><b><a name="param13">13</a> BYTE_ORDER</b><pre>                                                        
+         - oder Leer    entspricht NORMAL                                  
+         NORMAL                                                            
+         REVERSE    Umkehrung der Bytefolge in Checksumme                  
+    ------------------------------</pre><b><a name="param14">14</a> LINE_IN_FILE</b><pre>                                                      
+         - oder Leer   keine Vorgabe. Alle Zeilen                          
+                       in Datei werden eingelesen                          
+         int &gt; 0       Es wird nur die Zeile mit dieser                    
+                       Zeilennummer (Zaehlung beginnt bei 1)               
+                       eingelesen.                                         
+                       Zeilentrenner ist LF.                               
+                                                                           
+        Nur wenn INPUTFILE angegeben wird aktiv                            
+    ------------------------------</pre><b><a name="param15">15</a> STARTINDEX</b><pre>                                                        
+        - oder Leer    keine Vorgabe                                       
+        int &gt; 0        Index des ersten Zeichens, welches                  
+                       eingelesen wird.                                    
+                                                                           
+        Nur wenn INPUTFILE angegeben wird aktiv                            
+        Nur von Bedeutung wenn auch STOPINDEX vorgegeben wird.             
+        Wenn LINE_IN_FILE vorgegeben wird, bezieht sich                    
+            STARTINDEX relativ zum Zeilenanfang, sonst relativ             
+            zum Dateianfang.                                               
+    ------------------------------</pre><b><a name="param16">16</a> STOPINDEX</b><pre>                                                         
+        - oder Leer    keine Vorgabe                                       
+        int &gt; 0        Index des letzten Zeichens, welches                 
+                       eingelesen wird.                                    
+                                                                           
+        Nur wenn INPUTFILE angegeben wird aktiv                            
+        Nur von Bedeutung wenn auch STARTINDEX vorgegeben wird.            
+        Wenn LINE_IN_FILE vorgegeben wird, bezieht sich                    
+            STOPINDEX relativ zum Zeilenanfang, sonst relativ              
+            zum Dateianfang.                                               
+    ------------------------------</pre><b><a name="param17">17</a> OUTPUTSTRING</b><pre>                                                      
+         GAUDI-Variable, wird bei ACTION = MAKE gefuellt                   
+    ------------------------------</pre><b><a name="param18">18</a> ERRORFLAG</b><pre>                                                         
+         GAUDI-Variable                                                    
+         0          Kein Fehler                                            
+         1          Fehler aufgetreten                                     
+                                                                           
+         Hinweis:                                                          
+         Kann z.B. in einem nachfolgenden Aufruf von M_AUSWERTUNG          
+         beruecksichtigt werden.                                           
+                                                                           
+                                                                           
+ Input:  Zeiger auf den relevanten "Wert" einer Zeile der                  
+         expandierten Pruefliste;                                          
+         Index im entsprechenden Speicherbereich fuer                      
+         Moduldaten;                                                       
+         Anzahl der Modulparameter;                                        
+                                                                           
+ Output: none                                                              
+                                                                           
+ ----------------------------------------------------------                
+ Return Value:                                                             
+    = 0:    Successful completion                                          
+     -1:    bei Ueberschreitung der Gesamtlaenge von 80 Zeichen;           
+                                                                           
+ ----------------------------------------------------------                
+ Beispiel (optional):                                                      
+                                                                           
+ ----------------------------------------------------------                
+ &lt;\userdoc&gt; 
+ C4                                                                        
+int r_checksum( shm_stringpointer  *zeilen_wert
+                ,long               index_on_expPrfLst
+                ,long               anzPrmtr )
+{
+	static char ident[] = "@(#)$Id: r_checksum.C,v 1.4 2004/12/08 15:08:01 kj73rt Exp $";
+	
+	
+	 r_checksum 	
+	
+	 statische Speicher 	
+	static LMap&lt;QString,CHECKPTR&gt; s_crcmap;
+	static CHECKPTR               s_crc;
+	static QString                s_execution_alt;
+	static LMap&lt;QString,QString&gt;  s_dateien;
+	
+	
+	 lokale Variablen 	
+	int  ret_val = 0;
+	int i_line_in_file = -1;
+	int i_startindex = -1;
+	int i_stopindex = -1;
+	
+	
+	 Schrittbetriebs-Handling 	
+	int schritt_aktiv = schrittbetrieb( zeilen_wert, index_on_expPrfLst );
+	
+	if ( schritt_aktiv != 1 ) {
+		return( ret_val );
+	
+	}
+	
+	 Modulparameter umspeichern 	
+	QString pruefschritt  = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 0];
+	QString action        = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 2];
+	QString execution     = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 3];
+	QString inputstring   = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 4];
+	QString inputfile     = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 5];
+	QString inputformat   = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 6];
+	QString ignore        = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 7];
+	QString calculation   = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 8];
+	QString polynom       = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 9];
+	QString initvalue     = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 10];
+	QString xorvalue      = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 11];
+	QString byte_order    = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 12];
+	QString line_in_file  = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 13];
+	QString startindex    = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 14];
+	QString stopindex     = (const char*) *zeilen_wert-&gt;ptr[index_on_expPrfLst + 15];
+	
+	if ( action.find("_LC") &gt; 0 ) {
+		inputfile = inputfile.lower();
+	
+	}
+	if ( inputformat == "-" || inputformat.isEmpty() ) {
+		inputformat = INPUT_ASCII;
+	
+	}
+	if ( ignore == "-" ) {
+		ignore.truncate(0);
+	
+	}
+	if ( byte_order.isEmpty() || byte_order == "-" ) {
+		byte_order = BYTE_ORDER_NORMAL;
+	
+	}
+	if ( !line_in_file.isEmpty() &amp;&amp; line_in_file != "-" &amp;&amp; line_in_file[0].isDigit() ) {
+		i_line_in_file = atoi(line_in_file) - 1;
+	
+	}
+	if ( !startindex.isEmpty() &amp;&amp; startindex != "-" &amp;&amp; startindex[0].isDigit() ) {
+		i_startindex = atoi(startindex) - 1;
+	
+	}
+	if ( !stopindex.isEmpty() &amp;&amp; stopindex != "-" &amp;&amp; stopindex[0].isDigit() ) {
+		i_stopindex = atoi(stopindex) - 1;
+	
+	}
+	debug_message( __FILE__, __LINE__, DEB_GAUDI
+	              ,"Input fuer Modul \"R_CHECKSUM\": "
+	               "\nPRUEFSCHRITT   = [%s]"
+	               "\nACTION         = [%s]"
+	               "\nEXECUTION      = [%s]"
+	               "\nINPUTSTRING    = [%s]"
+	               "\nINPUTFILE      = [%s]"
+	               "\nINPUTFORMAT    = [%s]"
+	               "\nIGNORE         = [%s]"
+	               "\nCALCULATION    = [%s]"
+	               "\nPOLYNOM        = [%s]"
+	               "\nINIT_VALUE     = [%s]"
+	               "\nXOR_VALUE      = [%s]"
+	               "\nBYTE_ORDER     = [%s]"
+	               "\nZEILE_IN_FILE  = [%s]"
+	               "\nSTARTINDEX     = [%s]"
+	               "\nSTOPINDEX      = [%s]"
+	              ,(const char*) pruefschritt
+	              ,(const char*) action
+	              ,(const char*) execution
+	              ,(const char*) inputstring
+	              ,(const char*) inputfile
+	              ,(const char*) inputformat
+	              ,(const char*) ignore
+	              ,(const char*) calculation
+	              ,(const char*) polynom
+	              ,(const char*) initvalue
+	              ,(const char*) xorvalue
+	              ,(const char*) byte_order
+	              ,(const char*) line_in_file
+	              ,(const char*) startindex
+	              ,(const char*) stopindex
+	 );
+	
+	L_DEBOUT( DEB_DATA, "r_checksum&gt; action = %s execution = %s", (const char*) action, (const char*) execution );
+	
+	L_DEBOUT( DEB_DATA, "r_checksum&gt; liststate = %s pruefschritt = %s", (const char*) Ssp_vi-&gt;job.liststate, (const char*) pruefschritt );
+	
+	
+	 Wenn Execution-Mode gleich INIT ist, dann lokalen Speicher loeschen 	
+	if ( ret_val == 0 &amp;&amp; action.find(ACTION_INIT) == 0 ) {
+		if ( !strcmp( Ssp_vi-&gt;job.liststate, PREINT ) ) {
+			
+			 s_crc und s_crcmap loeschen 			
+			L_DEBOUT( DEB_DATA, "r_checksum&gt; s_crc, s_crcmap, s_dateien werden geloescht", 0, 0 );
+			
+			s_crcmap.make_empty();
+			s_crc.clear();
+			s_dateien.make_empty();
+		
+		}
+		else  {
+			
+			 s_crc loeschen 			
+			L_DEBOUT( DEB_DATA, "r_checksum&gt; s_crc wird geloescht", 0, 0 );
+			
+			s_crc.clear();
+		
+		}
+	}
+	
+	 s_execution_alt Pruefen 	
+	if ( ret_val == 0 ) {
+		if ( action.find(ACTION_INIT) == 0 ) {
+			
+			 s_execution_alt loeschen 			
+			s_execution_alt.truncate(0);
+		
+		}
+		else if ( action.find(ACTION_CONT) == 0 ) {
+			
+			 s_execution_alt muss Leer oder gleich execution sein 			
+			if ( !s_execution_alt.isEmpty() &amp;&amp; s_execution_alt != execution ) {
+				L_ERROUT("r_checksum&gt; Der Parameter EXECUTION darf sich nicht von CONT - CONT aendern. Hier von %s auf %s", (const char*) s_execution_alt, (const char*) execution );
+				
+				ret_val = -1;
+			
+			}
+			s_execution_alt = execution;
+		
+		}
+		else if ( action.find(ACTION_MAKE) == 0 ) {
+			
+			 s_execution_alt muss Leer oder gleich execution sein 			
+			if ( !s_execution_alt.isEmpty() &amp;&amp; s_execution_alt != execution ) {
+				L_ERROUT("r_checksum&gt; Der Parameter EXECUTION darf sich nicht von CONT - MAKE aendern. Hier von %s auf %s", (const char*) s_execution_alt, (const char*) execution );
+				
+				ret_val = -1;
+			
+			}
+			
+			 s_execution_alt loeschen 			
+			s_execution_alt.truncate(0);
+		
+		}
+		else if ( action.find(ACTION_READFILE) == 0 ) {
+			
+			 s_execution_alt darf beliebig sein                            
+			 execution wird nicht gespeichert, d.h. wenn READFILE zwischen 
+			 CONT und MAKE aufgerufen wird, muss execution nicht mit       
+			 execution von CONT und MAKE uebereinstimmen                   		
+		}
+		else  {
+			
+			 Fehler: ACTION nicht implementiert 			
+			L_ERROUT("r_checksum&gt; Der Parameter ACTION = %s ist nicht implementiert", (const char*) action, 0 );
+			
+			ret_val = -1;
+		
+		}
+	}
+	
+	 Im Mode READFILE Datei laden 	
+	if ( ret_val == 0 &amp;&amp; action.find(ACTION_READFILE) == 0 &amp;&amp;
+	     ( (!strcmp(Ssp_vi-&gt;job.liststate,PREINT)    &amp;&amp; execution == EXE_LOAD  ) ||
+	       (!strcmp(Ssp_vi-&gt;job.liststate,FIRSTRUN)  &amp;&amp; execution == EXE_FIRST ) ||
+	       ( strcmp(Ssp_vi-&gt;job.liststate,PREINT)    &amp;&amp; execution == EXE_TEST  ) ) ) {
+		
+		 Dateiname bestimmen 		
+		if ( inputfile.isEmpty() || inputfile == "-" ) {
+			L_ERROUT("r_checksum&gt; Kein Inputfilename angegeben", 0, 0 );
+			
+			ret_val = -1;
+		
+		}
+		QString filename;
+//		ifstream istr;
+		QFile file;
+		
+		if ( ret_val == 0 &amp;&amp; make_filename( inputfile, filename ) &lt; 0 ) {
+			L_ERROUT("r_checksum&gt; Fehler in make_filename. INPUTFILE = %s", (const char*) inputfile, 0 );
+			
+			ret_val = -1;
+		
+		}
+		
+		 Datei oeffnen 		
+		if ( ret_val == 0 ) {
+			file.setName( filename );
+			if ( !file.open( IO_ReadOnly ) ) {
+				L_ERROUT("r_checksum&gt; Die Datei \"%s\" laesst sich nicht oeffnen", (const char*) filename, 0 );
+				ret_val = -1;
+			}
+		}
+		
+		 Datei einlesen 		
+		if ( ret_val == 0 ) {
+			QString&amp; datei = s_dateien[filename];
+			datei.truncate(0);
+			char h[1024];
+			for(;;)
+			{
+				int len = file.readBlock( h, 1024 );
+				if ( len &lt;= 0 ) {
+					break;
+				}
+				datei += FromLatin1( h, len );
+			}
+			L_DEBOUT(DEB_DATA, "r_checksum&gt; %d Bytes aus Datei \"%s\" eingelesen", datei.length(), (const char*) filename );
+		
+		}
+		if ( file.isOpen() ) file.close();
+	}
+	
+	 Wenn Ruestlauf und Execution-Mode LOAD  oder 
+	 kein Ruestlauf und Execution-Mode TEST  oder 
+	 FIRSTRUN       und Execution-Mode FIRST      
+	 dann Checksumme berechnen                    	
+	if ( ret_val == 0 &amp;&amp;
+	     ( (!strcmp(Ssp_vi-&gt;job.liststate,PREINT)    &amp;&amp; execution == EXE_LOAD  ) ||
+	       (!strcmp(Ssp_vi-&gt;job.liststate,FIRSTRUN)  &amp;&amp; execution == EXE_FIRST ) ||
+	       ( strcmp(Ssp_vi-&gt;job.liststate,PREINT)    &amp;&amp; execution == EXE_TEST  ) ) &amp;&amp;
+	     ( action.find(ACTION_CONT) == 0 || action.find(ACTION_MAKE) == 0 ) ) {
+		
+		 s_crc Objekt erzeugen 		
+		QString errstr;
+		
+		if ( !s_crc &amp;&amp; Checksumme::create( calculation, polynom, initvalue, xorvalue, byte_order, s_crc, errstr ) &lt; 0 ) {
+			L_ERROUT("r_checksum&gt; Fehler in create_checksum_objekt: %s", (const char*) errstr, 0 );
+			
+			ret_val = -1;
+		
+		}
+		
+		 Entscheiden, ob aus String oder File Daten eingelesen werden sollen 		
+		if ( ret_val == 0 ) {
+			if ( !inputstring.isEmpty() &amp;&amp; inputstring != "-" &amp;&amp;
+			     (inputfile.isEmpty()   || inputfile   == "-") ) {
+				istrstream istr( inputstring, inputstring.length() );
+				BinaryStream bstr( istr );
+				
+				if ( update_checksum( bstr, inputformat, ignore, s_crc ) &lt; 0 ) {
+					L_ERROUT("r_checksum&gt; Fehler in update_checksum", 0, 0 );
+					
+					ret_val = -1;
+				
+				}
+			}
+			else if ( !inputfile.isEmpty()   &amp;&amp; inputfile   != "-" &amp;&amp;
+			          (inputstring.isEmpty() || inputstring == "-") ) {
+				
+				 Directory Pfad bestimmen 				
+				QString filename;
+				
+				if ( make_filename( inputfile, filename ) &lt; 0 ) {
+					L_ERROUT("r_checksum&gt; Fehler in make_filename: inputfile = %s", (const char*) inputfile, 0 );
+					
+					ret_val = -1;
+				
+				}
+				
+				 Stream-Objekt erzeugen 				
+				BinaryStream bstr;
+				
+				
+				 Suche nach Dateidaten in s_dateien 				
+				QString&amp; dateidaten = s_dateien[filename];
+				istrstream istr1( dateidaten, dateidaten.length() );
+				
+				if ( !dateidaten.isEmpty() ) {
+					bstr.set_stream( istr1 );
+					
+					L_DEBOUT(DEB_DATA, "r_checksum&gt; Daten werden aus intern gespeichertem FILE (inputfile = %s) eingelesen",
+						 (const char*) inputfile, 0 );
+					L_DEBOUT(DEB_DATA, "r_checksum&gt; FILE enthaelt %d Zeichen", dateidaten.length(), 0 );
+				}
+				
+				 Datei oeffnen 				
+				ifstream istr;
+				
+				if ( ret_val == 0 &amp;&amp; !bstr.stream_is_set() ) {
+					istr.open( filename );
+					
+					if ( ret_val == 0 &amp;&amp;
+					     (!istr.rdbuf() || !istr.rdbuf()-&gt;is_open()) ) {
+						L_ERROUT("r_checksum&gt; filename = %s kann nicht geoeffnet werden", (const char*) filename, 0 );
+						
+						ret_val = -1;
+					
+					}
+					if ( ret_val == 0 ) {
+						bstr.set_stream( istr );
+						
+						L_DEBOUT(DEB_DATA, "r_checksum&gt; Daten werden aus FILE (inputfile = %s) im Filesystem eingelesen", (const char*) inputfile, 0 );
+					
+					}
+				}
+				
+				 Checksumme berechnen 				
+				if ( ret_val == 0 ) {
+					bstr.set_zeile( i_line_in_file, "\n" );
+					bstr.set_start_stop_pos( i_startindex, i_stopindex );
+					
+					L_DEBOUT(DEB_DATA, "r_checksum&gt; LINE_IN_FILE = %d gesetzt", i_line_in_file, 0 );
+					
+					L_DEBOUT(DEB_DATA, "r_checksum&gt; STARTINDEX = %d STOPINDEX = %d gesetzt", i_startindex, i_stopindex );
+				
+				}
+				if ( ret_val == 0 &amp;&amp;
+				     update_checksum( bstr, inputformat, ignore, s_crc ) &lt; 0 ) {
+					L_ERROUT("r_checksum&gt; Fehler in update_checksum", 0, 0 );
+					
+					ret_val = -1;
+				
+				}
+			}
+			else if ( (inputstring == "-" || inputstring.isEmpty()) &amp;&amp;
+			          (inputfile   == "-" || inputfile.isEmpty())   ) {
+				L_ERROUT("Weder INPUTSTRING = %s noch INPUTFILE = %s wurden vorgegeben", (const char*) inputstring, (const char*) inputfile );
+				
+				ret_val = -1;
+			
+			}
+			else  {
+				L_ERROUT("r_checksum&gt; Fehler bei Vorgabe INPUTSTRING = %s und INPUTFILE = %s", (const char*) inputstring, (const char*) inputfile );
+				
+				ret_val = -1;
+			
+			}
+		}
+		
+		 Im ACTION_MAKE Checksummenobjekt in s_crcmsp speichern 
+		 s_crc loeschen                                         		
+		if ( ret_val == 0 &amp;&amp; action.find(ACTION_MAKE) == 0 ) {
+			L_DEBOUT(DEB_DATA, "r_checksum&gt; Checksumme wird gespeichert", 0, 0 );
+			
+			s_crcmap[pruefschritt] = s_crc;
+			
+			s_crc.clear();
+		
+		}
+	}
+	
+	 Auswertung in Abhaengigkeit von Ruestlauf oder Pruefung 	
+	if ( ret_val == 0 ) {
+		if ( strcmp(Ssp_vi-&gt;job.liststate,PREINT) &amp;&amp; action.find(ACTION_MAKE) == 0 ) {
+			
+			 Checksumme bestimmen und nach GAUDI-Variable kopieren 			
+			QString checksum;
+			
+			CHECKPTR&amp; checkptr = s_crcmap[pruefschritt];
+			
+			if ( checkptr ) {
+				checkptr-&gt;get_checksum( checksum );
+				
+				*zeilen_wert-&gt;ptr[index_on_expPrfLst + 16] = (char*)(const char*) checksum;
+				
+				L_DEBOUT(DEB_DATA, "r_checksum&gt; Checksumme in GAUDI-Variable kopiert. CHECKSUMME = 0X%s", (const char*) checksum, 0 );
+			
+			}
+			else  {
+				L_ERROUT("r_checksum&gt; Zeiger auf Checksummenobjekt ist Nullzeiger. Pruefschritt = %s", (const char*) pruefschritt, 0 );
+				
+				ret_val = -1;
+			
+			}
+		}
+	}
+	
+	 Error Flag setzen 	
+	if ( ret_val != 0 ) {
+		*zeilen_wert-&gt;ptr[index_on_expPrfLst + 17] = "1";
+		
+		L_DEBOUT(DEB_DATA, "r_checksum&gt; ERRORFLAG = 1 gesetzt", 0, 0 );
+	
+	}
+	else  {
+		*zeilen_wert-&gt;ptr[index_on_expPrfLst + 17] = "0";
+		
+		L_DEBOUT(DEB_DATA, "r_checksum&gt; ERRORFLAG = 0 gesetzt", 0, 0 );
+	
+	}
+	return 0;
+
+}
+
+ update_checksum (6_testmodul_pool-testlistenmodule-r_rechenmodule-checksum) 
+ SDOperation                                                                 
+                                                                             
+ History                                                                     
+ -------                                                                     
+ created by sadcsst 07/17/1998 at 12:57                                      
+ modified by ohm3sa 08/06/1998 at 19:38                                      
+                                                                             
+ SD text                                                                     
+ -------                                                                     
+ C3                                                                          
+ ----------------------------------------------------------                  
+ Kurzbeschreibung: Liest aus BinaryStream Zeichenbloecke von                 
+                   512 Bytes ein, wandelt diese beim                         
+                   INPUTFORMAT = HEX in binaere Zeichen um,                  
+                   und aktualisiert mit diesen Zeichen                       
+                   die Checksumme                                            
+ ----------------------------------------------------------                  
+ Schnittstelle:                                                              
+    #Include &lt;...h&gt;                                                          
+                                                                             
+    $Function$                                                               
+                                                                             
+ ----------------------------------------------------------                  
+ Funktionsbeschreibung:                                                      
+                                                                             
+ Ignoretoken in ignore werden in Liste abgespeichert.                        
+ Es werden Zeichenbloecke von 512 Bytes mit read_bytes                       
+ eingelesen. Fuer das Inputformat = HEX werden 2 Zeichen                     
+ als ASCII-Code in Hex interpretiert und in das entsprechende                
+ Zeichen umgewandelt.                                                        
+                                                                             
+ Zuletzt wird die Checkumme aktualisiert.                                    
+                                                                             
+ Input:                                                                      
+                                                                             
+ istr       istream aus dem die Zeichen eingelesen werden                    
+ inputformat  HEX   2 Zeichen werden als Hexadeziamlzahl                     
+                    interpretert und in Zeichen umgewandelt                  
+              ASCII Zeichen werden direkt zur Checksummen-                   
+                    berechnung benutzt.                                      
+ ignore     String mit Ignoretoken                                           
+ crc        Referenz auf Checksummenobjekt                                   
+                                                                             
+ Output:                                                                     
+    none                                                                     
+                                                                             
+ ----------------------------------------------------------                  
+ Return Value:                                                               
+    = 0:    Successful completion                                            
+    =-1     Fehler                                                           
+ ----------------------------------------------------------                  
+ Beispiel (optional):                                                        
+                                                                             
+ ----------------------------------------------------------                  
+ C4                                                                          
+static int update_checksum( BinaryStream&amp; istr, const QString&amp; inputformat, const QString&amp; ignore, CHECKPTR&amp; crc )
+{
+	L_DEBOUT( DEB_STATUS,"update_checksum&gt; entry - format = [%s] / ignore = [%s]"
+	         ,(const char *)inputformat, (const char *)ignore );
+	
+	
+	 crc darf kein Nullzeiger sein 	
+	if ( !crc ) {
+		L_ERROUT("update_checksum&gt; crc ist Nullzeiger", 0, 0 );
+		
+		return -1;
+	
+	}
+	
+	 ignore zerlegen 	
+	int max_ignore_len = 0;
+	QValueList&lt;QString&gt; ignore_liste;
+	
+	if ( compile_ignore_string( ignore, ignore_liste, max_ignore_len ) &lt; 0 ) {
+		L_ERROUT("update_checksum&gt; Fehler in compile_ignore_string", 0, 0 );
+		
+		return -1;
+	
+	}
+	
+	 Zeichen von istr einlesen und Checksumme aktualisieren 	
+	unsigned char bytes[513];
+	for ( int zaehler = 0;; zaehler++ ) {
+		int anzahl_bytes = read_bytes( istr, max_ignore_len, ignore_liste, bytes, 512 );
+		
+		if ( anzahl_bytes == 0 ) {
+			break;
+		
+		}
+		else if ( anzahl_bytes  &lt; 0 ) {
+			return -1;
+		
+		}
+		if ( inputformat == INPUT_HEX ) {
+			if ( convert_hex_to_bin( bytes, anzahl_bytes ) &lt; 0 ) {
+				return -1;
+			
+			}
+			crc-&gt;update_checksum( bytes, anzahl_bytes/2 );
+		
+		}
+		else  {
+			crc-&gt;update_checksum( bytes, anzahl_bytes );
+		
+		}
+	}
+	return 0;
+
+}
+
+ compile_ignore_string (6_testmodul_pool-testlistenmodule-r_rechenmodule-checksum) 
+ SDOperation                                                                       
+                                                                                   
+ History                                                                           
+ -------                                                                           
+ created by sadcsst 07/17/1998 at 14:40                                            
+ modified by ohm3sa 08/06/1998 at 19:38                                            
+                                                                                   
+ SD text                                                                           
+ -------                                                                           
+ C3                                                                                
+ ----------------------------------------------------------                        
+ Kurzbeschreibung: Zerlegt IGNOR String in Einzelstrings und                       
+                   speichert diese in einer Liste ab                               
+                                                                                   
+ ----------------------------------------------------------                        
+ Schnittstelle:                                                                    
+    #Include &lt;...h&gt;                                                                
+                                                                                   
+    $Function$                                                                     
+                                                                                   
+ ----------------------------------------------------------                        
+ Funktionsbeschreibung:                                                            
+                                                                                   
+ Format von ignore:                                                                
+                                                                                   
+ Einzelstrings getrennt durch Leerzeichen                                          
+                                                                                   
+ CR    wird in \r                                                                  
+ LF    wird in \n                                                                  
+ CRLF  wird in \r\n                                                                
+ \Xyy  werden in Zeichen mit hexadezimalen ASCII-Code yy                           
+       umgewandelt                                                                 
+ "..." wird incl. Leerzeichen als ein Ignorestring                                 
+       (ohne ") interpretiert                                                      
+                                                                                   
+ Input:                                                                            
+                                                                                   
+ ignore     String der Zerlegt werden soll                                         
+                                                                                   
+ Output:                                                                           
+                                                                                   
+ ignore_liste     Liste der Einzelstrings                                          
+ max_ignore_len   Laenge des laengsten Ignorestrings in                            
+                  ignore_liste                                                     
+                  = 0 wenn ignore_liste leer ist.                                  
+                                                                                   
+ ----------------------------------------------------------                        
+ Return Value:                                                                     
+    = 0:    Successful completion                                                  
+    =-1     Fehler                                                                 
+ ----------------------------------------------------------                        
+ Beispiel (optional):                                                              
+                                                                                   
+ ----------------------------------------------------------                        
+ C4                                                                                
+static int compile_ignore_string( QString ignore, QValueList&lt;QString&gt;&amp; ignore_liste, int&amp; max_ignore_len )
+{
+	L_DEBOUT( DEB_STATUS, "compile_ignore_string&gt; entry - ignore = [%s]", (const char *)ignore, 0 );
+	
+	
+	 ignore_liste muss leer sein 	
+	if ( ignore_liste.count() &gt; 0 ) {
+		return -1;
+	
+	}
+	
+	 ignore in durch ' ' getrennte Teile zerlegen 	
+	int pos1 = -1;
+	int string_flag = 0;
+	int i = 0;
+	for ( i = 0; i &lt; ignore.length(); ++i ) {
+		if ( ignore[i] == '\"' ) {
+			if ( string_flag ) {
+				
+				 2. " gefunden 				
+				if ( pos1 &gt;= 0 ) {
+					
+					 kein Leerstring -&gt; abspeichern 					
+					ignore_liste.append( ignore.mid(pos1,i-pos1) );
+					
+					pos1 = -1;
+					string_flag = 0;
+				
+				}
+				else  {
+					
+					 Leerstring -&gt; keine Aktion 				
+				}
+			}
+			else  {
+				
+				 1. " gefunden, es folgt String, Leerzeichen werden wie normale Zeichen behandelt 				
+				string_flag = 1;
+			
+			}
+		}
+		else if ( ignore[i] == ' ' &amp;&amp; !string_flag ) {
+			
+			 Leerezeichen gefunden -&gt; gefundene Zeichenkette abspeichern 			
+			if ( pos1 &gt;= 0 ) {
+				ignore_liste.append( ignore.mid(pos1,i-pos1) );
+			
+			}
+			pos1 = -1;
+		
+		}
+		else if ( pos1 &lt; 0 ) {
+			
+			 Erstes Zeichen merken 			
+			pos1 = i;
+		
+		}
+	}
+	
+	 Letzten Teilstring in ignore speichern 	
+	if ( pos1 &gt;= 0 ) {
+		ignore_liste.append( ignore.mid(pos1) );
+	
+	}
+	
+	 Alle symbolischen Zeichen in Teilstrings von ignore_liste umwandeln 	
+	L_DEBOUT(DEB_DATA,"compile_ignore_string&gt; ignore_liste.length = %d", ignore_liste.count(), 0 );
+	
+	max_ignore_len = 0;
+	
+	for ( i = 0; i &lt; ignore_liste.count(); ++i ) {
+		
+		 \n, \r, \Xyy in char umwandeln 
+		 CRLF in \r\n                   
+		 CR   in \r                     
+		 LF   in \n umwandeln           		
+		QString &amp;teilstring = ignore_liste[i];
+		
+		L_DEBOUT(DEB_DATA,"compile_ignore_string&gt; Teilstring in IGNORE = %s", (const char*) teilstring, 0 );
+		
+		Utilities::konvert_symbolics( teilstring );
+		Utilities::substitute( "CRLF", "\r\n", teilstring );
+		Utilities::substitute( "CR", "\r", teilstring );
+		Utilities::substitute( "LF", "\n", teilstring );
+		
+		if ( teilstring.length() &gt; max_ignore_len ) {
+			max_ignore_len = teilstring.length();
+		
+		}
+	}
+	L_DEBOUT(DEB_DATA,"compile_ignore_string&gt; max_ignore_len = %d", (const char*) max_ignore_len, 0 );
+	
+	return 0;
+
+}
+
+ read_bytes (6_testmodul_pool-testlistenmodule-r_rechenmodule-checksum) 
+ SDOperation                                                            
+                                                                        
+ History                                                                
+ -------                                                                
+ created by sadcsst 07/17/1998 at 15:19                                 
+ modified by ohm3sa 08/06/1998 at 19:38                                 
+                                                                        
+ SD text                                                                
+ -------                                                                
+ C3                                                                     
+ ----------------------------------------------------------             
+ Kurzbeschreibung: Liest aus BinaryStream Bytes ein                     
+                   und filtert die Ignoretoken heraus                   
+                                                                        
+ ----------------------------------------------------------             
+ Schnittstelle:                                                         
+    #Include &lt;...h&gt;                                                     
+                                                                        
+    $Function$                                                          
+                                                                        
+ ----------------------------------------------------------             
+ Funktionsbeschreibung:                                                 
+                                                                        
+ Wenn max_ignore_len &lt;= 0 ist, wird genau buflen Bytes aus              
+ istr eingelesen und nach bytes kopiert.                                
+                                                                        
+ Wenn max_ignore_len &gt; 0 ist, und werden alle eingelesenen              
+ Bytes in G_buffer zwischengespeichert. Wenn die Anzahl                 
+ Zeichen in G_buffer &lt; buflen+max_ignore_len ist, werden                
+ solange 1024 eingelesen, und die Ignoretoken herausgefiltert,          
+ bis die Bedingung G_buffer &gt;= buflen+max_ignore_len                    
+ erfuelt ist. Dann werden buflen Bytes nach bytes kopiert.              
+                                                                        
+ Input:                                                                 
+                                                                        
+ istr       BinaryStream aus dem die Bytes eingelesen werden            
+ max_ignore_len  Maximale Laenge der Ignoretoken in                     
+                 ignore_liste                                           
+ ignore_liste    Liste der Ignoretoken                                  
+ bytes      Zeiger auf Empfangsbuffer                                   
+ buflen     Groesse des Speichers von bytes                             
+                                                                        
+ Output:                                                                
+                                                                        
+ bytes      Buffer fuer eingelesene Zeichen                             
+                                                                        
+ ----------------------------------------------------------             
+ Return Value:                                                          
+    = 0:    Successful completion                                       
+    =-1     Fehler                                                      
+ ----------------------------------------------------------             
+ Beispiel (optional):                                                   
+                                                                        
+ ----------------------------------------------------------             
+ C4                                                                     
+static int read_bytes( BinaryStream&amp;  istr
+                      ,int            max_ignore_len
+                      ,QValueList&lt;QString&gt;&amp;  ignore_liste
+                      ,unsigned char* bytes
+                      ,int            buflen )
+{
+	L_DEBOUT(DEB_DATA, "read_bytes&gt; entry", 0, 0 );
+	
+	if ( max_ignore_len &lt;= 0 ) {
+		
+		 Pruefen, ob Zeichen aus istr gelesen werden koennen 		
+		if ( !istr ) {
+			L_DEBOUT( DEB_DATA, "read_bytes&gt; Failbit in istream gesetzt", 0, 0 );
+			
+			return 0;
+		
+		}
+		
+		 Buffer mit buflen Bytes einlesen und zurueckgeben 		
+		istr.read( bytes, buflen );
+		
+		L_DEBOUT( DEB_DATA, "read_bytes&gt; %d Bytes aus istream eingelesen", istr.gcount(), 0 );
+		
+		return istr.gcount();
+	
+	}
+	else  {
+		
+		 Buffer einlesen, Zeichen in ignore_liste herausfiltern 		
+		char tmp_buffer[2048];
+		
+		while ( G_buffer.length() &lt; (buflen + max_ignore_len) ) {
+			
+			 Buffer einlesen 			
+			int countbytes = istr.read( tmp_buffer, 1024 );
+			
+			if ( countbytes &gt; 0 ) {
+				
+				 Zeichen an G_buffer anfuegen und   
+				 alle ignore Zeichenketten ersetzen 				
+				L_DEBOUT(DEB_DATA, "read_bytes&gt; %d Zeichen eingelesen", countbytes, 0 );
+				
+				G_buffer += FromLatin1( tmp_buffer, countbytes );
+				
+				for ( int i = 0; i &lt; ignore_liste.count(); ++i ) {
+					Utilities::substitute( ignore_liste[i], "", G_buffer );
+				
+				}
+			}
+			else {
+				break;
+			
+			}
+		}
+		
+		 Zeichen nach 'bytes' kopieren 		
+		L_DEBOUT(DEB_DATA, "read_bytes&gt; G_buffer.length = %d", G_buffer.length(), 0 );
+		
+		if ( G_buffer.length() &gt; 0 ) {
+			
+			 buflen Bytes oder, wenn G_buffer kleiner ist, G_buffer.length() Zeichen 
+			 nach buffer kopieren                                                    			
+			int len = buflen;
+			
+			if ( len &gt; G_buffer.length() ) {
+				len = G_buffer.length();
+			
+			}
+			memcpy( bytes, (const char*) G_buffer, len );
+			G_buffer.remove(0,len);
+			
+			return len;
+		
+		}
+		else {
+			return 0;
+		
+		}
+	}
+	return 0;
+
+}
+
+ convert_hex_to_bin (6_testmodul_pool-testlistenmodule-r_rechenmodule-checksum) 
+ SDOperation                                                                    
+                                                                                
+ History                                                                        
+ -------                                                                        
+ created by sadcsst 07/22/1998 at 08:24                                         
+ modified by ohm3sa 08/06/1998 at 19:38                                         
+                                                                                
+ SD text                                                                        
+ -------                                                                        
+ C3                                                                             
+ ----------------------------------------------------------                     
+ Kurzbeschreibung: Wandelt 2-ziffrige Hexzahlen in                              
+                   Zeichen um                                                   
+                                                                                
+ ----------------------------------------------------------                     
+ Schnittstelle:                                                                 
+    #Include &lt;...h&gt;                                                             
+                                                                                
+    $Function$                                                                  
+                                                                                
+ ----------------------------------------------------------                     
+ Funktionsbeschreibung:                                                         
+                                                                                
+ buflen muss gerade sein.                                                       
+                                                                                
+ HEX Zahlen werden in ASCII-Zeichen mit demselben                               
+ HEX-Code erzeugt (z.B 0A in \n)                                                
+                                                                                
+ Input:                                                                         
+                                                                                
+ buffer    Buffer mit umzuwandelnden Zeichen                                    
+ buflen    Zeichen in buffer                                                    
+                                                                                
+ Output:                                                                        
+                                                                                
+ buffer    buflen/2 umgewandelte Zeichen                                        
+                                                                                
+ ----------------------------------------------------------                     
+ Return Value:                                                                  
+    = 0:    Successful completion                                               
+    =-1     Fehler                                                              
+ ----------------------------------------------------------                     
+ Beispiel (optional):                                                           
+                                                                                
+ ----------------------------------------------------------                     
+ C4                                                                             
+static int convert_hex_to_bin( unsigned char* buffer, int buflen )
+{
+	L_DEBOUT( DEB_STATUS,"convert_hex_to_bin&gt; entry - buflen %d", buflen, 0 );
+	
+	
+	 Pruefen, ob gerade Anzahl Bytes 	
+	if ( buflen % 2 != 0 ) {
+		L_ERROUT("convert_to_bin&gt; Anzahl Bytes zur Umwandlung von HEX to BIN ist nicht gerade", 0 , 0 );
+		
+		return -1;
+	
+	}
+	unsigned char buf[] = "00";
+	
+	for ( int i = 0; i &lt; buflen; i += 2 ) {
+		
+		 Pruefen, ob Hexadezimalziffern 		
+		if ( !isxdigit(buffer[i]) || !isxdigit(buffer[i+1]) ) {
+			L_ERROUT("convert_to_bin&gt; Bei Umwandlung von HEX to BIN ist Zeichen (%c 0x%.2x) keine Hexadezimalziffer", ((isprint(buffer[i])) ? buffer[i] : '_'), (int) buffer[i] );
+			
+			return -1;
+		
+		}
+		
+		 Binaeres Zeichen erzeugen 		
+		buf[0] = buffer[i];
+		buf[1] = buffer[i+1];
+		
+		buffer[i/2] = (unsigned char) strtol( (const char*)buf, 0, 16 );
+	
+	}
+	return 0;
+
+}
+
+ make_filename (6_testmodul_pool-testlistenmodule-r_rechenmodule-checksum) 
+ SDOperation                                                               
+                                                                           
+ History                                                                   
+ -------                                                                   
+ created by sadcsst 07/29/1998 at 15:17                                    
+ modified by ohm3sa 08/06/1998 at 19:38                                    
+                                                                           
+ SD text                                                                   
+ -------                                                                   
+ C3                                                                        
+ ----------------------------------------------------------                
+ Kurzbeschreibung: Bestimmt Dateinnamen incl. Pfad                         
+                                                                           
+ ----------------------------------------------------------                
+ Schnittstelle:                                                            
+    #Include &lt;...h&gt;                                                        
+                                                                           
+    $Function$                                                             
+                                                                           
+ ----------------------------------------------------------                
+ Funktionsbeschreibung:                                                    
+                                                                           
+ Der Pfad wird mit get_dir( DIR_TLIST ) bestimmt.                          
+ Alle Zeichen in inputfile werden zu Kleinbuchstaben                       
+ gewandelt.                                                                
+                                                                           
+ Input:                                                                    
+    inputfile    Dateiname                                                 
+ Output:                                                                   
+    filename     Dateiname incl. Pfad                                      
+                                                                           
+ ----------------------------------------------------------                
+ Return Value:                                                             
+    = 0:    Successful completion                                          
+    =-1     Fehler                                                         
+ ----------------------------------------------------------                
+ Beispiel (optional):                                                      
+                                                                           
+ ----------------------------------------------------------                
+ C4                                                                        
+static int make_filename( const QString&amp; inputfile, QString&amp; filename )
+{
+	
+	 Lokale Variable 	
+	int ret_val = 0;
+	
+	
+	 Directory Pfad bestimmen 	
+	char mainpath[80], node[80];
+	filename.truncate(0);
+	
+	if ( get_dir( DIR_TLIST, 80, 80, mainpath, node ) &lt; 0 ) {
+		L_ERROUT("make_filename&gt; Fehler in get_dir fuer DIR_TLIST", 0, 0 );
+		
+		ret_val = -1;
+	
+	}
+	L_DEBOUT(DEB_DATA, "make_filename&gt; mainpath = %s node = %s", mainpath, node );
+	
+	if ( ret_val == 0 ) {
+		filename  = mainpath;
+		filename += inputfile.lower();
+		
+		L_DEBOUT(DEB_DATA, "make_filename&gt; filename = %s", (const char*) filename, 0 );
+	
+	}
+	return ret_val;
+
+}
+</PRE>
+</BODY>
+</HTML>

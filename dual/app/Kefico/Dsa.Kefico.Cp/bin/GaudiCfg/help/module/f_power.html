@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>F_POWER</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>F_POWER</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ $Id: f_power.C,v 1.2 2005/03/04 15:54:09 lehmann Exp $                  
+ ------------------------------------------------------------------------- 
+ Kurzbeschreibung:    Konstanter Modul                                     
+ ------------------------------------------------------------------------- 
+ Projekt:        Common Core System - BOSCH                                
+ Sourcefile:     f_power.C                                                 
+ Autor:          AnW/FVS5 Schneider Romeo                                  
+ Zielsystem:     HP9000 743rt vxi02 (HP-UX 9.05 ; HP-RT 02.11)             
+ Sprache:        Ansi C; C++                                               
+ ------------------------------------------------------------------------- 
+ Aufruf:                            &lt;GFMT KS=on TAB=8 LF=on&gt;               
+                                                                           
+ int  f_power (shm_stringpointer *zeilen_info, // &lt;I&gt; Zeiger auf Zeilen    
+               long index,                     // &lt;I&gt; Index Nummer         
+               long anzahl)                    // &lt;I&gt; Anzahl der Werte     
+  Parameter :     SCHRITT   wert[00]                                       
+  Parameter :     POSITION  wert[02]                                       
+  Parameter :     WHOLEN    wert[02]                                       
+  Parameter :     LABEL_END wert[03]                                       
+  Parameter :     STOP      wert[04]                                       
+  Parameter :     MODUL     wert[05]                                       
+  Parameter :     FUNKTION  wert[06]: NORM, SPANNUNG oder STROM            
+  Parameter :     ADRESSE   wert[07]                                       
+  Parameter :     TUG       wert[08]                                       
+  Parameter :     TOG       wert[09]                                       
+  Parameter :     EINHEIT wert[10]                                         
+  Parameter :     KANNAL    wert[11]                                       
+  Parameter :     SPANNUNG  wert[12]                                       
+  Parameter :     STROM     wert[13]                                       
+  Parameter :     OUTPUT    wert[14]                                       
+  Parameter :     MESSWERT  wert[15]: Rückgabe des Messwerts, wenn die 
+                              FUNKTION auf SPANNUNG oder STROM gesetzt ist   
+                                                                           
+ ------------------------------------------------------------------------- 
+ Returnparameter:                   &lt;GFMT KS=on TAB=8 LF=on&gt;               
+ ------------------------------------------------------------------------- 
+ Funktionsbeschreibung:             &lt;GFMT KS=on TAB=8 LF=on&gt;               
+                                                                           
+ Ûbernimmt die Parameter und deutet Sie mÎglichst so, wie sie in der       
+ modglobal.stl definiert worden sind.                                      
+ Das Modul ist in der Lage, einen Befehl Ïber HPIB Bus an einen Konstanter 
+ auszugeben und wenn gewÏnscht eine Antwort zurÏckzulesen.                 
+ Die Antwort wird als Nachricht an die Messdatenauswertung weiter-         
+ gereicht.                                                                 
+                                                                           
+                                                                           
+ ------------------------------------------------------------------------- 
+ Fehlerbeschreibung:                &lt;GFMT KS=on TAB=8 LF=on&gt;               
+                                                                           
+ LISO Fehlerbehandlung                                                     
+</PRE>
+</BODY>
+</HTML>

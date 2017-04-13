@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE>E_BITS</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_BITS</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_bits.C,v 1.8 2005/12/01 09:14:48 wes3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Anschaltung der Bits des FlashPam
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:	e_bits.C
+   Autor:		RtW/TEF72-Wiese (1.2.96)
+   Zielsystem:	HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_bits(shm_stringpointer *zeilen_info
+   ,shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_zeile
+   ,Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Aufgabe des Moduls ist, die Relais auf der prueflingsspezifischen Platine
+   zu setzen. 
+   
+   Attention: It is necessary to intialize the Unit with Modul P_STEUER before E_BITS 
+   
+   Ûbergabeparameter    
+   
+   MD,E_BITS</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>1</pre><b><a name="param2">2</a> POSITION</b><pre>    2</pre><b><a name="param3">3</a> UNIT</b><pre>      3</pre><b><a name="param4">4</a> BIT0</b><pre>      4</pre><b><a name="param5">5</a> BIT1</b><pre>        5</pre><b><a name="param6">6</a> BIT2</b><pre>        6</pre><b><a name="param7">7</a> BIT3</b><pre>        7</pre><b><a name="param8">8</a> BIT4</b><pre>        8</pre><b><a name="param9">9</a> BIT5</b><pre>        9</pre><b><a name="param10">10</a> BIT6</b><pre>       10</pre><b><a name="param11">11</a> BIT7</b><pre>       11
+   
+   UNIT:
+   Ziel der Karte, auf der die ausgabe erfolgen soll.
+   Momentan nur mÎglich (auch durch Gaudi gepatcht:) 
+   BITS_01 - BITS_04 -&gt; Umlenkung per HW-CONFIG-File auf SKM_01-SKM_04
+   
+   Bit0-7   :
+   Hier kann ON oder OFF eingegeben werden. Kommentare muessen durch 
+   "/" abgetrennt werden. Hierbei ist es moeglich, den Bits je nach Produkt 
+   einen sinnvollen Namen zu geben 
+   
+   ACHTUNG: Fuer SKMlight stehen nur die Bits 0-5 zur Verfuegung
+   
+   Beispiel:
+   
+   BIT0		ON /OFF		ON / Kl.15
+   BIT1		ON /OFF		ON / UB
+   BIT2		ON /OFF		ON / ESP_RECHT
+   BIT3		ON /OFF		ON / ESP_DIR		
+   ...
+</PRE>
+</BODY>
+</HTML>

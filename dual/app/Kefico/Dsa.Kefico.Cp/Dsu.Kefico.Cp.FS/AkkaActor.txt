@@ -1,0 +1,10 @@
+﻿HOCON config
+	- http://getakka.net/docs/concepts/configuration
+	- http://stackoverflow.com/questions/39104800/socket-connection-failure-when-sending-message-between-windows-service-and-iis-a
+
+
+Netty
+
+        akka {
+            remote {
+                transport = "akka.remote.netty.NettyRemoteTransport"

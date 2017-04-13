@@ -1,0 +1,684 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> DCVTrg [V]  (Uab, Uhigh, Ulow)</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>DCVTrg [V]  (Uab, Uhigh, Ulow)</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=9080">
+ </A>
+DCVTrg [V]  (Uab, Uhigh, Ulow)</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9082">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=273396">
+ </A>
+MaxSignalAmplitude [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9084">
+ </A>
+TriggerEdge [p/n]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9086">
+ </A>
+TriggerLevel [V]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9088">
+ </A>
+TriggerDelay [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9090">
+ </A>
+IntegrationPeriod [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9092">
+ </A>
+TriggerHigh [i/CU pin [INT]/Test Pt[Str]]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9094">
+ </A>
+TriggerLow [i/CU pin [INT]/Test Pt[Str]]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9096">
+ </A>
+Timeout [s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9098">
+ </A>
+Mode [m/s]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=273395">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=9102">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=9104">
+ </A>
+Internally or externally triggered integrating DC voltage measurement. Depending on mode, this function acts as a control function or a measurement function.</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=9108">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9110">
+ </A>
+Test point + Reference point</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=9114">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9118">
+ </A>
+MaxSignalAmplitude</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9120">
+ </A>
+Largest amplitude occurring on the signal. Can be used to establish the measurement range or to select a suppressor circuit.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9122">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9124">
+ </A>
+TriggerEdge</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9126">
+ </A>
+Specification of which signal edge is to act as trigger (p = positive edge, n = negative edge).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9128">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9130">
+ </A>
+TriggerLevel</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9132">
+ </A>
+Trigger threshold for measurement relative to trigger signal reference (see <EM CLASS="HelpSprung">
+Example 1</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel1_DCVTrg</EM>
+ , <EM CLASS="HelpSprung">
+Example 2</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel2_DCVTrg</EM>
+ and the example for <EM CLASS="HelpSprung">
+DCITrg</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel_DCITrg</EM>
+).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9134">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9136">
+ </A>
+TriggerDelay</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9138">
+ </A>
+Trigger delay for the measurement (see <EM CLASS="HelpSprung">
+Example 1 </EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel1_DCVTrg</EM>
+ , <EM CLASS="HelpSprung">
+Example 2</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel2_DCVTrg</EM>
+ and the example for <EM CLASS="HelpSprung">
+DCITrg </EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel_DCITrg</EM>
+).</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9140">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9142">
+ </A>
+IntegrationPeriod</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9144">
+ </A>
+Period over which the signal is integrated. With the output stage tests (Uab, Ulow, Uhigh) the integration period with an inductive load should be taken from the diagram for <EM CLASS="HelpSprung">
+Example 1</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel1_DCVTrg</EM>
+ or <EM CLASS="HelpSprung">
+Example 2</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel2_DCVTrg</EM>
+, and with an ohmic load, from the diagram for the example for <EM CLASS="HelpSprung">
+DCITrg</EM>
+<EM CLASS="HelpSprungverweis">
+Beispiel_DCITrg</EM>
+. In the event of superimposed interference signals, it is advisable - wherever possible - to select a multiple of the interference signal period as the integration period.<BR>
+If the integration period determined is less than the testing instrument's shortest integration period, the testing system may use a sample &amp; hold measurement instead of an integrating measurement.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9146">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9148">
+ </A>
+TriggerHigh</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9150">
+ </A>
+In the case of external triggering, the control unit pin (e.g. 43) or a (user-) defined signal name from the Signals Table (e.g. UB) is entered here. In the case of internal triggering (trigger signal = test signal), &#180;i&#180; is entered here.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9152">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9154">
+ </A>
+TriggerLow</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9156">
+ </A>
+Specification of trigger signal reference: <BR>
+In the case of external triggering, the control unit pin (e.g. 68) or a (user-) defined signal name from the Signals Table (e.g. UB) is entered here. In the case of internal triggering (trigger signal = test signal reference), &#180;i&#180; is entered here.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9158">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9160">
+ </A>
+Timeout</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9162">
+ </A>
+If the test read function receives no measured reading input within the period specified for the timeout, the measurement is aborted.<BR>
+Standard value: 1s</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9164">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=9166">
+ </A>
+Mode</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9168">
+ </A>
+The Mode indicates whether the function returns a result (m) or whether the testing instrument is simply prepared for the test (s). Mode m can only be used with periodic test signals. In the case of non-periodic test signals, the test signal is applied and the testing instrument prepared (mode s).&nbsp; The trigger event is subsequently activated and then the test read function <EM CLASS="HelpSprung">
+RDCVTrg</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_RDCVTrg</EM>
+ invoked.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=9172">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=9174">
+ </A>
+Example 1<BR>
+</P>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=827">
+ </A>
+DCVTrg</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=829">
+ </A>
+100,p,40,10E-6,10E-6,i,i,1,m</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9184">
+ </A>
+<BR>
+Diagram:<BR>
+<BR>
+<IMG SRC="funktionen-11.gif" ALIGN="BASELINE">
+</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=9187">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=836">
+ </A>
+tID,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=838">
+ </A>
+Integration period after triggering by positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=844">
+ </A>
+tID,n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=846">
+ </A>
+Integration period after triggering by negative edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=852">
+ </A>
+tD,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=854">
+ </A>
+Delay period after triggering by positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=860">
+ </A>
+tD,n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=862">
+ </A>
+Delay period after triggering by negative edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=868">
+ </A>
+UTr,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=870">
+ </A>
+Trigger level, positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=876">
+ </A>
+UTr,n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=878">
+ </A>
+Trigger level, negative edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=884">
+ </A>
+Ulow</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=886">
+ </A>
+Low potential of test signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=892">
+ </A>
+Uhigh</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=894">
+ </A>
+High potential of test signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=900">
+ </A>
+Uab</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=902">
+ </A>
+Potential of shut-off peak</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=908">
+ </A>
+Uab90,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=910">
+ </A>
+Voltage level at 90% of positive edge of a shut-off peak</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=916">
+ </A>
+Uab90,n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=918">
+ </A>
+Voltage level at 90% of negative edge of a shut-off peak</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9191">
+ </A>
+Figure 6a: Shut-off peak with internal triggering</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9193">
+ </A>
+Trigger level:				UTr,p = 0.5(Uab - Ulow) + Ulow<BR>
+UTr,n = 0.5(Uhigh - Ulow) + Ulow<BR>
+Uab90,p = 0.9(Uab - Ulow) + Ulow<BR>
+Uab90,n = 0.9(Uab - Uhigh) + Uhigh</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9195">
+ </A>
+Trigger delay:				tD,p = 0.4(t3 - t2) + (t2 - t1)<BR>
+tD,n = 0.4(t6 - t5) + (t5 - t4)</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9197">
+ </A>
+Integration period:				tID,p = 0.2(t3 - t2)<BR>
+tID,n = 0.2(t6 - t5)</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=9199">
+ </A>
+<BR>
+Example 2<BR>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=9202">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=925">
+ </A>
+DCVTrg</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=927">
+ </A>
+100,p,40,10E-6,10E-6,43,68,1,m</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9205">
+ </A>
+<BR>
+<BR>
+	Test circuit:<BR>
+<BR>
+<IMG SRC="funktionen-12.gif" ALIGN="BASELINE">
+<BR>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9207">
+ </A>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9209">
+ </A>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9212">
+ </A>
+<BR>
+Diagram:<BR>
+<BR>
+<IMG SRC="funktionen-13.gif" ALIGN="BASELINE">
+<BR>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=9215">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=934">
+ </A>
+tID,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=936">
+ </A>
+Integration period after triggering by positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=942">
+ </A>
+tD,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=944">
+ </A>
+Delay period after triggering by positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=950">
+ </A>
+Ulow</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=952">
+ </A>
+Low potential of test signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=958">
+ </A>
+Uhigh</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=960">
+ </A>
+High potential of test signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=966">
+ </A>
+Uab</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=968">
+ </A>
+Potential of shut-off peak</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=974">
+ </A>
+Uab90,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=976">
+ </A>
+Voltage level at 90% of positive edge of a shut-off peak</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=982">
+ </A>
+Uab90,n</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=984">
+ </A>
+Voltage level at 90% of negative edge of a shut-off peak</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=990">
+ </A>
+UTr,p</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=992">
+ </A>
+Trigger level, positive edge</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=998">
+ </A>
+UTr,low</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1000">
+ </A>
+Low potential of trigger signal</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1006">
+ </A>
+UTr,high</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1008">
+ </A>
+High potential of trigger signal</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9217">
+ </A>
+	</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=9219">
+ </A>
+Figure 6b: Shut-off peak with external triggering</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9221">
+ </A>
+</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9223">
+ </A>
+With triggering by positive edge of trigger signal, the following applies:</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9225">
+ </A>
+Trigger level:				UTr,p = 0.5(UTr,high - UTr,low) + UTr,low</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9227">
+ </A>
+Trigger delay:				tD,p = 0.4(t2 - t1) + (t1 - t0)</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9229">
+ </A>
+Integration period:				tID,p = 0.2(t2 - t1)<BR>
+</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9231">
+ </A>
+With triggering by negative edge of trigger signal, the following applies:</P>
+<P CLASS="Berechnung">
+<A NAME="pgfId=9233">
+ </A>
+Trigger level:				UTr,n = 0.5(UTr,high - UTr,low) + UTr,low</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

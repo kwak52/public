@@ -1,0 +1,370 @@
+<HTML>
+<HEAD>
+<TITLE>R_STRFORMAT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_STRFORMAT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ Funktionsbeschreibung:                                                          
+                                                                                 
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                            
+          GAUDI-Pruefschritt                                                     
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                                
+          PAV-Position                                                           
+    ------------------------------</pre><b><a name="param3">3</a> INPUT_STRING</b><pre>                                                            
+          konstanter String mit max. 14 Zeichen Laenge, der eine                 
+          Zahl in (fast) beliebiger Darstellung repraesentiert                   
+          (bei dezimaler Darstellung auch vorzeichenbehaftet),                   
+          oder ein ueber eine '&amp;'-Variable empfangener String                    
+          gleichen Inhalts (bestehend aus moeglicherweise mehr                   
+          als 14 Zeichen);                                                       
+          desweiteren koennen beliebige Zeichenketten in ihre                    
+          zugehoerende sedezimale Darstellung gewandelt werden.                  
+                                                                                 
+          Ein leerer Input erzeugt eine Fehlermeldung!                           
+                                                                                 
+    ------------------------------</pre><b><a name="param4">4</a> INPUT_FORMAT</b><pre>                                                            
+          Gibt an, welches Darstellungsformat der uebergebene                    
+          'INPUT' hat:                                                           
+             ASCII - beliebige Zeichenkette aus ASCII-Zeichen:                   
+                       Wandlung jedes einzelnen Bytes in den entsprechenden      
+                       sedezimalen Wert (wiederum in ASCII-Darstellung);         
+                       Beispiel: INPUT_STRING ist   H A L L O                    
+                                 OUTPUT_STRING  ist 482041204C204C204F           
+                                                                                 
+             BCD   - "binary-coded-decimal" Zeichen:                             
+                       Aufteilung jedes Bytes in High- und Low-Nibble            
+                       und entsprechende Weiterverarbeitung;                     
+                       z.B. Wandlung von BCD-Zeichen in ihre entsprechende       
+                            ASCII-Darstellung:                                   
+                            001265   in   303031323635                           
+                                                                                 
+                       Wichtig: Die Nibbles sollten Werte von 0 bis 9            
+                                haben, anderesfalls liegt eine                   
+                                Fehlerbedingung vor!                             
+                                                                                 
+             BIN   - binaeres Zahlenformat:                                      
+                       Auswertung erfolgt als vorzeichenlose Zahl;               
+                       eine fuehrende '1' hat nicht die Bedeutung, dass          
+                       die Zahl als negative Zahl zu bewerten ist;               
+			 Die maximale Input-Stringlänge ist auf 32 begrenzt!       
+                                                                                 
+             S_BIN - binaeres Zahlenformat (signed binary):                      
+                       Auswertung erfolgt als vorzeichenbehaftete Zahl;          
+                       eine fuehrende '1' hat daher die Bedeutung, dass          
+                       die Zahl als negative Zahl zu bewerten ist                
+                       (wichtig bei Wandlung in die dezimale Darstellung);       
+                   - alternativ "S_BIN_nn" mit nn &gt; 1 und &lt; 64                   
+                       hiermit kann bestimmt werden, wo im uebergebenen          
+                       Ziffernstring das Vorzeichenbit zu suchen ist;            
+                       Beispiel: INPUT_STRING ist 00110110                       
+                                 INPUT_FORMAT ist S_BIN_06                       
+                                 da der INPUT_STRING damit als negative          
+                                 Zahl interpretiert werden soll,                 
+                                 ergibt eine Wandlung in die dezimale            
+                                 Darstellung -10;                                
+                                                                                 
+             DEZ   - dezimales Zahlenformat (Default-Einstellung):               
+                       es kann hierbei ein Vorzeichen vorhanden sein;            
+                       das Ergebnis der Wandlung in ein anderes Zahlsystem       
+                       ist dann ebenfalls Vorzeichen-behaftet, dh. das           
+                       jeweils hoechstwertige Bit in der 8-, 16- oder            
+                       32-Bit-Integer-Darstellung ist gesetzt;                   
+                                                                                 
+             FLOAT - Floating-Point-Zahl:                                        
+                       es kann hierbei ein Vorzeichen vorhanden sein;            
+                       das Ergebnis der Wandlung in ein anderes Zahlsystem       
+                       ist dann ebenfalls Vorzeichen-behaftet, dh. das           
+                       jeweils hoechstwertige Bit in der 8-, 16-, 32- etc.-      
+                       Integer-Darstellung ist gesetzt;                          
+                                                                                 
+                       Wichtig: Bei Wandlung in ein anderes Zahlensystem         
+                                wird nur der Ganzahl-Anteil beruecksichtigt!     
+                                                                                 
+             HEX   - sedezimales Zahlenformat:                                   
+                       Auswertung erfolgt als vorzeichenlose Zahl;               
+                       ein in der Integer-Darstellung gesetztes hoechst-         
+                       wertiges Bit hat nicht die Bedeutung, dass die Zahl       
+                       als negative Zahl auszuwerten ist;                        
+                                                                                 
+             S_HEX - sedezimales Zahlenformat (signed sedecimal):                
+                       Auswertung erfolgt als vorzeichenbehaftete Zahl;          
+                       ein in der Integer-Darstellung gesetztes hoechst-         
+                       wertiges Bit hat die Bedeutung, dass die Zahl als         
+                       negative Zahl auszuwerten ist;                            
+                       (wichtig bei Wandlung in die dezimale Darstellung);       
+                   - alternativ "S_HEX_nn" mit nn &gt; 1 und &lt; 64                   
+                       hiermit kann bestimmt werden, wo im uebergebenen          
+                       Ziffernstring das Vorzeichenbit zu suchen ist;            
+                       Beispiel: INPUT_STRING ist 0AFFE                          
+                                 INPUT_FORMAT ist S_HEX_16                       
+                                 da der INPUT_STRING damit als negative          
+                                 Zahl interpretiert werden soll,                 
+                                 ergibt eine Wandlung in die dezimale            
+                                 Darstellung -20482;                             
+                                                                                 
+             OKT   - oktales Zahlenformat:                                       
+                       Auswertung erfolgt als vorzeichenlose Zahl;               
+                       ein in der Integer-Darstellung gesetztes hoechst-         
+                       wertiges Bit hat nicht die Bedeutung, dass die Zahl       
+                       als negative Zahl auszuwerten ist;                        
+                                                                                 
+             S_OKT - oktales Zahlenformat (signed octal):                        
+                       Auswertung erfolgt als vorzeichenbehaftete Zahl;          
+                       ein in der Integer-Darstellung gesetztes hoechst-         
+                       wertiges Bit hat die Bedeutung, dass die Zahl als         
+                       negative Zahl auszuwerten ist;                            
+                       (wichtig bei Wandlung in die dezimale Darstellung);       
+                   - alternativ "S_OKT_nn" mit nn &gt; 1 und &lt; 64                   
+                       hiermit kann bestimmt werden, wo im uebergebenen          
+                       Ziffernstring das Vorzeichenbit zu suchen ist;            
+                       Beispiel: INPUT_STRING ist 04711                          
+                                 INPUT_FORMAT ist S_OKT_12                       
+                                 da der INPUT_STRING damit als negative          
+                                 Zahl interpretiert werden soll,                 
+                                 ergibt eine Wandlung in die dezimale            
+                                 Darstellung -1591;                              
+                                                                                 
+    ------------------------------</pre><b><a name="param5">5</a> AUSGABELAENGE</b><pre>                                                           
+          die Laenge des in das gewuenschte Format gewandelten                   
+          Ausgabestrings (Zahl von 1 bis max. 32, 0 erzeugt einen                
+          leeren 'OUTPUT'-String);                                               
+          sollen einer Zahl Nullen vorangestellt werden, ist die Laenge          
+          - entspr. dem CCS-internen Format - auf 80 Zeichen begrenzt;           
+                                                                                 
+          Wichtig: 1.Fehlt die Angabe einer Laenge, hat 'OUTPUT' die             
+                     Laenge, die sich aus 'INPUT' und dem gewuenschten           
+                     Ausgabeformat ergibt!                                       
+                   2.Ist 'AUSGABELAENGE' kleiner als die bei der Wandlung        
+                     entstehende Anzahl an Ziffern (ASCII-Zeichen),              
+                     wird eine &gt;&gt;&gt;Fehlermeldung&lt;&lt;&lt; erzeugt!                      
+                   3.Ist 'AUSGABELAENGE' groesser als die fuer eine              
+                     Darstellung im gewuenschten Format notwendige Anzahl,       
+                     werden nur die tatsaechlich relevanten Ziffern              
+                     ausgegeben (wenn 'FUEHRENDE_NULL' = N)!                     
+                   4.Soll eine negative Dezimalzahl in ein anderes Format        
+                     gewandelt werden, wird die Darstellung durch die            
+                     gewaehlte 'AUSGABELAENGE' beeinflusst (in jedem             
+                     Fall ist das hoechstwertige Bit gesetzt).                   
+                     Berechnung erfolgt gemaess folgender Vorschrift:            
+                                                                                 
+                                                 /BIN\       / z.B. 110...       
+                    2^AUSGABELAENGE - INPUT ==&gt; &lt; HEX &gt; ==&gt; &lt;  z.B. E605..       
+                                                 \OKT/       \ z.B. 47...        
+                                                                                 
+                     'INPUT' muss kleiner als 2^AUSGABELAENGE sein,              
+                     anderenfalls wird eine Fehlermeldung generiert!             
+                                                                                 
+     ------------------------------</pre><b><a name="param6">6</a> KOMMASTELLEN</b><pre>                                                            
+          die Anzahl der Nachkommastellen bei Ausgabe einer Floating-Point-      
+          Zahl;                                                                  
+          dieser Parameter ist nur relevant, wenn der 'INPUT_STRING' ebenfalls   
+          eine Floating-Point-Zahl ist;                                          
+                                                                                 
+          Wichtig: Ist die Anzahl der Nachkommastellen 0, wird das               
+                   dezimale Ausgabeformat gewaehlt.                              
+                                                                                 
+    ------------------------------</pre><b><a name="param7">7</a> AUFFUELLEN</b><pre>(mit Nullen)                                                  
+          J    - der den Dezimalwert im gewaehlten Ausgabeformat                 
+                 repraesentierende ASCII-String wird - um fuehrende              
+                 Nullen ergaenzt - ausgegeben;                                   
+                 beim OUTPUT_FORMAT REVERSEHEX wird von hinten aufgefüllt;       
+                 die Anzahl der fuehrenden Nullen ist abhaengig                  
+                 von der Differenz:                                              
+                 Ausgabelaenge - (Anzahl nutzbarer Zeichen inkl. Vorzeichen)     
+                                                                                 
+          N    - keine fuehrende Nullen (Default-Einstellung);                   
+                                                                                 
+          PRE  - wie 'J', aber ausschliesslich fuer 'OUTPUT_FORMAT'              
+                 'FLOAT'                                                         
+                                                                                 
+          POST - (nur fuer das 'OUTPUT_FORMAT' 'FLOAT')                          
+                 der Ausgabestring wird im Bereich der Nachkommstellen           
+                 um Nullen erweitert;                                            
+                                                                                 
+          Dieser Parameter hat keine Bedeutung, wenn der Output eine             
+          Floating-Point-Zahl ist.                                               
+                                                                                 
+    ------------------------------</pre><b><a name="param8">8</a> OUTPUT_FORMAT</b><pre>                                                           
+          Gibt an, in welches Darstellungsformat der uebergebene                 
+          'INPUT_STRING' gewandelt werden soll:                                  
+             ASCII - Wandlung eines Strings aus sedezimalen Zahlen in            
+                     einen String aus entsprechenden ASCII-Zeichen;              
+                                                                                 
+                     Wichtig: Es werden ausschliesslich Zeichen mit den Werten   
+                              0x20 bis 0x7E beruecksichtigt, alle anderen Werte  
+                              bewirken eine Fehlermeldung!                       
+                              Der INPUTSTRING muss aus einer geraden Anzahl      
+                              an Bytes bestehen, sonst wird gleichfalls eine     
+                              Fehlermeldung generiert.                           
+                                                                                 
+                     Beispiel: INPUT_STRING  ist   482041204C204C204F            
+                               OUTPUT_STRING ist       H A L L O                 
+                                                                                 
+             BIN   - Wandlung in das binaere Zahlenformat;                       
+                     Darstellung von negativen Zahlen                            
+                       bei Ausgabelaenge von  6 Zeichen:                         
+                           z.B. -47 ==&gt; (2^6-47)  &lt;-&gt; 1110001 ;                  
+                       bei Ausgabelaenge von 13 Zeichen:                         
+                           z.B. -47 ==&gt; (2^13-47) &lt;-&gt; 1111111010001 ;            
+                       bei Ausgabelaenge von 32 Zeichen:                         
+                           z.B. -47 ==&gt; (2^32-47) &lt;-&gt;                            
+                                          1111 ... 11111111111111010001 ;        
+                                                                                 
+                     Darstellung von positiven Zahlen                            
+                       bei Ausgabelaenge von  6 Zeichen:                         
+                           z.B. 11 ==&gt; 1011    (ohne fuehrende Nullen),          
+                                       001011  (mit fuehrenden Nullen);          
+                       bei Ausgabelaenge von 16 Zeichen:                         
+                           z.B. 11 ==&gt; 1011  (ohne fuehrende Nullen),            
+                                       0000000000001011  (mit);                  
+                       bei Ausgabelaenge von 32 Zeichen:                         
+                           z.B. 11 ==&gt; 1011  (ohne fuehrende Nullen),            
+                                       00000 ... 00001011  (mit);                
+                                                                                 
+             DEZ   - Wandlung in das dezimale Zahlenformat;                      
+                     (Beschraenkung auf max. 32 Bit, dh. die Ausgabelaenge       
+                      darf maximal 10 sein);                                     
+                     sind 'INPUT_'- und 'OUTPUT_FORMAT' identisch,               
+                     wird der 'INPUT_STRING' nicht gewandelt, sondern -          
+                     evtl. mit fuehrenden Nullen versehen - in derselben Form    
+                     ausgegeben;                                                 
+                                                                                 
+                     Wichtig: ein Vorzeichen wird nur dann ausgegeben,           
+                              wenn 'INPUT_STRING' bereits mit einem Vor-         
+                              zeichen versehen war (dh. ebenfalls eine Zahl      
+                              in dezimaler Darstellung ist)!                     
+                                                                                 
+             FLOAT - Wandlung eines Floating-Point-INPUT's in dasselbe           
+                     Zahlenformat unter Kuerzung der Anzahl an                   
+                     Nachkommastellen und Beibehaltung eines evtl.               
+                     vorhandenen Vorzeichens;                                    
+                                                                                 
+             HEX   - Wandlung in das sedezimale Zahlenformat;                    
+                     Darstellung von negativen Zahlen                            
+                       bei Ausgabelaenge von 2 Zeichen:                          
+                           z.B. -47 ==&gt; (16^2-47)  &lt;-&gt; D1 ;                      
+                       bei Ausgabelaenge von 3 Zeichen:                          
+                           z.B. -47 ==&gt; (16^3-47) &lt;-&gt; FD1 ;                      
+                       bei Ausgabelaenge von 8 Zeichen:                          
+                           z.B. -47 ==&gt; (16^8-47) &lt;-&gt; FFFFFFD1 ;                 
+                                                                                 
+                     Darstellung von positiven Zahlen                            
+                       bei Ausgabelaenge von 2 Zeichen:                          
+                           z.B. 11 ==&gt; B   (ohne fuehrende Null),                
+                                       0B  (mit fuehrender Null);                
+                       bei Ausgabelaenge von 4 Zeichen:                          
+                           z.B. 11 ==&gt; B     (ohne fuehrende Nullen),            
+                                       000B  (mit fuehrenden Nullen);            
+                       bei Ausgabelaenge von 8 Zeichen:                          
+                           z.B. 11 ==&gt; B         (ohne fuehrende Nullen),        
+                                       0000000B  (mit fuehrenden Nullen);        
+                                                                                 
+             REVERSEHEX   - HEX-Darstellung mit umgekehrter Byte-Reihenfolge     
+                            Das Auffuellen mit Nullen geschieht von hinten!      
+                                                                                 
+             OKT   - Wandlung in das oktale Zahlenformat;                        
+                     Darstellung von negativen Zahlen                            
+                       bei Ausgabelaenge von  3 Zeichen:                         
+                           z.B. -47 ==&gt; (8^3-47)  &lt;-&gt; 721 ;                      
+                       bei Ausgabelaenge von  6 Zeichen:                         
+                           z.B. -47 ==&gt; (8^6-47) &lt;-&gt; 777721 ;                    
+                       bei Ausgabelaenge von  10 Zeichen:                        
+                           z.B. -47 ==&gt; (8^10-47) &lt;-&gt; 7777777721 ;               
+                                                                                 
+                     Darstellung von positiven Zahlen                            
+                       bei Ausgabelaenge von  3 Zeichen:                         
+                           z.B. 11 ==&gt; 13   (ohne fuehrende Null),               
+                                       013  (mit fuehrender Null);               
+                       bei Ausgabelaenge von  5 Zeichen:                         
+                           z.B. 11 ==&gt; 13     (ohne fuehrende Nullen),           
+                                       00013  (mit fuehrenden Nullen);           
+                       bei Ausgabelaenge von 12 Zeichen:                         
+                           z.B. 11 ==&gt; 13            (ohne fuehrende Nullen),    
+                                       000000000013  (mit fuehrenden Nullen);    
+                                                                                 
+                                                                                 
+          Wichtig: Ohne gueltigen Format-Parameter wird eine                     
+                   Fehlermeldung generiert!                                      
+                                                                                 
+    ------------------------------</pre><b><a name="param9">9</a> OUTPUT_STRING</b><pre>                                                           
+          Ausgabestring, in den der 'INPUT_STRING' gewandelt wurde;              
+          die Weitergabe an andere Module erfolgt durch eine                     
+          '&amp;'-Variable;                                                          
+                                                                                 
+          Wichtig: in sedezimaler Darstellung werden die                         
+                   Zahlenwerte 10 bis 15 (entspr. A bis F) als                   
+                   Grossbuchstaben ausgegeben!                                   
+                                                                                 
+    ------------------------------</pre><b><a name="param10">10</a> FEHLERFLAG</b><pre>                                                            
+          wie der Name schon sagt, Fehlerflag, das gesetzt wird, wenn bei der    
+          Wandlung ein Fehler auftritt (z.B. bei ungueltiger Wandlung ).         
+          Der Parameter ist notwendig geworden, um dem M_AUSWERTUNG ein n.i.O.   
+          zu uebermitteln.                                                       
+          Wichtig: das Modul R_STRFORMAT setzt nicht das "globale Fehlerflag"!!! 
+                                                                                 
+ ----------------------------------------------------------                      
+                                                                                 
+ Input:  Zeiger auf den relevanten "Wert" einer Zeile der                        
+         expandierten Pruefliste;                                                
+         Index im entsprechenden Speicherbereich fuer                            
+         Moduldaten;                                                             
+         Anzahl der Modulparameter;                                              
+                                                                                 
+ Output: none                                                                    
+                                                                                 
+ ----------------------------------------------------------                      
+ Return Value:                                                                   
+    = 0:    Successful completion                                                
+     -1:    kein 'INPUT';                                                        
+            die durch 'INPUT' dargestellte Zahl ist groesser                     
+            als 32 Bit;                                                          
+            der 'INPUT'-String repraesentiert keine Zahl in einem                
+            der gueltigen Formate ;                                              
+            die Ausgabelaenge reicht nicht, um den 'INPUT' in                    
+            der gewuenschten Darstellung vollstaendig auszugeben;                
+            die Laenge der ins gewuenschte Ausgabeformat gewandelten             
+            Zahl ist groesser als 80 Zeichen;                                    
+            Ausgabeformat fehlt;                                                 
+                                                                                 
+ ------------------------------------------------------------                    
+ Bisher implementierte Wandlungen:                            Stand: 01/2006     
+                                                                                 
+    \ Output- |   |   |   |   |   |   |                                          
+     \ Format | A | B | D | F | H | R | O                                        
+      \       | S | I | E | L | E | _ | K                                        
+       \      | C | N | Z | O | X | H | T                                        
+ Input- \     | I |   |   | A |   | E |                                          
+ Format  \    | I |   |   | T |   | X |                                          
+-------------------------------------------                                      
+  ASCII       |   |   |   |   | X |   |                                          
+  BCD         | X |   |   |   |   |   |                                          
+  BIN         |   | O | n | / | X |   | n                                        
+  DEZ         |   | X | X | / | X | X |                                          
+  FLOAT       |   | / | X | X | / |   | /                                        
+  HEX         | X | O | X | / | O |   | n                                        
+  OKT         |   | n | n | / | n |   | O                                        
+  S_HEX       |   | O | X | / | n |   | n                                        
+  S_BIN       |   | n | n | / | n |   | n                                        
+  S_OKT       |   | n | n | / | n |   | n                                        
+                                                                                 
+ Agenda:                                                                         
+     X = realisiert                                                              
+     n = nicht realisiert                                                        
+     / = ungültige Wandlung                                                      
+     O = keine Wandlung erforderlich                                             
+ ----------------------------------------------------------                      
+ Beispiel (optional):                                                            
+                                                                                 
+ ----------------------------------------------------------                      
+</PRE>
+</BODY>
+</HTML>

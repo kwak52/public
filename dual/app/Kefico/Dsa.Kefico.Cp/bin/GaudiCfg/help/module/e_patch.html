@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<TITLE>E_PATCH</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_PATCH</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_patch.C,v 1.8 2005/02/24 17:41:27 lehmann Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Aufruf des Prozesses EL_LOAD
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_patch.C
+   Autor:		RtW/TEF72-Rapp (26.08.2004)
+   Zielsystem:		Linux
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   void e_patch(shm_stringpointer *zeilen_infof
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Beschreibung der Moduluebergabeparameter:      
+   Je nach Modus besitzen die Parameter PARAM1 bis PARAM6 unterschiedliche
+   Bedeutung (siehe MODE_PATCH). 
+   Das Modul interpretiert diese Parameter und generiert ein oder mehrer Strings. 
+   Der String im Parameter PATCH_0 wird mit den generierten Strings gepatched und 
+   im Parameter RETURN_WERT zurueckgeggeben. 
+   Die Platzhalter fuer die zu patchenden Strings ist #n wobei n den gewuenschten 
+   String selektiert (von 0 bis n, wobei n Mode spezifisch ist)</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Pruefschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> MODE_PATCH</b><pre>        Je nach Modus besitzen die nachfolgenden Parameter eine andere Bedeutung
+
+        VALUE : Ueberpruefung eines Wertes auf den uebergebenen Bereich, ist
+                er nicht innerhalb des Bereichs wird eine Warnung in der Logdatei
+                ausgegeben und der Wert auf die Grenze gesetzt.
+                Ist Param5 auf YES gesetzt wird der String "auto" zurueckgegeben,
+                falls Param1 0 ist.
+            Param1 = Wert
+            Param2 = Mimimalwert des Geraetes
+            Param3 = Maximalwert des Geraetes
+            Param4 = Nachkommastellen
+            Param5 = Hier koennen mehrere Ausdruecke durch "|" getrennt angegeben werden.
+                     Ein Ausdruck besteht aus einem Operator (&gt;=, &lt;=, ==, !=) einem Wert
+                     und einem String, wobei mit "-&gt;" der Wert vom String getrennt wird.
+                     z.B. "==0-&gt;OFF:&gt;=0-&gt;ON #0"   Param1=1.23
+                     d.h. ist der Wert 0 wird OFF in den String gepatched, ist er groesser
+                          0 wird "ON 1.23".
+            #0     = Wert
+            #1     = Wert Aus Param5
+                  
+        NPLC: Die uebergebene Integrationszeit wird in Anzahl von Netzzyklen 
+              umgerechnet. 
+              Der Rueckgabewert entspricht dem naechst hoeheren Wert in der
+              uebergebenen Liste.
+            Param1 = Integrationszeit [sek]
+            Param2 = Periodendauer der Netzfrequenz [ms]
+            Param3 = moegliche Werte in aufsteigender Reihenfolge durch
+                     ":" getrennt.
+            #0     = Integrationszeit in Netzzyklen
+            
+        SCANNER : die Messkanaele werden ueberprueft und in eine Scannernummer
+                  gewandelt, dabei gilt, dass der High-Pin = Low-Pin + 1. 
+                  Die Kanalnummer ist dann Low-Pin / 2. 
+                  z.B.
+                     Param3 = 40  Offset = 100  Kanalnummer = 10 -&gt; Kanal = 110
+                     Param3 = 40  Offset = 100  Kanalnummer = 61 -&gt; Kanal = 221
+            Param1 = High-Pin
+            Param2 = Low-Pin
+            Param3 = Maximalanzahl der Kanaele pro Einschub
+            Param4 = Offset Kanalnummer 
+                     Die Kanalnummer ist intern von 1 bis Maximalanzahl Kanaele, die
+                     Darstellung vom Geraet kann z.B. fuer Kanal 1 z.B 101 sein
+            #0     = Kanal
+        DIM: Belegung eines Faktors anhand der uebergebenen Dimension
+            Param1 = Dimension
+                      MV   fuer Millivolt   -&gt; Faktor = 0.001 
+                      V    fuer Volt        -&gt; Faktor = 1
+                      UV   fuer Mikrocvolt  -&gt; Faktor = 0.000001
+                      A    fuer Ampere      -&gt; Faktor = 1
+                      MA   fuer Milliampere -&gt; Faktor = 0.001 
+                      KOHM fuer KilloOhm    -&gt; Faktor = 1000
+            #0     = Faktor
+
+   ------------------------------</pre><b><a name="param4">4</a> PARAM1</b><pre>    	siehe Parameter MODE_PATCH
+   ------------------------------</pre><b><a name="param5">5</a> PARAM2</b><pre>    	siehe Parameter MODE_PATCH
+   ------------------------------</pre><b><a name="param6">6</a> PARAM3</b><pre>    	siehe Parameter MODE_PATCH
+   ------------------------------</pre><b><a name="param7">7</a> PARAM4</b><pre>    	siehe Parameter MODE_PATCH
+   ------------------------------</pre><b><a name="param8">8</a> PARAM5</b><pre>    	siehe Parameter MODE_PATCH
+   ------------------------------</pre><b><a name="param9">9</a> PARAM6</b><pre>    	siehe Parameter MODE_PATCH
+   ------------------------------</pre><b><a name="param10">10</a> PATCH_0</b><pre>    	String der gepatched wird
+   -------------------------------</pre><b><a name="param11">11</a> RETURN_WERT</b><pre>        gepatchter String
+   -------------------------------</pre><b><a name="param11">11</a> ERRORFLAG</b><pre>        Rueckgabe des Status
+        0 = Ok  0 &lt;&gt; Fehler
+</PRE>
+</BODY>
+</HTML>

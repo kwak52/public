@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE>E_WAFERMAPPING</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_WAFERMAPPING</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_wafermapping.C,v 1.2 2004/03/17 09:50:14 wiese Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Wafermapping
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_wafermapping.C
+   Autor:		RtW2/TEF72-Wiese (18.12.03)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01), Linux
+   Sprache:		ANSI-C
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_wafermapping(shm_stringpointer *zeilen_info
+   ,shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   Prototyp:
+      
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:</pre><b><a name="param3">3</a> WAFERMAPMODE</b><pre>	Funktion der Familie, für die das genutzt wird
+   die Folgenden Parameter werden je nach Famile verwendet:
+   WAFERMAPMODE		TI   		Texas Wafermapping</pre><b><a name="param4">4</a> VAR1</b><pre>		CHARGE   	Charge vom CHIP</pre><b><a name="param5">5</a> VAR2</b><pre>		WAFER   	WAFERNUMBER vom CHIP</pre><b><a name="param6">6</a> VAR3</b><pre>		X   		X - Koordinate auf WAFER vom Chip</pre><b><a name="param7">7</a> VAR4</b><pre>		Y   		Y - Koordinate auf WAFER vom Chip
+   
+   Ti - Mode: nach Übergabe von 4 Parametern (Charge, Wafer, X-Koordinate, Y-Koordinate)
+   diese mit den X-Y-Koordinaten eines entsprechenden Wafer-Map-Files vergleicht 
+   und als Ergebnis "gut" oder "schlecht"
+   zurückliefert.
+   
+   Dabei haben die Übergabeparameter folgendes Format:
+   
+   Beispiel:   			Test mit:
+   
+   Charge:         00231394   	00240A9C
+   Wafer:          0004   		0004
+   X:              004B   		0048
+   Y:              0014   		0014
+
+   (Alle Übergabeparameter sind HEX-Werte) 
+   Vorgehensweise TI
+   
+   1. Umwandeln vom X, Y, Chargennnummmer und WaferID in long int von Basis 16
+   2. Teil eines Filenames ermitteln aus Chargennummer (Basis 10) + 
+      Waferid (2 Stellen mit führender 0 Basis 10) -&gt; Filenamepart
+   3. suchen nach einer Datei mit "Blank + Filenamepart
+   4. Es darf nur eine Datei vorhanden sein
+   5. Datei ist immer eine Datei mit Component + " " + Filenamepart
+   6. Raussuchen der offset Datei nach Component + ".offset"
+   7. Umrechnen der X und Y - Koordinaten anhand der offset Datei
+   8. String mit "MAP_XY" ermitteln aus Waferdatei mit den dazugehörigen folgezeilen.
+   9. Suchen nach Y-Koordinate. X - String dazu extrahieren
+   10.Ermitteln, ob X - Wert in diesem Teilstring vorhanden ist.
+   11.X - Wert vorhanden -&gt; Fehlerflag=0, sonst 1
+   12.Abbruch bei Syntaxfehler in den Files und fehlendem directory. Ansonsten 
+      nur das Fehlerflag gesetzt. Aus der Meldung in ERGEBNIS oder dem Errorlogfile ist
+      der Grund des Fehlers eigentlich immer zu erkennen..   
+</PRE>
+</BODY>
+</HTML>

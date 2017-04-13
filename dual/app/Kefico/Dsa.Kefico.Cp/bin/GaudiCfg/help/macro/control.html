@@ -1,0 +1,664 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> Control [INT]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>Control [INT]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=11582">
+ </A>
+Control [INT]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11584">
+ </A>
+Type [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11586">
+ </A>
+Condition [Str]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11588">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=11590">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11592">
+ </A>
+This function is used to implement program subroutines and loops in the PAV. The conditions supported are IF/THEN, IF/THEN/ELSE and WHILE. A subroutine is terminated by ENDIFor ENDWHILE respectively. The Control function must be invoked for every keyword.<BR>
+<BR>
+Subroutines are limited to a single PAV table, i.e. all associated function calls and executable test lines must be contained within the same table.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11594">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11596">
+ </A>
+Control lines must not contain any signal connections in the Stimulus columns. Alterations to the interface configuration within a Control construct may only be implemented in exceptional cases after consultation with the unit responsible for performing the test. There are complex rules to be observed in such circumstances. </P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11598">
+ </A>
+If the condition is met, the Control function returns the result 1, if not the result is 0.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11600">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11602">
+ </A>
+Subroutines may be nested. </P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11604">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11606">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11608">
+ </A>
+None</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11610">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11612">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11614">
+ </A>
+Type</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11616">
+ </A>
+Specifies the type of subroutine function. Possible options are the following: <BR>
+<BR>
+IF</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11619">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2430">
+ </A>
+IF</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2432">
+ </A>
+Marks the start of a conditional subroutine. The test lines that follow (before the next ELSE or ENDIF instruction) are only executed if the condition returns the value 1.1</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2438">
+ </A>
+ELSE</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2440">
+ </A>
+Optional instruction; marks the start of the subroutine to be executed if the condition returns the value 0. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2446">
+ </A>
+ENDIF</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2448">
+ </A>
+End of the subroutine</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11621">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11623">
+ </A>
+WHILE</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11626">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2455">
+ </A>
+WHILE</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2457">
+ </A>
+Marks the start of a WHILE loop; the test lines that follow up to the next ENDWHILE instruction continue to be executed until the condition returns the value 0.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2463">
+ </A>
+ENDWHILE</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2465">
+ </A>
+End of WHILE loop.</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Parameter">
+<A NAME="pgfId=11628">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11630">
+ </A>
+BREAK</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11633">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2472">
+ </A>
+BREAK</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2474">
+ </A>
+This function can be invoked within a loop or a subroutine. If the specified condition is met, execution of the test stages within the loop or subroutine is terminated; the test is then continued from the line immediately following the ENDIF or ENDWHILE instruction.</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Parameter">
+<A NAME="pgfId=11635">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11637">
+ </A>
+Condition</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11639">
+ </A>
+Condition used to decide whether/which test stages within the subroutine are to be executed or when execution of a loop is to be terminated. The condition may included comparators and logical operators (but no calculations).</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11641">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11643">
+ </A>
+Numerical values within the condition are only allowed in Float or Integer format (decimal notation).<BR>
+<BR>
+The following order of precedence applies to the execution of the condition: comparators before logical operators. A different execution sequence can be forced by the appropriate use of (round) brackets.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11645">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11647">
+ </A>
+The following comparators are allowed: </P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11650">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2481">
+ </A>
+==</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2483">
+ </A>
+Equal to</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2489">
+ </A>
+!=</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2491">
+ </A>
+Not equal to</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2497">
+ </A>
+&gt;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2499">
+ </A>
+Greater than</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2505">
+ </A>
+&gt;=</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2507">
+ </A>
+Greater than or equal to</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2513">
+ </A>
+&lt; </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2515">
+ </A>
+Less than</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2521">
+ </A>
+&lt;=</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2523">
+ </A>
+Less than or equal to</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Parameter">
+<A NAME="pgfId=11652">
+ </A>
+</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11654">
+ </A>
+The following logical operators are allowed:</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11657">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2530">
+ </A>
+&amp;&amp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2532">
+ </A>
+AND</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2538">
+ </A>
+||</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=2540">
+ </A>
+OR</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11659">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11661">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11663">
+ </A>
+Example 1: IF/THEN</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11666">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2547">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2549">
+ </A>
+IF,U1 &lt; 5</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=11668">
+ </A>
+	Test lines to be executed if U1 &lt; 5.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11671">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2556">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2558">
+ </A>
+ENDIF,</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11673">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11675">
+ </A>
+Example 2: IF/THEN/ELSE</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11678">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2565">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2567">
+ </A>
+IF,(1 &lt;= U2) &amp;&amp; (U2 &lt; 5)</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=11680">
+ </A>
+	Test lines to be executed if 1 &lt;= U2 &lt; 5.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11683">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2574">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2576">
+ </A>
+ELSE,</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=11685">
+ </A>
+	Test lines to be executed if U2 &lt; 1  or U2 &gt;= 5</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11688">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2583">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2585">
+ </A>
+ENDIF,</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11690">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11692">
+ </A>
+Example 3: WHILE</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11695">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2592">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2594">
+ </A>
+WHILE,U3&lt;5</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=11697">
+ </A>
+	Test lines to be executed in a loop as long as U3  &lt; 5.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11700">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2601">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2603">
+ </A>
+ENDWHILE,</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11702">
+ </A>
+<BR>
+Example 4: BREAK in a WHILE loop</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11704">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11706">
+ </A>
+	The loop is prematurely terminated if U5 &lt; 10.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11709">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2610">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2612">
+ </A>
+WHILE, U4 &lt; 5</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=11711">
+ </A>
+	Test lines...</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11714">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2619">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2621">
+ </A>
+BREAK, U5 &lt; 10</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body-Text">
+<A NAME="pgfId=11716">
+ </A>
+	Test lines...</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11719">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2628">
+ </A>
+Control</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2630">
+ </A>
+ENDWHILE,</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

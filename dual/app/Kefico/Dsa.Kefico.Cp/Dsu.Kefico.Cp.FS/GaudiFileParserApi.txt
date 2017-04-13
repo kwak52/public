@@ -1,0 +1,17 @@
+﻿
+Test step filtering 기준
+	PRINTOUT 은 무조건 포함
+	나머지는 Min/Max 가 존재하는 경우에만 포함
+
+Min/Max 
+	int, double, HEX, string 모두 Decimal 값으로 환산됨
+	Dimension 이 HEX 이면 HEX string 으로 간주하여 변환
+	Dimension 이 STR 이면 string 값을 ascii 변환한 코드로 min/max 에 저장
+
+	문자열도 Decimal 로 환산됨
+		p9001270003 기준 step 2980 에서 
+			MO = "_TSW"
+			MIN = "_TSW"
+			MAX = "_TSW"
+
+			"_TSW" 에 해당하는 ASCII 코드 값을 환산하여 min 에 저장

@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> BlockStr [Str]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>BlockStr [Str]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=10022">
+ </A>
+BlockStr [Str]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10024">
+ </A>
+StartByte [INT]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10026">
+ </A>
+StopByte [INT]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10028">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=10030">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10032">
+ </A>
+This function can only be carried out after a read operation by the function <EM CLASS="HelpSprung">
+ComBlock or CANBlock</EM>
+<EM CLASS="HelpSprungverweis">
+IDH_ComBlock</EM>
+. It returns a string as its result. It does so by returning the bytes specified in the column Testing Parameters from the loaded measured data block as ASCII characters.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10034">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10036">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10038">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10040">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=10042">
+ </A>
+Parameters</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=10044">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10046">
+ </A>
+StartByte</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10048">
+ </A>
+Number of the first byte of the measured data block (with n bytes) to be included in the result.<BR>
+1 &lt;= StartByte &lt;= n. More information on the protocols can be found in the description of the function ComBlock.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10050">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=10052">
+ </A>
+StopByte</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=10054">
+ </A>
+Number of the last byte of the measured data block (with n bytes) to be included in the result.<BR>
+1 &lt;= StopByte &lt;= n. More information on the protocols can be found in the description of the function ComBlock.</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10056">
+ </A>
+</P>
+<P CLASS="Tabelle">
+<A NAME="pgfId=10058">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10060">
+ </A>
+Example</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10062">
+ </A>
+Reading a five-character control-unit date (Byte 1 to Byte 5):</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10064">
+ </A>
+Byte 1 = 0101 0010 (,R` = 52H);				Byte 2 = 0100 0010 (,B` = 42H);				Byte 3 = 0011 0001 (,1` = 31H) </P>
+<P CLASS="Normal">
+<A NAME="pgfId=10066">
+ </A>
+Byte 4 = 0011 0010 (,2` = 32H);				Byte 5 = 0011 0011 (,3` = 33H)</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10069">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1300">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1302">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1306">
+ </A>
+Result [String]</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1314">
+ </A>
+BlockStr</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1316">
+ </A>
+1,5</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1318">
+ </A>
+RB123</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=10071">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10073">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=10075">
+ </A>
+Reading the 10-digit BOSCH no. 1 234 567 890 whose digits are stored as hexadecimal numbers:</P>
+<P CLASS="Normal">
+<A NAME="pgfId=10077">
+ </A>
+Byte 2 = 0001 0010 (12 Hex);				Byte 3 = 0011 0100 (34 Hex);				Byte 4 = 0101 0110 (56 Hex) </P>
+<P CLASS="Normal">
+<A NAME="pgfId=10079">
+ </A>
+Byte 5 = 0111 1000 (78 Hex);				Byte 6 = 1001 0000 (90 Hex)</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=10082">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1321">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=1323">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1327">
+ </A>
+Result [String]</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1335">
+ </A>
+B_Nr=BlockStr</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1337">
+ </A>
+2,6</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1339">
+ </A>
+n4nnn</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1347">
+ </A>
+StrToHexString</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1349">
+ </A>
+B_Nr, 0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=1351">
+ </A>
+1234567890</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Footnote-Text">
+<A NAME="pgfId=10084">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

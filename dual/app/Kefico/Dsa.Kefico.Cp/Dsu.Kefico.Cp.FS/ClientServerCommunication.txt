@@ -1,0 +1,228 @@
+﻿
+Client(Cpt) -> Server(MWS server actor) 간 접속 관련 
+
+1. Cpt -> MWS connection request : MwsConfig.mwsServerPingTimeoutSecond 시간 동안 응답이 없으면 exception 발생하고 Cpt.exe 종료
+1. MySQL 에서 응답이 없는 경우
+	- Client -> MySQL connection 최초 접속 실패시, MySQLException 발생 (Unable to connect to any of specified MySQL hosts.)
+	- Cpt 와 최초 접속 성공 후, 추후 connection 이 끊긴 경우 : ????
+
+
+
+
+1. 모든 connection 이 최초에 성공적으로 이루어진 후....
+	- MWS server actor 가 죽는 경우.. + MWS server actor 가 비활성모드로 진입하는 경우??? (system 대기 상태 등.)
+		실행 중인 Cpt.exe 내부에서 debugger 로 확인하면 두개의 exception([1], [2]) 이 발생했음을 알 수 있으나, 외부에서 catch 는 안되는 상태
+		[1] Exception thrown: 'System.Net.Sockets.SocketException' in Helios.dll
+		    Additional information: 현재 연결은 원격 호스트에 의해 강제로 끊겼습니다
+		[2] Exception thrown: 'Akka.Remote.EndpointDisassociatedException' in Akka.Remote.dll
+
+		* 해결 대안
+			1. [비추천] CPT Actor 를 영속적으로 재사용하는 방법.  CPT Actor 에서 server 를 Context.Watch 를 통해서 server 를 모니터링 가능하나, 
+			   socket 오류(?? 정확히 기억 안남) 등 해결안되는 문제로 사용 불가능.
+			1. 현재는 one time use and abandon model 을 사용하므로, Termianted message 를 받을 actor 가 없다.
+				- 영속적인 monitoring actor 를 추가해서 이 actor 가 server failure 를 모니터링  <-- 마찬가지로 영속적인 actor 가 존재하므로 동일 문제 발생?
+				- server actor connection 도 one time use and abandon model 로 변경
+					: 이 방법이 현실성이 있어 보인다.   서버와 communication 을 필요로 하는 시점에 server fail 이 detect 된다.   (ResolveOne 호출 시점) 
+			1. 추후 다음 request 전송시에는 error 가 detect 된다.
+
+1. MWS server activity 문제
+	- Service application 으로 등록하지 않으면, 특정 시간 경과 후, server 컴퓨터가 대기 모드 진입(?)하면 통신이 되지 않는다.
+		* ResolveOne() 호출에서 time out 으로 exception 발생
+			Exception System.TypeInitializationException: '<StartupCode$Dsu-Kefico-Cpt-FS>.$CcsActor' 의 형식 이니셜라이저에서 예외를 Throw했습니다.
+			  --> System.AggregationException: 하나 이상의 ...
+			  --> Akka.Actor.ActorNotFoundException: Exception occurred while resolving ActorSelection
+			  --> System.Threading.Tasks.TaskCanceledException: 작업이 취소되었습니다.
+
+
+- https://petabridge.com/blog/how-actors-recover-from-failure-hierarchy-and-supervision/ How Actors Recover from Failure
+- http://stackoverflow.com/questions/28387589/how-to-handle-exceptions-within-the-actor-in-akka-net
+	Always delegate dangerous work to child actors, give them all your knifes, flame thrower and such. if they crash and burn, your state is still intact and you can spawn new children.
+
+================================================================
+				Actor System 재 설계 방안
+================================================================
+
+
+Cpt Manager = Guardian actor + Asking Actor + Receiving Actor	+ (remote) server actor
+
+1. Cpt manager 
+	- Guardian actor 를 통해서 모든 actor 들을 관장.
+	- Async 로 asking actor 의 Tell() 호출을 통해서 server actor 까지 명령 전달
+1. Guardiann actor
+	- 모든 actor 들을 관장.  asking/receiving/server actor 가 termination 되는 것을 monitoring
+1. Asking actor
+	- 실제 tell() 명령 수행.  이때 receiving actor 를 지정하여 tell 의 결과가 receving actor 로 전달되도록 한다.
+1. Receiving actor
+	- server actor 의 명령 수행 결과를 수신하는 actor
+
+
+MWS Server 를 Guardian actor 적용 했을 경우, request 처리시 timeout 오류가 자주 발생하여 일단은 적용하지 않는 것으로 함.
+
+--- 이하는 MwsServerActor.cs guardian actor 적용 trial version
+module MwsServer
+
+open Akka.FSharp
+open Akka.Actor
+open MySql.Data.MySqlClient
+open GaudiFileDBApi
+
+let internal maxPayloadBytes = MwsConfig.mwsActorMaxPayloadBytes.ToString()
+// the most basic configuration of remote actor system
+// http://stackoverflow.com/questions/36685326/max-allowed-size-128000-bytes-actual-size-of-encoded-class-scala-error-in-akk
+let internal config = """
+        akka {
+            suppress-json-serializer-warning = on  
+            actor {
+                provider = "Akka.Remote.RemoteActorRefProvider, Akka.Remote"
+                debug {
+                    receive = on
+                    autoreceive = on
+                    lifecycle = on
+                    event-stream = on
+                    unhandled = on
+                }
+            }    
+            remote {
+                # enabled-transports = ["akka.remote.helios.tcp", "akka.remote.helios.udp"]  # http://getakka.net/docs/remoting/transports
+                enabled-transports = ["akka.remote.helios.tcp"]
+                maximum-payload-bytes = """ + maxPayloadBytes + """ bytes
+                # http://stackoverflow.com/questions/17360303/akka-remote-system-shutdown-leads-to-endpointdisassociatedexception
+                # http://getakka.net/docs/concepts/configuration
+                # log-remote-lifecycle-events = off
+                log-remote-lifecycle-events = INFO
+                helios.tcp {
+                    transport-protocol = tcp
+                    port = """ + MwsConfig.mwsPort.ToString() + """
+                    hostname = """ + MwsConfig.mwsPeers + """
+                    public-hostname = """ + MwsConfig.mwsServer + """
+                    send-buffer-size = """ + maxPayloadBytes + """b
+                    receive-buffer-size = """ + maxPayloadBytes + """b
+                    message-frame-size = """ + maxPayloadBytes + """b
+                    maximum-frame-size = """ + maxPayloadBytes + """b
+                    # http://stackoverflow.com/questions/31753052/akka-net-remote-disconnection
+                    tcp-keepalive = on
+                }
+            }
+        }
+        """
+
+
+let MwsServerFailedMessageSubject = new System.Reactive.Subjects.Subject<obj>() 
+
+let mutable internal counter = 0
+
+type MwsServerChildActor(receivingActor: IActorRef, conn: MySqlConnection) =
+    inherit Actor()
+    
+    override x.OnReceive message =
+        let computation = async {
+            try
+                match message with
+                | :? Terminated as m ->
+                    printfn "Got peer terminated message."
+
+                | :? AmRequestStepsOnGaudiFile as m ->
+                    counter <- counter + 1
+                    printfn "[%d-th] Server: AmRequestStepsOnGaudiFile (Path=%s, Date=%A)" counter m.FilePath m.LastModifiedDate
+                    if receivingActor = null then
+                        failwith "No sender defined for AmRequestStepsOnGaudiFile message."
+
+                    let now = System.DateTime.Now
+                    printfn "Found sender: Client should echo back %A" now
+                    let steps = UploadStepFromGaudiFile conn m.FilePath
+                    let msg = sprintf "Echoing this message: %A %A" now m.FilePath
+                    let reply = AmReplySteps(steps, Message=msg, Id=m.Id)
+                    printfn "Sending reply..."
+                    reply |> receivingActor.Tell 
+                    printfn "Sent."
+
+                | :? AmPing as m ->
+                    printfn "Got ping message: %s" m.Message
+                    let x = 
+                        seq { for i = 0 to 5 do yield "Hello WORLD!!!!!!!!!!!!!!!!!!!!\n"}
+                        |> Seq.fold (fun acc elem -> acc + elem) ""
+                    printfn "Sending reply with length %d..." x.Length
+                    new AmPong(Message=x, Id=m.Id) |> receivingActor.Tell 
+                    printfn "Sent."                    
+                | :? string as m ->
+                    printfn "Got message %s" m
+                    "[" + m + "]" |> receivingActor.Tell 
+                    printfn "Sent."
+
+                | _ -> 
+                    printfn "unknown message..."
+                    failwith "unknown message"
+            with exn ->
+                exn.ToString() |> printfn "Exception occurred: %s" 
+                MwsServerFailedMessageSubject.OnNext message
+                //raise exn
+        }
+        computation |> Async.StartAsTask |> ignore
+
+/// <summary>
+/// 주어진 task 를 수행하기 위해서 1회용 child actor instance 를 생성.
+/// - context 는 guadian actor 의 context 이다.
+/// - guadian actor 의 child actor 로 생성된다.
+/// </summary>
+type internal MwsServerChildActorAllocator(system:ActorSystem, receivingActor: IActorRef, context:IUntypedActorContext, conn:MySqlConnection) =
+    let args : obj array = [| receivingActor; conn |]
+    static let mutable counter = 0
+    let child = 
+        let childName = 
+            let number = System.Threading.Interlocked.Increment(&counter)
+            sprintf "mws-child-actor-%d" number
+        context.ActorOf(Props(typedefof<MwsServerChildActor>, args), childName)
+    do 
+        context.Watch(child) |> ignore
+
+    // dispose 시에 actor 정리
+    interface System.IDisposable with
+        member this.Dispose() = 
+            printfn "%s disposed" child.Path.Name
+            context.Unwatch(child) |> ignore
+            system.Stop(child)
+    member x.Actor = child
+
+
+type MwsServerGuardianActor(conn:MySqlConnection, system:ActorSystem) =
+    inherit Actor()
+    
+    override x.OnReceive message =
+        let sender = x.Sender
+        let context = Actor.Context
+
+        let forkAndRequest m =
+            use resource = new MwsServerChildActorAllocator(system, sender, context, conn)
+            let child = resource.Actor
+            child.Tell(m, sender)
+
+
+        async {
+            match message with
+            | :? Terminated as m ->
+                m.ActorRef.Path.ToString() |> printfn "Got actor %s terminated message." 
+            | :? IActorMessage as m ->
+                forkAndRequest(m)
+            | _ as m ->
+                printfn "Client got unknown message %A" m
+        } |> Async.StartAsTask |> ignore
+
+
+
+
+let CreateMwsServerActor() =
+    let connStr = MwsConfig.getConnectionString()
+    connStr |> printfn "Connection string=%s"
+    let conn = new MySqlConnection(connStr)
+    conn.Open()
+
+    // remote system only listens for incoming connections
+    // it will receive actor creation request from local-system (see: FSharp.Deploy.Local)
+    let system = System.create MwsConfig.mwsActorSystemName (Configuration.parse config)
+    let args : obj array = [|conn; system|]
+    let mwsServerActor = system.ActorOf(Props(typedefof<MwsServerGuardianActor>, args), MwsConfig.mwsActorName)
+    system, mwsServerActor
+
+
+
+

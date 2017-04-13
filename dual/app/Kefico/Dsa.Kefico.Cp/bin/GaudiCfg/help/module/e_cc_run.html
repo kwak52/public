@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE>E_CC_RUN</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_CC_RUN</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_cc_run.C,v 1.2 2004/06/18 15:01:21 aatef Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Berechnet camera_calibration parameter
+   ---------------------------------------------------------------------
+   Projekt:		IVS
+   Sourcefile:		e_cc_run.C
+   Autor:		RtW2/TEF32-Aatef (08.03.2004)
+   Zielsystem:		SuSE Linux 8.1
+   Sprache:		ANSI-C
+    ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_cc_run(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   ---------------------------------------------------------------------
+  Funktionsbeschreibung:
+   Aufrufparameter laut Modglobal.
+   
+  &lt; 1&gt; PRUEFSCHRITT
+  &lt; 2&gt; POSITION          
+  &lt; 3&gt; SM_ADDRESS        Adresse vom Bild in shardmemory         
+  &lt; 4&gt; RES_SKEWANGLE
+  ( 5) RES_ROLLANGLE
+  ( 6) RES_GIERANGLE          
+  ( 7) RES_DISTANTION
+  ( 8) RES_RESOLUTION
+  ( 9) ERRORFLAG
+   
+   Aufgabe des Modules ist es, die camera_calibration Parameter zu berechnen.
+   
+</PRE>
+</BODY>
+</HTML>

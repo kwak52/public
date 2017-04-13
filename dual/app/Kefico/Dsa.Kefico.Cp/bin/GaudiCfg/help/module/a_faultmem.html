@@ -1,0 +1,103 @@
+<HTML>
+<HEAD>
+<TITLE>A_FAULTMEM</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>A_FAULTMEM</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/testlisten_anw_module/src/a_faultmem.C,v 1.5 2004/12/23 10:33:40 jsj3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Auswertemodul von Fehlerspeichereintägen Airbag
+   ---------------------------------------------------------------------
+   Projekt:		FaultMem
+   Sourcefile:		a_faultmem.C  
+   Autor:		AnW/TEF7-Schroll (24.06.2004_Ersterstellung)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01), /7/C/D (HP-UX 10.20)
+   Sprache:		C++
+   Ruekgabe             Resultstring1 + Resultstring2
+   szModus              Status =&gt; Statuswert + ErrNo
+                        0      =&gt; ?
+   Notice               Copyright (c) 2002 Ludwig Schroll
+                        All Rights Reserved
+   ---------------------------------------------------------------------
+   Aufruf:                            &lt;GFMT KS=on TAB=8 LF=on&gt;
+
+     int  a_faultmem (shm_stringpointer *zeilen_wert,// &lt;I&gt; Zeiger auf Werte
+                  long index,                     // &lt;I&gt; Index-Nummer
+                  long anzahl)                    // &lt;I&gt; Anzahl der Werte
+
+    int  a_faultmem (STRING     PRUEFSCHRITT
+                     STRING     POSITION
+                     STRING     INPUT_STRING
+                     STRING     ANZAHL
+                     STRING     MODUS
+                     STRING     STATUSWERT
+                     STRING     FEHLERNR
+                     STRING     RESULTSTRING2
+                     STRING     RESULTSTRING1)
+
+   -------------------------------------------------------------------------
+   Returnparameter:                   &lt;GFMT KS=on TAB=8 LF=on&gt;
+   -------------------------------------------------------------------------
+   Funktionsbeschreibung:             &lt;GFMT KS=on TAB=8 LF=on&gt;
+   Das Modul durchsucht Hex-Input Daten auf unterschiedliche Status und
+   Fehlerdaten. Der Inputstring wird mit dem Modul p_auftrag aus den Airbag-SG
+   gelesen.
+
+   // wir zerlegen den Inputstring in seine Komponenten:
+   // Die Übergabe erfolgt immer 16 Bit weise ...
+   // Die ersten 6 Bit beschreiben die Status-Bit gemäss Spec.
+   // z.B. 4995
+   //
+   //------------------------------------------------
+   // |   1    |    2    |    3    |    4     |	Byte
+   //------------------------------------------------
+   //     4         9         9         5     | Hex
+   //  0 1 0 0   1 0 0 1   1 0 0 1   0 1 0 1  |	Bit
+   //------------------------------------------------
+   //  0 1 0 0   1 0                          | Status     6 Bit
+   //                0 1   1 0 0 1   0 1 0 1  | Fehler Nr 10 Bit  
+
+   // Bsp. 4995FFFF1234 = 010010011001010111111111111111110001001000110100   	(reinstecken)
+   // szErrNo         	= 0110010101
+   // ANZAHL        	= 6						  	(reinstecken)
+   // FEHLERNR        	= 405						  	(reinstecken)
+   // STATUSWERT      	= 01XX10                             			(reinstecken)
+   // RESULTSTRING1   	= 010010						(rausbekommen STATUS als Bit-Hex-String)
+   // RESULTSTRING2   	= 1							(rausbekommen n-te-Eintrag in Fault Mem)
+
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Pruefschritt</pre><b><a name="param2">2</a> POSITION</b><pre>   PAV-Position</pre><b><a name="param3">3</a> INPUT_STRING</b><pre>   Übergabe der Daten an das Modul</pre><b><a name="param4">4</a> ANZAHL</b><pre>   Übergabe der Anzahl zulaessiger Fehler an das Modul
+   Der Fehler muss innerhalb von Fehlereintrag ANZAHL sein</pre><b><a name="param5">5</a> MODUS</b><pre>   Mit Modus kann die Art der internen Vrarbeitung und der Rückgabewert beeinflusst werden.
+   Modus = STATUS --&gt; d.h. es wird der Statudwert zurückgegeben
+   Modus = 0      --&gt; d.h. es wird die Fehlernummer zurückgegeben</pre><b><a name="param6">6</a> STATUSWERT</b><pre>   Übergabe vom Soll-Statuswert an das Modul</pre><b><a name="param7">7</a> FEHLERNR</b><pre>   Übergabe der Fehler Nr an das Modul</pre><b><a name="param8">8</a> RESULTSTRING1</b><pre>   erste Ergebnis-Zeichenkette --&gt; Statuswert bei Modus Status</pre><b><a name="param9">9</a> RESULTSTRING2</b><pre>   erste Ergebnis-Zeichenkette
+      -1 = Fehler: Error-Number not fount
+
+      -2 = Fehler: Status-Bit läuft auf Error
+
+         // wie bewerten die Status_Bit's wie folgt ...  
+         // übergebener StatusWert kann folgende Zustaende einnehmen:
+         // 0 = OK
+         // 1 = NOK
+         // X = don't care (s..egal)
+         //------------------------------------------------------------------------
+         // |   1    |    2    |    3    |    4     |	Byte
+         //------------------------------------------------------------------------
+         //  0 1 1 0   1 0                          | Status-Bit's aus INPUT_STRING
+         //  0 1 X X   1 0                          | Bit-Maske aus STATUSWERT 6 Bit
+         //                0 1   1 0 0 1   0 1 0 1  | Fehler Nr 10 Bit
+         //------------------------------------------------------------------------
+         // d.h. wenn ein Bit, welches nicht mit X gekennzeichnet ist auf einen anderen Zustand als die 
+         //      übergebene Bit-Maske kippt, dann Fehler ausgeben !
+
+</PRE>
+</BODY>
+</HTML>

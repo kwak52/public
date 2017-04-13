@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<TITLE>P_SKMTASK</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>P_SKMTASK</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: p_skmtask.C,v 1.6 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Communicate with SKM
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		p_skmtask.C
+   Autor:		RtW2/TEF32-Wiese (30.10.03)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01) /Linux
+   Sprache:		ANSI-C/C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   
+   int  p_skmtask
+   (shm_stringpointer *zeilen_wert	// &lt;I&gt; Inputfield of INTERPRETERLIST
+   ,long  index1			// &lt;I&gt; INDEX in list
+   ,long anzahl)			// &lt;I&gt; Number of Elements for Loaddfile
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   
+   error = p_skmtask
+   (zeilen_wert	// &lt;I&gt; Inputfield of INTERPRETERLIST
+   ,index1	// &lt;I&gt; INDEX in list
+   ,anzahl)	// &lt;I&gt; Number of Elements for Loaddfile
+
+   
+   if (error != 0) 	// Errordescription ... 
+   {
+   // Errorhandling ... 
+   }
+   
+   ---------------------------------------------------------------------
+   Functiondescription:
+   
+   This Modul sends parameter to the process or to the skm by itself.
+   Different Parameter can manage the function to the skm.
+   The number pf Parameters is variable and is different from function to function.  
+      
+   Input parameter description:</pre><b><a name="param1">1</a> PRUEFSCHRITT:</b><pre>   	Step in plist</pre><b><a name="param2">2</a> POSITION:</b><pre>	Position of step</pre><b><a name="param3">3</a> FUNKTION:</b><pre>   	Only CANSTART realized</pre><b><a name="param4">4</a> SUBFUNKTION:</b><pre>  		Only GM1 realized</pre><b><a name="param5">5</a> MODE</b><pre>  			S:Send G:get L: SendGet</pre><b><a name="param6">6</a> SUBMODE</b><pre>  		Not used</pre><b><a name="param7">7</a> PARA1</b><pre>  			Function Specific see below
+   .....</pre><b><a name="param26">26</a> PARA20</b><pre>   
+   The Modul sends many parameter to the process skm o.a and works like
+   described under funktion and subfunktion
+   Not all parameters are used in all funktions
+     
+   The Parameters are send to SKM with BLOCKTITLE SA.
+   
+   FUNKTION CANSTART // SUBFUNKTION GM1:
+      Funktion like Dokument RB Entry Condition on CAN by AE/EWG Brand from 28.1.03
+      - Send "FIRSTSENDMESSAGE" until TOSEND1. 
+      - read message from ECU with TOREC1 and compare it with FIRSTREADMESSAGE
+      - wait WSEND2
+      - send SECONDSENDMESSAGE with TOSEND2
+      - read message from ECU with TOREC2 and compare it with SECONDREADMESSAGE
+          
+      FUNKTION=CANSTART
+      SUBFUNKTION: GM1
+      MODE:SEND
+      SUBMODE=""
+      PARA1=SENDIDENTIFIER      :777
+      PARA2=SENDIDENTIFIERLEN   :11
+      PARA3=READIDENTIFIER      :778
+      PARA4=READIDENTIFIERLEN   :11
+      PARA5=FIRSTSENDMESSAGE    :075242454E545259
+      PARA6=FIRSTREADMESSAGE    :075242454E545259
+      PARA7=SECONDSENDMESSAGE   :04495800FF000000
+      PARA8=SECONDREADMESSAGE   :04495800FF000000
+      PARA9=TOSEND1	(ms) :2000
+      PARA10=TOREC1	(ms) :10
+      PARA11=WSEND2	(ms) :100
+      PARA12=TOSEND2	(ms) :10
+      PARA13=TOREC2   	(ms) :100
+            
+      The communication starts to SKM with SA and switches to function with "CSGM"
+      Rof this the data starts with "U""4"&lt;CSGM&gt;
+      The data will be send in format (&lt;FORMATBYTE&gt;&lt;LENBYTE&gt;&lt;LENBYTEDATA&gt;)*n
+      FORMATBYTE: U -&gt; The data ist a unsigned long int
+                  S -&gt; The data ist a unsigned short int
+                  H -&gt; The data ist a hexstring and will be send in binary
+                  A -&gt; The data is a charstring and send as is
+   
+</PRE>
+</BODY>
+</HTML>

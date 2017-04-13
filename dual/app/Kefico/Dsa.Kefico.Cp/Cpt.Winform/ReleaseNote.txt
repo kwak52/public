@@ -1,0 +1,59 @@
+1.1.0.6 Mar 28, 2017
+	- PSKGaudi 2.8.4.2 적용
+
+1.1.0.5 Mar 6, 2017
+	- 시험기에서 자신이 시험하는 pdv 에 해당하는 CpXml file upload API 추가. (CptManager.ApiUploadCpXml)
+	- EDOKU step(1) 및 step table 의 comment column 추가.
+	- PSKGaudi 2.8.4.1 적용
+	- MySQL 에서 max_allowed_packet 값이 임의로 바뀌는 현상에 대한 대처 코드 삽입.
+
+1.1.0.4 Mar 3, 2017
+	- CP tester 와 서버 간 directory 공유 구조 없앰.
+	  * Tester 가 요청하면, 서버가 해당 CpXml 파일을 다운로드하는 구조로 변경
+	- Step 의 Parameter, modName 에 single quote 존재 시, 서버 upload 오류 bug fix
+	- Server side
+		* pdv table 의 unique key index 변경 (partNumber, pamType, isProduction)
+
+
+1.1.0.3 Feb 28, 2017
+	- Cpt.Winform sample 에서 UI 를 배제한 API 기준 사용 예제 추가
+	- ZP, EH 등의 pamType 대신 HT, CT, FT, RW 로 변경
+	- DB table 에 temparature, pressure column 추가.
+	- TODO
+		* upload 시, temparature, pressure 정보를 measure table 에 추가 필요
+
+1.1.0.2 Feb 27, 2017
+	- CPT 에서 Variant 삭제.  CP xml file version 만 사용
+	- MWS.exe
+		* 유효 숫자 display 반영
+	- Server side
+		* pdvTestList table 의 fileStem column 추가
+		* pdvTestList table 의 variant column 을 version 으로 변경
+
+1.1.0.1 Feb 23, 2017
+	- 소수점 이하 유효 숫자 처리 : 5자리 처리
+	- Variant Active/Deactive 에 따라 서버에서 parsing 후 내려주는 step 선택 여부 처리
+	- BIN dimension 처리
+	- OK/NG 판정 처리 시험기에서 수행하도록 변경
+
+1.1.0.0 Feb 17, 2017
+	- CP Tester API.txt 문서 추가.
+	- cp xml parsing 에서 parameter 정보 추출 추가. 
+	- Dimension, Function table update. Sync with PsCommon.dll
+    - step table 의 min/max 범위 확장, parameter column 추가.
+    - parameter column 추가에 따른 step merge routine 수정. 
+
+1.0.0.4 Feb 10, 2017
+	- CP platform 과 공유되는 base dll update (Dsu*.dll)
+
+1.0.0.3 Feb 1, 2017	
+	- PsCommon, PsKGaudi.dll 수정본 반영
+	- MWS service 에서 message box 출력 제거
+
+1.0.0.2 Jan 6, 2017	
+	- MWS server logging 기능 추가.
+
+1.0.0.1 Dec 28, 2016
+	- CPT API release
+	- Power on/off notify
+	- MWS server 를 windows service 로 구동

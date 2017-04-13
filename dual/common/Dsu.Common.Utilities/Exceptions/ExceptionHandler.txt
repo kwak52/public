@@ -1,0 +1,25 @@
+﻿-------------------
+ TryFuncAsync 예제
+-------------------
+    Trace.WriteLine($"Before={DateTime.Now}");
+    var tResult = await TryFuncAsync<bool>(async () =>			// 여기서 await 가 빠지면 (outer) After 가 바로 실행됨
+    {
+        Trace.WriteLine($"\tInner Before={DateTime.Now}");
+        await Task.Delay(2000);
+        Trace.WriteLine($"\tInner Arter={DateTime.Now}");		// Inner After 는 항상 Inner Before 수행 후 2초 후 실행됨이 보장됨
+        return false;
+    });
+    Trace.WriteLine($"After={DateTime.Now}");
+    Trace.WriteLine($"Result={tResult.Result}");
+
+-------------------
+TryActionAsync 예제
+-------------------
+    Trace.WriteLine($"Before={DateTime.Now}");
+    var tResult = await TryActionAsync(async () =>
+    {
+        Trace.WriteLine($"\tInner Before={DateTime.Now}");
+        await Task.Delay(2000);
+        Trace.WriteLine($"\tInner Arter={DateTime.Now}");
+    });
+    Trace.WriteLine($"After={DateTime.Now}");

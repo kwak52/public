@@ -1,0 +1,132 @@
+<HTML>
+<HEAD>
+<TITLE>E_AD64</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_AD64</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_ad64.C,v 1.7 2005/05/10 08:43:41 jsj3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	dkgnbd
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_ad64.C
+   Autor:		RtW/TEF72-Eilebrecht (30.04.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_obpinit(shm_stringpointer   *zeilen_wert
+   ,long index1
+   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   (*funktionen[modulnummer])
+   (Ssp_expand_zeile
+   ,Ssp_expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter);
+   
+   
+   
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Das AD64-Modul stellt die Meﬁparameter an der ADC-Karte HP E1413 ein 
+   und fœhrt einen Scan durch.
+   Die Auswahl der zu messenden KanÃle wird durch 4 Buchstabenleisten
+   fœr jeweils 16 KanÃle festgelegt. "SS-S" bedeutet beispielsweise das Messen
+   des ersten, zweiten und vierten Kanals innerhalb der 16er-Gruppe.
+   Da das Einstellen des GerÃts weit grŒﬁere Zeit beansprucht als das Messen, 
+   wird mit mŒglichst wenigen EinstellungsÃnderungen gearbeitet. Die festgelegte
+   Kanalauswahl wird dazu mit den vier im GerÃt gespeicherten Kanallisten 
+   verglichen und mŒglichst eine vorhandene Liste verwendet. Falls jedoch eine
+   weitere Liste im GerÃt definiert werden muﬁ, obwohl dort alle vier belegt
+   sind, wird die an lÃngsten unbenutzte Liste œberschrieben.
+   Die Meﬁergebnisse werden im internen Float-Puffer zur Weiterbearbeitung abgelegt.
+   
+   
+   Beschreibung der Modulœbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>   GAUDI-Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>   PAV-Position
+   ------------------------------</pre><b><a name="param3">3</a> ANSTEUER_UNIT</b><pre>   Name des GerÃts laut PAM-Bschreibungsfile
+   :AD64_01
+   ------------------------------</pre><b><a name="param4">4</a> CHANNEL_16_01</b><pre>   Buchstabenleiste fœr 16 KanÃle
+   :S--S---SSSSS-S-S
+   ------------------------------</pre><b><a name="param5">5</a> CHANNEL_32_17</b><pre>   dito
+   ------------------------------</pre><b><a name="param6">6</a> CHANNEL_48_33</b><pre>   dito
+   ------------------------------</pre><b><a name="param7">7</a> CHANNEL_64_49</b><pre>   dito
+   ------------------------------</pre><b><a name="param8">8</a> TRIGGER_SRC</b><pre>   Trigger Source
+   :SOFTWARE  (Trigger wird vom Modul erzeugt)
+   :0         (VXI-Trigger-Line 0)
+   :1         (VXI-Trigger-Line 1)
+   :7         (VXI-Trigger-Line 7)
+   ------------------------------</pre><b><a name="param9">9</a> TRIGGER_OUT</b><pre>   Ziel fœr den erzeugten Trigger
+   :0         (VXI-Trigger-Line 0)
+   :1         (VXI-Trigger-Line 1)
+   :7         (VXI-Trigger-Line 7)
+   ------------------------------</pre><b><a name="param10">10</a> ADC_ZERO</b><pre>   Schalter fœr ADZERO-Funktion des GerÃts
+   :ON
+   :OFF
+   :RESET
+   ------------------------------</pre><b><a name="param11">11</a> FILTER</b><pre>   Schalter fœr das 12 kHZ Filter am ADC
+   :ON
+   :OFF
+   ------------------------------</pre><b><a name="param12">12</a> RANGE</b><pre>   Meﬁbereich des ADC
+   :AUTORANGE
+   :16.0
+   ------------------------------</pre><b><a name="param13">13</a> PERIOD</b><pre>   Zeit zwischen zwei Messungen innerhalb eines Scans 
+   in [usec]-Einheiten (10 - 32767)
+   (muﬁ mindestens 15 sein, falls FILTER=ON)
+   
+
+   Revision 1.1  2001/12/18 10:35:39  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.8  2001/06/19 14:05:06  lehmann
+   Linux: string.h + (char *) eingef¸hrt
+
+   Revision 1.7  1999/12/22 10:07:42  keppler
+   $ID -&gt; $Id
+
+   Revision 1.6  1999/12/22 09:14:39  keppler
+   $Header -&gt; $Id
+
+   Revision 1.5  1999/07/08 16:36:52  sse
+   Rescan for 0x7f800000 error
+
+Revision 1.4  99/07/08  11:44:49  11:44:49  juilfs (Joerg Juilfs)
+no entry
+
+Revision 1.3  99/07/01  12:40:58  12:40:58  juilfs (Joerg Juilfs)
+no entry
+
+Revision 1.2  99/03/30  14:33:52  14:33:52  sse (Hr Eilebrecht)
+Streamlining
+
+   Revision 1.1  1999/03/18 17:10:56  sse
+   Initial revision
+   
+   Revision 1.1  97/12/02  14:24:04  14:24:04  juilfs (Joerg Juilfs)
+   Initial revision
+   
+   Revision 1.1  96/07/10  10:26:08  10:26:08  keppler (Fritz Keppler)
+   Initial revision
+   
+   ---------------------------------------------------------------------
+
+
+
+</PRE>
+</BODY>
+</HTML>

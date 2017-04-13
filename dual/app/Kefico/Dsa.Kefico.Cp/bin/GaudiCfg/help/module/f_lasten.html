@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE>F_LASTEN</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>F_LASTEN</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: f_lasten.C,v 1.2 2002/02/26 17:48:17 wiese Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Ansteuerparameter mit Unit verbinden
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		f_ansteuer.C
+   Autor:		RtW/FVS72-Name (10.11.95)
+   Zielsystem:		HP9000/V743 (HP-RT 2.11), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   int  f_lasten( shm_stringpointer *zeilen_wert
+	          ,long  index1
+	          ,long  anzahl)   
+
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   int 	 (*funktionen[modulnummer])
+	    ( expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter-1);   
+
+   Dieses Modul wird im Vectorinterpreter aufgerufen. Der Aufruf 
+   wird Ïber die MPI Schnittstelle realisiert.
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Aufgabe des Modules ist es, Ansteuerparameter mit seiner 
+   Ansteuerinformation mit einer Hardwareunit zu verbinden   
+   
+   
+   Ûbergabeparameter anhand der Modglobal.stl
+   ,PRUEFSCHRITT		1
+   ,POSITION			2
+   ,ANSTEUER_UNIT		3	Siehe PAM-Beschreibugsfile		
+   ,ANSTEUER_NAME		4	Name des Ansteuerparameters
+   ,ANSTEUER_WERT		5
+   ,ANSTEUER_DIM		6
+   ,ANSTEUER_PIN		7		
+   ,ANSTEUER_BEZUG		8
+   ,DATENWORT1                  9
+   ,DATENWORT2                  10   
+   ,DATENWORT3                  11  
+   ,DATENWORT4                  12   
+</PRE>
+</BODY>
+</HTML>

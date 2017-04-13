@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A4B74DD0-320F-4EFC-A643-FD4A6B8D988C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CSharp.Test</RootNamespace>
+    <AssemblyName>CSharp.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PRODUCT|AnyCPU'">
+    <OutputPath>$(SolutionDir)\bin</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LanguageExt.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\open-sources\bin\LanguageExt.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\..\App\bin\Release\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\..\App\bin\Release\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\..\App\bin\Release\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\..\App\bin\Release\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.9.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\App\bin\Release\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Concurrency\Async\UnitTestTPLConcept.cs" />
+    <Compile Include="Concurrency\TaskParallel\Dataflow\ProducerConsumer\UnitTestProducerConsumer.cs" />
+    <Compile Include="Concurrency\TaskParallel\Dataflow\UnitTestActionBlock.cs" />
+    <Compile Include="Concurrency\TaskParallel\Dataflow\UnitTestTDFInterface.cs" />
+    <Compile Include="Concurrency\TaskParallel\ProDotNet4ParallelProgrammingBook\UnitTestLocalVariableEvaluation.cs" />
+    <Compile Include="Concurrency\TaskParallel\ProDotNet4ParallelProgrammingBook\UnitTestListing19AgregateExceptions.cs" />
+    <Compile Include="Concurrency\TaskParallel\ProDotNet4ParallelProgrammingBook\UnitTestActionBlock.cs" />
+    <Compile Include="Concurrency\UnitTestSynchronizationContext.cs" />
+    <Compile Include="Concurrency\UnitTestConcurrencyConcept.cs" />
+    <Compile Include="Data\UnitTestTableJoin.cs" />
+    <Compile Include="Concurrency\TaskParallel\UnitTestCancellationTokenSource.cs" />
+    <Compile Include="Concurrency\TaskParallel\UnitTestThreadProperty.cs" />
+    <Compile Include="Concurrency\TaskParallel\UnitTestExecuteWithTimeLimit.cs" />
+    <Compile Include="Concurrency\Reactive Extensions\UnitTestRxConcept.cs" />
+    <Compile Include="Concurrency\Reactive Extensions\UnitTestRx1.cs" />
+    <Compile Include="Concurrency\TaskParallel\UnitTestDelay.cs" />
+    <Compile Include="Concurrency\TaskParallel\UnitTestSyncAsync.cs" />
+    <Compile Include="Concurrency\TaskParallel\UnitTestPLINQ.cs" />
+    <Compile Include="Concurrency\TaskParallel\UnitTestWaitAny.cs" />
+    <Compile Include="Data\UnitTestDataRow.cs" />
+    <Compile Include="FAIC\UnitFAIC.cs" />
+    <Compile Include="FAIC\UnitTestAddOne.cs" />
+    <Compile Include="Functional\UnitTestLinqChoose.cs" />
+    <Compile Include="Functional\UnitTestFold.cs" />
+    <Compile Include="Linq\UnitTest1.cs" />
+    <Compile Include="UtFSharpInterop.cs" />
+    <Compile Include="UtBitmask.cs" />
+    <Compile Include="UnitTestRegex.cs" />
+    <Compile Include="UnitTestCurrying.cs" />
+    <Compile Include="UnitTestClosure.cs" />
+    <Compile Include="UnitTestCovariance.cs" />
+    <Compile Include="UnitTestEvilStructMutability.cs" />
+    <Compile Include="UnitTestPartialMethod.cs" />
+    <Compile Include="UnitTestReflection.cs" />
+    <Compile Include="UnitTestLazyVariable.cs" />
+    <Compile Include="UnitTestTypeConversion.cs" />
+    <Compile Include="UnitTestWaitAny.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTest2.cs" />
+    <Compile Include="UnitTestEncoding.cs" />
+    <Compile Include="UnitTestXml.cs" />
+    <Compile Include="UnitTestGeneric.cs" />
+    <Compile Include="UnitTestRegistryKey.cs" />
+    <Compile Include="UnitTestFormatProvider.cs" />
+    <Compile Include="UnitTestYield.cs" />
+    <Compile Include="UnitTestArrayReference.cs" />
+    <Compile Include="UnitTestWeakReference.cs" />
+    <Compile Include="UnitTestFileInfo.cs" />
+    <Compile Include="UnitTestExtensionMethod.cs" />
+    <Compile Include="UnitTestCollections_Observable.cs" />
+    <Compile Include="UnitTestEnumerations.cs" />
+    <Compile Include="UnitTestString.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cudafy\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FAIC\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
+      <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Common.Utilities.FS\Dsu.Common.Utilities.FS.fsproj">
+      <Project>{4e5d41d3-c394-4c16-8690-7a6e1a62bca8}</Project>
+      <Name>Dsu.Common.Utilities.FS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.Common.Utilities\Dsu.Common.Utilities.csproj">
+      <Project>{825711e0-451f-4eda-9560-a624350de411}</Project>
+      <Name>SharpCommon.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

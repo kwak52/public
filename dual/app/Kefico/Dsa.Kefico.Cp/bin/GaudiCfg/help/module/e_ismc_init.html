@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE>E_ISMC_INIT</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_ISMC_INIT</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_ismc_init.C,v 1.7 2005/04/12 09:55:11 ea82lr Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Initialisieren ismc
+   ---------------------------------------------------------------------
+   Projekt:		IVS
+   Sourcefile:		e_ismc_init.C
+   Autor:		RtW/TEF32-Aatef (28.11.2003)
+   Zielsystem:		SuSE Linux 8.1
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_ismc_init(shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Aufrufparameter laut Modglobal.
+   
+  &lt; 1&gt; PRUEFSCHRITT
+  &lt; 2&gt; WIDTH          
+  &lt; 3&gt; HEIGHT         
+  &lt; 4&gt; DINAMICTHRES
+  ( 5) SNR1
+  ( 6) SNR2          
+  ( 7) VIGNET_BASIC
+  ( 8) VIGNET_POWER
+  ( 9) DARKSENSOR1
+  (10) DARKSENSOR2
+  (11) DINAMICPOWER
+  (12) POS_DEVTHRES
+  (13) NEG_DEVTHRES
+  (14) POS_SLOPTHRES
+  (15) NEG_SLOPTHRES
+  (16) FPN_CORRECTION
+  (17) DPTHRES
+  (18) OUTPUTTHRES
+  (19) ERRORFLAG
+   
+   Aufgabe des Modules ist es, die ismc zu initialisieren.
+   
+  
+</PRE>
+</BODY>
+</HTML>

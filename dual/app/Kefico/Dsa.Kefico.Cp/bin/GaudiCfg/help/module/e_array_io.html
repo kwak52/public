@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<TITLE>E_ARRAY_IO</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_ARRAY_IO</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_array_io.C,v 1.36 2005/09/06 15:14:28 gew3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	import / export von Feldern
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		e_array_io.C
+   Autor:		RtW/TEF72-Juilfs (12.12.95)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   void e_array_io(
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Ueber dieses Modul koennen Felder vom Typ INT bzw. DOUBLE importiert 
+   (MODUS = R oder RI) oder exportiert (MODUS = W) werden.
+   Zusaetzlich ist es moeglich auch einzelne Variablenwerte zu importieren bzw. zu 
+   exportieren. Hier ist dann auch der Typ STRING zulaessig.
+   - Mit dem Modus R gelesene Dateien müssen immer den fixen Namen "messdat_read"
+   enthalten. Es handelt sich meistens um externe Dateien.
+   - Der Modus RI (internal read) dient dazu, die in CCS über den messdat-Service
+     (z.B. mit dem Modul M_LABVIEW)  geschriebenen Dateien wieder lesen zu können.
+   
+   Zu beachten ist, dass die Parametrisierung ab dem Header_1 bzw, dem ARRAY_1 
+   beginnt und zusammenhaengend ist, d.h. zwischen den einzelnen Parameterzeilen darf
+   keine Luecke sein, da diese Luecke einer Endekennzeichnung entspricht!
+   
+   Beim Export werden zuerst mehrere Headerzeilen erzeugt z.B.
+		1: date:   01.12.2002
+		2: time:   16:25:43
+		3: name:   ccs
+		4: file:   b_muster01acse01_section_01_acc0001_0_07062002_status_byte.csv
+		5: SCU
+		6: STATUS_V0N;RESPONSE_V0N;STATUS_V0P;RESPONSE_V0P;STATUS_H0
+   Die Zeilen haben folgende Bedeutung
+		1: aktuelles Datum		
+		2: aktuelle  Zeit
+		3: Benutzer wird vom Programm immer mit ccs belegt
+		4: Dateinamen, dieser wird zusammengesetzt aus der in der 
+		   Konfigurationsdatei unter dem Service messdat 
+		   gespeicherten Dateibeschreibung, dem im Parameter 
+		   FILENAME angegebenen String (im Beispiel status_byte) 
+		   und der Dateikennung ".csv". 
+		   Die Dateibeschreibung in der Konfigurationsdatei für 
+		   das obige Beispiel sieht wiefolgt aus:
+			   messdat.typ:        nfs
+			   messdat.interface:  rcp
+			   messdat.host:       uxpdb1
+			   messdat.directory:  /hw/messdat/%{TYP}/
+			   messdat.filename:   %{TTNR}%{TYP}%{VARIANTE}_
+					       %{ECUID}_%{KNOTEN}_%{SECTION}_
+					       %{DAY}%{MONTH}%{YEAR}
+                   Ist fuer messdat.interface rcp eingetragen wird die
+                   Messdatendatei auf /LocalDisk/config/ gespeichert,
+                   anschliessend wird die datei auf messdat.host (uxpdb1) 
+                   kopiert und anschliessend gelöscht.
+                   Bei allen anderen Werte für messdat.interface wird die 
+                   Datei unter dem messdat.directory angelegt und nicht
+                   auf messdat.host kopiert.
+		5: String der in dem Parameter SUB_DIRECTORY uebergeben wurde.
+                   d.h.: dieser Wert wird an den uebergebenen Service vom 
+                   "messdar.diretory" angehaengt
+		6: Ausgabe der Strings die in den Parametern HEADER_1 
+		   bis HEADER_9 uebergeben wurden.
+   Amschliessend werden die Daten mit ; getrennt gespeichert.
+
+   Beim Import wird der Dateiname zusammengesetzt aus dem Verzeichnis 
+   im Service messdat.directory, dem String "messdat_read_", dem im 
+   Parameter FILENAME gepeicherten String und der Dateikennung ".csv".
+   Die interne Struktur ist identisch wie unter Export beschrieben, wobei 
+   die 6 Headerzeilen nicht ausgewertet werden.
+   Sind mehr Daten in der Datei gespeichert als Feldelemente definiert 
+   sind, wird eine Fehlermeldung erzeugt. Es können auch unterschiedlich 
+   grosse Felder eingelesen werden. Das Einlesen eines Feldes kann mit einem 
+   leeren String beendet werden.
+   
+   Beschreibung der Modulübergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   GAUDI Prüfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> FILENAME</b><pre>   Kuerzel das an den Dateinamen angefuegt wird
+   ------------------------------</pre><b><a name="param4">4</a> SUB_DIRECTORY</b><pre> (neu, alter Name war KOMMENTAR)
+   Kommentarzeile die beim exporieren in den Header in Zeile 5 geschrieben wird.
+   zusätzlich kann hier der Subdirectory-Name angegeben werden für Read/Write
+   ------------------------------</pre><b><a name="param5">5</a> MODUS</b><pre>   R = lesen (importieren) von einer Datei in bis zu 9 Feldern
+   RI= lesen einer intern von einem CCS-Modul geschriebenen Datei
+   W = schreiben (exportieren) von bis zu 9 Feldern in eine Datei
+   ------------------------------</pre><b><a name="param6">6</a> FORMAT</b><pre>
+   ASCII 
+   ------------------------------</pre><b><a name="param7">7</a> HEADER_1</b><pre>   Headertext 1
+   ------------------------------</pre><b><a name="param8">8</a> ARRAY_1</b><pre>   Arrayvariable 1 oder Variable 1
+   ------------------------------</pre><b><a name="param9">9</a> HEADER_2</b><pre>   Headertext 2
+   ------------------------------</pre><b><a name="param10">10</a> ARRAY_2</b><pre>   Arrayvariable 2 oder Variable 2
+   ------------------------------</pre><b><a name="param11">11</a> HEADER_3</b><pre>   Headertext 3
+   ------------------------------</pre><b><a name="param12">12</a> ARRAY_3</b><pre>   Arrayvariable 3 oder Variable 3
+   ------------------------------</pre><b><a name="param13">13</a> HEADER_4</b><pre>   Headertext 4
+   ------------------------------</pre><b><a name="param14">14</a> ARRAY_4</b><pre>   Arrayvariable 4 oder Variable 4
+   ------------------------------</pre><b><a name="param15">15</a> HEADER_5</b><pre>   Headertext 5
+   ------------------------------</pre><b><a name="param16">16</a> ARRAY_5</b><pre>   Arrayvariable 5 oder Variable 5
+   ------------------------------</pre><b><a name="param17">17</a> HEADER_6</b><pre>   Headertext 6
+   ------------------------------</pre><b><a name="param18">18</a> ARRAY_6</b><pre>   Arrayvariable 6 oder Variable 6
+   ------------------------------</pre><b><a name="param19">19</a> HEADER_7</b><pre>   Headertext 7
+   ------------------------------</pre><b><a name="param20">20</a> ARRAY_7</b><pre>   Arrayvariable 7 oder Variable 7
+   ------------------------------</pre><b><a name="param21">21</a> HEADER_8</b><pre>   Headertext 8
+   ------------------------------</pre><b><a name="param22">22</a> ARRAY_8</b><pre>   Arrayvariable 8 oder Variable 8
+   ------------------------------</pre><b><a name="param23">23</a> HEADER_9</b><pre>   Headertext 9
+   ------------------------------</pre><b><a name="param24">24</a> ARRAY_9</b><pre>   Arrayvariable 9 oder Variable 9
+   ------------------------------</pre><b><a name="param26">26</a> FEHLERFLAG</b><pre>   
+   ...
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,305 @@
+<HTML>
+<HEAD>
+<TITLE>F_ANSTEUER</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>F_ANSTEUER</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: f_ansteuer.C,v 1.10 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Ansteuerparameter mit Unit verbinden
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		f_ansteuer.C
+   Autor:		RtW/TEF72-Name (10.11.95)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   void f_ansteuer(shm_stringpointer  *zeilen_info
+   ,shm_stringpointer *zeilen_wert
+   ,long  index1
+   ,long  anzahl)   
+   
+   
+   ---------------------------------------------------------------------
+   Aufruf:
+   void	 (*funktionen[modulnummer])
+   (expand_zeile
+   ,expand_wert
+   ,p_verwaltung-&gt;begin_modulblock
+   ,p_verwaltung-&gt;anzahl_modulparameter-1);   
+   
+   Dieses Modul wird im Vectorinterpreter aufgerufen. Der Aufruf 
+   wird œber die MPI Schnittstelle realisiert.
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+   Aufgabe des Modules ist es, Ansteuerparameter mit seiner 
+   Ansteuerinformation mit einer Hardware-Unit zu verbinden.     
+   
+   €bergabeparameter anhand der Modglobal.stl
+   -------------------------------------------</pre><b><a name="param1">1</a> ,PRUEFSCHRITT</b><pre>	1</pre><b><a name="param2">2</a> ,POSITION</b><pre>		2
+      ,ANSTEUER_UNIT		3	symbolischer Namen des PAM-Beschr-File
+      ,ANSTEUER_NAME		4	PAV-Ansteuerparametername	
+      ,ANSTEUER_WERT		5	Parameterwert
+      ,ANSTEUER_DIM		6	Parameterdimension
+      ,ANSTEUER_PIN		7	Pinnumer vom PAV-Ansteuerparameter
+      ,ANSTEUER_BEZUG		8	Bezug vom PAV-Ansteuerparameter
+      ,ANSTEUER_ART		9	Modul oder Ansteuerparameter  
+   Das Modul F_ANSTEUER verbindet den symbolischen Namen aus dem
+   PAM-Beschreibungsfile mit dem Namen des Ansteuerparamters.
+   
+   ANSTEUER_UNIT:
+   Der Parameter ANSTEUER_UNIT ist im Pambeschreibungsfile enthalten.
+   Die ANSTEUER_UNIT ist ein symbolischer Namen (R_DEK_1)..
+
+   Statt des symbolischen Namens kann auch die Kartenadresse direkt
+   eingegeben werden. Dafœr wird das "&gt;" Zeichen verwendet.
+   Die Kartenadresse ist folgendermaﬁen gegliedert.
+   - Kartenummer       6043
+   - Unteradresse         0
+   - Elementnummer        1 - n
+   
+   Die Elementnummer muﬁ nur dann besetzt werden, wenn eine FU-Karte
+   mehrere Hardwareeinheiten hat. Beispiel ist eine 6043 Karte.
+   Schreibweise im Parameter ANSTEUER_UNIT:   &gt;6043;1;1;</pre><b><a name="param3">3</a> ANSTEUER_NAME:</b><pre>   Dieser Parameter ist der Name, der in der PAV als Ansteuerparameter
+   deklariert ist.</pre><b><a name="param4">4</a> ANSTEUER_WERT:</b><pre>   Ansteuerparameter Wert aus der PAV</pre><b><a name="param5">5</a> ANSTEUER_DIM:</b><pre>   Ansteuerparameter Dimension aus der PAV</pre><b><a name="param6">6</a> ANSTEUER_PIN:</b><pre>   SG Pin aus der PAV
+   MŒchte man die Funktionskarte direkt auf die Pins des Funktionsbusses
+   legen kann man auch die Pins direkt eingeben per "&gt;" zeichen.
+   Beispiel: &gt;a17</pre><b><a name="param7">7</a> ANSTEUER_BEZUG:</b><pre>   Bezugspin aus der PAV
+   MŒchte man die Funktionskarte direkt auf die Pins des Funktionsbusses
+   legen kann man auch die Pins direkt eingeben per "&gt;" zeichen.
+   Beispiel: &gt;c17</pre><b><a name="param8">8</a> ANSTEUER_ART:</b><pre>   Mit diesem Parameter kann festgelegt werden ob die Harwareeinheit von den
+   Ansteuerparametern oder von den Modulparametern gesteuert werden soll.
+   ANSTEUER_PAR   --&gt; Steuerung œber Ansteuerparameter
+   MODUL_PAR      --&gt; Steuerung der Ansteuerparameter œber Modulparameter 
+   KOPPLUNG       --&gt; Kopplung von Lasten die alternativ ueber den Lastwert
+                      angesprochen werden. Dazu ist es notwendig, dass die 
+                      entsprechenden Lasten ueber eine Ansteuervariable
+                      verkn¸pft werden. Zurzeit ist die Kopplung der Lasten 
+                      6269, 6270 und 6271 mˆglich (ab CCS40)
+   NEU            --&gt; Eingabe eines neuen Namens fœr den Parameter
+                      ANSTEUER_NAME.
+		      Dies ist notwendig, wenn ein neuer Ansteuername benŒtigt
+		      wird und dieser nicht im Ansteuerblock auftaucht.
+		      Dies Funktion wird einmalig verwendet, wenn die Steuerung
+		      der Funktionskarte nur œber das F_ANSTEUER Modul erfolgt.
+		      Ist der neue Ansteuername einmal eingetragen, wird
+		      er anschlieﬁend nur per ANSTEUER_PAR angesprochen.
+   UNIT_ABSCHALT  --&gt; LŒschen der Hardwareunit vom Ansteuerparameter
+   UNIT_PARALLEL  --&gt; Am selben Ansteuerparameter wird eine Unit parallel
+                      angeschaltet
+   SPLIT_ANST	hiermit koennen Werte des Ansteuerparameters auf andere
+				Ansteuerparameter kopiert werden.
+				Beispiel:
+				  PRUEFSCHRITT  =300
+				  POSITION      =1
+				  ANSTEUER_UNIT =-
+				  ANSTEUER_NAME =NTC
+				  ANSTEUER_WERT =GEBER1
+				  ANSTEUER_DIM  =
+				  ANSTEUER_PIN  =GEBER3
+				  ANSTEUER_BEZUG=GEBER3
+				  ANSTEUER_ART  =SPLIT_ANST      						
+				Der Wert von Ansteuerparameter NTC wird auf dem Ansteuerparameter GEBER1 umgeleitet
+				GEBER1 wird als MODUL_PAR vorher deklariert.
+				
+				
+		      
+
+   Besonderheiten:
+   ---------------
+   1.) Wird im ANSTEUER_PIN oder ANSTEUER_BEZUG als erstes Zeichen
+   ein "&gt;" gegeben kann eine direkte Pinzuweisung erfolgen, ohne 
+   Adapterfile.   
+   Beispiel:  ANSTEUER_PIN="&gt;a09" 
+   Grund:     Ansprechen der Karte ohne Adapterfile.
+   
+   2.) Wird im ANSTEUER_UNIT der String "SCHALTER" eingegeben, so 
+   wird die Pinnummer der Ansteuervariablen im Ansteuercommon
+   abgelegt. Als Ansteuerunit wird in diesem Fall das Stimmulikoppelfeld
+   angenommen.
+
+   3.) Wird Parameter ANSTEUER_ART "NEU" eingeben und im Parameter
+       ANSTEUER_UNIT "-" eingeben, wird nur der Ansteuername im System
+       bekannt gemacht.
+       
+       
+   Schalterdefitionen:
+   -------------------
+   Im CCS kann es folgende schalter geben.
+    - Harte Schalter Pin zu Pin
+    - Spannungsschalter Pin zu Stimulikoppelfeld U_GEBER lo und high
+    - R_DEKADEN Schalter. 
+   
+   
+   
+---------------------------------------------------------------------------------   
+ Harte Schalter
+---------------------------------------------------------------------------------   
+   
+   1.) Schalter von SG_PIN zu SG_PIN               &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;(Harte Schalter)
+       Realisation: Schalterkoppelfeld
+       Beispiel:
+       
+ CALL F_ANSTEUER
+PRUEFSCHRITT  =300
+POSITION      =1
+ANSTEUER_UNIT =SCHALTER
+ANSTEUER_NAME =E_S_SB
+ANSTEUER_WERT =-
+ANSTEUER_DIM  =-
+ANSTEUER_PIN  =20D
+ANSTEUER_BEZUG=-
+ANSTEUER_ART  =ANSTEUER_PAR       
+       
+E_S_SB        =12D/       [SA]       
+
+
+
+SCHALTER_KK1	-&gt; ON_KK1	10
+SCHALTER_KK2	-&gt; ON_KK2	11
+SCHALTER_KK3	-&gt; ON_KK3	12
+SCHALTER_KK4	-&gt; ON_KK4	13
+SCHALTER_KK5	-&gt; ON_KK5	14
+SCHALTER_SK	-&gt; ON_SK	15
+SCHALTER_MK	-&gt; ON_MK	16
+
+       
+---------------------------------------------------------------------------------   
+ Spannungs Schalter
+---------------------------------------------------------------------------------       
+   2.) Schalter die mit U_Gebern realisiert werden &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;(Spannungsschalter)
+       In der Standard PAV wird mit mit den Symbolischen
+       Namen SA_LO SA_HI gearbeitet. Diesen Symbolen werden
+       in einem Initialisierungsmakro, die Lo/Hi Spannung
+       zugeordnet. 
+       Es kŒnnen damit 10 Schalter gegen Hi-Spannung und 5 
+       Schalter gegen Lowspannung geschaltet werden.
+       Beispiel:
+ 1000  CONTINUE
+C: Initialisierung der Lo und Hispannung mit den U_Gebern des Stimulikoppelfeldes
+L:
+ MAKRO U_INIT_SA
+$POSITION     =0
+$WERT_U_SA_LO =1.
+$BEZUG_SA_LO  =1
+$REF_SA_LO    =INT
+$REF_PIN_SA_LO=--
+$WERT_U_SA_HI =10.
+$BEZUG_SA_HI  =1
+$REF_SA_HI    =INT
+$REF_PIN_SA_HI=--
+ 
+ 1010  CONTINUE
+C:Bekanntmachung des Schalter E_S_SB mit der U_Geberkonfiguration
+L:
+ CALL F_ANSTEUER
+PRUEFSCHRITT  =1010
+POSITION      =0
+ANSTEUER_UNIT =SCHALTER_LO_HI
+ANSTEUER_NAME =E_S_SB
+ANSTEUER_WERT =-
+ANSTEUER_DIM  =-
+ANSTEUER_PIN  =101
+ANSTEUER_BEZUG=-
+ANSTEUER_ART  =ANSTEUER_PAR       
+       
+E_S_SB        =SA_HI/       [SA]   
+
+---------------------------------------------------------------------------------   
+ Dekaden Schalter
+---------------------------------------------------------------------------------       
+   3.) Schalter die mit R-dekaden realisiert werden &gt;&gt;&gt;&gt;&gt;&gt;(R-Dekadenschalter)
+       In der Standard PAV wird mit mit den Symbolischen
+       Namen SA_LO SA_HI gearbeitet. Im Unterschied zu den U_Gebern
+       wird aber mit einer R-Dekade der Low und High wert abgebildet.
+       Dies bedeutet, daﬁ zu jedem Schalterpin der per R-Dekade
+       realisiert wird der Schalterwert "SA_LO" sowie "SA_HI" initialisiert
+       werden muss.
+       Beispiel:
+       
+ 300  CONTINUE
+C: Initialisieren des Lowwertes
+L:       
+ CALL F_ANSTEUER
+PRUEFSCHRITT  =300
+POSITION      =1
+ANSTEUER_UNIT =SA_LO
+ANSTEUER_NAME =E_S_SB
+ANSTEUER_WERT =1 
+ANSTEUER_DIM  =KOHM
+ANSTEUER_PIN  =20D
+ANSTEUER_BEZUG=11D
+ANSTEUER_ART  =NEU       
+       
+ 301  CONTINUE
+C: Initialisieren des Highwertes
+L:       
+ CALL F_ANSTEUER
+PRUEFSCHRITT  =301
+POSITION      =1
+ANSTEUER_UNIT =SA_HI
+ANSTEUER_NAME =E_S_SB
+ANSTEUER_WERT =10 
+ANSTEUER_DIM  =KOHM
+ANSTEUER_PIN  =20D
+ANSTEUER_BEZUG=11D
+ANSTEUER_ART  =NEU              
+
+
+  330  CONTINUE
+C:    -A: E_S_SB: R_DEK_211 -&gt;Zuweisschritt f. SA_LO + SA_H
+L:
+ CALL F_ANSTEUER
+PRUEFSCHRITT  =330
+POSITION      =0
+ANSTEUER_UNIT =R_DEK_211
+ANSTEUER_NAME =E_S_SB
+ANSTEUER_WERT =-
+ANSTEUER_DIM  =-
+ANSTEUER_PIN  =20D
+ANSTEUER_BEZUG=11D
+ANSTEUER_ART  =ANSTEUER_PAR
+
+E_S_SB        =SA_HI/       [SA]          
+       
+
+   Revision 1.1  2001/12/18 10:32:53  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.5  2001/06/12 10:26:54  lehmann
+   Put_unitaenderung eingefuegt
+
+   Revision 1.4  1999/12/22 10:09:27  keppler
+   $ID -&gt; $Id
+
+   Revision 1.3  1999/12/22 09:16:24  keppler
+   $Header -&gt; $Id
+
+   Revision 1.2  1999/12/02 14:41:49  juilfs
+   Einbau der Schalterunits
+
+ * Revision 1.1  99/11/23  14:14:37  14:14:37  katzenma (Richard)
+ * Initial Version by Sniff
+ * 
+Revision 1.1  97/12/02  14:22:18  14:22:18  juilfs (Joerg Juilfs)
+Initial revision
+
+   Revision 1.1  96/05/29  18:04:35  18:04:35  juilfs (Joerg Juilfs)
+   Initial revision
+   
+   ---------------------------------------------------------------------
+
+</PRE>
+</BODY>
+</HTML>

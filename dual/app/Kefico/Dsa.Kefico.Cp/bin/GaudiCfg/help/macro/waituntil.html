@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> WaitUntil [ms]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>WaitUntil [ms]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=13229">
+ </A>
+WaitUntil [ms]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13231">
+ </A>
+Control [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13233">
+ </A>
+Time [ms]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13235">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=13237">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=13239">
+ </A>
+This function is used to pause the testing sequence until a specified time. It controls a timer and can access that timer. The result returned is the timer reading at which it is detected that the waiting period has elapsed. With the aid of tolerance limits this can be used to generate an error message if the specified time has already passed when the function is invoked.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=13241">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13243">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13245">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13247">
+ </A>
+None</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=13249">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13251">
+ </A>
+Parameters</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=13253">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13255">
+ </A>
+Control</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13257">
+ </A>
+Defines the behavior of the function. The following values are allowed:</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=13260">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=6507">
+ </A>
+Init</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=6509">
+ </A>
+Sets the timer to 0 ms.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=6515">
+ </A>
+WaitMin</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Parameter">
+<A NAME="pgfId=6517">
+ </A>
+The function waits until the timer reading specified by the parameter Time is reached. </P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13262">
+ </A>
+</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=13264">
+ </A>
+Time</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13266">
+ </A>
+Specifies the timer reading until which the function is to wait.</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=13268">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13270">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=13272">
+ </A>
+Example</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13274">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=13277">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6520">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6522">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6524">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6532">
+ </A>
+WaitUntil</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6534">
+ </A>
+Init,</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6536">
+ </A>
+Sets the timer to 0</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6544">
+ </A>
+:</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6546">
+ </A>
+:</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=6542">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6554">
+ </A>
+WaitUntil</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6556">
+ </A>
+WaitMin,120</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=6558">
+ </A>
+Function waits until 120 ms have elapsed since Init</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=13279">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13281">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=13283">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,206 @@
+﻿T:\PDF-Books\시험기\PAIX\Sample\TotalDemo(VC2010)\NMC2_TotalDemo
+
+모터 구동을 위해 필요한 step
+1. 알람 off
+1. Servo On		-> SetServoOn
+3. Pulse 주기
+
+
+SetUnitPerPulse
+SetPulseMode  (AMP 사양과 관계 고려)
+SetSpeed
+
+
+
+// turn on servor, clear alam
+        [DllImport("NMC2.dll", EntryPoint = "nmc_SetServoOn")]
+        public static extern short SetServoOn(short nNmcNo, short nAxisNo, short nOut);
+        [DllImport("NMC2.dll", EntryPoint = "nmc_SetAlarmResetOn")]
+        public static extern short SetAlarmResetOn(short nNmcNo, short nAxisNo, short nOut);
+		
+- Logic check example		
+		C:\Program Files (x86)\PAIX\NMC2\Sample\TotalDemo(VC2010)\NMC2_TotalDemo\DlgMotionLogic.cpp 
+
+
+
+
+void CDlgMotionLogic::OnBnClickedBtnReadLogic()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	//로직 정보 읽기
+	short nRet = 0;
+	CString str;
+	int iAxisIndex;					// 축의 인덱스 (최대=8축)
+	CButton * pchkAxis;				// 체크박스 인스턴스 포인터(Dialog에 있는 체크박스들의 포인터를 받음)
+	CComboBox * pcbBox;				// 콤보박스 인스턴스 포인터(Dialog에 있는 콤보박스들의 포인터를 받음) 
+	CEdit * peditBox;				// 에디트박스 인스턴스 포인터(Dialog에 있는 에디트박스들의 포인터를 받음)
+	CButton * pchkExt;				// 확장(원점 완료 자동 해제 데이터 추가) Logic 구분
+	PARALOGIC mncLogic;				// LOGIC 구조체
+	PARALOGICEX mncLogicEx;			// 확장 LOGIC 구조체
+
+	pcbBox = new CComboBox;
+	peditBox = new CEdit;
+	pchkAxis = new CButton;
+	pchkExt = new CButton;
+
+	pchkExt = (CButton*)GetDlgItem(IDC_CHK_EXTENSION);
+	for (iAxisIndex = 0; iAxisIndex < USE_AXIS_MAX; iAxisIndex++) 
+	{
+		pchkAxis = (CButton *) GetDlgItem(IDC_CHK_AXIS_LOGIC_0 + iAxisIndex);
+
+		//각 축의 체크 박스를 확인하여 선택된 축의 Logic만을 불러 옵니다.
+		if (pchkAxis->GetCheck())
+		{
+			if (pchkExt->GetCheck())
+			{
+				nRet = nmc_GetParaLogicEx(m_nNmcNo, iAxisIndex, &mncLogicEx);				// 확장 로직 정보 읽기
+				if (nRet == 0)
+				{
+					/*======================================================================*/
+					/*             읽어 온 Logic 데이터를 컨트롤에출력					    */
+					/*======================================================================*/
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_EMG_LOGIC_0 + iAxisIndex);		
+					pcbBox->SetCurSel(mncLogicEx.nEmg);							// Emergency 로직(0:LOW, 1:HIGH) Emergency는 그룹별로 Logic이 설정 되며,0축,4축이 기준이 되업니다.
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_ENC_COUNT_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nEncCount);						// 엔코더 카운트 모드 (0:4체배, 1:2체배, 2:1체배)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_ENC_DIR_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nEncDir);						// 엔코더 카운트 방향 (0:A|B(+, 1:B|A(-), 2:Up|Down, 3:Down|Up
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_ENC_Z_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nEncZ);							// 엔코더 Z 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_NEAR_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nNear);							// NEAR(Org)센서 로직  (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_MLIMIT_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nMLimit);						// - Limit Sensor 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_PLIMIT_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nPLimit);						// + Limit Sensor 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_ALARM_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nAlarm);						// Alarm Sensor  로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_INPOSITION_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nInp);							// Inposition 입력 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_SREADY_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nSReady);						// Servo Ready 입력 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_PULSE_MODE_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nPulseMode);					// PulseMode (0:2pulse Low CW/CCW, 1:2pulse Low CCW/CW
+																				// 2:2pulse HighLow CW/CCW, 3:2pulse High CCW/CW
+																				// 4:1pulse Low CW/CCW, 5:1pulse Low CCW/CW
+																				// 6:1pulse HighLow CW/CCW, 7:1pulse High CCW/CW
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_STOP_MODE_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nLimitStopMode);				// Limit 시 정지 모드 (0:긴급 정지, 1:감속 정지)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_BUSY_OFF_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nBusyOff);						// Busy Off 모드 (0: 펄스 출력, 1:위치 결정
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_SWL_ENABLE_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nSWEnable);						// Software Limit 사용 여부(0:사용 X, 1:사용 O)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_SWL_ENABLE_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nSWEnable);						// Software Limit 사용 여부(0:사용 X, 1:사용 O)
+				
+					peditBox = (CEdit *) GetDlgItem(IDC_EDIT_SWL_MPOSITION_LOGIC_0 + iAxisIndex);
+					str.Format(_T("%.f"),mncLogicEx.dSWMLimitPos);				// Software Limit -값
+					peditBox->SetWindowText(str);
+				
+					peditBox = (CEdit *) GetDlgItem(IDC_EDIT_SWL_PPOSITION_LOGIC_0 + iAxisIndex);
+					str.Format(_T("%.f"),mncLogicEx.dSWPLimitPos);				// Software Limit +값
+					peditBox->SetWindowText(str);
+
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_ALARM_HDAC_LOGIC_0 + iAxisIndex);			
+					pcbBox->SetCurSel(mncLogicEx.nHDoneCancelAlarm);				// 알람 발생 시 원점 완료상태 해지 사용여부
+
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_SERVOOFF_HDAC_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nHDoneCancelServoOff);			// 서보 오프 발생 시 원점 완료상태 해지 사용여부
+			
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_CURRENTOFF_HDAC_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nHDoneCancelCurrentOff);		// 전류 오프 발생 시 원점 완료상태 해지 사용여부
+
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_SERVOREADY_HDAC_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogicEx.nHDoneCancelServoReady);		// 서보 레디 발생 시 원점 완료상태 해지 사용여부
+				}
+				else
+				{
+					ErrMessage.StatusBox(nRet);
+				}
+			}
+			else
+			{
+				nRet = nmc_GetParaLogic(m_nNmcNo, iAxisIndex, &mncLogic);		// 로직 정보 읽기
+				if (nRet == 0)
+				{
+					/*======================================================================*/
+					/*             읽어 온 Logic 데이터를 컨트롤에출력					    */
+					/*======================================================================*/
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_EMG_LOGIC_0 + iAxisIndex);		
+					pcbBox->SetCurSel(mncLogic.nEmg);							// Emergency 로직(0:LOW, 1:HIGH) Emergency는 그룹별로 Logic이 설정 되며,0축,4축이 기준이 되업니다.
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_ENC_COUNT_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nEncCount);						// 엔코더 카운트 모드 (0:4체배, 1:2체배, 2:1체배)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_ENC_DIR_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nEncDir);							// 엔코더 카운트 방향 (0:A|B(+, 1:B|A(-), 2:Up|Down, 3:Down|Up
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_ENC_Z_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nEncZ);							// 엔코더 Z 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_NEAR_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nNear);							// NEAR(Org)센서 로직  (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_MLIMIT_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nMLimit);							// - Limit Sensor 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_PLIMIT_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nPLimit);							// + Limit Sensor 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_ALARM_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nAlarm);							// Alarm Sensor  로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_INPOSITION_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nInp);							// Inposition 입력 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_SREADY_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nSReady);							// Servo Ready 입력 로직 (0:LOW, 1:HIGH)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_PULSE_MODE_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nPulseMode);						// PulseMode (0:2pulse Low CW/CCW, 1:2pulse Low CCW/CW
+																				// 2:2pulse HighLow CW/CCW, 3:2pulse High CCW/CW
+																				// 4:1pulse Low CW/CCW, 5:1pulse Low CCW/CW
+																				// 6:1pulse HighLow CW/CCW, 7:1pulse High CCW/CW
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_STOP_MODE_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nLimitStopMode);					// Limit 시 정지 모드 (0:긴급 정지, 1:감속 정지)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_BUSY_OFF_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nBusyOff);						// Busy Off 모드 (0: 펄스 출력, 1:위치 결정
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_SWL_ENABLE_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nSWEnable);						// Software Limit 사용 여부(0:사용 X, 1:사용 O)
+				
+					pcbBox = (CComboBox *) GetDlgItem(IDC_CB_SWL_ENABLE_LOGIC_0 + iAxisIndex);
+					pcbBox->SetCurSel(mncLogic.nSWEnable);						// Software Limit 사용 여부(0:사용 X, 1:사용 O)
+				
+					peditBox = (CEdit *) GetDlgItem(IDC_EDIT_SWL_MPOSITION_LOGIC_0 + iAxisIndex);
+					str.Format(_T("%.f"),mncLogic.dSWMLimitPos);				// Software Limit -값
+					peditBox->SetWindowText(str);
+				
+					peditBox = (CEdit *) GetDlgItem(IDC_EDIT_SWL_PPOSITION_LOGIC_0 + iAxisIndex);
+					str.Format(_T("%.f"),mncLogic.dSWPLimitPos);				// Software Limit +값
+					peditBox->SetWindowText(str);
+				}
+				else
+				{
+					ErrMessage.StatusBox(nRet);
+				}
+			}
+		}
+	}
+}

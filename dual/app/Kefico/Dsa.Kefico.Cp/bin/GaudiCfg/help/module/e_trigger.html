@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<TITLE>E_TRIGGER</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_TRIGGER</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_trigger.C,v 1.11 2005/09/01 07:11:40 sniff Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	
+   ---------------------------------------------------------------------
+   Projekt:		TS2000
+   Sourcefile:		e_out_bosch
+   Autor:		RtW/TEF72-Name (10.11.95)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_trigger(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+   
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+
+   Dieses Modul hat die Aufgabe, die PAV Standard Parameter PEGEL und FLANKE
+   zu der Triggerkarte zu geben. Da die Triggerkarte je nach Verwendungsart
+   die Triggerlines und die Eingangseinheiten selbst bestimmt, mÏssen diese
+   Informationen den nachfolgenden Modulen wie E_SCHANNER und M_DMM
+   mitgeteilt werden. Dies wird mit Returnvariablen aus diesem Modul
+   realisiert.
+   
+   Das Modul E_SCANNER benÎtigt die Information wo die SG-Pins an dem
+   Koppelfeldausgangmultipexer an die Triggerkarte geschaltet werden sollen.
+   Das Modul liefert im Returnparameter SCANN_UNIT den Namen des Ausgangs-
+   multiplexers. Dieser Namen steht im PAM-Beschreibungsfile unter der 
+   Rubrik : MESSKOPPELFELD-START.
+   
+   Das Multimeter benÎtigt die Information, an welcher Triggerline das Trigger-
+   ereignis anliegt. 
+   Das Modul liefert im Returnparameter TRG_LINE die Nummer der Triggerline.
+   Diese Nummer wird dem Modul M_DMM Ïbergeben.
+
+   Ûbergabeparameter anhand der Modglobal.stl
+   ------------------------------------------
+   
+MD,E_TRIGGER</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre></pre><b><a name="param2">2</a> POSITION</b><pre></pre><b><a name="param3">3</a> TRG_NAME</b><pre>  :Symbolischer Namen aus dem PAM-Beschreibungsfile
+		            TRIG_01</pre><b><a name="param4">4</a> MAX_PEGEL</b><pre> :Maximaler Triggerpegel</pre><b><a name="param5">5</a> PEGEL</b><pre>     :Triggerpegel fÏr Triggersignal
+		     !Der Pegel ist immer exakt der Pegel, bei dem getriggert wird!
+		            Die Hysterese wird je nach Flanke addiert oder
+			    subtrahiert</pre><b><a name="param6">6</a> FLANKE</b><pre>    :Triggerflanke
+		            P  Positiv
+			    N  Negativ
+			    Die Triggerflanke wird in der Modglobal kodiert.
+			    N  ---&gt;0
+			    P  ---&gt;1</pre><b><a name="param7">7</a> DELAY</b><pre>     :TriggerverzÎgerung in Sekunden</pre><b><a name="param8">8</a> MESSTEILER</b><pre>:Information ob ein Spannungsteiler in der Kassette
+		            verdrahtet wurde.
+			    50   Triggerpegel muÞ durch 50 geteilt werden
+			     1   Triggerpegel braucht nicht verÌndert werden
+			     -   Kein Messteiler angelegt</pre><b><a name="param9">9</a> E_TRG_MODE</b><pre>:NORM: Keine besonderheiten. Die Triggerkarte wird besetzt.
+		   NEW:  Es wird ein neuer Logischer Name als INPUT angelegt. 
+			    (z.B: fÏr die Benutzung des CLOCK2 der VXK5010)
+		   DEL:  Freisetzen von belegten Triggerlines   anhand des 
+			    Logischen Namen
+		   DVM_TRG: Sondermodus für Makro DCV_TRG: Von der mitgegebenen
+			    Delay - Zeit wird soviel im Timer verarbeitet, daß
+			    das DMM entweder 0us oder &gt; 100us 
+			    weiterzuverarbeiten. Die Rückgabe der Restzeit erfolgt 
+			    über den Parameter RESTZEIT
+			    Falls das Spikefilter aus E_TRIGGER_INIT verwendet wird, 
+			    wird die Spikefilterzeit von der Delay-Zeit abgezogen.
+			    Falls die Spikefilterzeit &gt; Delay-Zeit, wird die Spikefilter-
+			    zeit in vollem Umfang verwendet und die Delayzeit auf 0 gesetzt.
+	Returnparameter</pre><b><a name="param10">10</a> SCANN_UNIT</b><pre>: Ûbergabe zum Modul E_SCANNER
+		             &amp; Return Parameter der Scannerlinie</pre><b><a name="param11">11</a> TRG_LINE</b><pre>  : Ûbergebparameter zum Modul M_DMM
+		             &amp; Return Parameter der Linie (0-7: Line, -1 Keine)</pre><b><a name="param12">12</a> RESTZEIT</b><pre>  : Ûbergebparameter zum Modul M_DMM
+		             &amp; Return Parameter der Restzeit: (0, 100us - unendlich)
+   
+</PRE>
+</BODY>
+</HTML>

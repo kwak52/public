@@ -1,0 +1,1050 @@
+<HTML>
+<HEAD>
+<TITLE>R_STRCOPY</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>R_STRCOPY</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ Funktionsbeschreibung:                                                                 
+                                                                                        
+    Mit diesem Modul kann der Anwender Substrings (Zeichenketten)                       
+    aus einem uebergebenen String oder aus einer Datei extrahieren                      
+    und via '&amp;'-Variable weitergeben.                                                   
+                                                                                        
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                                   
+          GAUDI Pruefschritt                                                            
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                                       
+          PAV- Position                                                                 
+    ------------------------------</pre><b><a name="param3">3</a> MODE</b><pre>                                                                           
+          INIT                                                                          
+            Der erstmalige Aufruf von R_STRCOPY in einer Pruefliste                     
+            muss einer mit INIT sein (sonstige Parameter werden ignoriert).             
+          MAKE / ~_UC / ~_LC                                                            
+            Es wird ein Zugriff auf eine bereits gespeicherte Datei                     
+            ausgefuehrt und die entsprechenden Eintraege an die                         
+            Schnittstelle uebergeben.                                                   
+            Der Parameter INPUTFILE muss mit einem gueltigen Dateipfad                  
+            versehen sein.                                                              
+            Mit dem Parameter EXECUTION wird gesteuert, wann der Datei-                 
+            zugriff stattfinden soll.                                                   
+          READFILE / ~_UC / ~_LC                                                        
+            eine Datei wird komplett einmalig gelesen und intern                        
+            gespeichert, so dass nachfolgende Verwendungen                              
+            ein erneutes Oeffnen nicht erforderlich machen;                             
+          EXTRACT / ~_UC / ~_LC                                                         
+            eine Datei wird ausschliesslich zum Lesen geoeffnet,                        
+                      um den gewuenschten Substring zu extrahieren und                  
+                      intern zu speichern;                                              
+                      die Datei selbst wird nicht gespeichert, dh. bei                  
+                      einem erneuten Aufruf mit demselben Dateinamen wird               
+                      die Datei wiederum geoeffnet und ein weiterer                     
+                      Substring daraus extrahiert;                                      
+                      wurde das Modul bereits mit dem Modus READ aufgerufen,            
+                      ist die betreffende Datei bereits geladen, ein                    
+                      erneuter Dateizugriff entfaellt in diesem Fall;                   
+                                                                                        
+          Durch das Suffix '_LC' (lowercase) bzw. '_UC' (uppercase)                     
+          kann bestimmt werden, dass der angegebene Dateiname (inkl.Pfad)               
+          entweder komplett in Klein- oder Grossbuchstaben zu wandeln ist.              
+          Fehlt ein Suffix, wird davon ausgegangen, dass der Dateiname                  
+          so zu uebernehmen ist, wie er von der GAUDI-Schnittstelle                     
+          angeboten wird.                                                               
+                                                                                        
+          Der Default-Eintrag ist '-' (Minus) mit derselben Bedeutung                   
+          wie INIT.                                                                     
+                                                                                        
+    ------------------------------</pre><b><a name="param4">4</a> EXECUTION</b><pre>                                                                      
+          vom Anwender kann hiermit gesteuert werden, wann das Modul                    
+          aktiv werden soll;                                                            
+            LOAD  - das Modul erzeugt bereits im Ruestlauf aus den                      
+                    Eingaben die gewuenschte Ausgabe, dh. es wird                       
+                    im Ruestlauf bereits eine Datei geoeffnet, um                       
+                    daraus z.B. den gewuenschten Teilstring zu                          
+                    extrahieren;                                                        
+                    in den nachfolgenden Prueflistendurchlaeufen                        
+                    findet ein Oeffnen einer Datei nicht mehr statt;                    
+            FIRST - die gleichen Aktivitaeten wie bei LOAD, mit dem                     
+                    Unterschied, dass das Modul im Ruestlauf keine                      
+                    Aktivitaet zeigt;                                                   
+                    auch hier werden Dateien nur einmalig, und zwar                     
+                    im ersten Listenlauf, geoeffnet;                                    
+            TEST  - das Modul ist im Ruestlauf inaktiv; alle Aktvitaeten                
+                    finden erst ab dem ersten Prueflistenlauf nach                      
+                    einem Ruestlauf statt;                                              
+                    Dateien werden mit jedem neuen Listenlauf erneut                    
+                    geoeffnet, um daraus zu lesen;                                      
+                                                                                        
+            Der Default-Eintrag ist '-' (Minus) mit derselben Bedeutung                 
+            wie LOAD.                                                                   
+                                                                                        
+    ------------------------------</pre><b><a name="param5">5</a> INPUTSTRING</b><pre>                                                                    
+          die Zeichenkette, aus der ein Substring extrahiert werden soll;               
+          dies kann auch eine '&amp;'-Variable sein;                                        
+          die maximale Laenge einer Zeichenkette betraegt 80 Zeichen                    
+          (entspricht 80 Bytes);                                                        
+                                                                                        
+    ------------------------------</pre><b><a name="param6">6</a> INPUTFILE</b><pre>                                                                      
+          ein Dateiname (inkl. Pfad), aus dem ein Substring extrahiert                  
+          werden soll;                                                                  
+          Dateinamen bestehen im Default-Fall aus Grossbuchstaben (die                  
+          GAUDI-Schnittstelle liefert solche), durch ein optionales                     
+          Suffix hinter der Modus-Angabe ('_LC') kann eine Wandlung in                  
+          Kleinbuchstaben initiiert werden;                                             
+                                                                                        
+          Der Basispfad auf dem zugeordneten Leitrechner ist:                           
+              "Leitrechner:/daten/pruef_ccs/"                                           
+          somit wird mit Eingabe von "dect/ptc/fe113401.01" folgende                    
+          Datei auf dem Leitrechner geoeffnet:                                          
+              "Leitrechner:/daten/pruef_ccs/dect/ptc/fe113401.01"                       
+                                                                                        
+    ------------------------------</pre><b><a name="param7">7</a> LINE_IN_FILE</b><pre>                                                                   
+          Auswahl einer Zeile in einer Datei (gezaehlt wird von 1 an);                  
+          folgende Steuerzeichen in einer Datei werden als Zeilenende-                  
+          Kennung interpretiert:                                                        
+            CR   (= CarriageReturn)                                                     
+            LF   (= Linefeed)                                                           
+            CRLF (= CarriageReturn Linefeed)                                            
+                                                                                        
+    ------------------------------</pre><b><a name="param8">8</a> STARTINDEX</b><pre>                                                                     
+          das erste Byte (des uebergebenen Strings, der Datei oder                      
+          der Zeile einer Datei) das extrahiert werden soll;                            
+          gezaehlt wird von 1 an;                                                       
+                                                                                        
+          wird beim Parameter LINE_IN_FILE der Default-Eintrag ('-')                    
+          belassen, kann auch ueber Zeilenenden hinweg ein Substring                    
+          (inkl. einer Zeilenende-Kennung) extrahiert werden;                           
+                                                                                        
+    ------------------------------</pre><b><a name="param9">9</a> STOPINDEX</b><pre>                                                                      
+          das letzte Byte (des uebergebenen Strings, der Datei oder                     
+          der Zeile einer Datei), das extrahiert werden soll (siehe oben);              
+                                                                                        
+          ist der START~ groesser als der STOPINDEX, wird der Substring                 
+          invertiert in OUTPUTSTRING ausgegeben;                                        
+                                                                                        
+    ------------------------------</pre><b><a name="param10">10</a> FIELDNUMBER</b><pre>                                                                    
+          alternativ zu START~ und STOPINDEX kann ein durch einen                       
+          Separator begrenztes Feld (des uebergebenen Strings, der Datei                
+          oder der Zeile einer Datei) extrahiert werden                                 
+          (gezaehlt wird von 1 an);                                                     
+                                                                                        
+          das erste Feld beginnt nicht zwingend ab einem                                
+          Begrenzungszeichen, das letzte Feld beginnt nach dem                          
+          angegebenen Begrenzungszeichen und endet vor einer evtl.                      
+          vorhandenen Zeilenende-Kennung oder dem Dateiende;                            
+                                                                                        
+    ------------------------------</pre><b><a name="param11">11</a> SEPARATOR</b><pre>                                                                      
+          ein oder mehrere ASCII-Zeichen, mit dem/denen die Zeichen                     
+          eines Strings (in einer Datei) voneinander getrennt sind;                     
+          das/die Zeichen werden zwischen Anfuehrungszeichen gesetzt;                   
+                                                                                        
+          Beispiel:  ", ,"                                                              
+                    der Separator besteht aus 3 Zeichen einem Komma,                    
+                    einem Leerzeichen und einem weiteren Komma;                         
+                                                                                        
+    ------------------------------</pre><b><a name="param12">12</a> OUTPUTSTRING</b><pre>                                                                   
+          der gewuenschte Substring in einer '&amp;'-Variablen                              
+                                                                                        
+    ------------------------------</pre><b><a name="param13">13</a> ERRORFLAG</b><pre>                                                                      
+          enthaelt im Fehlerfall eine 1;                                                
+          z.B. das Modul M_AUSWERTUNG kann diesen Parameter auswerten;                  
+                                                                                        
+ Input:                                                                                 
+                                                                                        
+ Output:                                                                                
+    none                                                                                
+                                                                                        
+ ----------------------------------------------------------                             
+ Return Value:                                                                          
+    = 0:    Successful completion                                                       
+                                                                                        
+ ----------------------------------------------------------                             
+ Beispiel (optional):                                                                   
+                                                                                        
+ ----------------------------------------------------------                             
+ &lt;\userdoc&gt; 
+ C4                                                                                     
+int r_strcopy( shm_stringpointer  *zeilen_wert
+              ,long               index_on_expPrfLst
+              ,long               anzPrmtr )
+{
+	
+	 r_strcopy 	
+	
+	 statische Speicher 	
+	static QMap&lt;QString, QString&gt;  s_TStepMap;  // Pruefschritt &lt;--&gt; Resultstring
+	static QMap&lt;QString, QString&gt;  s_FileMap;   // Filename     &lt;--&gt; Filecontent
+	
+	
+	 Lokale Variable 	
+	QString  resultstring;
+	
+	int  ret_val = 0;
+	
+	
+	 Schrittbetriebs-Handling 	
+	int  schritt_aktiv = schrittbetrieb( zeilen_wert, index_on_expPrfLst );
+	
+	if ( schritt_aktiv != 1 ) {
+		return 0;
+	
+	}
+	
+	 GAUDI-Parameter ausgeben: 	
+	QString  pruefschritt = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + PRUEFSCHRITT];
+	QString  position     = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + POSITION];
+	QString  action       = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + ACTION];
+	QString  execution    = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + EXECUTION];
+	QString  inputfile    = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + INPUTFILE];
+	QString  ignore       = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + IGNORE];
+	QString  line_in_file = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + LINE_IN_FILE];
+	QString  startindex   = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + STARTINDEX];
+	QString  stopindex    = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + STOPINDEX];
+	QString  fieldnumber  = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + FIELDNUMBER];
+	QString  separator    = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + SEPARATOR];
+	
+        QString inputstring;     
+
+#ifdef VARIABLENVERWALTUNG_MEMSTR
+        Variablenverwaltung *verwa_ptr1;           // Zugriff auf Variablenverwaltung
+    
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + INPUTSTRING];
+        verwa_ptr1-&gt;get_wert(inputstring);
+#else
+	inputstring  = (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + INPUTSTRING];
+#endif
+        
+	debug_message( __FILE__, __LINE__, DEB_GAUDI
+	              ,"Input fuer Modul \"R_STRCOPY\":\n"
+	               "PRUEFSCHRITT = [%s]\n"
+	               "POSITION =     [%s]\n"
+	               "ACTION =       [%s]\n"
+	               "EXECUTION =    [%s]\n"
+	               "INPUTSTRING =  [%s]\n"
+	               "INPUTFILE =    [%s]\n"
+	               "IGNORE =       [%s]\n"
+	               "LINE_IN_FILE = [%s]\n"
+	               "STARTINDEX =   [%s]\n"
+	               "STOPINDEX =    [%s]\n"
+	               "FIELD =        [%s]\n"
+	               "SEPARATOR =    [%s]"
+	              ,(const char *)pruefschritt, (const char *)position, (const char *)action
+	              ,(const char *)execution, (const char *)inputstring, (const char *)inputfile
+	              ,(const char *)ignore
+	              ,(const char *)line_in_file, (const char *)startindex, (const char *)stopindex
+	              ,(const char *)fieldnumber, (const char *)separator );
+	
+	if ( strstr(Ssp_vi-&gt;job.liststate,NORMAL) ) {
+		
+		 NORMAL 		
+		debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; Liststate ====&gt; NORMAL" );
+		
+		if ( action == ACTION_INIT || action == "-" ) {
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; ACTION_INIT" );
+			
+			r_strcopy_purge_map( s_TStepMap );
+		
+		}
+		else if ( action.find(ACTION_READFILE) &gt;= 0 ) {
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; ACTION_READFILE" );
+			
+			if ( execution == EXE_LOAD ) {
+				if ( !inputfile.isEmpty() &amp;&amp; inputfile != "-" ) {
+					
+					 Datei einlesen und bei Bedarf in Map speichern 					
+					if ( action.find("_LC") &gt; 0 ) {
+						inputfile = inputfile.lower();
+					
+					}
+					if ( r_strcopy_is_key_in_map(s_FileMap,inputfile) ) {
+						inputstring = s_FileMap[inputfile];
+					
+					}
+					else  {
+						r_strcopy_read_filecontent( inputfile, inputstring );
+						
+						s_FileMap[inputfile] = inputstring;
+					
+					}
+				}
+			}
+			else if ( execution == EXE_FIRST ) {
+				;
+			
+			}
+			else if ( execution == EXE_TEST ) {
+				;
+			
+			}
+			else  {
+//				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//				              ,"r_strcopy&gt; Unbekannter EXECUTION-Parameter [%s] - nicht LOAD, FIRST, TEST"
+//				              ,(const char *)execution);
+				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+				              ,"r_strcopy&gt; Unknown EXECUTION-parameter [%s] - not LOAD, FIRST, TEST"
+				              ,(const char *)execution);
+				ret_val = -1;
+			
+			}
+		}
+		else if ( action.find(ACTION_EXTRACT) &gt;= 0 ) {
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; ACTION_EXTRACT" );
+			
+			if ( execution == EXE_LOAD ) {
+			}
+			else if ( execution == EXE_FIRST ) {
+				;
+			
+			}
+			else if ( execution == EXE_TEST ) {
+				;
+			
+			}
+			else  {
+//				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//				              ,"r_strcopy&gt; Unbekannter EXECUTION-Parameter [%s] - nicht LOAD, FIRST, TEST"
+//				              ,(const char *)execution);
+				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+				              ,"r_strcopy&gt; Unknown EXECUTION-parameter [%s] - not LOAD, FIRST, TEST"
+				              ,(const char *)execution);
+				ret_val = -1;
+			
+			}
+		}
+		else  {
+//			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//			              ,"r_strcopy&gt; Unbekannter ACTION-Parameter [%s] - nicht INIT, READ, EXTRACT"
+//			              ,(const char *)action);
+			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+			              ,"r_strcopy&gt; Unknown ACTION-parameter [%s] - not INIT, READ, EXTRACT"
+			              ,(const char *)action);
+			ret_val = -1;
+		
+		}
+		if ( startindex != "-" &amp;&amp; stopindex != "-" ) {
+			resultstring = r_strcopy_extract_string_by_index( inputstring, startindex, stopindex );
+		
+		}
+		else  {
+			resultstring = r_strcopy_extract_string_by_number( inputstring, fieldnumber, separator );
+		
+		}
+
+#ifdef VARIABLENVERWALTUNG_MEMSTR
+           verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + OUTPUTSTRING];
+           verwa_ptr1-&gt;put_wert(resultstring);
+#else
+          *zeilen_wert-&gt;ptr[index_on_expPrfLst + OUTPUTSTRING] = (STRING)(char *)(const char *)resultstring;
+#endif            
+	}
+	else if ( strstr(Ssp_vi-&gt;job.liststate,FIRSTRUN) ) {
+		
+		 FIRSTRUN 		
+		debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; Liststate ====&gt; FIRSTRUN" );
+		
+		if ( action == ACTION_INIT || action == "-" ) {
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; ACTION_INIT" );
+			
+			r_strcopy_purge_map( s_TStepMap );
+		
+		}
+		else if ( action.find(ACTION_READFILE) &gt;= 0 ) {
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; ACTION_READFILE" );
+			
+			if ( execution == EXE_LOAD ) {
+				if ( !inputfile.isEmpty() &amp;&amp; inputfile != "-" ) {
+					
+					 Datei einlesen und bei Bedarf in Map speichern 					
+					if ( action.find("_LC") &gt; 0 ) {
+						inputfile = inputfile.lower();
+					
+					}
+					if ( r_strcopy_is_key_in_map(s_FileMap,inputfile) ) {
+						inputstring = s_FileMap[inputfile];
+					
+					}
+					else  {
+						r_strcopy_read_filecontent( inputfile, inputstring );
+						
+						s_FileMap[inputfile] = inputstring;
+					
+					}
+				}
+			}
+			else if ( execution == EXE_FIRST ) {
+				;
+			
+			}
+			else if ( execution == EXE_TEST ) {
+				;
+			
+			}
+			else  {
+//				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//				              ,"r_strcopy&gt; Unbekannter EXECUTION-Parameter [%s] - nicht LOAD, FIRST, TEST"
+//				              ,(const char *)execution);
+				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+				              ,"r_strcopy&gt; Unknown EXECUTION-parameter [%s] - not LOAD, FIRST, TEST"
+				              ,(const char *)execution);
+				ret_val = -1;
+			
+			}
+		}
+		else if ( action.find(ACTION_EXTRACT) &gt;= 0 ) {
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; ACTION_EXTRACT" );
+			
+			if ( execution == EXE_LOAD ) {
+			}
+			else if ( execution == EXE_FIRST ) {
+				;
+			
+			}
+			else if ( execution == EXE_TEST ) {
+				;
+			
+			}
+			else  {
+//				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//				              ,"r_strcopy&gt; Unbekannter EXECUTION-Parameter [%s] - nicht LOAD, FIRST, TEST"
+//				              ,(const char *)execution);
+				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+				              ,"r_strcopy&gt; Unknown EXECUTION-parameter [%s] - not LOAD, FIRST, TEST"
+				              ,(const char *)execution);
+				ret_val = -1;
+			
+			}
+		}
+		else  {
+//			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//			              ,"r_strcopy&gt; Unbekannter ACTION-Parameter [%s] - nicht INIT, READ, EXTRACT"
+//			              ,(const char *)action);
+			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+			              ,"r_strcopy&gt; Unknown ACTION-Parameter [%s] - not INIT, READ, EXTRACT"
+			              ,(const char *)action);
+			ret_val = -1;
+		
+		}
+		if ( startindex != "-" &amp;&amp; stopindex != "-" ) {
+			resultstring = r_strcopy_extract_string_by_index( inputstring, startindex, stopindex );
+		
+		}
+		else  {
+			resultstring = r_strcopy_extract_string_by_number( inputstring, fieldnumber, separator );
+		
+		}
+
+#ifdef VARIABLENVERWALTUNG_MEMSTR
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + OUTPUTSTRING];
+        verwa_ptr1-&gt;put_wert(resultstring);
+#else
+       *zeilen_wert-&gt;ptr[index_on_expPrfLst + OUTPUTSTRING] = (STRING)(char *)(const char *)resultstring;
+#endif
+	}
+	else if ( strstr(Ssp_vi-&gt;job.liststate,PREINT) ) {
+		
+		 PREINT 		
+		debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; Liststate ====&gt; PREINT" );
+		
+		if (  action == ACTION_INIT || action == "-" ) {
+			
+			 Mode: INIT 			
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; ACTION_INIT" );
+			
+			r_strcopy_purge_map( s_FileMap );
+			r_strcopy_purge_map( s_TStepMap );
+		
+		}
+		else if ( action.find(ACTION_READFILE) &gt;= 0 ) {
+			
+			 Mode: READ 			
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; ACTION_READFILE" );
+			
+			if ( execution == EXE_LOAD ) {
+				if ( !inputfile.isEmpty() &amp;&amp; inputfile != "-" ) {
+					
+					 Datei einlesen und bei Bedarf in Map speichern 					
+					if ( action.find("_LC") &gt; 0 ) {
+						inputfile = inputfile.lower();
+					
+					}
+					if ( r_strcopy_is_key_in_map(s_FileMap,inputfile) ) {
+						inputstring = s_FileMap[inputfile];
+					
+					}
+					else  {
+						r_strcopy_read_filecontent( inputfile, inputstring );
+						
+						s_FileMap[inputfile] = inputstring;
+					
+					}
+				}
+			}
+			else if ( execution == EXE_FIRST || execution == EXE_TEST ) {
+				;
+			
+			}
+			else  {
+//				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//				              ,"r_strcopy&gt; Unbekannter EXECUTION-Parameter [%s] - nicht LOAD, FIRST, TEST"
+//				              ,(const char *)execution);
+				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+				              ,"r_strcopy&gt; Unknown EXECUTION-parameter [%s] - not LOAD, FIRST, TEST"
+				              ,(const char *)execution);
+				ret_val = -1;
+			
+			}
+		}
+		else if ( action.find(ACTION_EXTRACT) &gt;= 0 ) {
+			
+			 Mode: EXTRACT 			
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy&gt; ACTION_EXTRACT" );
+			
+			if ( execution == EXE_LOAD ) {
+				if ( !inputfile.isEmpty() &amp;&amp; inputfile != "-" ) {
+					
+					 Substring aus Datei einlesen und in Map speichern 					
+					if ( action.find("_LC") &gt; 0 ) {
+						inputfile = inputfile.lower();
+					
+					}
+				}
+				else  {
+					
+					 Substring aus Inputstring extrahieren 					
+					resultstring = inputstring;
+				
+				}
+			}
+			else if ( execution == EXE_FIRST ) {
+				;
+			
+			}
+			else if ( execution == EXE_TEST ) {
+				;
+			
+			}
+			else  {
+//				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//				              ,"r_strcopy&gt; Unbekannter EXECUTION-Parameter [%s] - nicht LOAD, FIRST, TEST"
+//				              ,(const char *)execution);
+				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+				              ,"r_strcopy&gt; Unknown EXECUTION-parameter [%s] - not LOAD, FIRST, TEST"
+				              ,(const char *)execution);
+				ret_val = -1;
+			
+			}
+		}
+		else  {
+//			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//			              ,"r_strcopy&gt; Unbekannter ACTION-Parameter [%s] - nicht INIT, READ, EXTRACT"
+//			              ,(const char *)action);
+			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+			              ,"r_strcopy&gt; Unknown ACTION-parameter [%s] - not INIT, READ, EXTRACT"
+			              ,(const char *)action);
+			ret_val = -1;
+		
+		}
+		if ( startindex != "-" &amp;&amp; stopindex != "-" ) {
+			resultstring = r_strcopy_extract_string_by_index( inputstring, startindex, stopindex );
+		
+		}
+		else  {
+			resultstring = r_strcopy_extract_string_by_number( inputstring, fieldnumber, separator );
+		
+		}
+
+#ifdef VARIABLENVERWALTUNG_MEMSTR
+        verwa_ptr1 = (Variablenverwaltung*) zeilen_wert-&gt;ptr[index_on_expPrfLst + OUTPUTSTRING];
+        verwa_ptr1-&gt;put_wert(resultstring);
+#else
+       *zeilen_wert-&gt;ptr[index_on_expPrfLst + OUTPUTSTRING] = (STRING)(char *)(const char *)resultstring;
+#endif
+	}
+	else  {
+//		error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//		              ,"r_strcopy&gt; Unbekannter Listen-Zustand [%s] - nicht PREINT, FIRSTRUN, NORMAL"
+//		              ,(const char *)Ssp_vi-&gt;job.liststate );
+		error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+		              ,"r_strcopy&gt; Unknown list state [%s] - not PREINT, FIRSTRUN, NORMAL"
+		              ,(const char *)Ssp_vi-&gt;job.liststate );
+	
+	}
+	return 0;
+
+}
+
+ r_strcopy_read_filecontent (6_testmodul_pool-testlisten_module-r_rechenmodule-r_strcopy) 
+ SDOperation                                                                              
+                                                                                          
+ History                                                                                  
+ -------                                                                                  
+ created by ohm3sa 07/21/1998 at 15:44                                                    
+ modified by klm3sa 01/14/2000 at 09:58                                                   
+                                                                                          
+ SD text                                                                                  
+ -------                                                                                  
+ C3                                                                                       
+ ----------------------------------------------------------                               
+ Kurzbeschreibung: liest ein File bis zum Dateiende                                       
+                                                                                          
+ ----------------------------------------------------------                               
+ Schnittstelle:                                                                           
+    #include &lt;...h&gt;                                                                       
+                                                                                          
+    $Function$                                                                            
+                                                                                          
+ ----------------------------------------------------------                               
+ Funktionsbeschreibung:                                                                   
+                                                                                          
+ Input:                                                                                   
+                                                                                          
+ Output:                                                                                  
+    none                                                                                  
+                                                                                          
+ ----------------------------------------------------------                               
+ Return Value:                                                                            
+    = 0:    Successful completion                                                         
+                                                                                          
+ ----------------------------------------------------------                               
+ Beispiel (optional):                                                                     
+                                                                                          
+ ----------------------------------------------------------                               
+ C4                                                                                       
+int r_strcopy_read_filecontent( const QString &amp;filename, QString &amp;filecontent )
+{
+	
+	 r_strcopy_read_filecontent 	
+	
+	 Lokale Variablen 	
+	int  ret_val = 0;
+	
+	
+	 vollstaendigen Pfadnamen bilden: 	
+	QString  complete_filename;
+	
+	char  mainpath[256];
+	char  NodeServer[80];
+	
+	if ( get_dir( DIR_TLIST, 80, 80, mainpath, NodeServer ) ) {
+//		error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//		              ,"r_strcopy_read_filecontent&gt; Datei [%s]\n"
+//		               "   kann wg. \"get_dir()\"-Fehler nicht geoeffnet werden", (const char *)filename );
+		error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+		              ,"r_strcopy_read_filecontent&gt; File [%s]\n"
+		               "   can not be opened due to \"get_dir()\" error", (const char *)filename );
+		ret_val = -1;
+	
+	}
+	else  {
+		complete_filename  = mainpath;
+		complete_filename += filename;
+		
+		debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy_read_filecontent&gt; lese Datei:\n   [%s]"
+		              ,(const char *)complete_filename );
+	
+	}
+	if ( 0 == ret_val ) {
+		
+		 Datei oeffnen 		
+		ifstream  infile;
+		
+		infile.open( complete_filename );
+		
+		if ( !infile.rdbuf()-&gt;is_open() ) {
+//			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//			              ,"r_strcopy_read_filecontent&gt; Datei [%s] konnte nicht geoeffnet werden!"
+//			              ,(const char *)complete_filename );
+			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+			              ,"r_strcopy_read_filecontent&gt; File [%s] could not be opened!"
+			              ,(const char *)complete_filename );
+			ret_val = -1;
+		
+		}
+		
+		 Datei Byte-weise einlesen: 		
+		if ( 0 == ret_val ) {
+			char  ch;
+			
+			filecontent.truncate(0);
+			
+			while ( infile.get(ch) ) {
+				filecontent += ch;
+			
+			}
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy_read_filecontent&gt; Dateilaenge: [%d]"
+			              ,filecontent.length() );
+			
+			if ( !infile.eof() ) {
+//				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//				              ,"r_strcopy_read_filecontent&gt; Fehler beim Lesen der Datei [%s]"
+//				              ,(const char *)complete_filename );
+				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+				              ,"r_strcopy_read_filecontent&gt; Error reading file [%s]"
+				              ,(const char *)complete_filename );
+				ret_val = -1;
+			
+			}
+		}
+		
+		 Datei schliessen 		
+		infile.close();
+	
+	}
+	return( ret_val );
+
+}
+
+ r_strcopy_extract_string_by_index (6_testmodul_pool-testlisten_module-r_rechenmodule-r_strcopy) 
+ SDOperation                                                                                     
+                                                                                                 
+ History                                                                                         
+ -------                                                                                         
+ created by ohm3sa 07/14/1998 at 10:45                                                           
+ modified by klm3sa 01/14/2000 at 09:58                                                          
+                                                                                                 
+ SD text                                                                                         
+ -------                                                                                         
+ C3                                                                                              
+ ----------------------------------------------------------                                      
+ Kurzbeschreibung: extrahiert einen Substring von Start bis Ende                                 
+                                                                                                 
+ ----------------------------------------------------------                                      
+ Schnittstelle:                                                                                  
+    #include &lt;...h&gt;                                                                              
+                                                                                                 
+    $Function$                                                                                   
+                                                                                                 
+ ----------------------------------------------------------                                      
+ Funktionsbeschreibung:                                                                          
+                                                                                                 
+    Der zu extrahierende Substring darf eine Laenge von maximal                                  
+    80 Zeichen nicht ueberschreiten!                                                             
+                                                                                                 
+ Input:                                                                                          
+                                                                                                 
+ Output:                                                                                         
+    none                                                                                         
+                                                                                                 
+ ----------------------------------------------------------                                      
+ Return Value:                                                                                   
+    = 0:    Successful completion                                                                
+                                                                                                 
+ ----------------------------------------------------------                                      
+ Beispiel (optional):                                                                            
+                                                                                                 
+ ----------------------------------------------------------                                      
+ C4                                                                                              
+QString r_strcopy_extract_string_by_index( const QString&amp; input
+                                         ,const QString&amp; startstring, const QString&amp; stopstring )
+{
+	
+	 r_strcopy_extract_string_by_index 	
+	debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy_extract_string_by_index&gt; Start=[%s], Stop=[%s]"
+	              ,(const char *)startstring, (const char *)stopstring );
+	
+	int  start = atoi( (const char *)startstring );
+	int  stop  = atoi( (const char *)stopstring );
+	
+	
+	 Rueckgabe-String initialisieren: 	
+	QString  resultstring = "";
+	
+	if ( start &gt; 0  &amp;&amp;  start &lt;= input.length()  &amp;&amp;  stop &gt; 0  &amp;&amp;  stop &lt;= input.length() ) {
+		if ( start &lt;= stop ) {		
+			resultstring = input.mid( start-1, stop-start+1 );
+		}
+		else  {
+			 Substring in invertierter Reihenfolge generieren: 			
+			int index = start-1;
+			while ( index &gt;= stop-1 ) {
+				resultstring += input.at(index--);
+			}
+		}
+	}
+	
+	 Im Rüstlauf Fehlermeldung unterdrücken 	
+	else if ( strstr(Ssp_vi-&gt;job.liststate,PREINT) ) {
+	}
+	else  {
+//		error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//		              ,"r_strcopy_extract_string_by_index&gt; 'start' / 'stop' ausserhalb der String-Grenzen:\n"
+//		               "   Laenge = %d / start = %d / stop = %d", input.length(), start, stop );
+		error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+		              ,"r_strcopy_extract_string_by_index&gt; 'start' / 'stop' out of string bounds:\n"
+		               "   length = %d / start = %d / stop = %d", input.length(), start, stop );
+	
+	}
+	debug_message( __FILE__, __LINE__, DEB_DATA, "r_strcopy_extract_string_by_index&gt; Substring:\n"
+	               "   [%s]", (const char *)resultstring );
+	
+	return resultstring;
+
+}
+
+ r_strcopy_extract_string_by_number (6_testmodul_pool-testlisten_module-r_rechenmodule-r_strcopy) 
+ SDOperation                                                                                      
+                                                                                                  
+ History                                                                                          
+ -------                                                                                          
+ created by ohm3sa 07/14/1998 at 10:51                                                            
+ modified by klm3sa 01/14/2000 at 09:58                                                           
+                                                                                                  
+ SD text                                                                                          
+ -------                                                                                          
+ C3                                                                                               
+ ----------------------------------------------------------                                       
+ Kurzbeschreibung: extrahiert ein durch Separatoren begrenztes                                    
+                   Feld                                                                           
+                                                                                                  
+ ----------------------------------------------------------                                       
+ Schnittstelle:                                                                                   
+    #include &lt;...h&gt;                                                                               
+                                                                                                  
+    $Function$                                                                                    
+                                                                                                  
+ ----------------------------------------------------------                                       
+ Funktionsbeschreibung:                                                                           
+                                                                                                  
+ Input:                                                                                           
+                                                                                                  
+ Output:                                                                                          
+    none                                                                                          
+                                                                                                  
+ ----------------------------------------------------------                                       
+ Return Value:                                                                                    
+    = 0:    Successful completion                                                                 
+                                                                                                  
+ ----------------------------------------------------------                                       
+ Beispiel (optional):                                                                             
+                                                                                                  
+ ----------------------------------------------------------                                       
+ C4                                                                                               
+QString r_strcopy_extract_string_by_number( const QString&amp; input
+                                          ,const QString&amp; fieldnumber, const QString&amp; separator_with_delimiter )
+{
+	
+	 r_strcopy_extract_string_by_number 	
+	debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy_extract_string_by_number&gt; Field=[%s], Separator=[%s]"
+	              ,(const char *)fieldnumber, (const char *)separator_with_delimiter );
+	
+	int  fieldno = atoi( (const char *)fieldnumber );
+	
+	
+	 Rueckgabe-String initialisieren: 	
+	QString  resultstring = "";
+	
+	if ( fieldno &gt; 0 ) {
+		unsigned  seplength = separator_with_delimiter.length();
+		
+		if (    (separator_with_delimiter.at(0) == '\"')
+		     &amp;&amp; (separator_with_delimiter.at(seplength-1) == '\"') ) {
+			QString  separator = separator_with_delimiter.mid( 1, (seplength-2) );
+			
+			if ( separator.length() ) {
+				
+				 gesuchtes Feld (beginnend mit 1) aus den String-Daten extrahieren: 				
+				int  hit_field = 0;
+				int  index = 0;
+				
+				do {
+					int next_index = input.find( separator, index );
+					
+					if ( next_index &lt; 0 ) {
+						
+						 Ende erreicht - abbrechen: 						
+						resultstring = input.mid( index );
+						hit_field++;
+						break;
+					
+					}
+					resultstring = input.mid( index, (next_index-index) );
+					
+					index = next_index + separator.length();
+					
+					hit_field++;
+				
+				} while ( hit_field &lt; fieldno ) ;
+				
+				 gefunden ? 				
+				if ( hit_field != fieldno ) {
+					resultstring.truncate(0);
+					
+//					error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//					              ,"r_strcopy_extract_string_by_number&gt; Field (%d) nicht besetzt / nicht existent"
+//					              ,fieldno );
+					error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+					              ,"r_strcopy_extract_string_by_number&gt; Field (%d) not set / non-existent"
+					              ,fieldno );
+				
+				}
+			}
+			else  {
+//				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//				              ,"r_strcopy_extract_string_by_number&gt; Separator hat Laenge 0" );
+				error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+				              ,"r_strcopy_extract_string_by_number&gt; Separator has length 0" );
+			
+			}
+		}
+		else  {
+//			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//			              ,"r_strcopy_extract_string_by_number&gt; Separator nicht im Format \"...\":\n"
+//			              ,"   [%s]"
+//			              ,(const char *)separator_with_delimiter );
+			error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+			              ,"r_strcopy_extract_string_by_number&gt; Separator not in format \"...\":\n"
+			              ,"   [%s]"
+			              ,(const char *)separator_with_delimiter );
+		
+		}
+	}
+	else  {
+//		error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+//		              ,"r_strcopy_extract_string_by_number&gt; 'fieldnumber' nicht groesser als 0" );
+		error_message( ERR_ERROR_TTNR, HEADER, __LINE__
+		              ,"r_strcopy_extract_string_by_number&gt; 'fieldnumber' not greater than 0" );
+	
+	}
+	debug_message( __FILE__, __LINE__, DEB_DATA, "r_strcopy_extract_string_by_number&gt; Substring:\n"
+	               "   [%s]", (const char *)resultstring );
+	
+	return resultstring;
+
+}
+
+ r_strcopy_purge_map (6_testmodul_pool-testlisten_module-r_rechenmodule-r_strcopy) 
+ SDOperation                                                                       
+                                                                                   
+ History                                                                           
+ -------                                                                           
+ created by ohm3sa 07/21/1998 at 11:05                                             
+ modified by klm3sa 01/14/2000 at 09:58                                            
+                                                                                   
+ SD text                                                                           
+ -------                                                                           
+ C3                                                                                
+ ----------------------------------------------------------                        
+ Kurzbeschreibung: eine Map entleeren                                              
+ ----------------------------------------------------------                        
+ Schnittstelle:                                                                    
+    #include &lt;...h&gt;                                                                
+                                                                                   
+    $Function$                                                                     
+                                                                                   
+ ----------------------------------------------------------                        
+ Funktionsbeschreibung:                                                            
+                                                                                   
+ Input:                                                                            
+                                                                                   
+ Output:                                                                           
+    none                                                                           
+                                                                                   
+ ----------------------------------------------------------                        
+ Return Value:                                                                     
+    = 0:    Successful completion                                                  
+                                                                                   
+ ----------------------------------------------------------                        
+ Beispiel (optional):                                                              
+                                                                                   
+ ----------------------------------------------------------                        
+ C4                                                                                
+void r_strcopy_purge_map( QMap&lt;QString,QString&gt; &amp;theMap )
+{
+	
+	 r_strcopy_purge_map 	
+	debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy_purge_map&gt; called" );
+	
+	if ( !theMap.isEmpty() ) {
+		debug_message( __FILE__, __LINE__, DEB_STATUS
+		              ,"r_strcopy_purge_map&gt; es gibt %d Elemente in der Map", theMap.count() );
+		
+		QMap&lt;QString,QString&gt;::Iterator it;
+		for ( it = theMap.begin(); it != theMap.end(); ++it ) {
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy_purge_map&gt; key [%s] geloescht"
+			              ,it.key().latin1() );
+		
+		}
+		theMap.clear();
+	
+	}
+	return;
+
+}
+
+ r_strcopy_is_key_in_map (6_testmodul_pool-testlisten_module-r_rechenmodule-r_strcopy) 
+ SDOperation                                                                           
+                                                                                       
+ History                                                                               
+ -------                                                                               
+ created by ohm3sa 07/21/1998 at 13:54                                                 
+ modified by klm3sa 01/14/2000 at 09:58                                                
+                                                                                       
+ SD text                                                                               
+ -------                                                                               
+ C3                                                                                    
+ ----------------------------------------------------------                            
+ Kurzbeschreibung: prueft ob eine Eintrag vorhanden ist                                
+                                                                                       
+ ----------------------------------------------------------                            
+ Schnittstelle:                                                                        
+    #include &lt;...h&gt;                                                                    
+                                                                                       
+    $Function$                                                                         
+                                                                                       
+ ----------------------------------------------------------                            
+ Funktionsbeschreibung:                                                                
+                                                                                       
+ Input:                                                                                
+                                                                                       
+ Output:                                                                               
+    none                                                                               
+                                                                                       
+ ----------------------------------------------------------                            
+ Return Value:                                                                         
+    = 0:    Successful completion                                                      
+                                                                                       
+ ----------------------------------------------------------                            
+ Beispiel (optional):                                                                  
+                                                                                       
+ ----------------------------------------------------------                            
+ C4                                                                                    
+int r_strcopy_is_key_in_map( const QMap&lt;QString,QString&gt; &amp;theMap, const QString &amp;key_element )
+{
+	
+	 r_strcopy_is_key_in_map 	
+	
+	 Lokale Variablen 	
+	int  ret_val = 0;
+	
+	debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy_is_element_in_map&gt; called with [%s]"
+	              ,(const char *)key_element );
+	
+	if ( !theMap.isEmpty() ) {
+		debug_message( __FILE__, __LINE__, DEB_STATUS
+		              ,"r_strcopy_is_element_in_map&gt; es gibt %d Elemente in der Map", theMap.count() );
+		
+		QMap&lt;QString,QString&gt;::ConstIterator it;
+		for ( it = theMap.begin(); it != theMap.end(); ++it ) {
+			debug_message( __FILE__, __LINE__, DEB_STATUS, "r_strcopy_is_key_in_map&gt; key_in_map: [%s]"
+			              ,it.key().latin1() );
+			
+			if ( it.key() == key_element ) {
+				ret_val = 1;
+				break;
+			
+			}
+		}
+	}
+	return( ret_val );
+
+}
+</PRE>
+</BODY>
+</HTML>

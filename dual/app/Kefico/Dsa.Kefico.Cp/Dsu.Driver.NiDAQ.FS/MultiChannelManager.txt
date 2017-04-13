@@ -1,0 +1,62 @@
+﻿설계
+	- 하나의 독립적인 thread 를 통해서 보드로부터 계속 DAQ data 를 읽어 낸다.
+	- 읽어낸 data 는 Circular buffer 에 저장함과 동시에 Rx subject 를 통해서 해당 event 가 발생했음을 공지한다.
+	- AsyncCollect 호출을 통해서 관심있는 channel 에 대해서 DAQ 를 수집할 수 있다.
+		* 호출 시점이후에 subject event 에 등록되고, 이 시점이후에 DAQ 에서 읽는 data 는 collection 될 수 있다.
+		* 호출 시점과 이후 event 발생 시점 사이 (=> delta t)의 data 가 필요하다면, Circular buffer 에서 얻어야 한다.
+		* delta t 가 충분히 작으면 circular buffer 를 고려하지 않아도 되지만, 200279 exception 발생 확률이 높다.
+		* delta t 를 안정적으로 크게 가져가고, delta t 동안의 loss 를 허용하지 않는다면, 해당 부분의 data 는 
+		  circular buffer 에서 얻어야 한다.
+	- Circular buffer 는 최소 delta t 용량의 2배는 가져야 한다.  (현재 10배로 설정되어 있음.)
+	
+Sampling rate 관련 실험 치
+	- 0.1MS(Mega samples), 100개씩 fech -> 안정적으로 동작
+	- 1MS, 1000개씩 fech -> 어느 정도(?) 안정적으로 동작 (at least 90000 loop/7분 이상 동작)
+	- 2MS, 2000개씩 fech -> 어느 정도(?) 안정적으로 동작
+	- 2.5MS, 2500개씩 fech -> 어느 정도(?) 안정적으로 동작(at least 15.83M loop/+4 hour 동작)
+	---------------- 2.5MS 넘어가면 fetch 갯수 늘려도 언제나 불안.  연속적으로 가져오는 것이 불가능
+	- 2.51MS, 2510개씩 fech -> 매우 불안정	crash at counter 1125 
+	- 2.51MS, 2600개씩 fech -> 매우 불안정	crash at counter 1116
+	- 2.51MS, 5000개씩 fech -> 매우 불안정	crash at counter 350
+	- 2.6MS, 2600개씩 fech -> 매우 불안정
+	- 3MS, 3000개씩 fech -> 매우 불안정
+	- 10MS, 10000개씩 fetch -> 매우 불안정
+
+NiDaq 기능 관련
+	- Buffer 내용 모두 읽기
+		task.Stream.ReadAllAvailableSamples = true
+		analogInReader.ReadWaveform(-1)
+		task.Stream.ReadAllAvailableSamples = false
+	- Buffer 의 현재 읽기 위치
+		stream.CurrentReadPosition;
+
+DAQException:
+
+-200279: "The application is not able to keep up with the hardware acquisition"
+	DAQ board 의 buffer 에 쌓이는 data 를 충분히 빨리 꺼내가지 못할 때 발생하는 예외
+	주요 발생원인
+		* DAQ loop 안에 시간을 소모하는 요소가 있는가?
+	Sampling rate = 100000, num samples = 100 일때, 메모리 사용량은 약 27MB
+		34,530,000 -th loop 에서 예외 발생.
+		num samples 갯수를 줄이면 더욱 빨리 예외 발생 (조금씩 buffer 에서 꺼내므로, buffer 가 빨리 찬다.)
+
+처리되지 않은 'NationalInstruments.DAQmx.DaqException' 형식의 예외가 FSharp.Core.dll에서 발생했습니다.
+추가 정보: Acquisition has been stopped to prevent an input buffer overwrite. Your application was unable to read samples from the buffer fast enough to prevent new samples from overwriting unread data.
+
+-200557: "Specified property cannot be set while the task is running.""
+	Set the property prior to starting the task, or stop the task prior to setting the property.
+	task running 중(이미 scan 중)인 AIChannel 등의 property 를 바꾸고자 하는 경우 발생.
+
+-200019: "ADC conversion attempted before the prior conversion was completed."
+	Increase the period between ADC conversion.  If you are using an external clock, check your signal for the presence of noise or glitches.
+	H/W spec 에 명시된 sampling rate 보다 더 많은 샘플을 읽으려고 할 때에 발생함.
+
+-50103: "The specified resource is reserved.  The operation could not be completed as specified."
+	다른 프로그램 등에서 이미 특정 resource 를 사용하고 있는 중에 해당 resource 에 대한 사용 요청이 발생한 경우.
+	예: NI MAX 에서 Test panel 을 통해서 channel 을 읽고 있는 중에, channel 을 읽는 프로그램을 실행할 경우 발생함.
+
+- let hwScanTime = data.[0].PrecisionTiming.TimeStamp 	
+	예외 발생: 'System.InvalidOperationException'(NationalInstruments.Common.dll)
+	추가 정보: The waveform timing does not have a time stamp. 
+ 
+

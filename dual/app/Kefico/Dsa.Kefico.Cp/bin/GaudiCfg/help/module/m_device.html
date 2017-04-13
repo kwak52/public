@@ -1,0 +1,506 @@
+<HTML>
+<HEAD>
+<TITLE>M_DEVICE</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>M_DEVICE</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+ ----------------------------------------------------------                             
+ Funktionsbeschreibung:                                                                 
+                                                                                        
+ Modul, mit dessen Hilfe Daten eines Devices fuer eine nachfolgende                     
+ Auswertung (mit "M_AUSWERTUNG") aufbereitet werden koennen.                            
+ Die aufbereiteten Daten (Position bzw. SegmentNr und Wert) werden                      
+ an eine '&amp;'-Variable im GAUDI weitergereicht uebergeben und koennen                    
+ anschliessend beliebig weiterverwendet werden.                                         
+ Dieses Modul kann mehrmals hintereinander aufgerufen werden, um                        
+ nacheinander Operationen auf gleichen oder unterschiedlichen Teilen                    
+ der zuvor mit 'E_DEVICE' eingelesenen Daten vorzunehmen.                               
+                                                                                        
+ Wichtig: Das Device muss zuvor mit dem Modul "E_DEVICE" mit dem                        
+          FUNCTION-Schluesselwort 'RCV...' zur Ausgabe von Daten                        
+          stimuliert worden sein!                                                       
+                                                                                        
+          Im Fall eines Device-Errors wird das Fehlerflag auf den                       
+          Wert 1 gesetzt bzw. durchgereicht. Dies kann vom Modul                        
+          "M_AUSWERTUNG" genutzt werden. Desweiteren wird anstelle                      
+          des Messwerts die Geraete-spezifische Fehlermeldung                           
+          zur Messwertestatistik uebertragen und erscheint dann im                      
+          Messwerteprotokoll.                                                           
+                                                                                        
+          Ohne vorangehenden Aufruf des Modus "E_DEVICE" wird                           
+          ebenfalls das Fehlerflag gesetzt und im Messwerteprotokoll                    
+          erscheint die Meldung "No Call to E_DEVICE!".                                 
+                                                                                        
+          Darueber hinaus wird jede Fehlfunktion im dem PAM zugeordneten                
+          Logfile auf dem entsprechenden Leitrechner (Verz.: /HP-RT/logfiles)           
+          protokolliert.                                                                
+                                                                                        
+                                                                                        
+    Beschreibung der Modulparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>                                                                   
+          GAUDI Pruefschritt                                                            
+    ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>                                                                       
+          PAV- Position                                                                 
+     ------------------------------</pre><b><a name="param3">3</a> DEVICENAME</b><pre>                                                                     
+          z.B. DIGITIZER_01,                                                            
+          hiermit wird mithin ein Devicename angegeben, der (z.Zt. noch)                
+          in der Datei "hw_vxi_geraete_x...xx.cnf" angegeben sein muss                  
+          (dies braucht nicht vom Anwender dieses Moduls getan zu werden);              
+          mit den darin enthaltenen Informationen laesst sich ein                       
+          SICL-Device am VXI- bzw. HPIB-Bus ueber seine Adresse identifizieren          
+          und ansteuern;                                                                
+          der Name muss mit dem in "E_DEVICE" angegebenen uebereinstimmen;              
+    ------------------------------</pre><b><a name="param4">4</a> IDENTIFICATION</b><pre>                                                                 
+          Eingabe eines beliebigen Texts als Kommentar, z.B. "NTP-Messung",             
+          der zur Identifikation des Messobjekts dient.                                 
+          Der hier eingegebene Text bewirkt einen Eintrag im Messprotokoll              
+          fuer den Fall, dass im Listenlauf ein Fehler von einem Device                 
+          gemeldet wird. Ausgegeben wird dann die vom Geraet ausgelesene                
+          Fehlermeldung (z.Zt. ist die Laenge dieser Ausgabe auf 31 Zeichen             
+          beschraenkt).                                                                 
+    ------------------------------</pre><b><a name="param5">5</a> DATAFILTER</b><pre>                                                                     
+          Hiermit lassen sich Filterfunktionen, mit denen die eingelesenen Daten        
+          vor ihrer Auswertung bearbeitet werden sollen, eingeben.                      
+          Jede Filterung wird pro Datensatz nur einmal durchgefuehrt, auch wenn in      
+          aufeinanderfolgenden Modulaufrufen ein Eintrag an dieser Position             
+          erhalten bleibt.                                                              
+                                                                                        
+          Ausnahme: Glitch-Filter, dieses "Filter" wird bei Berechnungen, in denen      
+                    fuer die Analyse der Gradient zu beruecksichtigen ist, immer        
+                    angewendet, um sporadische Abweichungen von der Monotonie-          
+                    Bedingung auszugleichen. Dh. wenn eine der Funktionen MAXIMUM oder  
+                    CROSSING verwendet wird, sollte zur Festlegung des Bereichs der     
+                    fuer die Pruefung der Monotonie-Bedingungen erforderlich ist,       
+                    diese "Filterfunktion" angegeben werden.                            
+                    GLITCH_3 - Verwendung eines Glitchfilters zur Ermittlung            
+                               z.B. von Maxima/Minima im Bereich von +/-3 Messwerten    
+                               um den angenommenen Extremalwert;                        
+                               (Default, dh. ohne Angabe dieser Funktion: 2)            
+                                                                                        
+          Verschiedene Filter koennen miteinander verknuepft, dh. unmittelbar           
+          nacheinander auf die Daten angewendet werden.                                 
+                                                                                        
+          Daten koennen gefiltert werden, bevor sie mit anderen Funktionen              
+          weiterverarbeitet werden. Hierfuer ist folgendes anzugeben:                   
+             ACTION:    DATAFILTER                                                      
+             CHANNEL_A: KanalNr. des Kanals, dessen Daten zu filtern sind;              
+                                                                                        
+          Beispiel: WIN_AVERAGE_3;BW3_BP_100_1000_10000;                                
+                    WIN_AVERAGE_3 - Ermittlung des gleitenden Durchschnitts             
+                                    aus jeweils 3 aufeinanderfolgenden Messwerten       
+                                    rechts und links vom zu mittelnden Wert und         
+                                    dem Wert selbst (also 7 Messwerten);                
+                                    dabei werden die ersten und letzten n (hier: 3)     
+                                    Werte nicht gemittelt.                              
+                    BW3_BP_100_1000_10000 - Butterworth-Filter 3.Ordnung                
+                                            Typ:               Bandpass                 
+                                            untere Grenzfreq.: 100 Hz                   
+                                            obere Grenzfreq.:  1000 Hz                  
+                                            Abtastfrequenz:    10000 Hz                 
+    ------------------------------</pre><b><a name="param6">6</a> ACTION</b><pre>                                                                       
+//          AREA, AREA_DEBUG
+//            - calculates the area under measured rectangle curves between the first
+//              point with a value &gt;= MIN_VALUE and the last point with a value &gt;=
+//              MAX_VALUE.
+//            - calculates the average level of the first rectangle:
+//              the first point with a value &gt;= MIN_VALUE and the next point with a value
+//              &lt;= MAX_VALUE are taken where the start point is shifted by 10% of the x
+//              distance to the right and the end point is shifted by 10% of the x
+//              distance to the left.
+//            x value of starting (3 characters) and end point (3 characters) of the
+//            measured area, area (8 characters) and average level (8 characters)
+//            are returned as a string in RESULT_VALUE where all values are separated
+//            by commas.
+//            AREA_DEBUG writes in contrast to action AREA all measurement data to the
+//            ramdisk, for every channel a file is written with the name:
+//               /LocalDisk/DataString&lt;channelnumber&gt;.txt
+          CROSSING, CROSSING_N, CROSSING_P                                              
+            Es lassen sich hiermit Messwerte auf Ueber- oder Unterschreiten von         
+            Schwellwerten (Max-/Min_VALUE) untersuchen.                                 
+            Das Kennzeichen fuer die Unterschreitung einer Schwelle ist, dass           
+            die Folge der Messwerte "vorher" und "nachher" monoton fallend sind.        
+            Eine Schwelle gilt als ueberschritten, wenn die Folge der Messwerte         
+            "vorher" und "nachher" monoton steigend sind.                               
+            Mit DATAFILTER - GLITCH_n wird vom Anwender angegeben, wieviele             
+            Werte jeweils fuer die Monotonie-Untersuchung herangezogen werden.          
+                                                                                        
+            Ermittlung der n-ten Position, an der die Messwerte einen angegebenen       
+            Wert ueber- oder unterschreiten:                                            
+              notwendige Angaben:                                                       
+                DATAFILTER    - GLITCH_g (mit g&gt;=2)                                     
+                ACTION_PRMTR1 - n                                                       
+                                Ermittlung der n-ten Position, an der die Messwerte     
+                                einen angegebenen Wert ueber- oder unterschreiten;      
+                                ALL                                                     
+                                Abzaehlen saemtlicher Ueber- oder Unterschreitungen;    
+                CHANNEL_A     - KanalNr.                                                
+                START/END     - Intervall, in dem diese Analyse durchgefuehrt werden    
+                                soll;                                                   
+                MIN_VALUE     - oberer Schwellwert                                      
+                MAX_VALUE     - unterer Schwellwert                                     
+                                                                                        
+            Es kann spezifiziert werden, ob und welche Steigung dabei zu                
+            beruecksichtigen ist (CROSSING_N, CROSSING_P).                              
+            Das Ergebnis dieser Analyse wird an die '&amp;'-Variable RESULT_POS             
+            uebergeben.                                                                 
+                                                                                        
+          DATAFILTER                                                                    
+            Filter der Daten eines Kanals mit dem unter DATAFILTER angegebenen          
+            Filterfunktion.                                                             
+              notwendige Angaben:                                                       
+                DATAFILTER   - Filterfunktion (z.B. WIN_AVERAGE_1)                      
+                CHANNEL_A    - KanalNr.                                                 
+                                                                                        
+          DIFFERENCE                                                                    
+            Ermittlung der Differenz der Messwerte zweier Kanaele und Abspeichern       
+            unter einer neuen Kanalnummer.                                              
+              notwendige Angaben:                                                       
+                ACTION_PRMTR1 - KanalNr. des Zielkanals;                                
+                CHANNEL_A     - KanalNr. des ersten Kanals                              
+                CHANNEL_B     - KanalNr. des zweiten Kanals, dessen Daten, von denen    
+                                des ersten abgezogen werden                             
+                                                                                        
+          GET_FIELD                                                                     
+            Beschreibung siehe oben;                                                    
+                                                                                        
+          INTERSECTION                                                                  
+            Ermittlung des Schnittpunkts der Messdaten zweier Kanaele.                  
+            Der Schnittpunkt ist der Punkt, an dem der Betrag des Abstands              
+            der Werte von erstem und zweitem Kanal den kleinsten Wert einnimmt.         
+                                                                                        
+            Wichtig: Es ist empfehlenswert, die Daten vor dieser Analyse                
+                     zu glaetten, um durch Stoerungen/Spikes hervorgerufene             
+                     zufaellige Annaeherungen auszuschliessen.                          
+              notwendige Angaben:                                                       
+                CHANNEL_A - erster Kanal                                                
+                CHANNEL_B - zweiter Kanal                                               
+                START/END - der Bereich im Datensatz, der analysiert werden soll;       
+                                                                                        
+          SMALLEST_MAXIMUM                                                              
+            Ermittlung des kleinsten Maximums innerhalb eines vorgegebenen Bereichs.    
+              notwendige Angaben:                                                       
+                ACTION_PRMTR2 - STORE (diesen Wert intern speichern; er kann dann       
+                                      mit anderen Funktionen weiterverarbeitet werden)  
+                CHANNEL_A     - KanalNr.                                                
+                MIN_VALUE     - Wert                                                    
+                MAX_VALUE     - ein anderer Wert                                        
+                START/END     - der Bereich im Datensatz, der analysiert werden soll;   
+                                                                                        
+                                                                                        
+          BIGGEST_MAXIMUM                                                               
+            Ermittlung des groessten Maximums innerhalb eines vorgegebenen Bereichs:    
+              notwendige Angaben:                                                       
+                ACTION_PRMTR2 - STORE                                                   
+                                diesen Wert intern speichern; er kann dann              
+                                mit anderen Funktionen weiterverarbeitet werden         
+                CHANNEL_A     - KanalNr                                                 
+                MIN_VALUE     - Wert                                                    
+                MAX_VALUE     - ein anderer Wert                                        
+                START/END     - der Bereich im Datensatz, der analysiert werden soll;   
+                                                                                        
+          MAXIMUM                                                                       
+            Solche Messwerte, deren Vorgaenger und Nachfolger jeweils kleiner           
+            als der aktuelle Messwert sind, gelten als Maximum.                         
+            Dementsprechend wird ueberprueft, ob die Wert "vor" der jeweils             
+            aktuellen Position monoton steigend und die Werte "nach" der aktuellen      
+            Position monoton fallend sind.                                              
+            Mit dem Parameter DATAFILTER - GLITCH_n kann der Anwender bestimmen,        
+            wieviele Messwerte "vor" und "nach" einem potentiellen Maximum fuer         
+            die Analyse der Monotoniebedingungen herangezogen werden sollen.            
+            Desweiteren wird mit diesem Parameter festgelegt, wieviele Messwerte        
+            zwischen 2 aufeinanderfolgenden Maxima mindestens liegen sollen:            
+              die Anzahl muss groesser als  2*n + 1  sein.                              
+            Es werden nur solche Maxima beruecksichtigt, deren Werte innerhalb der      
+            vom Anwender vorgegebenen MIN_/MAX_VALUE liegen.                            
+              notwendige Angaben:                                                       
+                ACTION_PRMTR1 - n                                                       
+                                Ermittlung des n-ten Maximums;                          
+                                ALL                                                     
+                                Abzaehlen der Maxima                                    
+                CHANNEL_A     - KanalNr                                                 
+                START/END     - Intervall, in dem diese Analyse durchgefuehrt werden    
+                                soll;                                                   
+                MIN_VALUE     - kleinster gueltiger Wert fuer ein Maximum;              
+                MAX_VALUE     - groesster gueltiger Wert fuer ein Maximum;              
+                                                                                        
+          MINIMUM                                                                       
+            Ermittlung des n-ten Minimums oder der Anzahl aller feststellbaren Minima   
+            innerhalb eines vorgegebenen Bereichs:                                      
+              notwendige Angaben:                                                       
+                ACTION_PRMTR1 - n oder ALL (entspricht der Default-Einstellung '-')     
+                CHANNEL_A     - KanalNr                                                 
+                MIN_VALUE     - Wert                                                    
+                MAX_VALUE     - ein anderer Wert                                        
+                START/END     - der Bereich im Datensatz, der analysiert werden soll;   
+                                                                                        
+          MAXIMUM_SPAN                                                                  
+                                                                                        
+          MINIMUM_SPAN                                                                  
+                                                                                        
+          MAXIMUM_DIFF                                                                  
+            Ermittlung der groessten Differenz von zuvor gespeicherten Ergebnis-Daten   
+            ACTION_PRMTR - STORE (siehe z.B. SMALLEST_MAXIMUM)                          
+              notwendige Angaben:                                                       
+                CHANNEL_A    - KanalNr                                                  
+                                                                                        
+          MINIMUM_DIFF                                                                  
+            Ermittlung der kleinsten Differenz von zuvor gespeicherten Ergebnis-Daten   
+            ACTION_PRMTR - STORE (siehe z.B. SMALLEST_MAXIMUM)                          
+              notwendige Angaben:                                                       
+                CHANNEL_A    - KanalNr                                                  
+                                                                                        
+          NEG_EDGE/POS_EDGE                                                             
+            Ermittlung der Position einer Flanke im Datensatz.                          
+            Was als Flanke zu bewerten ist, kann vom Anwender angegeben werden.         
+            Hierzu ist die Differenz zweier aufeinanderfolgender Werte (MIN_VALUE       
+            bzw. MAX_VALUE ) anzugeben.                                                 
+                                                                                        
+              notwendige Angaben:                                                       
+                ACTION_PRMTR - n oder ALL (entspricht der Default-Einstellung '-')      
+                CHANNEL_A    - KanalNr                                                  
+                MIN_VALUE    - Wert                                                     
+                MAX_VALUE    - ein anderer Wert                                         
+                START/END    - der Bereich im Datensatz, der analysiert werden soll;    
+                                                                                        
+    ------------------------------</pre><b><a name="param7">7</a> ACTION_PRMTR1</b><pre>                                                                  
+          siehe ACTION                                                                  
+    ------------------------------</pre><b><a name="param8">8</a> ACTION_PRMTR2</b><pre>                                                                  
+          siehe ACTION                                                                  
+    ------------------------------</pre><b><a name="param9">9</a> CHANNEL_A</b><pre>                                                                      
+          Hier wird die Nummer des Kanals eingegeben, fuer den die gewuenschte          
+          Analyse durchgefuehrt werden soll.                                            
+    ------------------------------</pre><b><a name="param10">10</a> CHANNEL_B</b><pre>                                                                      
+          Bei Funktionen, die auf den Daten zweier Kanaele arbeitet, muss hier der      
+          jeweils zweite Kanal eingetragen werden.                                      
+    ------------------------------</pre><b><a name="param11">11</a> START</b><pre>                                                                          
+          Der hier eingetragene Wert ist die Position innerhalb der vom Device          
+          uebertragenen Datenmenge oder eine Zeitmarke (hierfuer ist der DATARATE-      
+          Parameter zu besetzen).                                                       
+            Beispiel:  100  oder  250_ms                                                
+                      beginne beim 100-ten Datenwert  oder                              
+                      beginne bei dem Datenwert, der 250 Millisekunden nach dem         
+                      Start der Datenaufnahme gelesen wurde;                            
+    ------------------------------</pre><b><a name="param12">12</a> END</b><pre>                                                                            
+          Der hier eingetragene Wert ist die Position innerhalb der vom Device          
+          uebertragenen Datenmenge oder eine Zeitmarke (hierfuer ist der DATARATE-      
+          Parameter zu besetzen.                                                        
+            Beispiel:  1000  oder  300_ms                                               
+                      beginne beim 1000ten Datenwert  oder                              
+                      beginne bei dem Datenwert, der 300 Millisekunden nach dem         
+                      Start der Datenaufnahme gelesen wurde;                            
+    ------------------------------</pre><b><a name="param13">13</a> MIN_VALUE</b><pre>                                                                      
+          Man kann die Arbeit diverser Funktionen hiermit auf einen Wertebereich        
+          beschraenken. Beispielsweise soll ein Maximum ermittelt werden, dass          
+          innerhalb eines Wertebereichs von 1.5 bis 5Volt liegt.                        
+          Eingabe des unteren Grenzwerts.                                               
+          Die Einheit dieses Werts ergibt sich aus den fuer den jeweiligen Kanal        
+          im Parameter DATARANGE gemachten Angaben.                                     
+    ------------------------------</pre><b><a name="param14">14</a> MAX_VALUE</b><pre>                                                                      
+          Eingabe des oberen Grenzwerts.                                                
+   ------------------------------</pre><b><a name="param15">15</a> RESULT_POS</b><pre>                                                                     
+          Im GAUDI: eine '&amp;'-Variable, die einen Ergebniswert (als ASCII-String)        
+                    zugewiesen bekommt.                                                 
+    ------------------------------</pre><b><a name="param16">16</a> RESULT_VALUE</b><pre>                                                                   
+          Im GAUDI: eine '&amp;'-Variable, die einen Ergebniswert (als ASCII-String)        
+                    zugewiesen bekommt.                                                 
+    ------------------------------</pre><b><a name="param17">17</a> ERRORFLAG</b><pre>                                                                      
+          '&amp;'-Variable, die im Fehlerfall den Wert 1 erhaelt;                           
+          ansonsten, also dann, wenn ein Wert vom Device gelesen                        
+          werden konnte und dabei kein Fehler aufgetreten ist, enthaelt                 
+          diese Variable den Wert 0;                                                    
+          der Aufruf einer Funktion, fuer die keine oder nicht genug Daten              
+          vorhanden sind, wird ebenfalls als Fehler gemeldet;                           
+                                                                                        
+                                                                                        
+ Strategie zur Uebertragung der Daten an den Prozess "SICL_DEVICE_COM":                 
+ 1. Platzierung der Zugriffsinformationen ('anzPrmtr' und 'index_on_expPrfLst')         
+    fuer die im Shared Memory hinterlegten Moduldaten an entsprechender Stelle          
+    im Shared Memory;                                                                   
+    diese Speicherstelle wird zunaechst ueber den im GAUDI-Modul angegebenen            
+    Devicename referenziert, dann mit Hilfe der Referenz, "unit_index",                 
+    reserviert;                                                                         
+ 2. Platzierung des Zugriffsindex ('unit_index') ebenfalls im Shared Memory im          
+    (z.Zt. noch) fuer VXI-Geraete reservierten Bereich (Zugriffsindex hierfuer          
+    ist z.Zt. noch "VXI_UNIT");                                                         
+ 3. Messagequeue-Kommunikation zum Prozess;                                             
+ 4. der Prozess hat dann die Moeglichkeit, einerseits die GAUDI-Parameter               
+    auszulesen, andererseits schreibend auf das Shared Memory zuzugreifen,              
+    um den Speicher fuer RESULT_POS und RESULT_VALUE zu fuellen oder                    
+    das ERRORFLAG zu setzen;                                                            
+                                                                                        
+                                                                                        
+ Input:                                                                                 
+    zeilen_wert        - Zeiger auf den relevanten "Wert" einer Zeile                   
+                         der expandierten Pruefliste;                                   
+    index_on_expPrfLst - Index im entsprechenden Speicherbereich                        
+                         fuer Moduldaten;                                               
+                         dieser Index zeigt auf die erste Position in                   
+                         der Liste der Moduldaten, also hier auf die an                 
+                         der Position PRUEFSCHRITT hinterlegte Information              
+    anzPrmtr           - Anzahl der Modulparameter;                                     
+                                                                                        
+ Output:                                                                                
+    none                                                                                
+                                                                                        
+ ----------------------------------------------------------                             
+ Return Value:                                                                          
+    = 0:    Successful completion                                                       
+     -1:    im Fehlerfall                                                               
+                                                                                        
+ ----------------------------------------------------------                             
+ Beispiel (optional):                                                                   
+                                                                                        
+ ----------------------------------------------------------                             
+ &lt;\userdoc&gt; 
+ C4                                                                                     
+int m_device( shm_stringpointer  *zeilen_wert
+             ,long               index_on_expPrfLst
+             ,long               anzPrmtr )
+{
+	
+	 m_device 	
+	
+	 lokale Variablen 	
+	
+	      Rueckgabewert der Funktion 'schrittbetrieb()': 	
+	int  schritt_aktiv;
+	
+	
+	       Verwaltungsindex fuer die Ablage von Device-bezogenen Daten im Shared Memory: 	
+	long  unit_index;
+	
+	
+	       speichert den Index zur Unitnummer, die fuer den Zugriff auf die dem  
+	       Modul zugeordnete Speicherbereiche notwendig ist:                     	
+	long  shm_index;
+	
+	
+	       Auftraggeber ("E_DEVICE"), Index und der Unitname (wie er  
+	       im GAUDI angegeben wurde) werden wird dem Prozess          
+	       ueber Messagequeue mitgeteilt;                             	
+	char  msg_string[80];
+	
+	
+	       Quittung auf diesen Auftrag; 	
+	char  quittung[80];
+	
+	unsigned  quittung_len = 80;
+	
+	
+	       Status des Messagequeue-Handlings; 	
+	long  msgstat;
+	
+	long  hispnr;
+	
+	int  ret_val = 0;
+	
+	
+	 Schrittbetriebs-Handling 	
+	schritt_aktiv = schrittbetrieb( zeilen_wert, index_on_expPrfLst );
+	
+	if ( schritt_aktiv != 1 ) {
+		return( ret_val );
+	
+	}
+	
+	 GAUDI-Parameter ausgeben: 	
+	debug_message( __FILE__, __LINE__, DEB_GAUDI
+	              ,"Input fuer Modul \"M_DEVICE\":\n"
+	               "[%s][%s]\n" "[%s][%s]\n" "[%s][%s]\n" "[%s][%s]\n"
+	               "[%s][%s]\n" "[%s][%s]\n" "[%s][%s]\n" "[%s][%s]\n"
+	               "[%s][%s]\n" "[%s][%s]"
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  0]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  1]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  2]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  3]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  4]
+	
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  5]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  6]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  7]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  8]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst +  9]
+	
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + 10]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + 11]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + 12]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + 13]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + 14]
+	
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + 15]
+	              ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + 16] );
+	
+	
+	 Modulmessage aufbauen; 	
+	sprintf( msg_string, "AUFTRAGGEBER=M_DEVICE;UNITNAME=%s;INDEX=%i;"
+	                   , (const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + 2]
+	                   , index_on_expPrfLst );
+	
+	debug_message( __FILE__, __LINE__, DEB_MSQ, msg_string );
+	
+	
+	 Starten des Prozesses  SICL_DEVICE_COM  durch ein Messagequeue-Kommando; 
+	 mit den zusaetzlich uebermittelten Daten kann der Prozess entscheiden,   
+	 von welchem GAUDI-Modul er getriggert wurde;                             	
+	ret_val = msg_send_wait( SICL_DEVICE_COM, msg_string
+	                        ,(strlen( msg_string ) +1), -1, 80
+	                        ,quittung, &amp;quittung_len, &amp;msgstat, &amp;hispnr );
+	
+	if ( ret_val &lt; 0 ) {
+		error_message( ERR_ERROR_TTNR, HEADER, __LINE__, "M_DEVICE&gt; Fehler bei Aufruf von msg_send_wait" );
+	
+	}
+	else  {
+		debug_message( __FILE__, __LINE__, DEB_MSQ, "M_DEVICE&gt; Quittung:\n  [%s]", quittung );
+	
+	}
+	if ( msgstat &amp; MSG_R_TIMEOUT )
+	
+	 Timeout-Fehler 	 {
+		ccl_befehl( Ssp_ss-&gt;progs[G_mypnr].result, JOB_RESULT, ERROR, RESULT_MAX );
+		
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,JOB_ERRSTR);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_GLEICH);
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,"Timeout-SC");
+		strcat(Ssp_ss-&gt;progs[G_mypnr].result,SEP_SEMIKOLON);
+		
+		error_message( ERR_ERROR_TTNR, HEADER, __LINE__, "M_DEVICE&gt; Timeout-SC" );
+		ret_val = -1;
+	
+	}
+	
+	 JOB RESULT 	
+	//cout &lt;&lt; "m_device&gt; quittung = \"" &lt;&lt; quittung &lt;&lt; '\"' &lt;&lt; endl;
+	
+	if ( strstr(Ssp_vi-&gt;job.liststate,PREINT) ) {
+		
+		 R U E S T L A U F:  Stammdaten fuer Messdatensammler vorbereiten 		
+		send_string_to_md( quittung, "M_DEVICE"
+		                  ,*zeilen_wert-&gt;ptr[index_on_expPrfLst + 0]
+		                  ,*zeilen_wert-&gt;ptr[index_on_expPrfLst + 1] );
+	
+	}
+	else  {
+		if ( strstr(quittung,JOB_RESULT_ERROR) ) {
+			
+			 und an den Messdatensammler senden: 			
+			send_string_to_md( quittung, "M_DEVICE"
+			                  ,*zeilen_wert-&gt;ptr[index_on_expPrfLst + 0]
+			                  ,*zeilen_wert-&gt;ptr[index_on_expPrfLst + 1] );
+		
+		}
+	}
+	return( ret_val );
+
+}
+</PRE>
+</BODY>
+</HTML>

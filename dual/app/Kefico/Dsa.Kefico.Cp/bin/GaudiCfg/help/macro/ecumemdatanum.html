@@ -1,0 +1,1019 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML EXPERIMENTAL 970324//EN">
+<HTML>
+<HEAD>
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 5.5/HTML-Exportfilter">
+<LINK REL="STYLESHEET" HREF="funktionen.css">
+<TITLE> ECUMemDataNum [Dez]</TITLE></HEAD>
+<BODY BGCOLOR="#ffffff">
+<DIV>
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE ><tr ALIGN=CENTER VALIGN=CENTER NOSAVE><td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font><br><font face="Arial,Helvetica"><font size=+2>CCS Standardfunction &nbsp;&nbsp;<b>ECUMemDataNum [Dez]</b></font></font><br>&nbsp;</td></tr></table><p><p></DIV>
+<H2 CLASS="Funktion">
+<A NAME="pgfId=11731">
+ </A>
+ECUMemDataNum [Dez]</H2>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11733">
+ </A>
+Container_Type [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11735">
+ </A>
+Session_Name [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11737">
+ </A>
+Data_Type [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11739">
+ </A>
+Data_Type_Name [Str]</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11741">
+ </A>
+Data_Attribute [Str]</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11743">
+ </A>
+</P>
+<DIV>
+<H6 CLASS="FktBeschrTitel">
+<A NAME="pgfId=11745">
+ </A>
+Description of Function</H6>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11747">
+ </A>
+This function provides the facility for accessing data that is in the ECU memory container or is deducible from it. That data is related to the function LoadFile. A detailed list of the possible functions is given below.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11749">
+ </A>
+The data does not have to be redetermined for every test. In order to minimize the access time, the data is retrieved once (or each time it is altered) from the ECU memory container and stored internally on the testing station in a form that allows rapid access. The conversion of the data into the internal format can also be performed manually which makes it possible to use the function before a valid ECU memory container is available.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11751">
+ </A>
+</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11753">
+ </A>
+The return value is a number that can be represented in floating-point, integer, binary, or hexadecimal format. The choice of presentation format is made by way of the test function unit in the PAV table.</P>
+<P CLASS="FktBeschrText">
+<A NAME="pgfId=11755">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11757">
+ </A>
+Testing Points</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11759">
+ </A>
+None</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11761">
+ </A>
+</P>
+<P CLASS="ParameterTitel">
+<A NAME="pgfId=11763">
+ </A>
+Parameters</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11765">
+ </A>
+Container_Type</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11767">
+ </A>
+Specifies the type of ECU memory container. Values currently allowed are FSW (vehicle software), TSW (test software) and WP (factory programming).</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11769">
+ </A>
+Session_Name</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11771">
+ </A>
+Specifies the name of the session in the ECU memory container from which the required data is to be read.</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11773">
+ </A>
+Data_Type</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11775">
+ </A>
+Specifies the type of the data to be read.</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11777">
+ </A>
+Data_Type_Name</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11779">
+ </A>
+Specifies the name of the required data type (if the entry is not accessible by name, Data_Type_Name is left blank).</P>
+<P CLASS="Me&szlig;parameter">
+<A NAME="pgfId=11781">
+ </A>
+Data_Attribute</P>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11783">
+ </A>
+Specifies which attribute of the data is to be returned.</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11785">
+ </A>
+</P>
+<P CLASS="Beispiel">
+<A NAME="pgfId=11787">
+ </A>
+The following table shows some examples of the representation of the measured data in the PAV line according to container data and selected test function unit in the PAV line:</P>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11790">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2645">
+ </A>
+Unit for test function in the PAV line</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="5">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2647">
+ </A>
+Container Data</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2649">
+ </A>
+</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2661">
+ </A>
+0x12</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2663">
+ </A>
+12</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2665">
+ </A>
+12.0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2667">
+ </A>
+12.789</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tabelle">
+<A NAME="pgfId=2669">
+ </A>
+0xHallo</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2683">
+ </A>
+Dec</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2685">
+ </A>
+18</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2687">
+ </A>
+12</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2689">
+ </A>
+12.0</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2691">
+ </A>
+12.789</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2693">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2707">
+ </A>
+Hex</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2709">
+ </A>
+12</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2711">
+ </A>
+C</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2713">
+ </A>
+C</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2715">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2717">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2731">
+ </A>
+Bin</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2733">
+ </A>
+10010</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2735">
+ </A>
+1100</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2737">
+ </A>
+1100</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2739">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2741">
+ </A>
+Error</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2755">
+ </A>
+Int</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2757">
+ </A>
+18</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2759">
+ </A>
+12</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2761">
+ </A>
+12</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2763">
+ </A>
+Error</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Normal">
+<A NAME="pgfId=2765">
+ </A>
+Error</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Normal">
+<A NAME="pgfId=11792">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11794">
+ </A>
+</P>
+<P CLASS="Normal">
+<A NAME="pgfId=11796">
+ </A>
+Example functions:</P>
+<P CLASS="Parameter">
+<A NAME="pgfId=11798">
+ </A>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="Body">
+<A NAME="pgfId=11801">
+ </A>
+</H6>
+<TABLE BORDER="1">
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2776">
+ </A>
+Data_Type</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2778">
+ </A>
+Data_Type_Name</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2780">
+ </A>
+Data_Attribute</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2782">
+ </A>
+Notes</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2792">
+ </A>
+checksum</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2794">
+ </A>
+checksum-name</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2796">
+ </A>
+target-start-adr</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2790">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2806">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2808">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2810">
+ </A>
+target-end-adr</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2804">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2820">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2822">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2824">
+ </A>
+checksum-alg</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2818">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2834">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2836">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2838">
+ </A>
+checksum-result</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2832">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2848">
+ </A>
+datapointer</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2850">
+ </A>
+datapointer-name</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2852">
+ </A>
+target-start-adr </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2846">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2862">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2864">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2866">
+ </A>
+target-end-adr </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2860">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2876">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2878">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2880">
+ </A>
+target-length</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2882">
+ </A>
+The number of bytes is determined as follows: target-end-adr - target-start-adr + 1</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2892">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2894">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2896">
+ </A>
+datablock-name</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2890">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2906">
+ </A>
+kwp2000-setup</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2908">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2910">
+ </A>
+adress-5-baud</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2904">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2920">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2922">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2924">
+ </A>
+wup</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2918">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2934">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2936">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2938">
+ </A>
+target</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2932">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2948">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2950">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2952">
+ </A>
+source</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2946">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2962">
+ </A>
+kwp2000-timing</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2964">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2966">
+ </A>
+p2min</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2960">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2976">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2978">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2980">
+ </A>
+p2max</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2974">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2990">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2992">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=2994">
+ </A>
+p3min</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=2988">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3004">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3006">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3008">
+ </A>
+p3max</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3002">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3018">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3020">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3022">
+ </A>
+p4min</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3016">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3032">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3034">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3036">
+ </A>
+baudrate</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3030">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3046">
+ </A>
+kwp2000-security</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3048">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3050">
+ </A>
+ecu-security-alg</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3044">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3060">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3062">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3064">
+ </A>
+ecu-security-passname</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ZelleHaupttext">
+<A NAME="pgfId=3058">
+ </A>
+</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3074">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3076">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3078">
+ </A>
+ecu-security-parameter1</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3080">
+ </A>
+(1st parameter under ecu-security-parameter)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3090">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3092">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3094">
+ </A>
+ecu-security-parameter2</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3096">
+ </A>
+(2nd parameter under ecu-security-parameter)</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3106">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3108">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3110">
+ </A>
+...</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3112">
+ </A>
+...</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3122">
+ </A>
+&quot;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3124">
+ </A>
+-</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3126">
+ </A>
+ecu-security-parameter9</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=3128">
+ </A>
+(9th parameter under ecu-security-parameter)</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ParameterBeschreibung">
+<A NAME="pgfId=11803">
+ </A>
+</P>
+</DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,231 @@
+<HTML>
+<HEAD>
+<TITLE>S_PFK</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>S_PFK</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: s_pfk.C,v 1.15 2005/11/29 13:33:44 krf3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Routine zur Ermittlung der Prueffortschrittskennung
+   ---------------------------------------------------------------------
+   Projekt:		CCS 
+   Sourcefile:		s_pfk.C  
+   Autor:		RtW2/TEF72-Keppler (13.10.00)
+   Zielsystem:		HP9000/V743 (HP-RT 3.01), /7/C/D (HP-UX 10.20)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototype:
+   MPI Schnittstelle
+   void p_pfk(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer    *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter 
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter); 
+   
+   
+ 
+   ---------------------------------------------------------------------
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   
+
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI PrÏfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> MODUS</b><pre>	
+	      START	Wird eingetragen wenn das Modul am Anfang des Pruef-
+			programmes aufgerufen wird.
+			Es werden die unten beschriebenen Zaehler hochgezaehlt
+			und die entsprechenden Aktionen durchgefuehrt.
+	      STOP	Wird eingetragen wenn das Modul am Ende des Pruef-
+			programmes aufgerufen wird.
+			Es werden die unten beschriebenen Aktionen ausgefuehrt</pre><b><a name="param4">4</a> PFKBYTE_IN1</b><pre> Eingabe des aus dem SG ausgelesenen PFK-Bytes 1</pre><b><a name="param5">5</a> PFKBYTE_IN2</b><pre> Eingabe des aus dem SG ausgelesenen PFK-Bytes 2</pre><b><a name="param6">6</a> PFKBYTE_IN3</b><pre> Eingabe des aus dem SG ausgelesenen PFK-Bytes 3</pre><b><a name="param7">7</a> PFKBYTE_IN4</b><pre> Eingabe des aus dem SG ausgelesenen PFK-Bytes 4</pre><b><a name="param8">8</a> PFKBYTE_IN5</b><pre> Eingabe des aus dem SG ausgelesenen PFK-Bytes 5
+    
+       Bemerkung: Das Eingabeformat ist CCS-ueblich in INT (zur Basis 10)	
+    
+    Modulrueckgabeparameter</pre><b><a name="param9">9</a> PFKBYTE_OUT1</b><pre> Rueckgabe des errechneten PFK-Bytes 1</pre><b><a name="param10">10</a> PFKBYTE_OUT2</b><pre> Rueckgabe des errechneten PFK-Bytes 2</pre><b><a name="param11">11</a> PFKBYTE_OUT3</b><pre> Rueckgabe des errechneten PFK-Bytes 3</pre><b><a name="param12">12</a> PFKBYTE_OUT4</b><pre> Rueckgabe des errechneten PFK-Bytes 4</pre><b><a name="param13">13</a> PFKBYTE_OUT5</b><pre> Rueckgabe des errechneten PFK-Bytes 5	
+   
+      Bemerkung: Das Rueckgabeformat ist ein String mit den Byte als 
+		 Hexwerte (z.B. F8) immer 2 Zeichen.</pre><b><a name="param14">14</a> FEHLERFLAG</b><pre>   Wird != 0 gesetzt wenn im Modul ein Fehler aufgetreten ist.</pre><b><a name="param15">15</a> ERGEBNIS</b><pre>    Rueckgabe eines Ergebnisstrings (OK- oder Fehlermelung)
+   
+    
+    
+    		
+
+Umsetzung  fuer SG2000
+
+	 		Bit	7 6 5 4 3 2 1 0
+PFK-Bytes
+			Byte1	1 1 1 1 1 1 1 1
+PZ -  PF	PZ-FO	Byte2	b b b b a a a a 						       
+PZ-IR		PZ-FR	Byte3	d d d d c c c c 				      
+IOZ-HT		PZ - HT	Byte4	f f f f e e e e
+PZ - Rep	PZ-LT	Byte5	h h h h g g g g       
+
+	
+Beschreibung von Byte 1															
+PFK-Definition		Bit	7 6 5 4 3 2 1 0
+ICT			IC	1 1 1 1 1 1 1 0
+Flashen			PF	1 1 1 1 1 1 0 1
+Funktionspruefung	AB	1 1 1 1 1 0 1 1 						      
+TT		        TT      1 1 1 1 0 1 1 1
+HT			HT	1 1 1 0 1 1 1 1
+EP  nach IRI		EP	1 1 0 1 1 1 1 1
+Reparaturplatzflag	Rp	1 0 1 1 1 1 1 1
+Run-in			IR	0 1 1 1 1 1 1 1
+
+
+	
+									
+Standtypen																				
+Work-CCS
+Repair-CCS
+Service-CCS
+																	
+Prueftypen     *)															
+IC	In-Circuit-Test													
+PF	Flashprogrammierung																
+FO	Funktionspruefung an offenem Geraet												
+LT	Tieftemperatur an geschlossenem Geraet													
+HT	Hochtemperatur angeschlossenem Geraet													
+IR	Inline- Run-In														
+FR	Endpruefung nach IRI oder Screening										
+
+*) Die Bezeichnungen sind vorlaeufig und sind vom AK PAV ggf. zu bestaetigen bzw zu korrigieren																							
+
+Zaehler fuer SG2000				Beschreibung			Zusatzbed.	wer schreibt						
+IC- PZ		Zaehler fuer ICT								(ICT)
+	wer incrementiert:		ICT explizit bei "Start"		b), c)									
+PF - PZ		Zaehler fuer Erstprogrammierung , , Umprogrammierung				Work-CCS
+     	wer incrementiert:		alle PAM bei "Start" und Typ = PF	b), c)		Repair-CCS
+FO -PZ		Zaehler fuer Funktionspruefung (Zwischenpruefung)				Work-CCS
+	wer incrementiert:		alle Work-CCS bei "Start" und Typ = FO	b), c)		Repair-CCS
+LT- PZ		Zaehler fuer Tieftemperatur (100% , Stichrobe)					Work-CCS
+	wer incrementiert:	alle Work-CCS bei "Start" und Typ =LT		b), c)		Repair-CCS
+HT-PZ		Zaehler fuer LI (Endpruefung bei Hochtemperatur)
+	wer incrementiert:	alle Work-CCSbei "Start" und Typ = HT		b), c)		Repair-CCS
+HT-IOZ		Zaehler fuer LI (Endpruefung bei Hochtemperatur)
+	wer incrementiert:	alle Work-CCS bei "Stop" und "SG-Gut" und Typ =HT
+										b), c)		Repair-CCS bei "Gut"
+FR - PZ		Zaehler fuer Endpruefung bei Raumtemperatur nach IRI				Work-CCS
+	wer incrementiert:	alle Work-CCS bei "Start" und Typ = FR		b), c)		Repair-CCS
+Rep - PZ	Zaehler fuer Durchlaeufe am Rep-Platz						Rep-CCS	
+	wer incrementiert:	alle Rep-CCS bei "Start" 			c)
+
+
+
+
+
+PFK-Bits fuer SG2000																									
+	wer setzt:	(ICT bei "SG-Gut", 	"Stop",Typ = IC)   b)	   IC 1 1 1 1 1 1 1 0
+	wer setzt:	Work-CCS bei "SG-Gut",	"Stop", Typ = PF   a) , b) PF 1 1 1 1 1 1 0 1
+	wer setzt:	Work-CCS bei "SG-Gut", 	"Stop", Typ = FO   b)	   FO 1 1 1 1 1 0 1 1
+	wer setzt:	Work-CCS bei "SG-Gut",	"Stop", Typ =LT	   b)	   LT 1 1 1 1 0 1 1 1
+	wer setzt:	Work-CCS bei "SG-Gut",	"Stop", Typ = HT   b)	   HT 1 1 1 0 1 1 1 1
+	wer setzt:	Work-CCS bei "SG-Gut", 	"Stop", Typ = FR   b)	   FR 1 1 0 1 1 1 1 1
+	wer setzt:	Rep-CCS bei "Start"			   	   Rep1 0 1 1 1 1 1 1
+	wer setzt:	Work-CCS bei "SG-Gut", "Stop", Typ = IR	   b)	   IR 0 1 1 1 1 1 1 1
+
+Definition der Zusatzbedingungen:																									
+a)	Betroffenes Bit wird bei "Start" auf "1" zurueckgesetzt 
+b)	Beim ersten Durchlauf am ersten Prueftor  und "Start" PFK-Bits auf 1, alle Zaehler auf 0, 
+	eigenen Prueftorzaehler auf 1.					
+	Bedingung hierzu: eigener PZ-Zähler steht bei "Start "auf 00 oder FF											
+c)	Zaehlerstand wird nach erreichen von "14" (FE) nicht mehr erhöht
+
+Stichproben:
+        Es wird von einer Stichprobenprüfung ausgegangen, wenn Standtyp != Prueftyp ist. Dann wird der
+        Prueftorzaehler incrementiert. Es wird allerdings nicht die Vorgeschichte überprüft.
+        Die Stichproben, die vorkommen koennen muessen im s_pfkconfig eingetragen sein.
+																								
+Abfragen:			
+	Bei Start: Nach Konfigurationsliste Abfrage Bit von vorgehendem Prueftor (ermitteln) . 
+	Entfaellt beim 1. Prueftor		
+	Abbruch bei Fehler		
+	Medsswert-Ausgabe der 5 PFK-Bytes in Hex-Form		
+
+	Parameter fuer das PFK-Modul		
+	Funktion:		Start, Stop
+			
+
+	Parameter fuer das Konfigurations-Modul		
+			
+	Bedeutung:	Funktion: zulaessige Variablen:
+	PFK-Bit 0	IC	ja,nein
+	PFK-Bit 1	PO	ja,nein
+	PFK-Bit 2	AB	ja,nein
+	PFK-Bit 3	TT	ja,nein
+	PFK-Bit 4	HT	ja,nein
+	PFK-Bit 5	FR	ja,nein
+	PFK-Bit 6	Rep	
+	PFK-Bit 7	RI	ja,nein
+			
+	Ja: Dieses Prueftor muss durchlaufen werden. Muß bei dem in der Fertigung  nachfolgenden Prueftor als "Gut" abgedragt werden.		
+	nein: bei nachfolgenden Prueftoren wird dieses Bit nicht beruecksichtigt.		
+
+
+Beschreibung:			
+PFK-Modul			
+Das PFK-Modul verwaltet die fuer SG2000  definierten 5 PFK-Bytes . Im ersten Byte sind in den einzelnen Bits die durchlaufenen			
+Prueftore abgebildet. Die folgenden 4 Bytes sind jeweils unterteilt in insgesamt 8 Halbbytes. In diesen Halbbytes werden Zähler 			
+dargestellt (s. o.).  Je nach Betriebszustand  werden beim Durchlaufen des Moduls ein Bit im PFK-Byte und  1 Zahler geändert. 			
+Das Modul enthält ausschließlich die Aufbereitung der PFK-Bytes. Die Kommunikation  ( PFK lesen und schreiben) ist 
+prueflingsindividuell und wird vor und nach dem Modul mit bestehenden Kommunikationsmodulen realisiert.
+
+Konfigurationsmodul
+Im Konfigurationsmodul werden die Prueftore, die das Erzeugnis zu durchlaufen hat definiert und den PFK-Bits zugeordnet.
+
+Implementierung im Pruefprogramm:
+das Konfigurationsmodul und das PFK-Modul im Modus "Start"  wird in der Pruefliste mit der
+erforderlichen kommunikation am Listen-Anfang aufgerufen.
+Am Ende der Pruefliste wird das PFK-Modul  mit den notwendigen Kommunikationsmodulen im Modus Stop aufgerufen
+Um keine Informationen zu verlieren, ist sowohl  bei "Start" als auch bei "Stop" ein Beschreiben des EEProms mit
+PFK-Informationen angebracht
+ 
+
+   Revision 1.1  2001/12/18 10:08:00  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.7  2001/02/16 10:16:25  keppler
+   Only Preint
+
+   Revision 1.6  2000/12/18 10:16:50  keppler
+   *** empty log message ***
+
+   Revision 1.5  2000/11/29 15:49:59  keppler
+   ermittle prueftyp immer
+
+   Revision 1.4  2000/11/27 13:48:02  keppler
+   Doku ueberarbeitet
+
+   Revision 1.3  2000/11/27 09:38:59  keppler
+   *** empty log message ***
+
+   Revision 1.2  2000/11/24 13:12:20  keppler
+   Ermittlung der Standtypen aus Configfile
+
+   Revision 1.1  2000/10/23 13:15:25  keppler
+   Initial Version
+
+   ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

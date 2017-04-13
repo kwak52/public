@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<TITLE>S_PGH</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>S_PGH</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: s_pgh.C,v 1.12 2006/01/26 10:58:14 wes3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Zur Steuerung der PSS/SKM
+   ---------------------------------------------------------------------
+   Projekt:		CCS -&gt; BDM - Programmierung Ïber PGH
+   Sourcefile:		s_pgh.C
+   Autor:		RtW/TEF72-Wiese (23.04.99)
+   Zielsystem:		HP9000/V743 (HP-RT 3.1)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void s_pgh(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer    *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+     
+   s_pgh (*funktionen[modulnummer]) 
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+   ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Diese Modul startet die PGH mit Uebergabeparameter, lÌdt die Software in
+   die PGH und startet die PGH. Je nach Fehlermeldung werden entweder Aktionen
+   ausgefÏhrt oder die Fehlermeldung zurÏckgegeben. FÏr die Aktion muÞ vorher
+   ein File im tgz - format auf dem Leitrechner zur VerfÏgung stehen. Je nach
+   Applikation startet das Programm ein Script mit Ûbergabeparameter auf dem 
+   Leitrechner zur Erstellung des Programmierfiles oder nicht.
+   
+   Beschreibung der Moduluebergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre> 	GAUDI PrÏfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>  	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> ANSTEUER_UNIT</b><pre>Adresse der PGH z.B. PGH_01     
+    			Verweis im Configfile auf den Namen der PGH 
+		        der im /etc/hosts und im /etc/bootptab des 
+			Bootrechner verankert ist 			
+   ------------------------------</pre><b><a name="param4">4</a> DRIVERNR</b><pre>	Name des Treiber fÏr die PGH, die unter 
+                        $ROOT/$HW_NR/$SW_NR/$DRIVERNR.tgz geladen wird
+			Der Ident wird mit tgtinfo -i auf $DRIVERNR_$SW_NR
+			geprueft
+		  SONDERFUNKTION:
+		     DIRECT: Kommandos aus "SEQUENCE" werden direkt ohne 
+			check der TDB ausgeführt.
+		     QUIT: Sequence der PGH_CNF: LP_AFTER_SG_PROGRAMMED wird ausgeführt
+		     STATA, STATB: Falls zwischenzeitlich bei einer
+			Früheren kommunikation über read im Mode raw von
+			der PG etwas zurückgegeben wurde, werden die 
+			Daten an das CCS zurückgegeben: Die Zeile wird unter
+			SEQUENCE eingetragen. STATA: Controller an Schnittstelle
+			A, STATB: Controller an Schnittstelle B.
+		     DEFINE ?[0-9,A-Z]: Besetzen der Variablen für spätere
+			Ausführung in der Sequence als ?[0-9,A-Z]
+			Bsp.: "DEFINE ?A" mit SEQUENCE "call erase.pgh" führt 
+			beim Durchlauf das Kommando "call erase.pgh" aus, 
+			wenn in SEQUENCE 
+		     SETVAR "VARIABLENNAME": Besetzen von Variablen für die Scripte
+			der PGH. Der Wert muss unter SEQUENCE eingetragen werden.
+			SPEZIALFALL: SETVAR FDOKDATA setzt die Variable FDOKDATA
+			mit einem vordefinierten 32-Bit Wert: 
+			   4 Bit PGH:0
+			   12 Bit Seriennummer der PGH aus MNT
+			   5 Bit Tag
+			   4 Bit Monat
+			   7 Bit Jahr ab 2000
+   ------------------------------</pre><b><a name="param5">5</a> SEQUENCE</b><pre>Ablauf, der zur Programmierung ablaufen soll
+         S: Initialisierung mit Start.pgh
+         B: call blankcheck.pgh	         Set Flag Erase
+         P: Programmieren mit Program.pgh	Set Flag Prog
+         E: Loeschen mit Erase.pgh		   Set Flag Erase 
+         V: call verify.pgh				   Set Flag Prog
+         C: call validate.pgh				   Set Flag Prog
+         R: Call read.pgh				      Set No Flags necessary
+         Q: Quit: Sequence der PGH_CNF: LP_AFTER_SG_PROGRAMMED wird ausgeführt
+         ?[0-9,A-Z]: Ausführen vorher definierter Kommandos nur programmiert
+         ![0-9,A-Z]: Ausführen vorher definierter Kommandos immer
+         DIRECT &lt;Kommando&gt; Ausführen eines Kommandos mit Ausführung aller
+                          Verwaltungsschritte wie Rüsten einer TDB
+                          und senden der Startsequence aus PGH_CNF
+                          Die Endesequence muss mit Q extra gesendet werden.
+                          Die Verwaltungsschritte werden nur beim 1. Aufruf 
+                          von S_PGH aufgerufen.
+                          ACHTUNG: Die Rückgabe ist jetzt "&lt;Kommando&gt; OK"
+                          Die Möglichkeit von Früher, die separierte Ausgabe der 
+                          PGH zu bekommen, entfällt!!! Achtung bei TEM470 Prüflisten SW: 16.08.05
+		  SONDERFUNKTION:
+		     Parameter DRIVERNR DIRECT: Kommando, das sofort ausgführt wird 
+                                     ohne Laden einer TDB oder senden der
+                                     Sequence aus PGH_CNF
+		     Paramter DRIVERNR STAT(A,B): Nummer der Zeile, die 
+			   zurückgegeben werden soll (0-n)
+			   Die Zeilen müssen vorher beschrieben worden sein
+   ------------------------------</pre><b><a name="param6">6</a> PGH_MODE</b><pre>Modus, mit dem die PGH debuggen soll
+    			-v0: Kein DEBUG
+			-v1: INFOS
+			-v2: mehr INFOS
+			-v3: noch mehr INFOS
+			-v4: jedes Byte auf dem BDM - Pfad (zuviel)
+   ------------------------------</pre><b><a name="param7">7</a> TIMEOUT</b><pre>in ms
+    		Timeout in ms. Wenn hier nichts oder 0 eingetragen, werden die verschiedenen
+         Standardtimeouts aus dem Konfigurtaionsfile PGH_CNF verwendet:
+         Mögliche Defaults in ms in PGH_CNF
+            LP_TO_INFO=10000 -&gt; Timeout für Zeitunkritische Kommunikationen mit der PGH
+            LP_TO_PROG=300000 -&gt; Timeout beim Programmieren mit der PGH
+            LP_TO_ERASE=120000 -&gt; Timeout beim Löschen mit der PGH
+            LP_TO_LOAD=300000 -&gt; Timeout beim Rüsten mit der PGH
+         LP_TO_LOAD ist immer gültig, unabhängig vom eingetragenen Timeout.
+         LP_TO_INFO wird immer für die Administrativen Kommunikationen zur PGH verwendet
+			
+   TDB: Target Database: gtar - TAR File, mit gzip komprimiert, 
+        das die BASIS für die PGH darstellt
+   PGH_CNF: Konfigurationsfile des Prozesses lan_pgh im CCS
+   SEQUENCE: Befehle aus PGH_CNF, die vor Start oder nach Ende der Liste
+             an die PGH gesendet werden sollen:
+             z.B.
+                LP_BEFORE_SG_START=tgtpower on 400
+                LP_BEFORE_SG_START=vpplimit B 4.8 5.2
+                LP_BEFORE_SG_START=vppcheck B 
+                LP_BEFORE_SG_START=call start.pgh
+                LP_AFTER_SG_PROGRAMMED=tgtpower off 0
+             
+
+   Revision 1.1  2001/12/18 10:12:25  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.12  2001/09/28 11:11:14  wiese
+   ! - Kommandos immer
+   ? - Kommandos nur programmiert ausführen
+
+   Revision 1.11  2001/09/24 11:41:52  wiese
+   Commands in Sequence new
+
+   Revision 1.10  2001/07/26 12:58:57  wiese
+   linux
+
+   Revision 1.9  2000/11/29 15:24:03  wiese
+   Ohne printf
+
+   Revision 1.8  2000/11/06 10:36:14  wiese
+   Debugmeldungen erweitert
+   Warten auf gebootete PGH
+
+   Revision 1.7  2000/09/05 09:02:26  wiese
+   Error in Gaudi - Variable setzen
+
+   Revision 1.6  2000/09/05 07:33:06  wiese
+   Return -1 sicherer
+ 
+   Revision 1.5  2000/08/21 14:22:56  keppler
+   Fehlerflag des Moduls s_pgh wurde
+   nicht in allen Faellen gesetzt
+
+   Revision 1.4  2000/04/27 15:06:38  wiese
+   Kommentar erweitert
+
+   Revision 1.3  1999/12/22 10:06:17  keppler
+   $ID -&gt; $Id
+
+   Revision 1.2  1999/12/22 09:12:46  keppler
+   $Header -&gt; $Id
+
+   Revision 1.1  1999/11/23 14:31:22  katzenma
+   Initial Version by Sniff
+  ---------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>

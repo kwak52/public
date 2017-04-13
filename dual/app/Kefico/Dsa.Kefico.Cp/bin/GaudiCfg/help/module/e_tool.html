@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<TITLE>E_TOOL</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_TOOL</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_tool.C,v 1.7 2004/06/04 09:15:29 gueltlin Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	Aufruf eines externen Programmes/Scriptes
+   ---------------------------------------------------------------------
+   Projekt:		BOSCH ccs
+   Sourcefile:		e_tool.C 
+   Autor:		RtW2/TEF32-Gueltling
+   Zielsystem:		SuSE Linux 8.1
+   Sprache:		Ansi-C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   
+   ------------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+   error =  (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	    ,Ssp_expand_wert
+	    ,p_verwaltung-&gt;begin_modulblock
+	    ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   if (error == -1)
+   {
+   // Fehlerbehandlung
+   }
+   
+   ------------------------------------------------------------------------
+   Funktionsbeschreibung: 			&lt;GFMT KS=on TAB=8 LF=on&gt;
+   
+   Das Modul ruft ein Programm oder shell Script auf. Das Programm /
+   shell Script liefert Retun Wert:
+   0: Abarbeitung ok
+   1: Fehler in Abarbeitung
+   sonst: Pruefling schlecht
+   
+   Groﬂ/Klein-Schreibung:
+   Default bei Gaudi ist Groﬂschreibung. Es kann mittels "^" Zeichen
+   Umgeschaltet werden (Toggle).
+   
+   Platzhalter:
+   Platzhalter werden mittels Routine covert_variables aufgeloest.
+   Syntax %{xx} 
+   Momentan unterstuetzt:
+   %{TTNR},%{TYP},%{VARIANTE},%{WERK},%{SWNR},%{ECUID},%{KNOTEN}, 
+   %{SECTION},%{MSEC},%{SEC},%{MIN},%{HOUR},%{DAY},%{MONTH},
+   %{YEAR},%{TESTSWNR}
+   
+   Ausgaben
+   Die Ausgaben der aufgerufenen Programmes / Scripts werden auf
+   /tmp/e_tool_&lt;PID&gt;.txt umgelenkt.Meldungen, die den String
+   ERROR enthalten, werden im Fehlerfall in das Log-File des CCS 
+   uebernommen. 
+   Falls der Debug-Level DEB_KOMM gesetzt ist erfolgt keine 
+   Ausgabeumlenkung.
+   
+   €bergabeparameter anhand der Modglobal.stl
+   ,PRUEFSCHRITT
+   ,POSITION
+   ,P_START      SGTEST:RUESTLAUF
+                 Modul wird beim Test des SG oder beim Ruestlauf durchlaufen
+   ,SUBDIR       Unterverzeichnis imn dem das Programm zu finden ist
+   ,PROGRAMMNAME Name vom Programme oder shell script
+   ,P_WARTE      Warte X Sekunden auf Beendigun des Programmes
+                 0 warte ewig
+                 -1 kehrt sofort zurueck
+   ,ABORT_SIGNAL Sende Signal an Prozess bei Abbruck
+   ,TERMINAL     Das Programm kann in einem eigenen X-Fenster laufen
+                 nocht nicht implementiert
+   ,PARA1        Uebergabeparameter an Script / Programm
+   ,PARA2
+   ,PARA3
+   ,PARA4
+   ,PARA5
+   
+   ,RETURN_WERT  Als Return WErt kommt die PID des neuen Prozesses zurueck
+   ,ERRORFLAG    Returnwert des Prozesses = 1 --&gt; Fehler im System
+                 sonst Geraet schlecht
+   
+</PRE>
+</BODY>
+</HTML>

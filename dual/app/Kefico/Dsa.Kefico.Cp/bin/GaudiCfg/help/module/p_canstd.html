@@ -1,0 +1,170 @@
+<HTML>
+<HEAD>
+<TITLE>P_CANSTD</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>P_CANSTD</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: p_canstd.C,v 1.13 2005/12/08 08:38:26 krf3rt Exp $
+   ---------------------------------------------------------------------
+   Kurzbeschreibung: 	CAN - Auftrag an die PSS/SKM senden 
+   ---------------------------------------------------------------------
+   Projekt:		CCS
+   Sourcefile:		p_canstd.C
+   Autor:		RtW/TEF72-Keppler (04.08.99)
+   Zielsystem:		HP9000/V743 (HP-RT 2.0x), /Sxxx (HP-UX 9.0x)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void p_canstd(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer    *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   
+   ---------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   
+
+      ---------------------------------------------------------------------
+   Funktionsbeschreibung:
+   Dieses Modul dient zur Auftragsvergabe an die SKM. Es bereitet die 
+   Eingangsdaten zu einem SKM-verstaendlichen String auf und veranlasst 
+   die gewuenschten Aktionen.
+   Die Antwort wird im shared Memory abgelegt und kann dort z.B. vom Modul 
+   p_zerlege_string geholt und verarbeitet werden.
+   
+   ACHTUNG: Derzeit nur SKM
+   
+   Beschreibung der ModulÏbergabeparameter:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI PrÏfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------</pre><b><a name="param3">3</a> BEFEHL</b><pre>	Befehl an die SKM 
+    	CANBLOCK: 	Die folgenden Parameter werden wie in der 
+			Standard-Pruefvorschrift beschrieben interpretiert.</pre><b><a name="param4">4</a> ID_SENDEN</b><pre>	Sendeidentifier an das SG: Identifier in HEX an das 
+    			SG. Soll keine Botschaft gesendet werden, so wird
+			kein Wert eingetragen.</pre><b><a name="param5">5</a> ID_SENDEN_LEN</b><pre>Hier wird die Bitzahl des sende-Identifier eingetragen.
+    			11 = 11 Bit Identifier
+			29 = 29 Bit Identifier</pre><b><a name="param6">6</a> ID_LESEN</b><pre>	Leseidentifier: Gibt den Identifier an, fuer das Object
+    			auf dem die Antwort des SG erwartet wird.
+			Soll keine Antwort vom SG gelesen werden, so ist hier
+			nichts einzutragen.</pre><b><a name="param7">7</a> ID_LESEN_LEN</b><pre>Hier wird die Bitzahl des lese-Identifier eingetragen.
+    			11 = 11 Bit Identifier
+			29 = 29 Bit Identifier</pre><b><a name="param8">8</a> MODUS_STD</b><pre>	Gibt an, wie die Botschaft behandelt werden soll.   
+    	C:		Die Strings in DATEN werden so lange aneinander gehaengt,
+			bis hier ein Wert != C eingetragen wird.
+	D:		Der angegeben Identifier wird geloescht.
+	E:		Echoboard-Funktion:
+			Das als Lesebotschaft eingestellte Objekt loest nach Empfang 
+			einen Interrupt auf der SKM aus, welcher das Senden des als 
+			Sendebotschaft eingestellten Objektes veranlaßt. Das Senden 
+			geschieht unmittelbar nach Empfang.
+			Es muß hier als Sendebotschaft und Lesebotschaft eingestellt
+			werden, sonst geschieht Unsinn.			
+	L:		Lese- und Steuerfunktion: Ist in den Parametern ID_SENDEN
+			und ID_SENDEN_LEN eine Botschaft spezifiziert, so wird 
+			dieses Frame an das SG gesendet.
+			Es wird eine Botschaft (spez. unter ID_LESEN) zurueck
+			erwartet.
+			Soll nur eine Botschaft vom SG gelesen werden, (z.B. eine
+			vom SG zyklisch gesendete Botschaft) so bleiben ID_SENDEN
+			und ID_SENDEN_LEN leer.
+             L_xx:	Die Antwort des SG ist egal. Der Schritt wird auch gut gesetzt
+                        wenn keine Antwort kommt. Wenn keine Antwort kommt werden die 
+                        Bytes xx als Messwerte bereitgestellt und können mit BLOCKHEX 
+                        ausgewertet werden.(z.B. xx=00..FF oder xx=1234)
+	S:		Es wird eine Botschaft zum SG mittels Dataframe gesendet.
+			Es wird keine Antwort erwartet.
+	R:		Es wird eine Botschaft mittels Remote-Frame gelesen.
+			Der Tester(SKM) sendet eine als Remote-Frame gekenn-
+			zeichntet Botschaft an das SG. Die Antwort wird in diesem
+			Objekt erwartet.
+			ID_LESEN, ID_LESEN_LEN und DATEN werden hier nicht 
+			berÏcksichtigt.
+			Die Resultierende Botschaft wird zurueckgegeben.
+			(noch nicht implementiert)
+        Pxx		Hier werden spezielle periodische Funktionen bereit gestellt. Die
+                        Daten der periodischen Botschaft werden nach bestimmten Regeln
+                        modifiziert. Die meisten Funktionen werden nur von der SKM unterstuetzt.
+                        mit xx -&gt;
+                        00: -&gt; keine Funktion
+                        01: -&gt; senden des Objekts ohne Modifikation.
+                        02: -&gt; Byte 1 [Zählweise 0-7] der Botschaft von 0 - F hochzählen
+                        03: -&gt; Byte 2 [Zählweise 0-7] zwischen 0x0 und 0x080 toggeln
+                        04: -&gt; Byte 6/7 [Zählweise 0-7] zwischen 0xFC und 0xFF hochzählen
+                        05: -&gt; Byte 5 [Zählweise 0-7] Bit4..7 zwischen 0x00 und 0x0F hochzählen,
+                              Byte 7: Einerkomplement der Summe aus Byte 0/1/2/3/5
+                        06: -&gt; Byte 0 [Zählweise 0-7] in 4 Blöcken senden für Audi-VW ID 28
+                        07: -&gt; Byte 4 [Zählweise 0-7] Bit 0-3 von 0-F hochzählen, und oberes 
+                               Halbbyte ist Checksumme der gesamten Botschaft XOR	
+                               Verknüpfung.
+                        08: -&gt; Byte 0: 4 Bit Zähler im unteren Halbbyte
+                        09: -&gt; Wie 7 jedoch anderer Inhalt
+                        10: -&gt; Für Audi-VW ID 590 Checksumme XOR aus 1/2/3/4/5 in Byte 0
+                        11: -&gt; 1 Byte toggeln zwischen 36H und E5H
+                        12: -&gt; 2.Byte: 2Bit-Zähler auf den oberen beiden Bits
+                        13: -&gt; AFS (BMW)
+                                Byte 0-1 Winkel
+                                Byte 2 Alivecounter + Error zählt von 0-14
+                                Byte 3-4 Geschwindigkeit
+                                Byte 5 immer 0 
+                                Botschaft wird auch auf K-line ausgegeben. 
+                        14:-&gt; Byte 1: Bytezähler 0-255
+                                Byte 1/2/3/4 xor verknüpft und CS auf Byte 0
+                        15:-&gt; Byte 5: [Zählweise 0-7] Bit 4..7 zwischen 0x00 und 0x0F hochzählen
+                                 Byte 7: Einerkomplement aus Byte 5
+                        16:-&gt; AS-.PL2
+                                Byte 0-1:STWA_TOP
+                                Byte 2: Alivecounter + Error
+                                Byte 3-4: STWA_TOP_COM enthält STWA_TOP mit diversen 
+                                        Berechnungen.
+                                Byte 5-7:?
+
+				
+	INIT:		Einstellen (Initialisieren) eines Leseidentifiers
+			Es wird ein Identifier der als ID_LESEN angegeben
+			wird dem CAN-Baustein mitgeteilt. Der Host wartet jedoch
+			nicht, bis die SKM eine Antwort liefert, sondern faehrt 
+			im Programm fort.
+			Die Antwort kann mit dem Modul L in einem spaeteren Schritt
+			abgeholt werden.
+                                                
+         I:		wie INIT.
+            
+         T_ON:   	Trace Mode ON: Es wird auf das als ID_LESEN eingestellte Objekt getraced. Es werden
+                        alle, nach absetzen dieses Befehls auf dem Objekt ID_LESEN, empfangenen Daten
+                        in ein File auf der SKM geschrieben. Dieses File erhält den Filename
+                        &lt;ID_LESEN&gt;_&lt;DATEN&gt;. In DATEN ist die Filelänge in 4 Byte einzutragen (ggf. mit 
+                        führenden Nullen). 
+                        Beispiel: ID_LESEN = 200, DATEN = 00300000 =&gt; Filenamen = 00000200_00300000 
+                        Dieses File kann mit dem Modul p_loadfile (LOADFILE1) zurückgelesen werden.
+                        Zurückgegeben werden nur über das Traceing gelesene Daten. 
+        T_OFF:		Trace Mode OFF. 
+                        Mit diesem Befehl wird das Tracen abgeschaltet. Das Tracing wird außerdem unterbrochen,
+                        wenn das File voll ist.</pre><b><a name="param9">9</a> SG_DATEN</b><pre>		Hier werden die Daten, die zu SG gesendet werden sollen
+    			(ID_SENDEN) eingetragen.</pre><b><a name="param10">10</a> PERIODE_SEND</b><pre>Gibt an ob ein Sendeobjekt einmal oder zyklisch gesendet
+   			werden soll.
+			0 = einmal senden
+			n = Zeitintervall in ms
+			-1 = Zyklisches Senden beenden
+				Diese Angeben beziehen sich auf ID_SENDEN</pre><b><a name="param11">11</a> TIMEOUT_SKM</b><pre>Wird eine Anforderung innerhalb dieser Zeit nicht beant-
+   			wortet, so wird ein Fehler generiert.</pre><b><a name="param12">12</a> FEHLERFLAG</b><pre>	Wird gesetzt bei aufgetretenem Fehler</pre><b><a name="param13">13</a> ERGEBNIS</b><pre>		Pointer auf den Antwortstring der PSS/SKM
+</PRE>
+</BODY>
+</HTML>

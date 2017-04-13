@@ -1,0 +1,27 @@
+﻿
+"../pruef_ccs/pruef_s_mmxx/p9001270003.v01e"
+
+양산품번 : 900xxxxxxx
+variant : 해당 gaudi file 내에 존재함.   복수개 가능
+Gates : {H, R, T} for Hot, Room, Cold test
+
+확장자 : v01e -> version 01, echo(=debug) 버젼
+  * v01f 처럼 f 로 끝나면 양산 버젼
+
+
+서버의 파일은 variant 에 따라서 동일한 파일이 복사되어서 보관됨
+	e.g p9001270003.v01e 파일을 gaudi 에서 open 하면, TTNR 선택 화면에서 다음과 같이 3개의 {대표품번, variant} 쌍을 확인할 수 있다.
+		[9001270014, 00..0001]
+		[9001270003, 00..0002]
+		[9001270999, 00..0004]
+	현재, 서버 파일 시스템 상에서 이들 세 파일 중 하나를 수정한다면, 나머지 두개도 동일한 내용이 되도록 수작업으로 update 되어야 한다.
+		e.g p9001270003.v01e 파일 수정시 동일 내용으로 p9001270014.v01e 및 p9001270999.v01e 도 복사
+
+시험기의 loading step
+	- PLC 로부터 자신이 검사할 양산품번 정보를 받는다.
+	- 시험기 자신의 configuration 에 자신의 Gates type {Hot, Room, Cold} 을 가지고 있다.
+	- 양산품번, Gates 정보를 서버에 전송하여 서버 상의 pdvId 와 CP xml file path 정보를 획득한다.  (file version 은 올리지 않는다.)
+		* 서버는 양산품번과 gate 정보를 이용하여 pdv table 검색을 통해 pdvId 를 반환한다.
+			- 해당 pdvId 를 통해 pdvTestList table 을 통해 대표품번과 productType(e.g 'MMXX') 을 알 수 있다.
+		* 서버와 시험기 둘다 해당 file 을 parsing 한다.
+		* CP xml file parsing 시, file path 및 대표 품번 정보도 함께 주어야 한다.

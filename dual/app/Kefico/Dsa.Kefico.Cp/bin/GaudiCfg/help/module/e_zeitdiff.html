@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE>E_ZEITDIFF</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>E_ZEITDIFF</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   $Id: e_zeitdiff.C,v 1.2 2002/02/27 09:38:36 wiese Exp $ 
+   ------------------------------------------------------------------------
+   Kurzbeschreibung: 	Fœr Laufzeitmessungen von Modulen
+   ------------------------------------------------------------------------
+   Projekt:		Bosch-ccs
+   Sourcefile:		e_zeitdiff.C
+   Autor:		RtW/TEF72-Keppler (03.07.96)
+   Zielsystem:		HP9000/V743 (HP-RT 2.10)
+   Sprache:		C++
+   ---------------------------------------------------------------------
+   Prototyp:
+   MPI Schnittstelle
+   void e_trigger_tmux(shm_stringpointer *zeilen_info
+	   ,shm_stringpointer   *zeilen_wert
+	   ,long index1
+	   ,long anzahl)
+   ------------------------------------------------------------------------
+   Aufruf: im Vectorinterpreter
+   
+	 (*funktionen[modulnummer])
+	    (Ssp_expand_zeile
+	     ,Ssp_expand_wert
+	     ,p_verwaltung-&gt;begin_modulblock
+	     ,p_verwaltung-&gt;anzahl_modulparameter);
+
+   ------------------------------------------------------------------------
+   Returnparameter: keine			 
+   ------------------------------------------------------------------------
+   Funktionsbeschreibung:</pre><b><a name="param1">1</a> PRUEFSCHRITT</b><pre>
+   	GAUDI Prœfschritt
+   ------------------------------</pre><b><a name="param2">2</a> POSITION</b><pre>
+   	PAV- Position
+   ------------------------------   
+   
+   Eingabeparameter:</pre><b><a name="param3">3</a> MODUS</b><pre>	Art der Zeitmessung</pre><b><a name="param4">4</a> ERGEBNIS</b><pre>nicht benutzt
+    
+    
+   Routine zur Laufzeitermittlung von Modulen.
+   Das Modul stellt die Zeitdifferenz von Modulaufruf zu Modulaufruf statt.
+   Es kann auch die Zeitdifferenz seit dem ersten Modulaufruf ausgegeben werden.
+   
+   
+   ------------------------------------------------------------------------
+   Fehlerbeschreibung: 				 
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,77 @@
+오후 2:01 2017-02-14
+
+	PAIX Motion 및 DIO 활성화 할 때, 메모리 corruption 관련 exception 발생.  원인 조사 필요
+
+	DAQ 6361
+		Channel 당 수집 rage 가 있더라도 전체 합산을 넘으면 안된다.
+
+
+
+
+CP Tester 관련 follow up
+
+
+
+12/10 R&R
+	CCS 검사기 와 MWS agent 간 정의해서 kefico 송부...
+
+
+12/15 서버 입고
+	MWS actor 를 windows service 로 변경
+	product number (숫자 10) 를 CHAR(10) 으로 변경
+
+
+W:\Kefico\문서\0. 곽종근 개인 정리\CP_TESTER.txt
+
+W:\Kefico\CPTester_K_2016\trunk\CpTesterPlatformRelease\Doc\CP-Tester_개발노트_V1.2.0.pptx
+
+
+
+RS232C 시리얼 통신
+	http://www.hardcopyworld.com/ngine/aduino/index.php/archives/2080
+
+
+
+
+-------- WIndows Service ------------
+manifest ??? 이용
+
+HKLM > System > Current Control Set > Services > MWSWindowsService 에서 등록된 service 확인
+	http://smallvoid.com/article/winnt-services-regedit.html
+	http://www.c-sharpcorner.com/uploadfile/0f68f2/adding-service-dependency-on-a-windows-service-through-regis/
+	새로만들기 > 다중 문자열 값 > DependOnService 이름으로 Winmgmt 추가
+
+https://support.microsoft.com/ko-kr/kb/193888
+#https://github.com/Th4nat0s/eventlog-to-syslog/issues/66
+Netman
+Winmgmt
+Dhcp
+Dnscache
+iphlpsvc
+RpcSs
+RpcEptMapper
+lmhosts
+LanmanWorkstation
+NlaSvc
+Server
+Network Location Awareness (NlaSvc)
+Server (Server)
+Network List Service (netprofm)
+
+
+	http://hodorii.blogspot.kr/2011/11/blog-post_22.html#!
+
+sc qc ServiceA
+sc qc MWSWindowsService
+
+
+
+서비스 타임아웃 수정 방법
+https://support.microsoft.com/ko-kr/kb/922918
+
+
+
+http://stackoverflow.com/questions/11978054/cannot-start-windows-service-in-networkservice-account/11983513#11983513
+ - MWSSer
+
+http://stackoverflow.com/questions/27940912/c-sharp-topshelf-timeoutexception

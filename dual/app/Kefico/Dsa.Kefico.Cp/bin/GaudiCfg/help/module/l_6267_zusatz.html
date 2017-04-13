@@ -1,0 +1,282 @@
+<HTML>
+<HEAD>
+<TITLE>L_6267_ZUSATZ</TITLE>
+<META NAME="Generator" CONTENT="KDOC ">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="#0000ff" vlink="#000099" alink= "#ffffff">
+
+<table BORDER=0 COLS=1 WIDTH="100%" BGCOLOR="#FFFFCC" NOSAVE >
+<tr ALIGN=CENTER VALIGN=CENTER NOSAVE>
+<td NOSAVE><font face="Arial,Helvetica"><font size=+2></font></font>
+<br><font face="Arial,Helvetica"><font size=+2>CCS Modul &nbsp;&nbsp;<b>L_6267_ZUSATZ</b></font></font>
+<br>&nbsp;</td>
+</tr>
+</table>
+<PRE>
+   Funktionsbeschreibung:
+   
+   Dieses Modul stellt - ebenso wie das 'F_ANSTEUER'-Modul - die Schnittstelle 
+   vom GAUDI zum nachgeordneten Hardwaretreiber dar.  
+   Der zugehoerende Hardwaretreiber wird durch mehrmaligen Aufruf des Moduls
+   'F_ANSTEUER' und dieses Zusatz-Modul mit den notwendigen Daten versorgt:
+     
+   1. F_ANSTEUER    liefert die Anschalteparameter fuer den ersten UBATT-Zweig;
+   2. F_ANSTEUER    liefert die Anschalteparameter fuer den zweiten UBATT-Zweig;
+   3. F_ANSTEUER    liefert die Anschalteparameter fuer den ersten UDAUERPLUS-Zweig;
+   4. F_ANSTEUER    liefert die Anschalteparameter fuer den zweiten UDAUERPLUS-Zweig;
+   5. F_ANSTEUER    liefert die Anschalteparameter fuer den ersten ULAST-Zweig;
+   6. F_ANSTEUER    liefert die Anschalteparameter fuer den zweiten ULAST-Zweig;
+                    (ausschliesslich andere Masseanschaltung)
+   7. F_ANSTEUER    liefert die Anschalteparameter fuer den dritten ULAST-Zweig;
+                    (ausschliesslich andere Masseanschaltung)
+   8. L_6267_ZUSATZ liefert die Anschalteparameter fuer die den jeweiligen 
+                    Spannungskanaelen zugeordneten Sense- und Strommesskanaele;
+
+		    
+   Uebergabeparameter anhand der Modglobal.stl
+   MD,F_ANSTEUER
+               ,PRUEFSCHRITT	  	
+               ,POSITION          
+               ,ANSTEUER_UNIT     'KON_UB_x'/'KON_UD_x'/'KON_UL_x'/
+	                          'KON_UB2_x'/'KON_UD2_x'/'KON_UL2_x'/'KON_UL3_x'
+				  (mit x = 1,2, ... Nummer der Hardware-Unit im PAM
+				   gemaess den Angaben im File 'hw_units_xxxx.cnf')
+               ,ANSTEUER_NAME     Steuergeraete bezogener Name
+               ,ANSTEUER_WERT     Spannungswert fuer 'UBatt', 'UDauerplus', 'ULast'
+	                          oder einer der aufgefuehrten Zahlenwerte:
+	                            'UDauerplus' = 'UBatt' / '0' / '1'
+				    'ULast'      = 'UBatt' / '0' / '1'
+				    ('-' fuehrt zur Abschaltung des KAM-Zweigs)
+               ,ANSTEUER_DIM      wird nicht benutzt
+               ,ANSTEUER_PIN      Eingabe eines Steuergeraete bezogenen Pins (gemaess
+	                          den Angaben des Adapterfiles), der ueber das 
+				  PAM-Beschreibungsfile dereferenziert werden kann;
+				  moegliche angesprochene Kartenpins sind:
+				    'UBatt':      d28 ==&gt; Relais K13
+				                  d04 ==&gt; Relais K14
+			            'UDauerplus': z28 ==&gt; Relais K11
+				                  z04 ==&gt; Relais K12
+				    'ULast':      dbz16
+				                  dbz02 ==&gt; Relais K18
+               ,ANSTEUER_BEZUG    Eingabe eines Steuergeraete bezogenen Pins (gemaess
+	                          den Angaben des Adapterfiles), der ueber das
+				  PAM-Beschreibungsfile dereferenziert werden kann;
+				  moegliche angesprochene Kartenpins sind:
+				    'UBatt':      d30 ==&gt; Relais K3
+				                  d06 ==&gt; Relais K4
+			            'UDauerplus': z30 ==&gt; Relais K1
+				                  z06 ==&gt; Relais K2
+				    'ULast':      dbz32
+				                  dbz14 ==&gt; Relais K8
+						  db24  ==&gt; Relais K9
+				                  d22   ==&gt; Relais K10
+						  
+   MD,L_6267_ZUSATZ</pre><b><a name="param1">1</a> ,PRUEFSCHRITT</b><pre></pre><b><a name="param2">2</a> ,POSITION</b><pre></pre><b><a name="param3">3</a> ,ANSTEUER_UNIT</b><pre>    'KON_UB_x'/'KON_UD_x'/'KON_UL_x'/</pre><b><a name="param4">4</a> ,SENSELINE</b><pre>        Ist einer der beiden oder sind beide Zweige 
+	                          UBATT bzw. DAUERPLUS aktiviert kann (nur) einer
+				  der beiden durch einen Sense-Eingang am 
+				  Konstanter ueberwacht werden !!!
+				  Die Auswahl geschieht ueber die Parameter
+				      'UBATT'/'UDAUER'/'ULAST'/'-'
+				  Default-Einstellung ist '-'.
+				  (z.Zt. laesst die Hardware ein unabhanegiges
+				   Sensing der 'ULAST' nicht zu)</pre><b><a name="param5">5</a> ,SENSE_HIGH</b><pre>       Eingabe eines Steuergeraete bezogenen Pins,
+	                          der ueber das PAM-Beschreibungsfile dereferenziert
+				  werden kann;
+				  moegliche angesprochene Kartenpins sind: 
+				      b28   ==&gt; Relais K15  \
+				      b04   ==&gt; Relais K16   --&gt; UBATT / UDAUER
+				      dbz16 ==&gt;             \
+				      dbz02 ==&gt; Relais K17   --&gt; ULAST</pre><b><a name="param6">6</a> ,SENSE_LOW</b><pre>        Eingabe eines Steuergeraete bezogenen Pins,
+	                          der ueber das PAM-Beschreibungsfile dereferenziert
+				  werden kann;
+				  moegliche angesprochene Kartenpins sind: 
+				      b30   ==&gt; Relais K5  \
+				      b06   ==&gt; Relais K6   --&gt; UBATT / UDAUER
+				      dbz32 ==&gt;            \
+				      dbz14 ==&gt; Relais K7   --&gt; ULAST</pre><b><a name="param7">7</a> ,MESSKANAL</b><pre>        Auswahl eines der beiden moeglichen Messkanaele
+	                          'MESSKA_A' (im 'UBATT'-Zweig ) oder 'MESSKA_C' 
+				  (im 'DAUERPLUS'-Zweig);
+				  Default-Einstellung ist '-'.</pre><b><a name="param8">8</a> ,STROMMESS_R</b><pre>      Je nach geeigneterem Messbereich kann fuer die
+	                          Strommessung in jedem der beiden Zweige einer 
+				  der beiden Messwiderstaende '0.1' oder '10' Ohm 
+				  ausgewaehlt werden (wird nur geschaltet, wenn
+				  der entsprechende Messkanal aktiviert ist).
+				  Default-Einstellung ist '-'.
+   &lt;\userdoc&gt;
+
+   C2-------------------------------------------------------------------------
+
+-- pragmas -----------------------------------------------------------------
+#pragma  COPYRIGHT "Robert Bosch GmbH Salzgitter, SaW/TEF72"
+#pragma  VERSIONID "$Id: l_6267_zusatz.C,v 1.3 2003/04/17 09:36:11 wiese Exp $"
+
+
+-- defines -----------------------------------------------------------------
+
+#define  EXTERN extern	                              Bei allen Subroutinen 
+#define  HEADER "$Id: l_6267_zusatz.C,v 1.3 2003/04/17 09:36:11 wiese Exp $" 
+
+#ifndef ret_val_OK
+#  define  ret_val_OK               (int)0
+#endif
+
+
+//#define  PRUEFSCHRITT	         1
+//#define  POSITION	         2
+
+#define  ANST_UNIT	         (3 - 1)
+#define  SENSELINE               (4 - 1)
+#define  SENSE_HIGH              (5 - 1)
+#define  SENSE_LOW               (6 - 1)
+#define  MESSKANAL               (7 - 1)
+#define  MESS_SHUNT              (8 - 1)
+
+#define  ANZAHL_ZUSATZDATEN      5
+
+#define  INT_VERWALTUNG          3
+#define  STRING_VERWALTUNG       2
+
+
+
+
+-- includes ----------------------------------------------------------------
+#include "shm_syscom.H"
+#include "libccs.H"	// Zentrale Lib
+#include "libtestmodul_pool.H"	// Modul Lib
+
+
+-- external functions / variables ------------------------------------------
+
+-- global variables (nur im  "main" erlaubt) -------------------------------
+
+
+ Whatstring 
+static char ident[] = "@(#)$Header: /rweglobal/cvs/testsystem/ccs/6_testmodul_pool/bosch_bus_qt/module/l_lastmodule/s/src/l_6267_zusatz.C,v 1.3 2003/04/17 09:36:11 wiese Exp $";
+
+
+ C3 ------------------------------------------------------------------------
+
+int l_6267_zusatz( shm_stringpointer  *zeilen_wert
+		  ,long               index_on_expPrfLst
+		  ,long               anzahl_parameter )
+{
+   -- local variables ------------------------------------------------------ 
+   long    i;				// Laufvariable fœr Parameterœbergabe
+   
+   int	   schritt;			// Schritt ausfœhren   
+   long	   unit_index;          	// Index Zeiger auf Unit   
+
+   int     ret_val = ret_val_OK;
+
+   
+   //---------------------------------------------------------------------------
+   // Die Zusatzdaten werden in den Stringspeicher umgeladen
+   //---------------------------------------------------------------------------
+   unit_index = suche_unit_index( *zeilen_wert-&gt;ptr[index_on_expPrfLst + ANST_UNIT] );
+   
+   if( unit_index &lt; 0 ) 
+   {
+      ret_val = -1;
+   }
+   else
+   {
+      i = get_platzmemory( STRING_VERWALTUNG
+  			  ,unit_index
+			  ,ANZAHL_ZUSATZDATEN );
+			  
+      Ssp_pp_verwaltung-&gt;unit_ablage[unit_index].put_unit_aenderung(1);
+      Ssp_pp_verwaltung-&gt;string_f[i+0] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSELINE];
+      Ssp_pp_verwaltung-&gt;string_f[i+1] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSE_HIGH]; 
+      Ssp_pp_verwaltung-&gt;string_f[i+2] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSE_LOW];
+      Ssp_pp_verwaltung-&gt;string_f[i+3] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + MESSKANAL];   
+      Ssp_pp_verwaltung-&gt;string_f[i+4] = *zeilen_wert-&gt;ptr[index_on_expPrfLst + MESS_SHUNT];
+  
+      ----------------------------------------------------------------------
+      debug_message( __FILE__, __LINE__, DEB_GAUDI
+		    ,"Unitindex:  %d - L_6267_ZUSATZ"
+		     "\nSENSELINE:  %s"
+		     "\nSENSE_HIGH: %s"
+		     "\nSENSE_LOW:  %s"
+		     "\nMESSKANAL:  %s"
+		     "\nMESS_SHUNT: %s"
+		    ,unit_index
+		    ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSELINE]
+		    ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSE_HIGH]
+		    ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + SENSE_LOW]
+		    ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + MESSKANAL]
+		    ,(const char *)*zeilen_wert-&gt;ptr[index_on_expPrfLst + MESS_SHUNT] );
+      ----------------------------------------------------------------------
+     
+      
+      ----------------------------------------------------------------------      
+      
+      *                    Schrittbetriebshandler starten 
+      
+      schritt = schrittbetrieb( zeilen_wert, index_on_expPrfLst );      
+      if ( schritt != 1 ) 
+         ret_val = ret_val_OK;         
+   }
+   
+     
+   return( ret_val );
+   
+}   Ende von 'l_6267_zusatz ()' 
+
+
+
+-- un_defines --------------------------------------------------------------
+
+#undef  ANST_UNIT
+#undef  SENSELINE
+#undef  SENSE_HIGH
+#undef  SENSE_LOW
+#undef  MESSKANAL
+#undef  MESS_SHUNT
+
+#undef  ANZAHL_ZUSATZDATEN
+
+#undef  INT_VERWALTUNG
+#undef  STRING_VERWALTUNG
+
+
+ - End of file ---------------------------------------------------------------
+   Historie:
+   $Log: l_6267_zusatz.C,v $
+   Revision 1.3  2003/04/17 09:36:11  wiese
+   $Head -&gt; $Id wegen log_message
+
+   Revision 1.2  2002/02/14 08:04:01  PIJ3SA
+   userdoc for html-page inserted
+
+   Revision 1.1  2001/12/18 10:41:43  sgc3sa
+   Anpassungen fuer Linux und QT
+
+   Revision 1.8  2001/06/19 09:12:16  lehmann
+   wegen Linux von OK -&gt; ret_val_ok
+
+   Revision 1.7  2001/06/12 10:26:55  lehmann
+   Put_unitaenderung eingefuegt
+
+   Revision 1.6  2001/05/23 13:00:24  lehmann
+   put_unit_aenderung eingef¸hrt
+
+   Revision 1.5  2000/02/16 12:11:44  klm3sa
+   *** empty log message ***
+
+   Revision 1.4  2000/02/15 11:25:30  KLM3SA
+   Sourcen aus testsystem_21 kopiert.
+
+Revision 1.1  97/12/02  14:22:47  14:22:47  juilfs (Joerg Juilfs)
+Initial revision
+
+   Revision 1.1 ohm3sa/19970917: Erweiterung der Dokumentation fuer Umstellung
+                                 der Anzahl AnsteuerPrmtr. von 3 auf 7;
+                                 Umstellung der Debug-Ausgabe auf 'DEB_GAUDI';
+                                 Verzicht auf das Umladen der Shared Memory-Daten
+                                 in lokalen Speicher; 
+   Revision 1.0 satef7oh/19960711: Initial revision
+
+   ---------------------------------------------------------------------------
+</PRE>
+</BODY>
+</HTML>
