@@ -1,20 +1,20 @@
-﻿using Dsu.Common.Utilities.ExtensionMethods;
-using Dsu.Common.Utilities.Graph;
+﻿using Dsu.Common.Utilities.Graph;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dsu.PLCConvertor.Common
 {
-    internal interface INode { }
-
-    [DebuggerDisplay("{_name}")]
-    public class Node : INode, IEquatable<Node>
+    /// <summary>
+    /// PLC 접점 및 coil, 출력 등을 표현하기 위한 class
+    /// </summary>
+    [DebuggerDisplay("{Name}")]
+    public class Node : IEquatable<Node>
     {
-        string _name;
+        public string Name { get; private set; }
+        public Guid Guid { get; set; } = Guid.NewGuid();
+
         public bool Equals(Node other)
         {
             if (other == null)
@@ -25,13 +25,14 @@ namespace Dsu.PLCConvertor.Common
 
         public Node(string name)
         {
-            _name = name;
+            Name = name;
         }
-
-        internal bool IsAuxNode { get; set; }
     }
 
 
+    /// <summary>
+    /// PLC rung 에서 접점 간 연결을 표현하는 edge class
+    /// </summary>
 
     [DebuggerDisplay("{Name}")]
     public class Edge
@@ -45,16 +46,30 @@ namespace Dsu.PLCConvertor.Common
         {
             Name = name;
         }
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 
+    /// <summary>
+    /// PLC 의 rung 을 graph 구조로 표현한 class
+    /// </summary>
     public partial class Rung : Graph<Node, Edge>
     {
+        public Rung()
+        {
+        }
+        public Rung(IEnumerable<string> mnemonics)
+        {
+            Mnemonics = mnemonics.ToArray();
+        }
         public static Rung CreateRung(IEnumerable<string> mnemonics) => new Rung4Parsing(mnemonics).ToRung();
         /// <summary>
         /// Rung 을 구성하는 IL 목록
         /// </summary>
         public string[] Mnemonics { get; protected set; }
-        internal bool AddEdge(Node start, Node end) => AddEdge(start, end, new Edge($"{start}->{end}"));
+        internal bool AddEdge(Node start, Node end) => AddEdge(start, end, new Edge($"{start.Name}->{end.Name}"));
     }
 
 
