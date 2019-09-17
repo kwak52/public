@@ -1,6 +1,6 @@
 ﻿namespace PLCConvertor
 {
-    partial class Form1
+    partial class FormTest
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnTest = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btnTest
+            // 
+            this.btnTest.Location = new System.Drawing.Point(42, 44);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(103, 47);
+            this.btnTest.TabIndex = 0;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            // 
+            // FormTest
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(278, 244);
+            this.Controls.Add(this.btnTest);
+            this.Name = "FormTest";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnTest;
     }
 }
 
