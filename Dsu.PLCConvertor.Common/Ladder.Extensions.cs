@@ -85,7 +85,7 @@ namespace Dsu.PLCConvertor.Common
 
             string HtmlEncode(string html) => System.Net.WebUtility.HtmlEncode(html);
             string Small(string text, int size = 10, string color = "red") => $"<FONT POINT-SIZE=\"{size}\" COLOR=\"{color}\">{text}</FONT>";
-            string GetId(Node a) => a.Guid.ToString();
+            string GetId(Point a) => a.Guid.ToString();
         }
     }
 }
