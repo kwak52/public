@@ -29,7 +29,7 @@ namespace Dsu.PLCConvertor.Common
             {
                 var sentence = new ILSentence(m);
                 var arg0 = sentence.Args.IsNullOrEmpty() ? null : sentence.Args[0];
-                var arg0N = new Node(arg0);
+                var arg0N = new Point(arg0) { ILSentence = sentence };
                 switch(sentence.Command)
                 {
                     case "LD" when arg0.StartsWith("TR"):
@@ -103,7 +103,7 @@ namespace Dsu.PLCConvertor.Common
     /// <summary>
     /// Parsing 을 위해서 보조적으로 사용되는 node
     /// </summary>
-    internal class AuxNode : Node
+    internal class AuxNode : Point
     {
         public AuxNode(string name) : base(name)
         {
@@ -111,44 +111,57 @@ namespace Dsu.PLCConvertor.Common
         }
     }
 
+
+    /// <summary>
+    /// Parsing 을 위해서 보조적으로 사용되는 node
+    /// </summary>
+    internal class EndMarker : AuxNode
+    {
+        public EndMarker(string name)
+            : base($"END:{name}")
+        {
+        }
+    }
+
+
     /// <summary>
     /// Rung 을 구성하는 내부의 sub rung 을 표현하기 위한 class
     /// </summary>
     internal class SubRung : Rung
     {
-        AuxNode _start = new AuxNode("START");
-        Node _end = new AuxNode("END");
+        AuxNode start = new AuxNode("START");
+        Point end = new EndMarker("END");
         Rung4Parsing _masterRung;
         public SubRung(Rung4Parsing masterRung, string node)
-            : this(masterRung, new Node(node))
+            : this(masterRung, new Point(node))
         {
         }
-        public SubRung(Rung4Parsing masterRung, Node node)
+        public SubRung(Rung4Parsing masterRung, Point node)
         {
             _masterRung = masterRung;
-            Add(_start);
+            Add(start);
             Add(node);
-            Add(_end);
-            AddEdge(_start, node);
-            AddEdge(node, _end);
+            Add(end);
+            AddEdge(start, node);
+            AddEdge(node, end);
         }
 
-        public void AND(Node node, ILSentence sentence)
+        public void AND(Point node, ILSentence sentence)
         {
             Add(node);
             MakeEndNode(node);
         }
 
-        void MakeEndNode(Node start)
+        void MakeEndNode(Point start)
         {
-            var oldEnd = _end;
-            _end = new AuxNode("END");
-            Add(_end);
+            var oldEnd = end;
+            end = new EndMarker(start.Name);
+            Add(end);
             var incomingNodes = GetIncomingNodes(oldEnd).ToArray();
             incomingNodes.Iter(s =>
             {
                 AddEdge(s, start);
-                AddEdge(start, _end);
+                AddEdge(start, end);
             });
 
             if (! oldEnd.Name.StartsWith("TR"))
@@ -162,9 +175,9 @@ namespace Dsu.PLCConvertor.Common
         {
             MergeGraph(next);
 
-            GetIncomingNodes(_end).Iter(s =>
+            GetIncomingNodes(end).Iter(s =>
             {
-                GetOutgoingNodes(next._start).Iter(e =>
+                GetOutgoingNodes(next.start).Iter(e =>
                 {
                     AddEdge(s, e, new Edge($"{s}->{e}"));
                 });
@@ -176,7 +189,7 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// this graph 내용에 other 로 주어진 graph 를 병합한다.
         /// </summary>
-        public override void MergeGraph(Graph<Node, Edge> other)
+        public override void MergeGraph(Graph<Point, Edge> other)
         {
             base.MergeGraph(other);
 
@@ -187,42 +200,42 @@ namespace Dsu.PLCConvertor.Common
             }
         }
 
-        public void OR(Node node, ILSentence sentence)
+        public void OR(Point node, ILSentence sentence)
         {
             Add(node);
-            AddEdge(_start, node, new Edge(sentence));
-            AddEdge(node, _end, new Edge(sentence));
+            AddEdge(start, node, new Edge(sentence));
+            AddEdge(node, end, new Edge(sentence));
         }
 
         public SubRung ORLD(SubRung next)
         {
             MergeGraph(next);
 
-            AddEdge(next._start, _start);
-            AddEdge(next._end, _end);
+            AddEdge(next.start, start);
+            AddEdge(next.end, end);
 
             return this;
         }
-        public void OUT(Node node, ILSentence sentence)
+        public void OUT(Point node, ILSentence sentence)
         {
             Add(node);
-            AddEdge(_end, node, new Edge(sentence));
+            AddEdge(end, node, new Edge(sentence));
         }
 
         public void OUTTR(AuxNode tr, ILSentence sentence)
         {
             _masterRung.TRmap.Add(tr, this);
             Add(tr);
-            AddEdge(_end, tr, new Edge(sentence));
-            _end = new AuxNode("END");
-            Add(_end);
-            AddEdge(tr, _end);
+            AddEdge(end, tr, new Edge(sentence));
+            end = new EndMarker(tr.Name);
+            Add(end);
+            AddEdge(tr, end);
         }
 
         public void LDTR(string tr)
         {
             var trEntry = _masterRung.TRmap.First(kv => kv.Key.Name == tr);
-            _end = trEntry.Key;
+            end = trEntry.Key;
         }
     }
 }
