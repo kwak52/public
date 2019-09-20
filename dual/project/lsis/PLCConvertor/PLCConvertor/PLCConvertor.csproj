@@ -64,11 +64,11 @@
     <Compile Include="FormPLCConverter.Log.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormTest.cs">
+    <Compile Include="Forms\FormLadderParse.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormTest.Designer.cs">
-      <DependentUpon>FormTest.cs</DependentUpon>
+    <Compile Include="Forms\FormLadderParse.Designer.cs">
+      <DependentUpon>FormLadderParse.cs</DependentUpon>
     </Compile>
     <Compile Include="Images.cs" />
     <Compile Include="Program.cs" />
@@ -82,8 +82,8 @@
     <EmbeddedResource Include="FormPLCConverter.resx">
       <DependentUpon>FormPLCConverter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormTest.resx">
-      <DependentUpon>FormTest.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FormLadderParse.resx">
+      <DependentUpon>FormLadderParse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

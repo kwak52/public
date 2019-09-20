@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using log4net.Appender;
 using Dsu.PLCConvertor.Common;
 using Dsu.Common.Utilities.Graph;
+using PLCConvertor.Forms;
 
 namespace PLCConvertor
 {
@@ -40,6 +41,10 @@ namespace PLCConvertor
 
         private void TestConversion()
         {
+            new FormLadderParse().Show();
+            return;
+
+
             string input1 = @"LD A
 AND B
 OR C
@@ -86,6 +91,11 @@ OUT 102.12
             var _formGraphviz = new Form() { Size = new Size(800, 500) };
             _formGraphviz.Controls.Add(_pictureBox);
             _formGraphviz.Show();
+        }
+
+        private void BarButtonItemTestParse_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+
         }
     }
 }
