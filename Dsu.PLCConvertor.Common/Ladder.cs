@@ -70,7 +70,12 @@ namespace Dsu.PLCConvertor.Common
         {
             Mnemonics = mnemonics.ToArray();
         }
-        public static Rung CreateRung(IEnumerable<string> mnemonics) => new Rung4Parsing(mnemonics).ToRung();
+        public static Rung CreateRung(IEnumerable<string> mnemonics)
+        {
+            var r4p = new Rung4Parsing(mnemonics);
+            r4p.CoRoutineRungParser().ToArray();
+            return r4p.ToRung();
+        }
         /// <summary>
         /// Rung 을 구성하는 IL 목록
         /// </summary>

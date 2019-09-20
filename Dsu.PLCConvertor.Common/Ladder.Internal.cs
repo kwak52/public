@@ -17,57 +17,65 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// Rung build 중에 작업하고 있는 현재의 sub rung
         /// </summary>
-        SubRung _currentLD;
+        public SubRung CurrentBuildingLD { get; private set; }
 
         string[] _mnemonics;
+        public Stack<SubRung> LadderStack;
         public Rung4Parsing(IEnumerable<string> mnemonics)
         {
             _mnemonics = mnemonics.ToArray();
-            var ldStack = new Stack<SubRung>();
+            LadderStack = new Stack<SubRung>();
+        }
 
-            foreach (var m in mnemonics)
+
+        public IEnumerable<int> CoRoutineRungParser()
+        {
+            int i = 0;
+            foreach (var m in _mnemonics)
             {
                 var sentence = new ILSentence(m);
                 var arg0 = sentence.Args.IsNullOrEmpty() ? null : sentence.Args[0];
                 var arg0N = new Point(arg0) { ILSentence = sentence };
-                switch(sentence.Command)
+                switch (sentence.Command)
                 {
                     case "LD" when arg0.StartsWith("TR"):
-                        _currentLD.LDTR(arg0);
+                        CurrentBuildingLD.LDTR(arg0);
                         break;
 
                     case "LD":
-                        if (_currentLD != null)
-                            ldStack.Push(_currentLD);
-                        _currentLD = new SubRung(this, arg0N);
+                        if (CurrentBuildingLD != null)
+                            LadderStack.Push(CurrentBuildingLD);
+                        CurrentBuildingLD = new SubRung(this, arg0N);
                         break;
 
                     case "AND":
-                        _currentLD.AND(arg0N, sentence);
+                        CurrentBuildingLD.AND(arg0N, sentence);
                         break;
                     case "ANDLD":
-                        _currentLD = ldStack.Pop().ANDLD(_currentLD);
+                        CurrentBuildingLD = LadderStack.Pop().ANDLD(CurrentBuildingLD);
                         break;
 
                     case "OR":
-                        _currentLD.OR(arg0N, sentence);
+                        CurrentBuildingLD.OR(arg0N, sentence);
                         break;
                     case "ORLD":
-                        _currentLD = ldStack.Pop().ORLD(_currentLD);
+                        CurrentBuildingLD = LadderStack.Pop().ORLD(CurrentBuildingLD);
                         break;
 
                     case "OUT" when arg0.StartsWith("TR"):
-                        _currentLD.OUTTR(new AuxNode(arg0), sentence);
+                        CurrentBuildingLD.OUTTR(new AuxNode(arg0), sentence);
                         break;
                     case "OUT":
-                        _currentLD.OUT(arg0N, sentence);
+                        CurrentBuildingLD.OUT(arg0N, sentence);
                         break;
                     default:
                         break;
                 }
+
+                yield return i++;
             }
 
-            Debug.Assert(ldStack.IsNullOrEmpty());
+            Debug.Assert(LadderStack.IsNullOrEmpty());
             Console.WriteLine("");
         }
 
@@ -76,24 +84,27 @@ namespace Dsu.PLCConvertor.Common
         /// Rung 구축 중간에 사용된 임시 node 들을 제거
         /// </summary>
         /// <returns></returns>
-        public Rung ToRung()
+        public Rung ToRung(bool removeAuxNode=true)
         {
             var rung = new Rung(_mnemonics);
-            rung.MergeGraph(_currentLD);
-            var auxNodes = rung.Nodes.OfType<AuxNode>().ToArray();
-            auxNodes.Iter(n =>
+            rung.MergeGraph(CurrentBuildingLD);
+            if (removeAuxNode)
             {
-                var incomings = rung.GetIncomingNodes(n).ToArray();
-                var outgoings = rung.GetOutgoingNodes(n).ToArray();
-                incomings.Iter(i =>
+                var auxNodes = rung.Nodes.OfType<AuxNode>().ToArray();
+                auxNodes.Iter(n =>
                 {
-                    outgoings.Iter(o =>
+                    var incomings = rung.GetIncomingNodes(n).ToArray();
+                    var outgoings = rung.GetOutgoingNodes(n).ToArray();
+                    incomings.Iter(i =>
                     {
-                        rung.AddEdge(i, o);
+                        outgoings.Iter(o =>
+                        {
+                            rung.AddEdge(i, o);
+                        });
                     });
+                    rung.Remove(n);
                 });
-                rung.Remove(n);
-            });
+            }
 
             return rung;
         }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using Dsu.Common.Utilities.ExtensionMethods;
 
 namespace Dsu.PLCConvertor.Common
 {
@@ -47,18 +48,42 @@ namespace Dsu.PLCConvertor.Common
         }
 
         /// StoryBoard 내용에 기반하여 GraphViz 용 입력 text file (dot file) 을 생성한다.
-        private static IEnumerable<string> GenerateDot(Rung rung)
+        private static IEnumerable<string> GenerateDot(this Rung rung)
         {
-            yield return
-@"digraph ""graph"" {
+            var subRung = rung as SubRung;
+            if (subRung == null)
+            {
+                yield return
+    @"digraph ""graph"" {
     rankdir=LR;
 ";
+            }
+
+            if (rung is Rung4Parsing)
+            {
+                var rung4parsing = rung as Rung4Parsing;
+                int i = 0;
+                foreach (var sr in rung4parsing.LadderStack)
+                {
+                    yield return $"subgraph cluster{i++} {{";
+
+                    foreach (var s in sr.GenerateDot())
+                        yield return s;
+                    yield return $"}}";
+                }
+
+                if (rung4parsing.CurrentBuildingLD != null)
+                {
+                    foreach (var s in rung4parsing.CurrentBuildingLD.GenerateDot())
+                        yield return s;
+                }
+            }
 
             yield return "\tnode [shape = record,height=.1];";
 
             var query1 = rung.Nodes.Select(n =>
             {
-                var shape = "shape=circle;";
+                var shape = "shape=rectangle;";
                 return $"\t\"{GetId(n)}\" [{shape}label=<{n.Name}>];";
             });
 
@@ -81,7 +106,8 @@ namespace Dsu.PLCConvertor.Common
             foreach (var t in query)
                 yield return t;
 
-            yield return "}";
+            if (subRung == null)
+                yield return "}";
 
             string HtmlEncode(string html) => System.Net.WebUtility.HtmlEncode(html);
             string Small(string text, int size = 10, string color = "red") => $"<FONT POINT-SIZE=\"{size}\" COLOR=\"{color}\">{text}</FONT>";
