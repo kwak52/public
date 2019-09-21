@@ -110,7 +110,7 @@ OUT 102.12
             {
                 if (_lastEmbeddedForm != null)
                     panelMain.Controls.Remove(_lastEmbeddedForm);
-                _lastEmbeddedForm = new FormLadderParse(input);
+                _lastEmbeddedForm = new FormLadderParse(formILs.Contents);
                 _lastEmbeddedForm.Show();
                 _lastEmbeddedForm.EmbedToControl(panelMain);
             }

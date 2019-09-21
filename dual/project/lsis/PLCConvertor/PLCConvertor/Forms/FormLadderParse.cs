@@ -20,7 +20,13 @@ namespace PLCConvertor.Forms
         public FormLadderParse(string sentences)
         {
             InitializeComponent();
-            _mnemonics = sentences.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+            _mnemonics =
+                sentences.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(m => m.TrimStart(new[] { ' ', '\t' }))
+                .ToArray()
+                ;
+            listBoxControlMnemonics.DataSource = _mnemonics;
+            listBoxControlMnemonics.SelectedIndex = 0;
         }
         private void FormLadderParse_Load(object sender, EventArgs e)
         {
@@ -42,6 +48,18 @@ namespace PLCConvertor.Forms
             }
 
             DrawCurrentBuildingLadder();
+
+            listBoxControlMnemonics.SelectedIndex = _rung4Parsing.CurrentMnemonicIndex;
+        }
+
+        private void BtnEnd_Click(object sender, EventArgs e)
+        {
+            while (_parsingStages.MoveNext())
+                ;
+
+            DrawCurrentBuildingLadder();
+            listBoxControlMnemonics.SelectedIndex = _rung4Parsing.CurrentMnemonicIndex;
+
         }
 
         private void CbRemoveAuxNode_CheckedChanged(object sender, EventArgs e)
@@ -62,5 +80,6 @@ namespace PLCConvertor.Forms
                     ;
 
         }
+
     }
 }
