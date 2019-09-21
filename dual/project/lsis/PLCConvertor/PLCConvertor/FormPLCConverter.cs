@@ -5,6 +5,8 @@ using log4net.Appender;
 using Dsu.PLCConvertor.Common;
 using Dsu.Common.Utilities.Graph;
 using PLCConvertor.Forms;
+using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.Common.Utilities.Forms;
 
 namespace PLCConvertor
 {
@@ -22,7 +24,6 @@ namespace PLCConvertor
             Logger.Info("FormRibonApp launched.");
             Rung.Logger = Logger;
 
-            TestConversion();
             //TestCustomAppConfig();
 
             //void TestCustomAppConfig()
@@ -39,12 +40,8 @@ namespace PLCConvertor
 
 
 
-        private void TestConversion()
+        void TestConversion()
         {
-            new FormLadderParse().Show();
-            return;
-
-
             string input1 = @"LD A
 AND B
 OR C
@@ -93,9 +90,30 @@ OUT 102.12
             _formGraphviz.Show();
         }
 
+
+        Form _lastEmbeddedForm;
         private void BarButtonItemTestParse_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-
+            string input = @"LD 0.00
+LD 0.01
+OUT TR0
+AND 0.02
+ORLD
+AND 0.03
+OUT 102.11
+LD TR0
+AND 0.04
+OUT 102.12
+";
+            var formILs = new FormSimpleEditor() { Title = "Enter Instruction Lists", Contents=input };
+            if (formILs.ShowDialog() == DialogResult.OK)
+            {
+                if (_lastEmbeddedForm != null)
+                    panelMain.Controls.Remove(_lastEmbeddedForm);
+                _lastEmbeddedForm = new FormLadderParse(input);
+                _lastEmbeddedForm.Show();
+                _lastEmbeddedForm.EmbedToControl(panelMain);
+            }
         }
     }
 }

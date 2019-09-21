@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
+            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.barButtonItemTestParse = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
@@ -37,16 +41,37 @@
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.ucPanelLog1 = new PLCConvertor.UcPanelLog();
+            this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
+            this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.barButtonItemTestParse = new DevExpress.XtraBars.BarButtonItem();
+            this.panelMain = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockPanelLog.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
+            this.dockPanelMain.SuspendLayout();
+            this.controlContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // documentGroup1
+            // 
+            this.documentGroup1.Items.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document[] {
+            this.document1});
+            // 
+            // document1
+            // 
+            this.document1.Caption = "Main";
+            this.document1.ControlName = "dockPanelMain";
+            this.document1.FloatLocation = new System.Drawing.Point(0, 0);
+            this.document1.FloatSize = new System.Drawing.Size(200, 200);
+            this.document1.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.True;
+            this.document1.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
+            this.document1.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
             // 
             // ribbon
             // 
@@ -61,6 +86,13 @@
             this.ribbonPage1});
             this.ribbon.Size = new System.Drawing.Size(1108, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
+            // 
+            // barButtonItemTestParse
+            // 
+            this.barButtonItemTestParse.Caption = "Test parse";
+            this.barButtonItemTestParse.Id = 1;
+            this.barButtonItemTestParse.Name = "barButtonItemTestParse";
+            this.barButtonItemTestParse.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonItemTestParse_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -86,7 +118,8 @@
             // 
             this.dockManager1.Form = this;
             this.dockManager1.RootPanels.AddRange(new DevExpress.XtraBars.Docking.DockPanel[] {
-            this.dockPanelLog});
+            this.dockPanelLog,
+            this.dockPanelMain});
             this.dockManager1.TopZIndexControls.AddRange(new string[] {
             "DevExpress.XtraBars.BarDockControl",
             "DevExpress.XtraBars.StandaloneBarDockControl",
@@ -129,6 +162,23 @@
             this.ucPanelLog1.Size = new System.Drawing.Size(1096, 74);
             this.ucPanelLog1.TabIndex = 0;
             // 
+            // dockPanelMain
+            // 
+            this.dockPanelMain.Controls.Add(this.controlContainer1);
+            this.dockPanelMain.DockedAsTabbedDocument = true;
+            this.dockPanelMain.ID = new System.Guid("a9cb4fad-4651-4699-96d7-74732f1ee9fc");
+            this.dockPanelMain.Name = "dockPanelMain";
+            this.dockPanelMain.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanelMain.Text = "Main";
+            // 
+            // controlContainer1
+            // 
+            this.controlContainer1.Controls.Add(this.panelMain);
+            this.controlContainer1.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer1.Name = "controlContainer1";
+            this.controlContainer1.Size = new System.Drawing.Size(1102, 342);
+            this.controlContainer1.TabIndex = 0;
+            // 
             // documentManager1
             // 
             this.documentManager1.ContainerControl = this;
@@ -137,12 +187,23 @@
             this.documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedView1});
             // 
-            // barButtonItemTestParse
+            // tabbedView1
             // 
-            this.barButtonItemTestParse.Caption = "Test parse";
-            this.barButtonItemTestParse.Id = 1;
-            this.barButtonItemTestParse.Name = "barButtonItemTestParse";
-            this.barButtonItemTestParse.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonItemTestParse_ItemClick);
+            this.tabbedView1.DocumentGroups.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup[] {
+            this.documentGroup1});
+            this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
+            this.document1});
+            dockingContainer1.Element = this.documentGroup1;
+            this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
+            dockingContainer1});
+            // 
+            // panelMain
+            // 
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(0, 0);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(1102, 342);
+            this.panelMain.TabIndex = 0;
             // 
             // FormPLCConverter
             // 
@@ -157,10 +218,14 @@
             this.StatusBar = this.ribbonStatusBar;
             this.Text = "FormPLCConverter";
             this.Load += new System.EventHandler(this.FormPLCConverter_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.dockPanelLog.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
+            this.dockPanelMain.ResumeLayout(false);
+            this.controlContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
             this.ResumeLayout(false);
@@ -181,5 +246,10 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
         private UcPanelLog ucPanelLog1;
         private DevExpress.XtraBars.BarButtonItem barButtonItemTestParse;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanelMain;
+        private DevExpress.XtraBars.Docking.ControlContainer controlContainer1;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup documentGroup1;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
+        private System.Windows.Forms.Panel panelMain;
     }
 }

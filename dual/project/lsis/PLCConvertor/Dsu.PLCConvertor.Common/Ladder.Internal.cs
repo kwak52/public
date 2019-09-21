@@ -108,7 +108,6 @@ namespace Dsu.PLCConvertor.Common
 
             return rung;
         }
-
     }
 
     /// <summary>
@@ -140,8 +139,8 @@ namespace Dsu.PLCConvertor.Common
     /// </summary>
     internal class SubRung : Rung
     {
-        AuxNode start = new AuxNode("START");
-        Point end = new EndMarker("END");
+        AuxNode start = new AuxNode("S");
+        Point end = new EndMarker("E");
         Rung4Parsing _masterRung;
         public SubRung(Rung4Parsing masterRung, string node)
             : this(masterRung, new Point(node))
