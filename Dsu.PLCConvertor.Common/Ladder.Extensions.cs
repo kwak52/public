@@ -12,6 +12,10 @@ namespace Dsu.PLCConvertor.Common
 {
     public static class RungExtension
     {
+        // https://www.graphviz.org/pdf/dotguide.pdf
+        /// <summary>
+        /// Rung 을 graphviz 를 이용해서 graph 생성한다.
+        /// </summary>
         public static Image GraphViz(this Rung rung)
         {
             var tmpDot = Path.Combine(Path.GetTempPath(), "tmp.dot");
@@ -65,11 +69,13 @@ namespace Dsu.PLCConvertor.Common
                 int i = 0;
                 foreach (var sr in rung4parsing.LadderStack)
                 {
-                    yield return $"subgraph cluster{i++} {{";
+                    yield return $"  subgraph cluster{i} {{";
+                    yield return $"\tlabel=\"stack #{i}\";";
+                    i++;
 
                     foreach (var s in sr.GenerateDot())
                         yield return s;
-                    yield return $"}}";
+                    yield return $"  }}";
                 }
 
                 if (rung4parsing.CurrentBuildingLD != null)
@@ -79,7 +85,7 @@ namespace Dsu.PLCConvertor.Common
                 }
             }
 
-            yield return "\tnode [shape = record,height=.1];";
+            yield return "\tnode [shape=record, fontsize=8, height=.1];";   // ,
 
             var query1 = rung.Nodes.Select(n =>
             {
@@ -90,6 +96,8 @@ namespace Dsu.PLCConvertor.Common
             foreach (var t in query1)
                 yield return t;
 
+            // edge 그리기
+            var showEdgeLabel = false;
             var query = rung.Edges.Select(e =>
             {
                 var from = e.Start;
@@ -98,9 +106,10 @@ namespace Dsu.PLCConvertor.Common
                 var edgeStyle = "";
                 //if (from is StartAction)
                 //    edgeStyle += "color=red, ";
+                var label = showEdgeLabel ? $"label=\"{e.Data.Name}\", " : "";
 
                 //return $"\t\"{GetId(from)}\" -> \"{GetId(to)}\" [{edgeStyle} label = \"{e.Data.ToString()}\"];";
-                return $"\t\"{GetId(from)}\" -> \"{GetId(to)}\" [{edgeStyle} label = \"{e.Data.Name}\"];";
+                return $"\t\"{GetId(from)}\" -> \"{GetId(to)}\" [{edgeStyle} {label} fontsize=8];";
             });
 
             foreach (var t in query)
@@ -109,8 +118,8 @@ namespace Dsu.PLCConvertor.Common
             if (subRung == null)
                 yield return "}";
 
-            string HtmlEncode(string html) => System.Net.WebUtility.HtmlEncode(html);
-            string Small(string text, int size = 10, string color = "red") => $"<FONT POINT-SIZE=\"{size}\" COLOR=\"{color}\">{text}</FONT>";
+            //string HtmlEncode(string html) => System.Net.WebUtility.HtmlEncode(html);
+            //string Small(string text, int size = 10, string color = "red") => $"<FONT POINT-SIZE=\"{size}\" COLOR=\"{color}\">{text}</FONT>";
             string GetId(Point a) => a.Guid.ToString();
         }
     }

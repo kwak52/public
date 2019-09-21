@@ -17,9 +17,10 @@ namespace PLCConvertor.Forms
         Rung4Parsing _rung4Parsing;
         IEnumerator<int> _parsingStages;
 
-        public FormLadderParse()
+        public FormLadderParse(string sentences)
         {
             InitializeComponent();
+            _mnemonics = sentences.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
         }
         private void FormLadderParse_Load(object sender, EventArgs e)
         {
@@ -28,34 +29,19 @@ namespace PLCConvertor.Forms
 
         void Initialize()
         {
-            string input4 = @"LD 0.00
-LD 0.01
-OUT TR0
-AND 0.02
-ORLD
-AND 0.03
-OUT 102.11
-LD TR0
-AND 0.04
-OUT 102.12
-";
-
-            _mnemonics = input4.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
             _rung4Parsing = new Rung4Parsing(_mnemonics);
             _parsingStages = _rung4Parsing.CoRoutineRungParser().GetEnumerator();
         }
 
         private void BtnNext_Click(object sender, EventArgs e)
         {
-            DrawCurrentBuildingLadder();
-
-            //pictureBox1.Image = _rung4Parsing.GraphViz();
-
             if (!_parsingStages.MoveNext())
             {
                 MessageBox.Show("Finished.");
                 Initialize();
             }
+
+            DrawCurrentBuildingLadder();
         }
 
         private void CbRemoveAuxNode_CheckedChanged(object sender, EventArgs e)
