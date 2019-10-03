@@ -72,6 +72,11 @@ namespace Dsu.PLCConvertor.Common
         /// Active current point location
         /// </summary>
         Point _current;
+
+        /// <summary>
+        /// 주어진 rung 구조를 IL 리스트로 변환한다.  변환이 시작되는 위치
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<string> Convert()
         {
             var initials = _rung.Sources.Reverse().Select(s => new StackItemPoint(s));
@@ -115,10 +120,10 @@ namespace Dsu.PLCConvertor.Common
             if (node.IncomingEdgeManager.MoveNext())
             {
             }
-            else
-            {
-                yield return $"OUT1 {node.Name}";
-            }
+            //else
+            //{
+            //    yield return $"OUT1 {node.Name}";
+            //}
         }
 
         IEnumerable<string> FollowNode(Point sp, int c=0)

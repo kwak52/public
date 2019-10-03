@@ -1,4 +1,5 @@
 ﻿using Dsu.PLCConvertor.Common;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace PLCConvertor.Forms
         string[] _mnemonics;
         Rung4Parsing _rung4Parsing;
         IEnumerator<int> _parsingStages;
+        ILog Logger = Global.Logger;
 
         public FormLadderParse(string sentences)
         {
@@ -62,7 +64,8 @@ namespace PLCConvertor.Forms
 
 
             var mnemonics = Rung2ILConvertor.Convert(_rung4Parsing.ToRung());
-            Console.WriteLine(mnemonics);
+            var text = String.Join("\r\n", mnemonics);
+            Logger?.Debug($"Reversely converted mnemonics:\r\n{text}");
 
         }
 

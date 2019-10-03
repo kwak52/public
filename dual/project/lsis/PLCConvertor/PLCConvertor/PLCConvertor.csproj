@@ -64,6 +64,12 @@
     <Compile Include="FormPLCConverter.Log.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FormInputSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormInputSelector.Designer.cs">
+      <DependentUpon>FormInputSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormLadderParse.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     </Compile>
     <EmbeddedResource Include="FormPLCConverter.resx">
       <DependentUpon>FormPLCConverter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormInputSelector.resx">
+      <DependentUpon>FormInputSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormLadderParse.resx">
       <DependentUpon>FormLadderParse.cs</DependentUpon>
