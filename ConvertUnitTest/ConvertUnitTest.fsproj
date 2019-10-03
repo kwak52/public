@@ -50,6 +50,7 @@
     <Compile Include="Library1.fs" />
     <None Include="Script.fsx" />
     <Content Include="packages.config" />
+    <Compile Include="TestTRLadder.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">
@@ -81,6 +82,18 @@
     <Reference Include="xunit.execution.desktop">
       <HintPath>..\packages\xunit.extensibility.execution.2.4.1\lib\net452\xunit.execution.desktop.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
+      <Name>Dsu.Common.Utilities.Core</Name>
+      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.PLCConvertor.Common\Dsu.PLCConvertor.Common.csproj">
+      <Name>Dsu.PLCConvertor.Common</Name>
+      <Project>{f4513a8d-c7df-4f1d-9214-d97409879c61}</Project>
+      <Private>True</Private>
+    </ProjectReference>
   </ItemGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

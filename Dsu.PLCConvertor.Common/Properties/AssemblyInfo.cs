@@ -37,3 +37,4 @@ using System.Runtime.InteropServices;
 
 
 [assembly: InternalsVisibleTo("PLCConvertor")]
+[assembly: InternalsVisibleTo("ConvertUnitTest")]

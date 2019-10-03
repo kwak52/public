@@ -19,7 +19,7 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// User tag object
         /// </summary>
-        internal IncomingEdgeManager IncomingEdgeManager { get; set; }
+        internal NodeInfo4ILConvert NodeInfo { get; set; }
 
         public bool Equals(Point other)
         {
@@ -83,6 +83,7 @@ namespace Dsu.PLCConvertor.Common
             r4p.CoRoutineRungParser().ToArray();
             return r4p.ToRung();
         }
+        public static Rung CreateRung(string mnemonics) => CreateRung(MnemonicInput.MultilineString2Array(mnemonics));
         /// <summary>
         /// Rung 을 구성하는 IL 목록
         /// </summary>
