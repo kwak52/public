@@ -60,6 +60,10 @@ namespace PLCConvertor.Forms
             DrawCurrentBuildingLadder();
             listBoxControlMnemonics.SelectedIndex = _rung4Parsing.CurrentMnemonicIndex;
 
+
+            var mnemonics = Rung2ILConvertor.Convert(_rung4Parsing.ToRung());
+            Console.WriteLine(mnemonics);
+
         }
 
         private void CbRemoveAuxNode_CheckedChanged(object sender, EventArgs e)

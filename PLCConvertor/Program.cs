@@ -31,6 +31,7 @@ namespace PLCConvertor
 
             var logger = LogManager.GetLogger("PLCConvertor");
             FormPLCConverter.Logger = logger;
+            Global.Logger = logger;
 
             InstallUnhandledExceptionHandler();
 

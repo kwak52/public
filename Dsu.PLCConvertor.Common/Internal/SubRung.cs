@@ -56,7 +56,7 @@ namespace Dsu.PLCConvertor.Common
             MergeGraph(next);
             var s = _end;
             var e = next._start;
-            AddEdge(s, e, new Edge($"{s}->{e}"));
+            AddEdge(s, e, new Wire($"{s}->{e}"));
             _end = next._end;
 
             return this;
@@ -65,7 +65,7 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// this graph 내용에 other 로 주어진 graph 를 병합한다.
         /// </summary>
-        public override void MergeGraph(Graph<Point, Edge> other)
+        public override void MergeGraph(Graph<Point, Wire> other)
         {
             base.MergeGraph(other);
 
@@ -79,8 +79,8 @@ namespace Dsu.PLCConvertor.Common
         public void OR(Point node, ILSentence sentence)
         {
             Add(node);
-            AddEdge(_start, node, new Edge(sentence));
-            AddEdge(node, _end, new Edge(sentence));
+            AddEdge(_start, node, new Wire(sentence));
+            AddEdge(node, _end, new Wire(sentence));
         }
 
         public SubRung ORLD(SubRung next)
@@ -98,14 +98,14 @@ namespace Dsu.PLCConvertor.Common
         public void OUT(Point node, ILSentence sentence)
         {
             Add(node);
-            AddEdge(_end, node, new Edge(sentence));
+            AddEdge(_end, node, new Wire(sentence));
         }
 
         public void OUTTR(AuxNode tr, ILSentence sentence)
         {
             _masterRung.TRmap.Add(tr, this);
             Add(tr);
-            AddEdge(_end, tr, new Edge(sentence));
+            AddEdge(_end, tr, new Wire(sentence));
             _end = new EndMarker(tr.Name);
             Add(_end);
             AddEdge(tr, _end);
