@@ -48,7 +48,7 @@ namespace Dsu.PLCConvertor.Common
             foreach (var m in _mnemonics)
             {
                 CurrentMnemonicIndex = i;
-                Logger.Info($"IL: {m}");
+                Logger?.Info($"IL: {m}");
 
                 var sentence = new ILSentence(m);
                 var arg0 = sentence.Args.IsNullOrEmpty() ? null : sentence.Args[0];
@@ -60,6 +60,7 @@ namespace Dsu.PLCConvertor.Common
                         break;
 
                     case "LD":
+                    case "LDNOT":
                         if (CurrentBuildingLD != null)
                             LadderStack.Push(CurrentBuildingLD);
                         CurrentBuildingLD = new SubRung(this, arg0N);
@@ -78,13 +79,14 @@ namespace Dsu.PLCConvertor.Common
                         break;
 
                     case "OR":
+                    case "ORNOT":
                         CurrentBuildingLD.OR(arg0N, sentence);
                         break;
                     case "ORLD":
                         CurrentBuildingLD = LadderStack.Pop().ORLD(CurrentBuildingLD);
                         break;
 
-                    case "OUT" when arg0.StartsWith("TR"):
+                    case "OUT" when arg0 != null && arg0.StartsWith("TR"):
                         CurrentBuildingLD.OUTTR(new AuxNode(arg0), sentence);
                         break;
                     case "OUT":
