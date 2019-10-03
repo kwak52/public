@@ -39,7 +39,7 @@ namespace PLCConvertor
         }
         void TestConversion()
         {
-            var inputs = FormInputSelector.Inputs[0].Input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var inputs = MnemonicInput.Inputs[0].Input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var rung = Rung.CreateRung(inputs);
             var graph = rung.GraphViz();
             var _pictureBox = new PictureBox() { Image = graph, Dock = DockStyle.Fill };

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Global.cs" />
+    <Compile Include="Internal\MnemonicInput.cs" />
     <Compile Include="Internal\Rung2ILConvertor.cs" />
     <Compile Include="Ladder.Extensions.cs" />
     <Compile Include="Ladder.cs" />

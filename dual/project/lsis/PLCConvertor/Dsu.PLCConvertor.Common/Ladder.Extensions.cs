@@ -122,5 +122,15 @@ namespace Dsu.PLCConvertor.Common
             //string Small(string text, int size = 10, string color = "red") => $"<FONT POINT-SIZE=\"{size}\" COLOR=\"{color}\">{text}</FONT>";
             string GetId(Point a) => a.Guid.ToString();
         }
+
+
+        /// <summary>
+        /// start node 이하에서 coil output node 에 해당하는 node 들을 enumerate
+        /// </summary>
+        public static IEnumerable<Point> EnumerateTerminalNodes(this Rung rung, Point start)
+        {
+            return rung.DepthFirstSearch(start)
+                .Where(n => /*n != start &&*/ rung.GetOutgoingDegree(n) == 0);
+        }
     }
 }
