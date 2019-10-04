@@ -115,23 +115,56 @@ namespace Dsu.PLCConvertor.Common
             rung.MergeGraph(CurrentBuildingLD);
             if (removeAuxNode)
             {
-                var auxNodes = rung.Nodes.OfType<AuxNode>().ToArray();
-                auxNodes.Iter(n =>
                 {
-                    var incomings = rung.GetIncomingNodes(n).ToArray();
-                    var outgoings = rung.GetOutgoingNodes(n).ToArray();
-                    if (incomings.Length == 0 || (incomings.Length == 1 && outgoings.Length == 1))
-                    {
-                        incomings.Iter(i =>
-                        {
-                            outgoings.Iter(o =>
+                    // AuxNode - AuxNode 간의 연속 연결을 찾는다.
+                    var consecutiveAuxNodePairEdges =
+                        rung.Edges
+                            .Where(e => e.Start is AuxNode && e.End is AuxNode)
+                            .Where(e => !(e.Start is TRMarker) && !(e.End is TRMarker))
+                            ;
+                    var consecutiveAuxNodes =
+                        consecutiveAuxNodePairEdges
+                            .Select(e => e.Start)
+                            .Concat(consecutiveAuxNodePairEdges.Select(e => e.End))
+                            .ToHashSet()
+                            ;
+
+                    // Rung 시작 node 이거나, AuxNode 이면서 incoming/outgoing edge 갯수가 모두 1 인 node 들을 삭제한다.
+                    var targetAuxNodes =
+                        rung.Nodes
+                            .OfType<AuxNode>()
+                            .Where(n =>
                             {
-                                rung.AddEdge(i, o);
-                            });
-                        });
-                        rung.Remove(n);
-                    }
-                });
+                                var nIn = rung.GetIncomingDegree(n);
+                                var nOut = rung.GetOutgoingDegree(n);
+                                return nIn == 0                     // start node
+                                    || (nIn == 1 && nOut == 1)      // passing node
+                                    || isConsecutiveAuxNode(n)
+                                    ;
+
+                                bool isConsecutiveAuxNode(AuxNode an)
+                                {
+                                    var prev = rung.GetIncomingEdges(an).First().Start;
+                                    return nIn == 1 && prev is AuxNode && consecutiveAuxNodes.Contains(an);
+                                }
+                            })
+                            .ToArray();
+
+                    targetAuxNodes.Iter(n => rung.OmitNode(n));
+                }
+
+                {
+                    // incoming edge 가 하나인 TR node 의 이전 node 가 AuxNode 인 경우, 이전 node 를 삭제한다.
+                    var targetAuxNodes =
+                        rung.Nodes
+                            .OfType<TRMarker>()
+                            .Where(n => rung.GetIncomingDegree(n) == 1)
+                            .Where(n => rung.GetIncomingNodes(n).First() is AuxNode)
+                            .Select(n => rung.GetIncomingNodes(n).First())
+                            .ToArray();
+
+                    targetAuxNodes.Iter(n => rung.OmitNode(n));
+                }
             }
 
             return rung;

@@ -4,11 +4,10 @@
     /// <summary>
     /// Parsing 을 위해서 보조적으로 사용되는 node
     /// </summary>
-    internal class AuxNode : Point
+    public class AuxNode : Point
     {
         protected AuxNode(string name) : base(name)
         {
-
         }
     }
 
@@ -23,7 +22,7 @@
     /// <summary>
     /// Parsing 을 위해서 보조적으로 사용되는 node
     /// </summary>
-    internal class EndMarker : AuxNode
+    public class EndMarker : AuxNode
     {
         public EndMarker(string name)
             : base($"END:{name}")
@@ -32,7 +31,7 @@
     }
 
 
-    internal class TRMarker : AuxNode
+    public class TRMarker : AuxNode
     {
         public TRMarker(string name)
             : base(name)

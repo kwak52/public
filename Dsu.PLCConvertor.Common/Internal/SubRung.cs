@@ -39,28 +39,30 @@ namespace Dsu.PLCConvertor.Common
             Add(node);
             AddEdge(_end, node);
             _end = new EndMarker(node.Name);    // new end
+            Add(_end);
             AddEdge(node, _end);
         }
 
-        void MakeEndNode(Point start)
-        {
-            var oldEnd = _end;
-            _end = new EndMarker(start.Name);
-            Add(_end);
-            var incomingNodes = GetIncomingNodes(oldEnd).ToArray();
-            incomingNodes.Iter(s =>
-            {
-                AddEdge(s, start);
-                AddEdge(start, _end);
-            });
+        //void MakeEndNode(Point start)
+        //{
+        //    var oldEnd = _end;
+        //    _end = new EndMarker(start.Name);
+        //    Add(_end);
+        //    var incomingNodes = GetIncomingNodes(oldEnd).ToArray();
+        //    incomingNodes.Iter(s =>
+        //    {
+        //        AddEdge(s, start);
+        //        AddEdge(start, _end);
+        //    });
 
-            if (!oldEnd.Name.StartsWith("TR"))
-                Remove(oldEnd);
-        }
+        //    if (!oldEnd.Name.StartsWith("TR"))
+        //        Remove(oldEnd);
+        //}
         public void AND(Point node, ILSentence sentence)
         {
-            Add(node);
-            MakeEndNode(node);
+            AppendToEndNode(node);
+            //Add(node);
+            //MakeEndNode(node);
         }
 
 
