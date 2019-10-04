@@ -53,7 +53,6 @@
             this.textBox1.Location = new System.Drawing.Point(12, 44);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(776, 340);
             this.textBox1.TabIndex = 1;
             // 
@@ -87,6 +86,7 @@
             this.cbAllowEdit.TabIndex = 4;
             this.cbAllowEdit.Text = "AllowEdit";
             this.cbAllowEdit.UseVisualStyleBackColor = true;
+            this.cbAllowEdit.Visible = false;
             // 
             // FormInputSelector
             // 

@@ -66,7 +66,7 @@ namespace Dsu.PLCConvertor.Common
     /// <summary>
     /// PLC 의 rung 을 graph 구조로 표현한 class
     /// </summary>
-    public partial class Rung : Graph<Point, Wire>
+    public class Rung : Graph<Point, Wire>
     {
         public Rung()
             : base(true, false)
