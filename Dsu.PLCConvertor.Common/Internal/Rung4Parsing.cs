@@ -87,7 +87,7 @@ namespace Dsu.PLCConvertor.Common
                         break;
 
                     case "OUT" when arg0 != null && arg0.StartsWith("TR"):
-                        CurrentBuildingLD.OUTTR(new AuxNode(arg0), sentence);
+                        CurrentBuildingLD.OUTTR(new TRMarker(arg0), sentence);
                         break;
                     case "OUT":
                         CurrentBuildingLD.OUT(arg0N, sentence);
@@ -120,14 +120,17 @@ namespace Dsu.PLCConvertor.Common
                 {
                     var incomings = rung.GetIncomingNodes(n).ToArray();
                     var outgoings = rung.GetOutgoingNodes(n).ToArray();
-                    incomings.Iter(i =>
+                    if (incomings.Length == 0 || (incomings.Length == 1 && outgoings.Length == 1))
                     {
-                        outgoings.Iter(o =>
+                        incomings.Iter(i =>
                         {
-                            rung.AddEdge(i, o);
+                            outgoings.Iter(o =>
+                            {
+                                rung.AddEdge(i, o);
+                            });
                         });
-                    });
-                    rung.Remove(n);
+                        rung.Remove(n);
+                    }
                 });
             }
 

@@ -89,8 +89,8 @@ namespace Dsu.PLCConvertor.Common
 
             var query1 = rung.Nodes.Select(n =>
             {
-                var shape = "shape=rectangle;";
-                return $"\t\"{GetId(n)}\" [{shape}label=<{n.Name}>];";
+                var shape = n is AuxNode ? "ellipse" : "rectangle";
+                return $"\t\"{GetId(n)}\" [shape={shape}; label=<{n.Name}>];";
             });
 
             foreach (var t in query1)

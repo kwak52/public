@@ -9,13 +9,17 @@ namespace Dsu.PLCConvertor.Common
     /// </summary>
     internal class SubRung : Rung
     {
-        AuxNode _start = new AuxNode("S");
+        StartMarker _start = new StartMarker("S");
         Point _end = new EndMarker("E");
+
+        /// <summary>
+        /// Stack Rung 이 아닌, 현재 build 중인 current active ladder
+        /// </summary>
         Rung4Parsing _masterRung;
-        public SubRung(Rung4Parsing masterRung, string node)
-            : this(masterRung, new Point(node))
-        {
-        }
+        //public SubRung(Rung4Parsing masterRung, string node)
+        //    : this(masterRung, new Point(node))
+        //{
+        //}
         public SubRung(Rung4Parsing masterRung, Point node)
         {
             _masterRung = masterRung;
@@ -26,10 +30,16 @@ namespace Dsu.PLCConvertor.Common
             AddEdge(node, _end);
         }
 
-        public void AND(Point node, ILSentence sentence)
+
+        /// <summary>
+        /// oldEnd - node - newEnd
+        /// </summary>
+        void AppendToEndNode(Point node)
         {
             Add(node);
-            MakeEndNode(node);
+            AddEdge(_end, node);
+            _end = new EndMarker(node.Name);    // new end
+            AddEdge(node, _end);
         }
 
         void MakeEndNode(Point start)
@@ -44,9 +54,15 @@ namespace Dsu.PLCConvertor.Common
                 AddEdge(start, _end);
             });
 
-            if (! oldEnd.Name.StartsWith("TR"))
+            if (!oldEnd.Name.StartsWith("TR"))
                 Remove(oldEnd);
         }
+        public void AND(Point node, ILSentence sentence)
+        {
+            Add(node);
+            MakeEndNode(node);
+        }
+
 
         /// <summary>
         /// this Ladder 와 next ladder 를 AND 결합한다.
@@ -79,6 +95,11 @@ namespace Dsu.PLCConvertor.Common
         public void OR(Point node, ILSentence sentence)
         {
             Add(node);
+            var oldEnd = _end;
+            _end = new EndMarker(node.Name);
+            Add(_end);
+            AddEdge(oldEnd, _end);
+
             AddEdge(_start, node, new Wire(sentence));
             AddEdge(node, _end, new Wire(sentence));
         }
@@ -92,9 +113,9 @@ namespace Dsu.PLCConvertor.Common
 
             _end = next._end;
 
-
             return this;
         }
+
         public void OUT(Point node, ILSentence sentence)
         {
             Add(node);
@@ -111,10 +132,17 @@ namespace Dsu.PLCConvertor.Common
             AddEdge(tr, _end);
         }
 
+        /// <summary>
+        /// TR register 위치를 찾아서 그 다음 위치를 새로운 _end position 으로 잡아 준다.
+        /// </summary>
+        /// <param name="tr"></param>
         public void LDTR(string tr)
         {
             var trEntry = _masterRung.TRmap.First(kv => kv.Key.Name == tr);
-            _end = trEntry.Key;
+            var tn = trEntry.Key;
+            _end = new EndMarker(tn.Name);
+            Add(_end);
+            AddEdge(tn, _end);
         }
     }
 }
