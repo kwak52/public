@@ -52,6 +52,14 @@ LD C
 ORLD
 OUT D
 "),
+            new MnemonicInput("Basic3",
+                @"LD A
+LD B
+ORLD
+AND C
+OUT D
+"),
+
             new MnemonicInput("TR Basic1",
                 @"LD A
 OUT TR0
