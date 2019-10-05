@@ -99,7 +99,7 @@ LD TR0
 AND 0.04
 OUT 102.12
 "),
-        new MnemonicInput("TR Basic4",
+        new MnemonicInput("산전 변환 불가 case: TR Basic4",
             @"LD 0.00
 LD 0.01
 OUT TR0

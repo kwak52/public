@@ -10,7 +10,7 @@ namespace Dsu.PLCConvertor.Common
     internal class SubRung : Rung
     {
         StartMarker _start = new StartMarker("S");
-        Point _end = new EndMarker("E");
+        Point _end = new EndNode("E");
 
         /// <summary>
         /// Stack Rung 이 아닌, 현재 build 중인 current active ladder
@@ -38,7 +38,7 @@ namespace Dsu.PLCConvertor.Common
         {
             Add(node);
             AddEdge(_end, node);
-            _end = new EndMarker(node.Name);    // new end
+            _end = new EndNode(node.Name);    // new end
             Add(_end);
             AddEdge(node, _end);
         }
@@ -98,7 +98,7 @@ namespace Dsu.PLCConvertor.Common
         {
             Add(node);
             var oldEnd = _end;
-            _end = new EndMarker(node.Name);
+            _end = new EndNode(node.Name);
             Add(_end);
             AddEdge(oldEnd, _end);
 
@@ -129,7 +129,7 @@ namespace Dsu.PLCConvertor.Common
             _masterRung.TRmap.Add(tr, this);
             Add(tr);
             AddEdge(_end, tr, new Wire(sentence));
-            _end = new EndMarker(tr.Name);
+            _end = new EndNode(tr.Name);
             Add(_end);
             AddEdge(tr, _end);
         }
@@ -142,7 +142,7 @@ namespace Dsu.PLCConvertor.Common
         {
             var trEntry = _masterRung.TRmap.First(kv => kv.Key.Name == tr);
             var tn = trEntry.Key;
-            _end = new EndMarker(tn.Name);
+            _end = new EndNode(tn.Name);
             Add(_end);
             AddEdge(tn, _end);
         }

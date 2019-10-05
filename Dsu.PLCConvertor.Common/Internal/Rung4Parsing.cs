@@ -87,10 +87,10 @@ namespace Dsu.PLCConvertor.Common
                         break;
 
                     case "OUT" when arg0 != null && arg0.StartsWith("TR"):
-                        CurrentBuildingLD.OUTTR(new TRMarker(arg0), sentence);
+                        CurrentBuildingLD.OUTTR(new TRNode(arg0), sentence);
                         break;
                     case "OUT":
-                        CurrentBuildingLD.OUT(arg0N, sentence);
+                        CurrentBuildingLD.OUT(new TerminalNode(arg0), sentence);
                         break;
                     default:
                         Logger?.Error($"Unknown IL: {m}");
@@ -120,7 +120,7 @@ namespace Dsu.PLCConvertor.Common
                     var consecutiveAuxNodePairEdges =
                         rung.Edges
                             .Where(e => e.Start is AuxNode && e.End is AuxNode)
-                            .Where(e => !(e.Start is TRMarker) && !(e.End is TRMarker))
+                            .Where(e => !(e.Start is TRNode) && !(e.End is TRNode))
                             ;
                     var consecutiveAuxNodes =
                         consecutiveAuxNodePairEdges
@@ -138,7 +138,7 @@ namespace Dsu.PLCConvertor.Common
                                 var nIn = rung.GetIncomingDegree(n);
                                 var nOut = rung.GetOutgoingDegree(n);
                                 return nIn == 0                     // start node
-                                    || (nIn == 1 && nOut == 1)      // passing node
+                                    || (nIn == 1 && nOut == 1 && !(rung.GetOutgoingNodes(n).First() is TerminalNode))      // passing node
                                     || isConsecutiveAuxNode(n)
                                     ;
 
@@ -157,7 +157,7 @@ namespace Dsu.PLCConvertor.Common
                     // incoming edge 가 하나인 TR node 의 이전 node 가 AuxNode 인 경우, 이전 node 를 삭제한다.
                     var targetAuxNodes =
                         rung.Nodes
-                            .OfType<TRMarker>()
+                            .OfType<TRNode>()
                             .Where(n => rung.GetIncomingDegree(n) == 1)
                             .Where(n => rung.GetIncomingNodes(n).First() is AuxNode)
                             .Select(n => rung.GetIncomingNodes(n).First())

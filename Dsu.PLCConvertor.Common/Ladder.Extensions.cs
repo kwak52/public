@@ -89,8 +89,24 @@ namespace Dsu.PLCConvertor.Common
 
             var query1 = rung.Nodes.Select(n =>
             {
-                var shape = n is AuxNode ? "ellipse" : "rectangle";
-                return $"\t\"{GetId(n)}\" [shape={shape}; label=<{n.Name}>];";
+                var styles = string.Join(", ", generateStyles()).NonNullEmptySelector("shape=rectangle");
+                return $"\t\"{GetId(n)}\" [{styles}, label=<{n.Name}>];";
+
+                IEnumerable<string> generateStyles()
+                {
+                    if (n is TerminalNode)
+                    {
+                        yield return "shape=ellipse";
+                        yield return "style=filled, color=gray";
+                    }
+
+                    if (n is AuxNode)
+                        yield return "style=dashed";
+
+                    if (n is AuxNode)
+                        yield return "color=blue";
+
+                }
             });
 
             foreach (var t in query1)
@@ -132,5 +148,28 @@ namespace Dsu.PLCConvertor.Common
             return rung.DepthFirstSearch(start)
                 .Where(n => /*n != start &&*/ rung.GetOutgoingDegree(n) == 0);
         }
+
+        public static IEnumerable<Point> ReverseDepthFirstSearch(this Rung rung, Point nodeStart)
+        {
+            var stack = new Stack<Point>();
+            var visitedNodes = new HashSet<Point>();
+            stack.Push(nodeStart);
+            while (stack.Count > 0)
+            {
+                var curr = stack.Pop();
+                if (!visitedNodes.Contains(curr))
+                {
+                    visitedNodes.Add(curr);
+                    yield return curr;
+                    IEnumerable<Point> adjs = rung.GetIncomingNodes(curr);
+                    foreach (var next in adjs)
+                    {
+                        if (!visitedNodes.Contains(next))
+                            stack.Push(next);
+                    }
+                }
+            }
+        }
+
     }
 }
