@@ -1,4 +1,5 @@
-﻿using Dsu.PLCConvertor.Common;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.PLCConvertor.Common;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -14,19 +15,17 @@ namespace PLCConvertor.Forms
 {
     public partial class FormLadderParse : Form
     {
+        MnemonicInput _mnemonicInput;
         string[] _mnemonics;
         Rung4Parsing _rung4Parsing;
         IEnumerator<int> _parsingStages;
         ILog Logger = Global.Logger;
 
-        public FormLadderParse(string sentences)
+        public FormLadderParse(MnemonicInput mnemonicInput)
         {
             InitializeComponent();
-            _mnemonics =
-                sentences.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(m => m.TrimStart(new[] { ' ', '\t' }))
-                .ToArray()
-                ;
+            _mnemonicInput = mnemonicInput;
+            _mnemonics = MnemonicInput.MultilineString2Array(mnemonicInput.Input);
             listBoxControlMnemonics.DataSource = _mnemonics;
             listBoxControlMnemonics.SelectedIndex = 0;
         }
@@ -64,9 +63,25 @@ namespace PLCConvertor.Forms
 
 
             var mnemonics = Rung2ILConvertor.Convert(_rung4Parsing.ToRung());
-            var text = String.Join("\r\n", mnemonics);
-            Logger?.Info($"Reversely converted mnemonics:\r\n{text}");
+            var converted = String.Join("\r\n", mnemonics);
+            Logger?.Info($"Reversely converted mnemonics for {_mnemonicInput.Comment}:\r\n{converted}");
 
+
+            converted = MnemonicInput.CommentOutMultiple(converted);
+            var input = MnemonicInput.CommentOutMultiple(_mnemonicInput.Input);
+            var answer = input;
+            bool correct = input == converted;
+            if (!correct && _mnemonicInput.DesiredOutputs != null)
+            {
+                var answers = _mnemonicInput.DesiredOutputs.Select(o => MnemonicInput.CommentOutMultiple(o)).ToArray();
+                if (answers.NonNullAny())
+                {
+                    correct = answers.Any(o => o == converted);
+                    answer = answers[0];
+                }
+            }
+            if (!correct)
+                Logger?.Error($"Convert mismatch: Desired output={answer}");
         }
 
         private void CbRemoveAuxNode_CheckedChanged(object sender, EventArgs e)

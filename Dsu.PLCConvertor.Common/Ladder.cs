@@ -16,10 +16,10 @@ namespace Dsu.PLCConvertor.Common
         public Guid Guid { get; set; } = Guid.NewGuid();
         public ILSentence ILSentence { get; set; }
 
-        /// <summary>
-        /// User tag object
-        /// </summary>
-        internal NodeInfo4ILConvert NodeInfo { get; set; }
+        ///// <summary>
+        ///// User tag object
+        ///// </summary>
+        //internal NodeInfo4ILConvert NodeInfo { get; set; }
 
         public bool Equals(Point other)
         {
