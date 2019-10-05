@@ -3,12 +3,8 @@ using Dsu.PLCConvertor.Common;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PLCConvertor.Forms
@@ -81,7 +77,7 @@ namespace PLCConvertor.Forms
                 }
             }
             if (!correct)
-                Logger?.Error($"Convert mismatch: Desired output={answer}");
+                Logger?.Error($"Convert mismatch.  Desired output:\r\n{answer}");
         }
 
         private void CbRemoveAuxNode_CheckedChanged(object sender, EventArgs e)

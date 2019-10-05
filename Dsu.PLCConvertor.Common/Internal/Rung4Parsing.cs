@@ -138,7 +138,10 @@ namespace Dsu.PLCConvertor.Common
                                 var nIn = rung.GetIncomingDegree(n);
                                 var nOut = rung.GetOutgoingDegree(n);
                                 return nIn == 0                     // start node
-                                    || (nIn == 1 && nOut == 1 && !(rung.GetOutgoingNodes(n).First() is TerminalNode))      // passing node
+                                    || (nIn == 1 && nOut == 1 
+                                        && !(rung.GetIncomingNodes(n).First() is AuxNode)
+                                        && !(rung.GetOutgoingNodes(n).First() is AuxNode)
+                                        && !(rung.GetOutgoingNodes(n).First() is TerminalNode))      // passing node
                                     || isConsecutiveAuxNode(n)
                                     ;
 

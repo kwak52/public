@@ -81,6 +81,69 @@ AND C
 OUT O2
 "),
 
+
+
+            new MnemonicInput("1 x 2 x 1",
+@"LD 0.00
+LD 0.01
+OR 0.02
+ANDLD
+OUT 1.02
+",
+@"LD 0.00
+LD 0.01
+LD 0.02
+ORLD
+ANDLD
+OUT 1.02"),
+
+            new MnemonicInput("(2 x 2 + 1) x 1",
+@"LD 0.01
+OR 0.02
+LD 0.03
+OR 0.04
+ANDLD
+OR 0.05
+OUT 1.01
+",
+@"LD 0.01
+LD 0.02
+ORLD
+LD 0.03
+LD 0.04
+ORLD
+ANDLD
+LD 0.05
+ORLD
+OUT 1.01
+"),
+
+            new MnemonicInput("2 x 2 x 1 x 2",
+@"LD 0.01
+LD 0.02
+AND 0.03
+ORLD
+LD 0.04
+OR 0.05
+ANDLD
+OR 0.06
+OUT 2.00
+OUT 2.01
+",
+@"LD 0.02
+AND 0.03
+LD 0.01
+ORLD
+LD 0.04
+LD 0.05
+ORLD
+ANDLD
+LD 0.06
+ORLD
+OUT 2.00
+OUT 2.01
+"),
+
         new MnemonicInput("TR Basic2",
             @"LD 0.00
 OUT TR0
