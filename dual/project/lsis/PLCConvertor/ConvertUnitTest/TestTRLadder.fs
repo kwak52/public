@@ -25,7 +25,7 @@ type TestLadder(output1:ITestOutputHelper) =
             } |> Seq.exists(fun o -> co(o) = co(converted))
 
         let correct2 = co(m.Input) = co(converted)
-        Assert.True (correct || correct2)
+        (correct || correct2) |> should equal true
 
     /// TR type ladder test
     [<Fact>]

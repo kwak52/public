@@ -34,6 +34,40 @@ LD TR0
 AND 0.04
 OUT 102.12
 "),
+
+        new MnemonicInput("버그 OR 0.06 case: TR Basic4",
+            @"
+LD 0.01
+LD 0.02
+AND 0.03
+ORLD
+LD 0.04
+OR 0.05
+ANDLD
+OR 0.06
+OUT TR0
+AND 0.07
+OUT 2.00
+LD TR0
+OUT 2.01
+",
+            @"
+LD 0.01
+LD 0.02
+AND 0.03
+ORLD
+LD 0.04
+OR 0.05
+ANDLD
+OR 0.06
+MPUSH
+AND 0.07
+OUT 2.00
+MPOP
+OUT 2.01
+"
+
+            ),
         };
     }
 }

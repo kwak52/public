@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.Common.Utilities.Core.ExtensionMethods;
 
 namespace Dsu.PLCConvertor.Common
 {
@@ -149,11 +150,11 @@ namespace Dsu.PLCConvertor.Common
                 .Where(n => /*n != start &&*/ rung.GetOutgoingDegree(n) == 0);
         }
 
-        public static IEnumerable<Point> ReverseDepthFirstSearch(this Rung rung, Point nodeStart)
+        public static IEnumerable<Point> ReverseDepthFirstSearch(this Rung rung, Point start)
         {
             var stack = new Stack<Point>();
             var visitedNodes = new HashSet<Point>();
-            stack.Push(nodeStart);
+            stack.Push(start);
             while (stack.Count > 0)
             {
                 var curr = stack.Pop();
@@ -169,6 +170,24 @@ namespace Dsu.PLCConvertor.Common
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 주어진 node (start) 에서 시작해서 rung 의 앞쪽으로 검사하면서 node 가 circle 구성원인지 판별
+        /// </summary>
+        public static bool IsInCircularWithBackward(this Rung rung, Point start)
+        {
+            var x = new[] { 1, 2, 3, 4, 5 }.EnumeratePaired().ToArray();
+            var isCircular =
+                rung.GetIncomingNodes(start)
+                    .Select(n => rung.ReverseDepthFirstSearch(n))
+                    .EnumeratePaired()
+                    .Any(pr => pr.First().Intersect(pr.Last()).Any())
+                    ;
+            if (isCircular)
+                Global.Logger?.Debug($"Detected circular member node {start.Name}");
+
+            return isCircular;
         }
 
     }

@@ -74,6 +74,9 @@ namespace Dsu.PLCConvertor.Common
 
         IEnumerable<string> ConvertBackward(Point node, int call)
         {
+            if (_visitedNodes.Contains(node))
+                yield break;
+
             _visitedNodes.Add(node);
 
             var inNs = _rung.GetIncomingNodes(node).ToArray();
@@ -116,13 +119,17 @@ namespace Dsu.PLCConvertor.Common
                         if (i++ > 0)
                             yield return "ORLD";
                     }
+
+                    if (inNs.Length > 1 && _rung.IsInCircularWithBackward(end) )       // and, detects loop
+                        yield return $"ANDLD//123{node.Name}";
                     break;
                 case Point pt:
                     Debug.Assert(inNs.Length == 1);
                     foreach (var x in incomingEdgeTrans.First())
                         yield return x;
 
-                    yield return $"AND {pt.Name}";
+                    var cmd = inNs[0] is AuxNode && _rung.GetOutgoingDegree(inNs[0]) > 1 ? "LD" : "AND";
+                    yield return $"{cmd} {pt.Name}//1";
                     break;
 
                 default:
@@ -175,7 +182,7 @@ namespace Dsu.PLCConvertor.Common
                             yield return x;
                     break;
                 case Point pt:
-                    yield return $"AND {pt.Name}";
+                    yield return $"AND {pt.Name}//2";
                     foreach (var edgeT in outgoingEdgeTrans)
                         foreach (var x in edgeT)
                             yield return x;
