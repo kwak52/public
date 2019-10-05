@@ -6,35 +6,6 @@ using System.Linq;
 
 namespace Dsu.PLCConvertor.Common
 {
-    //enum EdgeMuliplicity
-    //{
-    //    Zero,
-    //    One,
-    //    Many,
-    //};
-
-    //enum InOutEdgeMultiplicity
-    //{
-    //    /// <summary>
-    //    /// Start case : S -> A
-    //    /// </summary>
-    //    ZeroOne,
-    //    /// <summary>
-    //    /// Start case : S -> {A, B}
-    //    /// </summary>
-    //    ZeroMany,
-    //    /// <summary>
-    //    /// Out (Coil) case : A -> O
-    //    /// </summary>
-    //    OneZero,
-    //    OneOne,
-    //    OneMany,
-    //    ManyZero,
-    //    ManyOne,
-    //    ManyMany,
-    //}
-
-
     internal class Rung2ILConvertor
     {
         ILog Logger = Global.Logger;
