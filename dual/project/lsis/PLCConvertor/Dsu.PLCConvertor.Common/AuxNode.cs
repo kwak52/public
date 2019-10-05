@@ -22,18 +22,27 @@
     /// <summary>
     /// Parsing 을 위해서 보조적으로 사용되는 node
     /// </summary>
-    public class EndMarker : AuxNode
+    public class EndNode : AuxNode
     {
-        public EndMarker(string name)
+        public EndNode(string name)
             : base($"END:{name}")
         {
         }
     }
 
 
-    public class TRMarker : AuxNode
+    public class TRNode : AuxNode
     {
-        public TRMarker(string name)
+        public TRNode(string name)
+            : base(name)
+        {
+        }
+    }
+
+
+    public class TerminalNode : Point
+    {
+        public TerminalNode(string name)
             : base(name)
         {
         }
