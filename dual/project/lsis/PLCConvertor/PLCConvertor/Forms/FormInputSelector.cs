@@ -20,6 +20,7 @@ namespace PLCConvertor.Forms
 
         public string Contents => textBox1.Text;
 
+        public MnemonicInput SelectedMnemonicInput;
         private void FormInputSelector_Load(object sender, EventArgs args)
         {
             comboBox1.DataSource = MnemonicInput.Inputs;
@@ -29,8 +30,13 @@ namespace PLCConvertor.Forms
             btnOK.Click += (s, e) => DialogResult = DialogResult.OK;
 
             UpdateTextArea();
+            textBox1.TextChanged += (s, e) => SelectedMnemonicInput = new MnemonicInput("Arbitary", textBox1.Text);
 
-            void UpdateTextArea() => textBox1.Text = MnemonicInput.Inputs[comboBox1.SelectedIndex].Input;
+            void UpdateTextArea()
+            {
+                SelectedMnemonicInput = MnemonicInput.Inputs[comboBox1.SelectedIndex];
+                textBox1.Text = MnemonicInput.CommentOutMultiple(SelectedMnemonicInput.Input);
+            }
         }
     }
 

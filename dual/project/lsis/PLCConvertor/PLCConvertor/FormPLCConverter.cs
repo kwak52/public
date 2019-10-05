@@ -57,7 +57,7 @@ namespace PLCConvertor
             {
                 if (_lastEmbeddedForm != null)
                     panelMain.Controls.Remove(_lastEmbeddedForm);
-                _lastEmbeddedForm = new FormLadderParse(formILs.Contents);
+                _lastEmbeddedForm = new FormLadderParse(formILs.SelectedMnemonicInput);
                 _lastEmbeddedForm.Show();
                 _lastEmbeddedForm.EmbedToControl(panelMain);
             }
