@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{91722776-08B2-40C8-AEFF-9E78678B7FD6}"
 	ProjectSection(SolutionItems) = preProject
 		Documents\TestRung.cxp = Documents\TestRung.cxp
+		Documents\TestRung.xgwx = Documents\TestRung.xgwx
 	EndProjectSection
 EndProject
 Global

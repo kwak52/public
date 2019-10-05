@@ -50,12 +50,15 @@
     <Compile Include="Internal\MnemonicInput.OK.cs" />
     <Compile Include="Internal\NodeInfo4ILConvert.cs" />
     <Compile Include="Internal\Rung2ILConvertor.cs" />
-    <Compile Include="Ladder.Extensions.cs" />
-    <Compile Include="Ladder.cs" />
+    <Compile Include="Rung.Extension.cs" />
+    <Compile Include="ILSentence.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AuxNode.cs" />
     <Compile Include="Internal\Rung4Parsing.cs" />
     <Compile Include="Internal\SubRung.cs" />
+    <Compile Include="Rung.cs" />
+    <Compile Include="Wire.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">

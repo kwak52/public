@@ -10,6 +10,10 @@ namespace Dsu.PLCConvertor.Common
     {
         internal static MnemonicInput[] InputsOK = new MnemonicInput[]
         {
+            new MnemonicInput("Simplest",
+@"LD 0.00
+OUT 1.00"),
+
             new MnemonicInput("Basic",
                 @"LD A // Load
 AND B
