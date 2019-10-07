@@ -182,13 +182,13 @@ namespace Dsu.PLCConvertor.Common
                             .ToArray()     // 컬렉션이 수정
                             ;
 
-                    targetAuxNodes.Iter(n => rung.OmitNode(n));
+                    targetAuxNodes.Iter(n => rung.OmitPoint(n));
 
                     rung.Nodes
                         .OfType<AuxNode>()
                         .Where(n => rung.GetIncomingNodes(n).All(inc => !(inc is AuxNode)) && rung.GetTheOutgoingNode(n, true) is AuxNode)
                         .ToArray()
-                        .Iter(n => rung.OmitNode(n));
+                        .Iter(n => rung.OmitPoint(n));
                 }
                 {
                     // incoming edge 가 하나인 TR node 의 이전 node 가 AuxNode 인 경우, 이전 node 를 삭제한다.
@@ -200,7 +200,7 @@ namespace Dsu.PLCConvertor.Common
                             .Select(n => rung.GetIncomingNodes(n).First())
                             .ToArray();
 
-                    targetAuxNodes.Iter(n => rung.OmitNode(n));
+                    targetAuxNodes.Iter(n => rung.OmitPoint(n));
                 }
             }
 

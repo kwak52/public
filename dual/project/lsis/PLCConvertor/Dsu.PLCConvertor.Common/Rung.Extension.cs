@@ -209,5 +209,32 @@ namespace Dsu.PLCConvertor.Common
 
             throw new Exception($"Outgoing Node is not uniq.  Num outgoing nodes={outgNodes.Length}");
         }
+
+        public static void OmitPoint(this Rung rung, Point node)
+        {
+            var ies = rung.GetIncomingEdges(node).ToArray(); // 컬렉션이 수정되었습니다.  열거 작업이 ..
+            var oes = rung.GetOutgoingEdges(node).ToArray();
+            ies.Iter(inE => {
+                oes.Iter(outE =>
+                {
+                    var eData =
+                        string.Join("+",
+                            new string[] { inE.Data.Name, outE.Data.Name }
+                            .Where(n => n.NonNullAny())
+                            .Where(n => !n.StartsWith("//"))
+                            );
+
+                    rung.AddEdge(inE.Start, outE.End, new Wire(eData));
+                });
+            });
+            rung.Remove(node);
+        }
+
+
+        public static Point AddNode(this Rung rung, Point node)
+        {
+            rung.Add(node);
+            return node;
+        }
     }
 }

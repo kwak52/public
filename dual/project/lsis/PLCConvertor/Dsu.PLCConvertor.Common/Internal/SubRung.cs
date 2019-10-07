@@ -65,10 +65,13 @@ namespace Dsu.PLCConvertor.Common
         public SubRung ANDLD(SubRung next)
         {
             MergeGraph(next);
-            var s = _end;
-            var e = next._start;
-            AddEdge(s, e, new Wire($"ANDLD:{s}->{e}"));
-            _end = next._end;
+            AddEdge(_end, next._start);
+            var dummy = this.AddNode(new DummyNode("Dummy"));
+            AddEdge(next._end, dummy, new Wire("ANDLD//999"));
+            var newEnd = this.AddNode(new EndNode("END//123")) as EndNode;
+            AddEdge(dummy, newEnd);
+
+            _end = newEnd;
 
             return this;
         }
@@ -114,7 +117,7 @@ namespace Dsu.PLCConvertor.Common
         {
             _masterRung.TRmap.Add(tr, this);
             Add(tr);
-            AddEdge(_end, tr, new Wire($"MPUSH//11//{sentence}"));
+            AddEdge(_end, tr);
             _end = new EndNode(tr.Name);
             Add(_end);
             AddEdge(tr, _end);
