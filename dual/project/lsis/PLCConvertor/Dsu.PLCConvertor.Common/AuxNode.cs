@@ -12,12 +12,14 @@
     }
 
 
-    internal class StartMarker : AuxNode
+    public class StartNode : AuxNode
     {
-        public StartMarker(string name)
+        public StartNode(string name)
             : base(name)
         {
         }
+        public EndNode EndNode { get; set; }
+        public override string ToString() => EndNode == null ? Name : $"{Name}({Guid}-{EndNode.Guid})";
     }
     /// <summary>
     /// Parsing 을 위해서 보조적으로 사용되는 node
@@ -28,6 +30,8 @@
             : base($"END:{name}")
         {
         }
+        public StartNode StartNode { get; set; }
+        public override string ToString() => StartNode == null ? Name : $"{Name}({StartNode.Guid}-{Guid})";
     }
 
 

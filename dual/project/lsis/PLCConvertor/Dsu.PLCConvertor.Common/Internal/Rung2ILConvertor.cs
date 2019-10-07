@@ -115,7 +115,7 @@ namespace Dsu.PLCConvertor.Common
 
             if (node is TerminalNode)
             {
-                yield return $"OUT {node.Name}";
+                yield return $"OUT {node.Name}//111";
                 yield break;
             }
 
@@ -145,7 +145,7 @@ namespace Dsu.PLCConvertor.Common
                     break;
 
                 case TerminalNode tn:
-                    yield return $"OUT {tn.Name}";
+                    yield return $"OUT {tn.Name}//123";
                     break;
                 case EndNode end:
                     foreach (var edgeT in outgoingEdgeTrans)
@@ -176,8 +176,6 @@ namespace Dsu.PLCConvertor.Common
         /// <returns></returns>
         internal IEnumerable<string> Convert()
         {
-            //CollectNodeInfos();
-
             var aps = EnumerateTerminalArticulationPoints().ToArray();
             var apsMsg = string.Join(", ", aps.Select(n => n.Name));
             Logger?.Debug($"Found total {aps.Length} terminal nodes.\r\n{apsMsg}");

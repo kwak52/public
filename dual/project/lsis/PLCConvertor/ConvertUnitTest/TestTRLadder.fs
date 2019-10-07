@@ -10,6 +10,7 @@ open System.Diagnostics
 
 type TestLadder(output1:ITestOutputHelper) =
     let testRung (m:MnemonicInput) n =
+        let comment = m.Comment
         let rung = m.Input |> Rung.CreateRung
         let converted = Rung2ILConvertor.Convert(rung) |> String.concat "\r\n"
         let co = MnemonicInput.CommentOutMultiple

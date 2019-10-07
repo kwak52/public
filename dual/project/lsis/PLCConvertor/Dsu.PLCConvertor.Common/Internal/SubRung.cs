@@ -1,5 +1,4 @@
-﻿using Dsu.Common.Utilities.ExtensionMethods;
-using Dsu.Common.Utilities.Graph;
+﻿using Dsu.Common.Utilities.Graph;
 using System.Linq;
 
 namespace Dsu.PLCConvertor.Common
@@ -9,25 +8,24 @@ namespace Dsu.PLCConvertor.Common
     /// </summary>
     internal class SubRung : Rung
     {
-        StartMarker _start = new StartMarker("S");
-        Point _end = new EndNode("E");
+        StartNode _start = new StartNode("S");
+        EndNode _end = new EndNode("E");
 
         /// <summary>
         /// Stack Rung 이 아닌, 현재 build 중인 current active ladder
         /// </summary>
         Rung4Parsing _masterRung;
-        //public SubRung(Rung4Parsing masterRung, string node)
-        //    : this(masterRung, new Point(node))
-        //{
-        //}
         public SubRung(Rung4Parsing masterRung, Point node)
         {
             _masterRung = masterRung;
             Add(_start);
             Add(node);
             Add(_end);
-            AddEdge(_start, node);
+            AddEdge(_start, node, new Wire("//LD//3"));
             AddEdge(node, _end);
+
+            _start.EndNode = _end;
+            _end.StartNode = _start;
         }
 
 
@@ -37,32 +35,27 @@ namespace Dsu.PLCConvertor.Common
         void AppendToEndNode(Point node)
         {
             Add(node);
-            AddEdge(_end, node);
-            _end = new EndNode(node.Name);    // new end
-            Add(_end);
-            AddEdge(node, _end);
+
+            var theIncomingEnd = this.GetTheIncomingNode(_end, true);
+            if (theIncomingEnd != null)
+            {
+                AddEdge(theIncomingEnd, node);
+                AddEdge(node, _end);
+                RemoveEdge(theIncomingEnd, _end);
+            }
+            else
+            {
+                AddEdge(_end, node);
+                _end = new EndNode(node.Name);    // new end
+                Add(_end);
+                AddEdge(node, _end);
+            }
+
         }
 
-        //void MakeEndNode(Point start)
-        //{
-        //    var oldEnd = _end;
-        //    _end = new EndMarker(start.Name);
-        //    Add(_end);
-        //    var incomingNodes = GetIncomingNodes(oldEnd).ToArray();
-        //    incomingNodes.Iter(s =>
-        //    {
-        //        AddEdge(s, start);
-        //        AddEdge(start, _end);
-        //    });
-
-        //    if (!oldEnd.Name.StartsWith("TR"))
-        //        Remove(oldEnd);
-        //}
         public void AND(Point node, ILSentence sentence)
         {
             AppendToEndNode(node);
-            //Add(node);
-            //MakeEndNode(node);
         }
 
 
@@ -74,7 +67,7 @@ namespace Dsu.PLCConvertor.Common
             MergeGraph(next);
             var s = _end;
             var e = next._start;
-            AddEdge(s, e, new Wire($"{s}->{e}"));
+            AddEdge(s, e, new Wire($"ANDLD:{s}->{e}"));
             _end = next._end;
 
             return this;
@@ -97,23 +90,16 @@ namespace Dsu.PLCConvertor.Common
         public void OR(Point node, ILSentence sentence)
         {
             Add(node);
-            var oldEnd = _end;
-            _end = new EndNode(node.Name);
-            Add(_end);
-            AddEdge(oldEnd, _end);
-
-            AddEdge(_start, node, new Wire(sentence));
-            AddEdge(node, _end, new Wire(sentence));
+            AddEdge(_start, node, new Wire($"//OR//1:{sentence}"));
+            AddEdge(node, _end);    //, new Wire($"OR//2:{sentence}"));
         }
 
         public SubRung ORLD(SubRung next)
         {
             MergeGraph(next);
 
-            AddEdge(_start, next._start);
-            AddEdge(_end, next._end);
-
-            _end = next._end;
+            AddEdge(_start, next._start, new Wire($"//ORLD//1"));
+            AddEdge(next._end, _end, new Wire($"ORLD//2"));
 
             return this;
         }
@@ -128,7 +114,7 @@ namespace Dsu.PLCConvertor.Common
         {
             _masterRung.TRmap.Add(tr, this);
             Add(tr);
-            AddEdge(_end, tr, new Wire(sentence));
+            AddEdge(_end, tr, new Wire($"MPUSH//11//{sentence}"));
             _end = new EndNode(tr.Name);
             Add(_end);
             AddEdge(tr, _end);
