@@ -86,19 +86,6 @@ ANDLD
 OR 0.06
 OUT 2.00
 OUT 2.01
-",
-@"LD 0.02
-AND 0.03
-LD 0.01
-ORLD
-LD 0.04
-LD 0.05
-ORLD
-ANDLD
-LD 0.06
-ORLD
-OUT 2.00
-OUT 2.01
 "),
 
         new MnemonicInput("TR Basic2",
@@ -118,11 +105,30 @@ OUT 102.10
     MPUSH
     AND 0.01
     OUT 110.00
-    MPOP//2
+    MREAD
     AND 110.00
+    OUT 103.00
+    MPOP//2
+    AND 111.00
+    And 112.0
     OUT 102.10
 "),
 
+        new MnemonicInput("TR Simple",
+            @"LD 0.01
+OR 0.06
+OUT TR0
+AND 0.07
+OUT 2.00
+LD TR0
+OUT 2.01",
+            @"LD 0.01
+OR 0.06
+MPUSH
+AND 0.07
+OUT 2.00
+MPOP
+OUT 2.01"),
         new MnemonicInput("산전 변환 불가 case: TR Basic4",
             @"LD 0.00
 LD 0.01

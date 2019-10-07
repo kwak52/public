@@ -55,11 +55,14 @@ namespace PLCConvertor
             var formILs = new FormInputSelector();
             if (formILs.ShowDialog() == DialogResult.OK)
             {
+                // dockPanelMain 이 embeding control 이 잘 안되서 panelMain 을 dockPanelMain 에 삽입
                 if (_lastEmbeddedForm != null)
                     panelMain.Controls.Remove(_lastEmbeddedForm);
                 _lastEmbeddedForm = new FormLadderParse(formILs.SelectedMnemonicInput);
-                _lastEmbeddedForm.Show();
+                _lastEmbeddedForm.Show();                
                 _lastEmbeddedForm.EmbedToControl(panelMain);
+
+                dockPanelMain.Text = formILs.SelectedMnemonicInput.Comment;
             }
         }
     }

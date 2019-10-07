@@ -20,10 +20,16 @@ namespace PLCConvertor.Forms
         public FormLadderParse(MnemonicInput mnemonicInput)
         {
             InitializeComponent();
+            Text = mnemonicInput.Comment;
             _mnemonicInput = mnemonicInput;
-            _mnemonics = MnemonicInput.MultilineString2Array(mnemonicInput.Input);
+            _mnemonics = m2a(mnemonicInput.Input);
             listBoxControlMnemonics.DataSource = _mnemonics;
             listBoxControlMnemonics.SelectedIndex = 0;
+
+            if (mnemonicInput.DesiredOutputs.NonNullAny())
+                listBoxControlAnswer.DataSource = m2a(mnemonicInput.DesiredOutputs[0]);
+
+            string[] m2a(string input) => MnemonicInput.MultilineString2Array(input);
         }
         private void FormLadderParse_Load(object sender, EventArgs e)
         {

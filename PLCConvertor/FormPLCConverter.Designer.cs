@@ -43,9 +43,9 @@
             this.ucPanelLog1 = new PLCConvertor.UcPanelLog();
             this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.panelMain = new System.Windows.Forms.Panel();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.panelMain = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -80,12 +80,11 @@
             this.ribbon.ExpandCollapseItem,
             this.barButtonItemTestParse});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.Margin = new System.Windows.Forms.Padding(2);
             this.ribbon.MaxItemId = 2;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbon.Size = new System.Drawing.Size(837, 147);
+            this.ribbon.Size = new System.Drawing.Size(1196, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // barButtonItemTestParse
@@ -110,11 +109,10 @@
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 623);
-            this.ribbonStatusBar.Margin = new System.Windows.Forms.Padding(2);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 987);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(837, 31);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1196, 41);
             // 
             // dockManager1
             // 
@@ -140,29 +138,28 @@
             this.dockPanelLog.Controls.Add(this.dockPanel1_Container);
             this.dockPanelLog.Dock = DevExpress.XtraBars.Docking.DockingStyle.Bottom;
             this.dockPanelLog.ID = new System.Guid("ec78d662-2e79-41d3-9997-6c98aac61503");
-            this.dockPanelLog.Location = new System.Drawing.Point(0, 394);
-            this.dockPanelLog.Margin = new System.Windows.Forms.Padding(2);
+            this.dockPanelLog.Location = new System.Drawing.Point(0, 758);
             this.dockPanelLog.Name = "dockPanelLog";
             this.dockPanelLog.OriginalSize = new System.Drawing.Size(200, 229);
-            this.dockPanelLog.Size = new System.Drawing.Size(837, 229);
+            this.dockPanelLog.Size = new System.Drawing.Size(1196, 229);
             this.dockPanelLog.Text = "Log";
             // 
             // dockPanel1_Container
             // 
             this.dockPanel1_Container.Controls.Add(this.ucPanelLog1);
-            this.dockPanel1_Container.Location = new System.Drawing.Point(4, 24);
-            this.dockPanel1_Container.Margin = new System.Windows.Forms.Padding(2);
+            this.dockPanel1_Container.Location = new System.Drawing.Point(6, 36);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(829, 201);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(1184, 187);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // ucPanelLog1
             // 
             this.ucPanelLog1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucPanelLog1.Location = new System.Drawing.Point(0, 0);
+            this.ucPanelLog1.Margin = new System.Windows.Forms.Padding(6);
             this.ucPanelLog1.Name = "ucPanelLog1";
             this.ucPanelLog1.SelectedIndex = -1;
-            this.ucPanelLog1.Size = new System.Drawing.Size(829, 201);
+            this.ucPanelLog1.Size = new System.Drawing.Size(1184, 187);
             this.ucPanelLog1.TabIndex = 0;
             // 
             // dockPanelMain
@@ -178,19 +175,9 @@
             // 
             this.controlContainer1.Controls.Add(this.panelMain);
             this.controlContainer1.Location = new System.Drawing.Point(0, 0);
-            this.controlContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.controlContainer1.Name = "controlContainer1";
-            this.controlContainer1.Size = new System.Drawing.Size(831, 218);
+            this.controlContainer1.Size = new System.Drawing.Size(1190, 501);
             this.controlContainer1.TabIndex = 0;
-            // 
-            // panelMain
-            // 
-            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(0, 0);
-            this.panelMain.Margin = new System.Windows.Forms.Padding(2);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(831, 218);
-            this.panelMain.TabIndex = 0;
             // 
             // documentManager1
             // 
@@ -210,15 +197,22 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
+            // panelMain
+            // 
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(0, 0);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(1190, 501);
+            this.panelMain.TabIndex = 0;
+            // 
             // FormPLCConverter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 654);
+            this.ClientSize = new System.Drawing.Size(1196, 1028);
             this.Controls.Add(this.dockPanelLog);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormPLCConverter";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;

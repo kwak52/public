@@ -43,6 +43,14 @@
         }
     }
 
+    public class DummyNode : AuxNode
+    {
+        public DummyNode(string name)
+            : base(name)
+        {
+        }
+    }
+
 
     public class TerminalNode : Point
     {
