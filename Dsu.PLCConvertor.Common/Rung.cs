@@ -29,6 +29,6 @@ namespace Dsu.PLCConvertor.Common
         /// Rung 을 구성하는 IL 목록
         /// </summary>
         public string[] Mnemonics { get; protected set; }
-        internal bool AddEdge(Point start, Point end) => AddEdge(start, end, new Wire($"{start.Name}->{end.Name}"));
+        internal bool AddEdge(Point start, Point end) => AddEdge(start, end, new Wire(""));
     }
 }

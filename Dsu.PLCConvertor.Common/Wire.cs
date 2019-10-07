@@ -9,7 +9,7 @@ namespace Dsu.PLCConvertor.Common
     [DebuggerDisplay("{Name}")]
     public class Wire
     {
-        public string Name { get; private set; }
+        public string Name { get; internal set; }
         public Wire(ILSentence sentence)           
         {
             Name = sentence.ToString();

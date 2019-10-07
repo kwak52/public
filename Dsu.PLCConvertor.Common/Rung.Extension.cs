@@ -2,8 +2,6 @@
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 using Dsu.Common.Utilities.ExtensionMethods;
@@ -91,7 +89,8 @@ namespace Dsu.PLCConvertor.Common
             var query1 = rung.Nodes.Select(n =>
             {
                 var styles = string.Join(", ", generateStyles()).NonNullEmptySelector("shape=rectangle");
-                return $"\t\"{GetId(n)}\" [{styles}, label=<{n.Name}>];";
+                //return $"\t\"{GetId(n)}\" [{styles}, label=<{n.Name}>];";
+                return $"\t\"{GetId(n)}\" [{styles}, label=<{n.ToString()}>];";
 
                 IEnumerable<string> generateStyles()
                 {
@@ -114,7 +113,7 @@ namespace Dsu.PLCConvertor.Common
                 yield return t;
 
             // edge 그리기
-            var showEdgeLabel = false;
+            var showEdgeLabel = true;
             var query = rung.Edges.Select(e =>
             {
                 var from = e.Start;
@@ -124,8 +123,6 @@ namespace Dsu.PLCConvertor.Common
                 //if (from is StartAction)
                 //    edgeStyle += "color=red, ";
                 var label = showEdgeLabel ? $"label=\"{e.Data.Name}\", " : "";
-
-                //return $"\t\"{GetId(from)}\" -> \"{GetId(to)}\" [{edgeStyle} label = \"{e.Data.ToString()}\"];";
                 return $"\t\"{GetId(from)}\" -> \"{GetId(to)}\" [{edgeStyle} {label} fontsize=8];";
             });
 
@@ -177,7 +174,6 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         public static bool IsInCircularWithBackward(this Rung rung, Point start)
         {
-            var x = new[] { 1, 2, 3, 4, 5 }.EnumeratePaired().ToArray();
             var isCircular =
                 rung.GetIncomingNodes(start)
                     .Select(n => rung.ReverseDepthFirstSearch(n))
@@ -190,5 +186,28 @@ namespace Dsu.PLCConvertor.Common
             return isCircular;
         }
 
+        public static Point GetTheIncomingNode(this Rung rung, Point node, bool returnNullOnFail)
+        {
+            var incNodes = rung.GetIncomingNodes(node).ToArray();
+            if (incNodes.Length == 1)
+                return incNodes[0];
+
+            if (returnNullOnFail)
+                return null;
+
+            throw new Exception($"Incoming Node is not uniq.  Num incoming nodes={incNodes.Length}");            
+        }
+
+        public static Point GetTheOutgoingNode(this Rung rung, Point node, bool returnNullOnFail)
+        {
+            var outgNodes = rung.GetOutgoingNodes(node).ToArray();
+            if (outgNodes.Length == 1)
+                return outgNodes[0];
+
+            if (returnNullOnFail)
+                return null;
+
+            throw new Exception($"Outgoing Node is not uniq.  Num outgoing nodes={outgNodes.Length}");
+        }
     }
 }

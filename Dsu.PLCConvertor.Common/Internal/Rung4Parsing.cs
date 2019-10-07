@@ -100,6 +100,29 @@ namespace Dsu.PLCConvertor.Common
                 yield return i++;
             }
 
+            CurrentBuildingLD.Nodes
+                .OfType<AuxNode>()
+                .Where(n => CurrentBuildingLD.GetOutgoingDegree(n) > 1)
+                .Iter(n =>
+                {
+                    CurrentBuildingLD.GetOutgoingEdges(n)
+                        .Iter((e, nth) =>
+                        {
+                            e.Data.Name = $"[{nth}]{e.Data.Name}";
+                        });
+                });
+
+            CurrentBuildingLD.Nodes
+                .OfType<TRNode>()
+                .Iter(n =>
+                {
+                    var outg = CurrentBuildingLD.GetOutgoingEdges(n).ToArray();
+                    outg[0].Data.Name += "MPUSH//222";
+                    outg[outg.Length - 1].Data.Name += "MPOP//222";
+                    if (outg.Length > 2)
+                        outg.Skip(1).Take(outg.Length - 2).Iter(m => m.Data.Name += "MREAD//222");
+                });
+
             Debug.Assert(LadderStack.IsNullOrEmpty());
             Console.WriteLine("");
         }
@@ -137,25 +160,36 @@ namespace Dsu.PLCConvertor.Common
                             {
                                 var nIn = rung.GetIncomingDegree(n);
                                 var nOut = rung.GetOutgoingDegree(n);
-                                return nIn == 0                     // start node
-                                    || (nIn == 1 && nOut == 1 
-                                        && !(rung.GetIncomingNodes(n).First() is AuxNode)
-                                        && !(rung.GetOutgoingNodes(n).First() is AuxNode)
-                                        && !(rung.GetOutgoingNodes(n).First() is TerminalNode))      // passing node
+                                return
+                                    //nIn == 0 ||                     // start node
+                                    (nIn == 1 && nOut == 1       // passing node
+                                                                 //&& !(rung.GetIncomingNodes(n).First() is AuxNode)
+                                                                 //&& !(rung.GetOutgoingNodes(n).First() is AuxNode)
+                                                                 //&& !(rung.GetOutgoingNodes(n).First() is TerminalNode)
+                                        )
                                     || isConsecutiveAuxNode(n)
                                     ;
 
                                 bool isConsecutiveAuxNode(AuxNode an)
                                 {
+                                    if (rung.GetIncomingDegree(an) == 0)
+                                        return false;
+
                                     var prev = rung.GetIncomingEdges(an).First().Start;
                                     return nIn == 1 && prev is AuxNode && consecutiveAuxNodes.Contains(an);
                                 }
                             })
-                            .ToArray();
+                            .ToArray()     // 컬렉션이 수정
+                            ;
 
                     targetAuxNodes.Iter(n => rung.OmitNode(n));
-                }
 
+                    rung.Nodes
+                        .OfType<AuxNode>()
+                        .Where(n => rung.GetIncomingNodes(n).All(inc => !(inc is AuxNode)) && rung.GetTheOutgoingNode(n, true) is AuxNode)
+                        .ToArray()
+                        .Iter(n => rung.OmitNode(n));
+                }
                 {
                     // incoming edge 가 하나인 TR node 의 이전 node 가 AuxNode 인 경우, 이전 node 를 삭제한다.
                     var targetAuxNodes =
@@ -172,5 +206,6 @@ namespace Dsu.PLCConvertor.Common
 
             return rung;
         }
+
     }
 }

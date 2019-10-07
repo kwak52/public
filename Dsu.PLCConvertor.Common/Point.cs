@@ -10,7 +10,10 @@ namespace Dsu.PLCConvertor.Common
     public class Point : IEquatable<Point>
     {
         public string Name { get; private set; }
-        public Guid Guid { get; set; } = Guid.NewGuid();
+
+        //public Guid Guid { get; set; } = Guid.NewGuid();
+        static int _guid = 0;
+        public int Guid { get; } = ++_guid;
         public ILSentence ILSentence { get; set; }
 
         ///// <summary>
@@ -33,7 +36,8 @@ namespace Dsu.PLCConvertor.Common
 
         public override string ToString()
         {
-            return $"{Name}({ILSentence})";
+            var il = ILSentence == null ? "" : ILSentence.ToString();
+            return il.Contains(Name) ? il : $"{Name}({ILSentence})";
         }
     }
 }
