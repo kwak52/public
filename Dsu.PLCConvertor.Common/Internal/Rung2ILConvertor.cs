@@ -1,4 +1,5 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.Common.Utilities.Graph;
 using log4net;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,181 +7,164 @@ using System.Linq;
 
 namespace Dsu.PLCConvertor.Common
 {
-    internal class Rung2ILConvertor
+    /// <summary>
+    /// Rung 을 LS산전 IL 로 변환
+    /// </summary>
+    internal partial class Rung2ILConvertor
     {
         ILog Logger = Global.Logger;
         Rung _rung;
-        bool _hasMultipleOutput;
         Rung2ILConvertor(Rung rung)
         {
             _rung = rung;
-            _hasMultipleOutput = _rung.Sinks.Count() > 1;
         }
 
 
-        IEnumerable<AuxNode> EnumerateTerminalArticulationPoints()
-        {
-            var auxNodes = _rung.Nodes.OfType<AuxNode>();
-            if (auxNodes.OfType<TRNode>().Any())
-                return
-                    from tr in auxNodes.OfType<TRNode>()
-                    let descendantAxns =
-                        _rung.ReverseDepthFirstSearch(tr)
-                            .OfType<TRNode>()
-                            .Where(n => n != tr)
-                    where descendantAxns.IsNullOrEmpty()
-                    select tr
-                    ;
-            else
-                return
-                    from axn in auxNodes
-                    let descendantAxns =
-                        _rung.DepthFirstSearch(axn)
-                            .OfType<AuxNode>()
-                            .Where(n => n != axn)
-                    where descendantAxns.IsNullOrEmpty()
-                    select axn
-                    ;
-        }
 
-        IEnumerable<string> ConvertBackward(Point node, int call)
+
+        /// <summary>
+        /// IL 변환 중에 방문한 nodes.  모든 node 를 cover 하지 않으면 오류가 있는 것으로 봐야 한다.
+        /// </summary>
+        HashSet<Point> _visitedNodes = new HashSet<Point>();
+        
+        /// <summary>
+        /// IL 변환 중에 방문한 edges.
+        /// </summary>
+        HashSet<Edge<Point, Wire>> _visitedEdges = new HashSet<Edge<Point, Wire>>();
+
+        /// <summary>
+        /// IL 변환 중에 방문하게 될 edge 의 stack.
+        /// 하나의 node 를 만나면, 2th ~ nth edge 를 stack 에 push 하고 첫번째 edge 를 따라간다.
+        /// </summary>
+        Stack<Edge<Point, Wire>> _edgeStack = new Stack<Edge<Point, Wire>>();
+
+        /// <summary>
+        /// 주어진 node 를 따라가면서 IL 을 생성한다.
+        /// </summary>
+        IEnumerable<string> FollowNode(Point node)
         {
+            Logger?.Debug($"FollowNode({node.Name})");
+
             if (_visitedNodes.Contains(node))
                 yield break;
 
             _visitedNodes.Add(node);
 
-            var inNs = _rung.GetIncomingNodes(node).ToArray();
-            if (inNs.Length == 0)   // start point
-            {
-                yield return $"LD {node.Name}";
-                yield break;
-            }
+            IEnumerable<string> xs;
 
-            var incomingEdgeTrans =
-                inNs.Select(n => ConvertBackward(n, call+1).ToArray())
-                .ToArray()
-                ;
-
-            int i = 0;
+            // 현재 node 처리
             switch (node)
             {
-                case TRNode tr:
-                    foreach (var edgeT in incomingEdgeTrans)
+                case StartNode sn:
+                    break;
+
+                case EndNode en:
+                    // endNode 로 들어오는 edge 중에 아직 처리되지 않은 것이 남았다면..
+                    while (_rung.GetIncomingEdges(en).Any(e => !_visitedEdges.Contains(e)))
                     {
-                        if (call > 0)
+                        if (_edgeStack.Any())
                         {
-                            if (i == 1)
-                                yield return "MPUSH";
-                            else if (i == incomingEdgeTrans.Length - 1)
-                                yield return "MPOP//1";
-                            else if (i > 0 && i < incomingEdgeTrans.Length - 1)
-                                yield return "MREAD";
+                            xs = FollowEdge(_edgeStack.Pop()).ToArray();
+                            foreach (var x in xs)
+                                yield return x;
                         }
-                        i++;
-                        foreach (var x in edgeT)
-                            yield return x;
+                        else
+                        {
+                            // articulation point 에 도달.  output 쪽으로 달려야 함.
+                            xs = FollowNodeOutgoingEdges(en);
+                            foreach (var x in xs)
+                                yield return x;
+                            break;
+                        }
                     }
                     break;
-                case EndNode end:
-                    foreach (var edgeT in incomingEdgeTrans)
-                    {
-                        foreach (var x in edgeT)
-                            yield return x;
-                        if (i++ > 0)
-                            yield return "ORLD";
-                    }
 
-                    if (inNs.Length > 1 && _rung.IsInCircularWithBackward(end) )       // and, detects loop
-                        yield return $"ANDLD//123{node.Name}";
-                    break;
-                case Point pt:
-                    Debug.Assert(inNs.Length == 1);
-                    foreach (var x in incomingEdgeTrans.First())
+                case TRNode trn:
+                    xs = FollowEdgeStack();
+                    foreach (var x in xs)
                         yield return x;
-
-                    var cmd = inNs[0] is AuxNode && _rung.GetOutgoingDegree(inNs[0]) > 1 ? "LD" : "AND";
-                    yield return $"{cmd} {pt.Name}//1";
+                    break;
+                case DummyNode dn:
+                    xs = FollowNodeOutgoingEdges(dn);
+                    foreach (var x in xs)
+                        yield return x;
                     break;
 
+                // Output node 를 비롯한 출력단의 node.  output node 자신을 출력하고 stack 의 내용을 따라간다.
+                case TerminalNode tln:
+                    yield return tln.Name;
+                    xs = FollowEdgeStack();
+                    foreach (var x in xs)
+                        yield return x;
+                    break;
+
+                // 기본 data node
                 default:
-                    Debug.Assert(false);
+                    yield return node.ILSentence.ToString();
                     break;
             }
-        }
 
-        IEnumerable<string> ConvertForward(Point node)
-        {
-            _visitedNodes.Add(node);
-
-            if (node is TerminalNode)
-            {
-                yield return $"OUT {node.Name}//111";
+            // 현재 node 의 outgoing edge 를 따라가기
+            var oes = _rung.GetOutgoingEdges(node).ToArray();
+            if (oes.Length == 0)
                 yield break;
+            else
+            {
+                if (oes.Length > 1)
+                    _edgeStack.PushMultiples(oes.Skip(1));
+
+                xs = FollowEdge(oes[0]).ToArray();
+                foreach (var x in xs)
+                    yield return x;
             }
 
-
-            var outNs = _rung.GetOutgoingNodes(node).ToArray();
-            var outgoingEdgeTrans =
-                outNs.Select(n => ConvertForward(n).ToArray())
-                .ToArray()
-                ;
-
-            int i = 0;
-            switch (node)
+            // Edge stack 에 존재하는 edge 를 따라가기
+            IEnumerable<string> FollowEdgeStack()
             {
-                case TRNode tr:
-                    foreach (var edgeT in outgoingEdgeTrans)
-                    {
-                        if (i == 0)
-                            yield return "MPUSH";
-                        else if (i == outgoingEdgeTrans.Length - 1)
-                            yield return "MPOP//2";
-                        else // if (i > 0 && i < outgoingEdgeTrans.Length - 1)
-                            yield return "MREAD";
-                        i++;
-                        foreach (var x in edgeT)
-                            yield return x;
-                    }
-                    break;
+                while (_edgeStack.Any())
+                {
+                    foreach (var x in FollowEdge(_edgeStack.Pop()))
+                        yield return x;
+                }
+            }
 
-                case TerminalNode tn:
-                    yield return $"OUT {tn.Name}//123";
-                    break;
-                case EndNode end:
-                    foreach (var edgeT in outgoingEdgeTrans)
-                        foreach (var x in edgeT)
-                            yield return x;
-                    break;
-                case Point pt:
-                    yield return $"AND {pt.Name}//2";
-                    foreach (var edgeT in outgoingEdgeTrans)
-                        foreach (var x in edgeT)
-                            yield return x;
-                    break;
-                default:
-                    Debug.Assert(false);
-                    break;
+            IEnumerable<string> FollowNodeOutgoingEdges(Point nnode)
+            {
+                var oges = _rung.GetOutgoingEdges(nnode).ToArray();
+                _edgeStack.PushMultiples(oges.Skip(1));
+                return FollowEdge(oges[0]);
             }
         }
-
 
 
         /// <summary>
-        /// IL 변환 중에 방문한 node.  모든 node 를 cover 하지 않으면 오류가 있는 것으로 봐야 한다.
+        /// 주어진 edge 를 따라가면서 IL 을 생성한다.
         /// </summary>
-        HashSet<Point> _visitedNodes = new HashSet<Point>();
+        IEnumerable<string> FollowEdge(Edge<Point, Wire> edge)
+        {
+            Logger?.Debug($"FollowEdge({edge.Data})");
+            if (_visitedEdges.Contains(edge))
+                yield break;
+
+            _visitedEdges.Add(edge);
+
+            var edata = edge.Data.Output;
+            if (edata.NonNullAny())
+                yield return edata;
+
+            var xs = FollowNode(edge.End).ToArray();
+            foreach ( var x in xs)
+                yield return x;
+        }
+
         /// <summary>
         /// 주어진 rung 구조를 IL 리스트로 변환한다.  변환이 시작되는 위치
         /// </summary>
         /// <returns></returns>
         internal IEnumerable<string> Convert()
         {
-            var aps = EnumerateTerminalArticulationPoints().ToArray();
-            var apsMsg = string.Join(", ", aps.Select(n => n.Name));
-            Logger?.Debug($"Found total {aps.Length} terminal nodes.\r\n{apsMsg}");
-
-            var mnemonics = aps.SelectMany(ap => ConvertBackward(ap, 0).Concat(ConvertForward(ap))).Realize();
+            Debug.Assert(_rung.Sources.Count() == 1);
+            var mnemonics = FollowNode(_rung.Sources.First()).ToArray();            
             var unvisitedNodes = _rung.Nodes.Where(n => !_visitedNodes.Contains(n)).ToArray();
             if (unvisitedNodes.Any())
             {
@@ -194,5 +178,13 @@ namespace Dsu.PLCConvertor.Common
 
 
         public static string[] Convert(Rung rung) => new Rung2ILConvertor(rung).Convert().ToArray();
+
+        public static string[] ConvertFromMnemonics(string mnemonics) => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics));
+        public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics)
+        {
+            var rung = new Rung4Parsing(mnemonics);
+            rung.CoRoutineRungParser().ToArray();
+            return new Rung2ILConvertor(rung.ToRung(false)).Convert().ToArray();
+        }
     }
 }

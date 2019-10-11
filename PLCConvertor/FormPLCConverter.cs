@@ -7,6 +7,7 @@ using Dsu.Common.Utilities.Graph;
 using PLCConvertor.Forms;
 using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.Common.Utilities.Forms;
+using Dsu.PLCConvertor.Common.Internal;
 
 namespace PLCConvertor
 {
@@ -64,6 +65,11 @@ namespace PLCConvertor
 
                 dockPanelMain.Text = formILs.SelectedMnemonicInput.Comment;
             }
+        }
+
+        private void BarButtonItemCxtParse_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            new CxtParser(@"F:\solutions\dual\project\lsis\PLCConvertor\Documents\TestRung.cxt");
         }
     }
 }

@@ -16,6 +16,7 @@ namespace Dsu.PLCConvertor.Common
         public static string CommentPrefix { get; set; } = "//";
         public static string[] MultilineString2Array(string input) =>
                 input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Where(m => !string.IsNullOrWhiteSpace(m))
                 .Select(m => TrimSingle(m))
                 .Select(m => Regex.Replace(m, $"{CommentPrefix}.*", ""))
                 .ToArray()
@@ -41,6 +42,14 @@ namespace Dsu.PLCConvertor.Common
         }
 
 
-        internal static MnemonicInput[] Inputs { get { return InputsOK.Concat(InputsNG).ToArray(); } }
+        internal static MnemonicInput[] Inputs { get {
+                return 
+                    new[] { InputsOK, InputsTR, InputsComplex, InputsNG, }
+                    .SelectMany(inp => inp)
+                    .ToArray()
+                ;
+                //return InputsOK.Concat(InputsTR.Concat(InputsNG)).ToArray();
+            }
+        }
     }
 }

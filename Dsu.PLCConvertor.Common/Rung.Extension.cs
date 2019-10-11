@@ -122,7 +122,7 @@ namespace Dsu.PLCConvertor.Common
                 var edgeStyle = "";
                 //if (from is StartAction)
                 //    edgeStyle += "color=red, ";
-                var label = showEdgeLabel ? $"label=\"{e.Data.Name}\", " : "";
+                var label = showEdgeLabel ? $"label=\"{e.Data.ToString()}\", " : "";
                 return $"\t\"{GetId(from)}\" -> \"{GetId(to)}\" [{edgeStyle} {label} fontsize=8];";
             });
 
@@ -219,9 +219,8 @@ namespace Dsu.PLCConvertor.Common
                 {
                     var eData =
                         string.Join("+",
-                            new string[] { inE.Data.Name, outE.Data.Name }
+                            new string[] { inE.Data.Output, outE.Data.Output}
                             .Where(n => n.NonNullAny())
-                            .Where(n => !n.StartsWith("//"))
                             );
 
                     rung.AddEdge(inE.Start, outE.End, new Wire(eData));

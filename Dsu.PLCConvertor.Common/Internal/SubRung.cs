@@ -1,4 +1,5 @@
 ﻿using Dsu.Common.Utilities.Graph;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dsu.PLCConvertor.Common
@@ -15,15 +16,20 @@ namespace Dsu.PLCConvertor.Common
         /// Stack Rung 이 아닌, 현재 build 중인 current active ladder
         /// </summary>
         Rung4Parsing _masterRung;
+        Dictionary<AuxNode, SubRung> TRmap => _masterRung.TRmap;
+
         public SubRung(Rung4Parsing masterRung, Point node)
         {
             _masterRung = masterRung;
+
+            // _start -- node -- _end
             Add(_start);
             Add(node);
             Add(_end);
-            AddEdge(_start, node, new Wire("//LD//3"));
+            AddEdge(_start, node, new Wire() { Comment = "//LD//3" });
             AddEdge(node, _end);
 
+            // sub rung 내 s <--> e 간의 상호 참조
             _start.EndNode = _end;
             _end.StartNode = _start;
         }
@@ -37,7 +43,8 @@ namespace Dsu.PLCConvertor.Common
             Add(node);
 
             var theIncomingEnd = this.GetTheIncomingNode(_end, true);
-            if (theIncomingEnd != null)
+            var hasOutgoingEnd = GetOutgoingDegree(_end) > 0;
+            if (theIncomingEnd != null && !hasOutgoingEnd)
             {
                 AddEdge(theIncomingEnd, node);
                 AddEdge(node, _end);
@@ -67,7 +74,7 @@ namespace Dsu.PLCConvertor.Common
             MergeGraph(next);
             AddEdge(_end, next._start);
             var dummy = this.AddNode(new DummyNode("Dummy"));
-            AddEdge(next._end, dummy, new Wire("ANDLD//999"));
+            AddEdge(next._end, dummy, new Wire("ANDLD") { Comment = "//999" });
             var newEnd = this.AddNode(new EndNode("END//123")) as EndNode;
             AddEdge(dummy, newEnd);
 
@@ -83,17 +90,17 @@ namespace Dsu.PLCConvertor.Common
         {
             base.MergeGraph(other);
 
-            var kvs = _masterRung.TRmap.Where(kv => kv.Value == other).ToArray();
+            var kvs = TRmap.Where(kv => kv.Value == other).ToArray();
             foreach (var kv in kvs)
             {
-                _masterRung.TRmap[kv.Key] = this;
+                TRmap[kv.Key] = this;
             }
         }
 
         public void OR(Point node, ILSentence sentence)
         {
             Add(node);
-            AddEdge(_start, node, new Wire($"//OR//1:{sentence}"));
+            AddEdge(_start, node, new Wire() { Comment = $"//OR//1:{sentence}" });
             AddEdge(node, _end);    //, new Wire($"OR//2:{sentence}"));
         }
 
@@ -101,8 +108,8 @@ namespace Dsu.PLCConvertor.Common
         {
             MergeGraph(next);
 
-            AddEdge(_start, next._start, new Wire($"//ORLD//1"));
-            AddEdge(next._end, _end, new Wire($"ORLD//2"));
+            AddEdge(_start, next._start, new Wire() { Comment = $"//ORLD//1" });
+            AddEdge(next._end, _end, new Wire("ORLD"));
 
             return this;
         }
@@ -113,9 +120,13 @@ namespace Dsu.PLCConvertor.Common
             AddEdge(_end, node, new Wire(sentence));
         }
 
+
+        /// <summary>
+        /// TR node 구성 : (old end) -- tr -- (new end)
+        /// </summary>
         public void OUTTR(AuxNode tr, ILSentence sentence)
         {
-            _masterRung.TRmap.Add(tr, this);
+            TRmap.Add(tr, this);
             Add(tr);
             AddEdge(_end, tr);
             _end = new EndNode(tr.Name);
@@ -126,10 +137,9 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// TR register 위치를 찾아서 그 다음 위치를 새로운 _end position 으로 잡아 준다.
         /// </summary>
-        /// <param name="tr"></param>
         public void LDTR(string tr)
         {
-            var trEntry = _masterRung.TRmap.First(kv => kv.Key.Name == tr);
+            var trEntry = TRmap.First(kv => kv.Key.Name == tr);
             var tn = trEntry.Key;
             _end = new EndNode(tn.Name);
             Add(_end);
