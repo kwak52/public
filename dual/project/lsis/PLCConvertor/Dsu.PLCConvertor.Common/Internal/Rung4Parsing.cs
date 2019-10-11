@@ -90,7 +90,7 @@ namespace Dsu.PLCConvertor.Common
                         CurrentBuildingLD.OUTTR(new TRNode(arg0), sentence);
                         break;
                     case "OUT":
-                        CurrentBuildingLD.OUT(new TerminalNode(arg0), sentence);
+                        CurrentBuildingLD.OUT(new TerminalNode($"{sentence}"), sentence);
                         break;
                     default:
                         Logger?.Error($"Unknown IL: {m}");
@@ -108,7 +108,7 @@ namespace Dsu.PLCConvertor.Common
                     CurrentBuildingLD.GetOutgoingEdges(n)
                         .Iter((e, nth) =>
                         {
-                            e.Data.Name = $"[{nth}]{e.Data.Name}";
+                            e.Data.Comment = $"[{nth}]{e.Data.Output}";
                         });
                 });
 
@@ -117,15 +117,17 @@ namespace Dsu.PLCConvertor.Common
                 .Iter(n =>
                 {
                     var outg = CurrentBuildingLD.GetOutgoingEdges(n).ToArray();
-                    outg[0].Data.Name += "MPUSH//222";
-                    outg[outg.Length - 1].Data.Name += "MPOP//222";
+                    outg[0].Data.Comment += "MPUSH//222";
+                    outg[0].Data.Output = "MPUSH";
+                    outg[outg.Length - 1].Data.Output = "MPOP";
                     if (outg.Length > 2)
-                        outg.Skip(1).Take(outg.Length - 2).Iter(m => m.Data.Name += "MREAD//222");
+                        outg.Skip(1).Take(outg.Length - 2).Iter(m => m.Data.Output = "MREAD");
                 });
 
             Debug.Assert(LadderStack.IsNullOrEmpty());
             Console.WriteLine("");
         }
+
 
         /// <summary>
         /// Rung 구축을 위한 단계로 사용된 Rung4Parsing 로부터 최종 Rung 을 생성해서 반환한다.
@@ -146,10 +148,10 @@ namespace Dsu.PLCConvertor.Common
                             .Where(e => !(e.Start is TRNode) && !(e.End is TRNode))
                             ;
                     var consecutiveAuxNodes =
-                        consecutiveAuxNodePairEdges
+                        System.Linq.Enumerable.ToHashSet(
+                            consecutiveAuxNodePairEdges
                             .Select(e => e.Start)
-                            .Concat(consecutiveAuxNodePairEdges.Select(e => e.End))
-                            .ToHashSet()
+                            .Concat(consecutiveAuxNodePairEdges.Select(e => e.End)))                            
                             ;
 
                     // Rung 시작 node 이거나, AuxNode 이면서 incoming/outgoing edge 갯수가 모두 1 인 node 들을 삭제한다.

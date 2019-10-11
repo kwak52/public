@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using System.Diagnostics;
 
 namespace Dsu.PLCConvertor.Common
 {
@@ -6,21 +7,23 @@ namespace Dsu.PLCConvertor.Common
     /// PLC rung 에서 접점 간 연결을 표현하는 edge class
     /// </summary>
 
-    [DebuggerDisplay("{Name}")]
+    [DebuggerDisplay("{Output}:{Comment}")]
     public class Wire
     {
-        public string Name { get; internal set; }
+        public string Output { get; internal set; }
+        public string Comment { get; internal set; }
         public Wire(ILSentence sentence)           
         {
-            Name = sentence.ToString();
+            Comment = sentence.ToString();
         }
-        public Wire(string name)
+        public Wire() {}
+        public Wire(string output)
         {
-            Name = name;
+            Output = output;
         }
         public override string ToString()
         {
-            return $"{Name}";
+            return Output.NonNullEmptySelector(Comment);
         }
     }
 }

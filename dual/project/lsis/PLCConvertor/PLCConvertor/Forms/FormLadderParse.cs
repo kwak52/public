@@ -4,6 +4,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -50,21 +51,29 @@ namespace PLCConvertor.Forms
                 Initialize();
             }
 
-            DrawCurrentBuildingLadder();
+            pictureBox1.Image = DrawCurrentBuildingLadder();
 
             listBoxControlMnemonics.SelectedIndex = _rung4Parsing.CurrentMnemonicIndex;
         }
-
         private void BtnEnd_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = GetFinalLadderImage();
+        }
+        private void BtnNewForm_Click(object sender, EventArgs e)
+        {
+            new FormScrollableImage(GetFinalLadderImage()).Show();
+        }
+
+        Image GetFinalLadderImage()
         {
             while (_parsingStages.MoveNext())
                 ;
 
-            DrawCurrentBuildingLadder();
+            var image = DrawCurrentBuildingLadder();
             listBoxControlMnemonics.SelectedIndex = _rung4Parsing.CurrentMnemonicIndex;
 
 
-            var mnemonics = Rung2ILConvertor.Convert(_rung4Parsing.ToRung());
+            var mnemonics = Rung2ILConvertor.Convert(_rung4Parsing.ToRung(false));
             var converted = String.Join("\r\n", mnemonics);
             Logger?.Info($"Reversely converted mnemonics for {_mnemonicInput.Comment}:\r\n{converted}");
 
@@ -84,20 +93,22 @@ namespace PLCConvertor.Forms
             }
             if (!correct)
                 Logger?.Error($"Convert mismatch.  Desired output:\r\n{answer}");
+
+            return image;
         }
 
         private void CbRemoveAuxNode_CheckedChanged(object sender, EventArgs e)
         {
-            DrawCurrentBuildingLadder();
+            pictureBox1.Image = DrawCurrentBuildingLadder();
         }
 
-        void DrawCurrentBuildingLadder()
+        Image DrawCurrentBuildingLadder()
         {
             //var rung = _rung4Parsing.ToRung(cbRemoveAuxNode.Checked);
             //var graph = rung.GraphViz();
             //pictureBox1.Image = graph;
-
-            pictureBox1.Image =
+            return
+            //pictureBox1.Image =
                 cbRemoveAuxNode.Checked
                     ? _rung4Parsing.ToRung(true).GraphViz()
                     : _rung4Parsing.GraphViz()

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dsu.PLCConvertor.Common</RootNamespace>
     <AssemblyName>Dsu.PLCConvertor.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,12 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Internal\Common.Extension.cs" />
+    <Compile Include="Internal\CxtParser\CxtParser.cs" />
     <Compile Include="Internal\Global.cs" />
     <Compile Include="Internal\MnemonicInput.cs" />
-    <Compile Include="Internal\MnemonicInput.NG.cs" />
-    <Compile Include="Internal\MnemonicInput.OK.cs" />
+    <Compile Include="Internal\TestInputs\MnemonicInput.Complex.cs" />
+    <Compile Include="Internal\TestInputs\MnemonicInput.TR.cs" />
+    <Compile Include="Internal\TestInputs\MnemonicInput.NG.cs" />
+    <Compile Include="Internal\TestInputs\MnemonicInput.OK.cs" />
     <Compile Include="Internal\NodeInfo4ILConvert.cs" />
     <Compile Include="Internal\Rung2ILConvertor.cs" />
+    <Compile Include="Internal\Rung2ILConvertor.Unused.cs" />
     <Compile Include="Rung.Extension.cs" />
     <Compile Include="ILSentence.cs" />
     <Compile Include="Point.cs" />

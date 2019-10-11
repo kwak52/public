@@ -20,12 +20,19 @@ namespace PLCConvertor.Forms
 
         public string Contents => textBox1.Text;
 
+        static int _selectedIndex;
         public MnemonicInput SelectedMnemonicInput;
         private void FormInputSelector_Load(object sender, EventArgs args)
         {
             comboBox1.DataSource = MnemonicInput.Inputs;
             comboBox1.DisplayMember = "Comment";
-            comboBox1.SelectedIndexChanged += (s, e) => { textBox1.TextChanged -= TextChanged; UpdateTextArea(); textBox1.TextChanged += TextChanged; };
+            comboBox1.SelectedIndex = _selectedIndex;
+            comboBox1.SelectedIndexChanged += (s, e) => {
+                textBox1.TextChanged -= TextChanged;
+                _selectedIndex = comboBox1.SelectedIndex;
+                UpdateTextArea();
+                textBox1.TextChanged += TextChanged;
+            };
             cbAllowEdit.CheckedChanged += (s, e) => textBox1.ReadOnly = !cbAllowEdit.Checked;
             btnOK.Click += (s, e) => DialogResult = DialogResult.OK;
 

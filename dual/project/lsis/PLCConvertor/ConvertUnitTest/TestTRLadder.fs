@@ -1,4 +1,4 @@
-﻿module TestTRLadder
+﻿module Conv
 
 open Xunit
 open Xunit.Abstractions
@@ -6,13 +6,13 @@ open FsUnit.Xunit
 open System
 open Dsu.PLCConvertor.Common
 open System.Diagnostics
+open Dsu.PLCConvertor.Common.Internal
 
 
-type TestLadder(output1:ITestOutputHelper) =
+type Conv(output1:ITestOutputHelper) =
     let testRung (m:MnemonicInput) n =
         let comment = m.Comment
-        let rung = m.Input |> Rung.CreateRung
-        let converted = Rung2ILConvertor.Convert(rung) |> String.concat "\r\n"
+        let converted = Rung2ILConvertor.ConvertFromMnemonics(m.Input) |> String.concat "\r\n"
         let co = MnemonicInput.CommentOutMultiple
 
         sprintf "Inspecting %s(%d)" m.Comment n |> Trace.WriteLine
@@ -30,12 +30,24 @@ type TestLadder(output1:ITestOutputHelper) =
 
     /// TR type ladder test
     [<Fact>]
-    member __.``TR Ladder Test OK`` () =
+    member __.``Ladder Test TR`` () =
+        MnemonicInput.InputsTR
+            |> Array.iteri (fun n m -> testRung m n )
+
+    /// ladder test OK
+    [<Fact>]
+    member __.``Ladder Test OK`` () =
         MnemonicInput.InputsOK
             |> Array.iteri (fun n m -> testRung m n )
 
-    /// TR type ladder test
+    /// ladder test NG
     [<Fact>]
-    member __.``TR Ladder Test NG`` () =
+    member __.``Ladder Test NG`` () =
         MnemonicInput.InputsNG
             |> Array.iteri (fun n m -> testRung m n )
+
+
+    /// CXT parsing
+    [<Fact>]
+    member __.``Test CXT parser`` () =
+        new CxtParser(@"F:\solutions\dual\project\lsis\PLCConvertor\Documents\TestRung.cxt")

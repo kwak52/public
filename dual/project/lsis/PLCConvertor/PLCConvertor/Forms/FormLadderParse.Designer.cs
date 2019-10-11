@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
@@ -39,30 +39,31 @@
             this.btnEnd = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.cbRemoveAuxNode = new System.Windows.Forms.CheckBox();
+            this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanelMnemonics = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.listBoxControlMnemonics = new DevExpress.XtraEditors.ListBoxControl();
-            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
-            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.dockPanelAnswer = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.listBoxControlAnswer = new DevExpress.XtraEditors.ListBoxControl();
+            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
+            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.btnNewForm = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockPanel1.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelContainer1.SuspendLayout();
             this.dockPanelMnemonics.SuspendLayout();
             this.dockPanel2_Container.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listBoxControlMnemonics)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
             this.dockPanelAnswer.SuspendLayout();
             this.controlContainer1.SuspendLayout();
-            this.panelContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listBoxControlAnswer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -113,6 +114,7 @@
             // 
             // dockPanel1_Container
             // 
+            this.dockPanel1_Container.Controls.Add(this.btnNewForm);
             this.dockPanel1_Container.Controls.Add(this.pictureBox1);
             this.dockPanel1_Container.Controls.Add(this.btnEnd);
             this.dockPanel1_Container.Controls.Add(this.btnNext);
@@ -164,6 +166,18 @@
             this.cbRemoveAuxNode.UseVisualStyleBackColor = true;
             this.cbRemoveAuxNode.CheckedChanged += new System.EventHandler(this.CbRemoveAuxNode_CheckedChanged);
             // 
+            // panelContainer1
+            // 
+            this.panelContainer1.Controls.Add(this.dockPanelMnemonics);
+            this.panelContainer1.Controls.Add(this.dockPanelAnswer);
+            this.panelContainer1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
+            this.panelContainer1.ID = new System.Guid("a7df967b-19c9-4a73-b541-8c07818eed2b");
+            this.panelContainer1.Location = new System.Drawing.Point(946, 0);
+            this.panelContainer1.Name = "panelContainer1";
+            this.panelContainer1.OriginalSize = new System.Drawing.Size(200, 200);
+            this.panelContainer1.Size = new System.Drawing.Size(200, 650);
+            this.panelContainer1.Text = "panelContainer1";
+            // 
             // dockPanelMnemonics
             // 
             this.dockPanelMnemonics.Controls.Add(this.dockPanel2_Container);
@@ -191,23 +205,6 @@
             this.listBoxControlMnemonics.Size = new System.Drawing.Size(185, 283);
             this.listBoxControlMnemonics.TabIndex = 0;
             // 
-            // documentManager1
-            // 
-            this.documentManager1.ContainerControl = this;
-            this.documentManager1.View = this.tabbedView1;
-            this.documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
-            this.tabbedView1});
-            // 
-            // tabbedView1
-            // 
-            this.tabbedView1.DocumentGroups.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup[] {
-            this.documentGroup1});
-            this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
-            this.document1});
-            dockingContainer1.Element = this.documentGroup1;
-            this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer1});
-            // 
             // dockPanelAnswer
             // 
             this.dockPanelAnswer.Controls.Add(this.controlContainer1);
@@ -227,18 +224,6 @@
             this.controlContainer1.Size = new System.Drawing.Size(185, 286);
             this.controlContainer1.TabIndex = 0;
             // 
-            // panelContainer1
-            // 
-            this.panelContainer1.Controls.Add(this.dockPanelMnemonics);
-            this.panelContainer1.Controls.Add(this.dockPanelAnswer);
-            this.panelContainer1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
-            this.panelContainer1.ID = new System.Guid("a7df967b-19c9-4a73-b541-8c07818eed2b");
-            this.panelContainer1.Location = new System.Drawing.Point(946, 0);
-            this.panelContainer1.Name = "panelContainer1";
-            this.panelContainer1.OriginalSize = new System.Drawing.Size(200, 200);
-            this.panelContainer1.Size = new System.Drawing.Size(200, 650);
-            this.panelContainer1.Text = "panelContainer1";
-            // 
             // listBoxControlAnswer
             // 
             this.listBoxControlAnswer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -246,6 +231,33 @@
             this.listBoxControlAnswer.Name = "listBoxControlAnswer";
             this.listBoxControlAnswer.Size = new System.Drawing.Size(185, 286);
             this.listBoxControlAnswer.TabIndex = 0;
+            // 
+            // documentManager1
+            // 
+            this.documentManager1.ContainerControl = this;
+            this.documentManager1.View = this.tabbedView1;
+            this.documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
+            this.tabbedView1});
+            // 
+            // tabbedView1
+            // 
+            this.tabbedView1.DocumentGroups.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup[] {
+            this.documentGroup1});
+            this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
+            this.document1});
+            dockingContainer2.Element = this.documentGroup1;
+            this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
+            dockingContainer2});
+            // 
+            // btnNewForm
+            // 
+            this.btnNewForm.Location = new System.Drawing.Point(213, 10);
+            this.btnNewForm.Name = "btnNewForm";
+            this.btnNewForm.Size = new System.Drawing.Size(75, 23);
+            this.btnNewForm.TabIndex = 4;
+            this.btnNewForm.Text = "+";
+            this.btnNewForm.UseVisualStyleBackColor = true;
+            this.btnNewForm.Click += new System.EventHandler(this.BtnNewForm_Click);
             // 
             // FormLadderParse
             // 
@@ -263,15 +275,15 @@
             this.dockPanel1_Container.ResumeLayout(false);
             this.dockPanel1_Container.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelContainer1.ResumeLayout(false);
             this.dockPanelMnemonics.ResumeLayout(false);
             this.dockPanel2_Container.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listBoxControlMnemonics)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
             this.dockPanelAnswer.ResumeLayout(false);
             this.controlContainer1.ResumeLayout(false);
-            this.panelContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listBoxControlAnswer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -295,5 +307,6 @@
         private DevExpress.XtraBars.Docking.DockPanel dockPanelAnswer;
         private DevExpress.XtraBars.Docking.ControlContainer controlContainer1;
         private DevExpress.XtraEditors.ListBoxControl listBoxControlAnswer;
+        private System.Windows.Forms.Button btnNewForm;
     }
 }

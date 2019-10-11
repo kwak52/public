@@ -43,9 +43,10 @@
             this.ucPanelLog1 = new PLCConvertor.UcPanelLog();
             this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.panelMain = new System.Windows.Forms.Panel();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.panelMain = new System.Windows.Forms.Panel();
+            this.barButtonItemCxtParse = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -78,9 +79,10 @@
             this.ribbon.ExpandCollapseItem.Id = 0;
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
-            this.barButtonItemTestParse});
+            this.barButtonItemTestParse,
+            this.barButtonItemCxtParse});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 2;
+            this.ribbon.MaxItemId = 3;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -104,6 +106,7 @@
             // ribbonPageGroupTest
             // 
             this.ribbonPageGroupTest.ItemLinks.Add(this.barButtonItemTestParse);
+            this.ribbonPageGroupTest.ItemLinks.Add(this.barButtonItemCxtParse);
             this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
             this.ribbonPageGroupTest.Text = "Test";
             // 
@@ -179,6 +182,14 @@
             this.controlContainer1.Size = new System.Drawing.Size(1190, 501);
             this.controlContainer1.TabIndex = 0;
             // 
+            // panelMain
+            // 
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(0, 0);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(1190, 501);
+            this.panelMain.TabIndex = 0;
+            // 
             // documentManager1
             // 
             this.documentManager1.ContainerControl = this;
@@ -197,13 +208,12 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
-            // panelMain
+            // barButtonItemCxtParse
             // 
-            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(0, 0);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1190, 501);
-            this.panelMain.TabIndex = 0;
+            this.barButtonItemCxtParse.Caption = "CXT";
+            this.barButtonItemCxtParse.Id = 2;
+            this.barButtonItemCxtParse.Name = "barButtonItemCxtParse";
+            this.barButtonItemCxtParse.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonItemCxtParse_ItemClick);
             // 
             // FormPLCConverter
             // 
@@ -251,5 +261,6 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup documentGroup1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
         private System.Windows.Forms.Panel panelMain;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemCxtParse;
     }
 }
