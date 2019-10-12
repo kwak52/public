@@ -9,6 +9,9 @@
         protected AuxNode(string name) : base(name)
         {
         }
+        protected AuxNode(string name, ILSentence sentence) : base(name, sentence)
+        {
+        }
     }
 
 
@@ -37,8 +40,8 @@
 
     public class TRNode : AuxNode
     {
-        public TRNode(string name)
-            : base(name)
+        public TRNode(string name, ILSentence sentence)
+            : base(name, sentence)
         {
         }
     }
@@ -54,8 +57,8 @@
 
     public class TerminalNode : Point
     {
-        public TerminalNode(string name)
-            : base(name)
+        public TerminalNode(string name, ILSentence sentence)
+            : base(name, sentence)
         {
         }
     }

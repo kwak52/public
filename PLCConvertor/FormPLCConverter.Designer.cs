@@ -34,8 +34,12 @@
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barButtonItemTestParse = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemCxtParse = new DevExpress.XtraBars.BarButtonItem();
+            this.barEditItemSource = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemComboBoxSource = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroupOptions = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
@@ -46,10 +50,12 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.barButtonItemCxtParse = new DevExpress.XtraBars.BarButtonItem();
+            this.barEditItemTarget = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemComboBoxTarget = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBoxSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockPanelLog.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
@@ -57,6 +63,7 @@
             this.controlContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBoxTarget)).BeginInit();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -80,12 +87,17 @@
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
             this.barButtonItemTestParse,
-            this.barButtonItemCxtParse});
+            this.barButtonItemCxtParse,
+            this.barEditItemSource,
+            this.barEditItemTarget});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 3;
+            this.ribbon.MaxItemId = 5;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
+            this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemComboBoxSource,
+            this.repositoryItemComboBoxTarget});
             this.ribbon.Size = new System.Drawing.Size(1196, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
@@ -96,10 +108,32 @@
             this.barButtonItemTestParse.Name = "barButtonItemTestParse";
             this.barButtonItemTestParse.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonItemTestParse_ItemClick);
             // 
+            // barButtonItemCxtParse
+            // 
+            this.barButtonItemCxtParse.Caption = "CXT";
+            this.barButtonItemCxtParse.Id = 2;
+            this.barButtonItemCxtParse.Name = "barButtonItemCxtParse";
+            this.barButtonItemCxtParse.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonItemCxtParse_ItemClick);
+            // 
+            // barEditItemSource
+            // 
+            this.barEditItemSource.Caption = "Source";
+            this.barEditItemSource.Edit = this.repositoryItemComboBoxSource;
+            this.barEditItemSource.Id = 3;
+            this.barEditItemSource.Name = "barEditItemSource";
+            // 
+            // repositoryItemComboBoxSource
+            // 
+            this.repositoryItemComboBoxSource.AutoHeight = false;
+            this.repositoryItemComboBoxSource.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemComboBoxSource.Name = "repositoryItemComboBoxSource";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroupTest});
+            this.ribbonPageGroupTest,
+            this.ribbonPageGroupOptions});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "ribbonPage1";
             // 
@@ -109,6 +143,13 @@
             this.ribbonPageGroupTest.ItemLinks.Add(this.barButtonItemCxtParse);
             this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
             this.ribbonPageGroupTest.Text = "Test";
+            // 
+            // ribbonPageGroupOptions
+            // 
+            this.ribbonPageGroupOptions.ItemLinks.Add(this.barEditItemSource);
+            this.ribbonPageGroupOptions.ItemLinks.Add(this.barEditItemTarget);
+            this.ribbonPageGroupOptions.Name = "ribbonPageGroupOptions";
+            this.ribbonPageGroupOptions.Text = "Options";
             // 
             // ribbonStatusBar
             // 
@@ -208,12 +249,19 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
-            // barButtonItemCxtParse
+            // barEditItemTarget
             // 
-            this.barButtonItemCxtParse.Caption = "CXT";
-            this.barButtonItemCxtParse.Id = 2;
-            this.barButtonItemCxtParse.Name = "barButtonItemCxtParse";
-            this.barButtonItemCxtParse.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.BarButtonItemCxtParse_ItemClick);
+            this.barEditItemTarget.Caption = "Target";
+            this.barEditItemTarget.Edit = this.repositoryItemComboBoxTarget;
+            this.barEditItemTarget.Id = 4;
+            this.barEditItemTarget.Name = "barEditItemTarget";
+            // 
+            // repositoryItemComboBoxTarget
+            // 
+            this.repositoryItemComboBoxTarget.AutoHeight = false;
+            this.repositoryItemComboBoxTarget.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemComboBoxTarget.Name = "repositoryItemComboBoxTarget";
             // 
             // FormPLCConverter
             // 
@@ -231,6 +279,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBoxSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.dockPanelLog.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
@@ -238,6 +287,7 @@
             this.controlContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBoxTarget)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,5 +312,10 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
         private System.Windows.Forms.Panel panelMain;
         private DevExpress.XtraBars.BarButtonItem barButtonItemCxtParse;
+        private DevExpress.XtraBars.BarEditItem barEditItemSource;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBoxSource;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupOptions;
+        private DevExpress.XtraBars.BarEditItem barEditItemTarget;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBoxTarget;
     }
 }

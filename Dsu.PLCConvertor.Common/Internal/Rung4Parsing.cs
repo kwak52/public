@@ -1,4 +1,5 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.PLCConvertor.Common.Internal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,6 +18,7 @@ namespace Dsu.PLCConvertor.Common
         /// Rung build 중에 작업하고 있는 현재의 sub rung
         /// </summary>
         public SubRung CurrentBuildingLD { get; private set; }
+        SubRung _cbld => CurrentBuildingLD;
 
         string[] _mnemonics;
 
@@ -29,10 +31,27 @@ namespace Dsu.PLCConvertor.Common
         /// 현재 parsing 진행 중인 니모닉의 index
         /// </summary>
         public int CurrentMnemonicIndex { get; private set; } = -1;
-        public Rung4Parsing(IEnumerable<string> mnemonics)
+
+
+        internal PLCVendor _targetType;
+        PLCVendor _sourceType;
+        string _strMPush = "MPUSH";
+        string _strMPop = "MPOP";
+        string _strMLoad = "MLOAD";
+        string _strLD = "LD";
+
+        public Rung4Parsing(IEnumerable<string> mnemonics, PLCVendor sourceType, PLCVendor targetType)
         {
             _mnemonics = mnemonics.ToArray();
             LadderStack = new Stack<SubRung>();
+            _targetType = targetType;
+            _sourceType = sourceType;
+
+
+            _strMPush = IL.GetOperator(_targetType, Mnemonic.MPUSH);
+            _strMPop = IL.GetOperator(_targetType, Mnemonic.MPOP);
+            _strMLoad = IL.GetOperator(_targetType, Mnemonic.MLOAD);
+            _strLD = "LD";
         }
 
         /// <summary>
@@ -50,47 +69,47 @@ namespace Dsu.PLCConvertor.Common
                 CurrentMnemonicIndex = i;
                 Logger?.Info($"IL: {m}");
 
-                var sentence = new ILSentence(m);
+                var sentence = ILSentence.Create(_sourceType, m);
                 var arg0 = sentence.Args.IsNullOrEmpty() ? null : sentence.Args[0];
                 var arg0N = new Point(arg0) { ILSentence = sentence };
                 switch (sentence.Command)
                 {
                     case "LD" when arg0.StartsWith("TR"):
-                        CurrentBuildingLD.LDTR(arg0);
+                        _cbld.LDTR(arg0);
                         break;
 
                     case "LD":
                     case "LDNOT":
-                        if (CurrentBuildingLD != null)
-                            LadderStack.Push(CurrentBuildingLD);
+                        if (_cbld != null)
+                            LadderStack.Push(_cbld);
                         CurrentBuildingLD = new SubRung(this, arg0N);
                         break;
 
                     case "ANDNOT":
                         Logger?.Warn("ANDNOT : assume AND");
-                        CurrentBuildingLD.AND(arg0N, sentence);
+                        _cbld.AND(arg0N, sentence);
                         break;
                     case "AND":
-                        CurrentBuildingLD.AND(arg0N, sentence);
+                        _cbld.AND(arg0N, sentence);
                         break;
 
                     case "ANDLD":
-                        CurrentBuildingLD = LadderStack.Pop().ANDLD(CurrentBuildingLD);
+                        CurrentBuildingLD = LadderStack.Pop().ANDLD(_cbld);
                         break;
 
                     case "OR":
                     case "ORNOT":
-                        CurrentBuildingLD.OR(arg0N, sentence);
+                        _cbld.OR(arg0N, sentence);
                         break;
                     case "ORLD":
-                        CurrentBuildingLD = LadderStack.Pop().ORLD(CurrentBuildingLD);
+                        CurrentBuildingLD = LadderStack.Pop().ORLD(_cbld);
                         break;
 
                     case "OUT" when arg0 != null && arg0.StartsWith("TR"):
-                        CurrentBuildingLD.OUTTR(new TRNode(arg0), sentence);
+                        _cbld.OUTTR(new TRNode(arg0, sentence), sentence);
                         break;
                     case "OUT":
-                        CurrentBuildingLD.OUT(new TerminalNode($"{sentence}"), sentence);
+                        _cbld.OUT(new TerminalNode($"{sentence}", sentence), sentence);
                         break;
                     default:
                         Logger?.Error($"Unknown IL: {m}");
@@ -100,28 +119,59 @@ namespace Dsu.PLCConvertor.Common
                 yield return i++;
             }
 
-            CurrentBuildingLD.Nodes
+            _cbld.Nodes
                 .OfType<AuxNode>()
-                .Where(n => CurrentBuildingLD.GetOutgoingDegree(n) > 1)
+                .Where(n => _cbld.GetOutgoingDegree(n) > 1)
                 .Iter(n =>
                 {
-                    CurrentBuildingLD.GetOutgoingEdges(n)
+                    _cbld.GetOutgoingEdges(n)
                         .Iter((e, nth) =>
                         {
                             e.Data.Comment = $"[{nth}]{e.Data.Output}";
                         });
                 });
 
-            CurrentBuildingLD.Nodes
-                .OfType<TRNode>()
-                .Iter(n =>
+
+            var mpush = _targetType.IsMPushModel();
+            var trNodes =
+                _cbld.Nodes
+                    .OfType<TRNode>()
+                    .ToArray();
+
+                trNodes.Iter(n =>
                 {
-                    var outg = CurrentBuildingLD.GetOutgoingEdges(n).ToArray();
+                    var outg = _cbld.GetOutgoingEdges(n).ToArray();
                     outg[0].Data.Comment += "MPUSH//222";
-                    outg[0].Data.Output = "MPUSH";
-                    outg[outg.Length - 1].Data.Output = "MPOP";
-                    if (outg.Length > 2)
-                        outg.Skip(1).Take(outg.Length - 2).Iter(m => m.Data.Output = "MREAD");
+
+                    if (mpush)
+                    {
+                        // see: TR Buggy123
+                        // 
+                        var secondStepOutTr =
+                            outg
+                                .Skip(1)
+                                .Where(e => e.End is EndNode)
+                                .SelectMany(e => _cbld.GetOutgoingEdges(e.End).Where(e2 => e2.End.ILSentence.Command == "AND"))
+                                .ToArray()
+                                ;
+                        secondStepOutTr.Iter(e =>
+                        {
+                            _cbld.AddEdge(n, e.End);
+                            _cbld.RemoveEdge(e.Start, e.End);
+                        });
+
+
+                        outg = _cbld.GetOutgoingEdges(n).ToArray();
+                        outg[0].Data.Output = _strMPush;    // "MPUSH";
+                        outg[outg.Length - 1].Data.Output = _strMPop;   // "MPOP";
+                        if (outg.Length > 2)
+                            outg.Skip(1).Take(outg.Length - 2).Iter(m => m.Data.Output = _strMLoad);    //  "MLOAD"
+                    }
+                    else
+                    {
+                        outg[0].Data.Output = $"{n.ILSentence}";
+                        outg.Skip(1).Iter(m => m.Data.Output = $"{_strLD} {n.ILSentence.Args[0]}");                            
+                    }
                 });
 
             Debug.Assert(LadderStack.IsNullOrEmpty());
@@ -137,7 +187,7 @@ namespace Dsu.PLCConvertor.Common
         public Rung ToRung(bool removeAuxNode=true)
         {
             var rung = new Rung(_mnemonics);
-            rung.MergeGraph(CurrentBuildingLD);
+            rung.MergeGraph(_cbld);
             if (removeAuxNode)
             {
                 {
