@@ -1,5 +1,7 @@
 ﻿using Dsu.Common.Utilities.Graph;
+using Dsu.PLCConvertor.Common.Internal;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Dsu.PLCConvertor.Common
@@ -16,6 +18,7 @@ namespace Dsu.PLCConvertor.Common
         /// Stack Rung 이 아닌, 현재 build 중인 current active ladder
         /// </summary>
         Rung4Parsing _masterRung;
+        string GetOperator(Mnemonic op) => IL.GetOperator(_masterRung._targetType, op);
         Dictionary<AuxNode, SubRung> TRmap => _masterRung.TRmap;
 
         public SubRung(Rung4Parsing masterRung, Point node)
@@ -62,6 +65,22 @@ namespace Dsu.PLCConvertor.Common
 
         public void AND(Point node, ILSentence sentence)
         {
+            //if (node.Name == "0.06")
+            //    System.Console.WriteLine("");
+
+            //if (_end.Name.StartsWith("END:TR"))
+            //{
+            //    var trNode = this.GetTheIncomingNode(_end, true);
+            //    Debug.Assert(trNode is TRNode);
+            //    Add(node);
+            //    AddEdge(trNode, node);
+            //    _end = this.AddNode(new EndNode("END//456")) as EndNode;
+            //    AddEdge(node, _end);
+
+            //    return;
+            //}
+
+
             AppendToEndNode(node);
         }
 
@@ -74,7 +93,7 @@ namespace Dsu.PLCConvertor.Common
             MergeGraph(next);
             AddEdge(_end, next._start);
             var dummy = this.AddNode(new DummyNode("Dummy"));
-            AddEdge(next._end, dummy, new Wire("ANDLD") { Comment = "//999" });
+            AddEdge(next._end, dummy, new Wire(GetOperator(Mnemonic.ANDLD)) { Comment = "//999" });
             var newEnd = this.AddNode(new EndNode("END//123")) as EndNode;
             AddEdge(dummy, newEnd);
 
@@ -109,7 +128,7 @@ namespace Dsu.PLCConvertor.Common
             MergeGraph(next);
 
             AddEdge(_start, next._start, new Wire() { Comment = $"//ORLD//1" });
-            AddEdge(next._end, _end, new Wire("ORLD"));
+            AddEdge(next._end, _end, new Wire(GetOperator(Mnemonic.ORLD)));
 
             return this;
         }

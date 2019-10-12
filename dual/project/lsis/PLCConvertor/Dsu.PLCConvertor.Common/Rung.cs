@@ -18,13 +18,13 @@ namespace Dsu.PLCConvertor.Common
         {
             Mnemonics = mnemonics.ToArray();
         }
-        public static Rung CreateRung(IEnumerable<string> mnemonics)
+        public static Rung CreateRung(IEnumerable<string> mnemonics, PLCVendor sourceType, PLCVendor targetType)
         {
-            var r4p = new Rung4Parsing(mnemonics);
+            var r4p = new Rung4Parsing(mnemonics, sourceType, targetType);
             r4p.CoRoutineRungParser().ToArray();
             return r4p.ToRung();
         }
-        public static Rung CreateRung(string mnemonics) => CreateRung(MnemonicInput.MultilineString2Array(mnemonics));
+        public static Rung CreateRung(string mnemonics, PLCVendor sourceType, PLCVendor targetType) => CreateRung(MnemonicInput.MultilineString2Array(mnemonics), sourceType, targetType);
         /// <summary>
         /// Rung 을 구성하는 IL 목록
         /// </summary>

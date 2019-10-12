@@ -52,7 +52,7 @@ namespace Dsu.PLCConvertor.Common
                     OUT O2
                 ",
                 @"
-                    LD A
+                    LOAD A
                     MPUSH
                     AND B
                     OUT O1

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Dsu.PLCConvertor.Common
@@ -32,6 +33,11 @@ namespace Dsu.PLCConvertor.Common
         public Point(string name)
         {
             Name = name;
+        }
+        public Point(string name, ILSentence sentence)
+            : this(name)
+        {
+            ILSentence = sentence;
         }
 
         public override string ToString()

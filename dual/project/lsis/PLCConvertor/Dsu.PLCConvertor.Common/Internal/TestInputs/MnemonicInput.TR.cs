@@ -21,7 +21,7 @@ namespace Dsu.PLCConvertor.Common
                     OUT 2.01
                 ",
                 @"
-                    LD 0.01
+                    LOAD 0.01
                     OR 0.06
                     MPUSH
                     AND 0.07
@@ -44,11 +44,11 @@ namespace Dsu.PLCConvertor.Common
                     OUT 102.10
                 ",
                 @"
-                    LD 0.00
+                    LOAD 0.00
                     MPUSH
                     AND 0.01
                     OUT 110.00
-                    MREAD
+                    MLOAD
                     AND 110.00
                     OUT 103.00
                     MPOP//2
@@ -73,13 +73,13 @@ namespace Dsu.PLCConvertor.Common
                     OUT 2.01
                 ",
                 @"
-                    LD 0.01
-                    LD 0.02
+                    LOAD 0.01
+                    LOAD 0.02
                     AND 0.03
-                    ORLD
-                    LD 0.04
+                    OR LOAD
+                    LOAD 0.04
                     OR 0.05
-                    ANDLD
+                    AND LOAD
                     OR 0.06
                     MPUSH
                     AND 0.07
@@ -88,6 +88,38 @@ namespace Dsu.PLCConvertor.Common
                     OUT 2.01
                     "
                 ),
+            new MnemonicInput("TR Buggy123",
+                @"
+                    LD 0.01
+                    LD 0.04
+                    AND 0.03
+                    ORLD
+                    OUT TR0
+                    AND 0.02
+                    OUT 1.00
+                    LD TR0
+                    OUT 1.01
+                    AND 0.06
+                    OUT 1.02
+                    AND 0.08
+                    OUT 1.03
+                ",
+                @"
+                    LOAD 0.01
+                    LOAD 0.04
+                    AND 0.03
+                    OR LOAD
+                    MPUSH
+                    AND 0.02
+                    OUT 1.00
+                    MLOAD
+                    OUT 1.01
+                    MPOP
+                    AND 0.06
+                    OUT 1.02
+                    AND 0.08
+                    OUT 1.03
+                "),
         };
     }
 }

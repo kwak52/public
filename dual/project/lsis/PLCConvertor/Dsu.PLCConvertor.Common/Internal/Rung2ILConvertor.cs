@@ -1,6 +1,7 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.Common.Utilities.Graph;
 using log4net;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,9 +15,11 @@ namespace Dsu.PLCConvertor.Common
     {
         ILog Logger = Global.Logger;
         Rung _rung;
-        Rung2ILConvertor(Rung rung)
+        PLCVendor _targetType;
+        Rung2ILConvertor(Rung rung, PLCVendor targetType)
         {
             _rung = rung;
+            _targetType = targetType;
         }
 
 
@@ -80,7 +83,7 @@ namespace Dsu.PLCConvertor.Common
                     break;
 
                 case TRNode trn:
-                    xs = FollowEdgeStack();
+                    xs = FollowEdgeStack().ToArray();
                     foreach (var x in xs)
                         yield return x;
                     break;
@@ -92,7 +95,7 @@ namespace Dsu.PLCConvertor.Common
 
                 // Output node 를 비롯한 출력단의 node.  output node 자신을 출력하고 stack 의 내용을 따라간다.
                 case TerminalNode tln:
-                    yield return tln.Name;
+                    yield return tln.ToIL(_targetType);
                     xs = FollowEdgeStack();
                     foreach (var x in xs)
                         yield return x;
@@ -100,7 +103,7 @@ namespace Dsu.PLCConvertor.Common
 
                 // 기본 data node
                 default:
-                    yield return node.ILSentence.ToString();
+                    yield return node.ToIL(_targetType);
                     break;
             }
 
@@ -177,14 +180,34 @@ namespace Dsu.PLCConvertor.Common
         }
 
 
-        public static string[] Convert(Rung rung) => new Rung2ILConvertor(rung).Convert().ToArray();
+        public static string[] Convert(Rung rung, PLCVendor targetType) => new Rung2ILConvertor(rung, targetType).Convert().ToArray();
 
-        public static string[] ConvertFromMnemonics(string mnemonics) => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics));
-        public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics)
+        public static string[] ConvertFromMnemonics(string mnemonics, PLCVendor sourceType, PLCVendor targetType)
+            => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics), sourceType, targetType);
+        public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, PLCVendor sourceType, PLCVendor targetType)
         {
-            var rung = new Rung4Parsing(mnemonics);
+            var rung = new Rung4Parsing(mnemonics, sourceType, targetType);
             rung.CoRoutineRungParser().ToArray();
-            return new Rung2ILConvertor(rung.ToRung(false)).Convert().ToArray();
+            return new Rung2ILConvertor(rung.ToRung(false), targetType).Convert().ToArray();
         }
+    }
+
+
+
+    internal static class PointExtension
+    {
+        public static string ToIL(this Point point, PLCVendor targetType) => ILSentence.Create(targetType, point.ILSentence).ToString();
+
+        //public static IEnumerable<string> ToIL(this Point point, PLCVendor targetType)
+        //{
+        //    switch(targetType)
+        //    {
+        //        case PLCVendor.LSIS:
+        //            yield return new LSILSentence(point.ILSentence).ToString();
+        //            yield break;
+        //        default:
+        //            throw new NotImplementedException("");
+        //    }
+        //}
     }
 }

@@ -37,11 +37,16 @@ namespace PLCConvertor
             //    Logger.Debug($"Destination server IP: {config.DestinationDBServerIp}");
             //}
 
+            repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
+            barEditItemSource.EditValue = PLCVendor.Omron;
+
+            repositoryItemComboBoxTarget.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
+            barEditItemTarget.EditValue = PLCVendor.LSIS;
         }
         void TestConversion()
         {
             var inputs = MnemonicInput.Inputs[0].Input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            var rung = Rung.CreateRung(inputs);
+            var rung = Rung.CreateRung(inputs, PLCVendor.Omron, PLCVendor.LSIS);
             var graph = rung.GraphViz();
             var _pictureBox = new PictureBox() { Image = graph, Dock = DockStyle.Fill };
             var _formGraphviz = new Form() { Size = new Size(800, 500) };
@@ -59,7 +64,11 @@ namespace PLCConvertor
                 // dockPanelMain 이 embeding control 이 잘 안되서 panelMain 을 dockPanelMain 에 삽입
                 if (_lastEmbeddedForm != null)
                     panelMain.Controls.Remove(_lastEmbeddedForm);
-                _lastEmbeddedForm = new FormLadderParse(formILs.SelectedMnemonicInput);
+
+                var source = (PLCVendor)barEditItemSource.EditValue;
+                var target = (PLCVendor)barEditItemTarget.EditValue;
+
+                _lastEmbeddedForm = new FormLadderParse(formILs.SelectedMnemonicInput, source, target);
                 _lastEmbeddedForm.Show();                
                 _lastEmbeddedForm.EmbedToControl(panelMain);
 
