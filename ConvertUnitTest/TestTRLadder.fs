@@ -34,8 +34,10 @@ type Conv(output1:ITestOutputHelper) =
                 |> Array.ofSeq
             let transformed2 =
                 String.Join("\r\n", transformed)
-            let p1 = co(m.Input) = converted
-            let p2 = transformed2 = converted
+            let p1 =
+                let inp = co(m.Input)
+                inp = converted
+            let p2 = co(transformed2) = converted
             if (not correct && not p1 && not p2) then
                 ()
                 

@@ -12,57 +12,144 @@ namespace Dsu.PLCConvertor.Common
         {
             new MnemonicInput("TR Complex2",
                 @"
-                    LD 0.1
-                    OR 0.2
-                    OR 0.3
-                    OR 0.4
-                    LD 0.6
-                    OR 0.7
-                    ANDLD
-                    OR 0.5
-                    LD 0.8
-                    OR 0.9
-                    OR 0.10
-                    OR 0.11
-                    ANDLD
-                    OUT TR0
-                    LD 0.12
-                    OR 0.13
-                    LD 0.18
-                    OR 0.19
-                    OR 0.20
-                    ANDLD
-                    OR 0.14
-                    ANDLD
-                    OUT TR1
-                    AND 0.24
-                    OUT 1.1
-                    LD TR1
-                    LD 0.25
-                    OR 0.25
-                    OR 0.27
-                    ANDLD
-                    OUT 1.2
-                    OUT 1.3
-                    OUT 1.4
-                    LD TR0
-                    LD 0.15
-                    OR 0.16
-                    ANDLD
-                    LD 0.21
-                    OR 0.22
-                    OR 0.23
-                    ANDLD
-                    OUT 1.5
-                    OUT 1.6
-                    OUT 1.7
-                    LD TR0
-                    OUT 1.8
-                    AND 0.17
-                    OUT 1.9
-                    OUT 1.10
-
-                "),
+                    LD	P00000
+                    OR	P00001
+                    OR	P00002
+                    OR	P00003
+                    OR	P00004
+                    OR	P00005
+                    OR	P00006
+                    OUT	TR0
+                    LD	P00007
+                    OR	P00008
+                    LD	P0000B
+                    OR	P0000C
+                    OR	P0000D
+                    OR	P0000E
+                    OR	P0000F
+                    ANDLD	
+                    OR	P00009
+                    ANDLD	
+                    OUT	TR1
+                    LD	P00010
+                    OR	P00011
+                    OR	P00012
+                    ANDLD	
+                    OUT	TR2
+                    LD	P00015
+                    OR	P00016
+                    OR	P00017
+                    OR	P00018
+                    OR	P00019
+                    ANDLD	
+                    OUT	TR3
+                    AND	P0001A
+                    OUT	TR4
+                    AND	P0001C
+                    LD	P0001E
+                    OR	P0001F
+                    OR	P00020
+                    OR	P00021
+                    ANDLD	
+                    OUT	TR5
+                    OUT	P00100
+                    AND	P00022
+                    OUT	P00101
+                    LD	TR5
+                    AND	P00023
+                    OUT	P00102
+                    LD	TR5
+                    OUT	P00103
+                    AND	P00024
+                    OUT	P00104
+                    LD	TR4
+                    AND	P0001D
+                    OUT	P00105
+                    LD	TR3
+                    AND	P0001B
+                    OUT	P00106
+                    LD	TR2
+                    OUT	P00107
+                    LD	TR1
+                    AND	P00013
+                    OUT	P00108
+                    LD	TR1
+                    AND	P00014
+                    OUT	P00109
+                    LD	TR0
+                    AND	P0000A
+                    OUT	P00110
+                ",
+                @"
+                    LOAD	P00000
+                    OR	P00001
+                    OR	P00002
+                    OR	P00003
+                    OR	P00004
+                    OR	P00005
+                    OR	P00006
+                    MPUSH	
+                    LOAD	P00007
+                    OR	P00008
+                    LOAD	P0000B
+                    OR	P0000C
+                    OR	P0000D
+                    OR	P0000E
+                    OR	P0000F
+                    AND LOAD	
+                    OR	P00009
+                    AND LOAD	
+                    MPUSH	
+                    LOAD	P00010
+                    OR	P00011
+                    OR	P00012
+                    AND LOAD	
+                    MPUSH	
+                    LOAD	P00015
+                    OR	P00016
+                    OR	P00017
+                    OR	P00018
+                    OR	P00019
+                    AND LOAD	
+                    MPUSH	
+                    AND	P0001A
+                    MPUSH	
+                    AND	P0001C
+                    LOAD	P0001E
+                    OR	P0001F
+                    OR	P00020
+                    OR	P00021
+                    AND LOAD	
+                    MPUSH	
+                    OUT	P00100
+                    AND	P00022
+                    OUT	P00101
+                    MLOAD	
+                    AND	P00023
+                    OUT	P00102
+                    MLOAD	
+                    OUT	P00103
+                    MPOP	
+                    AND	P00024
+                    OUT	P00104
+                    MPOP	
+                    AND	P0001D
+                    OUT	P00105
+                    MPOP	
+                    AND	P0001B
+                    OUT	P00106
+                    MPOP	
+                    OUT	P00107
+                    MLOAD	
+                    AND	P00013
+                    OUT	P00108
+                    MPOP	
+                    AND	P00014
+                    OUT	P00109
+                    MPOP	
+                    AND	P0000A
+                    OUT	P00110
+                    "),
             new MnemonicInput("산전 변환 불가 case: TR Basic3",
                 @"
                     LD 0.00

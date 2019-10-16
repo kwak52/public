@@ -4,6 +4,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -98,7 +99,14 @@ namespace PLCConvertor.Forms
                 }
             }
             if (!correct)
+            {
+                var ans = answer.Replace("\r\n", "\\n");
+                var con = converted.Replace("\r\n", "\\n");
+                Trace.WriteLine($"ANSWER:{ans}");
+                Trace.WriteLine($"CONVET:{con}");
+
                 Logger?.Error($"Convert mismatch.  Desired output:\r\n{answer}");
+            }
 
             return image;
         }

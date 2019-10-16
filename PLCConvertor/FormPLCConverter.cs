@@ -8,6 +8,8 @@ using PLCConvertor.Forms;
 using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.Common.Utilities.Forms;
 using Dsu.PLCConvertor.Common.Internal;
+using System.Linq;
+using System.Diagnostics;
 
 namespace PLCConvertor
 {
@@ -78,7 +80,7 @@ namespace PLCConvertor
 
         private void BarButtonItemCxtParse_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            new CxtParser(@"F:\solutions\dual\project\lsis\PLCConvertor\Documents\TestRung.cxt");
+            Cx2Xg5k.Convert(@"..\Documents\TestRung.cxt", @"..\Documents\TestRung.qtx", "", "");
         }
     }
 }

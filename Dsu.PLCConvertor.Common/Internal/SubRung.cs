@@ -65,22 +65,6 @@ namespace Dsu.PLCConvertor.Common
 
         public void AND(Point node, ILSentence sentence)
         {
-            //if (node.Name == "0.06")
-            //    System.Console.WriteLine("");
-
-            //if (_end.Name.StartsWith("END:TR"))
-            //{
-            //    var trNode = this.GetTheIncomingNode(_end, true);
-            //    Debug.Assert(trNode is TRNode);
-            //    Add(node);
-            //    AddEdge(trNode, node);
-            //    _end = this.AddNode(new EndNode("END//456")) as EndNode;
-            //    AddEdge(node, _end);
-
-            //    return;
-            //}
-
-
             AppendToEndNode(node);
         }
 
