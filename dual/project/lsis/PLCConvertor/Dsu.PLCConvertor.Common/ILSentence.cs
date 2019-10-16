@@ -34,7 +34,7 @@ namespace Dsu.PLCConvertor.Common
 
         public override string ToString()
         {
-            return $"{Command} {string.Join(" ", Args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
+            return $"{Command}\t{string.Join(" ", Args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
         }
 
         public static ILSentence Create(PLCVendor vendorType, string sentence)

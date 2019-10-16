@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Dsu.PLCConvertor.Common.Internal
 {
+    /// <summary>
+    /// IL 변환을 위한 class
+    /// </summary>
     public class IL
     {
+        /// <summary>
+        /// LSIS Xg5000 을 위한 { mnemonic -> 문자 mnemonic } 참조용 dictionary
+        /// </summary>
         static Dictionary<Mnemonic, string> _dicLSIS = new Dictionary<Mnemonic, string>()
         {
             [Mnemonic.LOAD] = "LOAD",
@@ -20,9 +26,13 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.MPUSH] = "MPUSH",
             [Mnemonic.MLOAD] = "MLOAD",
             [Mnemonic.MPOP] = "MPOP",
+            [Mnemonic.END] = "END",
         };
 
 
+        /// <summary>
+        /// 옴론 CX-One 을 위한 { mnemonic -> 문자 mnemonic } 참조용 dictionary
+        /// </summary>
         static Dictionary<Mnemonic, string> _dicOmron = new Dictionary<Mnemonic, string>()
         {
             [Mnemonic.LOAD] = "LD",
@@ -32,12 +42,21 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.ORLD] = "ORLD",
             [Mnemonic.OUT] = "OUT",
 
+            // 옴론은 MPush/MLoad/MPop 을 이용하지 않음
             [Mnemonic.MPUSH] = "--ERROR:MPUSH",
             [Mnemonic.MLOAD] = "--ERROR:MLOAD",
             [Mnemonic.MPOP] = "--ERROR:MPOP",
+            [Mnemonic.END] = "END(001)",
         };
 
+        /// <summary>
+        /// _dicLSIS 의 반대방향 참조용 dictionary.  mnemonic 문자열로 mnemonic 을 검색
+        /// </summary>
         static Dictionary<string, Mnemonic> _reverseDicLSIS;
+
+        /// <summary>
+        /// _dicOmron 의 반대방향 참조용 dictionary.  mnemonic 문자열로 mnemonic 을 검색
+        /// </summary>
         static Dictionary<string, Mnemonic> _reverseDicOmron;
 
         static IL()
@@ -67,10 +86,19 @@ namespace Dsu.PLCConvertor.Common.Internal
             };
         }
 
+        /// <summary>
+        /// targetType 에 맞는 mnemoinc 의 문자열을 반환
+        /// </summary>
         public static string GetOperator(PLCVendor targetType, Mnemonic op) => GetDictionary(targetType)[op];
+        /// <summary>
+        /// targetType 에 맞는 문자열의 mnemoinc 값을 반환
+        /// </summary>
         public static Mnemonic GetMnemonic(PLCVendor targetType, string op) => GetReversedDictionary(targetType)[op];
     }
 
+    /// <summary>
+    /// IL mnemonic 열거
+    /// </summary>
     public enum Mnemonic
     {
         LOAD,
@@ -80,6 +108,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         MPUSH,
         MLOAD,
         MPOP,
+        END,
     }
 
 }

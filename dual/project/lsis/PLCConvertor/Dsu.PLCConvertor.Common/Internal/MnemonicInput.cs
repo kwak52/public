@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Dsu.PLCConvertor.Common
 {
@@ -14,11 +12,17 @@ namespace Dsu.PLCConvertor.Common
         public string Comment { get; private set; }
 
         public static string CommentPrefix { get; set; } = "//";
+
+        /// <summary>
+        /// multiline 문자열 입력을 라인단위로 쪼갠후, 빈 문자열 제거하고 앞뒤 공백문자나 comment 문자로 시작하는 라인 제거하여
+        /// array 문자열로 반환
+        /// </summary>
         public static string[] MultilineString2Array(string input) =>
                 input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
                 .Where(m => !string.IsNullOrWhiteSpace(m))
                 .Select(m => TrimSingle(m))
-                .Select(m => Regex.Replace(m, $"{CommentPrefix}.*", ""))
+                .Select(m => m.Replace('\t', ' '))
+                .Select(m => Regex.Replace(m, $"{CommentPrefix}.*", ""))    // 코멘트 이후 라인 끝까지 제거
                 .ToArray()
                 ;
 
@@ -48,7 +52,6 @@ namespace Dsu.PLCConvertor.Common
                     .SelectMany(inp => inp)
                     .ToArray()
                 ;
-                //return InputsOK.Concat(InputsTR.Concat(InputsNG)).ToArray();
             }
         }
     }

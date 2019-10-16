@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -16,11 +17,6 @@ namespace Dsu.PLCConvertor.Common
         static int _guid = 0;
         public int Guid { get; } = ++_guid;
         public ILSentence ILSentence { get; set; }
-
-        ///// <summary>
-        ///// User tag object
-        ///// </summary>
-        //internal NodeInfo4ILConvert NodeInfo { get; set; }
 
         public bool Equals(Point other)
         {
@@ -44,6 +40,18 @@ namespace Dsu.PLCConvertor.Common
         {
             var il = ILSentence == null ? "" : ILSentence.ToString();
             return il.Contains(Name) ? il : $"{Name}({ILSentence})";
+        }
+
+        public string ToShortString()
+        {
+            if (ILSentence == null)
+                return Name;
+
+
+            if (ILSentence.Args.Length == 0)
+                return ILSentence.Command.IsNullOrEmpty() ? Name : ILSentence.Command;
+            
+            return ILSentence.Args[0].ToString();
         }
     }
 }

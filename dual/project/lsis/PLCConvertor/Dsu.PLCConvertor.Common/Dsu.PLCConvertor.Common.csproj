@@ -45,8 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cx2Xg5k.cs" />
     <Compile Include="Internal\Common.Extension.cs" />
+    <Compile Include="Internal\CxtParser\CxtInfoRoot.cs" />
+    <Compile Include="Internal\CxtParser\CxtLineInfo.cs" />
     <Compile Include="Internal\CxtParser\CxtParser.cs" />
+    <Compile Include="Internal\CxtParser\CxtTextBlock.cs" />
     <Compile Include="Internal\Global.cs" />
     <Compile Include="Internal\ILOperator.cs" />
     <Compile Include="Internal\MnemonicInput.cs" />

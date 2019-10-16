@@ -55,6 +55,8 @@ namespace Dsu.PLCConvertor.Common
 
             IEnumerable<string> xs;
 
+            bool followedMe = false;
+
             // 현재 node 처리
             switch (node)
             {
@@ -80,9 +82,17 @@ namespace Dsu.PLCConvertor.Common
                             break;
                         }
                     }
+                    //xs = FollowNodeOutgoingEdges(en).ToArray();
+                    //foreach (var x in xs)
+                    //    yield return x;
                     break;
 
                 case TRNode trn:
+                    followedMe = true;
+                    xs = FollowMe().ToArray();
+                    foreach (var x in xs)
+                        yield return x;
+
                     xs = FollowEdgeStack().ToArray();
                     foreach (var x in xs)
                         yield return x;
@@ -107,18 +117,27 @@ namespace Dsu.PLCConvertor.Common
                     break;
             }
 
-            // 현재 node 의 outgoing edge 를 따라가기
-            var oes = _rung.GetOutgoingEdges(node).ToArray();
-            if (oes.Length == 0)
-                yield break;
-            else
+            if (! followedMe )
             {
-                if (oes.Length > 1)
-                    _edgeStack.PushMultiples(oes.Skip(1));
-
-                xs = FollowEdge(oes[0]).ToArray();
+                xs = FollowMe().ToArray();
                 foreach (var x in xs)
                     yield return x;
+            }
+            IEnumerable<string> FollowMe()
+            {
+                // 현재 node 의 outgoing edge 를 따라가기
+                var oes = _rung.GetOutgoingEdges(node).ToArray();
+                if (oes.Length == 0)
+                    yield break;
+                else
+                {
+                    if (oes.Length > 1)
+                        _edgeStack.PushMultiples(oes.Skip(1));
+
+                    xs = FollowEdge(oes[0]).ToArray();
+                    foreach (var x in xs)
+                        yield return x;
+                }
             }
 
             // Edge stack 에 존재하는 edge 를 따라가기

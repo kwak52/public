@@ -90,7 +90,7 @@ namespace Dsu.PLCConvertor.Common
             {
                 var styles = string.Join(", ", generateStyles()).NonNullEmptySelector("shape=rectangle");
                 //return $"\t\"{GetId(n)}\" [{styles}, label=<{n.Name}>];";
-                return $"\t\"{GetId(n)}\" [{styles}, label=<{n.ToString()}>];";
+                return $"\t\"{GetId(n)}\" [{styles}, label=<{n.ToShortString()}>];";
 
                 IEnumerable<string> generateStyles()
                 {
@@ -147,6 +147,12 @@ namespace Dsu.PLCConvertor.Common
                 .Where(n => /*n != start &&*/ rung.GetOutgoingDegree(n) == 0);
         }
 
+        /// <summary>
+        /// rung graㅔㅗ 
+        /// </summary>
+        /// <param name="rung"></param>
+        /// <param name="start"></param>
+        /// <returns></returns>
         public static IEnumerable<Point> ReverseDepthFirstSearch(this Rung rung, Point start)
         {
             var stack = new Stack<Point>();
@@ -186,6 +192,9 @@ namespace Dsu.PLCConvertor.Common
             return isCircular;
         }
 
+        /// <summary>
+        /// node 의 유일한 incoming node 를 반환한다.   incoming node 갯수가 하나가 아니면 fail 하거나 null 을 return 한다.
+        /// </summary>
         public static Point GetTheIncomingNode(this Rung rung, Point node, bool returnNullOnFail)
         {
             var incNodes = rung.GetIncomingNodes(node).ToArray();
@@ -198,6 +207,9 @@ namespace Dsu.PLCConvertor.Common
             throw new Exception($"Incoming Node is not uniq.  Num incoming nodes={incNodes.Length}");            
         }
 
+        /// <summary>
+        /// node 의 유일한 outgoing node 를 반환한다.   outgoing node 갯수가 하나가 아니면 fail 하거나 null 을 return 한다.
+        /// </summary>
         public static Point GetTheOutgoingNode(this Rung rung, Point node, bool returnNullOnFail)
         {
             var outgNodes = rung.GetOutgoingNodes(node).ToArray();
@@ -210,6 +222,9 @@ namespace Dsu.PLCConvertor.Common
             throw new Exception($"Outgoing Node is not uniq.  Num outgoing nodes={outgNodes.Length}");
         }
 
+        /// <summary>
+        /// rung 의 graph 에서 node 를 삭제한다.  단 rung graph 상에서 node 의 incoming / outgoing edge 는 서로 연결해서 복원한다.
+        /// </summary>
         public static void OmitPoint(this Rung rung, Point node)
         {
             var ies = rung.GetIncomingEdges(node).ToArray(); // 컬렉션이 수정되었습니다.  열거 작업이 ..
