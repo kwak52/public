@@ -10,6 +10,7 @@ using Dsu.Common.Utilities.Forms;
 using Dsu.PLCConvertor.Common.Internal;
 using System.Linq;
 using System.Diagnostics;
+using System.IO;
 
 namespace PLCConvertor
 {
@@ -80,7 +81,20 @@ namespace PLCConvertor
 
         private void BarButtonItemCxtParse_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            Cx2Xg5k.Convert(@"..\Documents\TestRung.cxt", @"..\Documents\TestRung.qtx", "", "");
+            using (var ofd = new OpenFileDialog())
+            {
+                var cxtPath = @"..\Documents\TestRung.cxt";
+                ofd.Filter = "CXT file(*.cxt)|*.cxt|All files(*.*)|*.*";
+                ofd.RestoreDirectory = true;
+                if (ofd.ShowDialog() == DialogResult.OK)
+                    cxtPath = ofd.FileName;
+
+                var qtxFile = $"{Path.GetFileNameWithoutExtension(cxtPath)}.qtx";
+                var qtxPath = Path.Combine(Path.GetDirectoryName(cxtPath), qtxFile);
+                Logger?.Info($"Parsing {cxtPath}");
+
+                Cx2Xg5k.Convert(cxtPath, qtxPath, "", "");
+            }
         }
     }
 }

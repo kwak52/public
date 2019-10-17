@@ -89,13 +89,27 @@ namespace PLCConvertor.Forms
             var input = MnemonicInput.CommentOutMultiple(_mnemonicInput.Input);
             var answer = input;
             bool correct = input == converted;
-            if (!correct && _mnemonicInput.DesiredOutputs != null)
+            if (!correct)
             {
-                var answers = _mnemonicInput.DesiredOutputs.Select(o => MnemonicInput.CommentOutMultiple(o)).ToArray();
-                if (answers.NonNullAny())
+                if (_mnemonicInput.DesiredOutputs == null)
                 {
-                    correct = answers.Any(o => o == converted);
-                    answer = answers[0];
+                    var perSentenceTransform =
+                        string.Join("\r\n",
+                            MnemonicInput.MultilineString2Array(input)
+                            .Select(m => new LSILSentence(new OmronILSentence(m)))
+                            .Select(m => m.ToString()));
+                    if (perSentenceTransform.Replace('\t', ' ') == converted)
+                        correct = true;
+
+                }
+                else
+                {
+                    var answers = _mnemonicInput.DesiredOutputs.Select(o => MnemonicInput.CommentOutMultiple(o)).ToArray();
+                    if (answers.NonNullAny())
+                    {
+                        correct = answers.Any(o => o == converted);
+                        answer = answers[0];
+                    }
                 }
             }
             if (!correct)

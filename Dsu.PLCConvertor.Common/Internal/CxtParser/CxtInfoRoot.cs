@@ -60,17 +60,15 @@ namespace Dsu.PLCConvertor.Common.Internal
 
         public IEnumerable<string> Convert(PLCVendor targetType)
         {
-            switch (targetType)
-            {
-                case PLCVendor.LSIS:
-                    yield return $"[PROGRAM FILE] {Name}";
-                    break;
-
-                default:
-                    Debug.Assert(false);
-                    break;
-            }
-
+#if DEBUG
+            Global.Logger.Info($"SecName={Name}");
+            this.EnumerateType<CxtInfoRung>()
+                .Where(rung => rung.ILs.NonNullAny())
+                .Where(rung => !rung.ILs[0].StartsWith("END"))
+                .Iter(rung => {
+                    rung.ILs.Iter(il => Global.Logger.Debug($"{il}"));
+                });
+#endif
 
             var secConversion =
                 this.EnumerateType<CxtInfoRung>()
@@ -82,9 +80,24 @@ namespace Dsu.PLCConvertor.Common.Internal
                         return Rung2ILConvertor.ConvertFromMnemonics(ils, PLCVendor.Omron, PLCVendor.LSIS);
                     });
 
-            var xs = secConversion.Select((line, n) => $"{n}\t{line}");
-            foreach (var x in xs)
-                yield return x;
+            var xs = secConversion.Select((line, n) => $"{n}\t{line}").ToArray();
+            if (xs.NonNullAny())
+            {
+
+                switch (targetType)
+                {
+                    case PLCVendor.LSIS:
+                        yield return $"[PROGRAM FILE] {Name}";
+                        break;
+
+                    default:
+                        Debug.Assert(false);
+                        break;
+                }
+
+                foreach (var x in xs)
+                    yield return x;
+            }
         }
     }
 

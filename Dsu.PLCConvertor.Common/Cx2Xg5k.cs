@@ -19,7 +19,15 @@ namespace Dsu.PLCConvertor.Common
         {
             var cxt = CxtInfoRoot.Parse(cxtFile);
             var sections = cxt.EnumerateType<CxtInfoSection>();
-            var secsConverted = sections.SelectMany(sec => sec.Convert(PLCVendor.LSIS));
+            var secWithResult =
+                sections
+                .Select(sec => new { Section = sec, Converted = sec.Convert(PLCVendor.LSIS) })
+                .Where(pr => pr.Converted.NonNullAny())
+                .ToArray()
+                ;
+
+            var validSections = secWithResult.Select(pr => pr.Section).ToArray();
+            var secsConverted = validSections.SelectMany(sec => sec.Convert(PLCVendor.LSIS));
             var lines =
                 new[] { GenerateHeader(), secsConverted, GenerateFooter() }
                 .SelectMany(ls => ls)
@@ -35,7 +43,7 @@ namespace Dsu.PLCConvertor.Common
                 yield return "[PROGRAM LIST]";
 
                 // 각 프로그램 (section) 이름 출력
-                var xs = sections.Select(sec => sec.Name);
+                var xs = validSections.Select(sec => sec.Name);
                 foreach (var x in xs)
                     yield return x;
                 
