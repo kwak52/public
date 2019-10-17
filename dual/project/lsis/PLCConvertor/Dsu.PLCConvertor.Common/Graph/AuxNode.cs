@@ -4,7 +4,7 @@
     /// <summary>
     /// Parsing 을 위해서 보조적으로 사용되는 node
     /// </summary>
-    public class AuxNode : Point
+    internal class AuxNode : Point
     {
         protected AuxNode(string name) : base(name)
         {
@@ -15,7 +15,7 @@
     }
 
 
-    public class StartNode : AuxNode
+    internal class StartNode : AuxNode
     {
         public StartNode(string name)
             : base(name)
@@ -27,7 +27,7 @@
     /// <summary>
     /// Parsing 을 위해서 보조적으로 사용되는 node
     /// </summary>
-    public class EndNode : AuxNode
+    internal class EndNode : AuxNode
     {
         public EndNode(string name)
             : base($"END:{name}")
@@ -38,7 +38,7 @@
     }
 
 
-    public class TRNode : AuxNode
+    internal class TRNode : AuxNode
     {
         public TRNode(string name, ILSentence sentence)
             : base(name, sentence)
@@ -46,7 +46,7 @@
         }
     }
 
-    public class DummyNode : AuxNode
+    internal class DummyNode : AuxNode
     {
         public DummyNode(string name)
             : base(name)
@@ -55,7 +55,7 @@
     }
 
 
-    public class TerminalNode : Point
+    internal class TerminalNode : Point
     {
         public TerminalNode(string name, ILSentence sentence)
             : base(name, sentence)

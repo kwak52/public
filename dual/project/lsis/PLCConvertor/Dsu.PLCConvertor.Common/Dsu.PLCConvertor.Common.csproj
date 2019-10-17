@@ -62,15 +62,15 @@
     <Compile Include="Internal\Rung2ILConvertor.cs" />
     <Compile Include="Internal\Unused\Rung2ILConvertor.Unused.cs" />
     <Compile Include="PLCVendor.cs" />
-    <Compile Include="Rung.Extension.cs" />
+    <Compile Include="Graph\Rung.Extension.cs" />
     <Compile Include="ILSentence.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="Graph\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AuxNode.cs" />
+    <Compile Include="Graph\AuxNode.cs" />
     <Compile Include="Internal\Rung4Parsing.cs" />
     <Compile Include="Internal\SubRung.cs" />
-    <Compile Include="Rung.cs" />
-    <Compile Include="Wire.cs" />
+    <Compile Include="Graph\Rung.cs" />
+    <Compile Include="Graph\Wire.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
