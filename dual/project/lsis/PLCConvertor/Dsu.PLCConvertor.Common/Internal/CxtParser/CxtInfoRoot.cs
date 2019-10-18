@@ -88,6 +88,11 @@ namespace Dsu.PLCConvertor.Common.Internal
                 {
                     case PLCVendor.LSIS:
                         yield return $"[PROGRAM FILE] {Name}";
+
+                        foreach (var x in xs)
+                            yield return x;
+
+                        yield return "[PROGRAM FILE END]";
                         break;
 
                     default:
@@ -95,8 +100,6 @@ namespace Dsu.PLCConvertor.Common.Internal
                         break;
                 }
 
-                foreach (var x in xs)
-                    yield return x;
             }
         }
     }
