@@ -76,7 +76,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                     .Where(rung => !rung.ILs[0].StartsWith("END"))
                     .SelectMany(rung =>
                     {
-                        var ils = rung.ILs.Where(il => !il.StartsWith("'"));
+                        var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//"));
                         return Rung2ILConvertor.ConvertFromMnemonics(ils, PLCVendor.Omron, PLCVendor.LSIS);
                     });
 

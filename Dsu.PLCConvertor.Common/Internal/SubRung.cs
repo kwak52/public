@@ -19,7 +19,7 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         Rung4Parsing _masterRung;
         string GetOperator(Mnemonic op) => IL.GetOperator(_masterRung._targetType, op);
-        Dictionary<AuxNode, SubRung> TRmap => _masterRung.TRmap;
+        Dictionary<TRNode, SubRung> TRmap => _masterRung.TRmap;
 
         public SubRung(Rung4Parsing masterRung, Point node)
         {
@@ -127,8 +127,13 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// TR node 구성 : (old end) -- tr -- (new end)
         /// </summary>
-        public void OUTTR(AuxNode tr, ILSentence sentence)
+        public void OUTTR(TRNode tr, ILSentence sentence)
         {
+            // CXP 의 IL 에서 OUTTR 값이 재사용되는 경우가 있으므로, 재사용시에는 기존의 것을 삭제해야 한다.
+            var exising = TRmap.Keys.FirstOrDefault(k => k.ILSentence.Args[0] == sentence.Args[0]);
+            if (exising != null)
+                TRmap.Remove(exising);
+
             TRmap.Add(tr, this);
             Add(tr);
             AddEdge(_end, tr);

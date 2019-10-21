@@ -17,15 +17,19 @@ namespace Dsu.PLCConvertor.Common.Internal
         static Dictionary<Mnemonic, string> _dicLSIS = new Dictionary<Mnemonic, string>()
         {
             [Mnemonic.LOAD] = "LOAD",
+            [Mnemonic.LOADNOT] = "LOAD NOT",
             [Mnemonic.AND] = "AND",
+            [Mnemonic.ANDNOT] = "AND NOT",
             [Mnemonic.ANDLD] = "AND LOAD",
             [Mnemonic.OR] = "OR",
+            [Mnemonic.ORNOT] = "OR NOT",
             [Mnemonic.ORLD] = "OR LOAD",
             [Mnemonic.OUT] = "OUT",
 
             [Mnemonic.MPUSH] = "MPUSH",
             [Mnemonic.MLOAD] = "MLOAD",
             [Mnemonic.MPOP] = "MPOP",
+            [Mnemonic.TON] = "TON",
             [Mnemonic.END] = "END",
         };
 
@@ -36,9 +40,12 @@ namespace Dsu.PLCConvertor.Common.Internal
         static Dictionary<Mnemonic, string> _dicOmron = new Dictionary<Mnemonic, string>()
         {
             [Mnemonic.LOAD] = "LD",
+            [Mnemonic.LOADNOT] = "LDNOT",
             [Mnemonic.AND] = "AND",
+            [Mnemonic.ANDNOT] = "ANDNOT",
             [Mnemonic.ANDLD] = "ANDLD",
             [Mnemonic.OR] = "OR",
+            [Mnemonic.ORNOT] = "ORNOT",
             [Mnemonic.ORLD] = "ORLD",
             [Mnemonic.OUT] = "OUT",
 
@@ -46,6 +53,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.MPUSH] = "--ERROR:MPUSH",
             [Mnemonic.MLOAD] = "--ERROR:MLOAD",
             [Mnemonic.MPOP] = "--ERROR:MPOP",
+            [Mnemonic.TON] = "TIM",
             [Mnemonic.END] = "END(001)",
         };
 
@@ -101,13 +109,14 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// </summary>
     public enum Mnemonic
     {
-        LOAD,
-        AND, ANDLD,
-        OR, ORLD,
+        LOAD, LOADNOT,      
+        AND, ANDNOT, ANDLD,
+        OR, ORNOT, ORLD,
         OUT,
         MPUSH,
         MLOAD,
         MPOP,
+        TON,
         END,
     }
 

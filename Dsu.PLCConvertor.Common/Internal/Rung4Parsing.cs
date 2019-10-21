@@ -12,7 +12,7 @@ namespace Dsu.PLCConvertor.Common
     /// </summary>
     internal class Rung4Parsing : Rung
     {
-        public Dictionary<AuxNode, SubRung> TRmap = new Dictionary<AuxNode, SubRung>();
+        public Dictionary<TRNode, SubRung> TRmap = new Dictionary<TRNode, SubRung>();
 
         /// <summary>
         /// Rung build 중에 작업하고 있는 현재의 sub rung
@@ -121,6 +121,8 @@ namespace Dsu.PLCConvertor.Common
                     case "OUT" when arg0 != null && arg0.StartsWith("TR"):
                         _cbld.OUTTR(new TRNode(arg0, sentence), sentence);
                         break;
+
+                    case "TIM": // timer output
                     case "OUT":
                         _cbld.OUT(new TerminalNode($"{sentence}", sentence), sentence);
                         break;
