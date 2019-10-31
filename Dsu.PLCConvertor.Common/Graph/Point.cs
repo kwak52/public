@@ -17,6 +17,7 @@ namespace Dsu.PLCConvertor.Common
         static int _guid = 0;
         public int Guid { get; } = ++_guid;
         public ILSentence ILSentence { get; set; }
+        public int Arity => ILSentence == null ? -1 : ILSentence.Arity;
 
         public bool Equals(Point other)
         {
@@ -42,7 +43,7 @@ namespace Dsu.PLCConvertor.Common
             return il.Contains(Name) ? il : $"{Name}({ILSentence})";
         }
 
-        public string ToShortString()
+        public virtual string ToShortString()
         {
             if (ILSentence == null)
                 return Name;

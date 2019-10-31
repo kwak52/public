@@ -48,7 +48,7 @@ namespace Dsu.PLCConvertor.Common
 
         internal static MnemonicInput[] Inputs { get {
                 return 
-                    new[] { InputsOK, InputsTR, InputsComplex, InputsBUG, InputsNG, }
+                    new[] { InputsOK, InputsTR, InputsComplex, InputsSpecial, InputsBUG, InputsNG, }
                     .SelectMany(inp => inp)
                     .ToArray()
                 ;

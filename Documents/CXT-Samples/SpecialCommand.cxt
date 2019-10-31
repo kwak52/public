@@ -2,7 +2,7 @@ CXProgVer:="1.5";
 WrittenByCXPVersion:="9.70";
 FileType:=1;
 Created:="19 10 2019 19 23 44";
-Modified:="20 10 2019 20 55 41";
+Modified:="23 10 2019 21 53 10";
 Name:="NewProject";
 Core:=
 BEGIN
@@ -40,7 +40,7 @@ BEGIN
   IOTable:=
   BEGIN
    Data:=
-$?St$Bk?_#[73]
+$?St$Bk?_#[37]
 5B 4F 4D 52 4F 4E 2E 49 4F 20 54 61 62 6C 65 2E 43 6F 6D 70 6F 6E 65 6E 74 5D 20 43 4A 31 4D 20
 43 50 55 31 31 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -129,9 +129,9 @@ $?St$Bk?_#[73]
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00
-$?St$Bk?_#[73]
+$?St$Bk?_#[37]
    UnitSetup:=
-$?St$Bk?_#[74]
+$?St$Bk?_#[38]
 00 06 78 40 91 A3 06 44 12 22 3D 44 4C 89 21 02 84 93 32 78 E8 FA C5 0C 9C CD 18 42 87 08 DD 96
 64 C0 88 91 A3 45 0C 98 5D 39 9B D2 E4 0D 59 84 25 4E C2 B4 29 DB D4 67 B5 7D EC 87 C2 A8 79 23
 C7 4A 19 B9 AD DF 8D 26 69 DC CA 0C 18 22 7C F0 70 42 E7 8E 11 36 64 E4 6A AF 64 88 78 D9 94 21
@@ -154,7 +154,7 @@ C2 0C 57 44 11 37 64 E1 6D C9 4C 88 98 50 5A 67 D8 4D C6 4C 88 98 4C 29 37 FC 9D
 6D C2 13 33 57 9B 43 66 0E 95 B7 75 E1 86 2C 8C ED 85 88 C9 33 DA 4E 9B 30 74 61 EC 28 44 CC 7C
 3B 6C D8 94 21 1B F3 57 17 0E 63 F0 D2 0D 56 22 02 8E 8F 06 0A 12 24 6C 39 A8 AF 1C 0D 0A DF D2
 94 3C 73 EF B0 E0 48 34 75 9B 1C B5 DF 06 FC 03
-$?St$Bk?_#[74]
+$?St$Bk?_#[38]
   END;
   ProgramCheckOptions:=
   BEGIN
@@ -181,18 +181,18 @@ $?St$Bk?_#[74]
  GlobalVariables:=
  BEGIN
   VariableList:=
-  BEGIN_LIST_$#[75]
+  BEGIN_LIST_$#[39]
    ,0,CHANNEL,,t1;
-  END_LIST_$#[75];
+  END_LIST_$#[39];
   VariableCount:=1;
   VariableMultiCommentList:=
-  BEGIN_LIST_$#[76]
-  END_LIST_$#[76];
+  BEGIN_LIST_$#[40]
+  END_LIST_$#[40];
   VariableMultiCommentCount:=0;
   VariableMultiCommentTypeCount:=16;
   VariablePredefinedMultiCommentList:=
-  BEGIN_LIST_$#[77]
-  END_LIST_$#[77];
+  BEGIN_LIST_$#[41]
+  END_LIST_$#[41];
   VariablePredefinedMultiCommentCount:=0;
   POUInstances:=
   BEGIN
@@ -210,7 +210,7 @@ $?St$Bk?_#[74]
    Name:="NewProgram1";
    FileType:=2;
    Created:="19 10 2019 19 23 47";
-   Modified:="20 10 2019 20 55 41";
+   Modified:="23 10 2019 21 53 10";
    Protection:=
    BEGIN
     Enabled:=0;
@@ -218,12 +218,12 @@ $?St$Bk?_#[74]
    LocalVariables:=
    BEGIN
     VariableList:=
-    BEGIN_LIST_$#[78]
-    END_LIST_$#[78];
+    BEGIN_LIST_$#[42]
+    END_LIST_$#[42];
     VariableCount:=0;
     VariableMultiCommentList:=
-    BEGIN_LIST_$#[79]
-    END_LIST_$#[79];
+    BEGIN_LIST_$#[43]
+    END_LIST_$#[43];
     VariableMultiCommentCount:=0;
     VariableMultiCommentTypeCount:=16;
     POUInstances:=
@@ -235,89 +235,36 @@ $?St$Bk?_#[74]
    OpStart:=1;
    Sections:=
    BEGIN
-    SC:=2;
+    SC:=6;
     Sec[0]:=
     BEGIN
      IEC1131Type:=11;
      CompileInline:=0;
      SecType:=0;
-     SecName:="타이머";
+     SecName:="카운터";
      ProgramData:=
      BEGIN
-      RC:=5;
+      RC:=2;
       R[0]:=
       BEGIN
-       Com:="";
+       Com:="Rung 주석입니다.";
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[80]
-LD 0.00
-TIM 0000 0
-$?St$Bk?_#[80]
+$?St$Bk?_#[44]
+'  R0
+LD 0.01
+AND 0.03
+LD 0.02
+OR 0.05
+CNT 0009 7
+$?St$Bk?_#[44]
        AtchCmts:=
        BEGIN
         CC:=0;
        END;
       END;
       R[1]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[81]
-LD 0.01
-LD 0.02
-TTIM(087) 0001 1
-$?St$Bk?_#[81]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[2]:=
-      BEGIN
-       Com:="Rung 주석입니다.";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[82]
-'  R0
-LD 0.01
-AND 0.03
-LD 0.02
-OR 0.05
-TTIM(087) 0001 1
-$?St$Bk?_#[82]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[3]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[83]
-LD 0.00
-OR 0.01
-LD 0.02
-OR 0.03
-OUT TR0
-TTIM(087) 0001 2
-LD TR0
-LD 0.05
-TTIM(087) 0001 2
-$?St$Bk?_#[83]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[4]:=
       BEGIN
        Com:="";
        Flags:="1,0";
@@ -335,6 +282,243 @@ $?St$Bk?_#[83]
      IEC1131Type:=11;
      CompileInline:=0;
      SecType:=0;
+     SecName:="타이머";
+     ProgramData:=
+     BEGIN
+      RC:=7;
+      R[0]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[45]
+LD 0.00
+TIM 0000 0
+$?St$Bk?_#[45]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[1]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[46]
+LD 0.00
+LD 0.01
+OR 0.02
+ANDLD
+TIM 0000 0
+$?St$Bk?_#[46]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[2]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[47]
+LD 0.01
+AND 0.01
+LD 0.02
+LD 0.04
+OR 0.03
+ANDLD
+TTIM(087) 0001 1
+$?St$Bk?_#[47]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[3]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[48]
+LD 0.01
+LD 0.02
+TTIM(087) 0001 1
+$?St$Bk?_#[48]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[4]:=
+      BEGIN
+       Com:="Rung 주석입니다.";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[49]
+'  R0
+LD 0.01
+AND 0.03
+LD 0.02
+OR 0.05
+TTIM(087) 0001 1
+$?St$Bk?_#[49]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[5]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[50]
+LD 0.00
+OR 0.01
+LD 0.02
+OR 0.03
+OUT TR0
+TTIM(087) 0001 2
+LD TR0
+LD 0.05
+TTIM(087) 0001 2
+$?St$Bk?_#[50]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[6]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:="";
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+     END;
+    END;
+    Sec[2]:=
+    BEGIN
+     IEC1131Type:=11;
+     CompileInline:=0;
+     SecType:=0;
+     SecName:="T1";
+     ProgramData:=
+     BEGIN
+      RC:=2;
+      R[0]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[51]
+LD 0.00
+LD 0.01
+OR 0.02
+ANDLD
+TIM 0000 0
+$?St$Bk?_#[51]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[1]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:="";
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+     END;
+    END;
+    Sec[3]:=
+    BEGIN
+     IEC1131Type:=11;
+     CompileInline:=0;
+     SecType:=0;
+     SecName:="T2";
+     ProgramData:=
+     BEGIN
+      RC:=1;
+      R[0]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:="";
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+     END;
+    END;
+    Sec[4]:=
+    BEGIN
+     IEC1131Type:=11;
+     CompileInline:=0;
+     SecType:=0;
+     SecName:="기타";
+     ProgramData:=
+     BEGIN
+      RC:=2;
+      R[0]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[52]
+LD 0.04
+LD 0.01
+AND 0.01
+LD 0.02
+LD 0.04
+OR 0.03
+ANDLD
+SFT(010) 10 20
+$?St$Bk?_#[52]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[1]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:="";
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+     END;
+    END;
+    Sec[5]:=
+    BEGIN
+     IEC1131Type:=11;
+     CompileInline:=0;
+     SecType:=0;
      SecName:="END";
      ProgramData:=
      BEGIN
@@ -345,9 +529,9 @@ $?St$Bk?_#[83]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[84]
+$?St$Bk?_#[53]
 END(001)
-$?St$Bk?_#[84]
+$?St$Bk?_#[53]
        AtchCmts:=
        BEGIN
         CC:=0;

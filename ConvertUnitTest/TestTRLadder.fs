@@ -11,9 +11,12 @@ open Dsu.PLCConvertor.Common.Internal
 
 type Conv(output1:ITestOutputHelper) =
     let testRung (m:MnemonicInput) n =
+        let old = LSILSentence.UseDirtyOperandReplaceImplementation;
+        LSILSentence.UseDirtyOperandReplaceImplementation <- false
         let comment = m.Comment
         let co = MnemonicInput.CommentOutMultiple
         let converted = Rung2ILConvertor.ConvertFromMnemonics(m.Input, PLCVendor.Omron, PLCVendor.LSIS) |> String.concat "\r\n" |> co
+
 
         sprintf "Inspecting %s(%d)" m.Comment n |> Trace.WriteLine
         sprintf "Inspecting %s" m.Comment |> output1.WriteLine
@@ -44,6 +47,7 @@ type Conv(output1:ITestOutputHelper) =
             p1 || p2
 
         (correct || correct2) |> should equal true
+        LSILSentence.UseDirtyOperandReplaceImplementation <- old
 
     /// TR type ladder test
     [<Fact>]
@@ -55,6 +59,18 @@ type Conv(output1:ITestOutputHelper) =
     [<Fact>]
     member __.``Ladder Test OK`` () =
         MnemonicInput.InputsOK
+            |> Array.iteri (fun n m -> testRung m n )
+
+    /// ladder test Complex
+    [<Fact>]
+    member __.``Ladder Test Complex`` () =
+        MnemonicInput.InputsComplex
+            |> Array.iteri (fun n m -> testRung m n )
+
+    /// ladder test Special
+    [<Fact>]
+    member __.``Ladder Test Special`` () =
+        MnemonicInput.InputsSpecial
             |> Array.iteri (fun n m -> testRung m n )
 
     /// ladder test NG

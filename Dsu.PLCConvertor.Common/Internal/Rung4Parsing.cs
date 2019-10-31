@@ -85,49 +85,59 @@ namespace Dsu.PLCConvertor.Common
                 var sentence = ILSentence.Create(_sourceType, m);
                 var arg0 = sentence.Args.IsNullOrEmpty() ? null : sentence.Args[0];
                 var arg0N = new Point(arg0) { ILSentence = sentence };
-                switch (sentence.Command)
+                var arity = sentence.ILCommand.Arity;
+
+
+                switch (sentence.Mnemonic)
                 {
-                    case "LD" when arg0.StartsWith("TR"):
+                    case Mnemonic.LOAD when arg0.StartsWith("TR"):
                         _cbld.LDTR(arg0);
                         break;
 
-                    case "LD":
-                    case "LDNOT":
+                    case Mnemonic.LOAD:
+                    case Mnemonic.LOADNOT:
                         if (_cbld != null)
                             LadderStack.Push(_cbld);
                         CurrentBuildingLD = new SubRung(this, arg0N);
                         break;
 
-                    case "ANDNOT":
+                    case Mnemonic.ANDNOT:
                         Logger?.Warn("ANDNOT : assume AND");
                         _cbld.AND(arg0N, sentence);
                         break;
-                    case "AND":
+                    case Mnemonic.AND:
                         _cbld.AND(arg0N, sentence);
                         break;
 
-                    case "ANDLD":
+                    case Mnemonic.ANDLD:
                         CurrentBuildingLD = LadderStack.Pop().ANDLD(_cbld);
                         break;
 
-                    case "OR":
-                    case "ORNOT":
+                    case Mnemonic.OR:
+                    case Mnemonic.ORNOT:
                         _cbld.OR(arg0N, sentence);
                         break;
-                    case "ORLD":
+                    case Mnemonic.ORLD:
                         CurrentBuildingLD = LadderStack.Pop().ORLD(_cbld);
                         break;
 
-                    case "OUT" when arg0 != null && arg0.StartsWith("TR"):
+                    case Mnemonic.OUT when arg0 != null && arg0.StartsWith("TR"):
                         _cbld.OUTTR(new TRNode(arg0, sentence), sentence);
                         break;
 
-                    case "TIM": // timer output
-                    case "OUT":
-                        _cbld.OUT(new TerminalNode($"{sentence}", sentence), sentence);
+                    case Mnemonic.TON: // timer output
+                    case Mnemonic.OUT:
+                        _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
                         break;
+
                     default:
-                        Logger?.Error($"Unknown IL: {m}");
+                        if (arity > 1)
+                        {
+                            _cbld.ConnectFunctionParameters(sentence, LadderStack);
+                            Console.WriteLine("");
+                        }
+                        else
+                            Logger?.Error($"Unknown IL: {m}");
                         break;
                 }
 
@@ -246,7 +256,7 @@ namespace Dsu.PLCConvertor.Common
                                     (nIn == 1 && nOut == 1       // passing node
                                                                  //&& !(rung.GetIncomingNodes(n).First() is AuxNode)
                                                                  //&& !(rung.GetOutgoingNodes(n).First() is AuxNode)
-                                                                 //&& !(rung.GetOutgoingNodes(n).First() is TerminalNode)
+                                                                 //&& !(rung.GetOutgoingNodes(n).First() is OutNode)
                                         )
                                     || isConsecutiveAuxNode(n)
                                     ;

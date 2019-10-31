@@ -7,7 +7,8 @@ using System.Linq;
 namespace Dsu.PLCConvertor.Common.Internal
 {
     /// <summary>
-    /// CXT file 구조를 담기 위한 구조
+    /// CXT file 구조를 담기 위한 구조.
+    /// 재귀적으로 활용.  CxtTextBlock 내에는 CxtTextBlock 가 sub structure 로 포함되는 구조
     /// </summary>
     [DebuggerDisplay("{Key}")]
     internal class CxtTextBlock
@@ -15,6 +16,9 @@ namespace Dsu.PLCConvertor.Common.Internal
         public string Key { get; internal set; }
         public object Value { get; internal set; }
 
+        /// <summary>
+        /// this 를 포함하는 parent 의 CxtTextBlock
+        /// </summary>
         public CxtTextBlock Parent { get; private set; }
 
         public List<CxtTextBlock> _subStructures = new List<CxtTextBlock>();

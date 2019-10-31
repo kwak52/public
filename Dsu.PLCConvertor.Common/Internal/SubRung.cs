@@ -1,4 +1,5 @@
-﻿using Dsu.Common.Utilities.Graph;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.Common.Utilities.Graph;
 using Dsu.PLCConvertor.Common.Internal;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,12 +39,23 @@ namespace Dsu.PLCConvertor.Common
         }
 
 
+        public SubRung(SubRung src)
+            : base(src)
+        {
+        }
+
+        public SubRung Duplicate() => new SubRung(this);
+
+
         /// <summary>
         /// oldEnd - node - newEnd
         /// </summary>
-        void AppendToEndNode(Point node)
+        void InsertBeforeEndNode(Point node)
         {
-            Add(node);
+            if (Nodes.Contains(node))
+                Logger?.Warn($"{node} already contained.");
+            else
+                Add(node);
 
             var theIncomingEnd = this.GetTheIncomingNode(_end, true);
             var hasOutgoingEnd = GetOutgoingDegree(_end) > 0;
@@ -65,7 +77,7 @@ namespace Dsu.PLCConvertor.Common
 
         public void AND(Point node, ILSentence sentence)
         {
-            AppendToEndNode(node);
+            InsertBeforeEndNode(node);
         }
 
 
@@ -153,5 +165,41 @@ namespace Dsu.PLCConvertor.Common
             Add(_end);
             AddEdge(tn, _end);
         }
+
+        public void ConnectFunctionParameters(ILSentence sentence, Stack<SubRung> stack)
+        {
+            var arity = sentence.Arity;
+            FunctionNode fNode = null;
+            switch(sentence.Mnemonic)
+            {
+                case Mnemonic.SFT:
+                case Mnemonic.TMR:
+                case Mnemonic.KEEP:
+                    fNode = FunctionNode.Create(sentence);
+                    Debug.Assert(stack.Count == arity - 1);
+                    fNode.Inputs.AddRange(stack);
+                    fNode.Inputs.Add(this.Duplicate());
+
+                    Add(fNode);
+
+                    while (stack.Any())
+                    {
+                        var subRung = stack.Pop();
+                        var subRungEnd = subRung.Sinks.First();
+                        this.MergeGraph(subRung);
+                        var edge = AddEdge(subRungEnd, fNode, new Wire($"{stack.Count}"));
+                    }
+
+
+                    var e = AddEdge(_end, fNode).Value;
+
+                    break;
+
+                default:
+                    Debug.Assert(false);
+                    break;
+            }
+        }
+
     }
 }
