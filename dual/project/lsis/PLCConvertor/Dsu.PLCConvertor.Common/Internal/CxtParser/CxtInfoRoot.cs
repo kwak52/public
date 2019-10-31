@@ -6,6 +6,10 @@ using System.Linq;
 
 namespace Dsu.PLCConvertor.Common.Internal
 {
+    /// <summary>
+    /// 옴론 project(.cxt) 파일을 읽어 들이기 위한 추상화된 정보
+    /// cxt 파일의 계층 구조를 text block 으로 해석하기 위한 구조
+    /// </summary>
     public abstract class CxtInfo
     {
         public string Key { get; private set; }
@@ -33,6 +37,10 @@ namespace Dsu.PLCConvertor.Common.Internal
     }
 
 
+    /// <summary>
+    /// 옴론 project(.cxt) 파일에서 rung 을 표현하기 위한 정보
+    /// Rung 은 다수의 il 문장을 포함한다.
+    /// </summary>
     public class CxtInfoRung : CxtInfo
     {
         public string Name { get; private set; }
@@ -47,6 +55,10 @@ namespace Dsu.PLCConvertor.Common.Internal
     }
 
 
+    /// <summary>
+    /// 옴론 project(.cxt) 파일에서 section 을 표현하기 위한 정보
+    /// section 은 다수의 rung 을 포함한다.
+    /// </summary>
     public class CxtInfoSection : CxtInfo
     {
         public string Name { get; internal set; }
@@ -118,6 +130,10 @@ namespace Dsu.PLCConvertor.Common.Internal
     }
 
 
+    /// <summary>
+    /// 옴론 project(.cxt) 파일 전체의 내용을 표현하기 위한 구조
+    /// 버젼, 생성일자 등의 기본 정보와 Programs 의 주정보를 포함.
+    /// </summary>
     public class CxtInfoRoot : CxtInfo
     {
         public string CXProgVer { get; private set; }
@@ -147,7 +163,8 @@ namespace Dsu.PLCConvertor.Common.Internal
 
             BuildCxtInfo();
 
-            string getValue(string key) => rootBlock[key].Value.ToString().TrimStart('"').TrimEnd('"');
+            string unQuote(string str) => str.TrimStart('"').TrimEnd('"');
+            string getValue(string key) => unQuote(rootBlock[key].Value.ToString());
 
             void BuildCxtInfo()
             {
@@ -196,7 +213,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                         case "Com":
                             break;
                         case "SecName":
-                            section.Name = $"{start.Value}";
+                            section.Name = unQuote(start.Value.ToString());
                             break;
 
                         default:

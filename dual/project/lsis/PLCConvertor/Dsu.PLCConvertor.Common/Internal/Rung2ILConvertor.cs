@@ -185,8 +185,21 @@ namespace Dsu.PLCConvertor.Common
         /// <returns></returns>
         internal IEnumerable<string> Convert()
         {
+            var terminal = _rung.Sinks.First();
+            var arity = terminal.Arity;
+            if (arity < 2)
+                return ConvertNormalOutput();
+
+            return ConvertFunctionOutput();
+        }
+
+        /// <summary>
+        /// Arity 가 0 또는 1 인 경우.  OUT, TIM 등이 해당
+        /// </summary>
+        private IEnumerable<string> ConvertNormalOutput()
+        {
             Debug.Assert(_rung.Sources.Count() == 1);
-            var mnemonics = FollowNode(_rung.Sources.First()).ToArray();            
+            var mnemonics = FollowNode(_rung.Sources.First()).ToArray();
             var unvisitedNodes = _rung.Nodes.Where(n => !_visitedNodes.Contains(n)).ToArray();
             if (unvisitedNodes.Any())
             {
@@ -197,7 +210,13 @@ namespace Dsu.PLCConvertor.Common
 
             return mnemonics;
         }
-
+        private IEnumerable<string> ConvertFunctionOutput()
+        {
+            Debug.Assert(_rung.Sinks.Count() == 1);
+            FunctionNode terminal = _rung.Sinks.First() as FunctionNode;
+            var converted = terminal.Convert(_targetType).ToArray();
+            return converted;
+        }
 
         public static string[] Convert(Rung rung, PLCVendor targetType) => new Rung2ILConvertor(rung, targetType).Convert().ToArray();
 

@@ -34,6 +34,10 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\..\open-sources\bin\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\common\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -46,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cx2Xg5k.cs" />
+    <Compile Include="Graph\FunctionNode.cs" />
+    <Compile Include="Internal\AddressConvertor.cs" />
     <Compile Include="Internal\Common.Extension.cs" />
     <Compile Include="Internal\CxtParser\CxtInfoRoot.cs" />
     <Compile Include="Internal\CxtParser\CxtLineInfo.cs" />
@@ -56,6 +62,7 @@
     <Compile Include="Internal\MnemonicInput.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.BUG.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.Complex.cs" />
+    <Compile Include="Internal\TestInputs\MnemonicInput.Special.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.TR.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.NG.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.OK.cs" />
@@ -72,6 +79,7 @@
     <Compile Include="Internal\SubRung.cs" />
     <Compile Include="Graph\Rung.cs" />
     <Compile Include="Graph\Wire.cs" />
+    <Compile Include="Util\MyJsonSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">

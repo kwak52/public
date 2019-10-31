@@ -52,6 +52,7 @@
     <None Include="Script.fsx" />
     <Content Include="packages.config" />
     <Compile Include="TestTRLadder.fs" />
+    <Compile Include="TestAddressConvert.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">

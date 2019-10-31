@@ -19,6 +19,7 @@ namespace PLCConvertor
         [STAThread]
         static void Main()
         {
+            Dsu.PLCConvertor.Common.Internal.DoTest.Test();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

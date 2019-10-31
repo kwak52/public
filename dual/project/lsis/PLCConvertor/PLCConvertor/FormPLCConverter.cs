@@ -89,11 +89,13 @@ namespace PLCConvertor
                 if (ofd.ShowDialog() == DialogResult.OK)
                     cxtPath = ofd.FileName;
 
-                var qtxFile = $"{Path.GetFileNameWithoutExtension(cxtPath)}.qtx";
-                var qtxPath = Path.Combine(Path.GetDirectoryName(cxtPath), qtxFile);
+                var stem = Path.GetFileNameWithoutExtension(cxtPath);
+                string getPath(string f) => Path.Combine(Path.GetDirectoryName(cxtPath), f);
+                var qtxFile = getPath($"{stem}.qtx");
+                var msgFile = getPath($"{stem}.txt");
                 Logger?.Info($"Parsing {cxtPath}");
 
-                Cx2Xg5k.Convert(cxtPath, qtxPath, "", "");
+                Cx2Xg5k.Convert(cxtPath, qtxFile, "", msgFile);
             }
         }
     }

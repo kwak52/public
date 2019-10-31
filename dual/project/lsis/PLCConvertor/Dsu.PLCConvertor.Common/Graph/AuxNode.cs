@@ -1,4 +1,8 @@
-﻿namespace Dsu.PLCConvertor.Common
+﻿using Dsu.Common.Utilities.Graph;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Dsu.PLCConvertor.Common
 {
 
     /// <summary>
@@ -60,6 +64,15 @@
         public TerminalNode(string name, ILSentence sentence)
             : base(name, sentence)
         {
+        }
+    }
+
+    internal class OutNode : TerminalNode
+    {
+        public OutNode(string name, ILSentence sentence)
+            : base(name, sentence)
+        {
+
         }
     }
 }

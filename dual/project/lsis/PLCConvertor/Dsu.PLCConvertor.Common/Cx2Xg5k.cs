@@ -55,7 +55,6 @@ namespace Dsu.PLCConvertor.Common
             IEnumerable<string> GenerateFooter()
             {
 
-                yield return "[PROGRAM FILE END]";
                 yield return "";
                 yield return "[COMMENT FILE] COMMENT";
                 yield return "[COMMENT FILE END]";

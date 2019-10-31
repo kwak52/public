@@ -120,6 +120,175 @@ namespace Dsu.PLCConvertor.Common
                     AND 0.08
                     OUT 1.03
                 "),
+
+            new MnemonicInput("TR 재사용 case",
+                @"
+                    LD P00000
+                    OUT TR0
+                    AND P00001
+                    OUT P00100
+                    LD TR0
+                    AND P0000B
+                    OUT TR0
+                    AND P0000C
+                    OUT P00105
+                    LD TR0
+                    AND P0000D
+                    OUT P00106
+                ",
+                @"
+                    LOAD P00000
+                    MPUSH
+                    AND P00001
+                    OUT P00100
+                    MPOP
+                    AND P0000B
+                    MPUSH
+                    AND P0000C
+                    OUT P00105
+                    MPOP
+                    AND P0000D
+                    OUT P00106
+                    "),
+            new MnemonicInput("TR 재사용불가 case",
+                @"
+                    LD P00000
+                    OUT TR0
+                    AND P00001
+                    OUT P00100
+                    LD TR0
+                    AND P0000B
+                    OUT TR1
+                    AND P0000C
+                    OUT P00105
+                    LD TR1
+                    AND P0000D
+                    OUT P00106
+                    LD TR0
+                    AND P0000E
+                    OUT P00107
+                ",
+                @"
+                    LOAD	P00000
+                    MPUSH
+                    AND	P00001
+                    OUT	P00100
+                    MLOAD
+                    AND	P0000B
+                    MPUSH
+                    AND	P0000C
+                    OUT	P00105
+                    MPOP
+                    AND	P0000D
+                    OUT	P00106
+                    MPOP
+                    AND	P0000E
+                    OUT	P00107
+                    "),
+            new MnemonicInput("TR Complex 1",
+                @"
+                    LD P000
+                    OR P001
+                    OR P002
+                    OR P003
+                    LD P005
+                    OR P006
+                    ANDLD
+                    OR P004
+                    LD P007
+                    OR P008
+                    OR P009
+                    OR P00A
+                    ANDLD
+                    OUT TR0
+                    LD P00B
+                    OR P00C
+                    LD P011
+                    OR P012
+                    OR P013
+                    ANDLD
+                    OR P00D
+                    ANDLD
+                    OUT TR1
+                    AND P017
+                    OUT P100
+                    LD TR1
+                    LD P018
+                    OR P019
+                    OR P01A
+                    ANDLD
+                    OUT P101
+                    OUT P102
+                    OUT P103
+                    LD TR0
+                    LD P00E
+                    OR P00F
+                    ANDLD
+                    LD P014
+                    OR P015
+                    OR P016
+                    ANDLD
+                    OUT P104
+                    OUT P105
+                    OUT P106
+                    LD TR0
+                    OUT P107
+                    AND P010
+                    OUT P108
+                    OUT P109
+                    ",
+                @"
+                    LOAD	P000
+                    OR	P001
+                    OR	P002
+                    OR	P003
+                    LOAD	P005
+                    OR	P006
+                    AND LOAD	
+                    OR	P004
+                    LOAD	P007
+                    OR	P008
+                    OR	P009
+                    OR	P00A
+                    AND LOAD	
+                    MPUSH	
+                    LOAD	P00B
+                    OR	P00C
+                    LOAD	P011
+                    OR	P012
+                    OR	P013
+                    AND LOAD	
+                    OR	P00D
+                    AND LOAD	
+                    MPUSH	
+                    AND	P017
+                    OUT	P100
+                    MPOP	
+                    LOAD	P018
+                    OR	P019
+                    OR	P01A
+                    AND LOAD	
+                    OUT	P101
+                    OUT	P102
+                    OUT	P103
+                    MLOAD	
+                    LOAD	P00E
+                    OR	P00F
+                    AND LOAD	
+                    LOAD	P014
+                    OR	P015
+                    OR	P016
+                    AND LOAD	
+                    OUT	P104
+                    OUT	P105
+                    OUT	P106
+                    MLOAD	
+                    OUT	P107
+                    MPOP	
+                    AND	P010
+                    OUT	P108
+                    OUT	P109
+            "),
         };
     }
 }
