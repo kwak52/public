@@ -1,73 +1,25 @@
-﻿using Dsu.Common.Utilities.ExtensionMethods;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using Dsu.Common.Utilities.ExtensionMethods;
 
 namespace Dsu.PLCConvertor.Common.Internal
 {
-    public static class EmLinq
-    {
-        // https://stackoverflow.com/questions/25643382/cartesian-products-with-n-number-of-list
-        public static IEnumerable<IEnumerable<T>> CartesianProduct<T>(this IEnumerable<IEnumerable<T>> sequences)
-        {
-            IEnumerable<IEnumerable<T>> emptyProduct = new[] { Enumerable.Empty<T>() };
-            IEnumerable<IEnumerable<T>> result = emptyProduct;
-            foreach (IEnumerable<T> sequence in sequences)
-            {
-                result =
-                    from accseq in result
-                    from item in sequence
-                    select accseq.Concat(new[] { item });
-            }
-            return result;
-        }
-
-        public static string replace(this string input, string pat1, string pat2)
-        {
-            return Regex.Replace(input, pat1, pat2);
-        }
-
-        // https://stackoverflow.com/questions/7148768/string-split-by-index-params
-        public static IEnumerable<string> SplitAt(this string source, params int[] index)
-        {
-            var indices = new[] { 0 }.Union(index).Union(new[] { source.Length });
-
-            return indices
-                        .Zip(indices.Skip(1), (a, b) => (a, b))
-                        .Select(_ => source.Substring(_.a, _.b - _.a));
-
-            /*
-            var s = "abcd";
-
-            s.SplitAt(); // "abcd"
-            s.SplitAt(0); // "abcd"
-            s.SplitAt(1); // "a", "bcd"
-            s.SplitAt(2); // "ab", "cd"
-            s.SplitAt(1, 2) // "a", "b", "cd"
-            s.SplitAt(3); // "abc", "d" 
-             */
-        }
-
-    }
-
-
-	/// <summary>
-	/// 메모리 주소 변환 규칙
-	/// </summary>
-	// TK0 - TK15 : L112620 - L11262F
-	// TK16 - TK31 : L112630 - L11263F
-	// ==> TK(%d), $1 = [0-31] => L1126(%x), $1 = $1 + 20
-	//
-	// CIO
-	// 0.00 - 0.15 -> P00000 - P0000F
-	// 1.00 - 0.15 -> P10000 - P1000F
-	// ==> (%d).(%2d), $1 = [0, 1], $2 = [0-15] => P(%04d)(%x), $1 = $1 * 1000, $2 = $2
-	internal class AddressConvertRule
+    /// <summary>
+    /// 개별 메모리 주소 변환 규칙
+    /// </summary>
+    // TK0 - TK15 : L112620 - L11262F
+    // TK16 - TK31 : L112630 - L11263F
+    // ==> TK(%d), $1 = [0-31] => L1126(%x), $1 = $1 + 20
+    //
+    // CIO
+    // 0.00 - 0.15 -> P00000 - P0000F
+    // 1.00 - 0.15 -> P10000 - P1000F
+    // ==> (%d).(%2d), $1 = [0, 1], $2 = [0-15] => P(%04d)(%x), $1 = $1 * 1000, $2 = $2
+    public class AddressConvertRule
 	{
 		/// <summary>
 		/// e.g "(%d).(%2d)" for Omron CIO
@@ -124,16 +76,17 @@ namespace Dsu.PLCConvertor.Common.Internal
 		/// <param name="pattern">e.g "P(%4d)(%2x)"</param>
         /// <param name="args">e.g [] {2000, 15}</param>
         /// <returns>e.g "P20000F" </returns>
-        public static string FormatAddress(string pattern, int [] args)
+        private static string FormatAddress(string pattern, int [] args)
         {
-            return string.Join("", generatePartial(pattern));
+            return string.Join("", generatePartial());
 
             // e.g pat = "P(%4d)(%2x)"   args = [2000, 15]
             // => returns [ "P", "2000", "0F" ]
-            IEnumerable<string> generatePartial(string pat)
+            IEnumerable<string> generatePartial()
             {
+                var p = pattern;
                 var matches =   // e.g [| "(%4d)"; "(%2x)"; |]
-                    Regex.Matches(pat, @"\((.*?)\)")
+                    Regex.Matches(p, @"\((.*?)\)")
                     .Cast<Match>()
                     .Select(ma => ma.ToString())
                     .ToArray();
@@ -142,25 +95,25 @@ namespace Dsu.PLCConvertor.Common.Internal
                 int n = 0;
                 while(true)
                 {
-                    if (pat.Length <= 1 || matches.Length == 0)
+                    if (p.Length <= 1 || matches.Length == 0)
                     {
-                        yield return pat;
+                        yield return p;
                         yield break;
                     }
 
-                    if (pat.StartsWith(matches[n]))
+                    if (p.StartsWith(matches[n]))
                     {
                         var format = C2CSharp(matches[n]);
                         var x2 = string.Format(format, args[n]);
                         yield return x2;
-                        pat = pat.Substring(matches[n].Length, pat.Length - matches[n].Length);
+                        p = p.Substring(matches[n].Length, p.Length - matches[n].Length);
                         n++;
                         continue;
                     }
 
-                    var split = pat.SplitAt(1).ToArray();
+                    var split = p.SplitAt(1).ToArray();
                     yield return split[0];
-                    pat = split[1];
+                    p = split[1];
                 }
             }
 
@@ -172,7 +125,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 var g = match.Groups.Cast<Group>().Select(gr => gr.ToString()).ToArray();
                 if (g.Length == 4)
                 {
-                    var hex = g[3];
+                    var hex = g[3].ToUpper();
 
                     if (g[1].Length == 0 && g[2].Length == 0)   // "%d" or %x
                         return $"{{0:{hex}}}";
@@ -188,16 +141,28 @@ namespace Dsu.PLCConvertor.Common.Internal
 
         static DataTable _dt = new DataTable();
 
-        public string Convert(string sourceAddress)
+        public bool IsMatch(string sourceAddress) => getAddressComponents(sourceAddress).Item1 != null;
+        (int[], string) getAddressComponents(string sourceAddress)
         {
             var elements = AnalyzeAddressComponents(sourceAddress, SourceRepr);
+            if (elements == null)
+                return (null, $"{sourceAddress} is not applicable to rule [{SourceRepr}].");
+
             var sourceIsInRange =
                 elements.Select((e, n) => (e, n))
-                    .All(tpl => SourceArgsMinMax[tpl.n].Item1 <= tpl.e && tpl.e <= SourceArgsMinMax[tpl.n].Item2)
+                    .All(tpl => SourceArgsMinMax.IsNullOrEmpty() || (SourceArgsMinMax[tpl.n].Item1 <= tpl.e && tpl.e <= SourceArgsMinMax[tpl.n].Item2))
                 ;
 
             if (!sourceIsInRange)
-                throw new Exception($"{sourceAddress} is not in proper range.");
+                return (null, $"{sourceAddress} is not in proper range.");
+
+            return (elements, null);
+        }
+        public string Convert(string sourceAddress)
+        {
+            (int[] elements, string errorMsg) = getAddressComponents(sourceAddress);
+            if (elements == null)
+                throw new Exception(errorMsg);
 
             var transformed =
                 TargetArgsExpr
@@ -234,17 +199,23 @@ namespace Dsu.PLCConvertor.Common.Internal
             // C printf format 을 가진 pattern_ 을 정규식으로 변환 한 값.  e.g "P(\\d{4})([A-Fa-f0-9]{2})(\\d+)"
             var pattern =
                 pattern_
+                .replace(@"\.", @"\.")                                 // %d --> \d+
                 .replace(@"%d", @"\d+")                                 // %d --> \d+
                 .replace(@"%x", @"[A-Fa-f0-9]+")                        // %x -> [A-Fa-f0-9]+
+                .replace(@"%X", @"[A-Fa-f0-9]+")                        // %X -> [A-Fa-f0-9]+
                 .replace(@"%(?<count>\d+)d", @"\d{${count}}")           // %2d --> \d{2}
                 .replace(@"%(?<count>\d+)x", @"[A-Fa-f0-9]{${count}}")  // %3x -> [A-Fa-f0-9]{3}
                 ;
+
+            if (!pattern.EndsWith("$"))
+                pattern = pattern + "$";
 
             // pattern_ 의 () 인자 순서대로 hex 값을 가질 수 있는지 여부의 array.  e.g [false, true, false]
             var matchDecHex =
                 Regex.Matches(pattern_, @"\((.*?)\)")           // Regex.Match() 와 Regex.Matches() 는 다르다.   https://stackoverflow.com/questions/740642/c-sharp-regex-split-everything-inside-square-brackets
                 .Cast<Match>()
-                .Select(ma => ma.ToString().Contains("x"))
+                .Select(ma => ma.ToString())
+                .Select(ma => ma.Contains("x") || ma.Contains("X"))
                 .ToArray()
                 ;
 
@@ -299,21 +270,35 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
     }
 
-	public static class DoTest
-	{
-        public static void Test()
-		{
-            AddressConvertRule.Test();
-            var rule = new AddressConvertRule(
-                "(%d).(%2d)", new[] { Tuple.Create(0, 1), Tuple.Create(0, 15) },
-                "P(%04d)(%x)", new[] { "$0 * 1000", "$1" });
 
-            var samples = rule.GenerateSourceSamples().ToArray();
-            var converted = samples.Select(s => $"{s} => {rule.Convert(s)}").ToArray();
+    /// <summary>
+    /// 이름이 사전에 정의된 Rule.
+    /// 옴론의 timer 등에서는 timer 변수 정의가 따로 없고 0 등의 숫자로 나타나는데, 이를 산전으로 변환하면 T0 로 변환되어야 한다.
+    /// Timer 변환 문맥을 알고 있을 때에는 "Timer" 변환 rule 을 이용해서 변환을 수행한다.
+    /// </summary>
+    public class NamedAddressConvertRule : AddressConvertRule
+    {
+        /// <summary>
+        /// Name of the rule
+        /// </summary>
+        public string Name { get; private set; }
+        public NamedAddressConvertRule(string name, string sourceRepr, IEnumerable<Tuple<int, int>> sourceArgsMinMax,
+            string targetRepr, IEnumerable<string> targetArgsExpr)
+            : base(sourceRepr, sourceArgsMinMax, targetRepr, targetArgsExpr)
+        {
+            Name = name;
+        }
+    }
 
-            Console.WriteLine("");
-		}
-	}
 
-
+    public static class EmLinq
+    {
+        /// <summary>
+        /// Regular expression replace pipeline
+        /// </summary>
+        public static string replace(this string input, string pat1, string pat2)
+        {
+            return Regex.Replace(input, pat1, pat2);
+        }
+    }
 }

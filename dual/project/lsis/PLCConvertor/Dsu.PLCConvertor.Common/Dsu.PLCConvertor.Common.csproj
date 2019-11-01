@@ -51,7 +51,8 @@
   <ItemGroup>
     <Compile Include="Cx2Xg5k.cs" />
     <Compile Include="Graph\FunctionNode.cs" />
-    <Compile Include="Internal\AddressConvertor.cs" />
+    <Compile Include="Internal\AddressConvert\AddressConvertor.cs" />
+    <Compile Include="Internal\AddressConvert\AddressConvertRule.cs" />
     <Compile Include="Internal\Common.Extension.cs" />
     <Compile Include="Internal\CxtParser\CxtInfoRoot.cs" />
     <Compile Include="Internal\CxtParser\CxtLineInfo.cs" />
