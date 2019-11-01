@@ -1,5 +1,6 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.PLCConvertor.Common;
+using Dsu.PLCConvertor.Common.Internal;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,9 @@ namespace PLCConvertor.Forms
         IEnumerator<int> _parsingStages;
         ILog Logger = Global.Logger;
 
-        PLCVendor _sourceType;
-        PLCVendor _targetType;
+        ConvertParams _convertParam;
+        PLCVendor _sourceType => _convertParam.SourceType;
+        PLCVendor _targetType => _convertParam.TargetType;
 
         public FormLadderParse(MnemonicInput mnemonicInput, PLCVendor sourceType, PLCVendor targetType)
         {
@@ -28,8 +30,7 @@ namespace PLCConvertor.Forms
             Text = mnemonicInput.Comment;
             _mnemonicInput = mnemonicInput;
             _mnemonics = m2a(mnemonicInput.Input);
-            _sourceType = sourceType;
-            _targetType = targetType;
+            _convertParam = new ConvertParams(sourceType, targetType);
 
             listBoxControlMnemonics.DataSource = _mnemonics;
             listBoxControlMnemonics.SelectedIndex = 0;
@@ -46,7 +47,7 @@ namespace PLCConvertor.Forms
 
         void Initialize()
         {
-            _rung4Parsing = new Rung4Parsing(_mnemonics, _sourceType, _targetType);
+            _rung4Parsing = new Rung4Parsing(_mnemonics, _convertParam);
             _parsingStages = _rung4Parsing.CoRoutineRungParser().GetEnumerator();
         }
 
@@ -80,7 +81,7 @@ namespace PLCConvertor.Forms
             listBoxControlMnemonics.SelectedIndex = _rung4Parsing.CurrentMnemonicIndex;
 
 
-            var mnemonics = Rung2ILConvertor.Convert(_rung4Parsing.ToRung(false), _targetType);
+            var mnemonics = Rung2ILConvertor.Convert(_rung4Parsing.ToRung(false), _convertParam);
             var converted = String.Join("\r\n", mnemonics);
             Logger?.Info($"Reversely converted mnemonics for {_mnemonicInput.Comment}:\r\n{converted}");
 

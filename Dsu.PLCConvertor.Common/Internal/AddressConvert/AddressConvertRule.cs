@@ -8,6 +8,33 @@ using Dsu.Common.Utilities.ExtensionMethods;
 
 namespace Dsu.PLCConvertor.Common.Internal
 {
+    public abstract class AddressConvertRuleBase
+        : IAddressConvertRule
+    {
+        /// <summary>
+        /// e.g "(%d).(%2d)" for Omron CIO
+        /// </summary>
+        public string SourceRepr { get; private set; }
+
+        /// <summary>
+        /// e.g "P(%04d)(%x)"
+        /// </summary>
+        public string TargetRepr { get; private set; }
+
+        public abstract string Convert(string sourceAddress);
+        public abstract bool IsMatch(string sourceAddress);
+
+        public abstract IEnumerable<string> GenerateSourceSamples();
+        public abstract IEnumerable<(string, string)> GenerateTranslations();
+
+        protected AddressConvertRuleBase(string sourceRepr, string targetRepr)
+        {
+            SourceRepr = sourceRepr;
+            TargetRepr = targetRepr;
+        }
+    }
+
+
     /// <summary>
     /// 개별 메모리 주소 변환 규칙
     /// </summary>
@@ -20,35 +47,30 @@ namespace Dsu.PLCConvertor.Common.Internal
     // 1.00 - 0.15 -> P10000 - P1000F
     // ==> (%d).(%2d), $1 = [0, 1], $2 = [0-15] => P(%04d)(%x), $1 = $1 * 1000, $2 = $2
     public class AddressConvertRule
-	{
-		/// <summary>
-		/// e.g "(%d).(%2d)" for Omron CIO
-		/// </summary>
-		public string SourceRepr { get; private set; }
+        : AddressConvertRuleBase
+        , IACRFormatSpecifiable
+        , IACRUserCustomizable
+    {
         /// <summary>
         /// SourceRepr 에서의 argument 의 최소/최대값.  inclusive range
         /// </summary>
 		public Tuple<int, int> [] SourceArgsMinMax { get; private set; }
         int SourceArity => SourceArgsMinMax.Length;
-		/// <summary>
-		/// e.g "P(%04d)(%x)"
-		/// </summary>
-		public string TargetRepr { get; private set; }
         /// <summary>
         /// Target argument 명세: source argument 를 이용한 expression
         /// </summary>
 		public string [] TargetArgsExpr { get; private set; }
 
-		public AddressConvertRule(string rule)
-		{
+        //TODO: for serialization
+		//public AddressConvertRule(string rule)
+		//{
 
-		}
+		//}
 
         public AddressConvertRule(string sourceRepr, IEnumerable<Tuple<int, int>> sourceArgsMinMax,
             string targetRepr, IEnumerable<string> targetArgsExpr)
+            : base(sourceRepr, targetRepr)
         {
-            SourceRepr = sourceRepr;
-            TargetRepr = targetRepr;
             SourceArgsMinMax = sourceArgsMinMax.ToArray();
             TargetArgsExpr = targetArgsExpr.ToArray();
         }
@@ -57,7 +79,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// 규칙에 맞는 모든 source 의 sample 생성
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<string> GenerateSourceSamples()
+        public override IEnumerable<string> GenerateSourceSamples()
         {
             IEnumerable<int> range(Tuple<int, int> tpl) => Enumerable.Range(tpl.Item1, tpl.Item2-tpl.Item1+1);
 
@@ -68,7 +90,12 @@ namespace Dsu.PLCConvertor.Common.Internal
                 ;
         }
 
-
+        public override IEnumerable<(string, string)> GenerateTranslations()
+        {
+            return GenerateSourceSamples()
+                .Select(s => (s, Convert(s)))
+                ;
+        }
 
         /// <summary>
         /// address pattern 에 맞추어 argument 값들을 적용한 전체 address
@@ -141,7 +168,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 
         static DataTable _dt = new DataTable();
 
-        public bool IsMatch(string sourceAddress) => getAddressComponents(sourceAddress).Item1 != null;
+        public override bool IsMatch(string sourceAddress) => getAddressComponents(sourceAddress).Item1 != null;
         (int[], string) getAddressComponents(string sourceAddress)
         {
             var elements = AnalyzeAddressComponents(sourceAddress, SourceRepr);
@@ -158,7 +185,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 
             return (elements, null);
         }
-        public string Convert(string sourceAddress)
+        public override string Convert(string sourceAddress)
         {
             (int[] elements, string errorMsg) = getAddressComponents(sourceAddress);
             if (elements == null)
