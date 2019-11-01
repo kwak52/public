@@ -1,4 +1,5 @@
 ﻿using Dsu.Common.Utilities.Graph;
+using Dsu.PLCConvertor.Common.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,13 +25,13 @@ namespace Dsu.PLCConvertor.Common
         {
         }
 
-        public static Rung CreateRung(IEnumerable<string> mnemonics, PLCVendor sourceType, PLCVendor targetType)
+        public static Rung CreateRung(IEnumerable<string> mnemonics, ConvertParams cvtParam)
         {
-            var r4p = new Rung4Parsing(mnemonics, sourceType, targetType);
+            var r4p = new Rung4Parsing(mnemonics, cvtParam);
             r4p.CoRoutineRungParser().ToArray();
             return r4p.ToRung();
         }
-        public static Rung CreateRung(string mnemonics, PLCVendor sourceType, PLCVendor targetType) => CreateRung(MnemonicInput.MultilineString2Array(mnemonics), sourceType, targetType);
+        public static Rung CreateRung(string mnemonics, ConvertParams cvtParam) => CreateRung(MnemonicInput.MultilineString2Array(mnemonics), cvtParam);
         /// <summary>
         /// Rung 을 구성하는 IL 목록
         /// </summary>

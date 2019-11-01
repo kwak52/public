@@ -1,5 +1,6 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.Common.Utilities.Graph;
+using Dsu.PLCConvertor.Common.Internal;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,12 @@ namespace Dsu.PLCConvertor.Common
     {
         ILog Logger = Global.Logger;
         Rung _rung;
-        PLCVendor _targetType;
-        Rung2ILConvertor(Rung rung, PLCVendor targetType)
+        ConvertParams _convertParam;
+        PLCVendor _targetType => _convertParam.TargetType;
+        Rung2ILConvertor(Rung rung, ConvertParams cvtParam)
         {
             _rung = rung;
-            _targetType = targetType;
+            _convertParam = cvtParam;
         }
 
 
@@ -214,19 +216,19 @@ namespace Dsu.PLCConvertor.Common
         {
             Debug.Assert(_rung.Sinks.Count() == 1);
             FunctionNode terminal = _rung.Sinks.First() as FunctionNode;
-            var converted = terminal.Convert(_targetType).ToArray();
+            var converted = terminal.Convert(_convertParam).ToArray();
             return converted;
         }
 
-        public static string[] Convert(Rung rung, PLCVendor targetType) => new Rung2ILConvertor(rung, targetType).Convert().ToArray();
+        public static string[] Convert(Rung rung, ConvertParams cvtParam) => new Rung2ILConvertor(rung, cvtParam).Convert().ToArray();
 
-        public static string[] ConvertFromMnemonics(string mnemonics, PLCVendor sourceType, PLCVendor targetType)
-            => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics), sourceType, targetType);
-        public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, PLCVendor sourceType, PLCVendor targetType)
+        public static string[] ConvertFromMnemonics(string mnemonics, ConvertParams cvtParam)
+            => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics), cvtParam);
+        public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, ConvertParams cvtParam)
         {
-            var rung = new Rung4Parsing(mnemonics, sourceType, targetType);
+            var rung = new Rung4Parsing(mnemonics, cvtParam);
             rung.CoRoutineRungParser().ToArray();
-            return new Rung2ILConvertor(rung.ToRung(false), targetType).Convert().ToArray();
+            return new Rung2ILConvertor(rung.ToRung(false), cvtParam).Convert().ToArray();
         }
     }
 

@@ -15,7 +15,9 @@ type Conv(output1:ITestOutputHelper) =
         LSILSentence.UseDirtyOperandReplaceImplementation <- false
         let comment = m.Comment
         let co = MnemonicInput.CommentOutMultiple
-        let converted = Rung2ILConvertor.ConvertFromMnemonics(m.Input, PLCVendor.Omron, PLCVendor.LSIS) |> String.concat "\r\n" |> co
+        let converted =
+            let cvtParam = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS)
+            Rung2ILConvertor.ConvertFromMnemonics(m.Input, cvtParam) |> String.concat "\r\n" |> co
 
 
         sprintf "Inspecting %s(%d)" m.Comment n |> Trace.WriteLine

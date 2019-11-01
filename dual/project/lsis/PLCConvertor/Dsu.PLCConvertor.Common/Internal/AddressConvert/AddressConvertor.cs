@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,16 +14,19 @@ namespace Dsu.PLCConvertor.Common.Internal
     {
         List<AddressConvertRule> _normalRules;
         Dictionary<string, NamedAddressConvertRule> _namedAddressRules;
-        public AddressConvertor(IEnumerable<AddressConvertRule> rules)
+        List<IAddressConvertRule> _rules;
+        public AddressConvertor(IEnumerable<IAddressConvertRule> rules)
         {
+            _rules = rules.ToList();
             _normalRules = rules.OfNotType<AddressConvertRule, NamedAddressConvertRule>().ToList();
             _namedAddressRules = rules.OfType<NamedAddressConvertRule>().ToDictionary(r => r.Name);
         }
 
         public string Convert(string sourceAddress) => convert(sourceAddress, _normalRules);
-        public string ConvertWithNamedRule(string ruleName, string sourceAddress) => convert(sourceAddress, new[] { _namedAddressRules[ruleName] });
+        public string ConvertWithNamedRule(string ruleName, string sourceAddress)
+            => convert(sourceAddress, new[] { _namedAddressRules[ruleName] });
 
-        public string convert(string sourceAddress, IEnumerable<AddressConvertRule> rules)
+        string convert(string sourceAddress, IEnumerable<AddressConvertRule> rules)
         {
             var matchedRules = rules.Where(r => r.IsMatch(sourceAddress)).ToArray();
             if (matchedRules.Length != 1)
@@ -30,6 +34,10 @@ namespace Dsu.PLCConvertor.Common.Internal
 
             return matchedRules[0].Convert(sourceAddress);
         }
+
+
+        public IEnumerable<string> GenerateSourceSamples() => _rules.SelectMany(r => r.GenerateSourceSamples());
+        public IEnumerable<(string, string)> GenerateTranslations() => _rules.SelectMany(r => r.GenerateTranslations());
     }
 
     public static class DoTest
@@ -45,7 +53,15 @@ namespace Dsu.PLCConvertor.Common.Internal
             var converted = samples.Select(s => $"{s} => {rule.Convert(s)}").ToArray();
 
             Console.WriteLine("");
-		}
+
+            //var defaultRules = Cx2Xg5k.CreateDefaultAddressConvertRuleSets();
+            //defaultRules.GenerateTranslations()
+            //    .Select(pr => $"{pr.Item1}\t{pr.Item2}")
+            //    .Iter(ln => Trace.WriteLine(ln))
+            //    ;
+
+
+        }
 	}
 
 

@@ -139,16 +139,16 @@ type AddressConvert(output1:ITestOutputHelper) =
             let rules = [|
                 new AddressConvertRule(
                     "(%d).(%2d)", [| Tuple.Create(0, 1); Tuple.Create(0, 15) |],
-                    "P(%04d)(%X)", [| "$0 * 1000"; "$1" |]);
+                    "P(%04d)(%X)", [| "$0 * 1000"; "$1" |]) :> IAddressConvertRule;
                 new AddressConvertRule(
                     "D(%d)", [| Tuple.Create(0, 32767) |],
-                    "D(%05d)", [| "$0 + 4500"|]);
+                    "D(%05d)", [| "$0 + 4500"|]) :> IAddressConvertRule;
                 new AddressConvertRule(
                     "P_On", [||],
-                    "SM_400", [||]);
+                    "SM_400", [||]) :> IAddressConvertRule;
                 new NamedAddressConvertRule( "TIMER",
                     "(%d)", [||],
-                    "T(%d)", [|"$0"|]) :> AddressConvertRule;
+                    "T(%d)", [|"$0"|]) :> IAddressConvertRule;
 
             |]
             new AddressConvertor(rules)

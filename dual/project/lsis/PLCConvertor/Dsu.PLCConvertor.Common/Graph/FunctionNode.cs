@@ -41,7 +41,7 @@ namespace Dsu.PLCConvertor.Common
         }
         public override string ToShortString() => $"{ILSentence}";
 
-        public virtual IEnumerable<string> Convert(PLCVendor targetType) { Debug.Assert(false); yield break; }
+        public virtual IEnumerable<string> Convert(ConvertParams cvtParam) { Debug.Assert(false); yield break; }
 
         /// <summary>
         /// {함수의 개별 다릿발에 대해서 변환한 결과} 의 list 를 반환.
@@ -51,9 +51,9 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         /// <param name="targetType"></param>
         /// <returns></returns>
-        protected virtual List<List<string>> ConvertPerInputs(PLCVendor targetType)
+        protected virtual List<List<string>> ConvertPerInputs(ConvertParams cvtParam)
         {
-            return Inputs.Select(subRung => Rung2ILConvertor.Convert(subRung, targetType).ToList()).ToList();
+            return Inputs.Select(subRung => Rung2ILConvertor.Convert(subRung, cvtParam).ToList()).ToList();
         }
     }
 
@@ -72,9 +72,9 @@ namespace Dsu.PLCConvertor.Common
         /// 옴론 TTIM 의 조건1 과 조건2 에 대해서 
         /// 조건 1에는 TMR 호출을 붙이고, 조건2에는 RST 조건을 붙여서 변환을 완성한다.
         /// </summary>
-        public override IEnumerable<string> Convert(PLCVendor targetType)
+        public override IEnumerable<string> Convert(ConvertParams cvtParam)
         {
-            var perInputs = ConvertPerInputs(targetType);
+            var perInputs = ConvertPerInputs(cvtParam);
 
             // TODO: argument 에 대해서는 구체화하고, 생성하는 routine 은 일반화한다.
             var tVar = ILSentence.Args[0];
@@ -98,7 +98,7 @@ namespace Dsu.PLCConvertor.Common
 
         }
 
-        public override IEnumerable<string> Convert(PLCVendor targetType)
+        public override IEnumerable<string> Convert(ConvertParams cvtParam)
         {
             yield break;
         }
@@ -115,9 +115,9 @@ namespace Dsu.PLCConvertor.Common
 
         }
 
-        public override IEnumerable<string> Convert(PLCVendor targetType)
+        public override IEnumerable<string> Convert(ConvertParams cvtParam)
         {
-            var perInputs = ConvertPerInputs(targetType);
+            var perInputs = ConvertPerInputs(cvtParam);
 
             var tVar = ILSentence.Args[0];
             perInputs[0].Add($"SET {tVar}");

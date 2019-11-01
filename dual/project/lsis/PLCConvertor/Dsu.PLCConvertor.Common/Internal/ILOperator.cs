@@ -65,6 +65,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.TMR] = _toList(2, "TMR"),
             [Mnemonic.KEEP] = _toList(2, "XXXKEEP(011)"),
             [Mnemonic.SFT] = _toList(3, "SFT"),
+            [Mnemonic.CMP] = _toList(1, "CMP"),
             [Mnemonic.END] = _toList(1, "END"),
         };
 
@@ -94,6 +95,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.TMR] = _toList(2, "TTIM(087)"),
             [Mnemonic.KEEP] = _toList(2, "KEEP(011)"),
             [Mnemonic.SFT] = _toList(3, "SFT(010)"),
+            [Mnemonic.CMP] = _toList(1, "CMP(020)"),
             [Mnemonic.END] = _toList(1, "END(001)"),
         };
 
@@ -182,6 +184,10 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// Data shift
         /// </summary>
         SFT,
+        /// <summary>
+        /// Compare
+        /// </summary>
+        CMP,
         END,
     }
 

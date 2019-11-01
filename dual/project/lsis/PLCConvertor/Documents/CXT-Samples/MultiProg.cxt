@@ -1,8 +1,8 @@
 CXProgVer:="1.5";
 WrittenByCXPVersion:="9.70";
 FileType:=1;
-Created:="19 10 2019 19 23 44";
-Modified:="1 11 2019 18 21 18";
+Created:="1 11 2019 16 33 11";
+Modified:="1 11 2019 16 50 26";
 Name:="NewProject";
 Core:=
 BEGIN
@@ -40,7 +40,7 @@ BEGIN
   IOTable:=
   BEGIN
    Data:=
-$?St$Bk?_#[32]
+$?St$Bk?_#[17]
 5B 4F 4D 52 4F 4E 2E 49 4F 20 54 61 62 6C 65 2E 43 6F 6D 70 6F 6E 65 6E 74 5D 20 43 4A 31 4D 20
 43 50 55 31 31 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -129,32 +129,32 @@ $?St$Bk?_#[32]
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00
-$?St$Bk?_#[32]
+$?St$Bk?_#[17]
    UnitSetup:=
-$?St$Bk?_#[33]
+$?St$Bk?_#[18]
 00 06 78 40 91 A3 06 44 12 22 3D 44 4C 89 21 02 84 93 32 78 E8 FA C5 0C 9C CD 18 42 87 08 DD 96
-64 C0 88 91 A3 45 0C 98 5D 39 9B D2 E4 0D 59 84 25 4E C2 B4 29 DB D4 67 B5 7D EC 87 C2 A8 79 23
-C7 4A 19 B9 AD DF 8D 26 69 DC CA 0C 18 22 7C F0 70 42 E7 8E 11 36 64 E4 6A AF 64 88 78 D9 94 21
-6F DA C0 25 96 CC FC 51 91 38 70 E8 EA 8D 9A 50 E9 1F 14 26 43 5B 7E 42 12 32 65 DC D0 49 63 26
-EF A5 D4 F6 6A 33 6C 42 AA 99 9C 1F 64 D8 38 69 DB C2 10 25 31 9A B4 18 02 A5 4A CC 73 A5 0A 1D
-27 75 5F 5A 8B 2D 49 59 4B 57 4C 25 AE 96 35 37 66 9B 25 17 9B 1C 34 B1 C9 01 C2 A8 F6 05 CA 94
-AF 44 6F BE 3E 87 C6 17 18 2E F0 B4 61 AB E5 6B 93 C4 C8 5C CD 81 9B 74 A8 FE 84 40 F0 D6 FE 65
-11 9B 9E 69 AD 10 30 3F 98 3A 84 19 EB 5A C9 A8 31 53 42 91 B6 25 27 04 DB 92 13 D3 56 FB 9C 97
-52 FF 56 A0 84 91 13 A6 AD B8 22 98 F0 37 58 A3 5F DE 25 A1 53 96 FF 1F 3D 44 D2 CC 81 DB 52 96
-32 73 8F B4 32 74 8E 76 FF D5 1F 69 F8 7D 81 F2 46 0E 9D 18 5F 53 80 3A 6E D2 8C 09 43 27 CD 1B
-B7 2F 6E CB CD D9 7A B3 12 86 4D DD 27 C1 C0 03 33 55 46 E8 8F 4C 68 F4 F7 B2 95 85 B1 1F 33 A1
-D1 0F A2 C5 22 8C 90 34 74 E6 C2 D8 13 9A D0 E8 C9 14 3A 6F E0 C2 DC 93 9A D0 E8 E9 EF 2B 25 2F
-8C 1D B1 09 8D 8E 08 09 53 87 8C D4 02 14 CE D8 B8 09 8D 9E 54 71 93 86 AE 3A 64 18 BB 82 13 1A
-5D 71 42 E5 0B 93 34 6E D6 34 09 83 17 C6 AE E4 84 46 57 A4 D6 13 9C 37 6E C6 94 A1 92 B6 31 4F
-EA D0 B9 12 86 CE 18 B4 79 09 5F 8F 64 C0 84 42 8F 64 42 CC 6A C8 84 84 D9 92 09 B3 D5 90 09 09
-B3 23 13 02 56 43 26 24 CC 90 4C 08 58 0D 99 90 30 43 32 61 B7 1A 32 21 61 7E 64 42 C0 6A C8 84
-84 19 3E 36 CA B0 09 93 17 66 57 0A 09 53 24 13 12 A6 48 26 24 4C 71 02 B9 3A E8 0C 85 D7 6D 42
-C2 0C 57 44 11 37 64 E1 6D C9 4C 88 98 50 5A 67 D8 4D C6 4C 88 98 4C 29 37 FC 9D 85 88 69 91 52
-66 4C 99 34 76 CA C6 EC 4C 49 A3 17 CE 04 85 88 D9 85 82 B4 99 09 11 F3 0B 3D 69 33 13 22 66 5C
-6D C2 13 33 57 9B 43 66 0E 95 B7 75 E1 86 2C 8C ED 85 88 C9 33 DA 4E 9B 30 74 61 EC 28 44 CC 7C
-3B 6C D8 94 21 1B F3 57 17 0E 63 F0 D2 0D 56 22 02 8E 8F 06 0A 12 24 6C 39 A8 AF 1C 0D 0A DF D2
-94 3C 73 EF B0 E0 48 34 75 9B 1C B5 DF 06 FC 03
-$?St$Bk?_#[33]
+64 C0 88 91 A3 45 8C 18 2D DB 6E 4A 93 37 64 11 96 38 09 D3 A6 6C 53 9F D5 F6 B1 1F 0A A3 E6 8D
+1C 2B 65 E4 B6 9E 5D 69 DC CA 0C 18 22 7C F0 70 42 E7 8E 11 36 64 E4 6A AF 64 88 78 D9 94 21 6F
+DA C0 25 96 CC FC 51 91 38 70 E8 EA 8D 9A 50 E9 1F 14 26 43 5B 7E 42 12 32 65 DC D0 49 63 26 EF
+A5 D4 F6 6A 33 6C 42 AA 99 9C 1F 64 D8 38 69 DB C2 10 25 31 9A B4 18 02 A5 6A DD 37 A9 0A 1D 27
+75 5F 5A EB 2D 49 59 4B 57 4C 25 AE 96 35 37 66 9B 25 17 9B 1C 34 B1 C9 01 C2 A8 F6 05 CA 94 AF
+44 6F BE 3E 87 C6 17 18 2E F0 B4 61 AB E5 6B 93 C4 C8 5C CD 81 9B 74 A8 FE 84 40 F0 D6 FE 65 11
+9B 9E 69 AD 10 30 3F 98 3A 84 19 EB 5A C9 A8 31 53 42 91 B6 25 27 04 DB 92 13 D3 56 FB 9C 97 52
+FF 56 A0 84 91 13 A6 AD B8 22 98 F0 37 58 A3 5F DE 25 A1 53 96 FF BF 86 48 9A 39 70 5B CA 52 66
+EE 91 56 86 CE D1 EE BF FA 23 0D BF 2F 50 DE C8 A1 13 E3 6B 0A 50 C7 4D 9A 31 61 E8 A4 79 E3 F6
+C5 6D B9 39 5B 6F 56 C2 B0 A9 FB 24 18 78 60 A6 CA 08 FD 91 09 8D FE 5E B6 B2 30 F6 63 26 34 FA
+41 B4 58 84 11 92 86 CE 5C 18 7B 42 13 1A 3D 99 42 E7 0D 5C 98 7B 52 13 1A 3D FD 7D A5 E4 85 B1
+23 36 A1 D1 11 21 61 EA 90 91 5A 80 C2 19 1B 37 A1 D1 93 2A 6E D2 D0 55 87 0C 63 57 70 42 A3 2B
+4E A8 7C 61 92 C6 CD 9A 26 61 F0 C2 D8 95 9C D0 E8 8A D4 7A 82 F3 C6 CD 98 32 54 D2 36 E6 49 1D
+3A 57 C2 D0 19 83 36 2F E1 EB 91 0C 98 50 E8 91 4C 88 59 0D 99 90 30 5B 32 61 B6 1A 32 21 61 76
+64 42 C0 6A C8 84 84 19 92 09 01 AB 21 13 12 66 48 26 EC 56 43 26 24 CC 8F 4C 08 58 0D 99 90 30
+C3 C7 46 19 36 61 F2 C2 EC 4A 21 61 8A 64 42 C2 14 C9 84 84 29 4E 20 57 07 9D A1 F0 BA 4D 48 98
+E1 8A 28 E2 86 2C BC 2D 99 09 11 13 4A EB 0C BB C9 98 09 11 93 29 E5 86 BF B3 10 31 2D 52 CA 8C
+29 93 C6 4E D9 98 9D 29 69 F4 C2 99 A0 10 31 BB 50 90 36 33 21 62 7E A1 27 6D 66 42 C4 8C AB 4D
+78 62 E6 6A 73 C8 CC A1 F2 B6 2E DC 90 85 B1 BD 10 31 79 46 DB 69 13 86 2E 8C 1D 85 88 99 6F 87
+0D 9B 32 64 63 FE EA C2 61 0C 5E BA C1 4A 44 C0 F1 D1 40 41 82 84 2D 07 F5 95 A3 41 E1 5B 9A 92
+67 EE 1D 16 1C 89 A6 6E 93 A3 F6 DB 80 7F
+$?St$Bk?_#[18]
   END;
   ProgramCheckOptions:=
   BEGIN
@@ -181,18 +181,17 @@ $?St$Bk?_#[33]
  GlobalVariables:=
  BEGIN
   VariableList:=
-  BEGIN_LIST_$#[34]
-   ,0,CHANNEL,,t1;
-  END_LIST_$#[34];
-  VariableCount:=1;
+  BEGIN_LIST_$#[19]
+  END_LIST_$#[19];
+  VariableCount:=0;
   VariableMultiCommentList:=
-  BEGIN_LIST_$#[35]
-  END_LIST_$#[35];
+  BEGIN_LIST_$#[20]
+  END_LIST_$#[20];
   VariableMultiCommentCount:=0;
   VariableMultiCommentTypeCount:=16;
   VariablePredefinedMultiCommentList:=
-  BEGIN_LIST_$#[36]
-  END_LIST_$#[36];
+  BEGIN_LIST_$#[21]
+  END_LIST_$#[21];
   VariablePredefinedMultiCommentCount:=0;
   POUInstances:=
   BEGIN
@@ -207,10 +206,10 @@ $?St$Bk?_#[33]
   Program[0]:=
   BEGIN
    CompileInline:=0;
-   Name:="NewProgram1";
+   Name:="Prog1";
    FileType:=2;
-   Created:="19 10 2019 19 23 47";
-   Modified:="1 11 2019 18 21 18";
+   Created:="1 11 2019 16 33 18";
+   Modified:="1 11 2019 16 50 26";
    Protection:=
    BEGIN
     Enabled:=0;
@@ -218,12 +217,12 @@ $?St$Bk?_#[33]
    LocalVariables:=
    BEGIN
     VariableList:=
-    BEGIN_LIST_$#[37]
-    END_LIST_$#[37];
+    BEGIN_LIST_$#[22]
+    END_LIST_$#[22];
     VariableCount:=0;
     VariableMultiCommentList:=
-    BEGIN_LIST_$#[38]
-    END_LIST_$#[38];
+    BEGIN_LIST_$#[23]
+    END_LIST_$#[23];
     VariableMultiCommentCount:=0;
     VariableMultiCommentTypeCount:=16;
     POUInstances:=
@@ -235,30 +234,26 @@ $?St$Bk?_#[33]
    OpStart:=1;
    Sections:=
    BEGIN
-    SC:=7;
+    SC:=3;
     Sec[0]:=
     BEGIN
      IEC1131Type:=11;
      CompileInline:=0;
      SecType:=0;
-     SecName:="카운터";
+     SecName:="Sec1";
      ProgramData:=
      BEGIN
       RC:=2;
       R[0]:=
       BEGIN
-       Com:="Rung 주석입니다.";
+       Com:="";
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[39]
-'  R0
-LD 0.01
-AND 0.03
-LD 0.02
-OR 0.05
-CNT 0009 7
-$?St$Bk?_#[39]
+$?St$Bk?_#[24]
+LD 0.00
+OUT 0.01
+$?St$Bk?_#[24]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -282,121 +277,26 @@ $?St$Bk?_#[39]
      IEC1131Type:=11;
      CompileInline:=0;
      SecType:=0;
-     SecName:="타이머";
+     SecName:="Sec2";
      ProgramData:=
      BEGIN
-      RC:=7;
+      RC:=2;
       R[0]:=
       BEGIN
        Com:="";
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[40]
-LD 0.00
-TIM 0000 0
-$?St$Bk?_#[40]
+$?St$Bk?_#[25]
+LD 0.01
+OUT 1.02
+$?St$Bk?_#[25]
        AtchCmts:=
        BEGIN
         CC:=0;
        END;
       END;
       R[1]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[41]
-LD 0.00
-LD 0.01
-OR 0.02
-ANDLD
-TIM 0000 0
-$?St$Bk?_#[41]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[2]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[42]
-LD 0.01
-AND 0.01
-LD 0.02
-LD 0.04
-OR 0.03
-ANDLD
-TTIM(087) 0001 1
-$?St$Bk?_#[42]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[3]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[43]
-LD 0.01
-LD 0.02
-TTIM(087) 0001 1
-$?St$Bk?_#[43]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[4]:=
-      BEGIN
-       Com:="Rung 주석입니다.";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[44]
-'  R0
-LD 0.01
-AND 0.03
-LD 0.02
-OR 0.05
-TTIM(087) 0001 1
-$?St$Bk?_#[44]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[5]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[45]
-LD 0.00
-OR 0.01
-LD 0.02
-OR 0.03
-OUT TR0
-TTIM(087) 0001 2
-LD TR0
-LD 0.05
-TTIM(087) 0001 2
-$?St$Bk?_#[45]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[6]:=
       BEGIN
        Com:="";
        Flags:="1,0";
@@ -414,150 +314,6 @@ $?St$Bk?_#[45]
      IEC1131Type:=11;
      CompileInline:=0;
      SecType:=0;
-     SecName:="T1";
-     ProgramData:=
-     BEGIN
-      RC:=2;
-      R[0]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[46]
-LD 0.00
-LD 0.01
-OR 0.02
-ANDLD
-TIM 0000 0
-$?St$Bk?_#[46]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[1]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:="";
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-     END;
-    END;
-    Sec[3]:=
-    BEGIN
-     IEC1131Type:=11;
-     CompileInline:=0;
-     SecType:=0;
-     SecName:="T2";
-     ProgramData:=
-     BEGIN
-      RC:=1;
-      R[0]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:="";
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-     END;
-    END;
-    Sec[4]:=
-    BEGIN
-     IEC1131Type:=11;
-     CompileInline:=0;
-     SecType:=0;
-     SecName:="기타";
-     ProgramData:=
-     BEGIN
-      RC:=2;
-      R[0]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[47]
-LD 0.04
-LD 0.01
-AND 0.01
-LD 0.02
-LD 0.04
-OR 0.03
-ANDLD
-SFT(010) 10 20
-$?St$Bk?_#[47]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[1]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:="";
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-     END;
-    END;
-    Sec[5]:=
-    BEGIN
-     IEC1131Type:=11;
-     CompileInline:=0;
-     SecType:=0;
-     SecName:="비교";
-     ProgramData:=
-     BEGIN
-      RC:=2;
-      R[0]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:=
-$?St$Bk?_#[48]
-LD P_On
-CMP(020) #3 C0
-AND P_EQ
-OUT 0.01
-$?St$Bk?_#[48]
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-      R[1]:=
-      BEGIN
-       Com:="";
-       Flags:="1,0";
-       FBversion:="";
-       SL:="";
-       AtchCmts:=
-       BEGIN
-        CC:=0;
-       END;
-      END;
-     END;
-    END;
-    Sec[6]:=
-    BEGIN
-     IEC1131Type:=11;
-     CompileInline:=0;
-     SecType:=0;
      SecName:="END";
      ProgramData:=
      BEGIN
@@ -568,9 +324,9 @@ $?St$Bk?_#[48]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[49]
+$?St$Bk?_#[26]
 END(001)
-$?St$Bk?_#[49]
+$?St$Bk?_#[26]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -591,5 +347,150 @@ $?St$Bk?_#[49]
     END;
    END;
   END;
+  Program[1]:=
+  BEGIN
+   CompileInline:=0;
+   Name:="Prog2";
+   FileType:=2;
+   Created:="1 11 2019 16 33 49";
+   Modified:="1 11 2019 16 50 26";
+   Protection:=
+   BEGIN
+    Enabled:=0;
+   END;
+   LocalVariables:=
+   BEGIN
+    VariableList:=
+    BEGIN_LIST_$#[27]
+    END_LIST_$#[27];
+    VariableCount:=0;
+    VariableMultiCommentList:=
+    BEGIN_LIST_$#[28]
+    END_LIST_$#[28];
+    VariableMultiCommentCount:=0;
+    VariableMultiCommentTypeCount:=16;
+    POUInstances:=
+    BEGIN
+     NumInstances:=0;
+    END;
+   END;
+   TaskID:=-1;
+   Excl:=1;
+   Sections:=
+   BEGIN
+    SC:=3;
+    Sec[0]:=
+    BEGIN
+     IEC1131Type:=11;
+     CompileInline:=0;
+     SecType:=0;
+     SecName:="섹션1";
+     ProgramData:=
+     BEGIN
+      RC:=2;
+      R[0]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[29]
+LD 0.02
+OUT 0.02
+$?St$Bk?_#[29]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[1]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:="";
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+     END;
+    END;
+    Sec[1]:=
+    BEGIN
+     IEC1131Type:=11;
+     CompileInline:=0;
+     SecType:=0;
+     SecName:="섹션2";
+     ProgramData:=
+     BEGIN
+      RC:=2;
+      R[0]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[30]
+LD 0.04
+OUT 1.04
+$?St$Bk?_#[30]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[1]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:="";
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+     END;
+    END;
+    Sec[2]:=
+    BEGIN
+     IEC1131Type:=11;
+     CompileInline:=0;
+     SecType:=0;
+     SecName:="END";
+     ProgramData:=
+     BEGIN
+      RC:=2;
+      R[0]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[31]
+END(001)
+$?St$Bk?_#[31]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[1]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:="";
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+     END;
+    END;
+   END;
+  END;
+  ProgramCount:=2;
  END;
 END;

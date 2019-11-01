@@ -48,8 +48,9 @@ namespace PLCConvertor
         }
         void TestConversion()
         {
+            var cvtParam = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS);
             var inputs = MnemonicInput.Inputs[0].Input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            var rung = Rung.CreateRung(inputs, PLCVendor.Omron, PLCVendor.LSIS);
+            var rung = Rung.CreateRung(inputs, cvtParam);
             var graph = rung.GraphViz();
             var _pictureBox = new PictureBox() { Image = graph, Dock = DockStyle.Fill };
             var _formGraphviz = new Form() { Size = new Size(800, 500) };
@@ -95,7 +96,11 @@ namespace PLCConvertor
                 var msgFile = getPath($"{stem}.txt");
                 Logger?.Info($"Parsing {cxtPath}");
 
-                Cx2Xg5k.Convert(cxtPath, qtxFile, "", msgFile);
+                var cvtParams = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS)
+                {
+                    SplitBySection = barCheckItemPrefereSectionSplit.Checked,
+                };
+                Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", msgFile);
             }
         }
     }

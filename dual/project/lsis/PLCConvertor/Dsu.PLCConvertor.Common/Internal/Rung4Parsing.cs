@@ -53,12 +53,12 @@ namespace Dsu.PLCConvertor.Common
         string _strMLoad = "MLOAD";
         string _strLD = "LD";
 
-        public Rung4Parsing(IEnumerable<string> mnemonics, PLCVendor sourceType, PLCVendor targetType)
+        public Rung4Parsing(IEnumerable<string> mnemonics, ConvertParams cvtParam)
         {
             _mnemonics = mnemonics.ToArray();
             LadderStack = new Stack<SubRung>();
-            _targetType = targetType;
-            _sourceType = sourceType;
+            _targetType = cvtParam.TargetType;
+            _sourceType = cvtParam.SourceType;
 
 
             _strMPush = IL.GetOperator(_targetType, Mnemonic.MPUSH);
@@ -127,11 +127,17 @@ namespace Dsu.PLCConvertor.Common
 
                     case Mnemonic.TON: // timer output
                     case Mnemonic.OUT:
+                    case Mnemonic.CMP:
                         _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
                         break;
 
                     default:
-                        if (arity > 1)
+                        if (arity == 1)
+                        {
+                            Logger?.Warn($"Unknown IL with arity=1: {m}");
+                            _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
+                        }
+                        else if (arity > 1)
                         {
                             _cbld.ConnectFunctionParameters(sentence, LadderStack);
                             Console.WriteLine("");

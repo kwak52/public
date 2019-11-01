@@ -53,8 +53,15 @@
     <Compile Include="Graph\FunctionNode.cs" />
     <Compile Include="Internal\AddressConvert\AddressConvertor.cs" />
     <Compile Include="Internal\AddressConvert\AddressConvertRule.cs" />
+    <Compile Include="Internal\AddressConvert\AddressConvertRuleSpecialRelay.cs" />
+    <Compile Include="Internal\AddressConvert\Interfaces.cs" />
     <Compile Include="Internal\Common.Extension.cs" />
+    <Compile Include="Internal\ConvertParams.cs" />
+    <Compile Include="Internal\CxtParser\CxtInfo.cs" />
+    <Compile Include="Internal\CxtParser\CxtInfoProgram.cs" />
     <Compile Include="Internal\CxtParser\CxtInfoRoot.cs" />
+    <Compile Include="Internal\CxtParser\CxtInfoRung.cs" />
+    <Compile Include="Internal\CxtParser\CxtInfoSection.cs" />
     <Compile Include="Internal\CxtParser\CxtLineInfo.cs" />
     <Compile Include="Internal\CxtParser\CxtParser.cs" />
     <Compile Include="Internal\CxtParser\CxtTextBlock.cs" />
