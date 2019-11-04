@@ -2,13 +2,16 @@
 using Dsu.PLCConvertor.Common;
 using Dsu.PLCConvertor.Common.Internal;
 using System;
-using System.Collections.Generic;
-using System.Data;
+using System.Configuration;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace PLCConvertor.Forms
 {
+    /// <summary>
+    /// Address mapping 관련, 전체 rule set 을 편집하기 위한 form
+    /// </summary>
     public partial class FormEditAddressMappingRule : Form
     {
         public FormEditAddressMappingRule()
@@ -16,6 +19,9 @@ namespace PLCConvertor.Forms
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Rule grid 에서 이미 선택된 rule
+        /// </summary>
         static AddressConvertRule _oldSelectedRule = null;
         private void FormEditAddressMappingRule_Load(object sender, EventArgs args)
         {
@@ -34,7 +40,7 @@ namespace PLCConvertor.Forms
             });
 
 
-
+            // Global 변수 참조
             gridControlRule.DataSource = ILSentence.AddressConvertorInstance.Rules;
 
             gridViewRule.FocusedRowChanged += (s, e) => {
@@ -67,12 +73,14 @@ namespace PLCConvertor.Forms
                 _oldSelectedRule = withRangedRule;
             };
 
+            // Source 의 argument 행을 추가
             btnAddSource.Click += (s, e) =>
             {
                 (gridControlSource.DataSource as SourceDetailWrapper).Add(new MinMaxRange(Tuple.Create(0, 0)));
                 gridViewSource.RefreshData();
             };
 
+            // Target 의 argument 행을 추가
             btnAddTarget.Click += (s, e) =>
             {
                 (gridControlTarget.DataSource as TargetDetailWrapper).Add(new ExpressionHolder(""));
@@ -87,6 +95,7 @@ namespace PLCConvertor.Forms
             dockPanelSource.Enabled = 
             dockPanelTarget.Enabled = getAddressConvertRule() != null;
 
+            new[] { btnSave, btnLoad, btnAddRule, btnDeleteRule }.Iter(btn => btn.Size = new Size(60, 20));
 
 
             AddressConvertRule getAddressConvertRule() => gridViewRule.GetRow(gridViewRule.GetSelectedRows().First()) as AddressConvertRule;
@@ -102,6 +111,34 @@ namespace PLCConvertor.Forms
                 ILSentence.AddressConvertorInstance.Rules = newRuleSet;
                 gridControlRule.DataSource = ILSentence.AddressConvertorInstance.Rules;
                 gridViewRule.RefreshData();
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
+            ILSentence.AddressConvertorInstance.SaveToJsonFile(addressMappingJsonFile);
+            MessageBox.Show($"Saved to\r\n{addressMappingJsonFile}");
+        }
+
+
+        /// <summary>
+        /// Json file 을 읽어들여서 새로운 rule set 을 구성한다.
+        /// </summary>
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            using (var ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Json files|*.json|All files(*.*)|*.*";
+                ofd.RestoreDirectory = true;
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    var jsonFile = ofd.FileName;
+                    ILSentence.AddressConvertorInstance = AddressConvertor.LoadFromJsonFile(jsonFile);
+                    gridControlRule.DataSource = ILSentence.AddressConvertorInstance.Rules;
+                    gridViewRule.RefreshData();
+                    MessageBox.Show($"Sucessfully loaded\r\n{jsonFile}");
+                }
             }
         }
     }

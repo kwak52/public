@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer4 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
@@ -54,6 +54,9 @@
             this.btnAddTarget = new System.Windows.Forms.Button();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -72,6 +75,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewTarget)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -111,19 +116,15 @@
             // dockPanelRule
             // 
             this.dockPanelRule.Controls.Add(this.dockPanel1_Container);
-            this.dockPanelRule.Dock = DevExpress.XtraBars.Docking.DockingStyle.Float;
             this.dockPanelRule.DockedAsTabbedDocument = true;
             this.dockPanelRule.ID = new System.Guid("55b1121a-be74-4105-a894-25c722bb43af");
-            this.dockPanelRule.Location = new System.Drawing.Point(0, 0);
             this.dockPanelRule.Name = "dockPanelRule";
             this.dockPanelRule.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanelRule.Size = new System.Drawing.Size(451, 561);
             this.dockPanelRule.Text = "Rules";
             // 
             // dockPanel1_Container
             // 
-            this.dockPanel1_Container.Controls.Add(this.btnDeleteRule);
-            this.dockPanel1_Container.Controls.Add(this.btnAddRule);
+            this.dockPanel1_Container.Controls.Add(this.panelControl1);
             this.dockPanel1_Container.Controls.Add(this.gridControlRule);
             this.dockPanel1_Container.Location = new System.Drawing.Point(0, 0);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
@@ -133,9 +134,9 @@
             // btnDeleteRule
             // 
             this.btnDeleteRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteRule.Location = new System.Drawing.Point(357, 517);
+            this.btnDeleteRule.Location = new System.Drawing.Point(353, -1);
             this.btnDeleteRule.Name = "btnDeleteRule";
-            this.btnDeleteRule.Size = new System.Drawing.Size(91, 36);
+            this.btnDeleteRule.Size = new System.Drawing.Size(70, 36);
             this.btnDeleteRule.TabIndex = 2;
             this.btnDeleteRule.Text = "Delete";
             this.btnDeleteRule.UseVisualStyleBackColor = true;
@@ -143,9 +144,9 @@
             // btnAddRule
             // 
             this.btnAddRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddRule.Location = new System.Drawing.Point(260, 516);
+            this.btnAddRule.Location = new System.Drawing.Point(277, -1);
             this.btnAddRule.Name = "btnAddRule";
-            this.btnAddRule.Size = new System.Drawing.Size(91, 36);
+            this.btnAddRule.Size = new System.Drawing.Size(70, 36);
             this.btnAddRule.TabIndex = 1;
             this.btnAddRule.Text = "Add";
             this.btnAddRule.UseVisualStyleBackColor = true;
@@ -159,7 +160,7 @@
             this.gridControlRule.Location = new System.Drawing.Point(3, 3);
             this.gridControlRule.MainView = this.gridViewRule;
             this.gridControlRule.Name = "gridControlRule";
-            this.gridControlRule.Size = new System.Drawing.Size(445, 508);
+            this.gridControlRule.Size = new System.Drawing.Size(445, 491);
             this.gridControlRule.TabIndex = 0;
             this.gridControlRule.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewRule});
@@ -312,9 +313,44 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
-            dockingContainer1.Element = this.documentGroup1;
+            dockingContainer4.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer1});
+            dockingContainer4});
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Location = new System.Drawing.Point(125, -1);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(70, 36);
+            this.btnSave.TabIndex = 3;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLoad.Location = new System.Drawing.Point(201, -1);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(70, 36);
+            this.btnLoad.TabIndex = 4;
+            this.btnLoad.Text = "Load...";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // panelControl1
+            // 
+            this.panelControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControl1.Controls.Add(this.btnSave);
+            this.panelControl1.Controls.Add(this.btnDeleteRule);
+            this.panelControl1.Controls.Add(this.btnLoad);
+            this.panelControl1.Controls.Add(this.btnAddRule);
+            this.panelControl1.Location = new System.Drawing.Point(4, 516);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(444, 37);
+            this.panelControl1.TabIndex = 5;
             // 
             // FormEditAddressMappingRule
             // 
@@ -343,6 +379,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridViewTarget)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -373,5 +411,8 @@
         private System.Windows.Forms.Button btnAddTarget;
         private System.Windows.Forms.Button btnDeleteRule;
         private System.Windows.Forms.Button btnAddRule;
+        private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnSave;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
     }
 }
