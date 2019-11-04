@@ -123,8 +123,12 @@ namespace Dsu.PLCConvertor.Common
                     "T(%d)", new [] {"$0" }),
 
                 //new AddressConvertRule(
-                //    "E(%x)_(%5d)", new[] { Tuple.Create(0, 2), Tuple.Create(0, 32767) },
-                //    "L(%05d)(%x)", new[] { "$0 * 32768 + $1 % 16", "$1 % 16" }),
+                //    "E(%x)_(%5d)", new[] { Tuple.Create(0, 1), Tuple.Create(0, 32767) },
+                //    "L(%05d)", new[] { "$0 * 32768 + $1" }),
+
+                //new AddressConvertRule(
+                //    "E(%x)_(%5d).(%x)", new[] { Tuple.Create(0, 1), Tuple.Create(0, 32767), Tuple.Create(0, 15) },
+                //    "L(%05d).(%x)", new[] { "$0 * 32768 + $1", "$2" }),
             };
                 
 

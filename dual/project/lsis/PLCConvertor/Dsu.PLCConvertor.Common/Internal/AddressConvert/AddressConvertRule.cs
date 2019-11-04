@@ -204,7 +204,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                     .Select(ex =>
                     {
                         var compu = _dt.Compute(ex, "");
-                        var n = int.Parse(compu.ToString());
+                        var n = (int)double.Parse(compu.ToString());
                         return n;
                     })
                     .ToArray()

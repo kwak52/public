@@ -11,7 +11,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         , IACRSpecialRelay
     {
         public override string Convert(string sourceAddress) => TargetRepr;
-        public override bool IsMatch(string sourceAddress) => SourceRepr == TargetRepr;
+        public override bool IsMatch(string sourceAddress) => SourceRepr == sourceAddress;
 
         public override IEnumerable<string> GenerateSourceSamples()
         {
