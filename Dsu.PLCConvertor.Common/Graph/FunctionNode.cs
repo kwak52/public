@@ -100,6 +100,7 @@ namespace Dsu.PLCConvertor.Common
 
         public override IEnumerable<string> Convert(ConvertParams cvtParam)
         {
+            Global.Logger.Warn($"FunctionNodeSFT.Convert() not implemented, yet!");
             yield break;
         }
     }

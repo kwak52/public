@@ -104,6 +104,7 @@ namespace Dsu.PLCConvertor.Common
                 ("P_LT", "F120"),
                 ("P_LE", "F121"),
 
+                ("P_1s", ""),         // 1-s clock pulse
 
                 ("P_On", "F00099"),     // _ON
                 ("P_Off", "F0009A"),    // _OFF
@@ -117,8 +118,13 @@ namespace Dsu.PLCConvertor.Common
                     "P(%04d)(%x)", new[] { "$0 * 1000", "$1" }),
 
                 new NamedAddressConvertRule("TIMER",
-                    "(%d)", Enumerable.Empty<Tuple<int, int>>(),
+                    //"(%d)", Enumerable.Empty<Tuple<int, int>>(),
+                    "(%d)", new [] { Tuple.Create(0, 100), },
                     "T(%d)", new [] {"$0" }),
+
+                //new AddressConvertRule(
+                //    "E(%x)_(%5d)", new[] { Tuple.Create(0, 2), Tuple.Create(0, 32767) },
+                //    "L(%05d)(%x)", new[] { "$0 * 32768 + $1 % 16", "$1 % 16" }),
             };
                 
 

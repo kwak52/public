@@ -11,6 +11,7 @@ using Dsu.PLCConvertor.Common.Internal;
 using System.Linq;
 using System.Diagnostics;
 using System.IO;
+using System.Configuration;
 
 namespace PLCConvertor
 {
@@ -18,6 +19,16 @@ namespace PLCConvertor
         : DevExpress.XtraBars.Ribbon.RibbonForm
         , IAppender
     {
+        static AddressConvertor _addressConvertor;
+        static AddressConvertor AddressConvertor
+        {
+            get { return _addressConvertor; }
+            set {
+                _addressConvertor = value;
+                ILSentence.AddressConvertorInstance = value;
+            }
+        }
+        
         public FormPLCConverter()
         {
             InitializeComponent();
@@ -39,6 +50,10 @@ namespace PLCConvertor
             //    Logger.Debug($"Destination: folder={config.DestinationFolderPrefix}");
             //    Logger.Debug($"Destination server IP: {config.DestinationDBServerIp}");
             //}
+
+
+            var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
+            AddressConvertor = AddressConvertor.LoadFromJsonFile(addressMappingJsonFile);
 
             repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
             barEditItemSource.EditValue = PLCVendor.Omron;
@@ -102,6 +117,16 @@ namespace PLCConvertor
                 };
                 Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", msgFile);
             }
+        }
+
+        private void barButtonItemAddressMapping_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            new FormTestAddressMapping().Show();
+        }
+
+        private void barButtonItemEditAddressMappingRule_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            new FormEditAddressMappingRule().Show();
         }
     }
 }
