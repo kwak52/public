@@ -9,6 +9,11 @@ namespace Dsu.PLCConvertor.Common
     /// </summary>
     public class ILSentence
     {
+        /// <summary>
+        /// IL 문장 변환에 사용될 address convertor instance.
+        /// </summary>
+        public static AddressConvertor AddressConvertorInstance { get; set; }
+
         public string Command { get; protected set; }
         public string[] Args { get; protected set; }
         public string Sentence { get; private set; }
@@ -86,13 +91,13 @@ namespace Dsu.PLCConvertor.Common
         }
 
 
-        public static bool UseDirtyOperandReplaceImplementation = true;
+        public static bool UseAddressMapping = true;
         public override string ToString()
         {
-            if (UseDirtyOperandReplaceImplementation)
+            if (UseAddressMapping)
             {
-                var args =
-                    Args.Select(arg => arg.Replace("0.", "P0").Replace("1.", "P1").Replace("2.", "P2"));
+                var rs = AddressConvertorInstance;
+                var args = Args.Select(arg => rs.IsMatch(arg) ? rs.Convert(arg) : arg);
                 var operands = string.Join(" ", args);
                 return $"{Command}\t{operands}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
             }

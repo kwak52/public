@@ -14,12 +14,12 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// e.g "(%d).(%2d)" for Omron CIO
         /// </summary>
-        public string SourceRepr { get; private set; }
+        public string SourceRepr { get; /*private*/ set; }
 
         /// <summary>
         /// e.g "P(%04d)(%x)"
         /// </summary>
-        public string TargetRepr { get; private set; }
+        public string TargetRepr { get; /*private*/ set; }
 
         public abstract string Convert(string sourceAddress);
         public abstract bool IsMatch(string sourceAddress);
@@ -54,12 +54,12 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// SourceRepr 에서의 argument 의 최소/최대값.  inclusive range
         /// </summary>
-		public Tuple<int, int> [] SourceArgsMinMax { get; private set; }
+		public Tuple<int, int> [] SourceArgsMinMax { get; internal set; }
         int SourceArity => SourceArgsMinMax.Length;
         /// <summary>
         /// Target argument 명세: source argument 를 이용한 expression
         /// </summary>
-		public string [] TargetArgsExpr { get; private set; }
+		public string [] TargetArgsExpr { get; internal set; }
 
         //TODO: for serialization
 		//public AddressConvertRule(string rule)

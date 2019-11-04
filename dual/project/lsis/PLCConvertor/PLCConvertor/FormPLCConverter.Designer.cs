@@ -43,6 +43,7 @@
             this.barEditItemTarget = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemComboBoxTarget = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.barCheckItemPrefereSectionSplit = new DevExpress.XtraBars.BarCheckItem();
+            this.barButtonItemAddressMapping = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupOptions = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -56,6 +57,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.barButtonItemEditAddressMappingRule = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -94,9 +96,11 @@
             this.barButtonItemCxtParse,
             this.barEditItemSource,
             this.barEditItemTarget,
-            this.barCheckItemPrefereSectionSplit});
+            this.barCheckItemPrefereSectionSplit,
+            this.barButtonItemAddressMapping,
+            this.barButtonItemEditAddressMappingRule});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 6;
+            this.ribbon.MaxItemId = 8;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -163,6 +167,13 @@
             superToolTip1.Items.Add(toolTipItem1);
             this.barCheckItemPrefereSectionSplit.SuperTip = superToolTip1;
             // 
+            // barButtonItemAddressMapping
+            // 
+            this.barButtonItemAddressMapping.Caption = "Address mapping";
+            this.barButtonItemAddressMapping.Id = 6;
+            this.barButtonItemAddressMapping.Name = "barButtonItemAddressMapping";
+            this.barButtonItemAddressMapping.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemAddressMapping_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -175,6 +186,8 @@
             // 
             this.ribbonPageGroupTest.ItemLinks.Add(this.barButtonItemTestParse);
             this.ribbonPageGroupTest.ItemLinks.Add(this.barButtonItemCxtParse);
+            this.ribbonPageGroupTest.ItemLinks.Add(this.barButtonItemAddressMapping);
+            this.ribbonPageGroupTest.ItemLinks.Add(this.barButtonItemEditAddressMappingRule);
             this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
             this.ribbonPageGroupTest.Text = "Test";
             // 
@@ -284,6 +297,13 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
+            // barButtonItemEditAddressMappingRule
+            // 
+            this.barButtonItemEditAddressMappingRule.Caption = "Edit address mapping";
+            this.barButtonItemEditAddressMappingRule.Id = 7;
+            this.barButtonItemEditAddressMappingRule.Name = "barButtonItemEditAddressMappingRule";
+            this.barButtonItemEditAddressMappingRule.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemEditAddressMappingRule_ItemClick);
+            // 
             // FormPLCConverter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -339,5 +359,7 @@
         private DevExpress.XtraBars.BarEditItem barEditItemTarget;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBoxTarget;
         private DevExpress.XtraBars.BarCheckItem barCheckItemPrefereSectionSplit;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemAddressMapping;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemEditAddressMappingRule;
     }
 }

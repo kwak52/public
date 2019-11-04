@@ -11,8 +11,8 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// </summary>
     public interface IAddressConvertRule
     {
-        string SourceRepr { get; }
-        string TargetRepr { get; }
+        string SourceRepr { get; set; } // UI 를 위해서 set 제공
+        string TargetRepr { get; set; }
         bool IsMatch(string sourceAddress);
         string Convert(string sourceAddress);
         IEnumerable<string> GenerateSourceSamples();

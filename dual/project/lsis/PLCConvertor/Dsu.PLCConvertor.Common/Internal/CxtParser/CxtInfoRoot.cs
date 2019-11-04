@@ -44,6 +44,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 
             string unQuote(string str) => str.TrimStart('"').TrimEnd('"');
             string getValue(string key) => unQuote(rootBlock[key].Value.ToString());
+            string getChildValueWithKey(CxtTextBlock block, string key) => block.SubStructures.FirstOrDefault(cb => cb.Key == key).Value?.ToString();
 
             void BuildCxtInfo()
             {
@@ -99,13 +100,13 @@ namespace Dsu.PLCConvertor.Common.Internal
                         default:
                             if (key.StartsWith("Program["))
                             {
-                                program = new CxtInfoProgram(key);
+                                program = new CxtInfoProgram(getName());
                                 Programs.Add(program);
                             }
 
                             else if (key.StartsWith("Sec["))
                             {
-                                section = new CxtInfoSection(key);
+                                section = new CxtInfoSection(getName("SecName"));
                                 program.AddSection(section);
                             }
                             else if (key.StartsWith("R["))
@@ -115,6 +116,8 @@ namespace Dsu.PLCConvertor.Common.Internal
                             }
 
                             break;
+
+                            string getName(string searchKey="Name") => unQuote(getChildValueWithKey(start, searchKey));
 
                     }
 

@@ -11,8 +11,8 @@ open Dsu.PLCConvertor.Common.Internal
 
 type Conv(output1:ITestOutputHelper) =
     let testRung (m:MnemonicInput) n =
-        let old = LSILSentence.UseDirtyOperandReplaceImplementation;
-        LSILSentence.UseDirtyOperandReplaceImplementation <- false
+        let old = LSILSentence.UseAddressMapping;
+        LSILSentence.UseAddressMapping <- false
         let comment = m.Comment
         let co = MnemonicInput.CommentOutMultiple
         let converted =
@@ -49,7 +49,7 @@ type Conv(output1:ITestOutputHelper) =
             p1 || p2
 
         (correct || correct2) |> should equal true
-        LSILSentence.UseDirtyOperandReplaceImplementation <- old
+        LSILSentence.UseAddressMapping <- old
 
     /// TR type ladder test
     [<Fact>]

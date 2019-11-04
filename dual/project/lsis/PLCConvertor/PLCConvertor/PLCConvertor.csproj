@@ -39,11 +39,15 @@
     <Reference Include="DevExpress.Utils.v18.1, Version=18.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraBars.v18.1, Version=18.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v18.1, Version=18.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v18.1, Version=18.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v18.1, Version=18.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraPrinting.v18.1, Version=18.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\common\bin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,6 +68,27 @@
     </Compile>
     <Compile Include="FormPLCConverter.Log.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormAddAddressMappingRule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormAddAddressMappingRule.Designer.cs">
+      <DependentUpon>FormAddAddressMappingRule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormEditAddressMappingRule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormEditAddressMappingRule.Designer.cs">
+      <DependentUpon>FormEditAddressMappingRule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FormEditAddressMappingRule.Helper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormTestAddressMapping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormTestAddressMapping.Designer.cs">
+      <DependentUpon>FormTestAddressMapping.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FormInputSelector.cs">
       <SubType>Form</SubType>
@@ -94,6 +119,15 @@
     </Compile>
     <EmbeddedResource Include="FormPLCConverter.resx">
       <DependentUpon>FormPLCConverter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormAddAddressMappingRule.resx">
+      <DependentUpon>FormAddAddressMappingRule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormEditAddressMappingRule.resx">
+      <DependentUpon>FormEditAddressMappingRule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormTestAddressMapping.resx">
+      <DependentUpon>FormTestAddressMapping.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormInputSelector.resx">
       <DependentUpon>FormInputSelector.cs</DependentUpon>
