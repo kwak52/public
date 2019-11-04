@@ -44,6 +44,7 @@
             this.repositoryItemComboBoxTarget = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.barCheckItemPrefereSectionSplit = new DevExpress.XtraBars.BarCheckItem();
             this.barButtonItemAddressMapping = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemEditAddressMappingRule = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupOptions = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -57,7 +58,6 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.barButtonItemEditAddressMappingRule = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -173,6 +173,13 @@
             this.barButtonItemAddressMapping.Id = 6;
             this.barButtonItemAddressMapping.Name = "barButtonItemAddressMapping";
             this.barButtonItemAddressMapping.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemAddressMapping_ItemClick);
+            // 
+            // barButtonItemEditAddressMappingRule
+            // 
+            this.barButtonItemEditAddressMappingRule.Caption = "Edit address mapping";
+            this.barButtonItemEditAddressMappingRule.Id = 7;
+            this.barButtonItemEditAddressMappingRule.Name = "barButtonItemEditAddressMappingRule";
+            this.barButtonItemEditAddressMappingRule.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemEditAddressMappingRule_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -296,13 +303,6 @@
             dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
-            // 
-            // barButtonItemEditAddressMappingRule
-            // 
-            this.barButtonItemEditAddressMappingRule.Caption = "Edit address mapping";
-            this.barButtonItemEditAddressMappingRule.Id = 7;
-            this.barButtonItemEditAddressMappingRule.Name = "barButtonItemEditAddressMappingRule";
-            this.barButtonItemEditAddressMappingRule.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemEditAddressMappingRule_ItemClick);
             // 
             // FormPLCConverter
             // 

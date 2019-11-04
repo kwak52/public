@@ -29,31 +29,31 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer4 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.dockPanelRule = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.btnDeleteRule = new System.Windows.Forms.Button();
+            this.btnAddRule = new System.Windows.Forms.Button();
             this.gridControlRule = new DevExpress.XtraGrid.GridControl();
             this.gridViewRule = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.panelContainer1 = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanelSource = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.btnDeleteSource = new System.Windows.Forms.Button();
+            this.btnAddSource = new System.Windows.Forms.Button();
             this.gridControlSource = new DevExpress.XtraGrid.GridControl();
             this.gridViewSource = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.dockPanelTarget = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel3_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.btnDeleteTarget = new System.Windows.Forms.Button();
             this.gridControlTarget = new DevExpress.XtraGrid.GridControl();
             this.gridViewTarget = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.btnAddTarget = new System.Windows.Forms.Button();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.btnAddRule = new System.Windows.Forms.Button();
-            this.btnDeleteRule = new System.Windows.Forms.Button();
-            this.btnDeleteSource = new System.Windows.Forms.Button();
-            this.btnAddSource = new System.Windows.Forms.Button();
-            this.btnDeleteTarget = new System.Windows.Forms.Button();
-            this.btnAddTarget = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -111,10 +111,13 @@
             // dockPanelRule
             // 
             this.dockPanelRule.Controls.Add(this.dockPanel1_Container);
+            this.dockPanelRule.Dock = DevExpress.XtraBars.Docking.DockingStyle.Float;
             this.dockPanelRule.DockedAsTabbedDocument = true;
             this.dockPanelRule.ID = new System.Guid("55b1121a-be74-4105-a894-25c722bb43af");
+            this.dockPanelRule.Location = new System.Drawing.Point(0, 0);
             this.dockPanelRule.Name = "dockPanelRule";
             this.dockPanelRule.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanelRule.Size = new System.Drawing.Size(451, 561);
             this.dockPanelRule.Text = "Rules";
             // 
             // dockPanel1_Container
@@ -126,6 +129,27 @@
             this.dockPanel1_Container.Name = "dockPanel1_Container";
             this.dockPanel1_Container.Size = new System.Drawing.Size(451, 561);
             this.dockPanel1_Container.TabIndex = 0;
+            // 
+            // btnDeleteRule
+            // 
+            this.btnDeleteRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteRule.Location = new System.Drawing.Point(357, 517);
+            this.btnDeleteRule.Name = "btnDeleteRule";
+            this.btnDeleteRule.Size = new System.Drawing.Size(91, 36);
+            this.btnDeleteRule.TabIndex = 2;
+            this.btnDeleteRule.Text = "Delete";
+            this.btnDeleteRule.UseVisualStyleBackColor = true;
+            // 
+            // btnAddRule
+            // 
+            this.btnAddRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddRule.Location = new System.Drawing.Point(260, 516);
+            this.btnAddRule.Name = "btnAddRule";
+            this.btnAddRule.Size = new System.Drawing.Size(91, 36);
+            this.btnAddRule.TabIndex = 1;
+            this.btnAddRule.Text = "Add";
+            this.btnAddRule.UseVisualStyleBackColor = true;
+            this.btnAddRule.Click += new System.EventHandler(this.btnAddRule_Click);
             // 
             // gridControlRule
             // 
@@ -178,6 +202,26 @@
             this.dockPanel2_Container.Size = new System.Drawing.Size(332, 259);
             this.dockPanel2_Container.TabIndex = 0;
             // 
+            // btnDeleteSource
+            // 
+            this.btnDeleteSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteSource.Location = new System.Drawing.Point(235, 208);
+            this.btnDeleteSource.Name = "btnDeleteSource";
+            this.btnDeleteSource.Size = new System.Drawing.Size(91, 36);
+            this.btnDeleteSource.TabIndex = 4;
+            this.btnDeleteSource.Text = "Delete";
+            this.btnDeleteSource.UseVisualStyleBackColor = true;
+            // 
+            // btnAddSource
+            // 
+            this.btnAddSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddSource.Location = new System.Drawing.Point(138, 209);
+            this.btnAddSource.Name = "btnAddSource";
+            this.btnAddSource.Size = new System.Drawing.Size(91, 36);
+            this.btnAddSource.TabIndex = 3;
+            this.btnAddSource.Text = "Add";
+            this.btnAddSource.UseVisualStyleBackColor = true;
+            // 
             // gridControlSource
             // 
             this.gridControlSource.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -217,6 +261,16 @@
             this.dockPanel3_Container.Size = new System.Drawing.Size(332, 261);
             this.dockPanel3_Container.TabIndex = 0;
             // 
+            // btnDeleteTarget
+            // 
+            this.btnDeleteTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeleteTarget.Location = new System.Drawing.Point(235, 219);
+            this.btnDeleteTarget.Name = "btnDeleteTarget";
+            this.btnDeleteTarget.Size = new System.Drawing.Size(91, 36);
+            this.btnDeleteTarget.TabIndex = 4;
+            this.btnDeleteTarget.Text = "Delete";
+            this.btnDeleteTarget.UseVisualStyleBackColor = true;
+            // 
             // gridControlTarget
             // 
             this.gridControlTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -235,6 +289,16 @@
             this.gridViewTarget.GridControl = this.gridControlTarget;
             this.gridViewTarget.Name = "gridViewTarget";
             // 
+            // btnAddTarget
+            // 
+            this.btnAddTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddTarget.Location = new System.Drawing.Point(138, 220);
+            this.btnAddTarget.Name = "btnAddTarget";
+            this.btnAddTarget.Size = new System.Drawing.Size(91, 36);
+            this.btnAddTarget.TabIndex = 3;
+            this.btnAddTarget.Text = "Add";
+            this.btnAddTarget.UseVisualStyleBackColor = true;
+            // 
             // documentManager1
             // 
             this.documentManager1.ContainerControl = this;
@@ -248,70 +312,9 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
-            dockingContainer4.Element = this.documentGroup1;
+            dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer4});
-            // 
-            // btnAddRule
-            // 
-            this.btnAddRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddRule.Location = new System.Drawing.Point(260, 516);
-            this.btnAddRule.Name = "btnAddRule";
-            this.btnAddRule.Size = new System.Drawing.Size(91, 36);
-            this.btnAddRule.TabIndex = 1;
-            this.btnAddRule.Text = "Add";
-            this.btnAddRule.UseVisualStyleBackColor = true;
-            this.btnAddRule.Click += new System.EventHandler(this.btnAddRule_Click);
-            // 
-            // btnDeleteRule
-            // 
-            this.btnDeleteRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteRule.Location = new System.Drawing.Point(357, 517);
-            this.btnDeleteRule.Name = "btnDeleteRule";
-            this.btnDeleteRule.Size = new System.Drawing.Size(91, 36);
-            this.btnDeleteRule.TabIndex = 2;
-            this.btnDeleteRule.Text = "Delete";
-            this.btnDeleteRule.UseVisualStyleBackColor = true;
-            // 
-            // btnDeleteSource
-            // 
-            this.btnDeleteSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteSource.Location = new System.Drawing.Point(235, 208);
-            this.btnDeleteSource.Name = "btnDeleteSource";
-            this.btnDeleteSource.Size = new System.Drawing.Size(91, 36);
-            this.btnDeleteSource.TabIndex = 4;
-            this.btnDeleteSource.Text = "Delete";
-            this.btnDeleteSource.UseVisualStyleBackColor = true;
-            // 
-            // btnAddSource
-            // 
-            this.btnAddSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddSource.Location = new System.Drawing.Point(138, 209);
-            this.btnAddSource.Name = "btnAddSource";
-            this.btnAddSource.Size = new System.Drawing.Size(91, 36);
-            this.btnAddSource.TabIndex = 3;
-            this.btnAddSource.Text = "Add";
-            this.btnAddSource.UseVisualStyleBackColor = true;
-            // 
-            // btnDeleteTarget
-            // 
-            this.btnDeleteTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDeleteTarget.Location = new System.Drawing.Point(235, 219);
-            this.btnDeleteTarget.Name = "btnDeleteTarget";
-            this.btnDeleteTarget.Size = new System.Drawing.Size(91, 36);
-            this.btnDeleteTarget.TabIndex = 4;
-            this.btnDeleteTarget.Text = "Delete";
-            this.btnDeleteTarget.UseVisualStyleBackColor = true;
-            // 
-            // btnAddTarget
-            // 
-            this.btnAddTarget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddTarget.Location = new System.Drawing.Point(138, 220);
-            this.btnAddTarget.Name = "btnAddTarget";
-            this.btnAddTarget.Size = new System.Drawing.Size(91, 36);
-            this.btnAddTarget.TabIndex = 3;
-            this.btnAddTarget.Text = "Add";
-            this.btnAddTarget.UseVisualStyleBackColor = true;
+            dockingContainer1});
             // 
             // FormEditAddressMappingRule
             // 
