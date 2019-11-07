@@ -142,7 +142,7 @@ namespace Dsu.PLCConvertor.Common
         public void OUTTR(TRNode tr, ILSentence sentence)
         {
             // CXP 의 IL 에서 OUTTR 값이 재사용되는 경우가 있으므로, 재사용시에는 기존의 것을 삭제해야 한다.
-            var exising = TRmap.Keys.FirstOrDefault(k => k.ILSentence.Args[0] == sentence.Args[0]);
+            var exising = TRmap.Keys.FirstOrDefault(k => sentence.Args.NonNullAny() && k.ILSentence.Args[0] == sentence.Args[0]);
             if (exising != null)
                 TRmap.Remove(exising);
 
@@ -170,11 +170,17 @@ namespace Dsu.PLCConvertor.Common
         {
             var arity = sentence.Arity;
             FunctionNode fNode = null;
+
+            if (sentence.Mnemonic == Mnemonic.USERDEFINED)
+                System.Console.WriteLine("");
+
             switch(sentence.Mnemonic)
             {
                 case Mnemonic.SFT:
                 case Mnemonic.TMR:
                 case Mnemonic.KEEP:
+                case Mnemonic.CTU:
+                case Mnemonic.USERDEFINED:
                     fNode = FunctionNode.Create(sentence);
                     Debug.Assert(stack.Count == arity - 1);
                     fNode.Inputs.AddRange(stack);

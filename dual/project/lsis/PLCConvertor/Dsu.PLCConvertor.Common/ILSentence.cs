@@ -1,5 +1,6 @@
 ﻿using Dsu.PLCConvertor.Common.Internal;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Dsu.PLCConvertor.Common
@@ -32,7 +33,9 @@ namespace Dsu.PLCConvertor.Common
             Sentence = sentence;
             VendorType = vendorType;
             Mnemonic = IL.GetMnemonic(vendorType, Command);
-            ILCommand = IL.GetILCommand(vendorType, Mnemonic);
+            ILCommand = IL.GetILCommand(vendorType, Mnemonic, Command);
+            if (ILCommand is UserDefinedILCommand)
+                Mnemonic = Mnemonic.USERDEFINED;
         }
 
         protected ILSentence(ILSentence other)
@@ -43,6 +46,9 @@ namespace Dsu.PLCConvertor.Common
             VendorType = other.VendorType;
             Mnemonic = other.Mnemonic;
             ILCommand = other.ILCommand;
+
+            if (Mnemonic == Mnemonic.UNDEFINED || Mnemonic == Mnemonic.USERDEFINED)
+                Console.WriteLine("");
         }
 
         public override string ToString()
@@ -79,18 +85,33 @@ namespace Dsu.PLCConvertor.Common
         public LSILSentence(ILSentence other)
             : base(other)
         {
-            ILCommand = IL.GetILCommand(_vendorType, other.Mnemonic);
-            Command = IL.GetOperator(_vendorType, other.Mnemonic);
+            switch(Mnemonic)
+            {
+                case Mnemonic.UNDEFINED:
+                    Command = other.Command;
+                    break;
+                case Mnemonic.USERDEFINED:
+                    var udc = other.ILCommand as UserDefinedILCommand;
+                    Command = udc.TargetCommand;
+                    break;
+                default:
+                    // 산전 format 의 Command 로 변환한다.
+                    ILCommand = IL.GetILCommand(_vendorType, other.Mnemonic);
+                    Command = IL.GetOperator(_vendorType, other.Mnemonic);
+                    break;
+            }
         }
 
+        // 옴론 -> 산전 변환시 사용되지 않음.
         public LSILSentence(string sentence)
             : base(sentence, PLCVendor.LSIS)
         {
-            ILCommand = IL.GetILCommand(_vendorType, Mnemonic);
-            Command = IL.GetOperator(_vendorType, Mnemonic);
+            Debugger.Break();
         }
 
-
+        /// <summary>
+        /// Address mapping 사용 여부.  default 는 true.  Unit Test 등에서 임시로 disable
+        /// </summary>
         public static bool UseAddressMapping = true;
         public override string ToString()
         {
@@ -110,16 +131,26 @@ namespace Dsu.PLCConvertor.Common
     public class OmronILSentence : ILSentence
     {
         PLCVendor _vendorType = PLCVendor.Omron;
+        // 옴론 -> 산전 변환시 사용되지 않음.  변환 target 이 옴론일 경우 사용될 수 있음.
         public OmronILSentence(ILSentence other)
             : base(other)
         {
-            Command = IL.GetOperator(_vendorType, other.Mnemonic);
+            Debugger.Break();
+            if (Mnemonic == Mnemonic.UNDEFINED)
+                Command = other.Command;
+            else
+            {
+                // 옴론 type 의 command 로 변환한다.
+                ILCommand = IL.GetILCommand(_vendorType, other.Mnemonic);
+                Command = IL.GetOperator(_vendorType, other.Mnemonic);
+            }
         }
 
+
+        // 옴론 -> 산전 변환시 사용되는 생성자
         public OmronILSentence(string sentence)
             : base(sentence, PLCVendor.Omron)
         {
-            Command = IL.GetOperator(_vendorType, Mnemonic);
         }
     }
 

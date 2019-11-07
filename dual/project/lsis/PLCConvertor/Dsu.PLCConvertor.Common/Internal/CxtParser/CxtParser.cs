@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         IEnumerable<string> ReadPassLineStart(string target)
         {
-            while(_index < _lines.Length && ! _lines[_index].TrimStart().StartsWith(target))
+            while(_index < _lines.Length && ! _lines[_index].Contains(target))
             {
                 yield return _lines[_index++];
             }
@@ -59,6 +60,9 @@ namespace Dsu.PLCConvertor.Common.Internal
                 var key = li.Key;
                 var value = li.Value;
 
+                if (key.IsOneOf("Programs", "Sections", "RC"))
+                    System.Console.WriteLine("");
+
 
                 if (key == "BEGIN")
                     continue;
@@ -77,19 +81,29 @@ namespace Dsu.PLCConvertor.Common.Internal
                     if (_index < _lines.Length)
                         next = _lines[_index].TrimStart();
 
-                    if (next != null && next.StartsWith("$?St$Bk?"))
-                    {
-                        _index++;
-                        var lineData = ReadPassLineStart("$?St$Bk?").ToArray();
-                        yield return new CxtTextBlock(key, value, lineData);
-                    }
-                    else
+                    if (next == null)
                     {
                         var subs = BuildStructures().ToArray();
 
                         yield return new CxtTextBlock(key, null) { SubStructures = subs.ToList() };
                     }
+                    else
+                    {
+                        if (next.StartsWith("$?St$Bk?"))
+                        {
+                            _index++;
+                            var lineData = ReadPassLineStart(next).ToArray();
+                            yield return new CxtTextBlock(key, value, lineData);
+                        }
+                        else if (next == "BEGIN" || next.StartsWith("BEGIN_LIST_"))
+                        {
+                            var subs = BuildStructures().ToArray();
 
+                            yield return new CxtTextBlock(key, null) { SubStructures = subs.ToList() };
+                        }
+                        else
+                            Trace.WriteLine($"Warn: Unprocessed {next}");
+                    }
                 }
                 else
                     yield return new CxtTextBlock(key, value);

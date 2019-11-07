@@ -142,11 +142,11 @@ namespace Dsu.PLCConvertor.Common.Internal
             var parser = new CxtParser(cxtFile);
             var structure = new CxtTextBlock("ROOT", "ROOT") { SubStructures = parser.BuildStructures().ToList() };
 
-
-            structure.PrintAll();
-            Trace.WriteLine($"Num. Structures:{structure.SubStructures.Count}");
-            structure.PrintCodeStuffs().ToArray();
-
+#if DEBUG
+            //structure.PrintAll();
+            //Trace.WriteLine($"Num. Structures:{structure.SubStructures.Count}");
+            //structure.PrintCodeStuffs().ToArray();
+#endif
 
             var cxt = new CxtInfoRoot(structure);
             return cxt;

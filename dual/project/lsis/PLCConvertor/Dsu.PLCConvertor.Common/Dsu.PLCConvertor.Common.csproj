@@ -66,7 +66,7 @@
     <Compile Include="Internal\CxtParser\CxtParser.cs" />
     <Compile Include="Internal\CxtParser\CxtTextBlock.cs" />
     <Compile Include="Internal\Global.cs" />
-    <Compile Include="Internal\ILOperator.cs" />
+    <Compile Include="Internal\ILCommand.cs" />
     <Compile Include="Internal\MnemonicInput.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.BUG.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.Complex.cs" />

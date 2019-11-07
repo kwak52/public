@@ -51,6 +51,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 Lines = new List<string>(lineData);
         }
 
+#if DEBUG
         public void PrintAll()
         {
             Stack<CxtTextBlock> stack = new Stack<CxtTextBlock>();
@@ -128,5 +129,6 @@ namespace Dsu.PLCConvertor.Common.Internal
                     stack.Pop();
             }
         }
+#endif
     }
 }
