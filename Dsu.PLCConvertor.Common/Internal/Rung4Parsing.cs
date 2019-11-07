@@ -53,6 +53,12 @@ namespace Dsu.PLCConvertor.Common
         string _strMLoad = "MLOAD";
         string _strLD = "LD";
 
+
+        /// <summary>
+        /// Parsing 실패하였을 경우의 message.
+        /// </summary>
+        public string ErrorMessage { get; private set; }
+
         public Rung4Parsing(IEnumerable<string> mnemonics, ConvertParams cvtParam)
         {
             _mnemonics = mnemonics.ToArray();
@@ -79,82 +85,103 @@ namespace Dsu.PLCConvertor.Common
             int i = 0;
             foreach (var m in _mnemonics)
             {
-                CurrentMnemonicIndex = i;
-                Logger?.Info($"IL: {m}");
-
-                var sentence = ILSentence.Create(_sourceType, m);
-                var arg0 = sentence.Args.IsNullOrEmpty() ? null : sentence.Args[0];
-                var arg0N = new Point(arg0) { ILSentence = sentence };
-                var arity = sentence.ILCommand.Arity;
-
-
-                switch (sentence.Mnemonic)
+                try
                 {
-                    case Mnemonic.LOAD when arg0.StartsWith("TR"):
-                        _cbld.LDTR(arg0);
-                        break;
+                    CurrentMnemonicIndex = i;
+                    Logger?.Info($"IL: {m}");
 
-                    case Mnemonic.LOAD:
-                    case Mnemonic.LOADNOT:
-                        if (_cbld != null)
-                            LadderStack.Push(_cbld);
-                        CurrentBuildingLD = new SubRung(this, arg0N);
-                        break;
+                    var sentence = ILSentence.Create(_sourceType, m);
+                    var arg0 = sentence.Args.IsNullOrEmpty() ? null : sentence.Args[0];
+                    var arg0N = new Point(arg0) { ILSentence = sentence };
+                    var arity = sentence.ILCommand.Arity;
 
-                    case Mnemonic.ANDNOT:
-                        Logger?.Warn("ANDNOT : assume AND");
-                        _cbld.AND(arg0N, sentence);
-                        break;
-                    case Mnemonic.AND:
-                        _cbld.AND(arg0N, sentence);
-                        break;
 
-                    case Mnemonic.ANDLD:
-                        CurrentBuildingLD = LadderStack.Pop().ANDLD(_cbld);
-                        break;
+                    switch (sentence.Mnemonic)
+                    {
+                        case Mnemonic.LOAD when arg0.StartsWith("TR"):
+                            _cbld.LDTR(arg0);
+                            break;
 
-                    case Mnemonic.OR:
-                    case Mnemonic.ORNOT:
-                        _cbld.OR(arg0N, sentence);
-                        break;
-                    case Mnemonic.ORLD:
-                        CurrentBuildingLD = LadderStack.Pop().ORLD(_cbld);
-                        break;
+                        case Mnemonic.LOAD:
+                        case Mnemonic.LOADNOT:
+                            if (_cbld != null)
+                                LadderStack.Push(_cbld);
+                            CurrentBuildingLD = new SubRung(this, arg0N);
+                            break;
 
-                    case Mnemonic.OUT when arg0 != null && arg0.StartsWith("TR"):
-                        _cbld.OUTTR(new TRNode(arg0, sentence), sentence);
-                        break;
+                        case Mnemonic.ANDNOT:
+                            Logger?.Warn("ANDNOT : assume AND");
+                            _cbld.AND(arg0N, sentence);
+                            break;
+                        case Mnemonic.AND:
+                            _cbld.AND(arg0N, sentence);
+                            break;
 
-                    case Mnemonic.TON: // timer output
-                    case Mnemonic.OUT:
-                    case Mnemonic.CMP:
-                        _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
-                        break;
+                        case Mnemonic.ANDLD:
+                            CurrentBuildingLD = LadderStack.Pop().ANDLD(_cbld);
+                            break;
 
-                    default:
-                        if (arity == 1)
-                        {
-                            Logger?.Warn($"Unknown IL with arity=1: {m}");
+                        case Mnemonic.OR:
+                        case Mnemonic.ORNOT:
+                            _cbld.OR(arg0N, sentence);
+                            break;
+                        case Mnemonic.ORLD:
+                            CurrentBuildingLD = LadderStack.Pop().ORLD(_cbld);
+                            break;
+
+                        case Mnemonic.OUT when arg0 != null && arg0.StartsWith("TR"):
+                            _cbld.OUTTR(new TRNode(arg0, sentence), sentence);
+                            break;
+
+                        case Mnemonic.TON: // timer output
+                        case Mnemonic.OUT:
+                        case Mnemonic.CMP:
                             _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
-                        }
-                        else if (arity > 1)
-                        {
-                            _cbld.ConnectFunctionParameters(sentence, LadderStack);
-                            Console.WriteLine("");
-                        }
-                        else
-                            Logger?.Error($"Unknown IL: {m}");
-                        break;
-                }
+                            break;
 
+                        case Mnemonic.USERDEFINED:
+                            _cbld.ConnectFunctionParameters(sentence, LadderStack);
+                            break;
+
+                        case Mnemonic.UNDEFINED:
+                        default:
+                            if (arity == 1)
+                            {
+                                Logger?.Warn($"Unknown IL with arity=1: {m}");
+                                _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
+                            }
+                            else if (arity > 1)
+                            {
+                                _cbld.ConnectFunctionParameters(sentence, LadderStack);
+                                Console.WriteLine("");
+                            }
+                            else
+                                Logger?.Error($"Unknown IL: {m}");
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"{ex}");
+                    ErrorMessage = $"Error while processing [{m}].   {ex.Message}";
+                    yield break;
+                }
                 yield return i++;
             }
 
-            PostProcessing();
+            try
+            {
+                PostProcessing();
 
 
-            Debug.Assert(LadderStack.IsNullOrEmpty());
-            Console.WriteLine("");
+                Debug.Assert(LadderStack.IsNullOrEmpty());
+                Console.WriteLine("");
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Error {ex.Message}";
+                Logger.Error($"{ex}");
+            }
         }
 
 

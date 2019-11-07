@@ -11,7 +11,7 @@ namespace Dsu.PLCConvertor.Common.Internal
     public class ILCommand
     {
         public string Command { get; protected set; }
-        public int Arity { get; protected set; }
+        public int Arity { get; internal set; }
         public ILCommand(string command, int arity=0)
         {
             Command = command;
@@ -20,13 +20,45 @@ namespace Dsu.PLCConvertor.Common.Internal
     }
 
     /// <summary>
+    /// 사전 정의되지 않은 명령어
+    /// </summary>
+    public class UndefinedILCommand : ILCommand
+    {
+        public UndefinedILCommand(string command)
+            : base(command, 0)
+        {
+        }
+    }
+
+    /// <summary>
     /// coil 에 해당하는 명령어.  OUT, TMR, ...
     /// </summary>
-    public class ILTerminalCommand : ILCommand
+    public class TerminalILCommand : ILCommand
     {
-        public ILTerminalCommand(string command, int arity = 0)
+        public TerminalILCommand(string command, int arity = 0)
             : base(command, arity)
         {
+        }
+    }
+
+    /// <summary>
+    /// 사용자 정의 명령어.  see FunctionNodeUserDefined
+    /// </summary>
+    public class UserDefinedILCommand : ILCommand
+    {
+        public string[] PerInputProc { get; private set; }
+        public string TargetCommand { get; private set; }
+        public UserDefinedILCommand(string json)
+            : base("UserDefinedCommand", 1)
+        {
+        }
+
+        // e.g TMR 명령이라면, perInputProc = [| "TMR $0 $1"; "RST T0" |]
+        public UserDefinedILCommand(string command, string targetCommand, string[] perInputProc)
+            : base(command, perInputProc.Length)
+        {
+            PerInputProc = perInputProc;
+            TargetCommand = targetCommand;
         }
     }
 
@@ -66,6 +98,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.KEEP] = _toList(2, "XXXKEEP(011)"),
             [Mnemonic.SFT] = _toList(3, "SFT"),
             [Mnemonic.CMP] = _toList(1, "CMP"),
+            [Mnemonic.MOVE] = _toList(1, "MOV"),
             [Mnemonic.END] = _toList(1, "END"),
         };
 
@@ -96,6 +129,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.KEEP] = _toList(2, "KEEP(011)"),
             [Mnemonic.SFT] = _toList(3, "SFT(010)"),
             [Mnemonic.CMP] = _toList(1, "CMP(020)"),
+            [Mnemonic.MOVE] = _toList(1, "MOV(021)"),
             [Mnemonic.END] = _toList(1, "END(001)"),
         };
 
@@ -155,11 +189,42 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// targetType 에 맞는 mnemoinc 의 문자열을 반환
         /// </summary>
         public static string GetOperator(PLCVendor targetType, Mnemonic op) => GetILCommand(targetType, op)?.Command;
-        public static ILCommand GetILCommand(PLCVendor targetType, Mnemonic op) => GetDictionary(targetType)[op].First();
+        public static ILCommand GetILCommand(PLCVendor targetType, Mnemonic op, string command=null)
+        {
+            var dic = GetDictionary(targetType);
+            if (dic.ContainsKey(op))
+                return dic[op].FirstOrDefault();
+
+            var udc = _userDefinedCommands.FirstOrDefault(c => c.Command == command);
+            if (udc != null)
+                return udc;
+           
+            return new UndefinedILCommand(command) { Arity = 1 };   // unknown command 의 deafult arity 는 1로 가정한다.
+        }
+
         /// <summary>
         /// targetType 에 맞는 문자열의 mnemoinc 값을 반환
         /// </summary>
-        public static Mnemonic GetMnemonic(PLCVendor targetType, string op) => GetReversedDictionary(targetType)[op].FirstOrDefault();
+        public static Mnemonic GetMnemonic(PLCVendor targetType, string op)
+        {
+            var dic = GetReversedDictionary(targetType);
+            if (dic.ContainsKey(op))
+                return dic[op].FirstOrDefault();
+
+            return Mnemonic.UNDEFINED;
+        }
+
+
+        /// <summary>
+        /// 사용자 정의 명령어 set
+        /// </summary>
+        static List<UserDefinedILCommand> _userDefinedCommands =
+            new List<UserDefinedILCommand>(
+                new [] {
+                    new UserDefinedILCommand("STUP(237)", "OUT", new [] { "MOV $0 $1", }),
+                    new UserDefinedILCommand("CNTX(546)", "CTU", new [] { "CTU C$0 $1", "RST C$0 0" }),
+                }
+            );
     }
 
     /// <summary>
@@ -167,10 +232,19 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// </summary>
     public enum Mnemonic
     {
+        /// <summary>
+        /// 사전 등록된 명령어 set 에 포함되지 않고, 사용자 정의 명령어에도 포함되지 않은 경우
+        /// </summary>
+        UNDEFINED = 0,
+        /// <summary>
+        /// 사용자 정의 명령어에 포함된 경우
+        /// </summary>
+        USERDEFINED,
         LOAD, LOADNOT,      
         AND, ANDNOT, ANDLD,
         OR, ORNOT, ORLD,
         OUT,
+        MOVE,
         MPUSH,
         MLOAD,
         MPOP,

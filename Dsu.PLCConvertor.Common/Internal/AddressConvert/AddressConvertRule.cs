@@ -234,6 +234,8 @@ namespace Dsu.PLCConvertor.Common.Internal
                 .replace(@"%(?<count>\d+)x", @"[A-Fa-f0-9]{${count}}")  // %3x -> [A-Fa-f0-9]{3}
                 ;
 
+            if (!pattern.StartsWith("^"))
+                pattern = "^" + pattern;
             if (!pattern.EndsWith("$"))
                 pattern = pattern + "$";
 

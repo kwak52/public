@@ -105,6 +105,11 @@ namespace Dsu.PLCConvertor.Common
                         yield return x;
                     break;
 
+                case TerminalNode udt when udt.ILSentence.ILCommand is UserDefinedILCommand:
+                    var udc = udt.ILSentence.ILCommand;
+                    Console.WriteLine("");
+                    break;
+
                 // Output node 를 비롯한 출력단의 node.  output node 자신을 출력하고 stack 의 내용을 따라간다.
                 case TerminalNode tln:
                     yield return tln.ToIL(_targetType);
@@ -228,6 +233,9 @@ namespace Dsu.PLCConvertor.Common
         {
             var rung = new Rung4Parsing(mnemonics, cvtParam);
             rung.CoRoutineRungParser().ToArray();
+            if (rung.ErrorMessage.NonNullAny())
+                return new[] { rung.ErrorMessage };
+
             return new Rung2ILConvertor(rung.ToRung(false), cvtParam).Convert().ToArray();
         }
     }
