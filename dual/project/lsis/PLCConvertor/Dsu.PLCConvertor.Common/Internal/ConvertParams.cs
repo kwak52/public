@@ -14,6 +14,12 @@ namespace Dsu.PLCConvertor.Common.Internal
         public int SourceStartStep { get; set; }
         public int TargetStartStep { get; set; }
 
+        public static Dictionary<string, PLCVariable> SourceVariableMap { get; internal set; }
+        /// <summary>
+        /// 변환에 실제 사용된 source PLC 의 device address 들
+        /// </summary>
+        public static Dictionary<string, PLCVariable> UsedSourceDevices { get; } = new Dictionary<string, PLCVariable>();
+
         public void ResetStartStep()
         {
             SourceStartStep = 0;

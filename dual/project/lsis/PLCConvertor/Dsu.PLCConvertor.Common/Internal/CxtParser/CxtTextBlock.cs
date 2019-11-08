@@ -33,7 +33,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             get => SubStructures.FirstOrDefault(s => s.Key == childKey);
         }
-        public List<string> Lines { get; set; }
+        public string[] Lines { get; set; }
 
         public CxtTextBlock(string key, object val)
         {
@@ -46,9 +46,8 @@ namespace Dsu.PLCConvertor.Common.Internal
 
         public CxtTextBlock(string key, object value, IEnumerable<string> lineData)
             : this(key, value)
-        {
-            if (lineData.NonNullAny())
-                Lines = new List<string>(lineData);
+        {            
+            Lines = lineData?.ToArray();
         }
 
 #if DEBUG

@@ -20,6 +20,9 @@ namespace Dsu.PLCConvertor.Common
         {
             var cxt = CxtInfoRoot.Parse(cxtFile);
 
+            var globals = cxt.EnumerateType<CxtInfoGlobalVariables>().ToArray();
+            ConvertParams.SourceVariableMap = globals[0].VariableList.Variables.ToDictionary(variable => variable.Device);
+
             var programs = cxt.EnumerateType<CxtInfoProgram>().ToArray();
 
             programs.Iter(prog => prog.Convert(cvtParams));
@@ -88,6 +91,10 @@ namespace Dsu.PLCConvertor.Common
 
                 yield return "";
                 yield return "[COMMENT FILE] COMMENT";
+
+                foreach ( var v in ConvertParams.UsedSourceDevices.Values )
+                    yield return $"{v.Device}:{v.Comment}:{v.Variable}:{v.Type}";
+
                 yield return "[COMMENT FILE END]";
             }
         }

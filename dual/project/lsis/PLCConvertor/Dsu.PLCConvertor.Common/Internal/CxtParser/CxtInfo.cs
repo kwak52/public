@@ -34,6 +34,23 @@ namespace Dsu.PLCConvertor.Common.Internal
             }
         }
 
+#if DEBUG
+        public IEnumerable<CxtInfo> EnumerateWithKey(string key)
+        {
+            return _enumerate(this);
+
+            IEnumerable<CxtInfo> _enumerate(CxtInfo start)
+            {
+                if (start.Key == key)
+                    yield return start;
+
+                var xs = start.Children.SelectMany(ch => _enumerate(ch)).ToArray();
+                foreach (var x in xs)
+                    yield return x;
+            }
+        }
+#endif
+
 
         internal abstract void ClearMyResult();
         public void ClearResult()

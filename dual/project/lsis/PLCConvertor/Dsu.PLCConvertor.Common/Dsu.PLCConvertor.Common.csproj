@@ -58,6 +58,7 @@
     <Compile Include="Internal\Common.Extension.cs" />
     <Compile Include="Internal\ConvertParams.cs" />
     <Compile Include="Internal\CxtParser\CxtInfo.cs" />
+    <Compile Include="Internal\CxtParser\CxtInfoGlobalVariables.cs" />
     <Compile Include="Internal\CxtParser\CxtInfoProgram.cs" />
     <Compile Include="Internal\CxtParser\CxtInfoRoot.cs" />
     <Compile Include="Internal\CxtParser\CxtInfoRung.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Internal\Global.cs" />
     <Compile Include="Internal\ILCommand.cs" />
     <Compile Include="Internal\MnemonicInput.cs" />
+    <Compile Include="Internal\PLCVariable.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.BUG.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.Complex.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.Special.cs" />
