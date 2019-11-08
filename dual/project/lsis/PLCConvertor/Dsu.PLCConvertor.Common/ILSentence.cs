@@ -1,5 +1,7 @@
-﻿using Dsu.PLCConvertor.Common.Internal;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.PLCConvertor.Common.Internal;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -25,17 +27,23 @@ namespace Dsu.PLCConvertor.Common
         public int Arity => ILCommand.Arity;
 
         PLCVendor VendorType;
-        protected ILSentence(string sentence, PLCVendor vendorType)
+
+        protected ILSentence(PLCVendor vendorType)
+        {
+            VendorType = vendorType;
+        }
+
+        protected void Fill(string sentence)
         {
             var tokens = sentence.Split(new[] { ' ', '\t' });
             Command = tokens[0];
             Args = tokens.Skip(1).ToArray();
             Sentence = sentence;
-            VendorType = vendorType;
-            Mnemonic = IL.GetMnemonic(vendorType, Command);
-            ILCommand = IL.GetILCommand(vendorType, Mnemonic, Command);
+            Mnemonic = IL.GetMnemonic(VendorType, Command);
+            ILCommand = IL.GetILCommand(VendorType, Mnemonic, Command);
             if (ILCommand is UserDefinedILCommand)
                 Mnemonic = Mnemonic.USERDEFINED;
+
         }
 
         protected ILSentence(ILSentence other)
@@ -60,11 +68,32 @@ namespace Dsu.PLCConvertor.Common
         {
             switch(vendorType)
             {
-                case PLCVendor.LSIS: return new LSILSentence(sentence);
-                case PLCVendor.Omron: return new OmronILSentence(sentence);
+                case PLCVendor.LSIS: return LSILSentence.Create(sentence);
+                case PLCVendor.Omron: return OmronILSentence.Create(sentence);
                 default:
                     throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
             }
+        }
+
+        public static IEnumerable<ILSentence> CreateRungComments(PLCVendor vendorType, string rungComments)
+        {
+            return
+                rungComments
+                .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(rc =>
+                {
+                    ILSentence sentence = null;
+                    switch (vendorType)
+                    {
+                        case PLCVendor.LSIS: sentence = LSILSentence.Create($"CMT\t{rc}"); break;
+                        case PLCVendor.Omron: sentence = OmronILSentence.Create($"'\t{rc}"); break;
+                        default:
+                            throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
+                    }
+
+                    sentence.Mnemonic = Mnemonic.RUNG_COMMENT;
+                    return sentence;
+                });
         }
 
         public static ILSentence Create(PLCVendor vendorType, ILSentence sentence)
@@ -103,11 +132,12 @@ namespace Dsu.PLCConvertor.Common
         }
 
         // 옴론 -> 산전 변환시 사용되지 않음.
-        public LSILSentence(string sentence)
-            : base(sentence, PLCVendor.LSIS)
+        private LSILSentence()
+            : base(PLCVendor.LSIS)
         {
             Debugger.Break();
         }
+
 
         /// <summary>
         /// Address mapping 사용 여부.  default 는 true.  Unit Test 등에서 임시로 disable
@@ -123,14 +153,40 @@ namespace Dsu.PLCConvertor.Common
                 return $"{Command}\t{operands}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
             }
             else
-                return base.ToString();
+                return $"{Command}\t{string.Join(" ", Args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
         }
+
+        public static LSILSentence Create(string sentence)
+        {
+            var ils = new LSILSentence();
+            ils.Fill(sentence);
+            return ils;
+        }
+
     }
 
 
     public class OmronILSentence : ILSentence
     {
+        public enum VariationType
+        {
+            /// <summary>
+            /// "@"  Instruction that differentiates when the execution condition turns ON
+            /// </summary>
+            DiffrentiationOn,
+            /// <summary>
+            /// "%"  Instruction that differentiates when the execution condition turns OFF
+            /// </summary>
+            DiffrentiationOff,
+            /// <summary>
+            /// "!"  Refreshes data in the I/O area specified by the operands or the Special I/O Unit words when the instruction is executed.
+            /// </summary>
+            ImmediateRefreshing,
+        }
+
         PLCVendor _vendorType = PLCVendor.Omron;
+
+        public VariationType Variation { get; private set; }
         // 옴론 -> 산전 변환시 사용되지 않음.  변환 target 이 옴론일 경우 사용될 수 있음.
         public OmronILSentence(ILSentence other)
             : base(other)
@@ -148,9 +204,58 @@ namespace Dsu.PLCConvertor.Common
 
 
         // 옴론 -> 산전 변환시 사용되는 생성자
-        public OmronILSentence(string sentence)
-            : base(sentence, PLCVendor.Omron)
+        private OmronILSentence()
+            : base(PLCVendor.Omron)
         {
+        }
+
+
+            
+        private void Fill(string sentence)
+        {
+            if (sentence.IsNullOrEmpty())
+                return;
+
+            base.Fill(sentence);
+            var vendorType = PLCVendor.Omron;
+            Command = getCommand();
+            if (! Mnemonic.IsOneOf(Mnemonic.USERDEFINED, Mnemonic.RUNG_COMMENT))
+            {
+                Mnemonic = IL.GetMnemonic(vendorType, Command);
+                ILCommand = IL.GetILCommand(vendorType, Mnemonic, Command);
+            }
+
+            string getCommand()
+            {
+                string cmd = Command;
+                var normalCmd = cmd.Substring(1, cmd.Length - 1); ;
+
+                if (cmd.StartsWith("@"))
+                {
+                    Variation = VariationType.DiffrentiationOn;
+                    return normalCmd;
+                }
+
+                if (cmd.StartsWith("%"))
+                {
+                    Variation = VariationType.DiffrentiationOff;
+                    return normalCmd;
+                }
+                if (cmd.StartsWith("!"))
+                {
+                    Variation = VariationType.ImmediateRefreshing;
+                    return normalCmd;
+                }
+
+                return Command;
+            }
+        }
+
+        public static OmronILSentence Create(string sentence)
+        {
+            var ils = new OmronILSentence();
+            ils.Fill(sentence);
+            return ils;
         }
     }
 

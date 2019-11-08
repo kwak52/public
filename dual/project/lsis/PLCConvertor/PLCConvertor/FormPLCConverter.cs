@@ -65,7 +65,7 @@ namespace PLCConvertor
         {
             var cvtParam = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS);
             var inputs = MnemonicInput.Inputs[0].Input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            var rung = Rung.CreateRung(inputs, cvtParam);
+            var rung = Rung.CreateRung(inputs, "TestRung", cvtParam);
             var graph = rung.GraphViz();
             var _pictureBox = new PictureBox() { Image = graph, Dock = DockStyle.Fill };
             var _formGraphviz = new Form() { Size = new Size(800, 500) };

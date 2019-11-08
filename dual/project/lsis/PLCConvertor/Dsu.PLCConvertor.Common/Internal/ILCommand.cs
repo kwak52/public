@@ -100,6 +100,8 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.CMP] = _toList(1, "CMP"),
             [Mnemonic.MOVE] = _toList(1, "MOV"),
             [Mnemonic.END] = _toList(1, "END"),
+
+            [Mnemonic.RUNG_COMMENT] = _toList(0, "CMT"),
         };
 
 
@@ -131,6 +133,9 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.CMP] = _toList(1, "CMP(020)"),
             [Mnemonic.MOVE] = _toList(1, "MOV(021)"),
             [Mnemonic.END] = _toList(1, "END(001)"),
+
+            [Mnemonic.RUNG_COMMENT] = _toList(0, "'"),
+
         };
 
         /// <summary>
@@ -223,6 +228,9 @@ namespace Dsu.PLCConvertor.Common.Internal
                 new [] {
                     new UserDefinedILCommand("STUP(237)", "OUT", new [] { "MOV $0 $1", }),
                     new UserDefinedILCommand("CNTX(546)", "CTU", new [] { "CTU C$0 $1", "RST C$0 0" }),
+                    new UserDefinedILCommand("MOVD(083)", "MOV", new [] { "MOV $0 $1 $2" }),
+                    new UserDefinedILCommand("MOV(021)", "MOV", new [] { "MOV $0 $1" }),
+                    new UserDefinedILCommand("+(400)", "ADD", new [] { "ADD $0 $1" }),
                 }
             );
     }
@@ -262,6 +270,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// Compare
         /// </summary>
         CMP,
+        RUNG_COMMENT,
         END,
     }
 

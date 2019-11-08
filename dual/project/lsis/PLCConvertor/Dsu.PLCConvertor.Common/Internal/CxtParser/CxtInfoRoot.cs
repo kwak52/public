@@ -91,7 +91,11 @@ namespace Dsu.PLCConvertor.Common.Internal
                             rung.ILs = start.Lines.ToArray();
                             break;
 
-                        case "Com":
+                        case "Com": // comment
+                            if (start.Value == null)
+                                rung.Comment = string.Join("\r\n", start.Lines);
+                            else
+                                rung.Comment = unQuote((string)start.Value);
                             break;
                         case "SecName":
                             section.Name = unQuote(start.Value.ToString());

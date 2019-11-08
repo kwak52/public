@@ -105,8 +105,15 @@ namespace Dsu.PLCConvertor.Common
                         yield return x;
                     break;
 
+                case FunctionNodeUserDefined udf:
+                    yield return udf.ToIL(_targetType);
+                    Console.WriteLine("");
+                    //udf.Convert(cv)
+                    break;
                 case TerminalNode udt when udt.ILSentence.ILCommand is UserDefinedILCommand:
                     var udc = udt.ILSentence.ILCommand;
+                    if (udc.Arity == 1)
+                        yield return udt.ToIL(_targetType);
                     Console.WriteLine("");
                     break;
 
@@ -192,12 +199,25 @@ namespace Dsu.PLCConvertor.Common
         /// <returns></returns>
         internal IEnumerable<string> Convert()
         {
+            IEnumerable<string> xs = null;
+
+            if (_rung.RungComment.NonNullAny())
+            {
+                xs = _rung.RungComment.Select(rc => ILSentence.Create(_targetType, rc).ToString());
+                foreach (var x in xs)
+                    yield return x;
+            }
+
             var terminal = _rung.Sinks.First();
             var arity = terminal.Arity;
-            if (arity < 2)
-                return ConvertNormalOutput();
 
-            return ConvertFunctionOutput();
+            if (arity < 2)
+                xs = ConvertNormalOutput();
+            else
+                xs = ConvertFunctionOutput();
+
+            foreach(var x in xs)
+                yield return x;
         }
 
         /// <summary>
@@ -227,11 +247,11 @@ namespace Dsu.PLCConvertor.Common
 
         public static string[] Convert(Rung rung, ConvertParams cvtParam) => new Rung2ILConvertor(rung, cvtParam).Convert().ToArray();
 
-        public static string[] ConvertFromMnemonics(string mnemonics, ConvertParams cvtParam)
-            => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics), cvtParam);
-        public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, ConvertParams cvtParam)
+        public static string[] ConvertFromMnemonics(string mnemonics, string rungComment, ConvertParams cvtParam)
+            => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics), rungComment, cvtParam);
+        public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
-            var rung = new Rung4Parsing(mnemonics, cvtParam);
+            var rung = new Rung4Parsing(mnemonics, rungComment, cvtParam);
             rung.CoRoutineRungParser().ToArray();
             if (rung.ErrorMessage.NonNullAny())
                 return new[] { rung.ErrorMessage };

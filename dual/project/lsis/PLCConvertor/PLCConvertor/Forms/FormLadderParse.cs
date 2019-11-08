@@ -47,7 +47,7 @@ namespace PLCConvertor.Forms
 
         void Initialize()
         {
-            _rung4Parsing = new Rung4Parsing(_mnemonics, _convertParam);
+            _rung4Parsing = new Rung4Parsing(_mnemonics, null, _convertParam);
             _parsingStages = _rung4Parsing.CoRoutineRungParser().GetEnumerator();
         }
 
@@ -97,7 +97,7 @@ namespace PLCConvertor.Forms
                     var perSentenceTransform =
                         string.Join("\r\n",
                             MnemonicInput.MultilineString2Array(input)
-                            .Select(m => new LSILSentence(new OmronILSentence(m)))
+                            .Select(m => new LSILSentence(OmronILSentence.Create(m)))
                             .Select(m => m.ToString()));
                     if (perSentenceTransform.Replace('\t', ' ') == converted)
                         correct = true;
