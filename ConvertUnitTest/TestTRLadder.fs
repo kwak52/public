@@ -17,7 +17,7 @@ type Conv(output1:ITestOutputHelper) =
         let co = MnemonicInput.CommentOutMultiple
         let converted =
             let cvtParam = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS)
-            Rung2ILConvertor.ConvertFromMnemonics(m.Input, cvtParam) |> String.concat "\r\n" |> co
+            Rung2ILConvertor.ConvertFromMnemonics(m.Input, null, cvtParam) |> String.concat "\r\n" |> co
 
 
         sprintf "Inspecting %s(%d)" m.Comment n |> Trace.WriteLine
@@ -34,7 +34,7 @@ type Conv(output1:ITestOutputHelper) =
         let correct2 =
             let transformed =
                 MnemonicInput.MultilineString2Array(m.Input)
-                |> Seq.map(fun m -> new LSILSentence(new OmronILSentence(m)))
+                |> Seq.map(fun m -> new LSILSentence(OmronILSentence.Create(m)))
                 |> Seq.map(fun s -> s.ToString())
                 |> Array.ofSeq
             let transformed2 =

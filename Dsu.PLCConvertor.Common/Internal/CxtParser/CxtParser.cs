@@ -38,6 +38,11 @@ namespace Dsu.PLCConvertor.Common.Internal
                 yield return _lines[_index++];
             }
 
+            var l = _lines[_index];
+            var p = l.IndexOf(target);
+            if (p > 0)
+                yield return l.Substring(0, p);
+
             _index++;
         }
 

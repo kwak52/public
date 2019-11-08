@@ -51,7 +51,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 .Iter(rung =>
                 {
                     var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//"));
-                    rung.ConvertResults = Rung2ILConvertor.ConvertFromMnemonics(ils, cvtParam);
+                    rung.ConvertResults = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
 
                     var s = cvtParam.SourceStartStep;
                     var t = cvtParam.TargetStartStep;

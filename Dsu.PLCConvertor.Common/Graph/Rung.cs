@@ -11,27 +11,30 @@ namespace Dsu.PLCConvertor.Common
     /// </summary>
     public class Rung : Graph<Point, Wire>
     {
+        public List<ILSentence> RungComment { get; internal set; }
         public Rung()
             : base(true, false)
         {
         }
-        public Rung(IEnumerable<string> mnemonics)
+        public Rung(IEnumerable<string> mnemonics, IEnumerable<ILSentence> rungComments)
             : this()
         {
             Mnemonics = mnemonics.ToArray();
+            RungComment = rungComments?.ToList();
         }
         public Rung(Rung src)
             : base(src)
         {
         }
 
-        public static Rung CreateRung(IEnumerable<string> mnemonics, ConvertParams cvtParam)
+        public static Rung CreateRung(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
-            var r4p = new Rung4Parsing(mnemonics, cvtParam);
+            var r4p = new Rung4Parsing(mnemonics, rungComment, cvtParam);
             r4p.CoRoutineRungParser().ToArray();
             return r4p.ToRung();
         }
-        public static Rung CreateRung(string mnemonics, ConvertParams cvtParam) => CreateRung(MnemonicInput.MultilineString2Array(mnemonics), cvtParam);
+        public static Rung CreateRung(string mnemonics, string rungComment, ConvertParams cvtParam)
+            => CreateRung(MnemonicInput.MultilineString2Array(mnemonics), rungComment, cvtParam);
         /// <summary>
         /// Rung 을 구성하는 IL 목록
         /// </summary>

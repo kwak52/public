@@ -59,13 +59,14 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         public string ErrorMessage { get; private set; }
 
-        public Rung4Parsing(IEnumerable<string> mnemonics, ConvertParams cvtParam)
+        public Rung4Parsing(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
             _mnemonics = mnemonics.ToArray();
             LadderStack = new Stack<SubRung>();
             _targetType = cvtParam.TargetType;
             _sourceType = cvtParam.SourceType;
-
+            if (rungComment.NonNullAny())
+                RungComment = ILSentence.CreateRungComments(cvtParam.SourceType, rungComment).ToList();
 
             _strMPush = IL.GetOperator(_targetType, Mnemonic.MPUSH);
             _strMPop = IL.GetOperator(_targetType, Mnemonic.MPOP);
@@ -98,6 +99,9 @@ namespace Dsu.PLCConvertor.Common
 
                     switch (sentence.Mnemonic)
                     {
+                        case Mnemonic.RUNG_COMMENT:
+                            RungComment.Add(sentence);
+                            break;
                         case Mnemonic.LOAD when arg0.StartsWith("TR"):
                             _cbld.LDTR(arg0);
                             break;
@@ -258,7 +262,7 @@ namespace Dsu.PLCConvertor.Common
         /// <returns></returns>
         public Rung ToRung(bool removeAuxNode=true)
         {
-            var rung = new Rung(_mnemonics);
+            var rung = new Rung(_mnemonics, RungComment);
             rung.MergeGraph(_cbld);
             if (removeAuxNode)
             {
