@@ -17,6 +17,10 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         public static AddressConvertor AddressConvertorInstance { get; set; }
 
+        public static Dictionary<string, PLCVariable> SourceVariableMap => ConvertParams.SourceVariableMap;
+        public static Dictionary<string, PLCVariable> UsedSourceDevices => ConvertParams.UsedSourceDevices;
+
+
         public string Command { get; protected set; }
         public string[] Args { get; protected set; }
         public string Sentence { get; private set; }
@@ -148,7 +152,17 @@ namespace Dsu.PLCConvertor.Common
             if (UseAddressMapping)
             {
                 var rs = AddressConvertorInstance;
-                var args = Args.Select(arg => rs.IsMatch(arg) ? rs.Convert(arg) : arg);
+                var args = Args.Select(arg =>
+                {
+                    if (rs.IsMatch(arg))
+                    {
+                        var targetDevice = rs.Convert(arg);
+                        if (SourceVariableMap.ContainsKey(arg) && ! UsedSourceDevices.ContainsKey(targetDevice))
+                            UsedSourceDevices.Add(targetDevice, new PLCVariable(targetDevice, SourceVariableMap[arg]));
+                        return targetDevice;
+                    }
+                    return arg;
+                });
                 var operands = string.Join(" ", args);
                 return $"{Command}\t{operands}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
             }

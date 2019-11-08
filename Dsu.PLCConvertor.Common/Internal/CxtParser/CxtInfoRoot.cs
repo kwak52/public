@@ -26,7 +26,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         public string Name { get; private set; }
 
         public List<CxtInfoProgram> Programs { get; } = new List<CxtInfoProgram>();
-        public override IEnumerable<CxtInfo> Children { get { return Programs; } }
+        public CxtInfoGlobalVariables GlobalVariables { get; private set; }
+        public override IEnumerable<CxtInfo> Children { get { return Programs.Cast<CxtInfo>().Concat(new[] { GlobalVariables }); } }
         internal override void ClearMyResult() { }
 
 
@@ -92,13 +93,26 @@ namespace Dsu.PLCConvertor.Common.Internal
                             break;
 
                         case "Com": // comment
-                            if (start.Value == null)
-                                rung.Comment = string.Join("\r\n", start.Lines);
+                            if (rung == null)
+                                Debug.Assert( ! start.Parent.Key.StartsWith("R["));
                             else
-                                rung.Comment = unQuote((string)start.Value);
+                            {
+                                if (start.Value == null)
+                                    rung.Comment = string.Join("\r\n", start.Lines);
+                                else
+                                    rung.Comment = unQuote((string)start.Value);
+                            }
                             break;
                         case "SecName":
                             section.Name = unQuote(start.Value.ToString());
+                            break;
+
+                        case "GlobalVariables":
+                            GlobalVariables = new CxtInfoGlobalVariables();
+                            break;
+
+                        case "VariableList" when start.Parent.Key == "GlobalVariables":
+                            GlobalVariables.VariableList = new CxtInfoVariableList(start.SubStructures[0].Lines);
                             break;
 
                         default:

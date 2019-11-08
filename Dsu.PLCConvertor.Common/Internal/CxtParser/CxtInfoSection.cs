@@ -51,15 +51,19 @@ namespace Dsu.PLCConvertor.Common.Internal
                 .Iter(rung =>
                 {
                     var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//"));
-                    rung.ConvertResults = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
 
-                    var s = cvtParam.SourceStartStep;
-                    var t = cvtParam.TargetStartStep;
+                    if (ils.Any())
+                    {
+                        rung.ConvertResults = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
 
-                    rung.ConvertMessages = new[] { $"[{s}]\t[{t}]\tThis is test message!" };
+                        var s = cvtParam.SourceStartStep;
+                        var t = cvtParam.TargetStartStep;
 
-                    cvtParam.SourceStartStep += rung.ILs.Length;
-                    cvtParam.TargetStartStep += rung.ConvertResults.Length;
+                        rung.ConvertMessages = new[] { $"[{s}]\t[{t}]\tThis is test message!" };
+
+                        cvtParam.SourceStartStep += rung.ILs.Length;
+                        cvtParam.TargetStartStep += rung.ConvertResults.Length;
+                    }
                 });
         }
 
