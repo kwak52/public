@@ -181,29 +181,34 @@ namespace Dsu.PLCConvertor.Common
                 case Mnemonic.KEEP:
                 case Mnemonic.CTU:
                 case Mnemonic.USERDEFINED:
-                    fNode = FunctionNode.Create(sentence);
-                    Debug.Assert(stack.Count == arity - 1);
-                    fNode.Inputs.AddRange(stack);
-                    fNode.Inputs.Add(this.Duplicate());
-
-                    Add(fNode);
-
-                    while (stack.Any())
-                    {
-                        var subRung = stack.Pop();
-                        var subRungEnd = subRung.Sinks.First();
-                        this.MergeGraph(subRung);
-                        var edge = AddEdge(subRungEnd, fNode, new Wire($"{stack.Count}"));
-                    }
-
-
-                    var e = AddEdge(_end, fNode).Value;
-
+                    doDefault();
                     break;
 
                 default:
                     Debug.Assert(false);
+                    doDefault();
                     break;
+            }
+
+            void doDefault()
+            {
+                fNode = FunctionNode.Create(sentence);
+                Debug.Assert(stack.Count == arity - 1);
+                fNode.Inputs.AddRange(stack);
+                fNode.Inputs.Add(this.Duplicate());
+
+                Add(fNode);
+
+                while (stack.Any())
+                {
+                    var subRung = stack.Pop();
+                    var subRungEnd = subRung.Sinks.First();
+                    this.MergeGraph(subRung);
+                    var edge = AddEdge(subRungEnd, fNode, new Wire($"{stack.Count}"));
+                }
+
+
+                var e = AddEdge(_end, fNode).Value;
             }
         }
 

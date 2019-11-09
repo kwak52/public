@@ -33,5 +33,11 @@ namespace Dsu.PLCConvertor.Common.Util
 
             Formatting = Formatting.Indented,
         };
+
+        public static JsonSerializerSettings JsonSettingsSimple = new JsonSerializerSettings
+        {
+            Formatting = Formatting.Indented,
+        };
+
     }
 }

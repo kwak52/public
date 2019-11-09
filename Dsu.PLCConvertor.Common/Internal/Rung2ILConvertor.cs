@@ -251,12 +251,39 @@ namespace Dsu.PLCConvertor.Common
             => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics), rungComment, cvtParam);
         public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
-            var rung = new Rung4Parsing(mnemonics, rungComment, cvtParam);
-            rung.CoRoutineRungParser().ToArray();
-            if (rung.ErrorMessage.NonNullAny())
-                return new[] { rung.ErrorMessage };
+            //return new[] { "XGRUNGSTART" }.Concat(convertFromMnemonics()).Concat(new[] { "XGRUNGEND" }).ToArray();
+            return new[] { "XGRUNGSTART" }.Concat(convertFromMnemonics()).ToArray();
 
-            return new Rung2ILConvertor(rung.ToRung(false), cvtParam).Convert().ToArray();
+            string[] convertFromMnemonics()
+            {
+                var directlyConverted = tryConvertDirectly();
+                if (directlyConverted.NonNullAny())
+                    return directlyConverted;
+
+                var rung = new Rung4Parsing(mnemonics, rungComment, cvtParam);
+                rung.CoRoutineRungParser().ToArray();
+                if (rung.ErrorMessage.NonNullAny())
+                    return new[] { rung.ErrorMessage };
+
+                return new Rung2ILConvertor(rung.ToRung(false), cvtParam).Convert().ToArray();
+
+
+                string[] tryConvertDirectly()
+                {
+                    var length = mnemonics.Count();
+                    if (length == 1)
+                    {
+                        var m = mnemonics.First();
+                        switch (m)
+                        {
+                            case "NOP(000)": return new[] { "NOP" };
+                            case "END(001)": return new[] { "END" };
+                        }
+                    }
+
+                    return null;
+                }
+            }
         }
     }
 

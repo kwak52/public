@@ -7,7 +7,7 @@ using log4net;
 using log4net.Config;
 using System.IO;
 using System.Threading;
-
+using Dsu.PLCConvertor.Common.Internal;
 
 namespace PLCConvertor
 {
@@ -19,7 +19,11 @@ namespace PLCConvertor
         [STAThread]
         static void Main()
         {
-            Dsu.PLCConvertor.Common.Internal.DoTest.Test();
+#if DEBUG
+            AddressConvertorTester.Test();
+            ILTester.Test();
+#endif
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
