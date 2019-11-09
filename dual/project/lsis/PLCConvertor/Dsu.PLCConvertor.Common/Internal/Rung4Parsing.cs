@@ -95,6 +95,8 @@ namespace Dsu.PLCConvertor.Common
                     var arg0 = sentence.Args.IsNullOrEmpty() ? null : sentence.Args[0];
                     var arg0N = new Point(arg0) { ILSentence = sentence };
                     var arity = sentence.ILCommand.Arity;
+                    var ilCommand = sentence.ILCommand;
+                    var udc = ilCommand as UserDefinedILCommand;
 
 
                     switch (sentence.Mnemonic)
@@ -143,8 +145,12 @@ namespace Dsu.PLCConvertor.Common
                             _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
                             break;
 
-                        case Mnemonic.USERDEFINED:
+                        case Mnemonic.USERDEFINED when udc.IsTerminal:
                             _cbld.ConnectFunctionParameters(sentence, LadderStack);
+                            break;
+
+                        case Mnemonic.USERDEFINED when ! udc.IsTerminal:
+                            _cbld.AND(arg0N, sentence);
                             break;
 
                         case Mnemonic.UNDEFINED:

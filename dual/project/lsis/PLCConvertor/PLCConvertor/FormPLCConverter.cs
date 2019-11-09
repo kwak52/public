@@ -28,7 +28,18 @@ namespace PLCConvertor
                 ILSentence.AddressConvertorInstance = value;
             }
         }
-        
+
+        static UserDefinedCommandMapper _userDefinedCommandMapper;
+        static UserDefinedCommandMapper UserDefinedCommandMapper
+        {
+            get { return _userDefinedCommandMapper; }
+            set
+            {
+                _userDefinedCommandMapper = value;
+                IL.UserDefinedCommandMapper = value;
+            }
+        }
+
         public FormPLCConverter()
         {
             InitializeComponent();
@@ -54,6 +65,8 @@ namespace PLCConvertor
 
             var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
             AddressConvertor = AddressConvertor.LoadFromJsonFile(addressMappingJsonFile);
+            var commandMappingJsonFile = ConfigurationManager.AppSettings["userDefinedCommandMappingFile"];
+            UserDefinedCommandMapper = UserDefinedCommandMapper.LoadFromJsonFile(commandMappingJsonFile);
 
             repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
             barEditItemSource.EditValue = PLCVendor.Omron;

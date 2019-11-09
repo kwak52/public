@@ -75,8 +75,10 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
     }
 
-    public static class DoTest
-	{
+
+#if DEBUG
+    public static class AddressConvertorTester
+    {
         public static void Test()
 		{
             AddressConvertRule.Test();
@@ -104,9 +106,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 .Select(pr => $"{pr.Item1}\t{pr.Item2}")
                 .Iter(ln => Trace.WriteLine(ln))
                 ;
-
         }
     }
-
-
+#endif
 }

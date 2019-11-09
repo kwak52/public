@@ -67,7 +67,12 @@
     <Compile Include="Internal\CxtParser\CxtParser.cs" />
     <Compile Include="Internal\CxtParser\CxtTextBlock.cs" />
     <Compile Include="Internal\Global.cs" />
-    <Compile Include="Internal\ILCommand.cs" />
+    <Compile Include="Internal\IL\IL.CommandMapper.cs" />
+    <Compile Include="Internal\IL\IL.cs" />
+    <Compile Include="Internal\IL\IL.LSIS.cs" />
+    <Compile Include="Internal\IL\IL.Omron.cs" />
+    <Compile Include="Internal\IL\ILCommand.cs" />
+    <Compile Include="Internal\IL\UserDefinedILCommand.cs" />
     <Compile Include="Internal\MnemonicInput.cs" />
     <Compile Include="Internal\PLCVariable.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.BUG.cs" />
