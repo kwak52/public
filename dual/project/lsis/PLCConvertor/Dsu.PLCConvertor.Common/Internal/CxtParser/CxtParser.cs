@@ -103,7 +103,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                         }
                         else
                         {
-                            if (next.StartsWith("$?St$Bk?"))
+                            if (next.StartsWith(Cxp.BlockSeparator))
                             {
                                 _index++;
                                 var lineData = ReadPassLineStart(next).ToArray();

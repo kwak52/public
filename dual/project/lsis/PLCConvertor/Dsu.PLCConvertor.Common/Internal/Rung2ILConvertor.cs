@@ -260,7 +260,7 @@ namespace Dsu.PLCConvertor.Common
         public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
             // rung 단위 변환을 끊을 때에 XGRUNGSTART 로 marking
-            return new[] { "XGRUNGSTART" }
+            return new[] { Xg5k.XgRungStart }
                 .Concat(convertFromMnemonics())
                 .ToArray();
 

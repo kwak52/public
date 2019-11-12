@@ -42,7 +42,7 @@
             this.repositoryItemComboBoxSource = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.barEditItemTarget = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemComboBoxTarget = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            this.barCheckItemPrefereSectionSplit = new DevExpress.XtraBars.BarCheckItem();
+            this.barCheckItemSplitBySection = new DevExpress.XtraBars.BarCheckItem();
             this.barButtonItemAddressMapping = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemEditAddressMappingRule = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -96,7 +96,7 @@
             this.barButtonItemCxtParse,
             this.barEditItemSource,
             this.barEditItemTarget,
-            this.barCheckItemPrefereSectionSplit,
+            this.barCheckItemSplitBySection,
             this.barButtonItemAddressMapping,
             this.barButtonItemEditAddressMappingRule});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
@@ -152,20 +152,20 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemComboBoxTarget.Name = "repositoryItemComboBoxTarget";
             // 
-            // barCheckItemPrefereSectionSplit
+            // barCheckItemSplitBySection
             // 
-            this.barCheckItemPrefereSectionSplit.BindableChecked = true;
-            this.barCheckItemPrefereSectionSplit.Caption = "Section split";
-            this.barCheckItemPrefereSectionSplit.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
-            this.barCheckItemPrefereSectionSplit.Checked = true;
-            this.barCheckItemPrefereSectionSplit.Id = 5;
-            this.barCheckItemPrefereSectionSplit.Name = "barCheckItemPrefereSectionSplit";
+            this.barCheckItemSplitBySection.BindableChecked = true;
+            this.barCheckItemSplitBySection.Caption = "Section split";
+            this.barCheckItemSplitBySection.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemSplitBySection.Checked = true;
+            this.barCheckItemSplitBySection.Id = 5;
+            this.barCheckItemSplitBySection.Name = "barCheckItemSplitBySection";
             toolTipTitleItem1.Text = "Prefer section split";
             toolTipItem1.LeftIndent = 6;
             toolTipItem1.Text = "If checked, force split sections in a program to separate program";
             superToolTip1.Items.Add(toolTipTitleItem1);
             superToolTip1.Items.Add(toolTipItem1);
-            this.barCheckItemPrefereSectionSplit.SuperTip = superToolTip1;
+            this.barCheckItemSplitBySection.SuperTip = superToolTip1;
             // 
             // barButtonItemAddressMapping
             // 
@@ -202,7 +202,7 @@
             // 
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barEditItemSource);
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barEditItemTarget);
-            this.ribbonPageGroupOptions.ItemLinks.Add(this.barCheckItemPrefereSectionSplit);
+            this.ribbonPageGroupOptions.ItemLinks.Add(this.barCheckItemSplitBySection);
             this.ribbonPageGroupOptions.Name = "ribbonPageGroupOptions";
             this.ribbonPageGroupOptions.Text = "Options";
             // 
@@ -358,7 +358,7 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupOptions;
         private DevExpress.XtraBars.BarEditItem barEditItemTarget;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBoxTarget;
-        private DevExpress.XtraBars.BarCheckItem barCheckItemPrefereSectionSplit;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemSplitBySection;
         private DevExpress.XtraBars.BarButtonItem barButtonItemAddressMapping;
         private DevExpress.XtraBars.BarButtonItem barButtonItemEditAddressMappingRule;
     }

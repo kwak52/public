@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cx2Xg5k.cs" />
+    <Compile Include="Cxp.cs" />
     <Compile Include="Graph\FunctionNode\FunctionNode.cs" />
     <Compile Include="Graph\FunctionNode\TerminalFunctionNode.cs" />
     <Compile Include="Graph\FunctionNode\UserDefinedFunctionNode.cs" />
@@ -87,9 +88,11 @@
     <Compile Include="Internal\Unused\NodeInfo4ILConvert.Unused.cs" />
     <Compile Include="Internal\Rung2ILConvertor.cs" />
     <Compile Include="Internal\Unused\Rung2ILConvertor.Unused.cs" />
+    <Compile Include="Internal\ILSentence\LSILSentence.cs" />
+    <Compile Include="Internal\ILSentence\OmronILSentence.cs" />
     <Compile Include="PLCVendor.cs" />
     <Compile Include="Graph\Rung.Extension.cs" />
-    <Compile Include="ILSentence.cs" />
+    <Compile Include="Internal\ILSentence\ILSentence.cs" />
     <Compile Include="Graph\Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Graph\AuxNode.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Graph\Rung.cs" />
     <Compile Include="Graph\Wire.cs" />
     <Compile Include="Util\MyJsonSerializer.cs" />
+    <Compile Include="Xg5k.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">

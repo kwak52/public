@@ -18,7 +18,7 @@ type Conv(output1:ITestOutputHelper) =
         let converted =
             let cvtParam = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS)
             Rung2ILConvertor.ConvertFromMnemonics(m.Input, null, cvtParam)
-            |> Seq.filter(fun s -> not (s.StartsWith("XGRUNGSTART")))
+            |> Seq.filter(fun s -> not (s.StartsWith(Xg5k.XgRungStart)))
             |> String.concat "\r\n" |> co
 
 
@@ -38,7 +38,7 @@ type Conv(output1:ITestOutputHelper) =
                 MnemonicInput.MultilineString2Array(m.Input)
                 |> Seq.map(fun m -> new LSILSentence(OmronILSentence.Create(m)))
                 |> Seq.map(fun s -> s.ToString())
-                |> Seq.filter(fun s -> not (s.StartsWith("XGRUNGSTART")))
+                |> Seq.filter(fun s -> not (s.StartsWith(Xg5k.XgRungStart)))
                 |> Array.ofSeq
             let transformed2 =
                 String.Join("\r\n", transformed)
