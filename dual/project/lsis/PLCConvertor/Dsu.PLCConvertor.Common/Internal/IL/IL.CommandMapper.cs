@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Dsu.PLCConvertor.Common.Internal
 {
+    /// <summary>
+    /// 사용자 정의 명령어 mapping 도구
+    /// </summary>
     public class UserDefinedCommandMapper
     {
         public Dictionary<string, UserDefinedILCommand> Map { get; set; }

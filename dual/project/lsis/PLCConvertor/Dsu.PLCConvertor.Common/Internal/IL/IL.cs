@@ -13,8 +13,8 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// </summary>
     public partial class IL
     {
-        static List<ILCommand> _toList(int arity, params string[] operators)
-            => operators.Select(o => new ILCommand(o, arity)).ToList();
+        static List<ILCommand> _toList(int arity, params string[] commands)
+            => commands.Select(cmd => new ILCommand(cmd, arity)).ToList();
 
 
         /// <summary>

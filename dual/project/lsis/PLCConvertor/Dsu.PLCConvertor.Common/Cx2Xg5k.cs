@@ -18,11 +18,14 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         public static void Convert(ConvertParams cvtParams, string cxtFile, string xg5kFile, string configFile, string xg5kMessageFile)
         {
+            // text project 를 파싱함
             var cxt = CxtInfoRoot.Parse(cxtFile);
 
+            // global 변수 선언부
             var globals = cxt.EnumerateType<CxtInfoGlobalVariables>().ToArray();
             ConvertParams.SourceVariableMap = globals[0].VariableList.Variables.ToDictionary(variable => variable.Device);
 
+            // PLC programs 부 : 각 program 은 다중 section 으로 구성되어 있다.
             var programs = cxt.EnumerateType<CxtInfoProgram>().ToArray();
 
             programs.Iter(prog => prog.Convert(cvtParams));

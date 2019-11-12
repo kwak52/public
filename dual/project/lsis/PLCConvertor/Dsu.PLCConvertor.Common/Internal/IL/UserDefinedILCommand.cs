@@ -7,11 +7,22 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// </summary>
     public class UserDefinedILCommand : ILCommand
     {
+        /// <summary>
+        /// Function input 의 각 다릿발에 붙일 명령어들의 prototype.
+        /// e.g TTIM 의 경우,  [| "CTU C$0 $1"; "RST C$0 0" |]
+        /// </summary>
         [JsonProperty]
         public string[] PerInputProc { get; private set; }
+
+        /// <summary>
+        /// 변환 명령어
+        /// </summary>
         [JsonProperty]
         public string TargetCommand { get; private set; }
 
+        /// <summary>
+        /// Coil 에 해당하는 terminal 인지 여부
+        /// </summary>
         [JsonProperty]
         public bool IsTerminal { get; private set; } = true;
         public UserDefinedILCommand(string json)
@@ -30,5 +41,4 @@ namespace Dsu.PLCConvertor.Common.Internal
         [JsonConstructor]
         protected UserDefinedILCommand() { }
     }
-
 }
