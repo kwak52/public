@@ -1,61 +1,47 @@
 [
-	{
-      "PerInputProc": [
-        "MOV $0 $1"
-      ],
-      "TargetCommand": "OUT",
-      "Command": "STUP(237)",
-      "Arity": 1
-    },
-    {
-      "PerInputProc": [
-        "CTU C$0 $1",
-        "RST C$0 0"
-      ],
-      "TargetCommand": "CTU",
-      "Command": "CNTX(546)",
-      "Arity": 2
-    },
-    {
-      "PerInputProc": [
-        "MOV $0 $1 $2"
-      ],
-      "TargetCommand": "MOV",
-      "Command": "MOVD(083)",
-      "Arity": 1
-    },
-    {
-      "PerInputProc": [
-        "MOV $0 $1"
-      ],
-      "TargetCommand": "MOV",
-      "Command": "MOV(021)",
-      "Arity": 1
-    },
-    {
-      "PerInputProc": [
-        "ADD $0 $1"
-      ],
-      "TargetCommand": "ADD",
-      "Command": "+(400)",
-      "Arity": 1
-    },
-    {
-      "PerInputProc": [
-        "NEG $0 $1"
-      ],
-      "TargetCommand": "NEG",
-      "Command": "NEG(160)",
-      "Arity": 1
-    },
+  {
+    "Command": "STUP(237)",
+    "PerInputProc": [
+      "MOV $0 $1"
+    ]
+  },
+  {
+    "Command": "CNTX(546)",
+    "PerInputProc": [
+      "CTU C$0 $1",
+      "RST C$0 0"
+    ]
+  },
+  {
+    "Command": "MOVD(083)",
+    "PerInputProc": [
+      "MOV $0 $1 $2"
+    ]
+  },
+  {
+    "Command": "MOV(021)",
+    "PerInputProc": [
+      "MOV $0 $1"
+    ]
+  },
+  {
+    "Command": "+(400)",
+    "PerInputProc": [
+      "ADD $0 $1"
+    ]
+  },
+  {
+    "Command": "NEG(160)",
+    "PerInputProc": [
+      "NEG $0 $1"
+    ]
+  },
 
-    {
-      "PerInputProc": [
-        "AND< $0 $1"
-      ],
-      "TargetCommand": "AND<",
-      "Command": "AND<=S(317)",
-      "IsTerminal":  false,
-      "Arity": 1
-	}
+  {
+    "Command": "AND<=S(317)",
+    "PerInputProc": [
+      "AND< $0 $1"
+    ],
+    "IsTerminal": false
+  }
 ]

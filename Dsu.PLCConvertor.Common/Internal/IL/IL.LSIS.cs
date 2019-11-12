@@ -57,7 +57,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.NOP] = _toList(1, "NOP"),
             [Mnemonic.END] = _toList(1, "END"),
 
-            [Mnemonic.RUNG_COMMENT] = _toList(0, "CMT"),
+            [Mnemonic.RUNG_COMMENT] = _toList(0, Xg5k.RungCommentCommand),
         };
 
     }

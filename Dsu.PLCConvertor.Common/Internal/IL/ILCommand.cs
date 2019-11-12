@@ -9,7 +9,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// IL 명령어
         /// </summary>
-        [JsonProperty]
+        [JsonProperty(Order = 1)]
         public string Command { get; protected set; }
 
         /// <summary>

@@ -126,7 +126,7 @@ namespace PLCConvertor
 
                 var cvtParams = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS)
                 {
-                    SplitBySection = barCheckItemPrefereSectionSplit.Checked,
+                    SplitBySection = barCheckItemSplitBySection.Checked,
                 };
                 Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", msgFile);
             }

@@ -119,11 +119,11 @@ namespace Dsu.PLCConvertor.Common.Internal
             var userDefinedCommands =
                 new List<UserDefinedILCommand>(
                     new[] {
-                    new UserDefinedILCommand("STUP(237)", "OUT", new [] { "MOV $0 $1", }),
-                    new UserDefinedILCommand("CNTX(546)", "CTU", new [] { "CTU C$0 $1", "RST C$0 0" }),
-                    new UserDefinedILCommand("MOVD(083)", "MOV", new [] { "MOV $0 $1 $2" }),
-                    new UserDefinedILCommand("MOV(021)", "MOV", new [] { "MOV $0 $1" }),
-                    new UserDefinedILCommand("+(400)", "ADD", new [] { "ADD $0 $1" }),
+                    new UserDefinedILCommand("STUP(237)", new [] { "MOV $0 $1", }),
+                    new UserDefinedILCommand("CNTX(546)", new [] { "CTU C$0 $1", "RST C$0 0" }),
+                    new UserDefinedILCommand("MOVD(083)", new [] { "MOV $0 $1 $2" }),
+                    new UserDefinedILCommand("MOV(021)", new [] { "MOV $0 $1" }),
+                    new UserDefinedILCommand("+(400)", new [] { "ADD $0 $1" }),
                     }
                 );
             var userDefinedCommandMapper = new UserDefinedCommandMapper(userDefinedCommands);

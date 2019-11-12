@@ -152,4 +152,17 @@ namespace Dsu.PLCConvertor.Common
             return new AddressConvertor(ruleSets);
         }
     }
+
+
+
+    public interface IConvertOption { }
+    public static class Cx2Xg5kOption /*: IConvertOption*/
+    {
+        /// <summary>
+        /// 강제로 section 에 의해서 구분할 지의 여부.
+        /// </summary>
+        public static bool SplitBySection { get; set; } = true;
+        public static bool ForceRungSplit { get; set; } = true;
+    }
+
 }

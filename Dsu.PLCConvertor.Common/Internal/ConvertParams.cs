@@ -53,7 +53,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// 강제로 section 에 의해서 구분할 지의 여부.
         /// </summary>
-        public bool SplitBySection { get; set; } = true;
+        public bool SplitBySection { get => Cx2Xg5kOption.SplitBySection; set { Cx2Xg5kOption.SplitBySection = value; } }
 
         public ConvertParams(PLCVendor sourceType, PLCVendor targetType, int soruceStartStep=0, int targetStartStep=0)
         {
