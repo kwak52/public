@@ -4,22 +4,7 @@ using System.Linq;
 
 namespace Dsu.PLCConvertor.Common
 {
-
-    /// <summary>
-    /// Parsing 을 위해서 보조적으로 사용되는 node
-    /// </summary>
-    internal class AuxNode : Point
-    {
-        protected AuxNode(string name) : base(name)
-        {
-        }
-        protected AuxNode(string name, ILSentence sentence) : base(name, sentence)
-        {
-        }
-    }
-
-
-    internal class StartNode : AuxNode
+    internal class StartNode : Point, IAuxNode
     {
         public StartNode(string name)
             : base(name)
@@ -31,7 +16,7 @@ namespace Dsu.PLCConvertor.Common
     /// <summary>
     /// Parsing 을 위해서 보조적으로 사용되는 node
     /// </summary>
-    internal class EndNode : AuxNode
+    internal class EndNode : Point, IAuxNode
     {
         public EndNode(string name)
             : base($"END:{name}")
@@ -42,7 +27,7 @@ namespace Dsu.PLCConvertor.Common
     }
 
 
-    internal class TRNode : AuxNode
+    internal class TRNode : Point, IAuxNode
     {
         public TRNode(string name, ILSentence sentence)
             : base(name, sentence)
@@ -50,7 +35,7 @@ namespace Dsu.PLCConvertor.Common
         }
     }
 
-    internal class DummyNode : AuxNode
+    internal class DummyNode : Point, IAuxNode
     {
         public DummyNode(string name)
             : base(name)
@@ -59,20 +44,11 @@ namespace Dsu.PLCConvertor.Common
     }
 
 
-    internal class TerminalNode : Point
-    {
-        public TerminalNode(string name, ILSentence sentence)
-            : base(name, sentence)
-        {
-        }
-    }
-
-    internal class OutNode : TerminalNode
+    internal class OutNode : Point, ITerminalNode
     {
         public OutNode(string name, ILSentence sentence)
             : base(name, sentence)
         {
-
         }
     }
 }

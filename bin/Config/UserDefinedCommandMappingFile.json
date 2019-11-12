@@ -1,6 +1,5 @@
-{
-  "Map": {
-    "STUP(237)": {
+[
+	{
       "PerInputProc": [
         "MOV $0 $1"
       ],
@@ -8,7 +7,7 @@
       "Command": "STUP(237)",
       "Arity": 1
     },
-    "CNTX(546)": {
+    {
       "PerInputProc": [
         "CTU C$0 $1",
         "RST C$0 0"
@@ -17,7 +16,7 @@
       "Command": "CNTX(546)",
       "Arity": 2
     },
-    "MOVD(083)": {
+    {
       "PerInputProc": [
         "MOV $0 $1 $2"
       ],
@@ -25,7 +24,7 @@
       "Command": "MOVD(083)",
       "Arity": 1
     },
-    "MOV(021)": {
+    {
       "PerInputProc": [
         "MOV $0 $1"
       ],
@@ -33,7 +32,7 @@
       "Command": "MOV(021)",
       "Arity": 1
     },
-    "+(400)": {
+    {
       "PerInputProc": [
         "ADD $0 $1"
       ],
@@ -41,7 +40,7 @@
       "Command": "+(400)",
       "Arity": 1
     },
-    "NEG(160)": {
+    {
       "PerInputProc": [
         "NEG $0 $1"
       ],
@@ -50,7 +49,7 @@
       "Arity": 1
     },
 
-    "AND<=S(317)": {
+    {
       "PerInputProc": [
         "AND< $0 $1"
       ],
@@ -58,8 +57,5 @@
       "Command": "AND<=S(317)",
       "IsTerminal":  false,
       "Arity": 1
-    }
-
-
-  }
-}
+	}
+]

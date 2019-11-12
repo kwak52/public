@@ -81,7 +81,6 @@ namespace Dsu.PLCConvertor.Common.Internal
     {
         public static void Test()
 		{
-            var bigint = System.Numerics.BigInteger.Parse("7101FF01");
             AddressConvertRule.Test();
             var rule = new AddressConvertRule(
                 "(%d).(%2d)", new[] { Tuple.Create(0, 1), Tuple.Create(0, 15) },

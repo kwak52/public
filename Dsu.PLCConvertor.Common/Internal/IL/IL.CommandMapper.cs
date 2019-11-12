@@ -1,4 +1,5 @@
-﻿using Dsu.PLCConvertor.Common.Util;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.PLCConvertor.Common.Util;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// </summary>
     public class UserDefinedCommandMapper
     {
-        public Dictionary<string, UserDefinedILCommand> Map { get; set; }
+        public Dictionary<string, UserDefinedILCommand> Map { get; }
         public UserDefinedCommandMapper(IEnumerable<UserDefinedILCommand> udcs)
         {
             Map = udcs.ToDictionary(udc => udc.Command);
@@ -27,12 +28,17 @@ namespace Dsu.PLCConvertor.Common.Internal
         public static UserDefinedCommandMapper LoadFromJsonFile(string jsonFile) => LoadFromJsonString(File.ReadAllText(jsonFile));
         public static UserDefinedCommandMapper LoadFromJsonString(string json)
         {
-            return JsonConvert.DeserializeObject<UserDefinedCommandMapper>(json);
+            var udILs = JsonConvert.DeserializeObject<UserDefinedILCommand[]>(json);
+            udILs.Iter(ud =>
+            {
+                ud.Arity = ud.PerInputProc.Length;
+            });
+            return new UserDefinedCommandMapper(udILs);
         }
 
         public void SaveToJsonFile(string jsonFile)
         {
-            var json = JsonConvert.SerializeObject(this, MyJsonSerializer.JsonSettingsSimple);
+            var json = JsonConvert.SerializeObject(Map.Values.ToArray(), MyJsonSerializer.JsonSettingsSimple);
             File.WriteAllText(jsonFile, json);
         }
 
@@ -41,7 +47,5 @@ namespace Dsu.PLCConvertor.Common.Internal
             get { return Map.ContainsKey(commandKey) ? Map[commandKey] : null; }
             set { Map[commandKey] = value; }
         }
-
-
     }
 }

@@ -51,7 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cx2Xg5k.cs" />
-    <Compile Include="Graph\FunctionNode.cs" />
+    <Compile Include="Graph\FunctionNode\FunctionNode.cs" />
+    <Compile Include="Graph\FunctionNode\TerminalFunctionNode.cs" />
+    <Compile Include="Graph\FunctionNode\UserDefinedFunctionNode.cs" />
     <Compile Include="Internal\AddressConvert\AddressConvertor.cs" />
     <Compile Include="Internal\AddressConvert\AddressConvertRule.cs" />
     <Compile Include="Internal\AddressConvert\AddressConvertRuleSpecialRelay.cs" />

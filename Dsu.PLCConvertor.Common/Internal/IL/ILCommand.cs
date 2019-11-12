@@ -15,7 +15,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// IL 명령어의 input 다릿발 갯수
         /// </summary>
-        [JsonProperty]
+        [JsonIgnore]
         public int Arity { get; internal set; }
         public ILCommand(string command, int arity=0)
         {

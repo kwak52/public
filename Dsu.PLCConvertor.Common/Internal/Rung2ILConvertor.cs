@@ -105,12 +105,12 @@ namespace Dsu.PLCConvertor.Common
                         yield return x;
                     break;
 
-                case FunctionNodeUserDefined udf:
+                case UserDefinedFunctionNode udf:
                     yield return udf.ToIL(_targetType);
                     Console.WriteLine("");
                     //udf.Convert(cv)
                     break;
-                case TerminalNode udt when udt.ILSentence.ILCommand is UserDefinedILCommand:
+                case ITerminalNode udt when udt.ILSentence.ILCommand is UserDefinedILCommand:
                     var udc = udt.ILSentence.ILCommand;
                     if (udc.Arity == 1)
                         yield return udt.ToIL(_targetType);
@@ -118,7 +118,7 @@ namespace Dsu.PLCConvertor.Common
                     break;
 
                 // Output node 를 비롯한 출력단의 node.  output node 자신을 출력하고 stack 의 내용을 따라간다.
-                case TerminalNode tln:
+                case ITerminalNode tln:
                     yield return tln.ToIL(_targetType);
                     xs = FollowEdgeStack();
                     foreach (var x in xs)
@@ -240,7 +240,7 @@ namespace Dsu.PLCConvertor.Common
         private IEnumerable<string> ConvertFunctionOutput()
         {
             Debug.Assert(_rung.Sinks.Count() == 1);
-            FunctionNode terminal = _rung.Sinks.First() as FunctionNode;
+            TerminalFunctionNode terminal = _rung.Sinks.First() as TerminalFunctionNode;
             var converted = terminal.Convert(_convertParam).ToArray();
             return converted;
         }
@@ -302,7 +302,7 @@ namespace Dsu.PLCConvertor.Common
 
     internal static class PointExtension
     {
-        public static string ToIL(this Point point, PLCVendor targetType) => ILSentence.Create(targetType, point.ILSentence).ToString();
+        public static string ToIL(this IPoint point, PLCVendor targetType) => ILSentence.Create(targetType, point.ILSentence).ToString();
 
         //public static IEnumerable<string> ToIL(this Point point, PLCVendor targetType)
         //{
