@@ -202,7 +202,8 @@ namespace Dsu.PLCConvertor.Common
         {
             // Outgoing edge 에 대해서 comment 추가
             _cbld.Nodes
-                .OfType<AuxNode>()
+                .OfType<IAuxNode>()
+                .Cast<Point>()
                 .Where(n => _cbld.GetOutgoingDegree(n) > 1)
                 .Iter(n =>
                 {
@@ -276,7 +277,7 @@ namespace Dsu.PLCConvertor.Common
                     // AuxNode - AuxNode 간의 연속 연결을 찾는다.
                     var consecutiveAuxNodePairEdges =
                         rung.Edges
-                            .Where(e => e.Start is AuxNode && e.End is AuxNode)
+                            .Where(e => e.Start is IAuxNode && e.End is IAuxNode)
                             .Where(e => !(e.Start is TRNode) && !(e.End is TRNode))
                             ;
                     var consecutiveAuxNodes =
@@ -289,7 +290,8 @@ namespace Dsu.PLCConvertor.Common
                     // Rung 시작 node 이거나, AuxNode 이면서 incoming/outgoing edge 갯수가 모두 1 인 node 들을 삭제한다.
                     var targetAuxNodes =
                         rung.Nodes
-                            .OfType<AuxNode>()
+                            .OfType<IAuxNode>()
+                            .Cast<Point>()
                             .Where(n =>
                             {
                                 var nIn = rung.GetIncomingDegree(n);
@@ -304,13 +306,13 @@ namespace Dsu.PLCConvertor.Common
                                     || isConsecutiveAuxNode(n)
                                     ;
 
-                                bool isConsecutiveAuxNode(AuxNode an)
+                                bool isConsecutiveAuxNode(Point an)
                                 {
                                     if (rung.GetIncomingDegree(an) == 0)
                                         return false;
 
                                     var prev = rung.GetIncomingEdges(an).First().Start;
-                                    return nIn == 1 && prev is AuxNode && consecutiveAuxNodes.Contains(an);
+                                    return nIn == 1 && prev is IAuxNode && consecutiveAuxNodes.Contains(an);
                                 }
                             })
                             .ToArray()     // 컬렉션이 수정
@@ -319,8 +321,9 @@ namespace Dsu.PLCConvertor.Common
                     targetAuxNodes.Iter(n => rung.OmitPoint(n));
 
                     rung.Nodes
-                        .OfType<AuxNode>()
-                        .Where(n => rung.GetIncomingNodes(n).All(inc => !(inc is AuxNode)) && rung.GetTheOutgoingNode(n, true) is AuxNode)
+                        .OfType<IAuxNode>()
+                        .Cast<Point>()
+                        .Where(n => rung.GetIncomingNodes(n).All(inc => !(inc is IAuxNode)) && rung.GetTheOutgoingNode(n, true) is IAuxNode)
                         .ToArray()
                         .Iter(n => rung.OmitPoint(n));
                 }
@@ -330,7 +333,7 @@ namespace Dsu.PLCConvertor.Common
                         rung.Nodes
                             .OfType<TRNode>()
                             .Where(n => rung.GetIncomingDegree(n) == 1)
-                            .Where(n => rung.GetIncomingNodes(n).First() is AuxNode)
+                            .Where(n => rung.GetIncomingNodes(n).First() is IAuxNode)
                             .Select(n => rung.GetIncomingNodes(n).First())
                             .ToArray();
 

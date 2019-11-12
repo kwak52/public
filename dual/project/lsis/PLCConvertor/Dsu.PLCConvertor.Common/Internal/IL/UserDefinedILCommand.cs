@@ -4,6 +4,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 {
     /// <summary>
     /// 사용자 정의 명령어.  see FunctionNodeUserDefined
+    /// 실제 serialize 지원 class
     /// </summary>
     public class UserDefinedILCommand : ILCommand
     {
@@ -15,7 +16,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         public string[] PerInputProc { get; private set; }
 
         /// <summary>
-        /// 변환 명령어
+        /// 변환 명령어 : TODO: 실제 쓰이나? 필요한가?
         /// </summary>
         [JsonProperty]
         public string TargetCommand { get; private set; }

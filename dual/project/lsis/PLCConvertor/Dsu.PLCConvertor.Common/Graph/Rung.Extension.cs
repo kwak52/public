@@ -94,18 +94,17 @@ namespace Dsu.PLCConvertor.Common
 
                 IEnumerable<string> generateStyles()
                 {
-                    if (n is TerminalNode)
+                    if (n is ITerminalNode)
                     {
                         yield return "shape=ellipse";
                         yield return "style=filled, color=gray";
                     }
 
-                    if (n is AuxNode)
+                    if (n is IAuxNode)
                         yield return "style=dashed";
 
-                    if (n is AuxNode)
+                    if (n is IAuxNode)
                         yield return "color=blue";
-
                 }
             });
 

@@ -61,11 +61,6 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
 		public string [] TargetArgsExpr { get; internal set; }
 
-        //TODO: for serialization
-		//public AddressConvertRule(string rule)
-		//{
-
-		//}
 
         public AddressConvertRule(string sourceRepr, IEnumerable<Tuple<int, int>> sourceArgsMinMax,
             string targetRepr, IEnumerable<string> targetArgsExpr)
