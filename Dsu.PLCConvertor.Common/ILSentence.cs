@@ -123,10 +123,12 @@ namespace Dsu.PLCConvertor.Common
                 case Mnemonic.UNDEFINED:
                     Command = other.Command;
                     break;
+
                 case Mnemonic.USERDEFINED:
                     var udc = other.ILCommand as UserDefinedILCommand;
                     Command = udc.TargetCommand;
                     break;
+
                 default:
                     // 산전 format 의 Command 로 변환한다.
                     ILCommand = IL.GetILCommand(_vendorType, other.Mnemonic);

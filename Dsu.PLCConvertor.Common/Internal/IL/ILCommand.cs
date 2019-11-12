@@ -6,8 +6,15 @@ namespace Dsu.PLCConvertor.Common.Internal
 {
     public class ILCommand
     {
+        /// <summary>
+        /// IL 명령어
+        /// </summary>
         [JsonProperty]
         public string Command { get; protected set; }
+
+        /// <summary>
+        /// IL 명령어의 input 다릿발 갯수
+        /// </summary>
         [JsonProperty]
         public int Arity { get; internal set; }
         public ILCommand(string command, int arity=0)
@@ -109,5 +116,4 @@ namespace Dsu.PLCConvertor.Common.Internal
         RUNG_COMMENT,
         END,
     }
-
 }

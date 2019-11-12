@@ -53,6 +53,10 @@ namespace Dsu.PLCConvertor.Common.Internal
 
 
         internal abstract void ClearMyResult();
+
+        /// <summary>
+        /// PLC 프로그램 변환 도중에 발생한 메시지를 모두 clear
+        /// </summary>
         public void ClearResult()
         {
             ClearMyResult();

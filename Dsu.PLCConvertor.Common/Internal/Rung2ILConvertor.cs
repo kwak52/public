@@ -249,10 +249,20 @@ namespace Dsu.PLCConvertor.Common
 
         public static string[] ConvertFromMnemonics(string mnemonics, string rungComment, ConvertParams cvtParam)
             => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics), rungComment, cvtParam);
+
+        /// <summary>
+        /// Rung 단위의 mnemonics 을 변환
+        /// </summary>
+        /// <param name="mnemonics">Rung 단위의 mnemonic</param>
+        /// <param name="rungComment">rung 단위의 comment</param>
+        /// <param name="cvtParam">변환 parameters</param>
+        /// <returns></returns>
         public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
-            //return new[] { "XGRUNGSTART" }.Concat(convertFromMnemonics()).Concat(new[] { "XGRUNGEND" }).ToArray();
-            return new[] { "XGRUNGSTART" }.Concat(convertFromMnemonics()).ToArray();
+            // rung 단위 변환을 끊을 때에 XGRUNGSTART 로 marking
+            return new[] { "XGRUNGSTART" }
+                .Concat(convertFromMnemonics())
+                .ToArray();
 
             string[] convertFromMnemonics()
             {
@@ -268,6 +278,7 @@ namespace Dsu.PLCConvertor.Common
                 return new Rung2ILConvertor(rung.ToRung(false), cvtParam).Convert().ToArray();
 
 
+                // Rung 생성 없이, 문자열 기준으로 변환
                 string[] tryConvertDirectly()
                 {
                     var length = mnemonics.Count();

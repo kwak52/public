@@ -19,8 +19,18 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
         public override IEnumerable<CxtInfo> Children { get { return Enumerable.Empty<CxtInfo>(); } }
 
+        /// <summary>
+        /// Rung 에 대한 변환 결과를 저장
+        /// </summary>
         internal string[] ConvertResults;
+        /// <summary>
+        /// Rung 에 대한 변환 메시지를 저장
+        /// </summary>
         internal string[] ConvertMessages;
+
+        /// <summary>
+        /// 변환 중간 결과 clear/reset
+        /// </summary>
         internal override void ClearMyResult()
         {
             ConvertResults = null;
