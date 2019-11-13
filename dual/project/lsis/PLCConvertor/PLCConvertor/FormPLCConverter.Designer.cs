@@ -58,6 +58,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.barButtonItemEditPerferences = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -98,9 +99,10 @@
             this.barEditItemTarget,
             this.barCheckItemSplitBySection,
             this.barButtonItemAddressMapping,
-            this.barButtonItemEditAddressMappingRule});
+            this.barButtonItemEditAddressMappingRule,
+            this.barButtonItemEditPerferences});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 8;
+            this.ribbon.MaxItemId = 9;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -203,6 +205,7 @@
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barEditItemSource);
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barEditItemTarget);
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barCheckItemSplitBySection);
+            this.ribbonPageGroupOptions.ItemLinks.Add(this.barButtonItemEditPerferences);
             this.ribbonPageGroupOptions.Name = "ribbonPageGroupOptions";
             this.ribbonPageGroupOptions.Text = "Options";
             // 
@@ -304,6 +307,13 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
+            // barButtonItemEditPerferences
+            // 
+            this.barButtonItemEditPerferences.Caption = "barButtonItem1";
+            this.barButtonItemEditPerferences.Id = 8;
+            this.barButtonItemEditPerferences.Name = "barButtonItemEditPerferences";
+            this.barButtonItemEditPerferences.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemEditPerferences_ItemClick);
+            // 
             // FormPLCConverter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -361,5 +371,6 @@
         private DevExpress.XtraBars.BarCheckItem barCheckItemSplitBySection;
         private DevExpress.XtraBars.BarButtonItem barButtonItemAddressMapping;
         private DevExpress.XtraBars.BarButtonItem barButtonItemEditAddressMappingRule;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemEditPerferences;
     }
 }

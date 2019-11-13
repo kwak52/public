@@ -105,22 +105,11 @@ namespace Dsu.PLCConvertor.Common
                         yield return x;
                     break;
 
-                case UserDefinedFunctionNode udf:
-                    yield return udf.ToIL(_targetType);
-                    Console.WriteLine("");
-                    //udf.Convert(cv)
-                    break;
-                case ITerminalNode udt when udt.ILSentence.ILCommand is UserDefinedILCommand:
-                    var udc = udt.ILSentence.ILCommand;
-                    if (udc.Arity == 1)
-                        yield return udt.ToIL(_targetType);
-                    Console.WriteLine("");
-                    break;
 
                 // Output node 를 비롯한 출력단의 node.  output node 자신을 출력하고 stack 의 내용을 따라간다.
+                case UserDefinedFunctionNode udf:
                 case ITerminalNode tln:
-                    yield return tln.ToIL(_targetType);
-                    xs = FollowEdgeStack();
+                    xs = spitResult(node);
                     foreach (var x in xs)
                         yield return x;
                     break;
@@ -137,6 +126,25 @@ namespace Dsu.PLCConvertor.Common
                 foreach (var x in xs)
                     yield return x;
             }
+
+
+
+            IEnumerable<string> spitResult(Point point)
+            {
+                yield return point.ToIL(_targetType);
+                var udc = point as UserDefinedFunctionNode;
+                var udcTerminal = udc != null && ((UserDefinedILCommand)udc.ILSentence.ILCommand).IsTerminal;
+                if (point is ITerminalNode || udcTerminal)
+                {
+                    var xs2 = FollowEdgeStack();
+                    foreach (var x in xs2)
+                        yield return x;
+                }
+            }
+
+
+
+
             IEnumerable<string> FollowMe()
             {
                 // 현재 node 의 outgoing edge 를 따라가기
@@ -259,10 +267,15 @@ namespace Dsu.PLCConvertor.Common
         /// <returns></returns>
         public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
-            // rung 단위 변환을 끊을 때에 XGRUNGSTART 로 marking
-            return new[] { Xg5k.XgRungStart }
-                .Concat(convertFromMnemonics())
-                .ToArray();
+            if (Cx2Xg5kOption.ForceRungSplit)
+            {
+                // rung 단위 변환을 끊을 때에 XGRUNGSTART 로 marking
+                return new[] { Xg5k.XgRungStart }
+                    .Concat(convertFromMnemonics())
+                    .ToArray();
+            }
+            else
+                return convertFromMnemonics();
 
             string[] convertFromMnemonics()
             {

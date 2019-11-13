@@ -13,9 +13,17 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// </summary>
     public partial class IL
     {
-        static List<ILCommand> _toList(int arity, params string[] commands)
-            => commands.Select(cmd => new ILCommand(cmd, arity)).ToList();
+        /// <summary>
+        /// Terminal command 생성
+        /// </summary>
+        static List<ILCommand> _toTerminal(int arity, params string[] commands)
+            => commands.Select(cmd => new TerminalILCommand(cmd, arity) as ILCommand).ToList();
 
+        /// <summary>
+        /// Non terminal command 생성
+        /// </summary>
+        static List<ILCommand> _toInner(int arity, params string[] commands)
+            => commands.Select(cmd => new ILCommand(cmd, arity)).ToList();
 
         /// <summary>
         /// _dicLSIS 의 반대방향 참조용 dictionary.  mnemonic 문자열로 mnemonic 을 검색

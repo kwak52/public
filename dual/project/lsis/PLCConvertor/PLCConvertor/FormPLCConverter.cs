@@ -141,5 +141,10 @@ namespace PLCConvertor
         {
             new FormEditAddressMappingRule().Show();
         }
+
+        private void barButtonItemEditPerferences_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            new FormEditPreferences().Show();
+        }
     }
 }

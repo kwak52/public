@@ -85,6 +85,12 @@
     <Compile Include="Forms\FormEditAddressMappingRule.Helper.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\FormEditPreferences.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormEditPreferences.Designer.cs">
+      <DependentUpon>FormEditPreferences.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormTestAddressMapping.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEditAddressMappingRule.resx">
       <DependentUpon>FormEditAddressMappingRule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormEditPreferences.resx">
+      <DependentUpon>FormEditPreferences.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormTestAddressMapping.resx">
       <DependentUpon>FormTestAddressMapping.cs</DependentUpon>

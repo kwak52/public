@@ -1,5 +1,11 @@
 [
   {
+    "Command": "SET",
+    "PerInputProc": [
+      "SET $0"
+    ]
+  },
+  {
     "Command": "STUP(237)",
     "PerInputProc": [
       "MOV $0 $1"

@@ -63,6 +63,9 @@ namespace Dsu.PLCConvertor.Common
                 ILCommand = IL.GetILCommand(vendorType, Mnemonic, Command);
             }
 
+            if (Mnemonic == Mnemonic.UNDEFINED)
+                Global.Logger.Warn($"Command {Command} not defined.");
+
             string getCommand()
             {
                 string cmd = Command;
