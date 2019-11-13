@@ -131,9 +131,23 @@ namespace Dsu.PLCConvertor.Common
 
             IEnumerable<string> spitResult(Point point)
             {
-                yield return point.ToIL(_targetType);
-                var udc = point as UserDefinedFunctionNode;
-                var udcTerminal = udc != null && ((UserDefinedILCommand)udc.ILSentence.ILCommand).IsTerminal;
+                var udf = point as UserDefinedFunctionNode;
+                var udc = point.ILSentence.ILCommand as UserDefinedILCommand;
+                var udcTerminal = udc == null ? false : udc.IsTerminal;
+                if (udf != null)
+                {
+                    if (udc.Message.NonNullAny())
+                    {
+                        var r4p = _rung as Rung4Parsing;
+                        r4p.ErrorMessage.Add(udc.Message);
+                    }
+
+                    var xs2 = udf.EnumeratePerInputs();
+                    foreach (var x in xs2)
+                        yield return x;
+                }
+                else
+                    yield return point.ToIL(_targetType);
                 if (point is ITerminalNode || udcTerminal)
                 {
                     var xs2 = FollowEdgeStack();
@@ -253,9 +267,13 @@ namespace Dsu.PLCConvertor.Common
             return converted;
         }
 
-        public static string[] Convert(Rung rung, ConvertParams cvtParam) => new Rung2ILConvertor(rung, cvtParam).Convert().ToArray();
+        public static ConvertResult Convert(Rung rung, ConvertParams cvtParam)
+        {
+            var cvr = new Rung2ILConvertor(rung, cvtParam).Convert();
+            return new ConvertResult(cvr, Enumerable.Empty<string>());
+        }
 
-        public static string[] ConvertFromMnemonics(string mnemonics, string rungComment, ConvertParams cvtParam)
+        public static ConvertResult ConvertFromMnemonics(string mnemonics, string rungComment, ConvertParams cvtParam)
             => ConvertFromMnemonics(MnemonicInput.MultilineString2Array(mnemonics), rungComment, cvtParam);
 
         /// <summary>
@@ -265,30 +283,33 @@ namespace Dsu.PLCConvertor.Common
         /// <param name="rungComment">rung 단위의 comment</param>
         /// <param name="cvtParam">변환 parameters</param>
         /// <returns></returns>
-        public static string[] ConvertFromMnemonics(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
+        public static ConvertResult ConvertFromMnemonics(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
             if (Cx2Xg5kOption.ForceRungSplit)
             {
                 // rung 단위 변환을 끊을 때에 XGRUNGSTART 로 marking
-                return new[] { Xg5k.XgRungStart }
-                    .Concat(convertFromMnemonics())
+                var res = convertFromMnemonics();
+                var result =
+                    new[] { Xg5k.XgRungStart }
+                    .Concat(res.Results)
                     .ToArray();
+
+                return new ConvertResult(result, res.Messages);                
             }
             else
                 return convertFromMnemonics();
 
-            string[] convertFromMnemonics()
+            ConvertResult convertFromMnemonics()
             {
                 var directlyConverted = tryConvertDirectly();
                 if (directlyConverted.NonNullAny())
-                    return directlyConverted;
+                    return new ConvertResult(directlyConverted, Enumerable.Empty<string>());
 
                 var rung = new Rung4Parsing(mnemonics, rungComment, cvtParam);
                 rung.CoRoutineRungParser().ToArray();
-                if (rung.ErrorMessage.NonNullAny())
-                    return new[] { rung.ErrorMessage };
 
-                return new Rung2ILConvertor(rung.ToRung(false), cvtParam).Convert().ToArray();
+                var result = new Rung2ILConvertor(rung.ToRung(false), cvtParam).Convert().ToArray();
+                return new ConvertResult(result, rung.ErrorMessage);
 
 
                 // Rung 생성 없이, 문자열 기준으로 변환
@@ -312,6 +333,16 @@ namespace Dsu.PLCConvertor.Common
     }
 
 
+    internal class ConvertResult
+    {
+        public string[] Results;
+        public string[] Messages;
+        public ConvertResult(IEnumerable<string> results, IEnumerable<string> messages)
+        {
+            Results = results.ToArray();
+            Messages = messages.ToArray();
+        }
+    }
 
     internal static class PointExtension
     {

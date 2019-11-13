@@ -16,13 +16,13 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// Terminal command 생성
         /// </summary>
-        static List<ILCommand> _toTerminal(int arity, params string[] commands)
+        static List<ILCommand> _t(int arity, params string[] commands)
             => commands.Select(cmd => new TerminalILCommand(cmd, arity) as ILCommand).ToList();
 
         /// <summary>
         /// Non terminal command 생성
         /// </summary>
-        static List<ILCommand> _toInner(int arity, params string[] commands)
+        static List<ILCommand> _n(int arity, params string[] commands)
             => commands.Select(cmd => new ILCommand(cmd, arity)).ToList();
 
         /// <summary>
@@ -125,15 +125,13 @@ namespace Dsu.PLCConvertor.Common.Internal
             /// 사용자 정의 명령어 set
             /// </summary>
             var userDefinedCommands =
-                new List<UserDefinedILCommand>(
-                    new[] {
-                    new UserDefinedILCommand("STUP(237)", new [] { "MOV $0 $1", }),
+                new[] {
+                    new UserDefinedILCommand("STUP(237)", new [] { "MOV $0 $1", }) {Message = "Hello" },
                     new UserDefinedILCommand("CNTX(546)", new [] { "CTU C$0 $1", "RST C$0 0" }),
                     new UserDefinedILCommand("MOVD(083)", new [] { "MOV $0 $1 $2" }),
                     new UserDefinedILCommand("MOV(021)", new [] { "MOV $0 $1" }),
                     new UserDefinedILCommand("+(400)", new [] { "ADD $0 $1" }),
-                    }
-                );
+                };
             var userDefinedCommandMapper = new UserDefinedCommandMapper(userDefinedCommands);
 
             var jsonFile = "defaultCommandMapping.json";

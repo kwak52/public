@@ -1,4 +1,5 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.PLCConvertor.Common.Internal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -71,7 +72,10 @@ namespace Dsu.PLCConvertor.Common
     /// e.g Timer, Shift, ..
     /// </summary>
     public interface ITerminalNode : IPoint { }
-    public interface IFunctionNode : IPoint { }
+    public interface IFunctionNode : IPoint
+    {
+        IEnumerable<string> Convert(ConvertParams cvtParam);
+    }
     public interface IUserDefinedFunctionNode : IFunctionNode { }
 
 }

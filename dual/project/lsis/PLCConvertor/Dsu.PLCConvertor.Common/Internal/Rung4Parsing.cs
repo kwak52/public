@@ -57,7 +57,7 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// Parsing 실패하였을 경우의 message.
         /// </summary>
-        public string ErrorMessage { get; private set; }
+        public List<string> ErrorMessage { get; private set; } = new List<string>();
 
         public Rung4Parsing(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
@@ -150,15 +150,19 @@ namespace Dsu.PLCConvertor.Common
                             break;
 
                         case Mnemonic.USERDEFINED when ! udc.IsTerminal:
-                            _cbld.AND(arg0N, sentence);
+                            _cbld.AND(new UserDefinedFunctionNode(sentence), sentence);
                             break;
 
                         case Mnemonic.UNDEFINED:
                         default:
+                            if (sentence.Mnemonic == Mnemonic.UNDEFINED)
+                                Logger?.Warn($"Unknown IL with arity=1: {m}");
                             if (arity == 1)
                             {
-                                Logger?.Warn($"Unknown IL with arity=1: {m}");
-                                _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
+                                if (ilCommand is TerminalILCommand)
+                                    _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
+                                else
+                                    _cbld.AND(arg0N, sentence);
                             }
                             else if (arity > 1)
                             {
@@ -173,8 +177,9 @@ namespace Dsu.PLCConvertor.Common
                 catch (Exception ex)
                 {
                     Logger.Error($"{ex}");
-                    ErrorMessage = $"Error while processing [{m}].   {ex.Message}";
-                    yield break;
+                    ErrorMessage.Add($"Error while processing [{m}].   {ex.Message}");
+                    throw;
+                    //yield break;
                 }
                 yield return i++;
             }
@@ -189,7 +194,7 @@ namespace Dsu.PLCConvertor.Common
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Error {ex.Message}";
+                ErrorMessage.Add($"Error {ex.Message}");
                 Logger.Error($"{ex}");
             }
         }

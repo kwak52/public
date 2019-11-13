@@ -66,6 +66,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         AND, ANDNOT, ANDLD,
         OR, ORNOT, ORLD,
         OUT,
+        OUTNOT,
         MOVE,
         MPUSH,
         MLOAD,
