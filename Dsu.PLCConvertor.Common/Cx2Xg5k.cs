@@ -162,7 +162,7 @@ namespace Dsu.PLCConvertor.Common
         /// 강제로 section 에 의해서 구분할 지의 여부.
         /// </summary>
         public static bool SplitBySection { get; set; } = true;
-        public static bool ForceRungSplit { get; set; } = true;
+        public static bool ForceRungSplit { get; set; } = false;
     }
 
 }

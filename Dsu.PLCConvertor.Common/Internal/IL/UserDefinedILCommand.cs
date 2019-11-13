@@ -20,6 +20,10 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         [JsonProperty(Order = 3)]
         public bool IsTerminal { get; private set; } = true;
+
+        [JsonProperty(Order = 4)]
+        public string Message { get; internal set; }
+
         public UserDefinedILCommand(string json)
             : base("UserDefinedCommand", 1)
         {

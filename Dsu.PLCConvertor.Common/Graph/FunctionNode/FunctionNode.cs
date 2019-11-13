@@ -30,7 +30,7 @@ namespace Dsu.PLCConvertor.Common
         /// <returns></returns>
         protected virtual List<List<string>> ConvertPerInputs(ConvertParams cvtParam)
         {
-            return Inputs.Select(subRung => Rung2ILConvertor.Convert(subRung, cvtParam).ToList()).ToList();
+            return Inputs.Select(subRung => Rung2ILConvertor.Convert(subRung, cvtParam).Results.ToList()).ToList();
         }
 
         public override string ToShortString() => $"{ILSentence}";

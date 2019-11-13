@@ -10,9 +10,25 @@ namespace Dsu.PLCConvertor.Common
     internal class UserDefinedFunctionNode : FunctionNode, IUserDefinedFunctionNode
     {
         UserDefinedILCommand _userDefinedCommand => ILSentence.ILCommand as UserDefinedILCommand;
-        protected UserDefinedFunctionNode(ILSentence sentence)
+        internal UserDefinedFunctionNode(ILSentence sentence)
             : base(sentence)
         {
+        }
+
+        public IEnumerable<string> EnumeratePerInputs()
+        {
+            var args = ILSentence.Args; // CNTX 에 주어진 argument 목록
+            return
+                _userDefinedCommand.PerInputProc        // function input 의 각 다릿발에 붙일 명령어들 prototype.  e.g [| "CTU C$0 $1"; "RST C$0 0" |]
+                .Select(pip =>
+                {
+                    for (int i = 0; i < Arity; i++)
+                        pip = pip.Replace($"${i}", args[i]);    // prototype 의 positional argument (-> $??) 를 실제 argument 로 치환
+                    pip = pip.Replace(" ", "\t");
+                    return pip;
+                })
+                ;
+
         }
 
         /// <summary>
@@ -24,21 +40,12 @@ namespace Dsu.PLCConvertor.Common
             /*
              * e.g 사용자 정의 : new UserDefinedILCommand("CNTX(546)", "CTU", new [] { "CTU C$0 $1", "RST C$0 0" }),
              */
-
-            var args = ILSentence.Args; // CNTX 에 주어진 argument 목록
             
             // function 의 input 다릿발에 연결될 sub rung 의 IL 문장 들
             var perInputs = ConvertPerInputs(cvtParam);
 
             var perInputProcs =
-                _userDefinedCommand.PerInputProc        // function input 의 각 다릿발에 붙일 명령어들 prototype.  e.g [| "CTU C$0 $1"; "RST C$0 0" |]
-                .Select(pip =>
-                {
-                    for (int i = 0; i < Arity; i++)
-                        pip = pip.Replace($"${i}", args[i]);    // prototype 의 positional argument (-> $??) 를 실제 argument 로 치환
-                    pip = pip.Replace(" ", "\t");
-                    return pip;
-                })
+                EnumeratePerInputs()
                 .ToArray()
                 ;
 

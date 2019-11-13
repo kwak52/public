@@ -21,8 +21,9 @@
   {
     "Command": "MOVD(083)",
     "PerInputProc": [
-      "MOV $0 $1 $2"
-    ]
+      "MOV $0 $2"
+    ],
+    "Message": "MOVD(083)을 MOV 로 부정확하게 변환함"
   },
   {
     "Command": "MOV(021)",
@@ -44,10 +45,20 @@
   },
 
   {
+    "Command": "AND>S(322)",
+    "PerInputProc": [
+      "AND> $0 $1"
+    ],
+    "IsTerminal": false,
+    "Message": "AND>S(322) 에서 signed 비교를 무시하고 변환함"
+  },
+
+  {
     "Command": "AND<=S(317)",
     "PerInputProc": [
       "AND< $0 $1"
     ],
-    "IsTerminal": false
+    "IsTerminal": false,
+    "Message": "AND<=S(317) 에서 signed 비교를 무시하고 변환함"
   }
 ]

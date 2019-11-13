@@ -17,7 +17,7 @@ type Conv(output1:ITestOutputHelper) =
         let co = MnemonicInput.CommentOutMultiple
         let converted =
             let cvtParam = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS)
-            Rung2ILConvertor.ConvertFromMnemonics(m.Input, null, cvtParam)
+            Rung2ILConvertor.ConvertFromMnemonics(m.Input, null, cvtParam).Results
             |> Seq.filter(fun s -> not (s.StartsWith(Xg5k.XgRungStart)))
             |> String.concat "\r\n" |> co
 

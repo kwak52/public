@@ -54,15 +54,24 @@ namespace Dsu.PLCConvertor.Common.Internal
 
                     if (ils.Any())
                     {
-                        rung.ConvertResults = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
-
                         var s = cvtParam.SourceStartStep;
                         var t = cvtParam.TargetStartStep;
 
-                        rung.ConvertMessages = new[] { $"[{s}]\t[{t}]\tThis is test message!" };
+                        try
+                        {
+                            var convertResult = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
+                            rung.ConvertResults = convertResult.Results;
+                            rung.ConvertMessages = convertResult.Messages;
+                        }
+                        catch (System.Exception ex)
+                        {
+                            rung.ConvertMessages = new[] { $"[{s}]\t[{t}]\t{ex.Message}" };
+                        }
 
                         cvtParam.SourceStartStep += rung.ILs.Length;
-                        cvtParam.TargetStartStep += rung.ConvertResults.Length;
+
+                        if (rung.ConvertResults != null)
+                            cvtParam.TargetStartStep += rung.ConvertResults.Length;
                     }
                 });
         }
