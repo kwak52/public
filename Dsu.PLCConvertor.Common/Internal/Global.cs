@@ -11,4 +11,13 @@ namespace Dsu.PLCConvertor.Common
     {
         public static ILog Logger { get; set; }
     }
+
+    public enum LogLevel
+    {
+        NONE = 0,
+        FATAL,
+        WARN,
+        INFO,
+        DEBUG,
+    }
 }

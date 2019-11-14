@@ -50,6 +50,7 @@ namespace PLCConvertor
             Logger.Info("FormRibonApp launched.");
             Rung.Logger = Logger;
 
+
             //TestCustomAppConfig();
 
             //void TestCustomAppConfig()
@@ -101,7 +102,7 @@ namespace PLCConvertor
                 var target = (PLCVendor)barEditItemTarget.EditValue;
 
                 _lastEmbeddedForm = new FormLadderParse(formILs.SelectedMnemonicInput, source, target);
-                _lastEmbeddedForm.Show();                
+                _lastEmbeddedForm.Show();
                 _lastEmbeddedForm.EmbedToControl(panelMain);
 
                 dockPanelMain.Text = formILs.SelectedMnemonicInput.Comment;

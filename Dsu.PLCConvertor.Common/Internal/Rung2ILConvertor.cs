@@ -18,6 +18,12 @@ namespace Dsu.PLCConvertor.Common
         Rung _rung;
         ConvertParams _convertParam;
         PLCVendor _targetType => _convertParam.TargetType;
+
+        /// <summary>
+        /// Rung 변환시 발생한 에러 메시지
+        /// </summary>
+        public List<string> ErrorMessage { get; private set; } = new List<string>();
+
         Rung2ILConvertor(Rung rung, ConvertParams cvtParam)
         {
             _rung = rung;
@@ -138,8 +144,9 @@ namespace Dsu.PLCConvertor.Common
                 {
                     if (udc.Message.NonNullAny())
                     {
-                        var r4p = _rung as Rung4Parsing;
-                        r4p.ErrorMessage.Add(udc.Message);
+                        var ss = _convertParam.SourceStartStep;
+                        var ts = _convertParam.TargetStartStep;
+                        ErrorMessage.Add($"[{ss}]\t[{ts}]\t{udc.Message}");
                     }
 
                     var xs2 = udf.EnumeratePerInputs();
@@ -308,8 +315,9 @@ namespace Dsu.PLCConvertor.Common
                 var rung = new Rung4Parsing(mnemonics, rungComment, cvtParam);
                 rung.CoRoutineRungParser().ToArray();
 
-                var result = new Rung2ILConvertor(rung.ToRung(false), cvtParam).Convert().ToArray();
-                return new ConvertResult(result, rung.ErrorMessage);
+                var r2il = new Rung2ILConvertor(rung.ToRung(false), cvtParam);
+                var result = r2il.Convert().ToArray();
+                return new ConvertResult(result, rung.ErrorMessage.Concat(r2il.ErrorMessage));
 
 
                 // Rung 생성 없이, 문자열 기준으로 변환
