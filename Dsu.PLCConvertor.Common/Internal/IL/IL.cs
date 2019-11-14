@@ -91,14 +91,28 @@ namespace Dsu.PLCConvertor.Common.Internal
         public static string GetOperator(PLCVendor targetType, Mnemonic op) => GetILCommand(targetType, op)?.Command;
         public static ILCommand GetILCommand(PLCVendor targetType, Mnemonic op, string command=null)
         {
+            ILCommand sys = null;
             var dic = GetDictionary(targetType);
             if (dic.ContainsKey(op))
-                return dic[op].FirstOrDefault();
+                sys = dic[op].FirstOrDefault();
 
-            var udc = UserDefinedCommandMapper[command];
-            if (udc != null)
-                return udc;
-           
+            // 사용자 정의 우선
+            if (command.NonNullAny())
+            {
+                var udc = UserDefinedCommandMapper?[command];
+                if (udc != null)
+                {
+                    if (sys != null)
+                        Global.Logger.Warn($"User defined IL command {udc} overrides system defined command.");
+
+                    return udc;
+                }
+            }
+
+            if (sys != null)
+                return sys;
+
+            // 사용자 정의에도 없고, system 정의에도 없는 경우, undefined command 로 반환
             return new UndefinedILCommand(command) { Arity = 1 };   // unknown command 의 deafult arity 는 1로 가정한다.
         }
 

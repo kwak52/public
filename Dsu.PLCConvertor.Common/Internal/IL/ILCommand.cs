@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,9 +63,13 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// 사용자 정의 명령어에 포함된 경우
         /// </summary>
         USERDEFINED,
-        LOAD, LOADNOT,      
-        AND, ANDNOT, ANDLD,
-        OR, ORNOT, ORLD,
+        LOAD, LOADNOT, LOADEQ,
+        AND, ANDNOT,
+        OR, ORNOT,
+
+        ANDLD,
+        ORLD,
+
         OUT,
         OUTNOT,
         MOVE,
@@ -116,5 +121,11 @@ namespace Dsu.PLCConvertor.Common.Internal
         NOP,
         RUNG_COMMENT,
         END,
+    }
+
+    public static class MnemonicExtension
+    {
+        public static bool IsAndFamily(this Mnemonic mnemonic)
+            => mnemonic.IsOneOf(Mnemonic.AND, Mnemonic.ANDEQ, Mnemonic.ANDGREATERTHAN, Mnemonic.ANDLESSTHAN, Mnemonic.ANDNOT);
     }
 }

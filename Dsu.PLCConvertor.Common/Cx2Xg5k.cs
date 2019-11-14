@@ -163,7 +163,17 @@ namespace Dsu.PLCConvertor.Common
         /// 강제로 section 에 의해서 구분할 지의 여부.
         /// </summary>
         public static bool SplitBySection { get; set; } = true;
+
+        /// <summary>
+        /// XG5000 에 rung 단위 구분자를 삽입할지 여부.
+        /// </summary>
         public static bool ForceRungSplit { get; set; } = false;
+
+        /// <summary>
+        /// 변환 과정에 발생한 문제점들을 설명문에 삽입할지 여부
+        /// </summary>
+        public static bool AddMessagesToLabel { get; set; } = true;
+
 
         static LogLevel _logLevel = LogLevel.WARN;
         public static LogLevel LogLevel

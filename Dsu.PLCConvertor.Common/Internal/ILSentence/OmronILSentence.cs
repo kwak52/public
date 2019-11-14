@@ -8,6 +8,7 @@ namespace Dsu.PLCConvertor.Common
     {
         public enum VariationType
         {
+            None,
             /// <summary>
             /// "@"  Instruction that differentiates when the execution condition turns ON
             /// </summary>

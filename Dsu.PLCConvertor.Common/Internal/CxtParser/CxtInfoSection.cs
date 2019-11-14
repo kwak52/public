@@ -84,9 +84,21 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             var secConversion =
                 this.EnumerateType<CxtInfoRung>()
-                    .Where(rung => rung.ConvertResults.NonNullAny())
-                    .SelectMany(rung => rung.ConvertResults)
-                    ;
+                    .Where(rung => rung.ConvertResults.NonNullAny() || rung.ConvertMessages.NonNullAny())
+                    .SelectMany(rung =>
+                    {
+                        if (cvtParam.TargetType == PLCVendor.LSIS && Cx2Xg5kOption.AddMessagesToLabel && rung.ConvertMessages.NonNullAny())
+                        {
+                            // 변환 중 발생한 message 를 설명문에 추가.
+                            return
+                                rung.ConvertMessages
+                                    .Select(msg => $"{Xg5k.RungCommentCommand}\t{msg}")
+                                .Concat(rung.ConvertResults.NonNullAny() ? rung.ConvertResults : Enumerable.Empty<string>())
+                                ;
+                        }
+
+                        return rung.ConvertResults;
+                    });
 
             IEnumerable<string> annotated = null;
             var nStart = cvtParam.TargetStartStep;

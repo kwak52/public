@@ -104,12 +104,16 @@ namespace Dsu.PLCConvertor.Common
                         case Mnemonic.RUNG_COMMENT:
                             RungComment.Add(sentence);
                             break;
+
+                        // LD TR 때문에, LD는 사용자 정의 명령을 허용하지 않는다.
                         case Mnemonic.LOAD when arg0.StartsWith("TR"):
                             _cbld.LDTR(arg0);
                             break;
 
                         case Mnemonic.LOAD:
                         case Mnemonic.LOADNOT:
+                        case Mnemonic.LOADEQ:
+                        case Mnemonic.USERDEFINED when udc.IsLoad:
                             if (_cbld != null)
                                 LadderStack.Push(_cbld);
                             CurrentBuildingLD = new SubRung(this, arg0N);
@@ -142,6 +146,7 @@ namespace Dsu.PLCConvertor.Common
                         case Mnemonic.TON: // timer output
                         case Mnemonic.OUT:
                         case Mnemonic.CMP:
+                        case Mnemonic.SUB:
                             _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
                             break;
 
@@ -239,7 +244,9 @@ namespace Dsu.PLCConvertor.Common
                         outg
                             .Skip(1)
                             .Where(e => e.End is EndNode)   // outgoing edge 의 두번째부터 EndNode  로 가는 경우에
-                            .SelectMany(e => _cbld.GetOutgoingEdges(e.End).Where(e2 => e2.End.ILSentence?.Command == "AND")) // EndNode 에서 AND 로 연결된 edge 들을 모두 모음
+                            .SelectMany(e =>
+                                _cbld.GetOutgoingEdges(e.End)
+                                .Where(e2 => e2.End.ILSentence != null && e2.End.ILSentence.Mnemonic.IsAndFamily())) // EndNode 에서 AND 로 연결된 edge 들을 모두 모음
                             .ToArray()
                             ;
                     secondStepOutTr.Iter(e =>

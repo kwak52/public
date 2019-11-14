@@ -51,7 +51,7 @@ namespace Dsu.PLCConvertor.Common
                     if (rs.IsMatch(arg))
                     {
                         var targetDevice = rs.Convert(arg);
-                        if (SourceVariableMap.ContainsKey(arg) && ! UsedSourceDevices.ContainsKey(targetDevice))
+                        if (SourceVariableMap != null && SourceVariableMap.ContainsKey(arg) && ! UsedSourceDevices.ContainsKey(targetDevice))
                             UsedSourceDevices.Add(targetDevice, new PLCVariable(targetDevice, SourceVariableMap[arg]));
                         return targetDevice;
                     }
