@@ -23,9 +23,11 @@ namespace PLCConvertor.Forms
         {
             checkEditSplitBySection.Checked = Cx2Xg5kOption.SplitBySection;
             checkEditForceSplitRung.Checked = Cx2Xg5kOption.ForceRungSplit;
+            checkEditAddMessagesToLabel.Checked = Cx2Xg5kOption.AddMessagesToLabel; ;
 
             checkEditSplitBySection.CheckedChanged += (s, e) => Cx2Xg5kOption.SplitBySection = checkEditSplitBySection.Checked;
             checkEditForceSplitRung.CheckedChanged += (s, e) => Cx2Xg5kOption.ForceRungSplit = checkEditForceSplitRung.Checked;
+            checkEditAddMessagesToLabel.CheckedChanged += (s, e) => Cx2Xg5kOption.AddMessagesToLabel = checkEditAddMessagesToLabel.Checked;
 
             var enums = Enum.GetValues(typeof(LogLevel));
             comboBoxEditLogLevel.Properties.Items.AddRange(enums);

@@ -81,7 +81,9 @@ namespace PLCConvertor.Forms
             listBoxControlMnemonics.SelectedIndex = _rung4Parsing.CurrentMnemonicIndex;
 
 
-            var mnemonics = Rung2ILConvertor.Convert(_rung4Parsing.ToRung(false), _convertParam);
+            var cr = Rung2ILConvertor.Convert(_rung4Parsing.ToRung(false), _convertParam);
+            var mnemonics = cr.Results;
+            var messages = cr.Messages;
             var converted = String.Join("\r\n", mnemonics);
             Logger?.Info($"Reversely converted mnemonics for {_mnemonicInput.Comment}:\r\n{converted}");
 

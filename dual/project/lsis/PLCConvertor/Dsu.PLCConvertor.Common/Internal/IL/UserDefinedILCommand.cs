@@ -21,7 +21,16 @@ namespace Dsu.PLCConvertor.Common.Internal
         [JsonProperty(Order = 3)]
         public bool IsTerminal { get; private set; } = true;
 
+        /// <summary>
+        /// LOAD 에 해당하는 명령 인지 여부
+        /// </summary>
         [JsonProperty(Order = 4)]
+        public bool IsLoad { get; private set; } = false;
+
+        /// <summary>
+        /// 변환 결과에 반영할 메시지
+        /// </summary>
+        [JsonProperty(Order = 5)]
         public string Message { get; internal set; }
 
         public UserDefinedILCommand(string json)

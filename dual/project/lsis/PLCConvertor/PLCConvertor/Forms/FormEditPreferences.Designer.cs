@@ -29,28 +29,33 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+            this.checkEditAddMessagesToLabel = new DevExpress.XtraEditors.CheckEdit();
+            this.comboBoxEditLogLevel = new DevExpress.XtraEditors.ComboBoxEdit();
             this.checkEditForceSplitRung = new DevExpress.XtraEditors.CheckEdit();
             this.checkEditSplitBySection = new DevExpress.XtraEditors.CheckEdit();
             this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.comboBoxEditLogLevel = new DevExpress.XtraEditors.ComboBoxEdit();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAddMessagesToLabel.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEditLogLevel.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditForceSplitRung.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditSplitBySection.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEditLogLevel.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
             this.SuspendLayout();
             // 
             // layoutControl1
             // 
+            this.layoutControl1.Controls.Add(this.checkEditAddMessagesToLabel);
             this.layoutControl1.Controls.Add(this.comboBoxEditLogLevel);
             this.layoutControl1.Controls.Add(this.checkEditForceSplitRung);
             this.layoutControl1.Controls.Add(this.checkEditSplitBySection);
@@ -60,6 +65,25 @@
             this.layoutControl1.Size = new System.Drawing.Size(351, 198);
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
+            // 
+            // checkEditAddMessagesToLabel
+            // 
+            this.checkEditAddMessagesToLabel.Location = new System.Drawing.Point(12, 76);
+            this.checkEditAddMessagesToLabel.Name = "checkEditAddMessagesToLabel";
+            this.checkEditAddMessagesToLabel.Properties.Caption = "Add messages to label";
+            this.checkEditAddMessagesToLabel.Size = new System.Drawing.Size(327, 28);
+            this.checkEditAddMessagesToLabel.StyleController = this.layoutControl1;
+            this.checkEditAddMessagesToLabel.TabIndex = 7;
+            // 
+            // comboBoxEditLogLevel
+            // 
+            this.comboBoxEditLogLevel.Location = new System.Drawing.Point(85, 108);
+            this.comboBoxEditLogLevel.Name = "comboBoxEditLogLevel";
+            this.comboBoxEditLogLevel.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboBoxEditLogLevel.Size = new System.Drawing.Size(254, 30);
+            this.comboBoxEditLogLevel.StyleController = this.layoutControl1;
+            this.comboBoxEditLogLevel.TabIndex = 6;
             // 
             // checkEditForceSplitRung
             // 
@@ -91,7 +115,8 @@
             this.layoutControlItem1,
             this.emptySpaceItem1,
             this.layoutControlItem2,
-            this.layoutControlItem3});
+            this.layoutControlItem3,
+            this.layoutControlItem4});
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(351, 198);
             this.layoutControlGroup1.TextVisible = false;
@@ -108,9 +133,9 @@
             // emptySpaceItem1
             // 
             this.emptySpaceItem1.AllowHotTrack = false;
-            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 98);
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 130);
             this.emptySpaceItem1.Name = "emptySpaceItem1";
-            this.emptySpaceItem1.Size = new System.Drawing.Size(331, 80);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(331, 48);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
             // layoutControlItem2
@@ -122,24 +147,23 @@
             this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem2.TextVisible = false;
             // 
-            // comboBoxEditLogLevel
-            // 
-            this.comboBoxEditLogLevel.Location = new System.Drawing.Point(85, 76);
-            this.comboBoxEditLogLevel.Name = "comboBoxEditLogLevel";
-            this.comboBoxEditLogLevel.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEditLogLevel.Size = new System.Drawing.Size(254, 30);
-            this.comboBoxEditLogLevel.StyleController = this.layoutControl1;
-            this.comboBoxEditLogLevel.TabIndex = 6;
-            // 
             // layoutControlItem3
             // 
             this.layoutControlItem3.Control = this.comboBoxEditLogLevel;
-            this.layoutControlItem3.Location = new System.Drawing.Point(0, 64);
+            this.layoutControlItem3.Location = new System.Drawing.Point(0, 96);
             this.layoutControlItem3.Name = "layoutControlItem3";
             this.layoutControlItem3.Size = new System.Drawing.Size(331, 34);
             this.layoutControlItem3.Text = "Log level";
             this.layoutControlItem3.TextSize = new System.Drawing.Size(70, 22);
+            // 
+            // layoutControlItem4
+            // 
+            this.layoutControlItem4.Control = this.checkEditAddMessagesToLabel;
+            this.layoutControlItem4.Location = new System.Drawing.Point(0, 64);
+            this.layoutControlItem4.Name = "layoutControlItem4";
+            this.layoutControlItem4.Size = new System.Drawing.Size(331, 32);
+            this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem4.TextVisible = false;
             // 
             // FormEditPreferences
             // 
@@ -152,14 +176,16 @@
             this.Load += new System.EventHandler(this.FormEditPreferences_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditAddMessagesToLabel.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEditLogLevel.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditForceSplitRung.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditSplitBySection.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEditLogLevel.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -175,5 +201,7 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEditLogLevel;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
+        private DevExpress.XtraEditors.CheckEdit checkEditAddMessagesToLabel;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
     }
 }

@@ -15,6 +15,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             [Mnemonic.LOAD] = _n(1, "LD"),
             [Mnemonic.LOADNOT] = _n(1, "LDNOT"),
+            [Mnemonic.LOADEQ] = _n(1, "LD=(300)"),
             [Mnemonic.AND] = _n(1, "AND"),
             [Mnemonic.ANDNOT] = _n(1, "ANDNOT"),
             [Mnemonic.ANDLD] = _n(1, "ANDLD"),

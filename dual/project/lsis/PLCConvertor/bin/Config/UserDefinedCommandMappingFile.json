@@ -3,20 +3,81 @@
     "Command": "SET",
     "PerInputProc": [
       "SET $0"
-    ]
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
   },
   {
     "Command": "STUP(237)",
     "PerInputProc": [
       "MOV $0 $1"
-    ]
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+  {
+    "Command": "----LD",
+    "PerInputProc": [
+      "LOAD $0"
+    ],
+    "Message": "LD 명령은 사용자 정의 할 수 없습니다.",
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD=(300)",
+    "PerInputProc": [
+      "LOAD= $0"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD<>(305)",
+    "PerInputProc": [
+      "LOAD<> $0"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD<(310)",
+    "PerInputProc": [
+      "LOAD< $0"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD<=(315)",
+    "PerInputProc": [
+      "LOAD<= $0"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD>(320)",
+    "PerInputProc": [
+      "LOAD> $0"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD>(325)",
+    "PerInputProc": [
+      "LOAD>= $0"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
   },
   {
     "Command": "UP(521)",
     "PerInputProc": [
-      "NOP"
     ],
     "IsTerminal": false,
+    "IsLoad": false,
     "Message": "UP(521)이 제대로 변환되지 않았습니다."
   },
   {
@@ -25,6 +86,7 @@
       "NOP"
     ],
     "IsTerminal": false,
+    "IsLoad": false,
     "Message": "DOWN(522)이 제대로 변환되지 않았습니다."
   },
   {
@@ -32,32 +94,42 @@
     "PerInputProc": [
       "CTU C$0 $1",
       "RST C$0 0"
-    ]
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
   },
   {
     "Command": "MOVD(083)",
     "PerInputProc": [
       "MOV $0 $2"
     ],
+    "IsTerminal": true,
+    "IsLoad": false,
     "Message": "MOVD(083)을 MOV 로 부정확하게 변환함"
   },
   {
-    "Command": "MOV(021)",
+    "Command": "UNUSED---MOV(021)",
     "PerInputProc": [
       "MOV $0 $1"
-    ]
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
   },
   {
-    "Command": "+(400)",
+    "Command": "UNUSED---+(400)",
     "PerInputProc": [
       "ADD $0 $1"
-    ]
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
   },
   {
     "Command": "NEG(160)",
     "PerInputProc": [
       "NEG $0 $1"
-    ]
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
   },
 
   {
@@ -66,6 +138,7 @@
       "AND> $0 $1"
     ],
     "IsTerminal": false,
+    "IsLoad": false,
     "Message": "AND>S(322) 에서 signed 비교를 무시하고 변환함"
   },
 
@@ -75,6 +148,7 @@
       "AND< $0 $1"
     ],
     "IsTerminal": false,
+    "IsLoad": false,
     "Message": "AND<=S(317) 에서 signed 비교를 무시하고 변환함"
   }
 ]
