@@ -113,7 +113,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 return sys;
 
             // 사용자 정의에도 없고, system 정의에도 없는 경우, undefined command 로 반환
-            return new UndefinedILCommand(command) { Arity = 1 };   // unknown command 의 deafult arity 는 1로 가정한다.
+            return new UndefinedILCommand(command) { Arity = 1 };   // kkk: unknown command 의 deafult arity 는 1로 가정한다.
         }
 
         /// <summary>

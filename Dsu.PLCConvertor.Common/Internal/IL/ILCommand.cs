@@ -63,9 +63,9 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// 사용자 정의 명령어에 포함된 경우
         /// </summary>
         USERDEFINED,
-        LOAD, LOADNOT, LOADEQ,
-        AND, ANDNOT,
-        OR, ORNOT,
+        LOAD, LOADP, LOADN, LOADNOT, LOADEQ,
+        AND, ANDP, ANDN, ANDNOT,
+        OR, ORP, ORN, ORNOT,
 
         ANDLD,
         ORLD,

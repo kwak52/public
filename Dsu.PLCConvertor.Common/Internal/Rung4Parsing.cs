@@ -161,7 +161,11 @@ namespace Dsu.PLCConvertor.Common
                         case Mnemonic.UNDEFINED:
                         default:
                             if (sentence.Mnemonic == Mnemonic.UNDEFINED)
-                                Logger?.Warn($"Unknown IL with arity=1: {m}");
+                            {
+                                var msg = $"Unknown IL with arity=1: {m}";
+                                Logger?.Warn(msg);
+                                ErrorMessage.Add(msg);
+                            }
                             if (arity == 1)
                             {
                                 if (ilCommand is TerminalILCommand)

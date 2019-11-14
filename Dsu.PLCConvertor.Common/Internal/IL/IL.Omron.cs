@@ -14,12 +14,18 @@ namespace Dsu.PLCConvertor.Common.Internal
         static Dictionary<Mnemonic, List<ILCommand>> _dicOmron = new Dictionary<Mnemonic, List<ILCommand>>()
         {
             [Mnemonic.LOAD] = _n(1, "LD"),
+            [Mnemonic.LOADP] = _n(1, "@LD"),
+            [Mnemonic.LOADN] = _n(1, "%LD"),
             [Mnemonic.LOADNOT] = _n(1, "LDNOT"),
             [Mnemonic.LOADEQ] = _n(1, "LD=(300)"),
             [Mnemonic.AND] = _n(1, "AND"),
+            [Mnemonic.ANDP] = _n(1, "@AND"),
+            [Mnemonic.ANDN] = _n(1, "%AND"),
             [Mnemonic.ANDNOT] = _n(1, "ANDNOT"),
             [Mnemonic.ANDLD] = _n(1, "ANDLD"),
             [Mnemonic.OR] = _n(1, "OR"),
+            [Mnemonic.ORP] = _n(1, "@OR"),
+            [Mnemonic.ORN] = _n(1, "%OR"),
             [Mnemonic.ORNOT] = _n(1, "ORNOT"),
             [Mnemonic.ORLD] = _n(1, "ORLD"),
             [Mnemonic.OUT] = _t(1, "OUT"),

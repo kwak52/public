@@ -174,6 +174,8 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         public static bool AddMessagesToLabel { get; set; } = true;
 
+        public static bool CopySourceComment { get; set; } = true;
+
 
         static LogLevel _logLevel = LogLevel.WARN;
         public static LogLevel LogLevel

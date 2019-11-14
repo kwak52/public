@@ -22,8 +22,8 @@ namespace Dsu.PLCConvertor.Common
                 _userDefinedCommand.PerInputProc        // function input 의 각 다릿발에 붙일 명령어들 prototype.  e.g [| "CTU C$0 $1"; "RST C$0 0" |]
                 .Select(pip =>
                 {
-                    for (int i = 0; i < Arity; i++)
-                        pip = pip.Replace($"${i}", args[i]);    // prototype 의 positional argument (-> $??) 를 실제 argument 로 치환
+                    for (int i = 0; i < args.Length; i++)
+                        pip = pip.Replace($"${i}", args[i]);    // kkk: prototype 의 positional argument (-> $??) 를 실제 argument 로 치환
                     pip = pip.Replace(" ", "\t");
                     return pip;
                 })
