@@ -49,6 +49,7 @@ namespace PLCConvertor
         {
             Logger.Info("FormRibonApp launched.");
             Rung.Logger = Logger;
+            Cx2Xg5kOption.LogLevel = LogLevel.WARN;
 
 
             //TestCustomAppConfig();

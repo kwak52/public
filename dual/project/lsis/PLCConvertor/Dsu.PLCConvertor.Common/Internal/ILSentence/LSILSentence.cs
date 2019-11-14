@@ -10,7 +10,7 @@ namespace Dsu.PLCConvertor.Common
         public LSILSentence(ILSentence other)
             : base(other)
         {
-            switch(Mnemonic)
+            switch (Mnemonic)
             {
                 case Mnemonic.UNDEFINED:
                     Command = other.Command;
@@ -27,9 +27,24 @@ namespace Dsu.PLCConvertor.Common
                     Command = IL.GetOperator(_vendorType, other.Mnemonic);
                     break;
             }
+
+            var omron = other as OmronILSentence;
+            if (omron != null)
+            {
+                switch (omron.Variation)
+                {
+                    case OmronILSentence.VariationType.DiffrentiationOn:
+                        Command = Command + "P";
+                        break;
+                    case OmronILSentence.VariationType.DiffrentiationOff:
+                        Command = Command + "N";
+                        break;
+                }
+            }
         }
 
-        // 옴론 -> 산전 변환시 사용되지 않음.
+         
+        // 옴론 -> 산전 변환시 사용되지 않음.        
         private LSILSentence()
             : base(PLCVendor.LSIS)
         {

@@ -1,4 +1,5 @@
-﻿using Dsu.Common.Utilities.ExtensionMethods;
+﻿using Dsu.Common.Utilities.Core.ExtensionMethods;
+using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.Common.Utilities.Graph;
 using Dsu.PLCConvertor.Common.Internal;
 using log4net;
@@ -22,7 +23,15 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// Rung 변환시 발생한 에러 메시지
         /// </summary>
-        public List<string> ErrorMessage { get; private set; } = new List<string>();
+        List<string> _errorMessages = new List<string>();
+        public IEnumerable<string> GetErrorMessages()
+        {
+            return
+                _errorMessages
+                    .ToSameGroups()
+                    .Select(grp => $"X{grp.Count()}\t{grp.First()}")
+                    ;
+        }
 
         Rung2ILConvertor(Rung rung, ConvertParams cvtParam)
         {
@@ -146,7 +155,7 @@ namespace Dsu.PLCConvertor.Common
                     {
                         var ss = _convertParam.SourceStartStep;
                         var ts = _convertParam.TargetStartStep;
-                        ErrorMessage.Add($"[{ss}]\t[{ts}]\t{udc.Message}");
+                        _errorMessages.Add($"[{ss}]\t[{ts}]\t{udc.Message}");     // kkk: 메지지 추가
                     }
 
                     var xs2 = udf.EnumeratePerInputs();
@@ -317,7 +326,9 @@ namespace Dsu.PLCConvertor.Common
 
                 var r2il = new Rung2ILConvertor(rung.ToRung(false), cvtParam);
                 var result = r2il.Convert().ToArray();
-                return new ConvertResult(result, rung.ErrorMessage.Concat(r2il.ErrorMessage));
+
+                // kkk: 결과와 error message 를 모두 반환
+                return new ConvertResult(result, rung.ErrorMessage.Concat(r2il.GetErrorMessages()));
 
 
                 // Rung 생성 없이, 문자열 기준으로 변환

@@ -14,12 +14,18 @@ namespace Dsu.PLCConvertor.Common.Internal
         static Dictionary<Mnemonic, List<ILCommand>> _dicLSIS = new Dictionary<Mnemonic, List<ILCommand>>()
         {
             [Mnemonic.LOAD] = _n(1, "LOAD"),
+            [Mnemonic.LOADP] = _n(1, "LOADP"),
+            [Mnemonic.LOADN] = _n(1, "LOADN"),
             [Mnemonic.LOADNOT] = _n(1, "LOAD NOT"),
             [Mnemonic.LOADEQ] = _n(1, "LOAD="),
             [Mnemonic.AND] = _n(1, "AND"),
+            [Mnemonic.ANDP] = _n(1, "ANDP"),
+            [Mnemonic.ANDN] = _n(1, "ANDN"),
             [Mnemonic.ANDNOT] = _n(1, "AND NOT"),
             [Mnemonic.ANDLD] = _n(1, "AND LOAD"),
             [Mnemonic.OR] = _n(1, "OR"),
+            [Mnemonic.ORP] = _n(1, "ORP"),
+            [Mnemonic.ORN] = _n(1, "ORN"),
             [Mnemonic.ORNOT] = _n(1, "OR NOT"),
             [Mnemonic.ORLD] = _n(1, "OR LOAD"),
             [Mnemonic.OUT] = _t(1, "OUT"),
