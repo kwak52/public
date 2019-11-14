@@ -25,7 +25,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         private UserDefinedCommandMapper() { }
 
 
-        public static UserDefinedCommandMapper LoadFromJsonFile(string jsonFile) => LoadFromJsonString(File.ReadAllText(jsonFile));
+        public static UserDefinedCommandMapper LoadFromJsonFile(string jsonFile)
+            => LoadFromJsonString(File.ReadAllText(jsonFile, Encoding.GetEncoding("ks_c_5601-1987")));
         public static UserDefinedCommandMapper LoadFromJsonString(string json)
         {
             var udILs = JsonConvert.DeserializeObject<UserDefinedILCommand[]>(json);

@@ -1,5 +1,6 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.PLCConvertor.Common.Internal;
+using log4net.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -163,6 +164,25 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         public static bool SplitBySection { get; set; } = true;
         public static bool ForceRungSplit { get; set; } = false;
+
+        static LogLevel _logLevel = LogLevel.WARN;
+        public static LogLevel LogLevel
+        {
+            get => _logLevel;
+            set {
+                _logLevel = value;
+                var log4netLevel = Level.Off;
+                switch(_logLevel)
+                {
+                    case LogLevel.NONE: log4netLevel = Level.Off; break;
+                    case LogLevel.FATAL: log4netLevel = Level.Fatal; break;
+                    case LogLevel.WARN: log4netLevel = Level.Warn; break;
+                    case LogLevel.INFO: log4netLevel = Level.Info; break;
+                    case LogLevel.DEBUG: log4netLevel = Level.Debug; break;
+                }
+                ((log4net.Repository.Hierarchy.Logger)Global.Logger.Logger).Level = log4netLevel;
+            }
+        }
     }
 
 }

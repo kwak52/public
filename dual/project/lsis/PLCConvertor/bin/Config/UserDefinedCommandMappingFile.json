@@ -12,6 +12,22 @@
     ]
   },
   {
+    "Command": "UP(521)",
+    "PerInputProc": [
+      "NOP"
+    ],
+    "IsTerminal": false,
+    "Message": "UP(521)이 제대로 변환되지 않았습니다."
+  },
+  {
+    "Command": "DOWN(522)",
+    "PerInputProc": [
+      "NOP"
+    ],
+    "IsTerminal": false,
+    "Message": "DOWN(522)이 제대로 변환되지 않았습니다."
+  },
+  {
     "Command": "CNTX(546)",
     "PerInputProc": [
       "CTU C$0 $1",

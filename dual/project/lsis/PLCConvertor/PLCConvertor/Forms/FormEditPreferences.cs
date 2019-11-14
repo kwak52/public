@@ -1,4 +1,5 @@
 ﻿using Dsu.PLCConvertor.Common;
+using log4net.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,6 +26,12 @@ namespace PLCConvertor.Forms
 
             checkEditSplitBySection.CheckedChanged += (s, e) => Cx2Xg5kOption.SplitBySection = checkEditSplitBySection.Checked;
             checkEditForceSplitRung.CheckedChanged += (s, e) => Cx2Xg5kOption.ForceRungSplit = checkEditForceSplitRung.Checked;
+
+            var enums = Enum.GetValues(typeof(LogLevel));
+            comboBoxEditLogLevel.Properties.Items.AddRange(enums);
+            comboBoxEditLogLevel.SelectedItem = Cx2Xg5kOption.LogLevel;
+            comboBoxEditLogLevel.SelectedValueChanged +=
+                (s, e) => Cx2Xg5kOption.LogLevel = (LogLevel)comboBoxEditLogLevel.SelectedItem;
         }
     }
 }
