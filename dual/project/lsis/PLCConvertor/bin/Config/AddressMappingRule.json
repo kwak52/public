@@ -75,6 +75,63 @@
         "SourceRepr": "(%d).(%2d)",
         "TargetRepr": "P(%04d)(%x)"
       },
+
+      {
+        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRule, Dsu.PLCConvertor.Common",
+        "SourceArgsMinMax": {
+          "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]][], mscorlib",
+          "$values": [
+            {
+              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
+              "Item1": 0,
+              "Item2": 511
+            },
+            {
+              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
+              "Item1": 0,
+              "Item2": 15
+            }
+          ]
+        },
+        "TargetArgsExpr": {
+          "$type": "System.String[], mscorlib",
+          "$values": [
+            "$0 * 1000",
+            "$1"
+          ]
+        },
+        "SourceRepr": "H(%d).(%2d)",
+        "TargetRepr": "L(%04d)(%x)"
+      },
+
+      {
+        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRule, Dsu.PLCConvertor.Common",
+        "SourceArgsMinMax": {
+          "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]][], mscorlib",
+          "$values": [
+            {
+              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
+              "Item1": 0,
+              "Item2": 511
+            },
+            {
+              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
+              "Item1": 0,
+              "Item2": 15
+            }
+          ]
+        },
+        "TargetArgsExpr": {
+          "$type": "System.String[], mscorlib",
+          "$values": [
+            "$0 * 1000 + 30000",
+            "$1"
+          ]
+        },
+        "SourceRepr": "W(%d).(%2d)",
+        "TargetRepr": "L(%04d)(%x)"
+      },
+
       {
         "$type": "Dsu.PLCConvertor.Common.Internal.NamedAddressConvertRule, Dsu.PLCConvertor.Common",
         "Name": "TIMER",

@@ -49,7 +49,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.BCD] = _t(1, "BCD"),
             [Mnemonic.BIN] = _t(1, "BIN"),
 
-            [Mnemonic.CPS] = _n(1, "CMP"),
+            //[Mnemonic.CPS] = _n(1, "CMP"),
             [Mnemonic.ANDEQ] = _n(1, "AND="),
             [Mnemonic.OREQ] = _n(1, "OR="),
             [Mnemonic.ANDLESSTHAN] = _n(1, "AND<"),

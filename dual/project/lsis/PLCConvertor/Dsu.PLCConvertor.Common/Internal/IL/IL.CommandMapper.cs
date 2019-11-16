@@ -25,14 +25,23 @@ namespace Dsu.PLCConvertor.Common.Internal
         private UserDefinedCommandMapper() { }
 
 
-        public static UserDefinedCommandMapper LoadFromJsonFile(string jsonFile)
-            => LoadFromJsonString(File.ReadAllText(jsonFile, Encoding.GetEncoding("ks_c_5601-1987")));
-        public static UserDefinedCommandMapper LoadFromJsonString(string json)
+        public static UserDefinedCommandMapper LoadFromJsonFile(string jsonFile, PLCVendor targetType)
+            => LoadFromJsonString(File.ReadAllText(jsonFile, Encoding.GetEncoding("ks_c_5601-1987")), targetType);
+        public static UserDefinedCommandMapper LoadFromJsonString(string json, PLCVendor targetType)
         {
             var udILs = JsonConvert.DeserializeObject<UserDefinedILCommand[]>(json);
+            var sysDic =
+                IL.GetDictionary(targetType).Values
+                .SelectMany(lst => lst)
+                .ToDictionary(ilc => ilc.Command)
+                ;
+
             udILs.Iter(ud =>
             {
                 ud.Arity = ud.PerInputProc.Length;
+                ud.Validate();
+                if (sysDic.ContainsKey(ud.Command))
+                    Global.Logger?.Warn($"User defined IL command {ud.Command} overrides system defined command.");
             });
             return new UserDefinedCommandMapper(udILs);
         }

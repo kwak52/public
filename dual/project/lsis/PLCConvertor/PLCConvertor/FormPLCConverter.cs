@@ -68,7 +68,7 @@ namespace PLCConvertor
             var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
             AddressConvertor = AddressConvertor.LoadFromJsonFile(addressMappingJsonFile);
             var commandMappingJsonFile = ConfigurationManager.AppSettings["userDefinedCommandMappingFile"];
-            UserDefinedCommandMapper = UserDefinedCommandMapper.LoadFromJsonFile(commandMappingJsonFile);
+            UserDefinedCommandMapper = UserDefinedCommandMapper.LoadFromJsonFile(commandMappingJsonFile, PLCVendor.Omron);
 
             repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
             barEditItemSource.EditValue = PLCVendor.Omron;

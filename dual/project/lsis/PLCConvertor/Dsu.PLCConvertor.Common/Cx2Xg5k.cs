@@ -1,4 +1,5 @@
-﻿using Dsu.Common.Utilities.ExtensionMethods;
+﻿using Dsu.Common.Utilities.Core.ExtensionMethods;
+using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.PLCConvertor.Common.Internal;
 using log4net.Core;
 using System;
@@ -14,6 +15,7 @@ namespace Dsu.PLCConvertor.Common
     /// </summary>
     public class Cx2Xg5k
     {
+        static Encoding _xg5kEncoding = Encoding.GetEncoding("ks_c_5601-1987");
         /// <summary>
         /// 옴론 CX-One .cxt file을 LSIS XG5000 용 .qtx file로 변환
         /// </summary>
@@ -24,14 +26,25 @@ namespace Dsu.PLCConvertor.Common
 
             // global 변수 선언부
             var globals = cxt.EnumerateType<CxtInfoGlobalVariables>().ToArray();
-            ConvertParams.SourceVariableMap = globals[0].VariableList.Variables.ToDictionary(variable => variable.Device);
+
+            var others = cxt.EnumerateType<CxtInfoVariableList>()
+                .SelectMany(vl => vl.Variables);
+            globals[0].VariableList.Variables
+                .Concat(others)
+            .Iter(v =>
+            {
+                var key = v.Name.NonNullEmptySelector(v.Device);
+                if (!ConvertParams.SourceVariableMap.ContainsKey(key))
+                    ConvertParams.SourceVariableMap.Add(key, v);
+            });
+            
 
             // PLC programs 부 : 각 program 은 다중 section 으로 구성되어 있다.
             var programs = cxt.EnumerateType<CxtInfoProgram>().ToArray();
 
             programs.Iter(prog => prog.Convert(cvtParams));
 
-            var convertedContents = programs.SelectMany(prog => prog.CollectResults(cvtParams));
+            var convertedContents = programs.SelectMany(prog => prog.CollectResults(cvtParams)).ToArray();
 
             var cLines =
                 new[] { GenerateHeader(), convertedContents, GenerateFooter() }
@@ -41,7 +54,7 @@ namespace Dsu.PLCConvertor.Common
             File.WriteAllLines(xg5kFile, cLines, Encoding.GetEncoding("ks_c_5601-1987"));
 
             // 메시지 파일 내용 생성
-            using (StreamWriter msgStream = new StreamWriter(xg5kMessageFile))
+            using (StreamWriter msgStream = new StreamWriter(xg5kMessageFile, false, _xg5kEncoding))
             {
                 var msgContents = programs.SelectMany(prog => prog.CollectMessages(cvtParams));
                 var mLines = 
@@ -97,7 +110,11 @@ namespace Dsu.PLCConvertor.Common
                 yield return "[COMMENT FILE] COMMENT";
 
                 foreach ( var v in ConvertParams.UsedSourceDevices.Values )
-                    yield return $"{v.Device}:{v.Comment}:{v.Variable}:{v.Type}";
+                {
+                    var name = v.Variable.NonNullEmptySelector(v.Name);
+                    yield return $"{v.Device}:{v.Comment}:{name}:{v.Type.ToString().ToUpper()}";
+
+                }
 
                 yield return "[COMMENT FILE END]";
             }
@@ -175,6 +192,8 @@ namespace Dsu.PLCConvertor.Common
         public static bool AddMessagesToLabel { get; set; } = true;
 
         public static bool CopySourceComment { get; set; } = true;
+
+        public static string LabelHeader { get; set; } = "**[변환]**";
 
 
         static LogLevel _logLevel = LogLevel.WARN;

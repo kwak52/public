@@ -10,24 +10,7 @@
   {
     "Command": "RSET",
     "PerInputProc": [
-      "RESET $0"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false
-  },
-  {
-    "Command": "CSUB(731)",
-    "PerInputProc": [
-      "XXX $0 $1 $2"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false,
-    "Message": "CSUB(731) 이 변환되지 않았습니다."
-  },
-  {
-    "Command": "STUP(237)",
-    "PerInputProc": [
-      "MOV $0 $1"
+      "RST $0"
     ],
     "IsTerminal": true,
     "IsLoad": false
@@ -40,6 +23,58 @@
     "IsTerminal": false,
     "IsLoad": true,
     "Message": "LD 명령은 사용자 정의 할 수 없습니다."
+  },
+  {
+    "Command": "MCMP(019)",
+    "PerInputProc": [
+      "GEQ $0 $1 $2 16"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "MCMP(019) -> GEQ ???"
+  },
+  {
+    "Command": "UNUSED---MOV(021)",
+    "PerInputProc": [
+      "MOV $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+  {
+    "Command": "MOVD(083)",
+    "PerInputProc": [
+      "MOV $0 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "MOVD(083) -> MOV ???"
+  },
+  {
+    "Command": "CPS(114)",
+    "PerInputProc": [
+      "CMP $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "CPS(114) -> CMP."
+  },
+  {
+    "Command": "HEX(162)",
+    "PerInputProc": [
+      "HEX $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+
+  {
+    "Command": "STUP(237)",
+    "PerInputProc": [
+      "MOV $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
   },
   {
     "Command": "LD=(300)",
@@ -89,9 +124,230 @@
     "IsTerminal": false,
     "IsLoad": true
   },
+
+  {
+    "Command": "NEG(160)",
+    "PerInputProc": [
+      "NEG $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+
+
+
+
+  {
+    "Command": "AND<>(305)",
+    "PerInputProc": [
+      "AND<> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND<>(305) -> AND<> ???"
+  },
+  {
+    "Command": "AND<(310)",
+    "PerInputProc": [
+      "AND< $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND<(310) -> AND< ???"
+  },
+  {
+    "Command": "AND<S(312)",
+    "PerInputProc": [
+      "AND< $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND<S(312) -> AND< ???"
+  },
+  {
+    "Command": "AND<=(315)",
+    "PerInputProc": [
+      "AND<= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND<=(315) -> AND<= ???"
+  },
+  {
+    "Command": "AND<=S(317)",
+    "PerInputProc": [
+      "AND< $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND<=S(317) -> AND< ???"
+  },
+  {
+    "Command": "AND>(320)",
+    "PerInputProc": [
+      "AND> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND>(320) -> AND> ???"
+  },
+  {
+    "Command": "AND>S(322)",
+    "PerInputProc": [
+      "AND> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND>S(322) -> AND> ???"
+  },
+  {
+    "Command": "AND>=(325)",
+    "PerInputProc": [
+      "AND>= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND>=(325) -> AND>= ???"
+  },
+
+
+  {
+    "Command": "OR<>(305)",
+    "PerInputProc": [
+      "OR<> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR<>(305) -> OR<> ???"
+  },
+  {
+    "Command": "OR<(310)",
+    "PerInputProc": [
+      "OR< $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR<(310) -> OR< ???"
+  },
+  {
+    "Command": "OR<=(315)",
+    "PerInputProc": [
+      "OR<= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR<=(315) -> OR<= ???"
+  },
+  {
+    "Command": "OR<=S(317)",
+    "PerInputProc": [
+      "OR< $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR<=S(317) -> OR< ???"
+  },
+  {
+    "Command": "OR>(320)",
+    "PerInputProc": [
+      "OR> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR>(320) 를 OR> ???"
+  },
+  {
+    "Command": "OR>S(322)",
+    "PerInputProc": [
+      "OR> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR>S(322) -> OR> ???"
+  },
+  {
+    "Command": "OR>=(325)",
+    "PerInputProc": [
+      "OR>= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR>=(325) -> OR>= ???"
+  },
+
+  {
+    "Command": "UNUSED---+(400)",
+    "PerInputProc": [
+      "ADD $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+  {
+    "Command": "*L(421)",
+    "PerInputProc": [
+      "MUL $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+  {
+    "Command": "+B(404)",
+    "PerInputProc": [
+      "ADDB $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "+B(404) -> ADDB ??? (BCD addition)"
+  },
+  {
+    "Command": "-B(414)",
+    "PerInputProc": [
+      "SUBB $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "-B(414) -> SUBB ??? (BCD subtraction)"
+  },
+  {
+    "Command": "*B(424)",
+    "PerInputProc": [
+      "MULB $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "*B(424) -> MULB ??? (BCD multiplication)"
+  },
+  {
+    "Command": "/L(431)",
+    "PerInputProc": [
+      "MUL $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+  {
+    "Command": "/B(434)",
+    "PerInputProc": [
+      "DIVB $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "/B(434) -> DIVB ??? (BCD division)"
+  },
+
+  {
+    "Command": "NOT(520)",
+    "PerInputProc": [
+      "NOT"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false
+  },
   {
     "Command": "UP(521)",
     "PerInputProc": [
+      "UP521"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -116,228 +372,15 @@
     "IsLoad": false
   },
   {
-    "Command": "MOVD(083)",
+    "Command": "@++(590)",
     "PerInputProc": [
-      "MOV $0 $2"
+      "XXX $0"
     ],
     "IsTerminal": true,
     "IsLoad": false,
-    "Message": "MOVD(083)을 MOV 로 부정확하게 변환함"
-  },
-  {
-    "Command": "UNUSED---MOV(021)",
-    "PerInputProc": [
-      "MOV $0 $1"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false
-  },
-  {
-    "Command": "UNUSED---+(400)",
-    "PerInputProc": [
-      "ADD $0 $1"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false
-  },
-  {
-    "Command": "NEG(160)",
-    "PerInputProc": [
-      "NEG $0 $1"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false
+    "Message": "@++(590) 이 변환되지 않았습니다."
   },
 
-
-
-
-  {
-    "Command": "AND<>(305)",
-    "PerInputProc": [
-      "AND<> $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "AND<>(305) 를 OR<> 로 변환함"
-  },
-  {
-    "Command": "AND<(310)",
-    "PerInputProc": [
-      "AND< $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "AND<(310) 를 AND< 로 변환함"
-  },
-  {
-    "Command": "AND<=(315)",
-    "PerInputProc": [
-      "AND<= $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "AND<=(315) 를 AND<= 로 변환함"
-  },
-  {
-    "Command": "AND<=S(317)",
-    "PerInputProc": [
-      "AND< $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "AND<=S(317) 에서 signed 비교를 무시하고 변환함"
-  },
-  {
-    "Command": "AND>(320)",
-    "PerInputProc": [
-      "AND> $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "AND>(320) 를 AND> 로 변환함"
-  },
-  {
-    "Command": "AND>S(322)",
-    "PerInputProc": [
-      "AND> $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "AND>S(322) 에서 signed 비교를 무시하고 변환함"
-  },
-  {
-    "Command": "AND>=(325)",
-    "PerInputProc": [
-      "AND>= $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "AND>=(325) 를 AND>= 로 변환함"
-  },
-
-
-  {
-    "Command": "OR<>(305)",
-    "PerInputProc": [
-      "OR<> $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "OR<>(305) 를 OR<> 로 변환함"
-  },
-  {
-    "Command": "OR<(310)",
-    "PerInputProc": [
-      "OR< $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "OR<(310) 를 OR< 로 변환함"
-  },
-  {
-    "Command": "OR<=(315)",
-    "PerInputProc": [
-      "OR<= $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "OR<=(315) 를 OR<= 로 변환함"
-  },
-  {
-    "Command": "OR<=S(317)",
-    "PerInputProc": [
-      "OR< $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "OR<=S(317) 에서 signed 비교를 무시하고 변환함"
-  },
-  {
-    "Command": "OR>(320)",
-    "PerInputProc": [
-      "OR> $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "OR>(320) 를 OR> 로 변환함"
-  },
-  {
-    "Command": "OR>S(322)",
-    "PerInputProc": [
-      "OR> $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "OR>S(322) 에서 signed 비교를 무시하고 변환함"
-  },
-  {
-    "Command": "OR>=(325)",
-    "PerInputProc": [
-      "OR>= $0 $1"
-    ],
-    "IsTerminal": false,
-    "IsLoad": false,
-    "Message": "OR>=(325) 를 OR>= 로 변환함"
-  },
-
-
-  {
-    "Command": "HEX(162)",
-    "PerInputProc": [
-      "HEX $0 $1 $2"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false
-  },
-
-  {
-    "Command": "+B(404)",
-    "PerInputProc": [
-      "ADDB $0 $1 $2"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false,
-    "Message": "+B(404) 를 ADDB로 변환합니다. (BCD addition)"
-  },
-  {
-    "Command": "-B(414)",
-    "PerInputProc": [
-      "SUBB $0 $1 $2"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false,
-    "Message": "-B(414) 를 SUBB로 변환합니다. (BCD subtraction)"
-  },
-  {
-    "Command": "*B(424)",
-    "PerInputProc": [
-      "MULB $0 $1 $2"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false,
-    "Message": "*B(424) 를 MULB로 변환합니다. (BCD multiplication)"
-  },
-  {
-    "Command": "/B(434)",
-    "PerInputProc": [
-      "DIVB $0 $1 $2"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false,
-    "Message": "/B(434) 를 DIVB로 변환합니다. (BCD division)"
-  },
-
-
-  {
-    "Command": "MCMP(019)",
-    "PerInputProc": [
-      "GEQ $0 $1 $2 16"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false,
-    "Message": "MCMP(019) 를 GEQ 로 변환합니다."
-  },
   {
     "Command": "+$(656)",
     "PerInputProc": [
@@ -345,6 +388,15 @@
     ],
     "IsTerminal": false,
     "IsLoad": false,
-    "Message": "+$(656) 를 $ADD로 변환합니다."
+    "Message": "+$(656) -> $ADD ???"
+  },
+  {
+    "Command": "CSUB(731)",
+    "PerInputProc": [
+      "XXX $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "CSUB(731) 이 변환되지 않았습니다."
   }
 ]

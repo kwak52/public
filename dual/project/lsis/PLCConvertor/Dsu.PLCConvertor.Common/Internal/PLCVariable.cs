@@ -19,7 +19,9 @@ namespace Dsu.PLCConvertor.Common.Internal
             Bool = 1,
             Bit = Bool,
             Word,
+            Channel,
         }
+        public string Name { get; private set; }
 
         /// <summary>
         /// PLC device 의 data type
@@ -37,8 +39,11 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// Device 의 variable (alias?)
         /// </summary>
         public string Variable { get; private set; }
-        public PLCVariable(string device, DeviceType type, string comment, string variable)
+        public PLCVariable(string name, string device, DeviceType type, string comment, string variable)
         {
+            if (name == null || name == "" )
+                Console.WriteLine("");
+            Name = name;
             Device = device;
             Type = type;
             Comment = comment;
@@ -46,7 +51,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
 
         public PLCVariable(string device, PLCVariable src)
-            : this(device, src.Type, src.Comment, src.Variable)
+            : this(src.Name, device, src.Type, src.Comment, src.Variable)
         { }
     }
 }

@@ -90,7 +90,7 @@ namespace Dsu.PLCConvertor.Common
             {
                 var styles = string.Join(", ", generateStyles()).NonNullEmptySelector("shape=rectangle");
                 //return $"\t\"{GetId(n)}\" [{styles}, label=<{n.Name}>];";
-                return $"\t\"{GetId(n)}\" [{styles}, label=<{n.ToShortString()}>];";
+                return $"\t\"{GetId(n)}\" [{styles}, label=<{n.ToShortString().Replace('>', ')').Replace('<', '(')}>];";
 
                 IEnumerable<string> generateStyles()
                 {

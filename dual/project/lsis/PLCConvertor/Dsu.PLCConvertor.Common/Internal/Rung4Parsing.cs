@@ -120,9 +120,6 @@ namespace Dsu.PLCConvertor.Common
                             break;
 
                         case Mnemonic.ANDNOT:
-                            Logger?.Warn("ANDNOT : assume AND");
-                            _cbld.AND(arg0N, sentence);
-                            break;
                         case Mnemonic.AND:
                             _cbld.AND(arg0N, sentence);
                             break;
@@ -250,7 +247,7 @@ namespace Dsu.PLCConvertor.Common
                             .Where(e => e.End is EndNode)   // outgoing edge 의 두번째부터 EndNode  로 가는 경우에
                             .SelectMany(e =>
                                 _cbld.GetOutgoingEdges(e.End)
-                                .Where(e2 => e2.End.ILSentence != null && e2.End.ILSentence.Mnemonic.IsAndFamily())) // EndNode 에서 AND 로 연결된 edge 들을 모두 모음
+                                .Where(e2 => e2.End.ILSentence != null && e2.End.ILSentence.IsAndFamily())) // EndNode 에서 AND 로 연결된 edge 들을 모두 모음
                             .ToArray()
                             ;
                     secondStepOutTr.Iter(e =>

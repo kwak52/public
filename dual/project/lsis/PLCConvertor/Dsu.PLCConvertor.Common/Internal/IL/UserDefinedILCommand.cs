@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Newtonsoft.Json;
+using System;
+using System.Linq;
 
 namespace Dsu.PLCConvertor.Common.Internal
 {
     /// <summary>
-    /// 사용자 정의 명령어.  see FunctionNodeUserDefined
+    /// 사용자 정의 명령어.  see FunctionNodeUserDefined, UserDefinedCommandMapper
     /// 실제 serialize 지원 class
     /// </summary>
     public class UserDefinedILCommand : ILCommand
@@ -47,5 +50,39 @@ namespace Dsu.PLCConvertor.Common.Internal
 
         [JsonConstructor]
         protected UserDefinedILCommand() { }
+
+        static string[] _forbiddenOverrides = new[]
+        {
+            "LD", "AND", "OUT",
+        };
+
+        public bool Validate(bool throwOnFail=true)
+        {
+            if (IsTerminal && IsLoad)
+            {
+                throwOnDemand(new Exception($"[{Command}] Both IsTeminal and IsLoad can't be true."));
+                return false;
+            }
+
+            if (PerInputProc.IsNullOrEmpty())
+            {
+                throwOnDemand(new Exception($"[{Command}] PerInputProc is empty."));
+                return false;
+            }
+
+            if (_forbiddenOverrides.Contains(Command))
+            {
+                throwOnDemand(new Exception($"[{Command}] can't be user overriden."));
+                return false;
+            }
+
+            return true;
+
+            void throwOnDemand(Exception ex)
+            {
+                if (throwOnFail)
+                    throw ex;
+            }
+        }
     }
 }

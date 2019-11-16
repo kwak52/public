@@ -11,7 +11,9 @@ namespace Dsu.PLCConvertor.Common.Internal
     {
         public string Name { get; private set; }
         public string Comment { get; internal set; }
-        public string[] ILs { get; internal set; }
+        public string[] ILs { get; internal set; } = new string[] {};
+
+        public IEnumerable<string> EffectiveILs => ILs.SkipWhile(il => il.StartsWith("'"));
         internal CxtInfoRung(string name)
             : base("Rung")
         {
@@ -22,19 +24,23 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// Rung 에 대한 변환 결과를 저장
         /// </summary>
-        internal string[] ConvertResults;
+        internal string[] ConvertResults = new string[]{};
         /// <summary>
         /// Rung 에 대한 변환 메시지를 저장
         /// </summary>
-        internal string[] ConvertMessages;
+        internal string[] NumberedConvertMessages = new string[]{};
+
+        internal string[] ConvertMessages = new string[]{};
+
+        internal IEnumerable<string> GetAllConvertMessages() => ConvertMessages.Concat(NumberedConvertMessages);
 
         /// <summary>
         /// 변환 중간 결과 clear/reset
         /// </summary>
         internal override void ClearMyResult()
         {
-            ConvertResults = null;
-            ConvertMessages = null;
+            ConvertResults = new string[]{};
+            NumberedConvertMessages = new string[]{};
         }
     }
 }

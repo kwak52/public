@@ -35,7 +35,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// Source 측 PLC 변수.  Device comment 및 type 등의 정보가 담겨 있다.
         /// </summary>
-        public static Dictionary<string, PLCVariable> SourceVariableMap { get; internal set; }
+        public static Dictionary<string, PLCVariable> SourceVariableMap { get; internal set; } = new Dictionary<string, PLCVariable>();
         /// <summary>
         /// 변환에 실제 사용된 source PLC 의 device address 들
         /// </summary>
