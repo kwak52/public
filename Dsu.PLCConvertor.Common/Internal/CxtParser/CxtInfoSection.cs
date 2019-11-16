@@ -1,5 +1,7 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Dsu.PLCConvertor.Common.Internal
@@ -47,7 +49,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 
             this.EnumerateType<CxtInfoRung>()
                 .Where(rung => rung.ILs.NonNullAny())
-                .Where(rung => !rung.ILs[0].StartsWith("END"))
+                //.Where(rung => !rung.ILs[0].StartsWith("END"))
                 .Iter(rung =>
                 {
                     var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//"));
@@ -61,17 +63,26 @@ namespace Dsu.PLCConvertor.Common.Internal
                         {
                             var convertResult = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
                             rung.ConvertResults = convertResult.Results;
+                            rung.NumberedConvertMessages = convertResult.NumberedMessages.Clone() as string[];
                             rung.ConvertMessages = convertResult.Messages.Clone() as string[];
                         }
                         catch (System.Exception ex)
                         {
-                            rung.ConvertMessages = new[] { $"[{s}]\t[{t}]\t{ex.Message}" };
+                            rung.NumberedConvertMessages = new[] { $"[{s+1}] [{t+1}] [{Cx2Xg5kOption.LabelHeader} {ex.Message}]" };   // kkk
+                            rung.ConvertMessages = rung.ConvertMessages.Concat(new[] { $"{Cx2Xg5kOption.LabelHeader} {ex.Message}" }).ToArray();
                         }
 
                         cvtParam.SourceStartStep += rung.ILs.Length;
 
                         if (rung.ConvertResults != null)
                             cvtParam.TargetStartStep += rung.ConvertResults.Length;
+                    }
+                    else if (rung.Comment.NonNullAny() )
+                    {
+                        rung.ConvertResults =
+                            rung.Comment.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries)
+                            .Select(cmt => $"{Xg5k.RungCommentCommand}\t{cmt}")
+                            .ToArray();
                     }
                 });
         }
@@ -82,22 +93,45 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         public IEnumerable<string> CollectResults(ConvertParams cvtParam)
         {
+            if (cvtParam.TargetType != PLCVendor.LSIS)
+                throw new Exception($"Not supported PLC vendor type : {cvtParam.TargetType}");
+
+            var cmtcmd = Xg5k.RungCommentCommand;
+
             var secConversion =
                 this.EnumerateType<CxtInfoRung>()
-                    .Where(rung => rung.ConvertResults.NonNullAny() || rung.ConvertMessages.NonNullAny())
                     .SelectMany(rung =>
                     {
-                        if (cvtParam.TargetType == PLCVendor.LSIS && Cx2Xg5kOption.AddMessagesToLabel && rung.ConvertMessages.NonNullAny())
+                        if (rung.ConvertResults.IsNullOrEmpty() && rung.NumberedConvertMessages.IsNullOrEmpty() && rung.ConvertMessages.IsNullOrEmpty())
                         {
-                            // 변환 중 발생한 message 를 설명문에 추가.
-                            return
-                                rung.ConvertMessages
-                                    .Select(msg => $"{Xg5k.RungCommentCommand}\t{msg}")
-                                .Concat(rung.ConvertResults.NonNullAny() ? rung.ConvertResults : Enumerable.Empty<string>())
-                                ;
+                            var sampling = string.Join("\t", rung.ILs.Take(5));
+                            if (rung.EffectiveILs.NonNullAny()) // comment 를 제외한 유효 IL 문장이 있는 경우
+                            {
+                                rung.ConvertResults = new[] {
+                                    $"{cmtcmd}\t::::::::::::::::RUNG 변환에 실패하였습니다::::::::::::::::::",
+                                    $"{cmtcmd}\t{sampling}\t...",
+                                };
+                            }
+                            else // comment 만 존재하는 section
+                            {
+                                Debug.Assert(rung.ILs.All(il => il.StartsWith("'")));
+                                rung.ConvertResults =
+                                    rung.ILs
+                                    .Select(il => il.TrimStart(new[] { '\'' }))
+                                    .Select(il => $"{cmtcmd}\t{il}")
+                                    .ToArray()
+                                    ;
+                            }
+
+                            return rung.ConvertResults;
                         }
 
-                        return rung.ConvertResults;
+                        if (! Cx2Xg5kOption.AddMessagesToLabel)
+                            return rung.ConvertResults;
+
+                        // 변환 중 발생한 message 를 설명문에 추가해서 반환.
+                        var comments = rung.GetAllConvertMessages().Select(msg => $"{cmtcmd}\t{msg}");
+                        return comments.Concat(rung.ConvertResults);
                     });
 
             IEnumerable<string> annotated = null;
@@ -119,8 +153,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             var secMessages =
                 this.EnumerateType<CxtInfoRung>()
-                    .Where(rung => rung.ConvertMessages.NonNullAny())
-                    .SelectMany(rung => rung.ConvertMessages)
+                    .Where(rung => rung.NumberedConvertMessages.NonNullAny())
+                    .SelectMany(rung => rung.NumberedConvertMessages)
                     ;
 
             IEnumerable<string> annotated = null;

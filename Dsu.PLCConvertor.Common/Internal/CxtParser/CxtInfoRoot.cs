@@ -26,8 +26,10 @@ namespace Dsu.PLCConvertor.Common.Internal
         public string Name { get; private set; }
 
         public List<CxtInfoProgram> Programs { get; } = new List<CxtInfoProgram>();
-        public CxtInfoGlobalVariables GlobalVariables { get; private set; }
-        public override IEnumerable<CxtInfo> Children { get { return Programs.Cast<CxtInfo>().Concat(new[] { GlobalVariables }); } }
+
+        CxtInfoGlobalVariables _lastGlobal;
+        public List<CxtInfoGlobalVariables> GlobalVariables { get; private set; } = new List<CxtInfoGlobalVariables>();
+        public override IEnumerable<CxtInfo> Children { get { return Programs.Cast<CxtInfo>().Concat(GlobalVariables); } }
         internal override void ClearMyResult() { }
 
 
@@ -95,7 +97,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                         case "Com": // comment
                             if (rung == null)
                                 Debug.Assert( ! start.Parent.Key.StartsWith("R["));
-                            else
+                            else if (Cx2Xg5kOption.CopySourceComment)
                             {
                                 if (start.Value == null)
                                     rung.Comment = string.Join("\r\n", start.Lines);
@@ -108,11 +110,12 @@ namespace Dsu.PLCConvertor.Common.Internal
                             break;
 
                         case "GlobalVariables":
-                            GlobalVariables = new CxtInfoGlobalVariables();
+                            _lastGlobal = new CxtInfoGlobalVariables();
+                            GlobalVariables.Add(_lastGlobal);
                             break;
 
                         case "VariableList" when start.Parent.Key == "GlobalVariables":
-                            GlobalVariables.VariableList = new CxtInfoVariableList(start.SubStructures[0].Lines);
+                            _lastGlobal.VariableList = new CxtInfoVariableList(start.SubStructures[0].Lines);
                             break;
 
                         default:

@@ -21,15 +21,16 @@ namespace Dsu.PLCConvertor.Common
         PLCVendor _targetType => _convertParam.TargetType;
 
         /// <summary>
-        /// Rung 변환시 발생한 에러 메시지
+        /// Rung 변환시 발생한 에러/경고/알림 메시지
         /// </summary>
-        List<string> _errorMessages = new List<string>();
-        public IEnumerable<string> GetErrorMessages()
+        List<string> _numberedMessages = new List<string>();
+        public IEnumerable<string> GetNumberedMessages()
         {
             return
-                _errorMessages
+                _numberedMessages
                     .ToSameGroups()
-                    .Select(grp => $"X{grp.Count()}\t{grp.First()}")
+                    //.SelectMany(grp => grp)
+                    .Select(grp => $"X{grp.Count()}\t{grp.First()}")  // kkk: 
                     ;
         }
 
@@ -155,7 +156,7 @@ namespace Dsu.PLCConvertor.Common
                     {
                         var ss = _convertParam.SourceStartStep;
                         var ts = _convertParam.TargetStartStep;
-                        _errorMessages.Add($"[{ss}]\t[{ts}]\t{udc.Message}");     // kkk: 메지지 추가
+                        _numberedMessages.Add($"[{ss+1}] [{ts+1}] [{Cx2Xg5kOption.LabelHeader} {udc.Message}]");     // kkk: 메지지 추가
                     }
 
                     var xs2 = udf.EnumeratePerInputs();
@@ -286,7 +287,7 @@ namespace Dsu.PLCConvertor.Common
         public static ConvertResult Convert(Rung rung, ConvertParams cvtParam)
         {
             var cvr = new Rung2ILConvertor(rung, cvtParam).Convert();
-            return new ConvertResult(cvr, Enumerable.Empty<string>());
+            return new ConvertResult(cvr);
         }
 
         public static ConvertResult ConvertFromMnemonics(string mnemonics, string rungComment, ConvertParams cvtParam)
@@ -310,7 +311,7 @@ namespace Dsu.PLCConvertor.Common
                     .Concat(res.Results)
                     .ToArray();
 
-                return new ConvertResult(result, res.Messages);                
+                return new ConvertResult(result, res.NumberedMessages);                
             }
             else
                 return convertFromMnemonics();
@@ -318,8 +319,8 @@ namespace Dsu.PLCConvertor.Common
             ConvertResult convertFromMnemonics()
             {
                 var directlyConverted = tryConvertDirectly();
-                if (directlyConverted.NonNullAny())
-                    return new ConvertResult(directlyConverted, Enumerable.Empty<string>());
+                if (directlyConverted != null)
+                    return directlyConverted;
 
                 var rung = new Rung4Parsing(mnemonics, rungComment, cvtParam);
                 rung.CoRoutineRungParser().ToArray();
@@ -328,20 +329,30 @@ namespace Dsu.PLCConvertor.Common
                 var result = r2il.Convert().ToArray();
 
                 // kkk: 결과와 error message 를 모두 반환
-                return new ConvertResult(result, rung.ErrorMessage.Concat(r2il.GetErrorMessages()));
+                return new ConvertResult(result, r2il.GetNumberedMessages(), rung.ErrorMessage); // kkk
 
 
                 // Rung 생성 없이, 문자열 기준으로 변환
-                string[] tryConvertDirectly()
+                ConvertResult tryConvertDirectly()
                 {
-                    var length = mnemonics.Count();
+                    var grps = mnemonics.GroupBy(m => m.StartsWith("'"));
+                    var cmtsCmds =  // comment commands
+                        grps
+                        .Where(grp => grp.Key).SelectMany(grp => grp)
+                        .Select(cmt => $"{Xg5k.RungCommentCommand}\t{cmt}")
+                        .ToArray();
+
+                    // comment 제외한 명령들
+                    var ils = grps.Where(grp => ! grp.Key).SelectMany(grp => grp).ToArray();
+
+                    var length = ils.Count();
                     if (length == 1)
                     {
-                        var m = mnemonics.First();
+                        var m = ils.First();
                         switch (m)
                         {
-                            case "NOP(000)": return new[] { "NOP" };
-                            case "END(001)": return new[] { "END" };
+                            case "NOP(000)": return new ConvertResult(cmtsCmds.Concat(new[] { "NOP" }));
+                            case "END(001)": return new ConvertResult(cmtsCmds.Concat(new[] { "END" }));
                         }
                     }
 
@@ -355,12 +366,20 @@ namespace Dsu.PLCConvertor.Common
     internal class ConvertResult
     {
         public string[] Results;
+        public string[] NumberedMessages;
         public string[] Messages;
-        public ConvertResult(IEnumerable<string> results, IEnumerable<string> messages)
+        public ConvertResult(IEnumerable<string> results, IEnumerable<string> numberedMessages, IEnumerable<string> messages)
         {
             Results = results.ToArray();
+            NumberedMessages = numberedMessages.ToArray();
             Messages = messages.ToArray();
         }
+        public ConvertResult(IEnumerable<string> results)
+            : this(results, Enumerable.Empty<string>(), Enumerable.Empty<string>())
+        {}
+        public ConvertResult(IEnumerable<string> results, IEnumerable<string> messages)
+            : this(results, messages, Enumerable.Empty<string>())
+        {}
     }
 
     internal static class PointExtension

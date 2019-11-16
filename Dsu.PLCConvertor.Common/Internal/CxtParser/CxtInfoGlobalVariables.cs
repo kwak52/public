@@ -29,14 +29,14 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             Variables = (
                 from line in varDefLines
-                let tokens = line.Trim().Split(new[] { ',' }).ToArray()
+                let tokens = line.Trim().TrimEnd(';').Split(new[] { ',' }).ToArray()
                 where tokens.Length >= 5
-                //let name = tokens[0]
+                let name = tokens[0]
                 let device = tokens[1]
                 let type = getType(tokens[2])
                 let comment = tokens.Last()
                 where type.HasValue
-                select new PLCVariable(device, type.Value, comment, null)
+                select new PLCVariable(name, device, type.Value, comment, null)
             ).ToArray()
             ;
 

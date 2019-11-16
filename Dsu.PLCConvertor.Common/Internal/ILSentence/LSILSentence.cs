@@ -63,14 +63,13 @@ namespace Dsu.PLCConvertor.Common
                 var rs = AddressConvertorInstance;
                 var args = Args.Select(arg =>
                 {
+                    var targetDevice = arg;
                     if (rs.IsMatch(arg))
                     {
-                        var targetDevice = rs.Convert(arg);
-                        if (SourceVariableMap != null && SourceVariableMap.ContainsKey(arg) && ! UsedSourceDevices.ContainsKey(targetDevice))
-                            UsedSourceDevices.Add(targetDevice, new PLCVariable(targetDevice, SourceVariableMap[arg]));
-                        return targetDevice;
+                        targetDevice = rs.Convert(arg);
                     }
-                    return arg;
+
+                    return targetDevice;
                 });
                 var operands = string.Join(" ", args);
                 return $"{Command}\t{operands}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });

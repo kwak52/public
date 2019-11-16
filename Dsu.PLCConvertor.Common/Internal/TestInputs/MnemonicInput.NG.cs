@@ -36,6 +36,22 @@ namespace Dsu.PLCConvertor.Common
                     AND 0.04
                     OUT 102.12
                 "),
+
+            new MnemonicInput("산전 변환 특수 case: TR with ORLD",
+                @"
+                    LD 0.01
+                    OUT TR0
+                    AND 0.02
+                    OUT 0.01
+                    LD TR0
+                    AND 0.03
+                    LD TR0
+                    UP(521)
+                    ORLD
+                    OUT 0.02
+                "),
+
+
         };
     }
 }

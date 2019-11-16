@@ -64,7 +64,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
 
 
-        static Dictionary<Mnemonic, List<ILCommand>> GetDictionary(PLCVendor targetType)
+        internal static Dictionary<Mnemonic, List<ILCommand>> GetDictionary(PLCVendor targetType)
         {
             switch (targetType)
             {
@@ -91,26 +91,19 @@ namespace Dsu.PLCConvertor.Common.Internal
         public static string GetOperator(PLCVendor targetType, Mnemonic op) => GetILCommand(targetType, op)?.Command;
         public static ILCommand GetILCommand(PLCVendor targetType, Mnemonic op, string command=null)
         {
-            ILCommand sys = null;
-            var dic = GetDictionary(targetType);
-            if (dic.ContainsKey(op))
-                sys = dic[op].FirstOrDefault();
 
             // 사용자 정의 우선
-            if (command.NonNullAny())
+            if (command != null && UserDefinedCommandMapper != null)
             {
                 var udc = UserDefinedCommandMapper?[command];
                 if (udc != null)
-                {
-                    if (sys != null)
-                        Global.Logger.Warn($"User defined IL command {udc} overrides system defined command.");
-
                     return udc;
-                }
             }
 
-            if (sys != null)
-                return sys;
+            // 시스템 정의 사용
+            var dic = GetDictionary(targetType);
+            if (dic.ContainsKey(op))
+                return dic[op].FirstOrDefault();
 
             // 사용자 정의에도 없고, system 정의에도 없는 경우, undefined command 로 반환
             return new UndefinedILCommand(command) { Arity = 1 };   // kkk: unknown command 의 deafult arity 는 1로 가정한다.
@@ -151,7 +144,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             var jsonFile = "defaultCommandMapping.json";
             userDefinedCommandMapper.SaveToJsonFile(jsonFile);
 
-            var dup = UserDefinedCommandMapper.LoadFromJsonFile(jsonFile);
+            var dup = UserDefinedCommandMapper.LoadFromJsonFile(jsonFile, PLCVendor.Omron);
             Console.WriteLine("");
         }
     }

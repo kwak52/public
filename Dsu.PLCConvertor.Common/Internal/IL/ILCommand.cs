@@ -99,10 +99,10 @@ namespace Dsu.PLCConvertor.Common.Internal
         BCD,
         BIN,
 
-        /// <summary>
-        /// SIGNED BINARY COMPARE
-        /// </summary>
-        CPS,
+        ///// <summary>
+        ///// SIGNED BINARY COMPARE
+        ///// </summary>
+        //CPS,
 
         ANDEQ,
         OREQ,
@@ -121,11 +121,5 @@ namespace Dsu.PLCConvertor.Common.Internal
         NOP,
         RUNG_COMMENT,
         END,
-    }
-
-    public static class MnemonicExtension
-    {
-        public static bool IsAndFamily(this Mnemonic mnemonic)
-            => mnemonic.IsOneOf(Mnemonic.AND, Mnemonic.ANDEQ, Mnemonic.ANDGREATERTHAN, Mnemonic.ANDLESSTHAN, Mnemonic.ANDNOT);
     }
 }
