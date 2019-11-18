@@ -115,6 +115,12 @@
     <Compile Include="Forms\FormScrollableImage.Designer.cs">
       <DependentUpon>FormScrollableImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormTestAddressMappingRule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormTestAddressMappingRule.Designer.cs">
+      <DependentUpon>FormTestAddressMappingRule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Images.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormScrollableImage.resx">
       <DependentUpon>FormScrollableImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormTestAddressMappingRule.resx">
+      <DependentUpon>FormTestAddressMappingRule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -1,164 +1,213 @@
 {
-  "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertor, Dsu.PLCConvertor.Common",
-  "Rules": {
-    "$type": "System.Collections.Generic.List`1[[Dsu.PLCConvertor.Common.Internal.IAddressConvertRule, Dsu.PLCConvertor.Common]], mscorlib",
-    "$values": [
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "P_GT",
-        "TargetRepr": "F123"
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "P_GE",
-        "TargetRepr": "F124"
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "P_EQ",
-        "TargetRepr": "F122"
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "P_NE",
-        "TargetRepr": "F125"
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "P_LT",
-        "TargetRepr": "F120"
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "P_LE",
-        "TargetRepr": "F121"
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "P_1s",
-        "TargetRepr": ""
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "P_On",
-        "TargetRepr": "F00099"
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "P_Off",
-        "TargetRepr": "F0009A"
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRule, Dsu.PLCConvertor.Common",
-        "SourceArgsMinMax": {
-          "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]][], mscorlib",
-          "$values": [
-            {
-              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
-              "Item1": 0,
-              "Item2": 1
-            },
-            {
-              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
-              "Item1": 0,
-              "Item2": 15
-            }
-          ]
+  "OneToOne": [
+    {
+      "SourceRepr": "P_GT",
+      "TargetRepr": "F123"
+    },
+    {
+      "SourceRepr": "P_GE",
+      "TargetRepr": "F124"
+    },
+    {
+      "SourceRepr": "P_EQ",
+      "TargetRepr": "F122"
+    },
+    {
+      "SourceRepr": "P_NE",
+      "TargetRepr": "F125"
+    },
+    {
+      "SourceRepr": "P_LT",
+      "TargetRepr": "F120"
+    },
+    {
+      "SourceRepr": "P_LE",
+      "TargetRepr": "F121"
+    },
+    {
+      "SourceRepr": "P_1s",
+      "TargetRepr": ""
+    },
+    {
+      "SourceRepr": "P_On",
+      "TargetRepr": "F00099"
+    },
+    {
+      "SourceRepr": "P_Off",
+      "TargetRepr": "F0009A"
+    }
+  ],
+  "Ranged": [
+    {
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 6143
         },
-        "TargetArgsExpr": {
-          "$type": "System.String[], mscorlib",
-          "$values": [
-            "$0 * 1000",
-            "$1"
-          ]
+        {
+          "Item1": 0,
+          "Item2": 15
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0",
+        "$1"
+      ],
+      "SourceRepr": "(%d).(%2d)",
+      "TargetRepr": "P(%04d)(%x)"
+    },
+    {
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 511
         },
-        "SourceRepr": "(%d).(%2d)",
-        "TargetRepr": "P(%04d)(%x)"
-      },
+        {
+          "Item1": 0,
+          "Item2": 15
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0",
+        "$1"
+      ],
+      "SourceRepr": "H(%d).(%2d)",
+      "TargetRepr": "M(%04d)(%x)"
+    },
+    {
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 511
+        },
+        {
+          "Item1": 0,
+          "Item2": 15
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0 + 2000",
+        "$1"
+      ],
+      "SourceRepr": "W(%d).(%2d)",
+      "TargetRepr": "L(%04d)(%x)"
+    },
+    {
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 959
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0 + 4000"
+      ],
+      "SourceRepr": "A(%d)",
+      "TargetRepr": "L(%04d)"
+    },
+    {
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 959
+        },
+        {
+          "Item1": 0,
+          "Item2": 15
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0 + 4000",
+        "$1"
+      ],
+      "SourceRepr": "A(%d).(%2d)",
+      "TargetRepr": "L(%04d)(%x)"
+    },
 
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRule, Dsu.PLCConvertor.Common",
-        "SourceArgsMinMax": {
-          "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]][], mscorlib",
-          "$values": [
-            {
-              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
-              "Item1": 0,
-              "Item2": 511
-            },
-            {
-              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
-              "Item1": 0,
-              "Item2": 15
-            }
-          ]
-        },
-        "TargetArgsExpr": {
-          "$type": "System.String[], mscorlib",
-          "$values": [
-            "$0 * 1000",
-            "$1"
-          ]
-        },
-        "SourceRepr": "H(%d).(%2d)",
-        "TargetRepr": "L(%04d)(%x)"
-      },
 
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRule, Dsu.PLCConvertor.Common",
-        "SourceArgsMinMax": {
-          "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]][], mscorlib",
-          "$values": [
-            {
-              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
-              "Item1": 0,
-              "Item2": 511
-            },
-            {
-              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
-              "Item1": 0,
-              "Item2": 15
-            }
-          ]
+    {
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 100000
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0 + 6000"
+      ],
+      "SourceRepr": "D(%d)",
+      "TargetRepr": "D(%d)"
+    },
+    {
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 3
         },
-        "TargetArgsExpr": {
-          "$type": "System.String[], mscorlib",
-          "$values": [
-            "$0 * 1000 + 30000",
-            "$1"
-          ]
+        {
+          "Item1": 0,
+          "Item2": 9000
         },
-        "SourceRepr": "W(%d).(%2d)",
-        "TargetRepr": "L(%04d)(%x)"
-      },
+      ],
+      "TargetArgsExpr": [
+        "$0 * 10000 + $1"
+      ],
+      "SourceRepr": "E(%d)_(%d)",
+      "TargetRepr": "D(%d)"
+    },
 
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.NamedAddressConvertRule, Dsu.PLCConvertor.Common",
-        "Name": "TIMER",
-        "SourceArgsMinMax": {
-          "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]][], mscorlib",
-          "$values": [
-            {
-              "$type": "System.Tuple`2[[System.Int32, mscorlib],[System.Int32, mscorlib]], mscorlib",
-              "Item1": 0,
-              "Item2": 100
-            }
-          ]
+    {
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 3
         },
-        "TargetArgsExpr": {
-          "$type": "System.String[], mscorlib",
-          "$values": [
-            "$0"
-          ]
+        {
+          "Item1": 0,
+          "Item2": 1000
         },
-        "SourceRepr": "(%d)",
-        "TargetRepr": "T(%d)"
-      },
-      {
-        "$type": "Dsu.PLCConvertor.Common.Internal.AddressConvertRuleSpecialRelay, Dsu.PLCConvertor.Common",
-        "SourceRepr": "a",
-        "TargetRepr": "b"
-      }
-    ]
-  }
+        {
+          "Item1": 0,
+          "Item2": 15
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0 * 10000 + $1",
+        "$2"
+      ],
+      "SourceRepr": "E(%d)_(%d).(%d)",
+      "TargetRepr": "D(%d).(%x)"
+    },
+
+    {
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 100000
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0"
+      ],
+      "SourceRepr": "T(%d)",
+      "TargetRepr": "T(%d)"
+    }
+
+  ],
+  "Named": [
+    {
+      "Name": "TIMER",
+      "SourceArgsMinMax": [
+        {
+          "Item1": 0,
+          "Item2": 100
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0"
+      ],
+      "SourceRepr": "(%d)",
+      "TargetRepr": "T(%d)"
+    }
+  ]
 }

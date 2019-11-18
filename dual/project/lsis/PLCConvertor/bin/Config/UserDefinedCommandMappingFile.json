@@ -16,6 +16,14 @@
     "IsLoad": false
   },
   {
+    "Command": "OUTNOT",
+    "PerInputProc": [
+      "OUTNOT $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+  {
     "Command": "----LD",
     "PerInputProc": [
       "LOAD $0"
@@ -23,6 +31,24 @@
     "IsTerminal": false,
     "IsLoad": true,
     "Message": "LD 명령은 사용자 정의 할 수 없습니다."
+  },
+  {
+    "Command": "DIFU(013)",
+    "PerInputProc": [
+      "OUTP $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "DIFU(013) -> OUTP ???"
+  },
+  {
+    "Command": "DIFD(014)",
+    "PerInputProc": [
+      "OUTN $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "DIFD(014) -> OUTN ???"
   },
   {
     "Command": "MCMP(019)",
@@ -37,6 +63,14 @@
     "Command": "UNUSED---MOV(021)",
     "PerInputProc": [
       "MOV $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+  {
+    "Command": "BIN(023)",
+    "PerInputProc": [
+      "BIN $0 $1"
     ],
     "IsTerminal": true,
     "IsLoad": false
@@ -74,12 +108,13 @@
       "MOV $0 $1"
     ],
     "IsTerminal": true,
-    "IsLoad": false
+    "IsLoad": false,
+    "Message": "STUP(237) -> 임시로 MOV 로 변환합니다.."
   },
   {
     "Command": "LD=(300)",
     "PerInputProc": [
-      "LOAD= $0"
+      "LOAD= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -137,6 +172,15 @@
 
 
 
+  {
+    "Command": "AND=(300)",
+    "PerInputProc": [
+      "AND= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND=(300) -> AND= ???"
+  },
   {
     "Command": "AND<>(305)",
     "PerInputProc": [
@@ -211,6 +255,15 @@
   },
 
 
+  {
+    "Command": "OR=(300)",
+    "PerInputProc": [
+      "OR= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR=(300) -> OR= ???"
+  },
   {
     "Command": "OR<>(305)",
     "PerInputProc": [
@@ -335,6 +388,15 @@
     "IsLoad": false,
     "Message": "/B(434) -> DIVB ??? (BCD division)"
   },
+  {
+    "Command": "MOVL(498)",
+    "PerInputProc": [
+      "LMOV $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "MOVL(498) -> LMOV ???"
+  },
 
   {
     "Command": "NOT(520)",
@@ -393,10 +455,10 @@
   {
     "Command": "CSUB(731)",
     "PerInputProc": [
-      "XXX $0 $1 $2"
+      "SUBCLK $0 $1 $2"
     ],
     "IsTerminal": true,
     "IsLoad": false,
-    "Message": "CSUB(731) 이 변환되지 않았습니다."
+    "Message": "CSUB(731) -> SUBCLK ???"
   }
 ]

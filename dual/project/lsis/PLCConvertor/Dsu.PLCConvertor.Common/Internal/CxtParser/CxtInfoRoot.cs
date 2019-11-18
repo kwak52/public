@@ -26,8 +26,11 @@ namespace Dsu.PLCConvertor.Common.Internal
         public string Name { get; private set; }
 
         public List<CxtInfoProgram> Programs { get; } = new List<CxtInfoProgram>();
+        /// <summary>
+        /// 마지막 Global or Local variables
+        /// </summary>
 
-        CxtInfoGlobalVariables _lastGlobal;
+        CxtInfoVariables _lastVariables;
         public List<CxtInfoGlobalVariables> GlobalVariables { get; private set; } = new List<CxtInfoGlobalVariables>();
         public override IEnumerable<CxtInfo> Children { get { return Programs.Cast<CxtInfo>().Concat(GlobalVariables); } }
         internal override void ClearMyResult() { }
@@ -85,13 +88,8 @@ namespace Dsu.PLCConvertor.Common.Internal
                             //program.Sections = new List<CxtInfoSection>();
                             break;
 
-                        //case "ProgramData":
-                        //    rung =  new CxtInfoRungs()
-                        //    section.Rungs.Add(;
-                        //    break;
-
-                        case "SL" when start.Lines != null:
-                            rung.ILs = start.Lines.ToArray();
+                        case "SL":
+                            rung.ILs = CxtParser.SplitBlock(start.Value.ToString(), StringSplitOptions.RemoveEmptyEntries);
                             break;
 
                         case "Com": // comment
@@ -110,12 +108,19 @@ namespace Dsu.PLCConvertor.Common.Internal
                             break;
 
                         case "GlobalVariables":
-                            _lastGlobal = new CxtInfoGlobalVariables();
-                            GlobalVariables.Add(_lastGlobal);
+                            _lastVariables = new CxtInfoGlobalVariables();
+                            GlobalVariables.Add(_lastVariables as CxtInfoGlobalVariables);
                             break;
 
-                        case "VariableList" when start.Parent.Key == "GlobalVariables":
-                            _lastGlobal.VariableList = new CxtInfoVariableList(start.SubStructures[0].Lines);
+                        case "LocalVariables":
+                            Debug.Assert(program.LocalVariables == null);
+                            program.LocalVariables = new CxtInfoLocalVariables();
+                            program.LocalVariables.Parent = program;
+                            _lastVariables = program.LocalVariables;
+                            break;
+
+                        case "VariableList" when start.Parent.Key.IsOneOf("GlobalVariables", "LocalVariables"):
+                            _lastVariables.VariableList = new CxtInfoVariableList(start.SubStructures[0].Lines);
                             break;
 
                         default:

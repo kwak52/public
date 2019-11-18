@@ -31,14 +31,25 @@ namespace Dsu.PLCConvertor.Common.Internal
         internal override void ClearMyResult() {}
 
         /// <summary>
+        /// Section 내에서 valid 한 rung 만을 반환.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<CxtInfoRung> EnumerateValidRungs()
+        {
+            return this.EnumerateType<CxtInfoRung>()
+                .Where(rung => rung.ILs.NonNullAny())
+                .Where(rung => rung.ILs.Any(il => ! il.StartsWith("\"\"")))
+                ;
+        }
+
+        /// <summary>
         /// 섹션에 대해서 PLC 변환
         /// </summary>
         public void Convert(ConvertParams cvtParam)
         {
 #if DEBUG
             Global.Logger.Info($"SecName={Name}");
-            this.EnumerateType<CxtInfoRung>()
-                .Where(rung => rung.ILs.NonNullAny())
+            this.EnumerateValidRungs()
                 .Where(rung => !rung.ILs[0].StartsWith("END"))
                 .Iter(rung => {
                     rung.ILs.Iter(il => Global.Logger.Debug($"{il}"));
@@ -47,12 +58,12 @@ namespace Dsu.PLCConvertor.Common.Internal
             if (cvtParam.SplitBySection)
                 cvtParam.ResetStartStep();
 
-            this.EnumerateType<CxtInfoRung>()
-                .Where(rung => rung.ILs.NonNullAny())
-                //.Where(rung => !rung.ILs[0].StartsWith("END"))
+            var prog = Parent as CxtInfoProgram;
+
+            this.EnumerateValidRungs()
                 .Iter(rung =>
                 {
-                    var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//"));
+                    var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//") && il != "\"\"");
 
                     if (ils.Any())
                     {
@@ -70,6 +81,9 @@ namespace Dsu.PLCConvertor.Common.Internal
                         {
                             rung.NumberedConvertMessages = new[] { $"[{s+1}] [{t+1}] [{Cx2Xg5kOption.LabelHeader} {ex.Message}]" };   // kkk
                             rung.ConvertMessages = rung.ConvertMessages.Concat(new[] { $"{Cx2Xg5kOption.LabelHeader} {ex.Message}" }).ToArray();
+
+                            // 생성 실패한 rung 따로 project 로 기록
+                            cvtParam.ReviewProjectGenerator.AddRungs(prog, ils.ToArray());
                         }
 
                         cvtParam.SourceStartStep += rung.ILs.Length;
@@ -80,7 +94,9 @@ namespace Dsu.PLCConvertor.Common.Internal
                     else if (rung.Comment.NonNullAny() )
                     {
                         rung.ConvertResults =
-                            rung.Comment.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries)
+                         
+                        rung.Comment.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries)
+                            .SelectMany(cmt => CxtParser.SplitBlock(cmt))
                             .Select(cmt => $"{Xg5k.RungCommentCommand}\t{cmt}")
                             .ToArray();
                     }
@@ -99,7 +115,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             var cmtcmd = Xg5k.RungCommentCommand;
 
             var secConversion =
-                this.EnumerateType<CxtInfoRung>()
+                this.EnumerateValidRungs()
                     .SelectMany(rung =>
                     {
                         if (rung.ConvertResults.IsNullOrEmpty() && rung.NumberedConvertMessages.IsNullOrEmpty() && rung.ConvertMessages.IsNullOrEmpty())
@@ -117,6 +133,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                                 Debug.Assert(rung.ILs.All(il => il.StartsWith("'")));
                                 rung.ConvertResults =
                                     rung.ILs
+                                    .SelectMany(il => CxtParser.SplitBlock(il))
                                     .Select(il => il.TrimStart(new[] { '\'' }))
                                     .Select(il => $"{cmtcmd}\t{il}")
                                     .ToArray()
@@ -152,7 +169,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         public IEnumerable<string> CollectMessages(ConvertParams cvtParam)
         {
             var secMessages =
-                this.EnumerateType<CxtInfoRung>()
+                this.EnumerateValidRungs()
                     .Where(rung => rung.NumberedConvertMessages.NonNullAny())
                     .SelectMany(rung => rung.NumberedConvertMessages)
                     ;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Dsu.PLCConvertor.Common.Internal
 {
-    public class CxtInfoGlobalVariables : CxtInfo
+    /// <summary>
+    /// CXT 에서 global 변수 선언부
+    /// </summary>
+    public class CxtInfoGlobalVariables : CxtInfoVariables
     {
-        public CxtInfoVariableList VariableList { get; internal set; }
-        internal override void ClearMyResult() { }
-        public override IEnumerable<CxtInfo> Children { get { yield return VariableList; } }
         public CxtInfoGlobalVariables()
             : base("GlobalVariables")
         {
@@ -19,6 +20,9 @@ namespace Dsu.PLCConvertor.Common.Internal
     }
 
 
+    /// <summary>
+    /// CXT 에서 변수 선언들의 실제 list 표현
+    /// </summary>
     public class CxtInfoVariableList : CxtInfo
     {
         public PLCVariable[] Variables { get; private set; }
@@ -43,6 +47,9 @@ namespace Dsu.PLCConvertor.Common.Internal
             PLCVariable.DeviceType? getType(string type)
             {
                 PLCVariable.DeviceType enumResult;
+                if (type == "FUNCTION BLOCK")
+                    return PLCVariable.DeviceType.Function_Block;
+
                 if (Enum.TryParse<PLCVariable.DeviceType>(type, true, out enumResult))
                     return enumResult;
 
