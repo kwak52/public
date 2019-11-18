@@ -264,7 +264,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 
         //JsonConvert.SerializeObject(this, MyJsonSerializer.JsonSettings);
 
-
+#if DEBUG
         public static void Test()
         {
             {
@@ -292,6 +292,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             }
 
         }
+#endif
     }
 
 

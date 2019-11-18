@@ -124,13 +124,14 @@ namespace PLCConvertor
                 string getPath(string f) => Path.Combine(Path.GetDirectoryName(cxtPath), f);
                 var qtxFile = getPath($"{stem}.qtx");
                 var msgFile = getPath($"{stem}.txt");
+                var reviewFile = getPath($"{stem}-review.cxt");
                 Logger?.Info($"Parsing {cxtPath}");
 
                 var cvtParams = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS)
                 {
                     SplitBySection = barCheckItemSplitBySection.Checked,
                 };
-                Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", msgFile);
+                Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
             }
         }
 
@@ -147,6 +148,11 @@ namespace PLCConvertor
         private void barButtonItemEditPerferences_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             new FormEditPreferences().Show();
+        }
+
+        private void barButtonItemTestAddress_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            new FormTestAddressMappingRule().Show();
         }
     }
 }

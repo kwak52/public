@@ -1,6 +1,7 @@
 ﻿using Dsu.PLCConvertor.Common.Internal;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Dsu.PLCConvertor.Common
 {
@@ -43,10 +44,39 @@ namespace Dsu.PLCConvertor.Common
             }
         }
 
-         
+        /// <summary>
+        /// 변환시 필요하면 Argument 변환
+        /// e.g : 옴론의 '#' 으로 시작하는 hex constant 를 산전의 'H' 로 시작하도록 변경
+        /// </summary>
+        /// <param name="arg"></param>
+        /// <param name="nth">argument 의 position.  첫번째 argument 는 0 의 값을 가짐</param>
+        /// <returns></returns>
+        protected override string ModifiyArgument(string arg, int nth)
+        {
+            switch(Mnemonic)
+            {
+                case Mnemonic.TON when nth == 0:
+                    return $"T{arg}";
+            }
+
+            // '#': hexadecimal
+            var match = Regex.Match(arg, "^#([A-Fa-f0-9]+)");
+            if (match.Success)
+                return Regex.Replace(arg, "^#", "H");
+
+            // '&': decimal
+            match = Regex.Match(arg, @"^&(\d+)");
+            if (match.Success)
+                return Regex.Replace(arg, "^&", "");
+
+            return arg;
+        }
+
+
+
         // 옴론 -> 산전 변환시 사용되지 않음.        
         private LSILSentence()
-            : base(PLCVendor.LSIS)
+            : base(PLCVendor.LSIS, true)
         {
             Debugger.Break();
         }
@@ -58,7 +88,7 @@ namespace Dsu.PLCConvertor.Common
         public static bool UseAddressMapping = true;
         public override string ToString()
         {
-            if (UseAddressMapping)
+            if (UseAddressMapping && Mnemonic != Mnemonic.RUNG_COMMENT)
             {
                 var rs = AddressConvertorInstance;
                 var args = Args.Select(arg =>
@@ -80,6 +110,8 @@ namespace Dsu.PLCConvertor.Common
 
         public static LSILSentence Create(string sentence)
         {
+            Debugger.Break();
+
             var ils = new LSILSentence();
             ils.Fill(sentence);
             return ils;

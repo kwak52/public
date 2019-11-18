@@ -2,6 +2,7 @@
 using Dsu.PLCConvertor.Common.Internal;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -17,7 +18,6 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         public static AddressConvertor AddressConvertorInstance { get; set; }
 
-        public static Dictionary<string, PLCVariable> SourceVariableMap => ConvertParams.SourceVariableMap;
         public static Dictionary<string, PLCVariable> UsedSourceDevices => ConvertParams.UsedSourceDevices;
 
 
@@ -31,16 +31,22 @@ namespace Dsu.PLCConvertor.Common
         public int Arity => ILCommand.Arity;
 
         PLCVendor VendorType;
+        protected bool IsSource { get; set; }
 
-        protected ILSentence(PLCVendor vendorType)
+        protected ILSentence(PLCVendor vendorType, bool isSource)
         {
             VendorType = vendorType;
+            IsSource = isSource;
         }
 
+        protected virtual string FilterCommand(string command) => command;
+
+        protected virtual string ModifiyArgument(string arg, int nth) { return arg; }
+        public void ModifyArguments() { Args = Args.Select((arg, n) => ModifiyArgument(arg, n)).ToArray(); }
         protected void Fill(string sentence)
         {
             var tokens = sentence.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-            Command = tokens[0];
+            Command = FilterCommand(tokens[0]);
             Args = tokens.Skip(1).ToArray();
             Sentence = sentence;
             Mnemonic = IL.GetMnemonic(VendorType, Command);
@@ -50,28 +56,31 @@ namespace Dsu.PLCConvertor.Common
 
             if (Mnemonic != Mnemonic.RUNG_COMMENT)
             {
-                // Args : 옴론에서 변수명으로 사용된 것을 주소로 변환 
-                Args =
-                    Args.Select(arg =>
-                    {
-                        if (SourceVariableMap.ContainsKey(arg))
+                if (IsSource)
+                {
+                    // Args : 옴론에서 변수명으로 사용된 것을 주소로 변환 
+                    Args =
+                        Args.Select(arg =>
                         {
-                            var v = SourceVariableMap[arg];
-                            try
+                            var v = ConvertParams.SearchVariable(arg);
+                            if (v != null)
                             {
-                                var d = ILSentence.AddressConvertorInstance.Convert(v.Device);
-                                if (!UsedSourceDevices.ContainsKey(d))
-                                    UsedSourceDevices.Add(d, new PLCVariable(d, v));
-                                return v.Device;
+                                try
+                                {
+                                    var d = ILSentence.AddressConvertorInstance.Convert(v.Device);
+                                    if (!UsedSourceDevices.ContainsKey(d))
+                                        UsedSourceDevices.Add(d, new PLCVariable(d, v));
+                                    return v.Device;
+                                }
+                                catch (Exception)
+                                {
+                                }
                             }
-                            catch (Exception ex)
-                            {
-                            }
-                        }
-                        return arg;
+                            return arg;
 
-                    })
-                    .ToArray();
+                        })
+                        .ToArray();
+                }
             }
         }
 
@@ -84,6 +93,8 @@ namespace Dsu.PLCConvertor.Common
             Mnemonic = other.Mnemonic;
             ILCommand = other.ILCommand;
 
+            IsSource = false;
+
             if (Mnemonic == Mnemonic.UNDEFINED || Mnemonic == Mnemonic.USERDEFINED)
                 Console.WriteLine("");
         }
@@ -95,20 +106,23 @@ namespace Dsu.PLCConvertor.Common
 
         public static ILSentence Create(PLCVendor vendorType, string sentence)
         {
-            switch(vendorType)
+            ILSentence ils = null;
+            switch (vendorType)
             {
-                case PLCVendor.LSIS: return LSILSentence.Create(sentence);
-                case PLCVendor.Omron: return OmronILSentence.Create(sentence);
+                case PLCVendor.LSIS: Debugger.Break(); ils = LSILSentence.Create(sentence); break;
+                case PLCVendor.Omron: ils = OmronILSentence.Create(sentence); break;
                 default:
                     throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
             }
+
+            return ils;
         }
 
         public static IEnumerable<ILSentence> CreateRungComments(PLCVendor vendorType, string rungComments)
         {
             return
-                rungComments
-                .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                CxtParser.SplitBlock(rungComments, StringSplitOptions.RemoveEmptyEntries)
+                //.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(rc =>
                 {
                     ILSentence sentence = null;
@@ -127,13 +141,17 @@ namespace Dsu.PLCConvertor.Common
 
         public static ILSentence Create(PLCVendor vendorType, ILSentence sentence)
         {
+            ILSentence ils = null;
             switch (vendorType)
             {
-                case PLCVendor.LSIS: return new LSILSentence(sentence);
-                case PLCVendor.Omron: return new OmronILSentence(sentence);
+                case PLCVendor.LSIS: ils = new LSILSentence(sentence); break;
+                case PLCVendor.Omron: ils = new OmronILSentence(sentence); break;
                 default:
                     throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
             }
+
+            ils.ModifyArguments();
+            return ils;
         }
 
         public bool IsAndFamily()

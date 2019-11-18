@@ -1,6 +1,8 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.PLCConvertor.Common.Internal;
+using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Dsu.PLCConvertor.Common
 {
@@ -44,12 +46,39 @@ namespace Dsu.PLCConvertor.Common
 
         // 옴론 -> 산전 변환시 사용되는 생성자
         private OmronILSentence()
-            : base(PLCVendor.Omron)
+            : base(PLCVendor.Omron, true)
         {
         }
 
 
-            
+        protected override string FilterCommand(string command)
+        {
+            if (! command[0].IsOneOf('@', '%', '!'))
+                return command;
+
+            string cmd = command;
+            var normalCmd = cmd.Substring(1, cmd.Length - 1); ;
+
+            if (cmd.StartsWith("@"))
+            {
+                Variation = VariationType.DiffrentiationOn;
+                return normalCmd;
+            }
+
+            if (cmd.StartsWith("%"))
+            {
+                Variation = VariationType.DiffrentiationOff;
+                return normalCmd;
+            }
+            if (cmd.StartsWith("!"))
+            {
+                Variation = VariationType.ImmediateRefreshing;
+                return normalCmd;
+            }
+
+            return command;
+        }
+
         private void Fill(string sentence)
         {
             if (sentence.IsNullOrEmpty())
@@ -57,7 +86,6 @@ namespace Dsu.PLCConvertor.Common
 
             base.Fill(sentence);
             var vendorType = PLCVendor.Omron;
-            Command = getCommand();
             if (! Mnemonic.IsOneOf(Mnemonic.USERDEFINED, Mnemonic.RUNG_COMMENT))
             {
                 Mnemonic = IL.GetMnemonic(vendorType, Command);
@@ -66,31 +94,6 @@ namespace Dsu.PLCConvertor.Common
 
             if (Mnemonic == Mnemonic.UNDEFINED)
                 Global.Logger.Warn($"Command {Command} not defined.");
-
-            string getCommand()
-            {
-                string cmd = Command;
-                var normalCmd = cmd.Substring(1, cmd.Length - 1); ;
-
-                if (cmd.StartsWith("@"))
-                {
-                    Variation = VariationType.DiffrentiationOn;
-                    return normalCmd;
-                }
-
-                if (cmd.StartsWith("%"))
-                {
-                    Variation = VariationType.DiffrentiationOff;
-                    return normalCmd;
-                }
-                if (cmd.StartsWith("!"))
-                {
-                    Variation = VariationType.ImmediateRefreshing;
-                    return normalCmd;
-                }
-
-                return Command;
-            }
         }
 
         public static OmronILSentence Create(string sentence)

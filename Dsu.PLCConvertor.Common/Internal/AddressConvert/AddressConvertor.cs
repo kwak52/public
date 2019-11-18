@@ -1,5 +1,4 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
-using Dsu.PLCConvertor.Common.Util;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Dsu.PLCConvertor.Common.Internal
 {
-    public class AddressConvertor
+    public partial class AddressConvertor
     {
         List<IAddressConvertRule> _normalRules;
         Dictionary<string, NamedAddressConvertRule> _namedAddressRules;
@@ -59,20 +58,9 @@ namespace Dsu.PLCConvertor.Common.Internal
         public IEnumerable<string> GenerateSourceSamples() => Rules.SelectMany(r => r.GenerateSourceSamples());
         public IEnumerable<(string, string)> GenerateTranslations() => Rules.SelectMany(r => r.GenerateTranslations());
 
-
-        public static AddressConvertor LoadFromJsonFile(string jsonFile) => LoadFromJsonString(File.ReadAllText(jsonFile));
-        public static AddressConvertor LoadFromJsonString(string json)
-        {
-            //return JsonConvert.DeserializeObject<AddressConvertor>(json, MyJsonSerializer.JsonSettings);
-            return JsonConvert.DeserializeObject<AddressConvertor>(json, MyJsonSerializer.JsonSettings2);
-        }
-
-        public void SaveToJsonFile(string jsonFile)
-        {
-            //var json = JsonConvert.SerializeObject(this, Formatting.Indented, MyJsonSerializer.JsonSettings);
-            var json = JsonConvert.SerializeObject(this, MyJsonSerializer.JsonSettings2);
-            File.WriteAllText(jsonFile, json);
-        }
+        public static AddressConvertor LoadFromJsonFile(string jsonFile) => AddressConvertorSerializer.LoadFromJsonString(File.ReadAllText(jsonFile));
+        public static AddressConvertor LoadFromJsonString(string json) => AddressConvertorSerializer.LoadFromJsonString(json);
+        public void SaveToJsonFile(string jsonFile) => AddressConvertorSerializer.SaveToJsonFile(this, jsonFile);
     }
 
 

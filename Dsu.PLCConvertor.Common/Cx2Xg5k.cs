@@ -19,25 +19,13 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// 옴론 CX-One .cxt file을 LSIS XG5000 용 .qtx file로 변환
         /// </summary>
-        public static void Convert(ConvertParams cvtParams, string cxtFile, string xg5kFile, string configFile, string xg5kMessageFile)
+        public static void Convert(ConvertParams cvtParams, string cxtFile, string xg5kFile, string configFile, string cxtReviewFile, string xg5kMessageFile)
         {
             // text project 를 파싱함
             var cxt = CxtInfoRoot.Parse(cxtFile);
 
-            // global 변수 선언부
-            var globals = cxt.EnumerateType<CxtInfoGlobalVariables>().ToArray();
-
-            var others = cxt.EnumerateType<CxtInfoVariableList>()
-                .SelectMany(vl => vl.Variables);
-            globals[0].VariableList.Variables
-                .Concat(others)
-            .Iter(v =>
-            {
-                var key = v.Name.NonNullEmptySelector(v.Device);
-                if (!ConvertParams.SourceVariableMap.ContainsKey(key))
-                    ConvertParams.SourceVariableMap.Add(key, v);
-            });
-            
+            // global/local 변수 선언부 처리
+            cvtParams.BuildSymbolTables(cxt);            
 
             // PLC programs 부 : 각 program 은 다중 section 으로 구성되어 있다.
             var programs = cxt.EnumerateType<CxtInfoProgram>().ToArray();
@@ -64,6 +52,10 @@ namespace Dsu.PLCConvertor.Common
 
                 msgStream.WriteLine(string.Join("\r\n", mLines));
             }
+
+            // 생성 실패한 rung 따로 project 로 기록
+            var fails = cvtParams.ReviewProjectGenerator.GenerateProject();
+            File.WriteAllLines(cxtReviewFile, fails, Encoding.GetEncoding("ks_c_5601-1987"));
 
             // XG5000 .qtx header 생성
             IEnumerable<string> GenerateHeader()

@@ -11,6 +11,21 @@ namespace Dsu.PLCConvertor.Common.Internal
     public class CxtInfoProgram : CxtInfo
     {
         public string Name { get; private set; }
+        CxtInfoLocalVariables _localVariables;
+
+        /// <summary>
+        /// 프로그램 local 변수 선언부
+        /// </summary>
+        public CxtInfoLocalVariables LocalVariables {
+            get => _localVariables;
+            set {
+                Debug.Assert(_localVariables == null);
+                _localVariables = value;
+                _localVariables.Parent = this;
+            }
+        }
+
+
         List<CxtInfoSection> _sections = new List<CxtInfoSection>();
         public IEnumerable<CxtInfoSection> Sections => _sections;
         internal CxtInfoProgram(string name)
@@ -25,7 +40,15 @@ namespace Dsu.PLCConvertor.Common.Internal
             _sections.Add(section);
         }
 
-        public override IEnumerable<CxtInfo> Children { get { return _sections; } }
+        public override IEnumerable<CxtInfo> Children
+        {
+            get
+            {
+                if (_localVariables == null)
+                    return _sections;
+                return _sections.Cast<CxtInfo>().Concat(new[] { _localVariables });
+            }
+        }
         internal override void ClearMyResult() { }
 
 

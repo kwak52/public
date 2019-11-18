@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,8 +19,13 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             Bool = 1,
             Bit = Bool,
+            Int,
+            UInt,
+            UINT_BCD,
+            DInt,
             Word,
             Channel,
+            Function_Block,
         }
         public string Name { get; private set; }
 
@@ -41,8 +47,6 @@ namespace Dsu.PLCConvertor.Common.Internal
         public string Variable { get; private set; }
         public PLCVariable(string name, string device, DeviceType type, string comment, string variable)
         {
-            if (name == null || name == "" )
-                Console.WriteLine("");
             Name = name;
             Device = device;
             Type = type;
