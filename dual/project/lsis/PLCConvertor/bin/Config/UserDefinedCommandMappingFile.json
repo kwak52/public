@@ -18,7 +18,7 @@
   {
     "Command": "OUTNOT",
     "PerInputProc": [
-      "OUTNOT $0"
+      "OUT NOT $0"
     ],
     "IsTerminal": true,
     "IsLoad": false
@@ -60,6 +60,15 @@
     "Message": "MCMP(019) -> GEQ ???"
   },
   {
+    "Command": "CMP(020)",
+    "PerInputProc": [
+      "CMP $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "CMP(020) -> CMP ???"
+  },
+  {
     "Command": "UNUSED---MOV(021)",
     "PerInputProc": [
       "MOV $0 $1"
@@ -74,6 +83,15 @@
     ],
     "IsTerminal": true,
     "IsLoad": false
+  },
+  {
+    "Command": "BCD(024)",
+    "PerInputProc": [
+      "BCD $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "BCD(024) -> BCD ??? : Binary to BCD"
   },
   {
     "Command": "MOVD(083)",
@@ -94,12 +112,22 @@
     "Message": "CPS(114) -> CMP."
   },
   {
-    "Command": "HEX(162)",
+    "Command": "CPSL(115)",
     "PerInputProc": [
-      "HEX $0 $1 $2"
+      "DCMP $0 $1"
     ],
     "IsTerminal": true,
-    "IsLoad": false
+    "IsLoad": false,
+    "Message": "CPSL(115) -> CMPL."
+  },
+  {
+    "Command": "HEX(162)",
+    "PerInputProc": [
+      "HEX $0 $2 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "PS" : "인자의 순서가 바뀜"
   },
 
   {
@@ -179,7 +207,8 @@
     ],
     "IsTerminal": false,
     "IsLoad": false,
-    "Message": "AND=(300) -> AND= ???"
+    "Message": "AND=(300) -> AND= ???",
+    "PS" : "UAND not working???"
   },
   {
     "Command": "AND<>(305)",
@@ -252,6 +281,15 @@
     "IsTerminal": false,
     "IsLoad": false,
     "Message": "AND>=(325) -> AND>= ???"
+  },
+  {
+    "Command": "AND>=S(327)",
+    "PerInputProc": [
+      "AND>= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND>=(327) -> AND>= ???"
   },
 
 
@@ -337,6 +375,15 @@
     "IsLoad": false
   },
   {
+    "Command": "+L(401)",
+    "PerInputProc": [
+      "MUL $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "PS": "DOUBLE SIGNED BINARY ADD WITHOUT CARRY"
+  },
+  {
     "Command": "*L(421)",
     "PerInputProc": [
       "MUL $0 $1 $2"
@@ -388,6 +435,26 @@
     "IsLoad": false,
     "Message": "/B(434) -> DIVB ??? (BCD division)"
   },
+  {
+    "Command": "-----FLT(452)",
+    "PerInputProc": [
+      "BCD $0; BCDR $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "FLT: BIN to FLOAT : MOVL(498) -> LMOV ???"
+  },
+  {
+    "Command": "/F(457)",
+    "PerInputProc": [
+      "RDIV $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "/F(457) -> RDIV ???"
+  },
+
+
   {
     "Command": "MOVL(498)",
     "PerInputProc": [
@@ -442,6 +509,14 @@
     "IsLoad": false,
     "Message": "@++(590) 이 변환되지 않았습니다."
   },
+  {
+    "Command": "LEN$(650)",
+    "PerInputProc": [
+      "LEN $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
 
   {
     "Command": "+$(656)",
@@ -453,6 +528,15 @@
     "Message": "+$(656) -> $ADD ???"
   },
   {
+    "Command": "MOV$(664)",
+    "PerInputProc": [
+      "$MOV $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+
+  {
     "Command": "CSUB(731)",
     "PerInputProc": [
       "SUBCLK $0 $1 $2"
@@ -460,5 +544,32 @@
     "IsTerminal": true,
     "IsLoad": false,
     "Message": "CSUB(731) -> SUBCLK ???"
-  }
+  },
+  {
+    "Command": "DATE(735)",
+    "PerInputProc": [
+      "DATEWR $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "DATE(735) -> DATEWR ???"
+  },
+  {
+    "Command": "TKON(820)",
+    "PerInputProc": [
+      "EIN $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "TKON(820) -> EIN ??? : Enable task"
+  },
+  {
+    "Command": "TKOF(821)",
+    "PerInputProc": [
+      "DIN $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "TKOF(821) -> DIN ??? : Disable task"
+  },
 ]

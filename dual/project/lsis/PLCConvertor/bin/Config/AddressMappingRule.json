@@ -1,52 +1,52 @@
 {
   "OneToOne": [
     {
-      "SourceRepr": "P_GT",
-      "TargetRepr": "F123"
+      "From": "P_GT",
+      "To": "F123"
     },
     {
-      "SourceRepr": "P_GE",
-      "TargetRepr": "F124"
+      "From": "P_GE",
+      "To": "F124"
     },
     {
-      "SourceRepr": "P_EQ",
-      "TargetRepr": "F122"
+      "From": "P_EQ",
+      "To": "F122"
     },
     {
-      "SourceRepr": "P_NE",
-      "TargetRepr": "F125"
+      "From": "P_NE",
+      "To": "F125"
     },
     {
-      "SourceRepr": "P_LT",
-      "TargetRepr": "F120"
+      "From": "P_LT",
+      "To": "F120"
     },
     {
-      "SourceRepr": "P_LE",
-      "TargetRepr": "F121"
+      "From": "P_LE",
+      "To": "F121"
     },
     {
-      "SourceRepr": "P_1s",
-      "TargetRepr": ""
+      "From": "P_1s",
+      "To": ""
     },
     {
-      "SourceRepr": "P_On",
-      "TargetRepr": "F00099"
+      "From": "P_On",
+      "To": "F00099"
     },
     {
-      "SourceRepr": "P_Off",
-      "TargetRepr": "F0009A"
+      "From": "P_Off",
+      "To": "F0009A"
     }
   ],
   "Ranged": [
     {
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 6143
+          "Min": 0,
+          "Max": 6143
         },
         {
-          "Item1": 0,
-          "Item2": 15
+          "Min": 0,
+          "Max": 15
         }
       ],
       "TargetArgsExpr": [
@@ -59,12 +59,12 @@
     {
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 511
+          "Min": 0,
+          "Max": 511
         },
         {
-          "Item1": 0,
-          "Item2": 15
+          "Min": 0,
+          "Max": 15
         }
       ],
       "TargetArgsExpr": [
@@ -77,12 +77,12 @@
     {
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 511
+          "Min": 0,
+          "Max": 511
         },
         {
-          "Item1": 0,
-          "Item2": 15
+          "Min": 0,
+          "Max": 15
         }
       ],
       "TargetArgsExpr": [
@@ -95,8 +95,8 @@
     {
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 959
+          "Min": 0,
+          "Max": 959
         }
       ],
       "TargetArgsExpr": [
@@ -108,12 +108,12 @@
     {
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 959
+          "Min": 0,
+          "Max": 959
         },
         {
-          "Item1": 0,
-          "Item2": 15
+          "Min": 0,
+          "Max": 15
         }
       ],
       "TargetArgsExpr": [
@@ -128,8 +128,8 @@
     {
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 100000
+          "Min": 0,
+          "Max": 100000
         }
       ],
       "TargetArgsExpr": [
@@ -141,12 +141,12 @@
     {
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 3
+          "Min": 0,
+          "Max": 3
         },
         {
-          "Item1": 0,
-          "Item2": 9000
+          "Min": 0,
+          "Max": 9000
         },
       ],
       "TargetArgsExpr": [
@@ -159,16 +159,16 @@
     {
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 3
+          "Min": 0,
+          "Max": 3
         },
         {
-          "Item1": 0,
-          "Item2": 1000
+          "Min": 0,
+          "Max": 2000
         },
         {
-          "Item1": 0,
-          "Item2": 15
+          "Min": 0,
+          "Max": 15
         }
       ],
       "TargetArgsExpr": [
@@ -182,8 +182,8 @@
     {
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 100000
+          "Min": 0,
+          "Max": 100000
         }
       ],
       "TargetArgsExpr": [
@@ -199,8 +199,8 @@
       "Name": "TIMER",
       "SourceArgsMinMax": [
         {
-          "Item1": 0,
-          "Item2": 100
+          "Min": 0,
+          "Max": 100
         }
       ],
       "TargetArgsExpr": [

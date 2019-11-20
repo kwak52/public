@@ -63,7 +63,8 @@ namespace Dsu.PLCConvertor.Common.Internal
             this.EnumerateValidRungs()
                 .Iter(rung =>
                 {
-                    var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//") && il != "\"\"");
+                    // "A  F0" 가 맨 끝에 오는 경우는 rung 주석이 포함된 경우이다.
+                    var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//") && il != "\"\"" && il != "A  F0");
 
                     if (ils.Any())
                     {

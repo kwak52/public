@@ -159,6 +159,8 @@ namespace Dsu.PLCConvertor.Common
                         _numberedMessages.Add($"[{ss+1}] [{ts+1}] [{Cx2Xg5kOption.LabelHeader} {udc.Message}]");     // kkk: 메지지 추가
                     }
 
+                    udf.ILSentence = ILSentence.Create(_targetType, point.ILSentence);
+
                     var xs2 = udf.EnumeratePerInputs();
                     foreach (var x in xs2)
                         yield return x;

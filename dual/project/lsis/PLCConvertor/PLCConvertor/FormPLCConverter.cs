@@ -79,7 +79,7 @@ namespace PLCConvertor
         void TestConversion()
         {
             var cvtParam = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS);
-            var inputs = MnemonicInput.Inputs[0].Input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var inputs = MnemonicInput.Inputs[0].Input.SplitByLines();
             var rung = Rung.CreateRung(inputs, "TestRung", cvtParam);
             var graph = rung.GraphViz();
             var _pictureBox = new PictureBox() { Image = graph, Dock = DockStyle.Fill };
@@ -131,7 +131,43 @@ namespace PLCConvertor
                 {
                     SplitBySection = barCheckItemSplitBySection.Checked,
                 };
+
+                ConvertParams.Reset();
+                acceptSymbolsByUserPaste();
                 Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
+
+                void acceptSymbolsByUserPaste()
+                {
+                    if (barCheckItemWithSymbols.Checked)
+                    {
+                        var form = new FormSymbolPaste();
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            var map = ConvertParams.SourceVariableMap;
+                            form.Text
+                                .SplitByLines(StringSplitOptions.RemoveEmptyEntries)
+                                .Select(line => generatePlcVariable(line))
+                                .Iter(v => {
+                                    if (!map.ContainsKey(v.Device))
+                                        map.Add(v.Device, v);
+                                });
+                        }
+
+                        PLCVariable generatePlcVariable(string line)
+                        {
+                            var t = line.Split('\t').ToArray();
+                            var name = t[0];
+                            var type =
+                                    (PLCVariable.DeviceType)Enum.Parse(
+                                        typeof(PLCVariable.DeviceType), t[1].Replace(" ", "_"), true);
+                            var device = t[2];  // address
+                            var comment = t[3];
+
+                            return new PLCVariable(name, device, type, comment, "");
+                        }
+                    }
+
+                }
             }
         }
 

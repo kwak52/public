@@ -121,6 +121,7 @@ namespace Dsu.PLCConvertor.Common
 
                         case Mnemonic.ANDNOT:
                         case Mnemonic.AND:
+                        case Mnemonic.USERDEFINED when sentence.IsAndFamily():
                             _cbld.AND(arg0N, sentence);
                             break;
 
@@ -130,6 +131,7 @@ namespace Dsu.PLCConvertor.Common
 
                         case Mnemonic.OR:
                         case Mnemonic.ORNOT:
+                        case Mnemonic.USERDEFINED when sentence.IsOrFamily():
                             _cbld.OR(arg0N, sentence);
                             break;
                         case Mnemonic.ORLD:
@@ -171,10 +173,7 @@ namespace Dsu.PLCConvertor.Common
                                     _cbld.AND(arg0N, sentence);
                             }
                             else if (arity > 1)
-                            {
                                 _cbld.ConnectFunctionParameters(sentence, LadderStack);
-                                Console.WriteLine("");
-                            }
                             else
                                 Logger?.Error($"Unknown IL: {m}");
                             break;
@@ -196,7 +195,6 @@ namespace Dsu.PLCConvertor.Common
 
 
                 Debug.Assert(LadderStack.IsNullOrEmpty());
-                Console.WriteLine("");
             }
             catch (Exception ex)
             {

@@ -16,17 +16,18 @@ namespace Dsu.PLCConvertor.Common.Internal
     {
         static string _cxtProjectHeader;
         static string _cxtProjectFooter;
+        static Encoding _encoding => CxtParser._encoding;
         static CxtGenerator()
         {
             if (_cxtProjectHeader == null)
                 _cxtProjectHeader =
-                    File.ReadAllLines("Config/EmptyProject.cxt", Encoding.GetEncoding("ks_c_5601-1987"))
+                    File.ReadAllLines("Config/EmptyProject.cxt", _encoding)
                     .TakeWhile(l => !l.StartsWith("<End Of Header>"))
                     .JoinString("\r\n")
                     ;
             if (_cxtProjectFooter == null)
                 _cxtProjectFooter =
-                    File.ReadAllLines("Config/EmptyProject.cxt", Encoding.GetEncoding("ks_c_5601-1987"))
+                    File.ReadAllLines("Config/EmptyProject.cxt", _encoding)
                     .SkipWhile(l => !l.StartsWith("<Start Of Footer>"))
                     .Skip(1)
                     .JoinString("\r\n")

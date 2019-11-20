@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Dsu.Common.Utilities.ExtensionMethods;
 
 namespace Dsu.PLCConvertor.Common
 {
@@ -18,7 +19,7 @@ namespace Dsu.PLCConvertor.Common
         /// array 문자열로 반환
         /// </summary>
         public static string[] MultilineString2Array(string input) =>
-                input.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                input.SplitByLines()
                 .Where(m => !string.IsNullOrWhiteSpace(m))
                 .Select(m => TrimSingle(m))
                 .Select(m => m.Replace('\t', ' '))
@@ -26,7 +27,7 @@ namespace Dsu.PLCConvertor.Common
                 .ToArray()
                 ;
 
-        public static string CommentOutMultiple(string mns) => String.Join("\r\n", MultilineString2Array(mns));
+        public static string CommentOutMultiple(string mns) => MultilineString2Array(mns).JoinString("\r\n");
         public static string CommentOutSingle(string mn) => Regex.Replace(mn, $"{CommentPrefix}.*", "");
         public static string TrimSingle(string mn) => Regex.Replace(mn.TrimStart(new[] { ' ', '\t' }), $"{CommentPrefix}.*", "").TrimEnd(new[] { ' ', '\t', '\r', '\n' });
 
