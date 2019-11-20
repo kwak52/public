@@ -1,11 +1,8 @@
-﻿using Dsu.Common.Utilities.Core.ExtensionMethods;
-using Dsu.Common.Utilities.ExtensionMethods;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Dsu.Common.Utilities.Core.ExtensionMethods;
+using Dsu.Common.Utilities.ExtensionMethods;
 
 namespace Dsu.PLCConvertor.Common.Internal
 {
@@ -76,7 +73,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             if (SourceVariableMap.ContainsKey(key))
                 return SourceVariableMap[key];
 
-            foreach(var lv in ProgramLocalVariableMap.Values)
+            foreach (var lv in ProgramLocalVariableMap.Values)
             {
                 if (lv.ContainsKey(key))
                     return lv[key];
@@ -96,16 +93,15 @@ namespace Dsu.PLCConvertor.Common.Internal
             var globals = cxt.EnumerateType<CxtInfoGlobalVariables>().ToArray();
 
             var variables = globals.SelectMany(g => g.VariableList.Variables);
-            SourceVariableMap =
-                variables
-                //globals[0].VariableList.Variables
-                .DistinctBy(v => v.Device)
-                .ToDictionary(v => v.Device)
-                ;
-
-            foreach (var v in variables)
+            variables.Iter(v =>
             {
-                if (v.Name.NonNullAny() && ! SourceVariableMap.ContainsKey(v.Name))
+                if (!SourceVariableMap.ContainsKey(v.Device))
+                    SourceVariableMap.Add(v.Device, v);
+            });
+
+            foreach (var v in SourceVariableMap.Values.ToArray())
+            {
+                if (v.Name.NonNullAny() && !SourceVariableMap.ContainsKey(v.Name))
                     SourceVariableMap.Add(v.Name, v);
             }
 
@@ -166,13 +162,20 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         public bool SplitBySection { get => Cx2Xg5kOption.SplitBySection; set { Cx2Xg5kOption.SplitBySection = value; } }
 
-        public ConvertParams(PLCVendor sourceType, PLCVendor targetType, int soruceStartStep=0, int targetStartStep=0)
+        public ConvertParams(PLCVendor sourceType, PLCVendor targetType, int soruceStartStep = 0, int targetStartStep = 0)
         {
             SourceType = sourceType;
             TargetType = targetType;
             SourceStartStep = soruceStartStep;
             TargetStartStep = targetStartStep;
             ReviewProjectGenerator = new CxtGenerator(this);
+        }
+
+        public static void Reset()
+        {
+            SourceVariableMap.Clear();
+            ProgramLocalVariableMap.Clear();
+            UsedSourceDevices.Clear();
+        }
     }
-}
 }

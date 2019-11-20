@@ -29,7 +29,7 @@ namespace PLCConvertor
                     /*
                      * multi-line message 처리
                      */
-                    var lines = msg.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+                    var lines = msg.SplitByLines().ToArray();
                     if (lines.Length > 0)
                     {
                         var fmtMsg = string.Format($"<color={cr}>{now} [{level}]: {lines[0]}</color>");

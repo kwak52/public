@@ -77,8 +77,6 @@ namespace Dsu.PLCConvertor.Common.Internal
             var samples = rule.GenerateSourceSamples().ToArray();
             var converted = samples.Select(s => $"{s} => {rule.Convert(s)}").ToArray();
 
-            Console.WriteLine("");
-
             var defaultRules = Cx2Xg5k.CreateDefaultAddressConvertRuleSets();
             defaultRules.GenerateTranslations()
                 .Select(pr => $"{pr.Item1}\t{pr.Item2}")
@@ -89,7 +87,6 @@ namespace Dsu.PLCConvertor.Common.Internal
             defaultRules.SaveToJsonFile(jsonFile);
 
             var dup = AddressConvertor.LoadFromJsonFile(jsonFile);
-            Console.WriteLine("");
             dup.GenerateTranslations()
                 .Select(pr => $"{pr.Item1}\t{pr.Item2}")
                 .Iter(ln => Trace.WriteLine(ln))

@@ -36,7 +36,7 @@ namespace PLCConvertor.Forms
             var tgtPattern = textBoxTargetPattern.Text;
             var srcArgsRange =
                 textBoxSourceArgs.Text
-                    .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .SplitByLines()
                     .Select(ln =>
                     {
                         var nums =
@@ -48,9 +48,7 @@ namespace PLCConvertor.Forms
                         return Tuple.Create(nums[0], nums[1]);
                     });
 
-            var tgtArgsExpr =
-                textBoxTargetArgs.Text
-                    .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var tgtArgsExpr = textBoxTargetArgs.Text.SplitByLines();
 
             var rule = new AddressConvertRule(srcPattern, srcArgsRange, tgtPattern, tgtArgsExpr);
             rule.GenerateTranslations().Iter(pr => Logger.Info($"{pr.Item1} => {pr.Item2}"));

@@ -91,6 +91,12 @@
     <Compile Include="Forms\FormEditPreferences.Designer.cs">
       <DependentUpon>FormEditPreferences.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormSymbolPaste.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSymbolPaste.Designer.cs">
+      <DependentUpon>FormSymbolPaste.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormTestAddressMapping.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormEditPreferences.resx">
       <DependentUpon>FormEditPreferences.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSymbolPaste.resx">
+      <DependentUpon>FormSymbolPaste.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormTestAddressMapping.resx">
       <DependentUpon>FormTestAddressMapping.cs</DependentUpon>

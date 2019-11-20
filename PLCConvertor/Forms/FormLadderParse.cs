@@ -84,7 +84,7 @@ namespace PLCConvertor.Forms
             var cr = Rung2ILConvertor.Convert(_rung4Parsing.ToRung(false), _convertParam);
             var mnemonics = cr.Results;
             var messages = cr.NumberedMessages;
-            var converted = String.Join("\r\n", mnemonics);
+            var converted = mnemonics.JoinString("\r\n");
             Logger?.Info($"Reversely converted mnemonics for {_mnemonicInput.Comment}:\r\n{converted}");
 
 

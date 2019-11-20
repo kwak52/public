@@ -21,7 +21,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// _lines 의 현재 읽고 있는 라인 번호
         /// </summary>
         int _index;
-        static Encoding _encoding = Encoding.GetEncoding("ks_c_5601-1987");
+        internal static Encoding _encoding = Encoding.GetEncoding("ks_c_5601-1987");
 
         /// <summary>
         /// 다중 라인을 한 라인으로 encoding 하기 위한 line 구분자 특수문자

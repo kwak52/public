@@ -69,6 +69,11 @@ namespace Dsu.PLCConvertor.Common
             if (match.Success)
                 return Regex.Replace(arg, "^&", "");
 
+            // '+': 
+            match = Regex.Match(arg, @"^\+(\d+)");
+            if (match.Success)
+                return Regex.Replace(arg, @"^\+", "");
+
             return arg;
         }
 

@@ -23,6 +23,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             UInt,
             UINT_BCD,
             DInt,
+            UDInt,
             Word,
             Channel,
             Function_Block,

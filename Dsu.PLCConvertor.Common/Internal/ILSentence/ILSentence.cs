@@ -62,6 +62,7 @@ namespace Dsu.PLCConvertor.Common
                     Args =
                         Args.Select(arg =>
                         {
+
                             var v = ConvertParams.SearchVariable(arg);
                             if (v != null)
                             {
@@ -122,7 +123,6 @@ namespace Dsu.PLCConvertor.Common
         {
             return
                 CxtParser.SplitBlock(rungComments, StringSplitOptions.RemoveEmptyEntries)
-                //.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(rc =>
                 {
                     ILSentence sentence = null;
@@ -161,6 +161,27 @@ namespace Dsu.PLCConvertor.Common
                 return true;
 
             if (Mnemonic == Mnemonic.USERDEFINED && Command.Contains("AND"))
+            {
+                var match = Regex.Match(Command, @"([^\(]*)\((\d*)\)");
+                var g = match.Groups.Cast<Group>().Select(gr => gr.ToString()).ToArray();
+                if (g.Length == 3)
+                {
+                    var code = int.Parse(g[2]);
+                    return code.InRange(300, 330);
+                }
+            }
+
+            return false;
+        }
+
+
+        public bool IsOrFamily()
+        {
+            if (Mnemonic.IsOneOf(Mnemonic.OR, Mnemonic.OREQ,
+                    /*Mnemonic.ORGREATERTHAN, Mnemonic.ORLESSTHAN,*/ Mnemonic.ORNOT))
+                return true;
+
+            if (Mnemonic == Mnemonic.USERDEFINED && Command.Contains("OR"))
             {
                 var match = Regex.Match(Command, @"([^\(]*)\((\d*)\)");
                 var g = match.Groups.Cast<Group>().Select(gr => gr.ToString()).ToArray();

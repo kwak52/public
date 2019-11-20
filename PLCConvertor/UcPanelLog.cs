@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using DevExpress.XtraEditors.Controls;
+using Dsu.Common.Utilities.ExtensionMethods;
 //using Images = Dsu.Common.Resources.Images;
 
 namespace PLCConvertor
@@ -38,7 +39,7 @@ namespace PLCConvertor
                     select Regex.Replace(t, "<.*?>", "")
                     ;
 
-                var text = String.Join("\r\n", strings);
+                var text = strings.JoinString("\r\n");
                 Clipboard.SetText(text);
             }));
 
@@ -50,7 +51,7 @@ namespace PLCConvertor
                     select Regex.Replace(str, "<.*?>", "")
                 ;
 
-                var text = String.Join("\r\n", strings);
+                var text = strings.JoinString("\r\n");
                 Clipboard.SetText(text);
             }));
 

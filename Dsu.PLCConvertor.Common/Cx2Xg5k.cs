@@ -15,7 +15,7 @@ namespace Dsu.PLCConvertor.Common
     /// </summary>
     public class Cx2Xg5k
     {
-        static Encoding _xg5kEncoding = Encoding.GetEncoding("ks_c_5601-1987");
+        static Encoding _encoding = Encoding.GetEncoding("ks_c_5601-1987");
         /// <summary>
         /// 옴론 CX-One .cxt file을 LSIS XG5000 용 .qtx file로 변환
         /// </summary>
@@ -39,10 +39,10 @@ namespace Dsu.PLCConvertor.Common
                 .SelectMany(ls => ls)
                 ;
 
-            File.WriteAllLines(xg5kFile, cLines, Encoding.GetEncoding("ks_c_5601-1987"));
+            File.WriteAllLines(xg5kFile, cLines, _encoding);
 
             // 메시지 파일 내용 생성
-            using (StreamWriter msgStream = new StreamWriter(xg5kMessageFile, false, _xg5kEncoding))
+            using (StreamWriter msgStream = new StreamWriter(xg5kMessageFile, false, _encoding))
             {
                 var msgContents = programs.SelectMany(prog => prog.CollectMessages(cvtParams));
                 var mLines = 
@@ -55,7 +55,7 @@ namespace Dsu.PLCConvertor.Common
 
             // 생성 실패한 rung 따로 project 로 기록
             var fails = cvtParams.ReviewProjectGenerator.GenerateProject();
-            File.WriteAllLines(cxtReviewFile, fails, Encoding.GetEncoding("ks_c_5601-1987"));
+            File.WriteAllLines(cxtReviewFile, fails, _encoding);
 
             // XG5000 .qtx header 생성
             IEnumerable<string> GenerateHeader()

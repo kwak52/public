@@ -32,10 +32,10 @@
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -49,6 +49,7 @@
             this.barButtonItemAddressMapping = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemEditAddressMappingRule = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemEditPerferences = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemTestAddress = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupOptions = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -62,7 +63,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.barButtonItemTestAddress = new DevExpress.XtraBars.BarButtonItem();
+            this.barCheckItemWithSymbols = new DevExpress.XtraBars.BarCheckItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -105,9 +106,10 @@
             this.barButtonItemAddressMapping,
             this.barButtonItemEditAddressMappingRule,
             this.barButtonItemEditPerferences,
-            this.barButtonItemTestAddress});
+            this.barButtonItemTestAddress,
+            this.barCheckItemWithSymbols});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 10;
+            this.ribbon.MaxItemId = 11;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -195,6 +197,19 @@
             this.barButtonItemEditPerferences.Name = "barButtonItemEditPerferences";
             this.barButtonItemEditPerferences.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemEditPerferences_ItemClick);
             // 
+            // barButtonItemTestAddress
+            // 
+            this.barButtonItemTestAddress.Caption = "Test address";
+            this.barButtonItemTestAddress.Id = 9;
+            this.barButtonItemTestAddress.Name = "barButtonItemTestAddress";
+            toolTipTitleItem2.Text = "Test Address Mapping";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Test conversion of device address.";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.barButtonItemTestAddress.SuperTip = superToolTip2;
+            this.barButtonItemTestAddress.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTestAddress_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -219,6 +234,7 @@
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barEditItemTarget);
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barCheckItemSplitBySection);
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barButtonItemEditPerferences);
+            this.ribbonPageGroupOptions.ItemLinks.Add(this.barCheckItemWithSymbols);
             this.ribbonPageGroupOptions.Name = "ribbonPageGroupOptions";
             this.ribbonPageGroupOptions.Text = "Options";
             // 
@@ -320,18 +336,12 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
-            // barButtonItemTestAddress
+            // barCheckItemWithSymbols
             // 
-            this.barButtonItemTestAddress.Caption = "Test address";
-            this.barButtonItemTestAddress.Id = 9;
-            this.barButtonItemTestAddress.Name = "barButtonItemTestAddress";
-            toolTipTitleItem2.Text = "Test Address Mapping";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "Test conversion of device address.";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            superToolTip2.Items.Add(toolTipItem2);
-            this.barButtonItemTestAddress.SuperTip = superToolTip2;
-            this.barButtonItemTestAddress.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTestAddress_ItemClick);
+            this.barCheckItemWithSymbols.Caption = "With Symbols";
+            this.barCheckItemWithSymbols.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemWithSymbols.Id = 10;
+            this.barCheckItemWithSymbols.Name = "barCheckItemWithSymbols";
             // 
             // FormPLCConverter
             // 
@@ -392,5 +402,6 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItemEditAddressMappingRule;
         private DevExpress.XtraBars.BarButtonItem barButtonItemEditPerferences;
         private DevExpress.XtraBars.BarButtonItem barButtonItemTestAddress;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemWithSymbols;
     }
 }

@@ -171,9 +171,6 @@ namespace Dsu.PLCConvertor.Common
             var arity = sentence.Arity;
             FunctionNode fNode = null;
 
-            if (sentence.Mnemonic == Mnemonic.USERDEFINED)
-                System.Console.WriteLine("");
-
             switch(sentence.Mnemonic)
             {
                 case Mnemonic.SFT:
