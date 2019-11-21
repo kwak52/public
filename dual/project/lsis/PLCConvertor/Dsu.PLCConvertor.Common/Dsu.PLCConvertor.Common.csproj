@@ -104,6 +104,7 @@
     <Compile Include="Internal\SubRung.cs" />
     <Compile Include="Graph\Rung.cs" />
     <Compile Include="Graph\Wire.cs" />
+    <Compile Include="Properties\CommonAssemblyInfo.cs" />
     <Compile Include="Util\MyJsonSerializer.cs" />
     <Compile Include="Xg5k.cs" />
   </ItemGroup>
