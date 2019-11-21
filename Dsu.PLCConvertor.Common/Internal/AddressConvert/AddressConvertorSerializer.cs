@@ -18,6 +18,9 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// </summary>
     class AddressConvertorSerializer
     {
+        /// <summary>
+        /// 1:1 대응 규칙
+        /// </summary>
         public class OneToOneRule : IRuleSerializer
         {
             public string From { get; set; }

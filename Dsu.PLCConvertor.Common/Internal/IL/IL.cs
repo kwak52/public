@@ -135,7 +135,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 new[] {
                     new UserDefinedILCommand("STUP(237)", new [] { "MOV $0 $1", }) {Message = "Hello" },
                     new UserDefinedILCommand("CNTX(546)", new [] { "CTU C$0 $1", "RST C$0 0" }),
-                    new UserDefinedILCommand("MOVD(083)", new [] { "MOV $0 $1 $2" }),
+                    //new UserDefinedILCommand("MOVD(083)", new [] { "MOV $0 $1 $2" }),
                     new UserDefinedILCommand("MOV(021)", new [] { "MOV $0 $1" }),
                     new UserDefinedILCommand("+(400)", new [] { "ADD $0 $1" }),
                 };

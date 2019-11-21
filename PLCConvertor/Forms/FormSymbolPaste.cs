@@ -10,7 +10,7 @@ namespace PLCConvertor.Forms
     /// </summary>
     public partial class FormSymbolPaste : Form
     {
-        public string Text { get; private set; }
+        public string SymbolTableText { get; private set; }
         public FormSymbolPaste()
         {
             InitializeComponent();
@@ -18,7 +18,7 @@ namespace PLCConvertor.Forms
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            Text = textBoxSymbols.Text;
+            SymbolTableText = textBoxSymbols.Text;
             DialogResult = DialogResult.OK;
             Close();
         }

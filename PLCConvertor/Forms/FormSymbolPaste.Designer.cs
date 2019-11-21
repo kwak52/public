@@ -76,7 +76,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.textBoxSymbols);
             this.Name = "FormSymbolPaste";
-            this.Text = "Paste Symbol Text";
+            this.SymbolTableText = "Paste Symbol Text";
             this.ResumeLayout(false);
             this.PerformLayout();
 

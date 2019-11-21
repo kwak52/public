@@ -47,6 +47,9 @@ namespace Dsu.PLCConvertor.Common
         {
             var tokens = sentence.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
             Command = FilterCommand(tokens[0]);
+            if (VendorType == PLCVendor.Omron)
+                Command = OmronILSentence.NormalizeCommandAndCode(Command);
+
             Args = tokens.Skip(1).ToArray();
             Sentence = sentence;
             Mnemonic = IL.GetMnemonic(VendorType, Command);

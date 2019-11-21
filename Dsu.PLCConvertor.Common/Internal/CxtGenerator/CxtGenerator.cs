@@ -41,7 +41,6 @@ namespace Dsu.PLCConvertor.Common.Internal
             _convertParams = cvtParams;
         }
 
-        int _baseRungCounter = 1;
         List<string[]> _rungs = new List<string[]>();
 
         /// <summary>
