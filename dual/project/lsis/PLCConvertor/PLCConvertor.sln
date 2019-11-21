@@ -18,6 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		Documents\TestRung.xgwx = Documents\TestRung.xgwx
 		bin\Config\UserDefinedCommandMappingFile.json = bin\Config\UserDefinedCommandMappingFile.json
 	EndProjectSection
+	ProjectSection(FolderGlobals) = preProject
+		F_5_4solutions_4dual_4project_4lsis_4PLCConvertor_4bin_4Config_4UserDefinedCommandMappingFile_1json__JsonSchema = http://json.schemastore.org/appsettings
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

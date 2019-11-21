@@ -28,7 +28,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             Channel,
             Function_Block,
         }
-        public string Name { get; private set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// PLC device 의 data type
@@ -41,11 +41,11 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// 사용된 device 의 comment
         /// </summary>
-        public string Comment { get; private set; }
+        public string Comment { get; internal set; }
         /// <summary>
         /// Device 의 variable (alias?)
         /// </summary>
-        public string Variable { get; private set; }
+        public string Variable { get; internal set; }
         public PLCVariable(string name, string device, DeviceType type, string comment, string variable)
         {
             Name = name;

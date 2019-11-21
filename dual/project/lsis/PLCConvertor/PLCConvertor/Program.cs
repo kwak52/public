@@ -22,6 +22,7 @@ namespace PLCConvertor
 #if DEBUG
             AddressConvertorTester.Test();
             ILTester.Test();
+            TemporaryAddressAllocator.Test();
 #endif
 
             Application.EnableVisualStyles();

@@ -221,7 +221,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             // C printf format 을 가진 pattern_ 을 정규식으로 변환 한 값.  e.g "P(\\d{4})([A-Fa-f0-9]{2})(\\d+)"
             var pattern =
                 pattern_
-                .replace(@"\.", @"\.")                                 // %d --> \d+
+                .replace(@"\.", @"\.")                                 // 
                 .replace(@"%d", @"\d+")                                 // %d --> \d+
                 .replace(@"%x", @"[A-Fa-f0-9]+")                        // %x -> [A-Fa-f0-9]+
                 .replace(@"%X", @"[A-Fa-f0-9]+")                        // %X -> [A-Fa-f0-9]+
@@ -229,6 +229,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 .replace(@"%(?<count>\d+)x", @"[A-Fa-f0-9]{${count}}")  // %3x -> [A-Fa-f0-9]{3}
                 ;
 
+            // full matching 을 위해서 앞뒤 강제
             if (!pattern.StartsWith("^"))
                 pattern = "^" + pattern;
             if (!pattern.EndsWith("$"))

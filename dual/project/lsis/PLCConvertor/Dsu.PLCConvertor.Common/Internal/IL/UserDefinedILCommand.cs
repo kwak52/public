@@ -51,12 +51,17 @@ namespace Dsu.PLCConvertor.Common.Internal
         [JsonConstructor]
         protected UserDefinedILCommand() { }
 
+        /// <summary>
+        /// 재정의 금지 명령어
+        /// </summary>
         static string[] _forbiddenOverrides = new[]
         {
-            "LD", "AND", "OUT",
+            "LD", "AND", "OR", "OUT",
+            "@LDNOT", "%LDNOT",
+            "@ANDNOT", "%ANDNOT",
         };
 
-        public bool Validate(bool throwOnFail=true)
+        public bool Validate(PLCVendor targetType, bool throwOnFail=true)
         {
             if (IsTerminal && IsLoad)
             {
@@ -72,9 +77,13 @@ namespace Dsu.PLCConvertor.Common.Internal
 
             if (_forbiddenOverrides.Contains(Command))
             {
-                throwOnDemand(new Exception($"[{Command}] can't be user overriden."));
+                throwOnDemand(new Exception($"[{Command}] is not allowed to be overridden."));
                 return false;
             }
+
+            if (targetType == PLCVendor.Omron)
+                Command = OmronILSentence.NormalizeCommandAndCode(Command);
+            
 
             return true;
 

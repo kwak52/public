@@ -3,6 +3,7 @@ using Dsu.PLCConvertor.Common.Internal;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Dsu.PLCConvertor.Common
 {
@@ -51,6 +52,14 @@ namespace Dsu.PLCConvertor.Common
         }
 
 
+        /// <summary>
+        /// 옴론 명령어의 code 부분을 normalize 한다.
+        /// "MOVD(083)" --> "MOVD(83)"
+        /// </summary>
+        public static string NormalizeCommandAndCode(string command)
+            => Regex.Replace(command, @"(?<command>)\(0*(?<code>\d+)\)", @"${command}(${code})");
+
+
         protected override string FilterCommand(string command)
         {
             if (! command[0].IsOneOf('@', '%', '!'))
@@ -79,7 +88,7 @@ namespace Dsu.PLCConvertor.Common
             return command;
         }
 
-        private void Fill(string sentence)
+        private void FillMe(string sentence)
         {
             if (sentence.IsNullOrEmpty())
                 return;
@@ -99,7 +108,7 @@ namespace Dsu.PLCConvertor.Common
         public static OmronILSentence Create(string sentence)
         {
             var ils = new OmronILSentence();
-            ils.Fill(sentence);
+            ils.FillMe(sentence);
             return ils;
         }
     }

@@ -38,17 +38,17 @@ namespace Dsu.PLCConvertor.Common.Internal
 
             [Mnemonic.CTU] = _t(2, "CNT"),
             [Mnemonic.TON] = _t(1, "TIM"),
-            [Mnemonic.TMR] = _t(2, "TTIM(087)"),
-            [Mnemonic.KEEP] = _n(2, "KEEP(011)"),
-            [Mnemonic.SFT] = _t(3, "SFT(010)"),
-            [Mnemonic.CMP] = _t(1, "CMP(020)"),
+            [Mnemonic.TMR] = _t(2, "TTIM(87)"),
+            [Mnemonic.KEEP] = _n(2, "KEEP(11)"),
+            [Mnemonic.SFT] = _t(3, "SFT(10)"),
+            [Mnemonic.CMP] = _t(1, "CMP(20)"),
             [Mnemonic.ADD] = _n(1, "+(400)"),
             [Mnemonic.SUB] = _n(1, "-(410)"),
             [Mnemonic.MUL] = _n(1, "*(420)"),
             [Mnemonic.DIV] = _n(1, "/(430)"),
 
-            [Mnemonic.BCD] = _t(1, "BCD(024)"),
-            [Mnemonic.BIN] = _t(1, "BIN(023)"),
+            [Mnemonic.BCD] = _t(1, "BCD(24)"),
+            [Mnemonic.BIN] = _t(1, "BIN(23)"),
 
             //[Mnemonic.CPS] = _t(1, "CPS(114)"),
             [Mnemonic.ANDEQ] = _n(1, "AND=(300)"),
@@ -57,13 +57,13 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.ANDGREATERTHAN] = _n(1, "AND>(320)"),
 
 
-            [Mnemonic.MOVE] = _t(1, "MOV(021)"),
+            [Mnemonic.MOVE] = _t(1, "MOV(21)"),
             [Mnemonic.RSTB] = _t(1, "RSTB(533)"),
 
             [Mnemonic.CONCATSTRING] = _n(1, "+$(656)"),
 
-            [Mnemonic.NOP] = _t(1, "NOP(000)"),
-            [Mnemonic.END] = _t(1, "END(001)"),
+            [Mnemonic.NOP] = _t(1, "NOP(0)"),
+            [Mnemonic.END] = _t(1, "END(1)"),
 
             [Mnemonic.RUNG_COMMENT] = _t(0, "'"),
 

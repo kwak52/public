@@ -144,11 +144,21 @@ namespace PLCConvertor
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             var map = ConvertParams.SourceVariableMap;
-                            form.Text
+                            form.SymbolTableText
                                 .SplitByLines(StringSplitOptions.RemoveEmptyEntries)
                                 .Select(line => generatePlcVariable(line))
                                 .Iter(v => {
-                                    if (!map.ContainsKey(v.Device))
+                                    if (map.ContainsKey(v.Device))
+                                    {
+                                        var existingV = map[v.Device];
+                                        if (v.Name.NonNullAny() && existingV.Name.IsNullOrEmpty())
+                                            existingV.Name = v.Name;
+                                        if (v.Variable.NonNullAny() && existingV.Variable.IsNullOrEmpty())
+                                            existingV.Variable = v.Variable;
+                                        if (v.Comment.NonNullAny() && existingV.Comment.IsNullOrEmpty())
+                                            existingV.Comment = v.Comment;
+                                    }
+                                    else
                                         map.Add(v.Device, v);
                                 });
                         }

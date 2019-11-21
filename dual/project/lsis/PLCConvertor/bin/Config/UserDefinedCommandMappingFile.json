@@ -30,7 +30,7 @@
     ],
     "IsTerminal": false,
     "IsLoad": true,
-    "Message": "LD 명령은 사용자 정의 할 수 없습니다."
+    "Message": "LD 명령은 사용자 정의 할 수 없습니다.  (LD TR?? 때문에)"
   },
   {
     "Command": "DIFU(013)",
@@ -94,6 +94,15 @@
     "Message": "BCD(024) -> BCD ??? : Binary to BCD"
   },
   {
+    "Command": "ANDW(034)",
+    "PerInputProc": [
+      "AND $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "ANDW(034) -> AND ???"
+  },
+  {
     "Command": "MOVD(083)",
     "PerInputProc": [
       "MOV $0 $2"
@@ -127,7 +136,7 @@
     ],
     "IsTerminal": true,
     "IsLoad": false,
-    "PS" : "인자의 순서가 바뀜"
+    "PS": "인자의 순서가 바뀜"
   },
 
   {
@@ -142,6 +151,14 @@
   {
     "Command": "LD=(300)",
     "PerInputProc": [
+      "ULOAD= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD=S(302)",
+    "PerInputProc": [
       "LOAD= $0 $1"
     ],
     "IsTerminal": false,
@@ -150,7 +167,7 @@
   {
     "Command": "LD<>(305)",
     "PerInputProc": [
-      "LOAD<> $0"
+      "ULOAD<> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -158,7 +175,15 @@
   {
     "Command": "LD<(310)",
     "PerInputProc": [
-      "LOAD< $0"
+      "ULOAD< $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD<S(312)",
+    "PerInputProc": [
+      "LOAD< $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -166,7 +191,15 @@
   {
     "Command": "LD<=(315)",
     "PerInputProc": [
-      "LOAD<= $0"
+      "ULOAD<= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD<=S(317)",
+    "PerInputProc": [
+      "LOAD<= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -174,7 +207,23 @@
   {
     "Command": "LD>(320)",
     "PerInputProc": [
-      "LOAD> $0"
+      "ULOAD> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD>S(322)",
+    "PerInputProc": [
+      "LOAD> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD>SL(323)",
+    "PerInputProc": [
+      "LOADR> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -182,12 +231,19 @@
   {
     "Command": "LD>(325)",
     "PerInputProc": [
-      "LOAD>= $0"
+      "ULOAD>= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
   },
-
+  {
+    "Command": "LD>=S(327)",
+    "PerInputProc": [
+      "LOAD>= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
   {
     "Command": "NEG(160)",
     "PerInputProc": [
@@ -203,13 +259,44 @@
   {
     "Command": "AND=(300)",
     "PerInputProc": [
+      "UAND= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND=(300) -> AND= ???",
+    "PS": "UAND not working???"
+  },
+  {
+    "Command": "AND=L(301)",
+    "PerInputProc": [
+      "ANDL= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND=(300) -> AND= ???",
+    "PS": "UAND not working???"
+  },
+  {
+    "Command": "AND=S(302)",
+    "PerInputProc": [
       "AND= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
     "Message": "AND=(300) -> AND= ???",
-    "PS" : "UAND not working???"
+    "PS": "UAND not working???"
   },
+  {
+    "Command": "AND=SL(303)",
+    "PerInputProc": [
+      "ANDL= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND=(300) -> AND= ???",
+    "PS": "UAND not working???"
+  },
+
   {
     "Command": "AND<>(305)",
     "PerInputProc": [
@@ -258,7 +345,7 @@
   {
     "Command": "AND>(320)",
     "PerInputProc": [
-      "AND> $0 $1"
+      "UAND> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -274,9 +361,18 @@
     "Message": "AND>S(322) -> AND> ???"
   },
   {
+    "Command": "AND>SL(323)",
+    "PerInputProc": [
+      "ANDL> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "AND>SL(323) -> ANDL> ???"
+  },
+  {
     "Command": "AND>=(325)",
     "PerInputProc": [
-      "AND>= $0 $1"
+      "UAND>= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -296,16 +392,24 @@
   {
     "Command": "OR=(300)",
     "PerInputProc": [
-      "OR= $0 $1"
+      "UOR= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
     "Message": "OR=(300) -> OR= ???"
   },
   {
+    "Command": "OR=S(302)",
+    "PerInputProc": [
+      "OR= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false
+  },
+  {
     "Command": "OR<>(305)",
     "PerInputProc": [
-      "OR<> $0 $1"
+      "UOR<> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -314,16 +418,25 @@
   {
     "Command": "OR<(310)",
     "PerInputProc": [
-      "OR< $0 $1"
+      "UOR< $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
     "Message": "OR<(310) -> OR< ???"
   },
   {
+    "Command": "OR<S(312)",
+    "PerInputProc": [
+      "OR< $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR<S(312) -> OR< ???"
+  },
+  {
     "Command": "OR<=(315)",
     "PerInputProc": [
-      "OR<= $0 $1"
+      "UOR<= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -341,7 +454,7 @@
   {
     "Command": "OR>(320)",
     "PerInputProc": [
-      "OR> $0 $1"
+      "UOR> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -357,9 +470,19 @@
     "Message": "OR>S(322) -> OR> ???"
   },
   {
+    "Command": "OR>SL(323)",
+    "PerInputProc": [
+      "ORR> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false,
+    "Message": "OR>SL(323) -> OR> ???"
+  },
+
+  {
     "Command": "OR>=(325)",
     "PerInputProc": [
-      "OR>= $0 $1"
+      "UOR>= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -436,13 +559,31 @@
     "Message": "/B(434) -> DIVB ??? (BCD division)"
   },
   {
-    "Command": "-----FLT(452)",
+    "Command": "FIX(450)",
     "PerInputProc": [
-      "BCD $0; BCDR $0 $1"
+      "R2I $0 $1"
     ],
     "IsTerminal": true,
     "IsLoad": false,
-    "Message": "FLT: BIN to FLOAT : MOVL(498) -> LMOV ???"
+    "Message": "FIX(450) -> R2I ???"
+  },
+  {
+    "Command": "FLT(452)",
+    "PerInputProc": [
+      "I2R $0 $1"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "FLT(452) -> I2R ???"
+  },
+  {
+    "Command": "*F(456)",
+    "PerInputProc": [
+      "RMUL $0 $1 $2"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "/*(456) -> RMUL ???"
   },
   {
     "Command": "/F(457)",
@@ -501,6 +642,15 @@
     "IsLoad": false
   },
   {
+    "Command": "++(590)",
+    "PerInputProc": [
+      "INC $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "++(590) --> INC ???"
+  },
+  {
     "Command": "@++(590)",
     "PerInputProc": [
       "XXX $0"
@@ -508,6 +658,15 @@
     "IsTerminal": true,
     "IsLoad": false,
     "Message": "@++(590) 이 변환되지 않았습니다."
+  },
+  {
+    "Command": "++L(599)",
+    "PerInputProc": [
+      "DINC $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "++L(599) --> DINC ???"
   },
   {
     "Command": "LEN$(650)",
@@ -533,6 +692,14 @@
       "$MOV $0 $1"
     ],
     "IsTerminal": true,
+    "IsLoad": false
+  },
+  {
+    "Command": "AND=$(670)",
+    "PerInputProc": [
+      "AND$= $0 $1"
+    ],
+    "IsTerminal": false,
     "IsLoad": false
   },
 
@@ -571,5 +738,5 @@
     "IsTerminal": true,
     "IsLoad": false,
     "Message": "TKOF(821) -> DIN ??? : Disable task"
-  },
+  }
 ]

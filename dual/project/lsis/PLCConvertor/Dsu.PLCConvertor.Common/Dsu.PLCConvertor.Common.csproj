@@ -60,6 +60,7 @@
     <Compile Include="Internal\AddressConvert\AddressConvertRule.cs" />
     <Compile Include="Internal\AddressConvert\AddressConvertRuleSpecialRelay.cs" />
     <Compile Include="Internal\AddressConvert\Interfaces.cs" />
+    <Compile Include="Internal\AddressConvert\TemporaryAddressAllocator.cs" />
     <Compile Include="Internal\Common.Extension.cs" />
     <Compile Include="Internal\ConvertParams.cs" />
     <Compile Include="Internal\CxtGenerator\CxtGenerator.cs" />
