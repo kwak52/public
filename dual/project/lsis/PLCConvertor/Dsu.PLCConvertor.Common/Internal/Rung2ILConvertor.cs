@@ -13,17 +13,35 @@ namespace Dsu.PLCConvertor.Common
     /// <summary>
     /// Rung 을 LS산전 IL 로 변환
     /// </summary>
-    internal partial class Rung2ILConvertor
+    public class Rung2ILConvertor
     {
         ILog Logger = Global.Logger;
         Rung _rung;
-        ConvertParams _convertParam;
-        PLCVendor _targetType => _convertParam.TargetType;
+        internal ConvertParams _convertParam;
+        internal PLCVendor TargetType => _convertParam.TargetType;
 
         /// <summary>
         /// Rung 변환시 발생한 에러/경고/알림 메시지
         /// </summary>
         List<string> _numberedMessages = new List<string>();
+
+
+        /// <summary>
+        /// Rung 변환에 필요한 추가적 사전 IL command set.  %ANDNOT 등의 처리시 필요
+        /// </summary>
+        public List<string> ProglogRungs = new List<string>();
+        /// <summary>
+        /// Rung 변환 후, 필요한 추가적 IL command set.
+        /// </summary>
+        public List<string> EpilogRungs = new List<string>();
+
+        /// <summary>
+        /// ONS : Temprorary address allocator
+        /// </summary>
+        internal TemporaryAddressAllocator TempAddressAllocator = TemporaryAddressAllocator.Dup();
+        //internal Lazy<TemporaryAddressAllocator> TempAddressAllocator =
+        //    new Lazy<TemporaryAddressAllocator>(() => TemporaryAddressAllocator.Dup());
+
         public IEnumerable<string> GetNumberedMessages()
         {
             return
@@ -132,7 +150,7 @@ namespace Dsu.PLCConvertor.Common
 
                 // 기본 data node
                 default:
-                    yield return node.ToIL(_targetType);
+                    yield return node.ToIL(this);
                     break;
             }
 
@@ -159,14 +177,14 @@ namespace Dsu.PLCConvertor.Common
                         _numberedMessages.Add($"[{ss+1}] [{ts+1}] [{Cx2Xg5kOption.LabelHeader} {udc.Message}]");     // kkk: 메지지 추가
                     }
 
-                    udf.ILSentence = ILSentence.Create(_targetType, point.ILSentence);
+                    udf.ILSentence = ILSentence.Create(TargetType, point.ILSentence);
 
                     var xs2 = udf.EnumeratePerInputs();
                     foreach (var x in xs2)
                         yield return x;
                 }
                 else
-                    yield return point.ToIL(_targetType);
+                    yield return point.ToIL(this);
                 if (point is ITerminalNode || udcTerminal)
                 {
                     var xs2 = FollowEdgeStack();
@@ -244,7 +262,7 @@ namespace Dsu.PLCConvertor.Common
 
             if (_rung.RungComment.NonNullAny())
             {
-                xs = _rung.RungComment.Select(rc => ILSentence.Create(_targetType, rc).ToString());
+                xs = _rung.RungComment.Select(rc => ILSentence.Create(TargetType, rc).ToString());
                 foreach (var x in xs)
                     yield return x;
             }
@@ -257,7 +275,17 @@ namespace Dsu.PLCConvertor.Common
             else
                 xs = ConvertFunctionOutput();
 
-            foreach(var x in xs)
+            // ONS : rung 변환을 위해서 앞부분에 추가한 내용
+            foreach (var x in ProglogRungs)
+                yield return x;
+
+            // 현재 변환 중인 rung contents
+            foreach (var x in xs)
+                yield return x;
+
+
+            // ONS : rung 변환 후, 뒷부분에 추가한 내용
+            foreach (var x in EpilogRungs)
                 yield return x;
         }
 
@@ -365,7 +393,7 @@ namespace Dsu.PLCConvertor.Common
     }
 
 
-    internal class ConvertResult
+    public class ConvertResult
     {
         public string[] Results;
         public string[] NumberedMessages;
@@ -386,7 +414,12 @@ namespace Dsu.PLCConvertor.Common
 
     internal static class PointExtension
     {
-        public static string ToIL(this IPoint point, PLCVendor targetType) => ILSentence.Create(targetType, point.ILSentence).ToString();
+        public static string ToIL(this IPoint point, Rung2ILConvertor r2iConverter)
+        {
+            var il = ILSentence.Create(r2iConverter, point.ILSentence);
+            return il.ToString();
+        }
+        //public static string ToIL(this IPoint point, PLCVendor targetType) => ILSentence.Create(targetType, point.ILSentence).ToString();
 
         //public static IEnumerable<string> ToIL(this Point point, PLCVendor targetType)
         //{

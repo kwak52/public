@@ -1,0 +1,11 @@
+{
+  "Name": "LB",
+  "Pattern": "L9999.(%2d)",
+  "XXXXPattern": "(%d).(%2d)",
+  "MinMax": [
+    {
+      "Min": 0,
+      "Max": 15
+    }
+  ]
+}

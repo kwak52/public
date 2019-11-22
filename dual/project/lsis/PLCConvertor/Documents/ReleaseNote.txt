@@ -1,2 +1,5 @@
-﻿1.1.0.8 Nov 22, 2019
+﻿1.1.0.9 Nov 22, 2019
+	* ONS : OneShotRising, OneShotFalling 변환 구현
+	* SplashScreenWaitor, XtraMessageBox
+1.1.0.8 Nov 22, 2019
 	* ReleaseNote added.

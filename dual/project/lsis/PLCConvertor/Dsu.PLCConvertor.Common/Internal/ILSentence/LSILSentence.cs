@@ -1,4 +1,5 @@
-﻿using Dsu.PLCConvertor.Common.Internal;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.PLCConvertor.Common.Internal;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,8 +9,10 @@ namespace Dsu.PLCConvertor.Common
     public class LSILSentence : ILSentence
     {
         PLCVendor _vendorType = PLCVendor.LSIS;
-        public LSILSentence(ILSentence other)
-            : base(other)
+
+        
+        internal LSILSentence(Rung2ILConvertor r2iConverter, ILSentence other)
+            : base(r2iConverter, other)
         {
             switch (Mnemonic)
             {
@@ -28,21 +31,16 @@ namespace Dsu.PLCConvertor.Common
                     Command = IL.GetOperator(_vendorType, other.Mnemonic);
                     break;
             }
-
-            var omron = other as OmronILSentence;
-            if (omron != null)
-            {
-                switch (omron.Variation)
-                {
-                    case OmronILSentence.VariationType.DiffrentiationOn:
-                        Command = Command + "P";
-                        break;
-                    case OmronILSentence.VariationType.DiffrentiationOff:
-                        Command = Command + "N";
-                        break;
-                }
-            }
         }
+
+        // 옴론 -> 산전 변환시 사용되지 않음.        
+        private LSILSentence()
+            : base(PLCVendor.LSIS)
+        {
+            Debugger.Break();
+        }
+
+
 
         /// <summary>
         /// 변환시 필요하면 Argument 변환
@@ -77,13 +75,28 @@ namespace Dsu.PLCConvertor.Common
             return arg;
         }
 
-
-
-        // 옴론 -> 산전 변환시 사용되지 않음.        
-        private LSILSentence()
-            : base(PLCVendor.LSIS, true)
+        protected override string FilterCommand(string command)
         {
-            Debugger.Break();
+            var omron = _sourceILSentence as OmronILSentence;
+            if (omron != null)
+            {
+                // diffrentiation 과 NOT 이 함께 쓰인 것은 산전으로 직접 변환이 불가능.
+                // NOT 없이 사용되면 P 나 N 을 붙여서 처리
+                // ONS
+                var containsNot = Command.Contains("NOT");
+                switch (omron.Variation)
+                {
+                    case OmronILSentence.VariationType.DiffrentiationOn:
+                        if (!containsNot)
+                            Command = Command + "P";
+                        break;
+                    case OmronILSentence.VariationType.DiffrentiationOff:
+                        if (!containsNot)
+                            Command = Command + "N";
+                        break;
+                }
+            }
+            return Command;
         }
 
 
@@ -95,16 +108,29 @@ namespace Dsu.PLCConvertor.Common
         {
             if (UseAddressMapping && Mnemonic != Mnemonic.RUNG_COMMENT)
             {
+                var omron = _sourceILSentence as OmronILSentence;
+                bool isOneShot =
+                    omron != null 
+                    && omron.Variation.IsOneOf(OmronILSentence.VariationType.DiffrentiationOn, OmronILSentence.VariationType.DiffrentiationOff);
+
+
                 var rs = AddressConvertorInstance;
                 var args = Args.Select(arg =>
                 {
-                    var targetDevice = arg;
-                    if (rs.IsMatch(arg))
+                    if (isOneShot) // ONS:
                     {
-                        targetDevice = rs.Convert(arg);
+                        var diffrentiation = omron.Variation == OmronILSentence.VariationType.DiffrentiationOn ? '@' : '%';
+                        var searchResult = _rung2ILConvertor.TempAddressAllocator.Allocate(this, $"{diffrentiation}{arg}");
+                        _rung2ILConvertor.ProglogRungs.AddRange(searchResult.PrologRungILs);
+                        return searchResult.Temporary;
                     }
+                    else
+                    {
+                        if (rs.IsMatch(arg))
+                            return rs.Convert(arg);
 
-                    return targetDevice;
+                        return arg;
+                    }
                 });
                 var operands = string.Join(" ", args);
                 return $"{Command}\t{operands}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
