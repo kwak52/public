@@ -111,28 +111,27 @@ namespace Dsu.PLCConvertor.Common
                 var omron = _sourceILSentence as OmronILSentence;
                 bool isOneShot =
                     omron != null 
-                    && omron.Variation.IsOneOf(OmronILSentence.VariationType.DiffrentiationOn, OmronILSentence.VariationType.DiffrentiationOff);
+                    && omron.Variation.IsOneOf(OmronILSentence.VariationType.DiffrentiationOn, OmronILSentence.VariationType.DiffrentiationOff)
+                    && omron.Command.Contains("NOT")
+                    ;
 
 
                 var rs = AddressConvertorInstance;
-                var args = Args.Select(arg =>
+                Args = Args.Select(a =>
                 {
+                    var arg = rs.IsMatch(a) ? rs.Convert(a) : a;
+
                     if (isOneShot) // ONS:
                     {
                         var diffrentiation = omron.Variation == OmronILSentence.VariationType.DiffrentiationOn ? '@' : '%';
-                        var searchResult = _rung2ILConvertor.TempAddressAllocator.Allocate(this, $"{diffrentiation}{arg}");
+                        var searchResult = _rung2ILConvertor.TempAddressAllocator.Value.Allocate(this, $"{diffrentiation}{arg}");
                         _rung2ILConvertor.ProglogRungs.AddRange(searchResult.PrologRungILs);
                         return searchResult.Temporary;
                     }
-                    else
-                    {
-                        if (rs.IsMatch(arg))
-                            return rs.Convert(arg);
 
-                        return arg;
-                    }
-                });
-                var operands = string.Join(" ", args);
+                    return arg;
+                }).ToArray();
+                var operands = string.Join(" ", Args);
                 return $"{Command}\t{operands}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
             }
             else

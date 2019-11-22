@@ -1,4 +1,4 @@
-﻿- 
+﻿- Resource[1] 등, 다중 resource file 처리.  원익 샘플
  * 
 
 DONE - 

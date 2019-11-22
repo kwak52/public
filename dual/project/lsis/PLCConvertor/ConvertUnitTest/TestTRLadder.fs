@@ -1,4 +1,4 @@
-﻿module Conv
+﻿namespace t
 
 open Xunit
 open Xunit.Abstractions
@@ -13,6 +13,7 @@ type Conv(output1:ITestOutputHelper) =
     let testRung (m:MnemonicInput) n =
         let old = LSILSentence.UseAddressMapping;
         LSILSentence.UseAddressMapping <- false
+        ILSentence.AddressConvertorInstance <- new AddressConvertor([])
         let comment = m.Comment
         let co = MnemonicInput.CommentOutMultiple
         let converted =
@@ -52,6 +53,9 @@ type Conv(output1:ITestOutputHelper) =
                 
             p1 || p2
 
+        if (not correct && not correct2) then
+            ()
+
         (correct || correct2) |> should equal true
         LSILSentence.UseAddressMapping <- old
 
@@ -85,7 +89,19 @@ type Conv(output1:ITestOutputHelper) =
         MnemonicInput.InputsNG
             |> Array.iteri (fun n m -> testRung m n )
 
+    /// ladder test Constants
+    [<Fact>]
+    member __.``Ladder Test Constants`` () =
+        MnemonicInput.InputsConstants
+            |> Array.iteri (fun n m -> testRung m n )
 
+    /// ladder test Differentiation
+    [<Fact>]
+    member __.``Ladder Test Differentiation`` () =
+        MnemonicInput.InputsDifferentiation
+            |> Array.iteri (fun n m -> testRung m n )
+
+            
     /// CXT parsing
     [<Fact>]
     member __.``Test CXT parser`` () =

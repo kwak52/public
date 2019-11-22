@@ -86,6 +86,8 @@
     <Compile Include="Internal\PLCVariable.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.BUG.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.Complex.cs" />
+    <Compile Include="Internal\TestInputs\MnemonicInput.Constants.cs" />
+    <Compile Include="Internal\TestInputs\MnemonicInput.Differentiation.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.Special.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.TR.cs" />
     <Compile Include="Internal\TestInputs\MnemonicInput.NG.cs" />

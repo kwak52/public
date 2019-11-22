@@ -41,7 +41,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
 
         public bool IsMatch(string sourceAddress) => _normalRules.Any(r => r.IsMatch(sourceAddress));
-        public string Convert(string sourceAddress) => convert(sourceAddress, _normalRules);
+        public string Convert(string sourceAddress) => IsMatch(sourceAddress) ? convert(sourceAddress, _normalRules) : sourceAddress;
         public string ConvertWithNamedRule(string ruleName, string sourceAddress)
             => convert(sourceAddress, new[] { _namedAddressRules[ruleName] });
 

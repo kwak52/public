@@ -56,6 +56,22 @@
       "SourceRepr": "(%d).(%2d)",
       "TargetRepr": "P(%04d)(%x)"
     },
+
+
+
+    {
+      "SourceArgsMinMax": [
+        {
+          "Min": 0,
+          "Max": 511
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0"
+      ],
+      "SourceRepr": "H(%d)",
+      "TargetRepr": "M(%04d)"
+    },
     {
       "SourceArgsMinMax": [
         {
@@ -73,6 +89,19 @@
       ],
       "SourceRepr": "H(%d).(%2d)",
       "TargetRepr": "M(%04d)(%x)"
+    },
+    {
+      "SourceArgsMinMax": [
+        {
+          "Min": 0,
+          "Max": 511
+        }
+      ],
+      "TargetArgsExpr": [
+        "$0 + 2000"
+      ],
+      "SourceRepr": "W(%d)",
+      "TargetRepr": "L(%04d)"
     },
     {
       "SourceArgsMinMax": [
@@ -133,7 +162,7 @@
         }
       ],
       "TargetArgsExpr": [
-        "$0 + 6000"
+        "$0"
       ],
       "SourceRepr": "D(%d)",
       "TargetRepr": "D(%d)"
@@ -153,7 +182,7 @@
         "$0 * 10000 + $1"
       ],
       "SourceRepr": "E(%d)_(%d)",
-      "TargetRepr": "D(%d)"
+      "TargetRepr": "E(%d)"
     },
 
     {
@@ -176,7 +205,7 @@
         "$2"
       ],
       "SourceRepr": "E(%d)_(%d).(%d)",
-      "TargetRepr": "D(%d).(%x)"
+      "TargetRepr": "E(%d).(%x)"
     },
 
     {

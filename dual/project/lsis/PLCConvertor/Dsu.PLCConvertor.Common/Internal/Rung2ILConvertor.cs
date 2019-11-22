@@ -38,9 +38,8 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// ONS : Temprorary address allocator
         /// </summary>
-        internal TemporaryAddressAllocator TempAddressAllocator = TemporaryAddressAllocator.Dup();
-        //internal Lazy<TemporaryAddressAllocator> TempAddressAllocator =
-        //    new Lazy<TemporaryAddressAllocator>(() => TemporaryAddressAllocator.Dup());
+        internal Lazy<TemporaryAddressAllocator> TempAddressAllocator =
+            new Lazy<TemporaryAddressAllocator>(() => TemporaryAddressAllocator.Dup());
 
         public IEnumerable<string> GetNumberedMessages()
         {
