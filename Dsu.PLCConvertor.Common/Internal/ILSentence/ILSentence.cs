@@ -92,23 +92,31 @@ namespace Dsu.PLCConvertor.Common
                     Args =
                         Args.Select(arg =>
                         {
-
-                            var v = ConvertParams.SearchVariable(arg);
-                            if (v != null)
+                            try
                             {
-                                try
+                                var addrConvertor = ILSentence.AddressConvertorInstance;
+                                var v = ConvertParams.SearchVariable(arg);
+                                if (v == null)
+                                    return addrConvertor.Convert(arg);
+                                else
                                 {
-                                    var d = ILSentence.AddressConvertorInstance.Convert(v.Device);
-                                    if (!UsedSourceDevices.ContainsKey(d))
-                                        UsedSourceDevices.Add(d, new PLCVariable(d, v));
-                                    return v.Device;
-                                }
-                                catch (Exception)
-                                {
+                                    // 심볼 테이블에 정의된 device 를 기준으로 변환한 것.
+                                    var d1 = addrConvertor.Convert(v.Device);   // Symbol -> Device -> Converted Device : P_On -> CF113 -> CF113
+                                    var d2 = addrConvertor.Convert(arg);        // Symbol -> Converted Device : P_On -> F00099
+                                    if (d2 != arg && d1 != d2)
+                                        d1 = d2;
+
+                                    if (!UsedSourceDevices.ContainsKey(d1))
+                                        UsedSourceDevices.Add(d1, new PLCVariable(d1, v));
+                                    return d1;
+                                    //return v.Device;
                                 }
                             }
-                            return arg;
+                            catch (Exception)
+                            {
+                            }
 
+                            return arg;
                         })
                         .ToArray();
                 }
@@ -133,14 +141,17 @@ namespace Dsu.PLCConvertor.Common
         }
         internal static ILSentence Create(Rung2ILConvertor r2iConverter, ILSentence sentence)
         {
+            ILSentence ils = null;
             var vendorType = r2iConverter.TargetType;
             switch (vendorType)
             {
-                case PLCVendor.LSIS: return new LSILSentence(r2iConverter, sentence);
-                case PLCVendor.Omron: return new OmronILSentence(r2iConverter, sentence);
+                case PLCVendor.LSIS: ils = new LSILSentence(r2iConverter, sentence); break;
+                case PLCVendor.Omron: ils = new OmronILSentence(r2iConverter, sentence); break;
                 default:
                     throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
             }
+            ils.ModifyArguments();
+            return ils;
         }
         internal static ILSentence Create(PLCVendor vendorType, string sentence)
         {
