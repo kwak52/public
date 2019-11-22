@@ -99,7 +99,7 @@ namespace PLCConvertor.Forms
                     var perSentenceTransform =
                         string.Join("\r\n",
                             MnemonicInput.MultilineString2Array(input)
-                            .Select(m => new LSILSentence(OmronILSentence.Create(m)))
+                            .Select(m => new LSILSentence(null, OmronILSentence.Create(m)))
                             .Select(m => m.ToString()));
                     if (perSentenceTransform.Replace('\t', ' ') == converted)
                         correct = true;

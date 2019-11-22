@@ -14,9 +14,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{91722776-08B2-40C8-AEFF-9E78678B7FD6}"
 	ProjectSection(SolutionItems) = preProject
 		bin\Config\AddressMappingRule.json = bin\Config\AddressMappingRule.json
+		Documents\Bugs.txt = Documents\Bugs.txt
 		Documents\ReleaseNote.txt = Documents\ReleaseNote.txt
+		bin\Config\TemporaryAddressAllocatorFile.json = bin\Config\TemporaryAddressAllocatorFile.json
 		Documents\TestRung.cxp = Documents\TestRung.cxp
 		Documents\TestRung.xgwx = Documents\TestRung.xgwx
+		Documents\ToDo.txt = Documents\ToDo.txt
 		bin\Config\UserDefinedCommandMappingFile.json = bin\Config\UserDefinedCommandMappingFile.json
 	EndProjectSection
 	ProjectSection(FolderGlobals) = preProject

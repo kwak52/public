@@ -12,6 +12,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.IO;
 using System.Configuration;
+using DevExpress.XtraEditors;
 
 namespace PLCConvertor
 {
@@ -134,7 +135,13 @@ namespace PLCConvertor
 
                 ConvertParams.Reset();
                 acceptSymbolsByUserPaste();
-                Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
+
+                using (var waitor = new SplashScreenWaitor("변환중", $"{stem}.cxt 을 변환 중입니다."))
+                    Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
+
+                MsgBox.Info("변환완료", $"{stem}.cxt 변환 완료!");
+
+
 
                 void acceptSymbolsByUserPaste()
                 {

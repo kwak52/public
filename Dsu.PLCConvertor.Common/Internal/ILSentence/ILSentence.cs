@@ -31,18 +31,45 @@ namespace Dsu.PLCConvertor.Common
         public int Arity => ILCommand.Arity;
 
         PLCVendor VendorType;
-        protected bool IsSource { get; set; }
+        protected bool IsSource => _sourceILSentence == null;
 
-        protected ILSentence(PLCVendor vendorType, bool isSource)
+        internal Rung2ILConvertor _rung2ILConvertor;
+        internal ILSentence _sourceILSentence;
+
+        protected ILSentence(PLCVendor vendorType)
+            : this(null, vendorType)
+        { }
+
+        protected ILSentence(Rung2ILConvertor rung2IlConveror, PLCVendor vendorType)
         {
             VendorType = vendorType;
-            IsSource = isSource;
+            _rung2ILConvertor = rung2IlConveror;
         }
+        protected ILSentence(Rung2ILConvertor r2iConverter, ILSentence other)
+        {
+            Command = other.Command;
+            Args = other.Args;
+            Sentence = other.Sentence;
+            VendorType = other.VendorType;
+            Mnemonic = other.Mnemonic;
+            ILCommand = other.ILCommand;
+            _rung2ILConvertor = r2iConverter;
+
+            _sourceILSentence = other;
+
+            if (Mnemonic == Mnemonic.UNDEFINED || Mnemonic == Mnemonic.USERDEFINED)
+                Console.WriteLine("");
+        }
+
 
         protected virtual string FilterCommand(string command) => command;
 
         protected virtual string ModifiyArgument(string arg, int nth) { return arg; }
-        public void ModifyArguments() { Args = Args.Select((arg, n) => ModifiyArgument(arg, n)).ToArray(); }
+        public void ModifyArguments()
+        {
+            FilterCommand(Command);
+            Args = Args.Select((arg, n) => ModifiyArgument(arg, n)).ToArray();
+        }
         protected void Fill(string sentence)
         {
             var tokens = sentence.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
@@ -88,27 +115,34 @@ namespace Dsu.PLCConvertor.Common
             }
         }
 
-        protected ILSentence(ILSentence other)
-        {
-            Command = other.Command;
-            Args = other.Args;
-            Sentence = other.Sentence;
-            VendorType = other.VendorType;
-            Mnemonic = other.Mnemonic;
-            ILCommand = other.ILCommand;
-
-            IsSource = false;
-
-            if (Mnemonic == Mnemonic.UNDEFINED || Mnemonic == Mnemonic.USERDEFINED)
-                Console.WriteLine("");
-        }
-
         public override string ToString()
         {
             return $"{Command} {string.Join(" ", Args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
         }
 
-        public static ILSentence Create(PLCVendor vendorType, string sentence)
+        internal static ILSentence Create(Rung2ILConvertor r2iConverter, string sentence)
+        {
+            var vendorType = r2iConverter.TargetType;
+            switch (vendorType)
+            {
+                case PLCVendor.LSIS: return LSILSentence.Create(vendorType, sentence);
+                case PLCVendor.Omron: return OmronILSentence.Create(vendorType, sentence);
+                default:
+                    throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
+            }
+        }
+        internal static ILSentence Create(Rung2ILConvertor r2iConverter, ILSentence sentence)
+        {
+            var vendorType = r2iConverter.TargetType;
+            switch (vendorType)
+            {
+                case PLCVendor.LSIS: return new LSILSentence(r2iConverter, sentence);
+                case PLCVendor.Omron: return new OmronILSentence(r2iConverter, sentence);
+                default:
+                    throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
+            }
+        }
+        internal static ILSentence Create(PLCVendor vendorType, string sentence)
         {
             ILSentence ils = null;
             switch (vendorType)
@@ -119,6 +153,22 @@ namespace Dsu.PLCConvertor.Common
                     throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
             }
 
+            ils.ModifyArguments();
+            return ils;
+        }
+
+        internal static ILSentence Create(PLCVendor vendorType, ILSentence sentence)
+        {
+            ILSentence ils = null;
+            switch (vendorType)
+            {
+                case PLCVendor.LSIS: ils = new LSILSentence(null, sentence); break;
+                case PLCVendor.Omron: ils = new OmronILSentence(null, sentence); break;
+                default:
+                    throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
+            }
+
+            ils.ModifyArguments();
             return ils;
         }
 
@@ -142,20 +192,6 @@ namespace Dsu.PLCConvertor.Common
                 });
         }
 
-        public static ILSentence Create(PLCVendor vendorType, ILSentence sentence)
-        {
-            ILSentence ils = null;
-            switch (vendorType)
-            {
-                case PLCVendor.LSIS: ils = new LSILSentence(sentence); break;
-                case PLCVendor.Omron: ils = new OmronILSentence(sentence); break;
-                default:
-                    throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
-            }
-
-            ils.ModifyArguments();
-            return ils;
-        }
 
         public bool IsAndFamily()
         {

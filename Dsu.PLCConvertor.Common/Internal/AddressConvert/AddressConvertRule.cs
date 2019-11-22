@@ -67,7 +67,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             : base(sourceRepr, targetRepr)
         {
             SourceArgsMinMax = sourceArgsMinMax.ToArray();
-            TargetArgsExpr = targetArgsExpr.ToArray();
+            TargetArgsExpr = targetArgsExpr?.ToArray();
         }
 
         /// <summary>

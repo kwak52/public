@@ -30,8 +30,8 @@ namespace Dsu.PLCConvertor.Common
 
         public VariationType Variation { get; private set; }
         // 옴론 -> 산전 변환시 사용되지 않음.  변환 target 이 옴론일 경우 사용될 수 있음.
-        public OmronILSentence(ILSentence other)
-            : base(other)
+        public OmronILSentence(Rung2ILConvertor r2iConverter, ILSentence other)
+            : base(r2iConverter, other)
         {
             Debugger.Break();
             if (Mnemonic == Mnemonic.UNDEFINED)
@@ -47,7 +47,7 @@ namespace Dsu.PLCConvertor.Common
 
         // 옴론 -> 산전 변환시 사용되는 생성자
         private OmronILSentence()
-            : base(PLCVendor.Omron, true)
+            : base(PLCVendor.Omron)
         {
         }
 
