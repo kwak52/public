@@ -57,12 +57,21 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         public void Convert(ConvertParams cvtParam)
         {
-            // 변환 이전에 초기화 수행
-            cvtParam.ResetStartStep();
-            ClearResult();
+            try
+            {
+                Global.UIMessageSubject.OnNext($"프로그램 {Name} 변환 중..");
 
-            // program 을 구성하는 각 section 들을 모두 변환.  변환 결과는 중간 결과로 저장하고 있음
-            Sections.Iter(sec => sec.Convert(cvtParam));
+                // 변환 이전에 초기화 수행
+                cvtParam.ResetStartStep();
+                ClearResult();
+
+                // program 을 구성하는 각 section 들을 모두 변환.  변환 결과는 중간 결과로 저장하고 있음
+                Sections.Iter(sec => sec.Convert(cvtParam));
+            }
+            finally
+            {
+                Global.UIMessageSubject.OnNext("");
+            }
         }
 
         /// <summary>

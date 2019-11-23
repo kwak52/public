@@ -32,9 +32,6 @@
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
@@ -45,11 +42,11 @@
             this.repositoryItemComboBoxSource = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.barEditItemTarget = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemComboBoxTarget = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            this.barCheckItemSplitBySection = new DevExpress.XtraBars.BarCheckItem();
             this.barButtonItemAddressMapping = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemEditAddressMappingRule = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemEditPerferences = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemTestAddress = new DevExpress.XtraBars.BarButtonItem();
+            this.barCheckItemWithSymbols = new DevExpress.XtraBars.BarCheckItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupOptions = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -63,7 +60,6 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.barCheckItemWithSymbols = new DevExpress.XtraBars.BarCheckItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -102,7 +98,6 @@
             this.barButtonItemCxtParse,
             this.barEditItemSource,
             this.barEditItemTarget,
-            this.barCheckItemSplitBySection,
             this.barButtonItemAddressMapping,
             this.barButtonItemEditAddressMappingRule,
             this.barButtonItemEditPerferences,
@@ -161,21 +156,6 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemComboBoxTarget.Name = "repositoryItemComboBoxTarget";
             // 
-            // barCheckItemSplitBySection
-            // 
-            this.barCheckItemSplitBySection.BindableChecked = true;
-            this.barCheckItemSplitBySection.Caption = "Section split";
-            this.barCheckItemSplitBySection.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
-            this.barCheckItemSplitBySection.Checked = true;
-            this.barCheckItemSplitBySection.Id = 5;
-            this.barCheckItemSplitBySection.Name = "barCheckItemSplitBySection";
-            toolTipTitleItem1.Text = "Prefer section split";
-            toolTipItem1.LeftIndent = 6;
-            toolTipItem1.Text = "If checked, force split sections in a program to separate program";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            superToolTip1.Items.Add(toolTipItem1);
-            this.barCheckItemSplitBySection.SuperTip = superToolTip1;
-            // 
             // barButtonItemAddressMapping
             // 
             this.barButtonItemAddressMapping.Caption = "Address mapping";
@@ -202,13 +182,20 @@
             this.barButtonItemTestAddress.Caption = "Test address";
             this.barButtonItemTestAddress.Id = 9;
             this.barButtonItemTestAddress.Name = "barButtonItemTestAddress";
-            toolTipTitleItem2.Text = "Test Address Mapping";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "Test conversion of device address.";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            superToolTip2.Items.Add(toolTipItem2);
-            this.barButtonItemTestAddress.SuperTip = superToolTip2;
+            toolTipTitleItem1.Text = "Test Address Mapping";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Test conversion of device address.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.barButtonItemTestAddress.SuperTip = superToolTip1;
             this.barButtonItemTestAddress.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTestAddress_ItemClick);
+            // 
+            // barCheckItemWithSymbols
+            // 
+            this.barCheckItemWithSymbols.Caption = "With Symbols";
+            this.barCheckItemWithSymbols.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemWithSymbols.Id = 10;
+            this.barCheckItemWithSymbols.Name = "barCheckItemWithSymbols";
             // 
             // ribbonPage1
             // 
@@ -232,7 +219,6 @@
             // 
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barEditItemSource);
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barEditItemTarget);
-            this.ribbonPageGroupOptions.ItemLinks.Add(this.barCheckItemSplitBySection);
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barButtonItemEditPerferences);
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barCheckItemWithSymbols);
             this.ribbonPageGroupOptions.Name = "ribbonPageGroupOptions";
@@ -336,13 +322,6 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
-            // barCheckItemWithSymbols
-            // 
-            this.barCheckItemWithSymbols.Caption = "With Symbols";
-            this.barCheckItemWithSymbols.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
-            this.barCheckItemWithSymbols.Id = 10;
-            this.barCheckItemWithSymbols.Name = "barCheckItemWithSymbols";
-            // 
             // FormPLCConverter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -397,7 +376,6 @@
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupOptions;
         private DevExpress.XtraBars.BarEditItem barEditItemTarget;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBoxTarget;
-        private DevExpress.XtraBars.BarCheckItem barCheckItemSplitBySection;
         private DevExpress.XtraBars.BarButtonItem barButtonItemAddressMapping;
         private DevExpress.XtraBars.BarButtonItem barButtonItemEditAddressMappingRule;
         private DevExpress.XtraBars.BarButtonItem barButtonItemEditPerferences;

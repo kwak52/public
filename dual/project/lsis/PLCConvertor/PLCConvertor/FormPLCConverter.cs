@@ -13,6 +13,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Configuration;
 using DevExpress.XtraEditors;
+using DevExpress.XtraSplashScreen;
+using System.Threading.Tasks;
 
 namespace PLCConvertor
 {
@@ -52,30 +54,35 @@ namespace PLCConvertor
             Rung.Logger = Logger;
             Cx2Xg5kOption.LogLevel = LogLevel.WARN;
 
+            using (var waitor = new SplashScreenWaitor("로딩", "변환기를 로딩합니다."))
+            using (var subscription = Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
+            {
 
-            //TestCustomAppConfig();
+                //TestCustomAppConfig();
 
-            //void TestCustomAppConfig()
-            //{
-            //    Logger.Info("Custom configuration section test:");
-            //    var appConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            //    var config = appConfig.GetSection("exportPdv") as CustomConfigurationSection;
-            //    Logger.Debug($"Source: folder={config.SourceFolderPrefix}");
-            //    Logger.Debug($"Destination: folder={config.DestinationFolderPrefix}");
-            //    Logger.Debug($"Destination server IP: {config.DestinationDBServerIp}");
-            //}
+                //void TestCustomAppConfig()
+                //{
+                //    Logger.Info("Custom configuration section test:");
+                //    var appConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                //    var config = appConfig.GetSection("exportPdv") as CustomConfigurationSection;
+                //    Logger.Debug($"Source: folder={config.SourceFolderPrefix}");
+                //    Logger.Debug($"Destination: folder={config.DestinationFolderPrefix}");
+                //    Logger.Debug($"Destination server IP: {config.DestinationDBServerIp}");
+                //}
 
 
-            var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
-            AddressConvertor = AddressConvertor.LoadFromJsonFile(addressMappingJsonFile);
-            var commandMappingJsonFile = ConfigurationManager.AppSettings["userDefinedCommandMappingFile"];
-            UserDefinedCommandMapper = UserDefinedCommandMapper.LoadFromJsonFile(commandMappingJsonFile, PLCVendor.Omron);
+                var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
+                AddressConvertor = AddressConvertor.LoadFromJsonFile(addressMappingJsonFile);
 
-            repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
-            barEditItemSource.EditValue = PLCVendor.Omron;
+                var commandMappingJsonFile = ConfigurationManager.AppSettings["userDefinedCommandMappingFile"];
+                UserDefinedCommandMapper = UserDefinedCommandMapper.LoadFromJsonFile(commandMappingJsonFile, PLCVendor.Omron);
 
-            repositoryItemComboBoxTarget.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
-            barEditItemTarget.EditValue = PLCVendor.LSIS;
+                repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
+                barEditItemSource.EditValue = PLCVendor.Omron;
+
+                repositoryItemComboBoxTarget.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
+                barEditItemTarget.EditValue = PLCVendor.LSIS;
+            }
         }
         void TestConversion()
         {
@@ -111,7 +118,7 @@ namespace PLCConvertor
             }
         }
 
-        private void BarButtonItemCxtParse_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private async void BarButtonItemCxtParse_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             using (var ofd = new OpenFileDialog())
             {
@@ -130,14 +137,18 @@ namespace PLCConvertor
 
                 var cvtParams = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS)
                 {
-                    SplitBySection = barCheckItemSplitBySection.Checked,
+                    SplitBySection = Cx2Xg5kOption.SplitBySection,
                 };
 
                 ConvertParams.Reset();
                 acceptSymbolsByUserPaste();
 
-                using (var waitor = new SplashScreenWaitor("변환중", $"{stem}.cxt 을 변환 중입니다."))
-                    Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
+                await Task.Run(() =>
+                {
+                    using (var waitor = new SplashScreenWaitor($"{stem}.cxt 변환중", $"{stem}.cxt 을 변환 중입니다."))
+                    using (var subscription = Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
+                        Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
+                });
 
                 MsgBox.Info("변환완료", $"{stem}.cxt 변환 완료!");
 
