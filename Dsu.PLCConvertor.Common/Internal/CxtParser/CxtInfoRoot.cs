@@ -25,14 +25,14 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         public string Name { get; private set; }
 
-        public List<CxtInfoProgram> Programs { get; } = new List<CxtInfoProgram>();
+        public List<CxtInfoResource> Resources { get; } = new List<CxtInfoResource>();
         /// <summary>
         /// 마지막 Global or Local variables
         /// </summary>
 
         CxtInfoVariables _lastVariables;
         public List<CxtInfoGlobalVariables> GlobalVariables { get; private set; } = new List<CxtInfoGlobalVariables>();
-        public override IEnumerable<CxtInfo> Children { get { return Programs.Cast<CxtInfo>().Concat(GlobalVariables); } }
+        public override IEnumerable<CxtInfo> Children { get { return Resources.Cast<CxtInfo>().Concat(GlobalVariables); } }
         internal override void ClearMyResult() { }
 
 
@@ -54,6 +54,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 
             void BuildCxtInfo()
             {
+                CxtInfoResource resource = null;
                 CxtInfoProgram program = null;
                 CxtInfoSection section = null;
                 CxtInfoRung rung = null;
@@ -71,9 +72,13 @@ namespace Dsu.PLCConvertor.Common.Internal
                     var key = start.Key;
                     switch (key)
                     {
+                        case "Resource":
+                            resource = new CxtInfoResource(key);
+                            Resources.Add(resource);
+                            break;
                         case "Program":
                             program = new CxtInfoProgram(key);
-                            Programs.Add(program);
+                            resource.Programs.Add(program);
                             break;
                         case "Programs":
                             break;
@@ -124,10 +129,15 @@ namespace Dsu.PLCConvertor.Common.Internal
                             break;
 
                         default:
-                            if (key.StartsWith("Program["))
+                            if (key.StartsWith("Resource["))
+                            {
+                                resource = new CxtInfoResource(getName());
+                                Resources.Add(resource);
+                            }
+                            else if (key.StartsWith("Program["))
                             {
                                 program = new CxtInfoProgram(getName());
-                                Programs.Add(program);
+                                resource.Programs.Add(program);
                             }
 
                             else if (key.StartsWith("Sec["))

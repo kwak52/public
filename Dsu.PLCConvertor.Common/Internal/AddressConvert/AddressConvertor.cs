@@ -55,12 +55,42 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
 
 
-        public IEnumerable<string> GenerateSourceSamples() => Rules.SelectMany(r => r.GenerateSourceSamples());
+        public IEnumerable<string> GenerateAllSourceSamples() => Rules.SelectMany(r => r.GenerateSourceSamples());
         public IEnumerable<(string, string)> GenerateTranslations() => Rules.SelectMany(r => r.GenerateTranslations());
 
-        public static AddressConvertor LoadFromJsonFile(string jsonFile) => AddressConvertorSerializer.LoadFromJsonString(File.ReadAllText(jsonFile));
-        public static AddressConvertor LoadFromJsonString(string json) => AddressConvertorSerializer.LoadFromJsonString(json);
+        public static AddressConvertor LoadFromJsonFile(string jsonFile)
+            => AddressConvertorSerializer.LoadFromJsonString(File.ReadAllText(jsonFile)).Validate();
+
+        public static AddressConvertor LoadFromJsonString(string json)
+            => AddressConvertorSerializer.LoadFromJsonString(json).Validate();
         public void SaveToJsonFile(string jsonFile) => AddressConvertorSerializer.SaveToJsonFile(this, jsonFile);
+
+
+        /// <summary>
+        /// Address 변환 rule 적합성 검사.   중복 rule 존재하는지 체크
+        /// </summary>
+        public AddressConvertor Validate()
+        {
+            try
+            {
+                Global.UIMessageSubject.OnNext("주소 변환 규칙 적합성 체크..");
+                var hash = new HashSet<string>();
+                GenerateAllSourceSamples()
+                    .Iter(s =>
+                    {
+                        if (hash.Contains(s))
+                            throw new Exception($"Symbol {s} duplicated.");
+
+                        hash.Add(s);
+                    });
+
+                return this;
+            }
+            finally
+            {
+                Global.UIMessageSubject.OnNext("");
+            }
+        }
     }
 
 
