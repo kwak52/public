@@ -125,8 +125,10 @@ namespace PLCConvertor
                 var cxtPath = @"..\Documents\TestRung.cxt";
                 ofd.Filter = "CXT file(*.cxt)|*.cxt|All files(*.*)|*.*";
                 ofd.RestoreDirectory = true;
-                if (ofd.ShowDialog() == DialogResult.OK)
-                    cxtPath = ofd.FileName;
+                if (ofd.ShowDialog() != DialogResult.OK)
+                    return;
+                
+                cxtPath = ofd.FileName;
 
                 var stem = Path.GetFileNameWithoutExtension(cxtPath);
                 string getPath(string f) => Path.Combine(Path.GetDirectoryName(cxtPath), f);
@@ -141,60 +143,69 @@ namespace PLCConvertor
                 };
 
                 ConvertParams.Reset();
-                acceptSymbolsByUserPaste();
+                    
+                if (barCheckItemWithSymbols.Checked
+                    && acceptSymbolsByUserPaste() != DialogResult.OK
+                    && MsgBox.Ask("Ask", "변환을 계속하시겠습니까?") != DialogResult.Yes)
+                {
+                    return;
+                }
 
                 await Task.Run(() =>
                 {
                     using (var waitor = new SplashScreenWaitor($"{stem}.cxt 변환중", $"{stem}.cxt 을 변환 중입니다."))
                     using (var subscription = Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
                         Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
+
+                    MsgBox.Info("변환완료", $"{stem}.cxt 변환 완료!");
                 });
 
-                MsgBox.Info("변환완료", $"{stem}.cxt 변환 완료!");
 
 
-
-                void acceptSymbolsByUserPaste()
+                // 사용자로부터 추가적인 symbol table 정보를 입력받는다.
+                DialogResult acceptSymbolsByUserPaste()
                 {
-                    if (barCheckItemWithSymbols.Checked)
+                    var form = new FormSymbolPaste();
+                    var dialogResult = form.ShowDialog();
+                    if (dialogResult == DialogResult.OK)
                     {
-                        var form = new FormSymbolPaste();
-                        if (form.ShowDialog() == DialogResult.OK)
-                        {
-                            var map = ConvertParams.SourceVariableMap;
-                            form.SymbolTableText
-                                .SplitByLines(StringSplitOptions.RemoveEmptyEntries)
-                                .Select(line => generatePlcVariable(line))
-                                .Iter(v => {
-                                    if (map.ContainsKey(v.Device))
-                                    {
-                                        var existingV = map[v.Device];
-                                        if (v.Name.NonNullAny() && existingV.Name.IsNullOrEmpty())
-                                            existingV.Name = v.Name;
-                                        if (v.Variable.NonNullAny() && existingV.Variable.IsNullOrEmpty())
-                                            existingV.Variable = v.Variable;
-                                        if (v.Comment.NonNullAny() && existingV.Comment.IsNullOrEmpty())
-                                            existingV.Comment = v.Comment;
-                                    }
-                                    else
-                                        map.Add(v.Device, v);
-                                });
-                        }
-
-                        PLCVariable generatePlcVariable(string line)
-                        {
-                            var t = line.Split('\t').ToArray();
-                            var name = t[0];
-                            var type =
-                                    (PLCVariable.DeviceType)Enum.Parse(
-                                        typeof(PLCVariable.DeviceType), t[1].Replace(" ", "_"), true);
-                            var device = t[2];  // address
-                            var comment = t[3];
-
-                            return new PLCVariable(name, device, type, comment, "");
-                        }
+                        var map = ConvertParams.SourceVariableMap;
+                        form.SymbolTableText
+                            .SplitByLines(StringSplitOptions.RemoveEmptyEntries)
+                            .Select(line => generatePlcVariable(line))
+                            .Iter(v => {
+                                if (map.ContainsKey(v.Device))
+                                {
+                                    var existingV = map[v.Device];
+                                    if (v.Name.NonNullAny() && existingV.Name.IsNullOrEmpty())
+                                        existingV.Name = v.Name;
+                                    if (v.Variable.NonNullAny() && existingV.Variable.IsNullOrEmpty())
+                                        existingV.Variable = v.Variable;
+                                    if (v.Comment.NonNullAny() && existingV.Comment.IsNullOrEmpty())
+                                        existingV.Comment = v.Comment;
+                                }
+                                else
+                                    map.Add(v.Device, v);
+                            });
                     }
+                    return dialogResult;
 
+                    // <TAB> 에 의해 구분되는 symbol table 의 하나의 line 을 분석하여 PLCVariable 로 반환
+                    // line 구조 : 이름 <TAB> 데이터type <TAB> address <TAB> 주석
+                    PLCVariable generatePlcVariable(string line)
+                    {
+                        var t = line.Split('\t').ToArray();
+                        var name = t[0];
+                        var typeStr = t[1];
+                        var device = t[2];  // address
+                        var comment = t[3];
+
+                        var type =
+                                (PLCVariable.DeviceType)Enum.Parse(
+                                    typeof(PLCVariable.DeviceType), typeStr.Replace(" ", "_"), true);
+
+                        return new PLCVariable(name, device, type, comment, "");
+                    }
                 }
             }
         }

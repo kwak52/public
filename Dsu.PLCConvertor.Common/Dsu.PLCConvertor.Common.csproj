@@ -43,14 +43,17 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>..\..\..\..\common\bin\System.Reactive.Core.dll</HintPath>
+    <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\open-sources\bin\System.Reactive.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>..\..\..\..\common\bin\System.Reactive.Interfaces.dll</HintPath>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\open-sources\bin\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>..\..\..\..\common\bin\System.Reactive.Linq.dll</HintPath>
+    <Reference Include="System.Reactive.Linq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\open-sources\bin\System.Reactive.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -85,6 +88,7 @@
     <Compile Include="Internal\CxtParser\CxtLineInfo.cs" />
     <Compile Include="Internal\CxtParser\CxtParser.cs" />
     <Compile Include="Internal\CxtParser\CxtTextBlock.cs" />
+    <Compile Include="Internal\Exception.cs" />
     <Compile Include="Internal\Global.cs" />
     <Compile Include="Internal\IL\IL.CommandMapper.cs" />
     <Compile Include="Internal\IL\IL.cs" />

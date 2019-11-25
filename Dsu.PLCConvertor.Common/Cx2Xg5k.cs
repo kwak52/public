@@ -21,6 +21,7 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         public static void Convert(ConvertParams cvtParams, string cxtFile, string xg5kFile, string configFile, string cxtReviewFile, string xg5kMessageFile)
         {
+            Global.UIMessageSubject.OnNext($"CXT file 분석 중..");
             // text project 를 파싱함
             var cxt = CxtInfoRoot.Parse(cxtFile);
 

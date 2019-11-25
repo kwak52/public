@@ -78,13 +78,13 @@ namespace Dsu.PLCConvertor.Common.Internal
                             rung.NumberedConvertMessages = convertResult.NumberedMessages.Clone() as string[];
                             rung.ConvertMessages = convertResult.Messages.Clone() as string[];
                         }
-                        catch (System.Exception ex)
+                        catch (Exception ex)
                         {
                             rung.NumberedConvertMessages = new[] { $"[{s+1}] [{t+1}] [{Cx2Xg5kOption.LabelHeader} {ex.Message}]" };   // kkk
                             rung.ConvertMessages = rung.ConvertMessages.Concat(new[] { $"{Cx2Xg5kOption.LabelHeader} {ex.Message}" }).ToArray();
 
                             // 생성 실패한 rung 따로 project 로 기록
-                            cvtParam.ReviewProjectGenerator.AddRungs(prog, ils.ToArray());
+                            cvtParam.ReviewProjectGenerator.AddRungs(prog, ils.ToArray(), ex);
                         }
 
                         cvtParam.SourceStartStep += rung.ILs.Length;
