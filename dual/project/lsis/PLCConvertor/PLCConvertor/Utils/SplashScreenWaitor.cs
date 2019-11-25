@@ -21,11 +21,13 @@ namespace PLCConvertor
 
     public static class MsgBox
     {
-        public static DialogResult Info(string text, string caption)
-            => XtraMessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        public static DialogResult Warn(string text, string caption)
-            => XtraMessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        public static DialogResult Error(string text, string caption)
-            => XtraMessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        public static DialogResult Info(string title, string message)
+            => XtraMessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        public static DialogResult Warn(string title, string message)
+            => XtraMessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        public static DialogResult Error(string title, string message)
+            => XtraMessageBox.Show(message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        public static DialogResult Ask(string title, string message)
+            => XtraMessageBox.Show(message, title, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
     }
 }

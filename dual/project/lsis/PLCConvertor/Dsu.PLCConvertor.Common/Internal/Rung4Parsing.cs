@@ -107,7 +107,7 @@ namespace Dsu.PLCConvertor.Common
 
                         // LD TR 때문에, LD는 사용자 정의 명령을 허용하지 않는다.
                         case Mnemonic.LOAD when arg0.StartsWith("TR"):
-                            _cbld.LDTR(arg0);
+                            getCbld().LDTR(arg0);
                             break;
 
                         case Mnemonic.LOAD:
@@ -122,39 +122,39 @@ namespace Dsu.PLCConvertor.Common
                         case Mnemonic.ANDNOT:
                         case Mnemonic.AND:
                         case Mnemonic.USERDEFINED when sentence.IsAndFamily():
-                            _cbld.AND(arg0N, sentence);
+                            getCbld().AND(arg0N, sentence);
                             break;
 
                         case Mnemonic.ANDLD:
-                            CurrentBuildingLD = LadderStack.Pop().ANDLD(_cbld);
+                            CurrentBuildingLD = popLadderStack().ANDLD(getCbld());
                             break;
 
                         case Mnemonic.OR:
                         case Mnemonic.ORNOT:
                         case Mnemonic.USERDEFINED when sentence.IsOrFamily():
-                            _cbld.OR(arg0N, sentence);
+                            getCbld().OR(arg0N, sentence);
                             break;
                         case Mnemonic.ORLD:
-                            CurrentBuildingLD = LadderStack.Pop().ORLD(_cbld);
+                            CurrentBuildingLD = popLadderStack().ORLD(getCbld());
                             break;
 
                         case Mnemonic.OUT when arg0 != null && arg0.StartsWith("TR"):
-                            _cbld.OUTTR(new TRNode(arg0, sentence), sentence);
+                            getCbld().OUTTR(new TRNode(arg0, sentence), sentence);
                             break;
 
                         case Mnemonic.TON: // timer output
                         case Mnemonic.OUT:
                         case Mnemonic.CMP:
                         case Mnemonic.SUB:
-                            _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
+                            getCbld().OUT(new OutNode($"{sentence}", sentence), sentence);
                             break;
 
                         case Mnemonic.USERDEFINED when udc.IsTerminal:
-                            _cbld.ConnectFunctionParameters(sentence, LadderStack);
+                            getCbld().ConnectFunctionParameters(sentence, LadderStack);
                             break;
 
-                        case Mnemonic.USERDEFINED when ! udc.IsTerminal:
-                            _cbld.AND(new UserDefinedFunctionNode(sentence), sentence);
+                        case Mnemonic.USERDEFINED when !udc.IsTerminal:
+                            getCbld().AND(new UserDefinedFunctionNode(sentence), sentence);
                             break;
 
                         case Mnemonic.UNDEFINED:
@@ -168,20 +168,39 @@ namespace Dsu.PLCConvertor.Common
                             if (arity == 1)
                             {
                                 if (ilCommand is TerminalILCommand)
-                                    _cbld.OUT(new OutNode($"{sentence}", sentence), sentence);
+                                    getCbld().OUT(new OutNode($"{sentence}", sentence), sentence);
                                 else
-                                    _cbld.AND(arg0N, sentence);
+                                    getCbld().AND(arg0N, sentence);
                             }
                             else if (arity > 1)
-                                _cbld.ConnectFunctionParameters(sentence, LadderStack);
+                                getCbld().ConnectFunctionParameters(sentence, LadderStack);
                             else
                                 Logger?.Error($"Unknown IL: {m}");
                             break;
                     }
+
+                    SubRung popLadderStack()
+                    {
+                        if (LadderStack.IsNullOrEmpty())
+                            throw new ConvertorException("변환 불가 : 래더 구조가 변환 불가능한 형식입니다. (Stack is empty)");
+                        return LadderStack.Pop();
+                    }
+
+                    // Get Current Building Ladder
+                    SubRung getCbld()
+                    {
+                        if (_cbld == null)
+                            throw new ConvertorException("변환 불가 : 래더 구성 실패. (_cbld is null)");
+                        return _cbld;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error($"{ex}");
+                    if (ex is ConvertorException)
+                        Logger.Error($"{ex.Message}");
+                    else
+                        Logger.Error($"{ex}");
+
                     ErrorMessage.Add($"Error while processing [{m}].   {ex.Message}");
                     throw;
                     //yield break;

@@ -19,15 +19,16 @@ namespace Dsu.PLCConvertor.Common.Internal
         static Encoding _encoding => CxtParser._encoding;
         static CxtGenerator()
         {
+            var emptyProjectLines = File.ReadAllLines("Config/EmptyProject.cxt", _encoding).ToArray();
             if (_cxtProjectHeader == null)
                 _cxtProjectHeader =
-                    File.ReadAllLines("Config/EmptyProject.cxt", _encoding)
+                    emptyProjectLines
                     .TakeWhile(l => !l.StartsWith("<End Of Header>"))
                     .JoinString("\r\n")
                     ;
             if (_cxtProjectFooter == null)
                 _cxtProjectFooter =
-                    File.ReadAllLines("Config/EmptyProject.cxt", _encoding)
+                    emptyProjectLines
                     .SkipWhile(l => !l.StartsWith("<Start Of Footer>"))
                     .Skip(1)
                     .JoinString("\r\n")
@@ -35,10 +36,10 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
 
 
-        private ConvertParams _convertParams;
+        //private ConvertParams _convertParams;
         public CxtGenerator(ConvertParams cvtParams)
         {
-            _convertParams = cvtParams;
+            //_convertParams = cvtParams;
         }
 
         List<string[]> _rungs = new List<string[]>();
@@ -48,10 +49,14 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         /// <param name="prog">실패한 rung 이 포함된 Program</param>
         /// <param name="mnemonics">실패한 rung</param>
-        public void AddRungs(CxtInfoProgram prog, string[] mnemonics)
+        public void AddRungs(CxtInfoProgram prog, string[] mnemonics, Exception ex)
         {
-            var dic = ConvertParams.SourceVariableMap;                
-            var mConverted =
+            var dic = ConvertParams.SourceVariableMap;
+            var commented = new[] {
+                $"' {ex.Message}",
+                };
+
+            var mnReverted =
                 mnemonics.Select(m =>
                 {
                     var tokens = m.Split(new[] { ' ' }).ToArray();
@@ -73,7 +78,9 @@ namespace Dsu.PLCConvertor.Common.Internal
                 })
                 .ToArray();
                 ;
-            _rungs.Add(mConverted);
+
+            var failedRung = new[] { commented, mnReverted }.SelectMany(m => m).ToArray();
+            _rungs.Add(failedRung);
         }
 
         public IEnumerable<string> GenerateProject()
