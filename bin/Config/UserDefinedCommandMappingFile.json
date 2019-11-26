@@ -151,7 +151,7 @@
   {
     "Command": "LD=(300)",
     "PerInputProc": [
-      "LOAD= $0 $1"
+      "LOADU= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -167,7 +167,7 @@
   {
     "Command": "LD<>(305)",
     "PerInputProc": [
-      "LOAD<> $0 $1"
+      "LOADU<> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -175,7 +175,7 @@
   {
     "Command": "LD<(310)",
     "PerInputProc": [
-      "LOAD< $0 $1"
+      "LOADU< $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -191,7 +191,7 @@
   {
     "Command": "LD<=(315)",
     "PerInputProc": [
-      "LOAD<= $0 $1"
+      "LOADU<= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -207,7 +207,7 @@
   {
     "Command": "LD>(320)",
     "PerInputProc": [
-      "LOAD> $0 $1"
+      "LOADU> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -231,7 +231,7 @@
   {
     "Command": "LD>(325)",
     "PerInputProc": [
-      "LOAD>= $0 $1"
+      "LOADU>= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -259,7 +259,7 @@
   {
     "Command": "AND=(300)",
     "PerInputProc": [
-      "AND= $0 $1"
+      "ANDU= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -300,7 +300,7 @@
   {
     "Command": "AND<>(305)",
     "PerInputProc": [
-      "AND<> $0 $1"
+      "ANDU<> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -309,7 +309,7 @@
   {
     "Command": "AND<(310)",
     "PerInputProc": [
-      "AND< $0 $1"
+      "ANDU< $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -327,7 +327,7 @@
   {
     "Command": "AND<=(315)",
     "PerInputProc": [
-      "AND<= $0 $1"
+      "ANDU<= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -345,7 +345,7 @@
   {
     "Command": "AND>(320)",
     "PerInputProc": [
-      "AND> $0 $1"
+      "ANDU> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -372,7 +372,7 @@
   {
     "Command": "AND>=(325)",
     "PerInputProc": [
-      "AND>= $0 $1"
+      "ANDU>= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -392,7 +392,7 @@
   {
     "Command": "OR=(300)",
     "PerInputProc": [
-      "OR= $0 $1"
+      "ORU= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -409,7 +409,7 @@
   {
     "Command": "OR<>(305)",
     "PerInputProc": [
-      "OR<> $0 $1"
+      "ORU<> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -418,7 +418,7 @@
   {
     "Command": "OR<(310)",
     "PerInputProc": [
-      "OR< $0 $1"
+      "ORU< $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -436,7 +436,7 @@
   {
     "Command": "OR<=(315)",
     "PerInputProc": [
-      "OR<= $0 $1"
+      "ORU<= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -454,7 +454,7 @@
   {
     "Command": "OR>(320)",
     "PerInputProc": [
-      "OR> $0 $1"
+      "ORU> $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -482,7 +482,7 @@
   {
     "Command": "OR>=(325)",
     "PerInputProc": [
-      "OR>= $0 $1"
+      "ORU>= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": false,
@@ -492,7 +492,7 @@
   {
     "Command": "UNUSED---+(400)",
     "PerInputProc": [
-      "ADD $0 $1"
+      "ADDU $0 $1"
     ],
     "IsTerminal": true,
     "IsLoad": false

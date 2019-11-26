@@ -24,7 +24,8 @@ namespace Dsu.PLCConvertor.Common
                 {
                     for (int i = 0; i < args.Length; i++)
                         pip = pip.Replace($"${i}", args[i]);    // kkk: prototype 의 positional argument (-> $??) 를 실제 argument 로 치환
-                    pip = pip.Replace(" ", "\t");
+                    pip = pip.Replace(" ", "\t")
+                            .Replace("\tNOT", " NOT");    // 잘못 치환된 AND<TAB>NOT 을 AND NOT 으로 다시 변환
                     return pip;
                 })
                 ;
