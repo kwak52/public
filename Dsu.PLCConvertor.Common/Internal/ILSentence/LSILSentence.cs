@@ -55,6 +55,8 @@ namespace Dsu.PLCConvertor.Common
             {
                 case Mnemonic.TON when nth == 0:
                     return $"T{arg}";
+                case Mnemonic.TON when nth == 1 && arg.StartsWith("#"):
+                    return arg.SkipNChar(1);
             }
 
             // '#': hexadecimal
@@ -104,7 +106,8 @@ namespace Dsu.PLCConvertor.Common
         /// Address mapping 사용 여부.  default 는 true.  Unit Test 등에서 임시로 disable
         /// </summary>
         public static bool UseAddressMapping = true;
-        public override string ToString()
+
+        public override string ToIL()
         {
             if (UseAddressMapping && Mnemonic != Mnemonic.RUNG_COMMENT)
             {
@@ -116,19 +119,34 @@ namespace Dsu.PLCConvertor.Common
                     ;
 
 
+                var tempAddressAllocator = _rung2ILConvertor.TempAddressAllocator.Value;
                 var rs = AddressConvertorInstance;
-                Args = Args.Select(a =>
+
+                Args = Args.Select((a, n) =>
                 {
                     var arg = rs.IsMatch(a) ? rs.Convert(a) : a;
 
                     if (isOneShot) // ONS:
                     {
                         var diffrentiation = omron.Variation == OmronILSentence.VariationType.DiffrentiationOn ? '@' : '%';
-                        var searchResult = _rung2ILConvertor.TempAddressAllocator.Value.Allocate(this, $"{diffrentiation}{arg}");
+                        var searchResult = tempAddressAllocator.Allocate("BIT", this, $"{diffrentiation}{arg}");
                         _rung2ILConvertor.ProglogRungs.AddRange(searchResult.PrologRungILs);
                         return searchResult.Temporary;
                     }
 
+                    if (n == 1 && Mnemonic == Mnemonic.TON && omron != null)
+                    {
+                        var sa = omron.Args;
+                        if (!sa[1].StartsWith("#"))
+                        {
+                            var searchResult = tempAddressAllocator.Allocate("TIMER_BUFFER", this, $"{sa[0]}");
+                            _rung2ILConvertor.ProglogRungs.Add($"CMT\t타이머 변환용 임시 버퍼");
+                            _rung2ILConvertor.ProglogRungs.Add($"LOAD\t_ON");
+                            _rung2ILConvertor.ProglogRungs.Add($"BIN\t{omron.Args[1]} {searchResult.Temporary}");
+
+                            return searchResult.Temporary;
+                        }
+                    }
                     return arg;
                 }).ToArray();
                 var operands = string.Join(" ", Args);

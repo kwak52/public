@@ -128,6 +128,8 @@ namespace Dsu.PLCConvertor.Common
             return $"{Command} {string.Join(" ", Args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
         }
 
+        public virtual string ToIL() => ToString();
+
         internal static ILSentence Create(Rung2ILConvertor r2iConverter, string sentence)
         {
             var vendorType = r2iConverter.TargetType;

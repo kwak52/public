@@ -59,6 +59,8 @@ namespace Dsu.PLCConvertor.Common.Internal
             [Mnemonic.MOVE] = _t(1, "MOV"),
             [Mnemonic.RSTB] = _t(1, "BRST"),
 
+            [Mnemonic.BSET] = _t(1, "FMOV"),
+
             [Mnemonic.CONCATSTRING] = _n(1, "+$(656)"),
 
             [Mnemonic.NOP] = _t(1, "NOP"),
