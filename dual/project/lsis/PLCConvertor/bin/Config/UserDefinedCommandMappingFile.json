@@ -544,7 +544,7 @@
   {
     "Command": "/L(431)",
     "PerInputProc": [
-      "MUL $0 $1 $2"
+      "DDIV $0 $1 $2"
     ],
     "IsTerminal": true,
     "IsLoad": false

@@ -1,4 +1,8 @@
 ﻿1.1.0.10 
+	* BSET(071)
+
+
+
 	* 다중 Resource 처리
 	* OUT NOT bug fix : <TAB> / <SPACE> 구분자 문제
 	* ULOAD / UAND / ... --> LOADU / ANDU / ... (매뉴얼 표기 X)

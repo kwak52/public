@@ -94,12 +94,11 @@ namespace Dsu.PLCConvertor.Common.Internal
                     }
                     else if (rung.Comment.NonNullAny() )
                     {
-                        rung.ConvertResults =
-                         
-                        rung.Comment.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries)
-                            .SelectMany(cmt => CxtParser.SplitBlock(cmt))
-                            .Select(cmt => $"{Xg5k.RungCommentCommand}\t{cmt}")
-                            .ToArray();
+                        rung.ConvertResults =                         
+                            rung.Comment.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries)
+                                .SelectMany(cmt => CxtParser.SplitBlock(cmt))
+                                .Select(cmt => $"{Xg5k.RungCommentCommand}\t{cmt}")
+                                .ToArray();
                     }
                 });
         }

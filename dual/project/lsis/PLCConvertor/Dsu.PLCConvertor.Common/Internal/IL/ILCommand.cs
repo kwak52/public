@@ -111,6 +111,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         ANDGREATERTHAN,
 
 
+        BSET,
         /// <summary>
         /// Bit reset
         /// </summary>

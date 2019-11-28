@@ -261,7 +261,7 @@ namespace Dsu.PLCConvertor.Common
 
             if (_rung.RungComment.NonNullAny())
             {
-                xs = _rung.RungComment.Select(rc => ILSentence.Create(TargetType, rc).ToString());
+                xs = _rung.RungComment.Select(rc => ILSentence.Create(TargetType, rc).ToIL());
                 foreach (var x in xs)
                     yield return x;
             }
@@ -416,7 +416,7 @@ namespace Dsu.PLCConvertor.Common
         public static string ToIL(this IPoint point, Rung2ILConvertor r2iConverter)
         {
             var il = ILSentence.Create(r2iConverter, point.ILSentence);
-            return il.ToString();
+            return il.ToIL();
         }
         //public static string ToIL(this IPoint point, PLCVendor targetType) => ILSentence.Create(targetType, point.ILSentence).ToString();
 

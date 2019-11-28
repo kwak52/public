@@ -59,6 +59,8 @@ namespace Dsu.PLCConvertor.Common.Internal
             "LD", "AND", "OR", "OUT",
             "@LDNOT", "%LDNOT",
             "@ANDNOT", "%ANDNOT",
+            "TIM",
+            "BSET(071)",
         };
 
         public bool Validate(PLCVendor targetType, bool throwOnFail=true)

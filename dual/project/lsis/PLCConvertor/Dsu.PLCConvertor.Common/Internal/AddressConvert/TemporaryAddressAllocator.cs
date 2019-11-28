@@ -43,17 +43,20 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// </summary>
     internal class TemporaryAddressAllocator
     {
-        NamedAddressConvertRule _rule;
+        Dictionary<string, NamedAddressConvertRule> _ruleSet;
         /// <summary>
         /// e.g: "
         /// </summary>
         Dictionary<string, string> _cache = new Dictionary<string, string>();
 
-        IEnumerator<string> _generator;
-        public TemporaryAddressAllocator(NamedAddressConvertRule rule)
+        Dictionary<string, IEnumerator<string>> _generators;
+        public TemporaryAddressAllocator(IEnumerable<NamedAddressConvertRule> rules)
         {
-            _rule = rule;
-            _generator = _rule.GenerateSourceSamples().GetEnumerator();
+            _ruleSet = rules.ToDictionary(r => r.Name);
+            _generators =
+                rules.Select(r => new { Rule = r, Enumerator = r.GenerateSourceSamples().GetEnumerator() })
+                .ToDictionary(pr => pr.Rule.Name, pr => pr.Enumerator)
+                ;
         }
 
         public static TemporaryAddressAllocator TheInstance { get; private set; }
@@ -62,18 +65,19 @@ namespace Dsu.PLCConvertor.Common.Internal
             TheInstance = LoadFromJsonFile(ConfigurationManager.AppSettings["temporaryAddressAllocatorFile"]);
         }
 
-        public static TemporaryAddressAllocator Dup() => new TemporaryAddressAllocator(TheInstance._rule);
+        public static TemporaryAddressAllocator Dup() => new TemporaryAddressAllocator(TheInstance._ruleSet.Values);
 
 
-        public TemporaryAddressSearchResult Allocate(ILSentence sentence, string device) // e.g : device = "%0.01"
+        public TemporaryAddressSearchResult Allocate(string tempAllocatorName, ILSentence sentence, string device) // e.g : device = "%0.01"
         {
             if (_cache.ContainsKey(device))
                 return new TemporaryAddressSearchResult(_cache[device]);
 
-            if (!_generator.MoveNext())
+            var gen = _generators[tempAllocatorName];
+            if (!gen.MoveNext())
                 throw new Exception($"No more availabe temp device.");
 
-            var temp = _generator.Current;
+            var temp = gen.Current;
             var NP = device[0] == '@' ? 'P' : 'N';
             var address = device.Substring(1, device.Length - 1);
             var ss = sentence._sourceILSentence;
@@ -94,14 +98,15 @@ namespace Dsu.PLCConvertor.Common.Internal
         public static TemporaryAddressAllocator LoadFromJsonString(string json)
         {
             // serialization 용 rule 을 file 에서 loading 한 후, 일반 rule 로 변경해서 반환
-            var rule = JsonConvert.DeserializeObject<TASRule>(json, MyJsonSerializer.JsonSettingsSimple);
-            return new TemporaryAddressAllocator(rule.ToNormalRule() as NamedAddressConvertRule);
+            var rules = JsonConvert.DeserializeObject<TASRule[]>(json, MyJsonSerializer.JsonSettingsSimple);
+            var normalRules = rules.Select(r => r.ToNormalRule() as NamedAddressConvertRule);
+            return new TemporaryAddressAllocator(normalRules);
         }
 
         public void SaveToJsonFile(string jsonFile)
         {
             // 일반 rule 을 serialization 용 rule 로 변경 후, serialize
-            var serializer = TASRule.Create(_rule);
+            var serializer = _ruleSet.Values.Select(r => TASRule.Create(r));
             var json = JsonConvert.SerializeObject(serializer, MyJsonSerializer.JsonSettingsSimple);
             File.WriteAllText(jsonFile, json);
         }
