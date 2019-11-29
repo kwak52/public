@@ -119,6 +119,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             public string Name { get; set; }
             public string Pattern { get; set; }
             public MinMax[] MinMax { get; set; }
+            public string[] Expr { get; internal set; }     // TargetArgsExpr
             public NamedAddressConvertRule ToNormalRule()
             {
                 var minMax = MinMax.Select(mm => Tuple.Create(mm.Min, mm.Max));

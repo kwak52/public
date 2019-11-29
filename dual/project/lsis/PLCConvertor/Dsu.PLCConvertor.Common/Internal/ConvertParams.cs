@@ -32,6 +32,11 @@ namespace Dsu.PLCConvertor.Common.Internal
         public int TargetStartStep { get; set; }
 
 
+        static int _failedRungIndex;
+        static public int FailedRungIndex => _failedRungIndex;
+        static public int GetFailedRungIndexAndIncrement() => _failedRungIndex++;
+
+
         /// <summary>
         /// 변환에 실패한 rung 만을 따로 모아서 review 용 project 생성하기 위한 용도
         /// </summary>
@@ -172,11 +177,15 @@ namespace Dsu.PLCConvertor.Common.Internal
             ReviewProjectGenerator = new CxtGenerator(this);
         }
 
+        /// <summary>
+        /// CXT file 단위로 parsing 할 떄마다 reset 호출됨
+        /// </summary>
         public static void Reset()
         {
             SourceVariableMap.Clear();
             ProgramLocalVariableMap.Clear();
             UsedSourceDevices.Clear();
+            _failedRungIndex = 0;
         }
     }
 }

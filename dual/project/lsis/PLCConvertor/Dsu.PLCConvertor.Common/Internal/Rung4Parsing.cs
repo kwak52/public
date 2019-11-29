@@ -38,16 +38,17 @@ namespace Dsu.PLCConvertor.Common
         /// </summary>
         public int CurrentMnemonicIndex { get; private set; } = -1;
 
-
+        ConvertParams _convertParam;
         /// <summary>
         /// 현재 rung 이 생성하려는 목적 PLC type
         /// </summary>
-        internal PLCVendor _targetType;
+        internal PLCVendor _targetType => _convertParam.TargetType;
 
         /// <summary>
         /// 현재 rung 을 생성하는데 사용된 PLC type
         /// </summary>
-        PLCVendor _sourceType;
+        PLCVendor _sourceType => _convertParam.SourceType;
+
         string _strMPush = "MPUSH";
         string _strMPop = "MPOP";
         string _strMLoad = "MLOAD";
@@ -63,8 +64,7 @@ namespace Dsu.PLCConvertor.Common
         {
             _mnemonics = mnemonics.ToArray();
             LadderStack = new Stack<SubRung>();
-            _targetType = cvtParam.TargetType;
-            _sourceType = cvtParam.SourceType;
+            _convertParam = cvtParam;
             if (rungComment.NonNullAny())
                 RungComment = ILSentence.CreateRungComments(cvtParam.SourceType, rungComment).ToList();
 
@@ -182,7 +182,8 @@ namespace Dsu.PLCConvertor.Common
                     SubRung popLadderStack()
                     {
                         if (LadderStack.IsNullOrEmpty())
-                            throw new ConvertorException("변환 불가 : 래더 구조가 변환 불가능한 형식입니다. (Stack is empty)");
+                            throw new ConvertorException($"({ConvertParams.GetFailedRungIndexAndIncrement()}) 변환 불가 : 래더 구조가 변환 불가능한 형식입니다. (Stack is empty)");
+
                         return LadderStack.Pop();
                     }
 
@@ -190,7 +191,7 @@ namespace Dsu.PLCConvertor.Common
                     SubRung getCbld()
                     {
                         if (_cbld == null)
-                            throw new ConvertorException("변환 불가 : 래더 구성 실패. (_cbld is null)");
+                            throw new ConvertorException($"({ConvertParams.GetFailedRungIndexAndIncrement()}) 변환 불가 : 래더 구성 실패. (_cbld is null)");
                         return _cbld;
                     }
                 }

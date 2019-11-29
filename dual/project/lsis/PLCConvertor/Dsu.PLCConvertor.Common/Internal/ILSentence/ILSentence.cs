@@ -65,10 +65,10 @@ namespace Dsu.PLCConvertor.Common
         protected virtual string FilterCommand(string command) => command;
 
         protected virtual string ModifiyArgument(string arg, int nth) { return arg; }
-        public void ModifyArguments()
+        public virtual string[] ModifyArguments()
         {
             FilterCommand(Command);
-            Args = Args.Select((arg, n) => ModifiyArgument(arg, n)).ToArray();
+            return Args.Select((arg, n) => ModifiyArgument(arg, n)).ToArray();
         }
         protected void Fill(string sentence)
         {
@@ -152,7 +152,6 @@ namespace Dsu.PLCConvertor.Common
                 default:
                     throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
             }
-            ils.ModifyArguments();
             return ils;
         }
         internal static ILSentence Create(PLCVendor vendorType, string sentence)
@@ -166,7 +165,6 @@ namespace Dsu.PLCConvertor.Common
                     throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
             }
 
-            ils.ModifyArguments();
             return ils;
         }
 
@@ -181,7 +179,6 @@ namespace Dsu.PLCConvertor.Common
                     throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
             }
 
-            ils.ModifyArguments();
             return ils;
         }
 

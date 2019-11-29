@@ -15,7 +15,7 @@ namespace Dsu.PLCConvertor.Common.Internal
     public partial class AddressConvertor
     {
         List<IAddressConvertRule> _normalRules;
-        Dictionary<string, NamedAddressConvertRule> _namedAddressRules;
+        internal Dictionary<string, NamedAddressConvertRule> _namedAddressRules;
 
         
         List<IAddressConvertRule> _rules;
@@ -117,6 +117,8 @@ namespace Dsu.PLCConvertor.Common.Internal
             defaultRules.SaveToJsonFile(jsonFile);
 
             var dup = AddressConvertor.LoadFromJsonFile(jsonFile);
+            var namedTimer = dup._namedAddressRules["TIMER"];
+            var gen = namedTimer.GenerateSourceSamples().ToArray();
             dup.GenerateTranslations()
                 .Select(pr => $"{pr.Item1}\t{pr.Item2}")
                 .Iter(ln => Trace.WriteLine(ln))

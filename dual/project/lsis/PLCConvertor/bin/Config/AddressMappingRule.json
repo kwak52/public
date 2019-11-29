@@ -35,6 +35,10 @@
     {
       "From": "P_Off",
       "To": "F0009A"
+    },
+    {
+      "From": "P_First_Cycle",
+      "To": "F0009B"
     }
   ],
   "Ranged": [

@@ -17,7 +17,7 @@ namespace Dsu.PLCConvertor.Common
 
         public IEnumerable<string> EnumeratePerInputs()
         {
-            var args = ILSentence.Args; // CNTX 에 주어진 argument 목록
+            var args = ILSentence.ModifyArguments();
             return
                 _userDefinedCommand.PerInputProc        // function input 의 각 다릿발에 붙일 명령어들 prototype.  e.g [| "CTU C$0 $1"; "RST C$0 0" |]
                 .Select(pip =>

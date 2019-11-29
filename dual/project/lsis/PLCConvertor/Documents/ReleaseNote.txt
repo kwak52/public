@@ -1,6 +1,6 @@
 ﻿1.1.0.10 
-	* BSET(071)
-
+	* BSET(71)
+	* 변환 불가 review file 의 rung 단위 indexing
 
 
 	* 다중 Resource 처리

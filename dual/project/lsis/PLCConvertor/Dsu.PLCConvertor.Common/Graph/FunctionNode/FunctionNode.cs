@@ -53,6 +53,7 @@ namespace Dsu.PLCConvertor.Common
                 case Mnemonic.TMR: return new FunctionNodeTMR(sentence);
                 case Mnemonic.KEEP: return new FunctionNodeSetReset(sentence);
                 case Mnemonic.CTU: return new FunctionNodeCTU(sentence);
+                case Mnemonic.BSET: return new FunctionNodeBSET(sentence);
                 case Mnemonic.USERDEFINED:
                     if (sentence.ILCommand is UserDefinedILCommand)
                         return new UserDefinedTerminalFunctionNode(sentence);
