@@ -2,7 +2,7 @@ CXProgVer:="1.5";
 WrittenByCXPVersion:="9.70";
 FileType:=1;
 Created:="19 10 2019 19 23 44";
-Modified:="29 11 2019 5 38 5";
+Modified:="29 11 2019 11 29 8";
 Name:="NewProject";
 Core:=
 BEGIN
@@ -40,7 +40,7 @@ BEGIN
   IOTable:=
   BEGIN
    Data:=
-$?St$Bk?_#[1]
+$?St$Bk?_#[71]
 5B 4F 4D 52 4F 4E 2E 49 4F 20 54 61 62 6C 65 2E 43 6F 6D 70 6F 6E 65 6E 74 5D 20 43 4A 31 4D 20
 43 50 55 31 31 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -129,9 +129,9 @@ $?St$Bk?_#[1]
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00
-$?St$Bk?_#[1]
+$?St$Bk?_#[71]
    UnitSetup:=
-$?St$Bk?_#[2]
+$?St$Bk?_#[72]
 00 06 78 40 91 A3 06 44 12 22 3D 44 4C 89 21 02 84 93 32 78 E8 FA C5 0C 9C CD 18 42 87 08 DD 96
 64 C0 88 91 A3 45 0C 98 5D 39 9B D2 E4 0D 59 84 25 4E C2 B4 29 DB D4 67 B5 7D EC 87 C2 A8 79 23
 C7 4A 19 B9 AD DF 8D 26 69 DC CA 0C 18 22 7C F0 70 42 E7 8E 11 36 64 E4 6A AF 64 88 78 D9 94 21
@@ -154,7 +154,7 @@ C2 0C 57 44 11 37 64 E1 6D C9 4C 88 98 50 5A 67 D8 4D C6 4C 88 98 4C 29 37 FC 9D
 6D C2 13 33 57 9B 43 66 0E 95 B7 75 E1 86 2C 8C ED 85 88 C9 33 DA 4E 9B 30 74 61 EC 28 44 CC 7C
 3B 6C D8 94 21 1B F3 57 17 0E 63 F0 D2 0D 56 22 02 8E 8F 06 0A 12 24 6C 39 A8 AF 1C 0D 0A DF D2
 94 3C 73 EF B0 E0 48 34 75 9B 1C B5 DF 06 FC 03
-$?St$Bk?_#[2]
+$?St$Bk?_#[72]
   END;
   ProgramCheckOptions:=
   BEGIN
@@ -181,28 +181,49 @@ $?St$Bk?_#[2]
  GlobalVariables:=
  BEGIN
   VariableList:=
-  BEGIN_LIST_$#[3]
+  BEGIN_LIST_$#[73]
    A_가스공급,H10.10,BOOL,,A_가스공급 상태표시;
    A_공급준비,H10.09,BOOL,,A_공급준비 상태표시;
    A_퍼지완료,H10.08,BOOL,,A_퍼지완료 상태표시;
    ,0,CHANNEL,,t1;
+   ,0.00,BOOL,,LEAK 1'ST;
+   ,0.01,BOOL,,LEAK 2'ND;
+   ,D161,CHANNEL,,LEAK 1'ST-DT;
+   ,D162,CHANNEL,,LEAK 2-DT;
+   ,D20002,CHANNEL,,MODULE1 CH1 Mean value 16 Buffers;
+   ,D20009,CHANNEL,,MODULE1 CH8 Mean value 16 Buffers;
+   ,D251,CHANNEL,,E-MSG1;
+   ,D252,CHANNEL,,E-MSG2;
+   ,D37,CHANNEL,,PLC Program Version;
    ,D701,CHANNEL,,A 바그래프 기준Data;
    ,D707,CHANNEL,,A 바그래프;
+   ,H2.07,BOOL,,LEAK USE;
+   ,H4.02,BOOL,,LEAK CONTECT;
+   ,H5.02,BOOL,,LD-AL-ST;
+   ,T0103,BOOL,,LEAK 1'ST DELAY TIMER;
+   ,T0104,BOOL,,LEAK 2 DELAY TIMER;
+   ,T0132,BOOL,,AL-CH-ST-T;
+   ,W17.00,BOOL,,LEAK 2'ND-AL(S/D);
+   ,W19.00,BOOL,,LEAK 1'ST-AL;
+   ,W19.09,BOOL,,LEAK 2'ND-AL(ALARM);
+   ,W1.00,BOOL,,SETTING 취소KEY;
+   ,W21.11,BOOL,,EMG-AL-TOTAL;
+   ,W21.13,BOOL,,PRO-AL-TOTAL;
    ,W90.02,BOOL,,순간정전 알람;
    B_가스공급,H20.10,BOOL,,B_가스공급 상태표시;
    B_공급준비,H20.09,BOOL,,B_공급준비 상태표시;
    B_퍼지완료,H20.08,BOOL,,B_퍼지완료 상태표시;
    SHD_AR,W22.08,BOOL,,인터록 알람에 의한 SHUTDOWN;
-  END_LIST_$#[3];
-  VariableCount:=11;
+  END_LIST_$#[73];
+  VariableCount:=32;
   VariableMultiCommentList:=
-  BEGIN_LIST_$#[4]
-  END_LIST_$#[4];
+  BEGIN_LIST_$#[74]
+  END_LIST_$#[74];
   VariableMultiCommentCount:=0;
   VariableMultiCommentTypeCount:=16;
   VariablePredefinedMultiCommentList:=
-  BEGIN_LIST_$#[5]
-  END_LIST_$#[5];
+  BEGIN_LIST_$#[75]
+  END_LIST_$#[75];
   VariablePredefinedMultiCommentCount:=0;
   POUInstances:=
   BEGIN
@@ -220,7 +241,7 @@ $?St$Bk?_#[2]
    Name:="NewProgram1";
    FileType:=2;
    Created:="19 10 2019 19 23 47";
-   Modified:="29 11 2019 5 38 5";
+   Modified:="29 11 2019 11 29 8";
    Protection:=
    BEGIN
     Enabled:=0;
@@ -228,13 +249,13 @@ $?St$Bk?_#[2]
    LocalVariables:=
    BEGIN
     VariableList:=
-    BEGIN_LIST_$#[6]
+    BEGIN_LIST_$#[76]
      PT설정,W140.14,BOOL,,실린더 그래프 PT 설정;
-    END_LIST_$#[6];
+    END_LIST_$#[76];
     VariableCount:=1;
     VariableMultiCommentList:=
-    BEGIN_LIST_$#[7]
-    END_LIST_$#[7];
+    BEGIN_LIST_$#[77]
+    END_LIST_$#[77];
     VariableMultiCommentCount:=0;
     VariableMultiCommentTypeCount:=16;
     POUInstances:=
@@ -262,14 +283,14 @@ $?St$Bk?_#[2]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[8]
+$?St$Bk?_#[78]
 '  R0
 LD 0.01
 AND 0.03
 LD 0.02
 OR 0.05
 CNT 0009 7
-$?St$Bk?_#[8]
+$?St$Bk?_#[78]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -296,18 +317,18 @@ $?St$Bk?_#[8]
      SecName:="타이머";
      ProgramData:=
      BEGIN
-      RC:=8;
+      RC:=10;
       R[0]:=
       BEGIN
        Com:="";
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[9]
+$?St$Bk?_#[79]
 LD P_On
 ANDNOT 205.00
 TIM 1006 #600
-$?St$Bk?_#[9]
+$?St$Bk?_#[79]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -319,10 +340,10 @@ $?St$Bk?_#[9]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[10]
+$?St$Bk?_#[80]
 LD 0.00
 TIM 0000 0
-$?St$Bk?_#[10]
+$?St$Bk?_#[80]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -334,13 +355,13 @@ $?St$Bk?_#[10]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[11]
+$?St$Bk?_#[81]
 LD 0.00
 LD 0.01
 OR 0.02
 ANDLD
 TIM 0000 0
-$?St$Bk?_#[11]
+$?St$Bk?_#[81]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -352,7 +373,7 @@ $?St$Bk?_#[11]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[12]
+$?St$Bk?_#[82]
 LD 0.01
 AND 0.01
 LD 0.02
@@ -360,7 +381,7 @@ LD 0.04
 OR 0.03
 ANDLD
 TTIM(087) 0001 1
-$?St$Bk?_#[12]
+$?St$Bk?_#[82]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -372,11 +393,11 @@ $?St$Bk?_#[12]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[13]
+$?St$Bk?_#[83]
 LD 0.01
 LD 0.02
 TTIM(087) 0001 1
-$?St$Bk?_#[13]
+$?St$Bk?_#[83]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -388,14 +409,14 @@ $?St$Bk?_#[13]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[14]
+$?St$Bk?_#[84]
 '  R0
 LD 0.01
 AND 0.03
 LD 0.02
 OR 0.05
 TTIM(087) 0001 1
-$?St$Bk?_#[14]
+$?St$Bk?_#[84]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -407,7 +428,7 @@ $?St$Bk?_#[14]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[15]
+$?St$Bk?_#[85]
 LD 0.00
 OR 0.01
 LD 0.02
@@ -417,13 +438,88 @@ TTIM(087) 0001 2
 LD TR0
 LD 0.05
 TTIM(087) 0001 2
-$?St$Bk?_#[15]
+$?St$Bk?_#[85]
        AtchCmts:=
        BEGIN
         CC:=0;
        END;
       END;
       R[7]:=
+      BEGIN
+       Com:="다중 변수 타이머";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[86]
+'  R0
+LD T0132
+ANDNOT W1.00
+AND H2.07
+OUT TR0
+LD 0.00
+ANDNOT H4.02
+LDNOT 0.00
+AND H4.02
+ORLD
+ANDLD
+ANDNOT W19.00
+TIM 0103 D161
+@AND T0103
+SET W19.00
+ANDNOT W21.11
+ANDNOT W21.13
+MOV(021) &1 D251
+MOV(021) &0 D252
+LD TR0
+LD 0.01
+ANDNOT H4.02
+LDNOT 0.01
+AND H4.02
+ORLD
+ANDLD
+ANDNOT W17.00
+ANDNOT W19.09
+TIM 0104 D162
+@AND T0104
+OUT TR0
+AND H5.02
+SET W17.00
+LD TR0
+ANDNOT H5.02
+SET W19.09
+LD TR0
+LD H5.02
+LDNOT H5.02
+ANDNOT W21.11
+ANDNOT W21.13
+ORLD
+ANDLD
+MOV(021) &2 D251
+MOV(021) &0 D252
+$?St$Bk?_#[86]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[8]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[87]
+LD 0.00
+TIM 0103 D161
+AND 0.01
+TIM 0104 D162
+$?St$Bk?_#[87]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[9]:=
       BEGIN
        Com:="";
        Flags:="1,0";
@@ -451,13 +547,13 @@ $?St$Bk?_#[15]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[16]
+$?St$Bk?_#[88]
 LD 0.00
 LD 0.01
 OR 0.02
 ANDLD
 TIM 0000 0
-$?St$Bk?_#[16]
+$?St$Bk?_#[88]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -513,7 +609,7 @@ $?St$Bk?_#[16]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[17]
+$?St$Bk?_#[89]
 LD 0.04
 LD 0.01
 AND 0.01
@@ -522,7 +618,7 @@ LD 0.04
 OR 0.03
 ANDLD
 SFT(010) 10 20
-$?St$Bk?_#[17]
+$?St$Bk?_#[89]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -556,12 +652,12 @@ $?St$Bk?_#[17]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[18]
+$?St$Bk?_#[90]
 LD P_On
 CMP(020) #3 C0
 AND P_EQ
 OUT 0.01
-$?St$Bk?_#[18]
+$?St$Bk?_#[90]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -573,14 +669,14 @@ $?St$Bk?_#[18]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[19]
+$?St$Bk?_#[91]
 LD P_On
 AND H12.07
 AND 407.08
 AND H4.05
 AND<=S(317) D12576 +75
 NEG(160) D12576 D12572
-$?St$Bk?_#[19]
+$?St$Bk?_#[91]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -592,11 +688,11 @@ $?St$Bk?_#[19]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[20]
+$?St$Bk?_#[92]
 LD PT설정
 AND>S(322) D21 #0
 MOV(021) D21 D2030
-$?St$Bk?_#[20]
+$?St$Bk?_#[92]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -623,23 +719,38 @@ $?St$Bk?_#[20]
      SecName:="MOVD";
      ProgramData:=
      BEGIN
-      RC:=2;
+      RC:=3;
       R[0]:=
       BEGIN
        Com:="";
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[21]
+$?St$Bk?_#[93]
 LD P_On
 MOVD(083) A352 #210 D151
-$?St$Bk?_#[21]
+$?St$Bk?_#[93]
        AtchCmts:=
        BEGIN
         CC:=0;
        END;
       END;
       R[1]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[94]
+LD P_On
+MOVL(498) &2019080101 D37
+$?St$Bk?_#[94]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[2]:=
       BEGIN
        Com:="";
        Flags:="1,0";
@@ -667,13 +778,13 @@ $?St$Bk?_#[21]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[22]
+$?St$Bk?_#[95]
 '  R0
 LDNOT H11.00
 @AND 84.06
 %ANDNOT SHD_AR
 OUT 1.00
-$?St$Bk?_#[22]
+$?St$Bk?_#[95]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -685,13 +796,13 @@ $?St$Bk?_#[22]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[23]
+$?St$Bk?_#[96]
 '  R0
 LDNOT H11.00
 @AND 84.06
 @ANDNOT SHD_AR
 OUT 1.00
-$?St$Bk?_#[23]
+$?St$Bk?_#[96]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -725,7 +836,7 @@ $?St$Bk?_#[23]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[24]
+$?St$Bk?_#[97]
 LDNOT A_퍼지완료
 ANDNOT A_공급준비
 ANDNOT A_가스공급
@@ -736,7 +847,7 @@ NOT(520)
 AND P_First_Cycle
 OUT W90.02
 A  F0
-$?St$Bk?_#[24]
+$?St$Bk?_#[97]
        AtchCmts:=
        BEGIN
         CC:=1;
@@ -764,23 +875,53 @@ $?St$Bk?_#[24]
      SecName:="BSet";
      ProgramData:=
      BEGIN
-      RC:=2;
+      RC:=4;
       R[0]:=
       BEGIN
        Com:="";
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[25]
+$?St$Bk?_#[98]
 LD 0.00
 BSET(071) &0 D701 D707
-$?St$Bk?_#[25]
+$?St$Bk?_#[98]
        AtchCmts:=
        BEGIN
         CC:=0;
        END;
       END;
       R[1]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[99]
+LD 0.00
+BSET(071) &0 D701 D707
+$?St$Bk?_#[99]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[2]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[100]
+LD 0.00
+BSET(071) #4 D20002 D20009
+$?St$Bk?_#[100]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[3]:=
       BEGIN
        Com:="";
        Flags:="1,0";
@@ -808,9 +949,9 @@ $?St$Bk?_#[25]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[26]
+$?St$Bk?_#[101]
 END(001)
-$?St$Bk?_#[26]
+$?St$Bk?_#[101]
        AtchCmts:=
        BEGIN
         CC:=0;

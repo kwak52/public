@@ -186,7 +186,7 @@ namespace Dsu.PLCConvertor.Common
 
         public static bool CopySourceComment { get; set; } = true;
 
-        public static string LabelHeader { get; set; } = "**[변환]**";
+        public static string LabelHeader { get; set; } = "**(변환)**";
 
 
         static LogLevel _logLevel = LogLevel.WARN;

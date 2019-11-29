@@ -1,32 +1,36 @@
 [
   {
     "Name": "BIT",
-    "Pattern": "L9999.(%2d)",
+    "Pattern": "L(%4d).(%2d)",
     "XXXXPattern": "(%d).(%2d)",
     "MinMax": [
       {
+        "Min": 9999,
+        "Max": 10000
+      },
+      {
         "Min": 0,
-        "Max": 31
+        "Max": 15
       }
-    ]
+    ],
   },
   {
     "Name": "WORD",
-    "Pattern": "L9000",
+    "Pattern": "L(%4d)",
     "MinMax": [
       {
-        "Min": 0,
-        "Max": 100
+        "Min": 9000,
+        "Max": 9099
       }
     ]
   },
   {
     "Name": "TIMER_BUFFER",
-    "Pattern": "L9500",
+    "Pattern": "L(%4d)",
     "MinMax": [
       {
-        "Min": 0,
-        "Max": 100
+        "Min": 9100,
+        "Max": 9200
       }
     ]
   }

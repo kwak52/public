@@ -125,4 +125,13 @@ namespace Dsu.PLCConvertor.Common
             return perInputs.SelectMany(paragarph => paragarph);
         }
     }
+
+    /// <summary>
+    /// BSET function node
+    /// </summary>
+    internal class FunctionNodeBSET : TerminalFunctionNode
+    {
+        public FunctionNodeBSET(ILSentence sentence) : base(sentence) {}
+    }
+
 }

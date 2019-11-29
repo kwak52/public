@@ -40,6 +40,14 @@ namespace Dsu.PLCConvertor.Common
             Debugger.Break();
         }
 
+        public static LSILSentence Create(string sentence)
+        {
+            Debugger.Break();
+
+            var ils = new LSILSentence();
+            ils.Fill(sentence);
+            return ils;
+        }
 
 
         /// <summary>
@@ -76,6 +84,28 @@ namespace Dsu.PLCConvertor.Common
 
             return arg;
         }
+
+        // Args : 산전으로 변환되기 이전의 상태를 갖고 있다.  Args 에도 옴론의 argument 가 들어 있는 상태
+        // Command : 변환 이후의 상태
+        public override string[] ModifyArguments()
+        {
+            var args = base.ModifyArguments();
+            if (Mnemonic == Mnemonic.BSET)
+            {
+                // BSET(071) #4 D20002 D20009 ---> FMOV #4 D20002 8 의 결과가 나오도록 D20009 를 8 (9-2+1) 로 수정
+                var leadingLength =
+                    Args[1].Zip(Args[2], (f, s) => (f, s))
+                    .TakeWhile(tpl => tpl.f == tpl.s)
+                    .Count()
+                    ;
+                var n1 = int.Parse(Args[1].SkipNChar(leadingLength));
+                var n2 = int.Parse(Args[2].SkipNChar(leadingLength));
+                args[2] = $"{n2 - n1 + 1}";
+            }
+
+            return args;
+        }
+
 
         protected override string FilterCommand(string command)
         {
@@ -140,7 +170,7 @@ namespace Dsu.PLCConvertor.Common
                         if (!sa[1].StartsWith("#"))
                         {
                             var searchResult = tempAddressAllocator.Allocate("TIMER_BUFFER", this, $"{sa[0]}");
-                            _rung2ILConvertor.ProglogRungs.Add($"CMT\t타이머 변환용 임시 버퍼");
+                            _rung2ILConvertor.ProglogRungs.Add($"CMT\t{Cx2Xg5kOption.LabelHeader} 변환용 임시 버퍼");
                             _rung2ILConvertor.ProglogRungs.Add($"LOAD\t_ON");
                             _rung2ILConvertor.ProglogRungs.Add($"BIN\t{omron.Args[1]} {searchResult.Temporary}");
 
@@ -149,22 +179,17 @@ namespace Dsu.PLCConvertor.Common
                     }
                     return arg;
                 }).ToArray();
-                var operands = string.Join(" ", Args);
+
+                var args = ModifyArguments();
+                var operands = string.Join(" ", args);
                 return $"{Command}\t{operands}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
             }
             else
-                return $"{Command}\t{string.Join(" ", Args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
+            {
+                var args = ModifyArguments();
+                return $"{Command}\t{string.Join(" ", args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
+            }
         }
-
-        public static LSILSentence Create(string sentence)
-        {
-            Debugger.Break();
-
-            var ils = new LSILSentence();
-            ils.Fill(sentence);
-            return ils;
-        }
-
     }
 
 }
