@@ -103,6 +103,23 @@
     "Message": "ANDW(034) -> BAND $0 $1 2 ???"
   },
   {
+    "Command": "XFRB(062)",
+    "PerInputProc": [
+      "BMOV $1 $2 $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false,
+    "Message": "XFBR(062) -> BMOV ??? 결과 확인 필요"
+  },
+  {
+    "Command": "XFER(070)",
+    "PerInputProc": [
+      "GMOV $1 $2 $0"
+    ],
+    "IsTerminal": true,
+    "IsLoad": false
+  },
+  {
     "Command": "MOVD(083)",
     "PerInputProc": [
       "MOV $0 $2"
@@ -232,6 +249,14 @@
     "Command": "LD>(325)",
     "PerInputProc": [
       "LOADU>= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
+    "Command": "LD>=L(326)",
+    "PerInputProc": [
+      "LOADUD>= $0 $1"
     ],
     "IsTerminal": false,
     "IsLoad": true
@@ -379,6 +404,14 @@
     "Message": "AND>=(325) -> AND>= ???"
   },
   {
+    "Command": "AND>=L(326)",
+    "PerInputProc": [
+      "ANDUD>= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false
+  },
+  {
     "Command": "AND>=S(327)",
     "PerInputProc": [
       "AND>= $0 $1"
@@ -487,6 +520,15 @@
     "IsTerminal": false,
     "IsLoad": false,
     "Message": "OR>=(325) -> OR>= ???"
+  },
+
+  {
+    "Command": "OR>=S(327)",
+    "PerInputProc": [
+      "OR> $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": false
   },
 
   {
