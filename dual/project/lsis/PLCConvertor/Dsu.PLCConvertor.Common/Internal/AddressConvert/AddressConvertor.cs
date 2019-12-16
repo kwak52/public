@@ -49,7 +49,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             var matchedRules = rules.Where(r => r.IsMatch(sourceAddress)).ToArray();
             if (matchedRules.Length != 1)
-                throw new Exception($"Total {matchedRules.Length} rules matched for [{sourceAddress}].");
+                throw new ConvertorException($"Total {matchedRules.Length} rules matched for [{sourceAddress}].");
 
             return matchedRules[0].Convert(sourceAddress);
         }
@@ -79,7 +79,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                     .Iter(s =>
                     {
                         if (hash.Contains(s))
-                            throw new Exception($"Symbol {s} duplicated.");
+                            throw new ConvertorException($"Symbol {s} duplicated.");
 
                         hash.Add(s);
                     });

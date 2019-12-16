@@ -80,6 +80,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                         }
                         catch (ConvertorException ex)
                         {
+                            Global.Logger.Error($"Convertor exception {ex.Message}");
                             rung.NumberedConvertMessages = new[] { $"[{s+1}] [{t+1}] [{Cx2Xg5kOption.LabelHeader} {ex.Message}]" };   // kkk
                             rung.ConvertMessages = rung.ConvertMessages.Concat(new[] { $"{Cx2Xg5kOption.LabelHeader} {ex.Message}" }).ToArray();
 
@@ -115,7 +116,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         public IEnumerable<string> CollectResults(ConvertParams cvtParam)
         {
             if (cvtParam.TargetType != PLCVendor.LSIS)
-                throw new Exception($"Not supported PLC vendor type : {cvtParam.TargetType}");
+                throw new ConvertorException($"Not supported PLC vendor type : {cvtParam.TargetType}");
 
             var cmtcmd = Xg5k.RungCommentCommand;
 

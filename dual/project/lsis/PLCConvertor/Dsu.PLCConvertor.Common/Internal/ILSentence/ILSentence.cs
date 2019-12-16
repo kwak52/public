@@ -138,7 +138,7 @@ namespace Dsu.PLCConvertor.Common
                 case PLCVendor.LSIS: return LSILSentence.Create(vendorType, sentence);
                 case PLCVendor.Omron: return OmronILSentence.Create(vendorType, sentence);
                 default:
-                    throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
+                    throw new ConvertorException($"Unknown target PLC type:{vendorType}");
             }
         }
         internal static ILSentence Create(Rung2ILConvertor r2iConverter, ILSentence sentence)
@@ -150,7 +150,7 @@ namespace Dsu.PLCConvertor.Common
                 case PLCVendor.LSIS: ils = new LSILSentence(r2iConverter, sentence); break;
                 case PLCVendor.Omron: ils = new OmronILSentence(r2iConverter, sentence); break;
                 default:
-                    throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
+                    throw new ConvertorException($"Unknown target PLC type:{vendorType}");
             }
             return ils;
         }
@@ -162,7 +162,7 @@ namespace Dsu.PLCConvertor.Common
                 case PLCVendor.LSIS: Debugger.Break(); ils = LSILSentence.Create(sentence); break;
                 case PLCVendor.Omron: ils = OmronILSentence.Create(sentence); break;
                 default:
-                    throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
+                    throw new ConvertorException($"Unknown target PLC type:{vendorType}");
             }
 
             return ils;
@@ -176,7 +176,7 @@ namespace Dsu.PLCConvertor.Common
                 case PLCVendor.LSIS: ils = new LSILSentence(null, sentence); break;
                 case PLCVendor.Omron: ils = new OmronILSentence(null, sentence); break;
                 default:
-                    throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
+                    throw new ConvertorException($"Unknown target PLC type:{vendorType}");
             }
 
             return ils;
@@ -194,7 +194,7 @@ namespace Dsu.PLCConvertor.Common
                         case PLCVendor.LSIS: sentence = LSILSentence.Create($"{Xg5k.RungCommentCommand}\t{rc}"); break;
                         case PLCVendor.Omron: sentence = OmronILSentence.Create($"'\t{rc}"); break;
                         default:
-                            throw new NotImplementedException($"Unknown target PLC type:{vendorType}");
+                            throw new ConvertorException($"Unknown target PLC type:{vendorType}");
                     }
 
                     sentence.Mnemonic = Mnemonic.RUNG_COMMENT;

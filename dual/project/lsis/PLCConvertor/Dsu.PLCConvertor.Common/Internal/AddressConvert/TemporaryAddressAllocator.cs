@@ -75,7 +75,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 
             var gen = _generators[tempAllocatorName];
             if (!gen.MoveNext())
-                throw new Exception($"No more availabe temp device.");
+                throw new ConvertorException($"No more availabe temp device. {tempAllocatorName}");
 
             var temp = gen.Current;
             var NP = device[0] == '@' ? 'P' : 'N';
@@ -162,7 +162,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 
         internal TemporaryAddressAllocator LoadFromJsonFile(object p)
         {
-            throw new NotImplementedException();
+            throw new ConvertorException("Not implemented");
         }
     }
 }
