@@ -159,8 +159,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         public void ResetStartStep()
         {
-            SourceStartStep = 0;
-            TargetStartStep = 0;
+            SourceStartStep = 1;
+            TargetStartStep = 1;
         }
 
         /// <summary>
