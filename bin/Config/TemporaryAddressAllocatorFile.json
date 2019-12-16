@@ -26,11 +26,11 @@
   },
   {
     "Name": "TIMER_BUFFER",
-    "Pattern": "L(%4d)",
+    "Pattern": "M(%4d)",
     "MinMax": [
       {
-        "Min": 9100,
-        "Max": 9200
+        "Min": 100,
+        "Max": 200
       }
     ]
   }

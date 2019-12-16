@@ -43,12 +43,13 @@ namespace Dsu.PLCConvertor.Common
 
         public IEnumerable<string> GetNumberedMessages()
         {
-            return
-                _numberedMessages
-                    .ToSameGroups()
-                    //.SelectMany(grp => grp)
-                    .Select(grp => $"X{grp.Count()}\t{grp.First()}")  // kkk: 
-                    ;
+            return _numberedMessages;
+            //return
+            //    _numberedMessages
+            //        .ToSameGroups()
+            //        //.SelectMany(grp => grp)
+            //        .Select(grp => $"X{grp.Count()}\t{grp.First()}")  // kkk: 
+            //        ;
         }
 
         Rung2ILConvertor(Rung rung, ConvertParams cvtParam)
