@@ -184,7 +184,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             (int[] elements, string errorMsg) = getAddressComponents(sourceAddress);
             if (elements == null)
-                throw new Exception(errorMsg);
+                throw new ConvertorException(errorMsg);
 
             var transformed =
                 TargetArgsExpr

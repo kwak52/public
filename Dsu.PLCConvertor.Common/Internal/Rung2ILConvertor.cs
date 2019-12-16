@@ -429,7 +429,7 @@ namespace Dsu.PLCConvertor.Common
         //            yield return new LSILSentence(point.ILSentence).ToString();
         //            yield break;
         //        default:
-        //            throw new NotImplementedException("");
+        //            throw new ConvertorException("");
         //    }
         //}
     }

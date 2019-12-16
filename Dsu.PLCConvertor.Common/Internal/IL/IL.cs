@@ -71,7 +71,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 case PLCVendor.LSIS: return _dicLSIS;
                 case PLCVendor.Omron: return _dicOmron;
                 default:
-                    throw new NotImplementedException($"Unknown target PLC type:{targetType}");
+                    throw new ConvertorException($"Unknown target PLC type:{targetType}");
             };
         }
         static Multimap<string, Mnemonic> GetReversedDictionary(PLCVendor targetType)
@@ -81,7 +81,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 case PLCVendor.LSIS: return _reverseDicLSIS;
                 case PLCVendor.Omron: return _reverseDicOmron;
                 default:
-                    throw new NotImplementedException($"Unknown target PLC type:{targetType}");
+                    throw new ConvertorException($"Unknown target PLC type:{targetType}");
             };
         }
 
