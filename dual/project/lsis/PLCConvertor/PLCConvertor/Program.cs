@@ -30,6 +30,7 @@ namespace PLCConvertor
 
             var logger = LogManager.GetLogger("PLCConvertor");
             FormPLCConverter.Logger = logger;
+            FormCxp2Xg5k.Logger = logger;
             Global.Logger = logger;
 
             InstallUnhandledExceptionHandler();
@@ -39,12 +40,19 @@ namespace PLCConvertor
             XmlConfigurator.Configure(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));
 
 
-            var root = ((log4net.Repository.Hierarchy.Hierarchy)log4net.LogManager.GetRepository()).Root;
-            var form = new FormPLCConverter();
-            root.AddAppender(form);
-
-
-            Application.Run(form);
+            var root = ((log4net.Repository.Hierarchy.Hierarchy)log4net.LogManager.GetRepository()).Root;            
+            if (Control.ModifierKeys == Keys.Shift)
+            {
+                var form = new FormPLCConverter();
+                root.AddAppender(form);
+                Application.Run(form);
+            }
+            else
+            {
+                var form = new FormCxp2Xg5k();
+                root.AddAppender(form);
+                Application.Run(form);
+            }
 
             void InstallUnhandledExceptionHandler()
             {
