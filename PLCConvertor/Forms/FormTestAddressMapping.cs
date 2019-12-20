@@ -1,4 +1,5 @@
 ﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.PLCConvertor.Common;
 using Dsu.PLCConvertor.Common.Internal;
 using log4net;
 using System;
@@ -16,7 +17,7 @@ namespace PLCConvertor.Forms
 {
     public partial class FormTestAddressMapping : Form
     {
-        public static ILog Logger => FormPLCConverter.Logger;
+        public static ILog Logger => Global.Logger;
         public FormTestAddressMapping()
         {
             InitializeComponent();
