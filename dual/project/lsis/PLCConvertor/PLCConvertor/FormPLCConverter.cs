@@ -15,6 +15,7 @@ using System.Configuration;
 using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
 using System.Threading.Tasks;
+using DevExpress.XtraBars.Docking;
 
 namespace PLCConvertor
 {
@@ -43,45 +44,66 @@ namespace PLCConvertor
             }
         }
 
+        /// <summary>
+        /// Debugging mode : Shift key press 된 상태로 시작
+        /// </summary>
+        static bool IsDebuggingMode { get; set; }
+
         public FormPLCConverter()
         {
             InitializeComponent();
         }
 
-        private void FormPLCConverter_Load(object sender, EventArgs e)
+        private async void FormPLCConverter_Load(object sender, EventArgs e)
         {
+            IsDebuggingMode = ModifierKeys == Keys.Shift;
+            AdjustUI(IsDebuggingMode);
+
             Logger.Info("FormRibonApp launched.");
             Rung.Logger = Logger;
             Cx2Xg5kOption.LogLevel = LogLevel.WARN;
 
-            using (var waitor = new SplashScreenWaitor("로딩", "변환기를 로딩합니다."))
-            using (var subscription = Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
+            await Task.Run(() =>
             {
+                using (var waitor = new SplashScreenWaitor("로딩", "변환기를 로딩합니다."))
+                using (var subscription = Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
+                {
 
-                //TestCustomAppConfig();
+                    //TestCustomAppConfig();
 
-                //void TestCustomAppConfig()
-                //{
-                //    Logger.Info("Custom configuration section test:");
-                //    var appConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                //    var config = appConfig.GetSection("exportPdv") as CustomConfigurationSection;
-                //    Logger.Debug($"Source: folder={config.SourceFolderPrefix}");
-                //    Logger.Debug($"Destination: folder={config.DestinationFolderPrefix}");
-                //    Logger.Debug($"Destination server IP: {config.DestinationDBServerIp}");
-                //}
+                    //void TestCustomAppConfig()
+                    //{
+                    //    Logger.Info("Custom configuration section test:");
+                    //    var appConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    //    var config = appConfig.GetSection("exportPdv") as CustomConfigurationSection;
+                    //    Logger.Debug($"Source: folder={config.SourceFolderPrefix}");
+                    //    Logger.Debug($"Destination: folder={config.DestinationFolderPrefix}");
+                    //    Logger.Debug($"Destination server IP: {config.DestinationDBServerIp}");
+                    //}
 
 
-                var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
-                AddressConvertor = AddressConvertor.LoadFromJsonFile(addressMappingJsonFile);
+                    var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
+                    AddressConvertor = AddressConvertor.LoadFromJsonFile(addressMappingJsonFile);
 
-                var commandMappingJsonFile = ConfigurationManager.AppSettings["userDefinedCommandMappingFile"];
-                UserDefinedCommandMapper = UserDefinedCommandMapper.LoadFromJsonFile(commandMappingJsonFile, PLCVendor.Omron);
+                    var commandMappingJsonFile = ConfigurationManager.AppSettings["userDefinedCommandMappingFile"];
+                    UserDefinedCommandMapper = UserDefinedCommandMapper.LoadFromJsonFile(commandMappingJsonFile, PLCVendor.Omron);
 
-                repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
-                barEditItemSource.EditValue = PLCVendor.Omron;
+                    repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
+                    barEditItemSource.EditValue = PLCVendor.Omron;
 
-                repositoryItemComboBoxTarget.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
-                barEditItemTarget.EditValue = PLCVendor.LSIS;
+                    repositoryItemComboBoxTarget.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
+                    barEditItemTarget.EditValue = PLCVendor.LSIS;
+                }
+            });
+            void AdjustUI(bool isDebuggingMode)
+            {
+                if (!isDebuggingMode)
+                {
+                    Size = new Size(500, 300);
+                    dockPanelMain.Close();
+                    ribbonPageDebugging.Visible = false;
+                    dockPanelLog.DockedAsTabbedDocument = true;
+                }
             }
         }
         void TestConversion()

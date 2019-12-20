@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -47,9 +47,11 @@
             this.barButtonItemEditPerferences = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemTestAddress = new DevExpress.XtraBars.BarButtonItem();
             this.barCheckItemWithSymbols = new DevExpress.XtraBars.BarCheckItem();
-            this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageDebugging = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupOptions = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageProductRelease = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
@@ -107,7 +109,8 @@
             this.ribbon.MaxItemId = 11;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
-            this.ribbonPage1});
+            this.ribbonPageDebugging,
+            this.ribbonPageProductRelease});
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemComboBoxSource,
             this.repositoryItemComboBoxTarget});
@@ -182,12 +185,12 @@
             this.barButtonItemTestAddress.Caption = "Test address";
             this.barButtonItemTestAddress.Id = 9;
             this.barButtonItemTestAddress.Name = "barButtonItemTestAddress";
-            toolTipTitleItem1.Text = "Test Address Mapping";
-            toolTipItem1.LeftIndent = 6;
-            toolTipItem1.Text = "Test conversion of device address.";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            superToolTip1.Items.Add(toolTipItem1);
-            this.barButtonItemTestAddress.SuperTip = superToolTip1;
+            toolTipTitleItem2.Text = "Test Address Mapping";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Test conversion of device address.";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.barButtonItemTestAddress.SuperTip = superToolTip2;
             this.barButtonItemTestAddress.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTestAddress_ItemClick);
             // 
             // barCheckItemWithSymbols
@@ -197,13 +200,13 @@
             this.barCheckItemWithSymbols.Id = 10;
             this.barCheckItemWithSymbols.Name = "barCheckItemWithSymbols";
             // 
-            // ribbonPage1
+            // ribbonPageDebugging
             // 
-            this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageDebugging.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroupTest,
             this.ribbonPageGroupOptions});
-            this.ribbonPage1.Name = "ribbonPage1";
-            this.ribbonPage1.Text = "ribbonPage1";
+            this.ribbonPageDebugging.Name = "ribbonPageDebugging";
+            this.ribbonPageDebugging.Text = "ribbonPage1";
             // 
             // ribbonPageGroupTest
             // 
@@ -223,6 +226,18 @@
             this.ribbonPageGroupOptions.ItemLinks.Add(this.barCheckItemWithSymbols);
             this.ribbonPageGroupOptions.Name = "ribbonPageGroupOptions";
             this.ribbonPageGroupOptions.Text = "Options";
+            // 
+            // ribbonPageProductRelease
+            // 
+            this.ribbonPageProductRelease.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroup1});
+            this.ribbonPageProductRelease.Name = "ribbonPageProductRelease";
+            this.ribbonPageProductRelease.Text = "메뉴";
+            // 
+            // ribbonPageGroup1
+            // 
+            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
             // 
             // ribbonStatusBar
             // 
@@ -318,9 +333,9 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
-            dockingContainer1.Element = this.documentGroup1;
+            dockingContainer2.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer1});
+            dockingContainer2});
             // 
             // FormPLCConverter
             // 
@@ -355,7 +370,7 @@
         #endregion
 
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
-        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageDebugging;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupTest;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar;
         private DevExpress.XtraBars.Docking.DockManager dockManager1;
@@ -381,5 +396,7 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItemEditPerferences;
         private DevExpress.XtraBars.BarButtonItem barButtonItemTestAddress;
         private DevExpress.XtraBars.BarCheckItem barCheckItemWithSymbols;
+        private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageProductRelease;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
     }
 }
