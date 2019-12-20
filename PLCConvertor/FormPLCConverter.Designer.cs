@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPLCConverter));
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -47,6 +48,9 @@
             this.barButtonItemEditPerferences = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItemTestAddress = new DevExpress.XtraBars.BarButtonItem();
             this.barCheckItemWithSymbols = new DevExpress.XtraBars.BarCheckItem();
+            this.barButtonItemTranslate = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemSetting = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItemExit = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPageDebugging = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupOptions = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -104,9 +108,12 @@
             this.barButtonItemEditAddressMappingRule,
             this.barButtonItemEditPerferences,
             this.barButtonItemTestAddress,
-            this.barCheckItemWithSymbols});
+            this.barCheckItemWithSymbols,
+            this.barButtonItemTranslate,
+            this.barButtonItemSetting,
+            this.barButtonItemExit});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 11;
+            this.ribbon.MaxItemId = 15;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPageDebugging,
@@ -185,12 +192,12 @@
             this.barButtonItemTestAddress.Caption = "Test address";
             this.barButtonItemTestAddress.Id = 9;
             this.barButtonItemTestAddress.Name = "barButtonItemTestAddress";
-            toolTipTitleItem2.Text = "Test Address Mapping";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "Test conversion of device address.";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            superToolTip2.Items.Add(toolTipItem2);
-            this.barButtonItemTestAddress.SuperTip = superToolTip2;
+            toolTipTitleItem1.Text = "Test Address Mapping";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Test conversion of device address.";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            superToolTip1.Items.Add(toolTipItem1);
+            this.barButtonItemTestAddress.SuperTip = superToolTip1;
             this.barButtonItemTestAddress.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTestAddress_ItemClick);
             // 
             // barCheckItemWithSymbols
@@ -199,6 +206,33 @@
             this.barCheckItemWithSymbols.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
             this.barCheckItemWithSymbols.Id = 10;
             this.barCheckItemWithSymbols.Name = "barCheckItemWithSymbols";
+            // 
+            // barButtonItemTranslate
+            // 
+            this.barButtonItemTranslate.Caption = "변환";
+            this.barButtonItemTranslate.Id = 11;
+            this.barButtonItemTranslate.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItemTranslate.ImageOptions.Image")));
+            this.barButtonItemTranslate.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItemTranslate.ImageOptions.LargeImage")));
+            this.barButtonItemTranslate.Name = "barButtonItemTranslate";
+            this.barButtonItemTranslate.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTranslate_ItemClick);
+            // 
+            // barButtonItemSetting
+            // 
+            this.barButtonItemSetting.Caption = "설정";
+            this.barButtonItemSetting.Id = 12;
+            this.barButtonItemSetting.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItemSetting.ImageOptions.Image")));
+            this.barButtonItemSetting.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItemSetting.ImageOptions.LargeImage")));
+            this.barButtonItemSetting.Name = "barButtonItemSetting";
+            this.barButtonItemSetting.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSetting_ItemClick);
+            // 
+            // barButtonItemExit
+            // 
+            this.barButtonItemExit.Caption = "종료";
+            this.barButtonItemExit.Id = 14;
+            this.barButtonItemExit.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItemExit.ImageOptions.Image")));
+            this.barButtonItemExit.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItemExit.ImageOptions.LargeImage")));
+            this.barButtonItemExit.Name = "barButtonItemExit";
+            this.barButtonItemExit.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemExit_ItemClick);
             // 
             // ribbonPageDebugging
             // 
@@ -236,8 +270,11 @@
             // 
             // ribbonPageGroup1
             // 
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItemTranslate);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItemSetting);
+            this.ribbonPageGroup1.ItemLinks.Add(this.barButtonItemExit);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
+            this.ribbonPageGroup1.Text = "메인 메뉴";
             // 
             // ribbonStatusBar
             // 
@@ -333,9 +370,9 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
-            dockingContainer2.Element = this.documentGroup1;
+            dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer2});
+            dockingContainer1});
             // 
             // FormPLCConverter
             // 
@@ -345,10 +382,11 @@
             this.Controls.Add(this.dockPanelLog);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
+            this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "FormPLCConverter";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;
-            this.Text = "FormPLCConverter";
+            this.Text = "PLC 변환기";
             this.Load += new System.EventHandler(this.FormPLCConverter_Load);
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
@@ -398,5 +436,8 @@
         private DevExpress.XtraBars.BarCheckItem barCheckItemWithSymbols;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPageProductRelease;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemTranslate;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemSetting;
+        private DevExpress.XtraBars.BarButtonItem barButtonItemExit;
     }
 }
