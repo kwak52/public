@@ -15,6 +15,7 @@ using System.Configuration;
 using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
 using System.Threading.Tasks;
+using DevExpress.XtraBars;
 using DevExpress.XtraBars.Docking;
 
 namespace PLCConvertor
@@ -54,7 +55,7 @@ namespace PLCConvertor
             InitializeComponent();
         }
 
-        private async void FormPLCConverter_Load(object sender, EventArgs e)
+        private async void FormPLCConverter_Load(object sender, EventArgs args)
         {
             IsDebuggingMode = ModifierKeys == Keys.Shift;
             AdjustUI(IsDebuggingMode);
@@ -95,8 +96,11 @@ namespace PLCConvertor
                     barEditItemTarget.EditValue = PLCVendor.LSIS;
                 }
             });
+
             void AdjustUI(bool isDebuggingMode)
             {
+                dockPanelLog.Options.ShowCloseButton = false;
+
                 if (!isDebuggingMode)
                 {
                     Size = new Size(500, 300);
@@ -120,7 +124,7 @@ namespace PLCConvertor
 
 
         Form _lastEmbeddedForm;
-        private void BarButtonItemTestParse_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void BarButtonItemTestParse_ItemClick(object s, ItemClickEventArgs e)
         {
             var formILs = new FormInputSelector();
             if (formILs.ShowDialog() == DialogResult.OK)
@@ -140,7 +144,7 @@ namespace PLCConvertor
             }
         }
 
-        private async void BarButtonItemCxtParse_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private async void BarButtonItemCxtParse_ItemClick(object s, ItemClickEventArgs e)
         {
             using (var ofd = new OpenFileDialog())
             {
@@ -232,24 +236,39 @@ namespace PLCConvertor
             }
         }
 
-        private void barButtonItemAddressMapping_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void barButtonItemAddressMapping_ItemClick(object s, ItemClickEventArgs e)
         {
             new FormTestAddressMapping().Show();
         }
 
-        private void barButtonItemEditAddressMappingRule_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void barButtonItemEditAddressMappingRule_ItemClick(object s, ItemClickEventArgs e)
         {
             new FormEditAddressMappingRule().Show();
         }
 
-        private void barButtonItemEditPerferences_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void barButtonItemEditPerferences_ItemClick(object s, ItemClickEventArgs e)
         {
             new FormEditPreferences().Show();
         }
 
-        private void barButtonItemTestAddress_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void barButtonItemTestAddress_ItemClick(object s, ItemClickEventArgs e)
         {
             new FormTestAddressMappingRule().Show();
+        }
+
+        private void barButtonItemTranslate_ItemClick(object s, ItemClickEventArgs e)
+        {
+            barButtonItemCxtParse.PerformClick();
+        }
+
+        private void barButtonItemSetting_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            barButtonItemEditPerferences.PerformClick();
+        }
+
+        private void barButtonItemExit_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Close();
         }
     }
 }
