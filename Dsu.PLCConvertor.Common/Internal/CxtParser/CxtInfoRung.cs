@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dsu.PLCConvertor.Common.Internal
@@ -31,9 +33,9 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// Rung 에 대한 변환 결과를 저장
         /// </summary>
         internal ConvertResult ConvertResult;
-        internal IEnumerable<string> ConvertResults => ConvertResult.Results;
+        internal IEnumerable<string> ConvertResults => ConvertResult?.Results;
 
-        internal IEnumerable<string> GetAllConvertMessages() => ConvertResult.Messages;
+        internal IEnumerable<string> GetAllConvertMessages() => ConvertResult?.Messages;
 
         /// <summary>
         /// 변환 중간 결과 clear/reset
@@ -41,6 +43,63 @@ namespace Dsu.PLCConvertor.Common.Internal
         internal override void ClearMyResult()
         {
             ConvertResult = null;
+        }
+
+        public ConvertResult Convert(ConvertParams cvtParam, CxtInfoProgram prog, CxtInfoSection sec, int targetStartIndex)
+        {
+            ConvertResult convertResult = null;
+            var rung = this;
+            // "A  F0" 가 맨 끝에 오는 경우는 rung 주석이 포함된 경우이다.
+            var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//") && il != "\"\"" && il != "A  F0");
+
+            if (ils.Any())
+            {
+                var s = rung.AccumulatedStartILIndex;
+                var t = targetStartIndex;
+                cvtParam.SourceStartStep = s;
+                cvtParam.TargetStartStep = t;
+
+                try
+                {
+                    convertResult = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
+                }
+                catch (ConvertorException ex)
+                {
+                    Global.Logger.Error($"Convertor exception {ex.Message}");
+                    var exceptions = ex.Message.Replace("\r\n", "\n");
+                    var message = $"[{s + 1}] [{t + 1}] [{Cx2Xg5kOption.LabelHeader} {exceptions}]";
+                    convertResult = new ConvertResult(Enumerable.Empty<string>(), new[] { message });   // kkk
+
+                    // 생성 실패한 rung 따로 project 로 기록
+                    cvtParam.ReviewProjectGenerator.AddRungs(prog, ils.ToArray(), ex);
+                }
+                catch (Exception ex)
+                {
+                    Global.Logger.Error($"Unknown exception {ex}");
+                    throw;
+                }
+
+                cvtParam.SourceStartStep += rung.ILs.Length;
+
+                if (rung.ConvertResults != null)
+                    cvtParam.TargetStartStep += rung.ConvertResults.Count();
+            }
+            else if (rung.Comment.NonNullAny())
+            {
+                var results =
+                    rung.Comment.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                        .SelectMany(cmt => CxtParser.SplitBlock(cmt))
+                        .Select(cmt => $"{Xg5k.RungCommentCommand}\t{cmt}")
+                        .ToArray();
+                convertResult = new ConvertResult(results);
+            }
+
+            convertResult.Program = prog;
+            convertResult.Section = sec;
+            convertResult.Rung = rung;
+            rung.ConvertResult = convertResult;
+
+            return rung.ConvertResult;
         }
     }
 }

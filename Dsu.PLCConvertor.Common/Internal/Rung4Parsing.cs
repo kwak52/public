@@ -191,7 +191,7 @@ namespace Dsu.PLCConvertor.Common
                     SubRung getCbld()
                     {
                         if (_cbld == null)
-                            throw new ConvertorException($"({ConvertParams.GetFailedRungIndexAndIncrement()}) 변환 불가 : 래더 구성 실패.\r\n실패한 IL문={sentence}\r\n(_cbld is null)");
+                            throw new ConvertorException($"({ConvertParams.GetFailedRungIndexAndIncrement()}) 변환 불가 : 래더 구성 실패.:::실패한 IL문={sentence}:::(_cbld is null)");
                         return _cbld;
                     }
                 }

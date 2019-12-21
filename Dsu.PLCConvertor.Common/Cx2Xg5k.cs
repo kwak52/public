@@ -31,7 +31,7 @@ namespace Dsu.PLCConvertor.Common
             // PLC programs 부 : 각 program 은 다중 section 으로 구성되어 있다.
             var programs = cxt.Programs.ToArray();
 
-            programs.Iter(prog => prog.Convert(cvtParams));
+            var xxxResults = programs.SelectMany(prog => prog.Convert(cvtParams)).ToArray();
 
             var convertedContents = programs.SelectMany(prog => prog.CollectResults(cvtParams)).ToArray();
 

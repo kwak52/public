@@ -55,7 +55,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// 프로그램에 대해서 PLC 변환
         /// </summary>
-        public void Convert(ConvertParams cvtParam)
+        public IEnumerable<ConvertResult> Convert(ConvertParams cvtParam)
         {
             try
             {
@@ -65,8 +65,15 @@ namespace Dsu.PLCConvertor.Common.Internal
                 cvtParam.ResetStartStep();
                 ClearResult();
 
+                int targetStartIndex = 0;
                 // program 을 구성하는 각 section 들을 모두 변환.  변환 결과는 중간 결과로 저장하고 있음
-                Sections.Iter(sec => sec.Convert(cvtParam));
+                //return Sections.SelectMany(sec => sec.Convert(cvtParam, targetStartIndex));
+                return Sections.SelectMany(sec =>
+                {
+                    var results = sec.Convert(cvtParam, this, targetStartIndex).ToArray();
+                    targetStartIndex += results.Sum(r => r.Messages.Count() + r.Results.Count());
+                    return results;
+                });
             }
             finally
             {
