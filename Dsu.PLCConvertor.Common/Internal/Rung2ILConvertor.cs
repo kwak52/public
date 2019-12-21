@@ -332,7 +332,7 @@ namespace Dsu.PLCConvertor.Common
                     .Concat(res.Results)
                     .ToArray();
 
-                return new ConvertResult(result, res.NumberedMessages);                
+                return new ConvertResult(result, res.Messages);                
             }
             else
                 return convertFromMnemonics();
@@ -350,7 +350,7 @@ namespace Dsu.PLCConvertor.Common
                 var result = r2il.Convert().ToArray();
 
                 // kkk: 결과와 error message 를 모두 반환
-                return new ConvertResult(result, r2il.GetNumberedMessages(), rung.ErrorMessage); // kkk
+                return new ConvertResult(result, r2il.GetNumberedMessages().Concat(rung.ErrorMessage)); // kkk
 
 
                 // Rung 생성 없이, 문자열 기준으로 변환
@@ -387,19 +387,14 @@ namespace Dsu.PLCConvertor.Common
     public class ConvertResult
     {
         public string[] Results;
-        public string[] NumberedMessages;
         public string[] Messages;
-        public ConvertResult(IEnumerable<string> results, IEnumerable<string> numberedMessages, IEnumerable<string> messages)
+        public ConvertResult(IEnumerable<string> results, IEnumerable<string> messages)
         {
             Results = results.ToArray();
-            NumberedMessages = numberedMessages.ToArray();
             Messages = messages.ToArray();
         }
         public ConvertResult(IEnumerable<string> results)
-            : this(results, Enumerable.Empty<string>(), Enumerable.Empty<string>())
-        {}
-        public ConvertResult(IEnumerable<string> results, IEnumerable<string> messages)
-            : this(results, messages, Enumerable.Empty<string>())
+            : this(results, Enumerable.Empty<string>())
         {}
     }
 
