@@ -25,6 +25,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         public string Name { get; private set; }
 
+        public IEnumerable<CxtInfoProgram> Programs => this.EnumerateType<CxtInfoProgram>();
         public List<CxtInfoResource> Resources { get; } = new List<CxtInfoResource>();
         /// <summary>
         /// 마지막 Global or Local variables
@@ -47,6 +48,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             Name = getValue("Name");
 
             BuildCxtInfo();
+            BuildStatistics();
 
             string unQuote(string str) => str.TrimStart('"').TrimEnd('"');
             string getValue(string key) => unQuote(rootBlock[key].Value.ToString());
@@ -168,6 +170,24 @@ namespace Dsu.PLCConvertor.Common.Internal
                     else
                         stack.Pop();
                 }
+            }
+        
+            void BuildStatistics()
+            {
+                Programs.Iter(p =>
+                {
+                    var rungIndex = 0;
+                    var numIls = 0;
+                    p.Sections.Iter(s =>
+                    {
+                        s.Rungs.Iter(r =>
+                        {
+                            r.AccumulatedRungIndex = ++rungIndex;
+                            r.AccumulatedStartILIndex = numIls;
+                            numIls += r.ILs.Length;
+                        });
+                    });
+                });
             }
         }
 

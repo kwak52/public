@@ -13,6 +13,12 @@ namespace Dsu.PLCConvertor.Common.Internal
         public string Comment { get; internal set; }
         public string[] ILs { get; internal set; } = new string[] {};
 
+        /// <summary>
+        /// Program 으로부터의 누적 rung index
+        /// </summary>
+        public int AccumulatedRungIndex { get; set; }
+        public int AccumulatedStartILIndex { get; set; }
+
         public IEnumerable<string> EffectiveILs => ILs.SkipWhile(il => il.StartsWith("'"));
         internal CxtInfoRung(string name)
             : base("Rung")
@@ -25,14 +31,18 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// Rung 에 대한 변환 결과를 저장
         /// </summary>
         internal string[] ConvertResults = new string[]{};
+
         /// <summary>
-        /// Rung 에 대한 변환 메시지를 저장
+        /// Rung 변환 중 발생한 경고/알림 메시지 저장
         /// </summary>
-        internal string[] NumberedConvertMessages = new string[]{};
+        internal string[] ConvertWarnMessages = new string[]{};
 
-        internal string[] ConvertMessages = new string[]{};
+        /// <summary>
+        /// Rung 변환 중 발생한 에러 메시지 저장
+        /// </summary>
+        internal string[] ConvertErrorMessages = new string[]{};
 
-        internal IEnumerable<string> GetAllConvertMessages() => ConvertMessages.Concat(NumberedConvertMessages);
+        internal IEnumerable<string> GetAllConvertMessages() => ConvertErrorMessages.Concat(ConvertWarnMessages);
 
         /// <summary>
         /// 변환 중간 결과 clear/reset
@@ -40,7 +50,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         internal override void ClearMyResult()
         {
             ConvertResults = new string[]{};
-            NumberedConvertMessages = new string[]{};
+            ConvertWarnMessages = new string[]{};
         }
     }
 }

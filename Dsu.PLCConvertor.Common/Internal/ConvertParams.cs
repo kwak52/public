@@ -112,7 +112,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             }
 
 
-            var programs = cxt.EnumerateType<CxtInfoProgram>().ToArray();
+            var programs = cxt.Programs.ToArray();
 
             // program 별 local 변수 쌍을 생성
             var query =

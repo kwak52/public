@@ -191,13 +191,13 @@ namespace PLCConvertor
                             var cxtInfoRoot = Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
 
                             var totalRungs =
-                                from prog in cxtInfoRoot.EnumerateType<CxtInfoProgram>()
-                                from sec in prog.EnumerateType<CxtInfoSection>()
-                                from rung in sec.EnumerateValidRungs()
+                                from prog in cxtInfoRoot.Programs
+                                from sec in prog.Sections
+                                from rung in sec.Rungs
                                 select rung
                                 ;
                             //cxtInfoRoot
-                            //    .EnumerateType<CxtInfoProgram>()
+                            //    .Programs
                             //    .SelectMany(prog => prog.EnumerateType<CxtInfoSection>())
                             //    .SelectMany(sec => sec.EnumerateValidRungs())
                             //    .ToArray();
