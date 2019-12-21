@@ -183,30 +183,38 @@ namespace PLCConvertor
 
                 await Task.Run(() =>
                 {
-                    using (var waitor = new SplashScreenWaitor($"{stem}.cxt 변환중", $"{stem}.cxt 을 변환 중입니다."))
-                    using (var subscription = Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
+                    try
                     {
-                        var cxtInfoRoot = Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
+                        using (var waitor = new SplashScreenWaitor($"{stem}.cxt 변환중", $"{stem}.cxt 을 변환 중입니다."))
+                        using (var subscription = Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
+                        {
+                            var cxtInfoRoot = Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
 
-                        var totalRungs =
-                            from prog in cxtInfoRoot.EnumerateType<CxtInfoProgram>()
-                            from sec in prog.EnumerateType<CxtInfoSection>()
-                            from rung in sec.EnumerateValidRungs()
-                            select rung
-                            ;
+                            var totalRungs =
+                                from prog in cxtInfoRoot.EnumerateType<CxtInfoProgram>()
+                                from sec in prog.EnumerateType<CxtInfoSection>()
+                                from rung in sec.EnumerateValidRungs()
+                                select rung
+                                ;
                             //cxtInfoRoot
                             //    .EnumerateType<CxtInfoProgram>()
                             //    .SelectMany(prog => prog.EnumerateType<CxtInfoSection>())
                             //    .SelectMany(sec => sec.EnumerateValidRungs())
                             //    .ToArray();
 
-                        var numTotalRungs = totalRungs.Count();
-                        var numFailed = cvtParams.ReviewProjectGenerator.FailedRungs.Count();
-                        var message = $"{stem}.cxt 변환 완료!\r\n\r\n"
-                                + $"    총 rung 수 = {numTotalRungs}\r\n"
-                                + $"    실패한 rung 수 = {numFailed}";
-                        Logger.Info(message);
-                        MsgBox.Info("변환완료", message);
+                            var numTotalRungs = totalRungs.Count();
+                            var numFailed = cvtParams.ReviewProjectGenerator.FailedRungs.Count();
+                            var message = $"{stem}.cxt 변환 완료!\r\n\r\n"
+                                    + $"    총 rung 수 = {numTotalRungs}\r\n"
+                                    + $"    실패한 rung 수 = {numFailed}";
+                            Logger.Info(message);
+                            MsgBox.Info("변환완료", message);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MsgBox.Error("에러", $"변환에 실패하였습니다.\r\n{ex.Message}");
+                        throw;
                     }
                 });
 
