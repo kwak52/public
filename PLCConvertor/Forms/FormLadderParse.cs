@@ -85,7 +85,7 @@ namespace PLCConvertor.Forms
             var mnemonics = cr.Results;
             var messages = cr.NumberedMessages;
             var converted = mnemonics.JoinString("\r\n");
-            Logger?.Info($"Reversely converted mnemonics for {_mnemonicInput.Comment}:\r\n{converted}");
+            Logger?.Debug($"Reversely converted mnemonics for {_mnemonicInput.Comment}:\r\n{converted}");
 
 
             converted = MnemonicInput.CommentOutMultiple(converted);
@@ -117,12 +117,10 @@ namespace PLCConvertor.Forms
             }
             if (!correct)
             {
-                var ans = answer.Replace("\r\n", "\\n");
-                var con = converted.Replace("\r\n", "\\n");
-                Trace.WriteLine($"ANSWER:{ans}");
-                Trace.WriteLine($"CONVET:{con}");
+                Trace.WriteLine($"ANSWER:{answer}");
+                Trace.WriteLine($"CONVET:{converted}");
 
-                Logger?.Error($"Convert mismatch.  Desired output:\r\n{answer}");
+                Logger?.Error($"Convert mismatch.\r\nDesired output:\r\n{answer}\r\n\r\nConverted:\r\n{converted}");
             }
 
             return image;

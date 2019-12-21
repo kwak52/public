@@ -3,7 +3,7 @@ WrittenByCXPVersion:="9.70";
 FileType:=1;
 Created:="18 11 2019 10 4 6";
 Modified:="18 11 2019 10 4 31";
-Name:="NewProject";
+Name:="FailedRungReview";
 Core:=
 BEGIN
  CDMPath:="";
@@ -240,7 +240,7 @@ $?St$Bk?_#[2]
      IEC1131Type:=11;
      CompileInline:=0;
      SecType:=0;
-     SecName:="EmptyProject";
+     SecName:="FailedRungs";
      ProgramData:=
      BEGIN
 <End Of Header>
