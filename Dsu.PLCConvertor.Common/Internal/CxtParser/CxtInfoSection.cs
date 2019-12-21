@@ -75,7 +75,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                         {
                             var convertResult = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
                             rung.ConvertResults = convertResult.Results;
-                            rung.NumberedConvertMessages = convertResult.NumberedMessages.Clone() as string[];
+                            rung.NumberedConvertMessages = convertResult.NumberedMessages?.Clone() as string[];
                             rung.ConvertMessages = convertResult.Messages.Clone() as string[];
                         }
                         catch (ConvertorException ex)

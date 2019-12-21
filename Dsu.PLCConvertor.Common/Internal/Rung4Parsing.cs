@@ -58,7 +58,7 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// Parsing 실패하였을 경우의 message.
         /// </summary>
-        public List<string> ErrorMessage { get; private set; } = new List<string>();
+        public List<string> ErrorMessage { get; } = new List<string>();
 
         public Rung4Parsing(IEnumerable<string> mnemonics, string rungComment, ConvertParams cvtParam)
         {
