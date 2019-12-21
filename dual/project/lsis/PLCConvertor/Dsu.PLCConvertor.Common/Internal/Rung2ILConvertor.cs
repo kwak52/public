@@ -21,7 +21,7 @@ namespace Dsu.PLCConvertor.Common
         internal PLCVendor TargetType => _convertParam.TargetType;
 
         /// <summary>
-        /// Rung 변환시 발생한 에러/경고/알림 메시지
+        /// Rung 변환시 발생한 경고/알림 메시지
         /// </summary>
         List<string> _numberedMessages = new List<string>();
 
@@ -41,16 +41,7 @@ namespace Dsu.PLCConvertor.Common
         internal Lazy<TemporaryAddressAllocator> TempAddressAllocator =
             new Lazy<TemporaryAddressAllocator>(() => TemporaryAddressAllocator.Dup());
 
-        public IEnumerable<string> GetNumberedMessages()
-        {
-            return _numberedMessages;
-            //return
-            //    _numberedMessages
-            //        .ToSameGroups()
-            //        //.SelectMany(grp => grp)
-            //        .Select(grp => $"X{grp.Count()}\t{grp.First()}")  // kkk: 
-            //        ;
-        }
+        public IEnumerable<string> GetNumberedMessages() => _numberedMessages;
 
         Rung2ILConvertor(Rung rung, ConvertParams cvtParam)
         {
