@@ -332,7 +332,7 @@ namespace Dsu.PLCConvertor.Common
                     .Concat(res.Results)
                     .ToArray();
 
-                return new ConvertResult(result, res.Messages);                
+                return new ConvertResult(result, res.Messages);
             }
             else
                 return convertFromMnemonics();
@@ -343,14 +343,14 @@ namespace Dsu.PLCConvertor.Common
                 if (directlyConverted != null)
                     return directlyConverted;
 
-                var rung = new Rung4Parsing(mnemonics, rungComment, cvtParam);
-                rung.CoRoutineRungParser().ToArray();
+                var rung4p = new Rung4Parsing(mnemonics, rungComment, cvtParam);
+                rung4p.CoRoutineRungParser().ToArray();
 
-                var r2il = new Rung2ILConvertor(rung.ToRung(false), cvtParam);
+                var r2il = new Rung2ILConvertor(rung4p.ToRung(false), cvtParam);
                 var result = r2il.Convert().ToArray();
 
                 // kkk: 결과와 error message 를 모두 반환
-                return new ConvertResult(result, r2il.GetNumberedMessages().Concat(rung.ErrorMessage)); // kkk
+                return new ConvertResult(result, r2il.GetNumberedMessages().Concat(rung4p.ErrorMessage)); // kkk
 
 
                 // Rung 생성 없이, 문자열 기준으로 변환
@@ -386,12 +386,12 @@ namespace Dsu.PLCConvertor.Common
 
     public class ConvertResult
     {
-        public string[] Results;
-        public string[] Messages;
+        public List<string> Results;
+        public List<string> Messages;
         public ConvertResult(IEnumerable<string> results, IEnumerable<string> messages)
         {
-            Results = results.ToArray();
-            Messages = messages.ToArray();
+            Results = results.ToList();
+            Messages = messages.ToList();
         }
         public ConvertResult(IEnumerable<string> results)
             : this(results, Enumerable.Empty<string>())

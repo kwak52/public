@@ -30,22 +30,17 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// Rung 에 대한 변환 결과를 저장
         /// </summary>
-        internal string[] ConvertResults = new string[]{};
+        internal ConvertResult ConvertResult;
+        internal IEnumerable<string> ConvertResults => ConvertResult.Results;
 
-        /// <summary>
-        /// Rung 변환 중 발생한 에러/경고/알림 메시지 저장
-        /// </summary>
-        internal List<string> ConvertMessages = new List<string>();
-
-        internal IEnumerable<string> GetAllConvertMessages() => ConvertMessages;
+        internal IEnumerable<string> GetAllConvertMessages() => ConvertResult.Messages;
 
         /// <summary>
         /// 변환 중간 결과 clear/reset
         /// </summary>
         internal override void ClearMyResult()
         {
-            ConvertResults = new string[]{};
-            ConvertMessages = new List<string>();
+            ConvertResult = null;
         }
     }
 }
