@@ -75,14 +75,12 @@ namespace Dsu.PLCConvertor.Common.Internal
                         {
                             var convertResult = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
                             rung.ConvertResults = convertResult.Results;
-                            rung.ConvertWarnMessages = convertResult.NumberedMessages?.Clone() as string[];
-                            rung.ConvertErrorMessages = convertResult.Messages.Clone() as string[];
+                            rung.ConvertMessages = convertResult.Messages.ToList();
                         }
                         catch (ConvertorException ex)
                         {
                             Global.Logger.Error($"Convertor exception {ex.Message}");
-                            rung.ConvertWarnMessages = new[] { $"[{s+1}] [{t+1}] [{Cx2Xg5kOption.LabelHeader} {ex.Message}]" };   // kkk
-                            rung.ConvertErrorMessages = rung.ConvertErrorMessages.Concat(new[] { $"{Cx2Xg5kOption.LabelHeader} {ex.Message}" }).ToArray();
+                            rung.ConvertMessages.Add($"[{s+1}] [{t+1}] [{Cx2Xg5kOption.LabelHeader} {ex.Message}]");   // kkk
 
                             // 생성 실패한 rung 따로 project 로 기록
                             cvtParam.ReviewProjectGenerator.AddRungs(prog, ils.ToArray(), ex);
@@ -124,7 +122,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 this.EnumerateValidRungs()
                     .SelectMany(rung =>
                     {
-                        if (rung.ConvertResults.IsNullOrEmpty() && rung.ConvertWarnMessages.IsNullOrEmpty() && rung.ConvertErrorMessages.IsNullOrEmpty())
+                        if (rung.ConvertResults.IsNullOrEmpty() && rung.ConvertMessages.IsNullOrEmpty())
                         {
                             var sampling = string.Join("\t", rung.ILs.Take(5));
                             if (rung.EffectiveILs.NonNullAny()) // comment 를 제외한 유효 IL 문장이 있는 경우
@@ -176,8 +174,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             var secMessages =
                 this.EnumerateValidRungs()
-                    .Where(rung => rung.ConvertWarnMessages.NonNullAny())
-                    .SelectMany(rung => rung.ConvertWarnMessages)
+                    .Where(rung => rung.ConvertMessages.NonNullAny())
+                    .SelectMany(rung => rung.ConvertMessages)
                     ;
 
             IEnumerable<string> annotated = null;

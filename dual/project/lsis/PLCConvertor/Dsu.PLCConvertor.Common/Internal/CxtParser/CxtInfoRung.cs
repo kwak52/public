@@ -33,16 +33,11 @@ namespace Dsu.PLCConvertor.Common.Internal
         internal string[] ConvertResults = new string[]{};
 
         /// <summary>
-        /// Rung 변환 중 발생한 경고/알림 메시지 저장
+        /// Rung 변환 중 발생한 에러/경고/알림 메시지 저장
         /// </summary>
-        internal string[] ConvertWarnMessages = new string[]{};
+        internal List<string> ConvertMessages = new List<string>();
 
-        /// <summary>
-        /// Rung 변환 중 발생한 에러 메시지 저장
-        /// </summary>
-        internal string[] ConvertErrorMessages = new string[]{};
-
-        internal IEnumerable<string> GetAllConvertMessages() => ConvertErrorMessages.Concat(ConvertWarnMessages);
+        internal IEnumerable<string> GetAllConvertMessages() => ConvertMessages;
 
         /// <summary>
         /// 변환 중간 결과 clear/reset
@@ -50,7 +45,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         internal override void ClearMyResult()
         {
             ConvertResults = new string[]{};
-            ConvertWarnMessages = new string[]{};
+            ConvertMessages = new List<string>();
         }
     }
 }

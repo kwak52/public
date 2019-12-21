@@ -196,11 +196,6 @@ namespace PLCConvertor
                                 from rung in sec.Rungs
                                 select rung
                                 ;
-                            //cxtInfoRoot
-                            //    .Programs
-                            //    .SelectMany(prog => prog.EnumerateType<CxtInfoSection>())
-                            //    .SelectMany(sec => sec.EnumerateValidRungs())
-                            //    .ToArray();
 
                             var numTotalRungs = totalRungs.Count();
                             var numFailed = cvtParams.ReviewProjectGenerator.FailedRungs.Count();
