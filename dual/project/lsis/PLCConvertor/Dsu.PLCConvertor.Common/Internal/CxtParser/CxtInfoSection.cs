@@ -74,13 +74,13 @@ namespace Dsu.PLCConvertor.Common.Internal
                         try
                         {
                             var convertResult = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
-                            rung.ConvertResults = convertResult.Results;
-                            rung.ConvertMessages = convertResult.Messages.ToList();
+                            rung.ConvertResult = convertResult;
                         }
                         catch (ConvertorException ex)
                         {
                             Global.Logger.Error($"Convertor exception {ex.Message}");
-                            rung.ConvertMessages.Add($"[{s+1}] [{t+1}] [{Cx2Xg5kOption.LabelHeader} {ex.Message}]");   // kkk
+                            var message = $"[{s + 1}] [{t + 1}] [{Cx2Xg5kOption.LabelHeader} {ex.Message}]";
+                            rung.ConvertResult = new ConvertResult(Enumerable.Empty<string>(), new[] { message });   // kkk
 
                             // 생성 실패한 rung 따로 project 로 기록
                             cvtParam.ReviewProjectGenerator.AddRungs(prog, ils.ToArray(), ex);
@@ -94,15 +94,16 @@ namespace Dsu.PLCConvertor.Common.Internal
                         cvtParam.SourceStartStep += rung.ILs.Length;
 
                         if (rung.ConvertResults != null)
-                            cvtParam.TargetStartStep += rung.ConvertResults.Length;
+                            cvtParam.TargetStartStep += rung.ConvertResults.Count();
                     }
                     else if (rung.Comment.NonNullAny() )
                     {
-                        rung.ConvertResults =                         
-                            rung.Comment.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries)
+                        var results =
+                            rung.Comment.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
                                 .SelectMany(cmt => CxtParser.SplitBlock(cmt))
                                 .Select(cmt => $"{Xg5k.RungCommentCommand}\t{cmt}")
                                 .ToArray();
+                        rung.ConvertResult = new ConvertResult(results);
                     }
                 });
         }
@@ -122,25 +123,25 @@ namespace Dsu.PLCConvertor.Common.Internal
                 this.EnumerateValidRungs()
                     .SelectMany(rung =>
                     {
-                        if (rung.ConvertResults.IsNullOrEmpty() && rung.ConvertMessages.IsNullOrEmpty())
+                        if (rung.ConvertResults.IsNullOrEmpty() && rung.ConvertResult.Messages.IsNullOrEmpty())
                         {
                             var sampling = string.Join("\t", rung.ILs.Take(5));
                             if (rung.EffectiveILs.NonNullAny()) // comment 를 제외한 유효 IL 문장이 있는 경우
                             {
-                                rung.ConvertResults = new[] {
+                                rung.ConvertResult.Messages.AddRange(new[] {
                                     $"{cmtcmd}\t::::::::::::::::RUNG 변환에 실패하였습니다::::::::::::::::::",
                                     $"{cmtcmd}\t{sampling}\t...",
-                                };
+                                });
                             }
                             else // comment 만 존재하는 section
                             {
                                 Debug.Assert(rung.ILs.All(il => il.StartsWith("'")));
-                                rung.ConvertResults =
+                                rung.ConvertResult.Results =
                                     rung.ILs
                                     .SelectMany(il => CxtParser.SplitBlock(il))
                                     .Select(il => il.TrimStart(new[] { '\'' }))
                                     .Select(il => $"{cmtcmd}\t{il}")
-                                    .ToArray()
+                                    .ToList()
                                     ;
                             }
 
@@ -174,8 +175,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             var secMessages =
                 this.EnumerateValidRungs()
-                    .Where(rung => rung.ConvertMessages.NonNullAny())
-                    .SelectMany(rung => rung.ConvertMessages)
+                    .Where(rung => rung.ConvertResult.Messages.NonNullAny())
+                    .SelectMany(rung => rung.ConvertResult.Messages)
                     ;
 
             IEnumerable<string> annotated = null;
