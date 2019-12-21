@@ -19,7 +19,7 @@ namespace Dsu.PLCConvertor.Common
         /// <summary>
         /// 옴론 CX-One .cxt file을 LSIS XG5000 용 .qtx file로 변환
         /// </summary>
-        public static void Convert(ConvertParams cvtParams, string cxtFile, string xg5kFile, string configFile, string cxtReviewFile, string xg5kMessageFile)
+        public static CxtInfoRoot Convert(ConvertParams cvtParams, string cxtFile, string xg5kFile, string configFile, string cxtReviewFile, string xg5kMessageFile)
         {
             Global.UIMessageSubject.OnNext($"CXT file 분석 중..");
             // text project 를 파싱함
@@ -35,6 +35,7 @@ namespace Dsu.PLCConvertor.Common
 
             var convertedContents = programs.SelectMany(prog => prog.CollectResults(cvtParams)).ToArray();
 
+            // 산전 PLC 로 변환된 lines
             var cLines =
                 new[] { GenerateHeader(), convertedContents, GenerateFooter() }
                 .SelectMany(ls => ls)
@@ -57,6 +58,8 @@ namespace Dsu.PLCConvertor.Common
             // 생성 실패한 rung 따로 project 로 기록
             var fails = cvtParams.ReviewProjectGenerator.GenerateProject();
             File.WriteAllLines(cxtReviewFile, fails, _encoding);
+
+            return cxt;
 
             // XG5000 .qtx header 생성
             IEnumerable<string> GenerateHeader()

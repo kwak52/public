@@ -89,7 +89,7 @@ namespace Dsu.PLCConvertor.Common
                 try
                 {
                     CurrentMnemonicIndex = i;
-                    Logger?.Info($"IL: {m}");
+                    Logger?.Debug($"IL: {m}");
 
                     var sentence = ILSentence.Create(_sourceType, m);
                     var arg0 = sentence.Args.IsNullOrEmpty() ? null : sentence.Args[0];
@@ -191,7 +191,7 @@ namespace Dsu.PLCConvertor.Common
                     SubRung getCbld()
                     {
                         if (_cbld == null)
-                            throw new ConvertorException($"({ConvertParams.GetFailedRungIndexAndIncrement()}) 변환 불가 : 래더 구성 실패. (_cbld is null)");
+                            throw new ConvertorException($"({ConvertParams.GetFailedRungIndexAndIncrement()}) 변환 불가 : 래더 구성 실패.\r\n실패한 IL문={sentence}\r\n(_cbld is null)");
                         return _cbld;
                     }
                 }

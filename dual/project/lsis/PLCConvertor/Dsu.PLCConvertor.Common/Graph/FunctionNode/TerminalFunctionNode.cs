@@ -61,8 +61,8 @@ namespace Dsu.PLCConvertor.Common
 
             var tVar = ILSentence.Args[0];
             var tArg = ILSentence.Args[1];
-            perInputs[0].Add($"TMR T{tVar} {tArg}");
-            perInputs[1].Add($"RST T{tVar}");
+            perInputs[0].Add($"TMR\tT{tVar} {tArg}");
+            perInputs[1].Add($"RST\tT{tVar}");
 
             return perInputs.SelectMany(paragarph => paragarph);
         }
@@ -119,8 +119,8 @@ namespace Dsu.PLCConvertor.Common
             var perInputs = ConvertPerInputs(cvtParam);
 
             var tVar = ILSentence.Args[0];
-            perInputs[0].Add($"SET {tVar}");
-            perInputs[1].Add($"RST {tVar}");
+            perInputs[0].Add($"SET\t{tVar}");
+            perInputs[1].Add($"RST\t{tVar}");
 
             return perInputs.SelectMany(paragarph => paragarph);
         }

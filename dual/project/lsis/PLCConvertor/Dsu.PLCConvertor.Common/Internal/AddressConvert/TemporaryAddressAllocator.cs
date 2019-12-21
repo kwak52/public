@@ -83,7 +83,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             var ss = sentence._sourceILSentence;
             var prologRungs = new[]
             {
-                $"CMT\t{Cx2Xg5kOption.LabelHeader} For Command {ss.Sentence}",
+                $"CMT\t{Cx2Xg5kOption.LabelHeader} 명령어({ss.Sentence}) 를 위한 임시 변수({temp}) 설정 ",
                 $"LOAD{NP}\t{address}",
                 $"OUT\t{temp}",
             };

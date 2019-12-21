@@ -34,7 +34,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// Section 내에서 valid 한 rung 만을 반환.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<CxtInfoRung> EnumerateValidRungs()
+        internal IEnumerable<CxtInfoRung> EnumerateValidRungs()
         {
             return this.EnumerateType<CxtInfoRung>()
                 .Where(rung => rung.ILs.NonNullAny())
@@ -47,8 +47,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// </summary>
         public void Convert(ConvertParams cvtParam)
         {
+            Global.Logger.Info($"Section {Name} 변환 중...");
 #if DEBUG
-            Global.Logger.Info($"SecName={Name}");
             this.EnumerateValidRungs()
                 .Where(rung => !rung.ILs[0].StartsWith("END"))
                 .Iter(rung => {

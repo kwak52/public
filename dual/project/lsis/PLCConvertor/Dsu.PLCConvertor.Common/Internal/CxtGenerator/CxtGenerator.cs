@@ -42,7 +42,7 @@ namespace Dsu.PLCConvertor.Common.Internal
             //_convertParams = cvtParams;
         }
 
-        List<string[]> _rungs = new List<string[]>();
+        public List<string[]> FailedRungs { get; private set; } = new List<string[]>();
 
         /// <summary>
         /// 변환에 실패한 rung 을 project 생성해서 출력하기 위해서 따로 모은다.
@@ -80,7 +80,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                 ;
 
             var failedRung = new[] { commented, mnReverted }.SelectMany(m => m).ToArray();
-            _rungs.Add(failedRung);
+            FailedRungs.Add(failedRung);
         }
 
         public IEnumerable<string> GenerateProject()
@@ -89,14 +89,14 @@ namespace Dsu.PLCConvertor.Common.Internal
             int startNumber = 8;
 
             yield return _cxtProjectHeader;
-            var numRungs = _rungs.Count + 1;
+            var numRungs = FailedRungs.Count + 1;
             yield return $"      RC:={numRungs};";
 
             int n = 0;
 
-            foreach (var r in _rungs)
+            foreach (var r in FailedRungs)
             {
-                yield return generateRung(n, _rungs[n]);
+                yield return generateRung(n, FailedRungs[n]);
                 n++;
             }
             yield return generateRung(n, new string[] { });

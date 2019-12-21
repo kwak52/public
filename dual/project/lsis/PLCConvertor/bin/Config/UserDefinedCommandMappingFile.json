@@ -254,6 +254,14 @@
     "IsLoad": true
   },
   {
+    "Command": "LD>=(325)",
+    "PerInputProc": [
+      "LOAD>= $0 $1"
+    ],
+    "IsTerminal": false,
+    "IsLoad": true
+  },
+  {
     "Command": "LD>=L(326)",
     "PerInputProc": [
       "LOADUD>= $0 $1"
