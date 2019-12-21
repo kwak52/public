@@ -45,7 +45,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// <summary>
         /// 섹션에 대해서 PLC 변환
         /// </summary>
-        public void Convert(ConvertParams cvtParam)
+        public IEnumerable<ConvertResult> Convert(ConvertParams cvtParam, CxtInfoProgram prog, int targetStartIndex)
         {
             Global.Logger.Info($"Section {Name} 변환 중...");
 #if DEBUG
@@ -56,55 +56,19 @@ namespace Dsu.PLCConvertor.Common.Internal
                 });
 #endif
             if (cvtParam.SplitBySection)
+            {
+                targetStartIndex = 1;
                 cvtParam.ResetStartStep();
+            }
 
-            var prog = Parent as CxtInfoProgram;
+            Debug.Assert(prog == Parent);
 
-            this.EnumerateValidRungs()
-                .Iter(rung =>
+            return this.EnumerateValidRungs()
+                .Select(rung =>
                 {
-                    // "A  F0" 가 맨 끝에 오는 경우는 rung 주석이 포함된 경우이다.
-                    var ils = rung.ILs.Where(il => !il.StartsWith("'") && !il.StartsWith("//") && il != "\"\"" && il != "A  F0");
-
-                    if (ils.Any())
-                    {
-                        var s = cvtParam.SourceStartStep;
-                        var t = cvtParam.TargetStartStep;
-
-                        try
-                        {
-                            var convertResult = Rung2ILConvertor.ConvertFromMnemonics(ils, rung.Comment, cvtParam);
-                            rung.ConvertResult = convertResult;
-                        }
-                        catch (ConvertorException ex)
-                        {
-                            Global.Logger.Error($"Convertor exception {ex.Message}");
-                            var message = $"[{s + 1}] [{t + 1}] [{Cx2Xg5kOption.LabelHeader} {ex.Message}]";
-                            rung.ConvertResult = new ConvertResult(Enumerable.Empty<string>(), new[] { message });   // kkk
-
-                            // 생성 실패한 rung 따로 project 로 기록
-                            cvtParam.ReviewProjectGenerator.AddRungs(prog, ils.ToArray(), ex);
-                        }
-                        catch(Exception ex)
-                        {
-                            Global.Logger.Error($"Unknown exception {ex}");
-                            throw;
-                        }
-
-                        cvtParam.SourceStartStep += rung.ILs.Length;
-
-                        if (rung.ConvertResults != null)
-                            cvtParam.TargetStartStep += rung.ConvertResults.Count();
-                    }
-                    else if (rung.Comment.NonNullAny() )
-                    {
-                        var results =
-                            rung.Comment.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
-                                .SelectMany(cmt => CxtParser.SplitBlock(cmt))
-                                .Select(cmt => $"{Xg5k.RungCommentCommand}\t{cmt}")
-                                .ToArray();
-                        rung.ConvertResult = new ConvertResult(results);
-                    }
+                    var result = rung.Convert(cvtParam, prog, this, targetStartIndex);
+                    targetStartIndex += result.Messages.Count() + result.Results.Count();
+                    return result;
                 });
         }
 
@@ -153,6 +117,8 @@ namespace Dsu.PLCConvertor.Common.Internal
 
                         // 변환 중 발생한 message 를 설명문에 추가해서 반환.
                         var comments = rung.GetAllConvertMessages().Select(msg => $"{cmtcmd}\t{msg}");
+                        if (comments.Any())
+                            Console.WriteLine("");
                         return comments.Concat(rung.ConvertResults);
                     });
 

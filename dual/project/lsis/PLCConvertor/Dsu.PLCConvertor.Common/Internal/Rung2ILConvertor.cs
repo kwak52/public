@@ -350,7 +350,7 @@ namespace Dsu.PLCConvertor.Common
                 var result = r2il.Convert().ToArray();
 
                 // kkk: 결과와 error message 를 모두 반환
-                return new ConvertResult(result, r2il.GetNumberedMessages().Concat(rung4p.ErrorMessage)); // kkk
+                return new ConvertResult(result, r2il.GetNumberedMessages().Concat(rung4p.ErrorMessage.Select(em => em.Replace("\r\n", ":::")))); // kkk
 
 
                 // Rung 생성 없이, 문자열 기준으로 변환
@@ -370,11 +370,10 @@ namespace Dsu.PLCConvertor.Common
                     if (length == 1)
                     {
                         var m = ils.First();
-                        switch (m)
-                        {
-                            case "NOP(000)": return new ConvertResult(cmtsCmds.Concat(new[] { "NOP" }));
-                            case "END(001)": return new ConvertResult(cmtsCmds.Concat(new[] { "END" }));
-                        }
+                        if (m.StartsWith("NOP("))
+                            return new ConvertResult(cmtsCmds.Concat(new[] { "NOP" }));
+                        else if (m.StartsWith("END("))
+                            return new ConvertResult(cmtsCmds.Concat(new[] { "END" }));
                     }
 
                     return null;
@@ -388,6 +387,11 @@ namespace Dsu.PLCConvertor.Common
     {
         public List<string> Results;
         public List<string> Messages;
+
+        public CxtInfoProgram Program { get; set; }
+        public CxtInfoSection Section { get; set; }
+        public CxtInfoRung Rung { get; set; }
+
         public ConvertResult(IEnumerable<string> results, IEnumerable<string> messages)
         {
             Results = results.ToList();
