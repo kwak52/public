@@ -126,8 +126,11 @@
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemComboBoxSource,
             this.repositoryItemComboBoxTarget});
+            this.ribbon.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.False;
+            this.ribbon.ShowToolbarCustomizeItem = false;
             this.ribbon.Size = new System.Drawing.Size(1196, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
+            this.ribbon.Toolbar.ShowCustomizeItem = false;
             // 
             // barButtonItemTestParse
             // 
