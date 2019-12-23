@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Cx2Xg5k.cs" />
     <Compile Include="Cxp.cs" />
+    <Compile Include="DistributionChecker.cs" />
     <Compile Include="Graph\FunctionNode\FunctionNode.cs" />
     <Compile Include="Graph\FunctionNode\TerminalFunctionNode.cs" />
     <Compile Include="Graph\FunctionNode\UserDefinedFunctionNode.cs" />

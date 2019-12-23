@@ -53,10 +53,13 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
         public class RangedRule : IRuleSerializer
         {
-            public string SourceRepr { get; set; }
-            public string TargetRepr { get; set; }
-            public MinMax[] SourceArgsMinMax { get; set; }
-            public string[] TargetArgsExpr { get; set; }
+            [JsonProperty(Order=1)] public string SourceRepr { get; set; }
+
+            [JsonProperty(Order=2)] public string TargetRepr { get; set; }
+
+            [JsonProperty(Order=3)] public MinMax[] SourceArgsMinMax { get; set; }
+
+            [JsonProperty(Order=4)] public string[] TargetArgsExpr { get; set; }
 
             public IEnumerable<Tuple<int, int>> ToEnumerableMinMax()
             {
