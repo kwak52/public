@@ -1,4 +1,5 @@
-﻿1.1.0.10 
+﻿1.1.0.10 Dec 23, 2019
+	* 배포판 UI 정리
 	* BSET(71)
 	* 변환 불가 review file 의 rung 단위 indexing
 

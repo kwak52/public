@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Cx2Xg5k.cs" />
     <Compile Include="Cxp.cs" />
     <Compile Include="Graph\FunctionNode\FunctionNode.cs" />
@@ -121,7 +124,6 @@
     <Compile Include="Internal\SubRung.cs" />
     <Compile Include="Graph\Rung.cs" />
     <Compile Include="Graph\Wire.cs" />
-    <Compile Include="Properties\CommonAssemblyInfo.cs" />
     <Compile Include="Util\MyJsonSerializer.cs" />
     <Compile Include="Xg5k.cs" />
   </ItemGroup>
