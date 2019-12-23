@@ -165,7 +165,8 @@ namespace Dsu.PLCConvertor.Common
                     {
                         var ss = _convertParam.SourceStartStep;
                         var ts = _convertParam.TargetStartStep;
-                        _numberedMessages.Add($"[{ss+1}] [{ts+1}] [{Cx2Xg5kOption.LabelHeader} {udc.Message}]");     // kkk: 메지지 추가
+                        //_numberedMessages.Add($"[{ss+1}] [{ts+1}] [{Cx2Xg5kOption.LabelHeader} {udc.Message}]");     // kkk: 메지지 추가
+                        _numberedMessages.Add(udc.Message);     // kkk: 메지지 추가
                     }
 
                     udf.ILSentence = ILSentence.Create(TargetType, point.ILSentence);

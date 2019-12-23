@@ -4,6 +4,7 @@ using Dsu.PLCConvertor.Common.Internal;
 using log4net.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,8 +33,10 @@ namespace Dsu.PLCConvertor.Common
             var programs = cxt.Programs.ToArray();
 
             var xxxResults = programs.SelectMany(prog => prog.Convert(cvtParams)).ToArray();
+            var ccc = CollectResult();
 
-            var convertedContents = programs.SelectMany(prog => prog.CollectResults(cvtParams)).ToArray();
+            //var convertedContents = programs.SelectMany(prog => prog.CollectResults(cvtParams)).ToArray();
+            var convertedContents = ccc.Item1;
 
             // 산전 PLC 로 변환된 lines
             var cLines =
@@ -46,9 +49,10 @@ namespace Dsu.PLCConvertor.Common
             // 메시지 파일 내용 생성
             using (StreamWriter msgStream = new StreamWriter(xg5kMessageFile, false, _encoding))
             {
-                var msgContents = programs.SelectMany(prog => prog.CollectMessages(cvtParams));
+                //var msgContents = programs.SelectMany(prog => prog.CollectMessages(cvtParams));
+                var msgContents = ccc.Item2;
                 var mLines = 
-                    new[] { GenerateHeader(), msgContents, GenerateFooter() }
+                    new[] { GenerateHeader(), msgContents }
                     .SelectMany(ls => ls)
                     ;
 
@@ -113,6 +117,62 @@ namespace Dsu.PLCConvertor.Common
                 }
 
                 yield return "[COMMENT FILE END]";
+            }
+
+            (string[], string[]) CollectResult()
+            {
+                (string[], string[]) CollectResultForUnit(CxtInfo unit, IEnumerable<ConvertResult> results)
+                {
+                    int lineNum = 0;
+                    var qtxs = new List<string>();
+                    var msgs = new List<string>();
+                    foreach ( var r in results)
+                    {
+                        var srcStart = r.Rung.AccumulatedStartILIndex;
+                        foreach (var m in r.Messages)
+                        {
+                            if (Cx2Xg5kOption.AddMessagesToLabel)
+                            {
+                                qtxs.Add($"{lineNum}\tCMT\t{Cx2Xg5kOption.LabelHeader}\t{m}");
+                                msgs.Add($"[{lineNum++}] [{srcStart}] [{m}]");
+                            }
+                            else
+                                msgs.Add($"[{lineNum}] [{srcStart}] [{m}]");
+                        }
+                        var annotatedQtxs = r.Results.Select(m => $"{lineNum++}\t{m}");
+                        qtxs.AddRange(annotatedQtxs);
+                    }
+
+                    var prog = unit as CxtInfoProgram;
+                    var sec = unit as CxtInfoSection;
+                    Debug.Assert(prog != null || sec != null);
+                    var hdr = prog == null ? $"{sec.ParentProgram.Name}:{sec.Name}" : prog.Name;
+                    var Qtx = CxtInfo.WrapWithProgram(hdr, qtxs).ToArray();
+                    var Msg = CxtInfo.WrapWithProgram(hdr, msgs).ToArray();
+
+
+                    return (Qtx, Msg);
+                }
+                var bySection = cvtParams.SplitBySection;
+                //var sections = programs.SelectMany(prog => prog.Sections).ToHashSet();
+                var genUnits =
+                    from r in xxxResults
+                    group r by (bySection ? (CxtInfo)r.Section : r.Program) into g
+                    select new { Unit = g.Key, Rungs = g.ToList() }
+                    ;
+
+                var rQtx = new List<string>();
+                var rMsg = new List<string>();
+                genUnits
+                    .Select(gu => CollectResultForUnit(gu.Unit, gu.Rungs))
+                    .Iter(pr =>
+                    {
+                        rQtx.AddRange(pr.Item1);
+                        rMsg.AddRange(pr.Item2);
+                    });
+
+                //return (rQtx.JoinString("\r\n"), rMsg.JoinString("\r\n"));
+                return (rQtx.ToArray(), rMsg.ToArray());
             }
         }
 
