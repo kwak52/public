@@ -164,7 +164,7 @@ namespace PLCConvertor
                 string getPath(string f) => Path.Combine(Path.GetDirectoryName(cxtPath), f);
                 var qtxFile = getPath($"{stem}.qtx");
                 var msgFile = getPath($"{stem}.txt");
-                var reviewFile = getPath($"{stem}-review.cxt");
+                var reviewFile = getPath($"{stem}.review.cxt");
                 Logger?.Info($"Parsing {cxtPath}");
 
                 var cvtParams = new ConvertParams(PLCVendor.Omron, PLCVendor.LSIS)

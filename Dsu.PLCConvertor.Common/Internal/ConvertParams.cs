@@ -33,8 +33,7 @@ namespace Dsu.PLCConvertor.Common.Internal
 
 
         static int _failedRungIndex;
-        static public int FailedRungIndex => _failedRungIndex;
-        static public int GetFailedRungIndexAndIncrement() => _failedRungIndex++;
+        static public int GenerateFailedRungIndex() => _failedRungIndex++;
 
 
         /// <summary>
@@ -105,7 +104,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                     SourceVariableMap.Add(v.Device, v);
             });
 
-            foreach (var v in SourceVariableMap.Values.ToArray())
+            foreach (var v in variables)
             {
                 if (v.Name.NonNullAny() && !SourceVariableMap.ContainsKey(v.Name))
                     SourceVariableMap.Add(v.Name, v);
