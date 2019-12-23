@@ -67,9 +67,12 @@ namespace Dsu.PLCConvertor.Common.Internal
                 .Select(rung =>
                 {
                     var result = rung.Convert(cvtParam, prog, this, targetStartIndex);
+                    if (result == null)
+                        return null;
                     targetStartIndex += result.Messages.Count() + result.Results.Count();
                     return result;
-                });
+                }).OfNotNull()
+                ;
         }
 
         /// <summary>

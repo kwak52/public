@@ -67,7 +67,8 @@ namespace Dsu.PLCConvertor.Common.Internal
                 {
                     Global.Logger.Error($"Convertor exception {ex.Message}");
                     var exceptions = ex.Message.Replace("\r\n", "\n");
-                    var message = $"[{s + 1}] [{t + 1}] [{Cx2Xg5kOption.LabelHeader} {exceptions}]";
+                    //var message = $"[{s + 1}] [{t + 1}] [{Cx2Xg5kOption.LabelHeader} {exceptions}]";
+                    var message = exceptions;
                     convertResult = new ConvertResult(Enumerable.Empty<string>(), new[] { message });   // kkk
 
                     // 생성 실패한 rung 따로 project 로 기록
@@ -93,6 +94,9 @@ namespace Dsu.PLCConvertor.Common.Internal
                         .ToArray();
                 convertResult = new ConvertResult(results);
             }
+
+            if (convertResult == null)
+                return null;
 
             convertResult.Program = prog;
             convertResult.Section = sec;
