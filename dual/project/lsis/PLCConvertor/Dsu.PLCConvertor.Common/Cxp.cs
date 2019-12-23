@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dsu.PLCConvertor.Common
+﻿namespace Dsu.PLCConvertor.Common
 {
     public static class Cxp
     {

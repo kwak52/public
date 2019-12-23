@@ -1,5 +1,4 @@
-﻿using Dsu.Common.Utilities.Core.ExtensionMethods;
-using Dsu.Common.Utilities.ExtensionMethods;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.Common.Utilities.Graph;
 using Dsu.PLCConvertor.Common.Internal;
 using log4net;
@@ -162,12 +161,7 @@ namespace Dsu.PLCConvertor.Common
                 if (udf != null)
                 {
                     if (udc.Message.NonNullAny())
-                    {
-                        var ss = _convertParam.SourceStartStep;
-                        var ts = _convertParam.TargetStartStep;
-                        //_numberedMessages.Add($"[{ss+1}] [{ts+1}] [{Cx2Xg5kOption.LabelHeader} {udc.Message}]");     // kkk: 메지지 추가
                         _numberedMessages.Add(udc.Message);     // kkk: 메지지 추가
-                    }
 
                     udf.ILSentence = ILSentence.Create(TargetType, point.ILSentence);
 

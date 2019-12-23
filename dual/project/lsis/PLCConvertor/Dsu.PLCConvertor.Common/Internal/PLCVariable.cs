@@ -1,11 +1,4 @@
-﻿using Dsu.Common.Utilities.ExtensionMethods;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Dsu.PLCConvertor.Common.Internal
+﻿namespace Dsu.PLCConvertor.Common.Internal
 {
     /// <summary>
     /// PLC 에 사용된 변수 정보.  Device type, comment, variable 이름 등이 담겨 있다.
