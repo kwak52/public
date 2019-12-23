@@ -182,7 +182,7 @@ namespace Dsu.PLCConvertor.Common
                     SubRung popLadderStack()
                     {
                         if (LadderStack.IsNullOrEmpty())
-                            throw new ConvertorException($"({ConvertParams.GetFailedRungIndexAndIncrement()}) 변환 불가 : 래더 구조가 변환 불가능한 형식입니다. (Stack is empty)");
+                            throw new ConvertorException($"({ConvertParams.GenerateFailedRungIndex()}) 변환 불가 : 래더 구조가 변환 불가능한 형식입니다. (Stack is empty)");
 
                         return LadderStack.Pop();
                     }
@@ -191,7 +191,7 @@ namespace Dsu.PLCConvertor.Common
                     SubRung getCbld()
                     {
                         if (_cbld == null)
-                            throw new ConvertorException($"({ConvertParams.GetFailedRungIndexAndIncrement()}) 변환 불가 : 래더 구성 실패.:::실패한 IL문={sentence}:::(_cbld is null)");
+                            throw new ConvertorException($"({ConvertParams.GenerateFailedRungIndex()}) 변환 불가 : 래더 구성 실패.:::실패한 IL문={sentence}:::(_cbld is null)");
                         return _cbld;
                     }
                 }

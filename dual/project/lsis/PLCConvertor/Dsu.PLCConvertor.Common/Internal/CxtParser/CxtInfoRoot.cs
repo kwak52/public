@@ -127,6 +127,7 @@ namespace Dsu.PLCConvertor.Common.Internal
                             break;
 
                         case "VariableList" when start.Parent.Key.IsOneOf("GlobalVariables", "LocalVariables"):
+                            Debug.Assert(_lastVariables.VariableList == null);
                             _lastVariables.VariableList = new CxtInfoVariableList(start.SubStructures[0].Lines);
                             break;
 
@@ -152,6 +153,8 @@ namespace Dsu.PLCConvertor.Common.Internal
                                 rung = new CxtInfoRung(key);
                                 section.AddRung(rung);
                             }
+                            else
+                                Console.WriteLine("");
 
                             break;
 
