@@ -13,7 +13,7 @@ xcopy Documents\ReleaseNote.txt Distribution\
 
 
 xcopy bin Distribution\bin\ /sy
-
+xcopy Documents\Manuals\UserManuals\UserManual.pptx Distribution\ /sy
 
 pushd Distribution
 del Dsu.PLCConvertor.DistributionChecker.exe
