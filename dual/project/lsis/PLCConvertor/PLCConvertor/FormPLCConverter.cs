@@ -3,20 +3,16 @@ using System.Drawing;
 using System.Windows.Forms;
 using log4net.Appender;
 using Dsu.PLCConvertor.Common;
-using Dsu.Common.Utilities.Graph;
 using PLCConvertor.Forms;
 using Dsu.Common.Utilities.ExtensionMethods;
-using Dsu.Common.Utilities.Forms;
 using Dsu.PLCConvertor.Common.Internal;
 using System.Linq;
-using System.Diagnostics;
 using System.IO;
 using System.Configuration;
-using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
 using System.Threading.Tasks;
 using DevExpress.XtraBars;
-using DevExpress.XtraBars.Docking;
+using System.Reflection;
 
 namespace PLCConvertor
 {
@@ -103,6 +99,8 @@ namespace PLCConvertor
 
             void AdjustUI(bool isDebuggingMode)
             {
+                var ver = Assembly.GetEntryAssembly().GetName().Version;
+                Text = $"{Text} v{ver}";
                 dockPanelLog.Options.ShowCloseButton = false;
 
                 if (!isDebuggingMode)

@@ -33,6 +33,11 @@
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPLCConverter));
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipItem toolTipItem3 = new DevExpress.Utils.ToolTipItem();
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
@@ -214,6 +219,13 @@
             this.barButtonItemTranslate.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItemTranslate.ImageOptions.Image")));
             this.barButtonItemTranslate.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItemTranslate.ImageOptions.LargeImage")));
             this.barButtonItemTranslate.Name = "barButtonItemTranslate";
+            toolTipTitleItem2.Text = "PLC 변환";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "옴론 CX-Programmer text project 파일을 LS 산전 XG5000 용으로 변환합니다.\r\n\r\n- 결과 파일(*.qtx, *.txt" +
+    ", *.review.cxt 등)은 경고없이 덮어쓰기 합니다.\r\n";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem2);
+            this.barButtonItemTranslate.SuperTip = superToolTip2;
             this.barButtonItemTranslate.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemTranslate_ItemClick);
             // 
             // barButtonItemSetting
@@ -223,6 +235,9 @@
             this.barButtonItemSetting.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItemSetting.ImageOptions.Image")));
             this.barButtonItemSetting.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItemSetting.ImageOptions.LargeImage")));
             this.barButtonItemSetting.Name = "barButtonItemSetting";
+            toolTipItem3.Text = "변환 관련 설정을 변경합니다";
+            superToolTip3.Items.Add(toolTipItem3);
+            this.barButtonItemSetting.SuperTip = superToolTip3;
             this.barButtonItemSetting.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemSetting_ItemClick);
             // 
             // barButtonItemExit
