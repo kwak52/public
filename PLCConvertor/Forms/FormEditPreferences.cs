@@ -22,6 +22,8 @@ namespace PLCConvertor.Forms
 
         private void FormEditPreferences_Load(object sender, EventArgs args)
         {
+            checkEditForceSplitRung.Enabled = false;
+
             checkEditSplitBySection.Checked = Cx2Xg5kOption.SplitBySection;
             checkEditForceSplitRung.Checked = Cx2Xg5kOption.ForceRungSplit;
             checkEditAddMessagesToLabel.Checked = Cx2Xg5kOption.AddMessagesToLabel;

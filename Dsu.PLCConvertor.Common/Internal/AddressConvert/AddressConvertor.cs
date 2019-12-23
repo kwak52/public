@@ -113,13 +113,13 @@ namespace Dsu.PLCConvertor.Common.Internal
             var jsonFile = "defaultAddressMapping.json";
             defaultRules.SaveToJsonFile(jsonFile);
 
-            var dup = AddressConvertor.LoadFromJsonFile(jsonFile);
-            var namedTimer = dup._namedAddressRules["TIMER"];
-            var gen = namedTimer.GenerateSourceSamples().ToArray();
-            dup.GenerateTranslations()
-                .Select(pr => $"{pr.Item1}\t{pr.Item2}")
-                .Iter(ln => Trace.WriteLine(ln))
-                ;
+            //var dup = AddressConvertor.LoadFromJsonFile(jsonFile);
+            //var namedTimer = dup._namedAddressRules["TIMER"];
+            //var gen = namedTimer.GenerateSourceSamples().ToArray();
+            //dup.GenerateTranslations()
+            //    .Select(pr => $"{pr.Item1}\t{pr.Item2}")
+            //    .Iter(ln => Trace.WriteLine(ln))
+            //    ;
         }
     }
 #endif

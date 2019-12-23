@@ -225,22 +225,5 @@
       "SourceRepr": "T(%d)",
       "TargetRepr": "T(%d)"
     }
-
-  ],
-  "Named": [
-    {
-      "Name": "TIMER",
-      "SourceArgsMinMax": [
-        {
-          "Min": 0,
-          "Max": 100
-        }
-      ],
-      "TargetArgsExpr": [
-        "$0"
-      ],
-      "SourceRepr": "(%d)",
-      "TargetRepr": "T(%d)"
-    }
   ]
 }

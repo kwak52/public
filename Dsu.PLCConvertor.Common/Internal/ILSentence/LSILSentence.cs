@@ -169,7 +169,7 @@ namespace Dsu.PLCConvertor.Common
                         var sa = omron.Args;
                         if (!sa[1].StartsWith("#"))
                         {
-                            var searchResult = tempAddressAllocator.Allocate("TIMER_BUFFER", this, $"{sa[0]}");
+                            var searchResult = tempAddressAllocator.Allocate("WORD", this, $"{sa[0]}");
                             _rung2ILConvertor.ProglogRungs.Add($"CMT\t{Cx2Xg5kOption.LabelHeader} 변환용 임시 버퍼");
                             _rung2ILConvertor.ProglogRungs.Add($"LOAD\t_ON");
                             _rung2ILConvertor.ProglogRungs.Add($"BIN\t{omron.Args[1]} {searchResult.Temporary}");
