@@ -152,6 +152,7 @@
     <Compile Include="UcPanelLog.designer.cs">
       <DependentUpon>UcPanelLog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Unused.cs" />
     <Compile Include="Utils\SplashScreenWaitor.cs" />
     <EmbeddedResource Include="FormPLCConverter.resx">
       <DependentUpon>FormPLCConverter.cs</DependentUpon>
