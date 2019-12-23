@@ -64,22 +64,15 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
 
 
-        internal static IEnumerable<string> WrapWithProgram(string progName, IEnumerable<string> converted, int nStart)
-            => wrapWithProgramHelper(progName, converted, nStart);
-        internal static IEnumerable<string> WrapWithProgram(string progName, IEnumerable<string> converted)
-            => wrapWithProgramHelper(progName, converted, null);
-        static IEnumerable<string> wrapWithProgramHelper(string progName, IEnumerable<string> converted, int? nStart)
+        public static IEnumerable<string> WrapWithProgram(string progName, IEnumerable<string> converted)
         {
             yield return $"[PROGRAM FILE] {progName}";
 
-            var xs = nStart.HasValue ? AnnotateLineNumber(converted, nStart.Value) : converted;
+            var xs = converted;
             foreach (var x in xs)
                 yield return x;
 
             yield return "[PROGRAM FILE END]\r\n";
         }
-
-        internal static IEnumerable<string> AnnotateLineNumber(IEnumerable<string> converted, int nStart)
-            => converted.Select((line, n) => $"{nStart + n}\t{line}");
     }
 }

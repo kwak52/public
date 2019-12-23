@@ -56,8 +56,6 @@ namespace Dsu.PLCConvertor.Common.Internal
             {
                 var s = rung.AccumulatedStartILIndex;
                 var t = targetStartIndex;
-                cvtParam.SourceStartStep = s;
-                cvtParam.TargetStartStep = t;
 
                 try
                 {
@@ -79,11 +77,6 @@ namespace Dsu.PLCConvertor.Common.Internal
                     Global.Logger.Error($"Unknown exception {ex}");
                     throw;
                 }
-
-                cvtParam.SourceStartStep += rung.ILs.Length;
-
-                if (rung.ConvertResults != null)
-                    cvtParam.TargetStartStep += rung.ConvertResults.Count();
             }
             else if (rung.Comment.NonNullAny())
             {

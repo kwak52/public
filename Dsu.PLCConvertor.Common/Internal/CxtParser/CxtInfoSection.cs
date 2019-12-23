@@ -55,12 +55,6 @@ namespace Dsu.PLCConvertor.Common.Internal
                     rung.ILs.Iter(il => Global.Logger.Debug($"{il}"));
                 });
 #endif
-            if (cvtParam.SplitBySection)
-            {
-                targetStartIndex = 1;
-                cvtParam.ResetStartStep();
-            }
-
             Debug.Assert(prog == Parent);
 
             return this.EnumerateValidRungs()
@@ -73,90 +67,6 @@ namespace Dsu.PLCConvertor.Common.Internal
                     return result;
                 }).OfNotNull()
                 ;
-        }
-
-        /// <summary>
-        /// 섹션을 변환한 결과를 모아서 반환.
-        /// Convert() 에 의해서 변환이 수행되고 그 결과를 따로 저장해 두었다가 CollectResults() 호출에서 모아서 반환한다.
-        /// </summary>
-        public IEnumerable<string> CollectResults(ConvertParams cvtParam)
-        {
-            if (cvtParam.TargetType != PLCVendor.LSIS)
-                throw new ConvertorException($"Not supported PLC vendor type : {cvtParam.TargetType}");
-
-            var cmtcmd = Xg5k.RungCommentCommand;
-
-            var secConversion =
-                this.EnumerateValidRungs()
-                    .SelectMany(rung =>
-                    {
-                        if (rung.ConvertResults.IsNullOrEmpty() && rung.ConvertResult.Messages.IsNullOrEmpty())
-                        {
-                            var sampling = string.Join("\t", rung.ILs.Take(5));
-                            if (rung.EffectiveILs.NonNullAny()) // comment 를 제외한 유효 IL 문장이 있는 경우
-                            {
-                                rung.ConvertResult.Messages.AddRange(new[] {
-                                    $"{cmtcmd}\t::::::::::::::::RUNG 변환에 실패하였습니다::::::::::::::::::",
-                                    $"{cmtcmd}\t{sampling}\t...",
-                                });
-                            }
-                            else // comment 만 존재하는 section
-                            {
-                                Debug.Assert(rung.ILs.All(il => il.StartsWith("'")));
-                                rung.ConvertResult.Results =
-                                    rung.ILs
-                                    .SelectMany(il => CxtParser.SplitBlock(il))
-                                    .Select(il => il.TrimStart(new[] { '\'' }))
-                                    .Select(il => $"{cmtcmd}\t{il}")
-                                    .ToList()
-                                    ;
-                            }
-
-                            return rung.ConvertResults;
-                        }
-
-                        if (! Cx2Xg5kOption.AddMessagesToLabel)
-                            return rung.ConvertResults;
-
-                        // 변환 중 발생한 message 를 설명문에 추가해서 반환.
-                        var comments = rung.GetAllConvertMessages().Select(msg => $"{cmtcmd}\t{msg}");
-                        if (comments.Any())
-                            Console.WriteLine("");
-                        return comments.Concat(rung.ConvertResults);
-                    });
-
-            IEnumerable<string> annotated = null;
-            var nStart = cvtParam.TargetStartStep;
-            if (cvtParam.SplitBySection)
-                annotated = CxtInfo.WrapWithProgram($"{ParentProgram.Name}:{Name}", secConversion, nStart);
-            else
-                annotated = CxtInfo.AnnotateLineNumber(secConversion, nStart);
-
-            cvtParam.TargetStartStep += annotated.Count();
-            return annotated;
-        }
-
-        /// <summary>
-        /// 섹션을 변환시 발생한 메시지를 모아서 반환.
-        /// Convert() 에 의해서 변환 수행시 발생되는 메시지를 따로 저장해 두었다가 CollectMessages() 호출에서 모아서 반환한다.
-        /// </summary>
-        public IEnumerable<string> CollectMessages(ConvertParams cvtParam)
-        {
-            var secMessages =
-                this.EnumerateValidRungs()
-                    .Where(rung => rung.ConvertResult.Messages.NonNullAny())
-                    .SelectMany(rung => rung.ConvertResult.Messages)
-                    ;
-
-            IEnumerable<string> annotated = null;
-            var nStart = cvtParam.TargetStartStep;
-            if (cvtParam.SplitBySection)
-                annotated = CxtInfo.WrapWithProgram($"{ParentProgram.Name}:{Name}", secMessages);
-            else
-                annotated = secMessages;    // CxtInfo.AnnotateLineNumber(secMessages, nStart);
-
-            cvtParam.TargetStartStep += annotated.Count();
-            return annotated;
         }
     }
 }

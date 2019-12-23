@@ -62,15 +62,14 @@ namespace Dsu.PLCConvertor.Common.Internal
                 Global.UIMessageSubject.OnNext($"프로그램 {Name} 변환 중..");
 
                 // 변환 이전에 초기화 수행
-                cvtParam.ResetStartStep();
                 ClearResult();
 
                 int targetStartIndex = 0;
                 // program 을 구성하는 각 section 들을 모두 변환.  변환 결과는 중간 결과로 저장하고 있음
-                //return Sections.SelectMany(sec => sec.Convert(cvtParam, targetStartIndex));
                 return Sections.SelectMany(sec =>
                 {
-                    var results = sec.Convert(cvtParam, this, targetStartIndex).ToArray();
+                    var ts = cvtParam.SplitBySection ? 1 : targetStartIndex;
+                    var results = sec.Convert(cvtParam, this, ts).ToArray();
                     targetStartIndex += results.Sum(r => r.Messages.Count() + r.Results.Count());
                     return results;
                 });
@@ -80,58 +79,5 @@ namespace Dsu.PLCConvertor.Common.Internal
                 Global.UIMessageSubject.OnNext("");
             }
         }
-
-        /// <summary>
-        /// 프로그램을 변환한 결과를 모아서 반환.
-        /// Convert() 에 의해서 변환이 수행되고 그 결과를 따로 저장해 두었다가 CollectResults() 호출에서 모아서 반환한다.
-        /// </summary>
-        public IEnumerable<string> CollectResults(ConvertParams cvtParam)
-        {
-            cvtParam.ResetStartStep();
-
-            var progConversion =
-                this.EnumerateType<CxtInfoSection>()
-                    .SelectMany(sec =>
-                    {
-                        if (cvtParam.SplitBySection)
-                            cvtParam.ResetStartStep();
-                        return sec.CollectResults(cvtParam);
-                    })
-                    .ToArray();
-
-            if (cvtParam.SplitBySection)
-                return progConversion;
-
-            var annotated = CxtInfo.WrapWithProgram(Name, progConversion);
-
-            return annotated;
-        }
-
-        /// <summary>
-        /// 프로그램을 변환시 발생한 메시지를 모아서 반환.
-        /// Convert() 에 의해서 변환 수행시 발생되는 메시지를 따로 저장해 두었다가 CollectMessages() 호출에서 모아서 반환한다.
-        /// </summary>
-        public IEnumerable<string> CollectMessages(ConvertParams cvtParam)
-        {
-            cvtParam.ResetStartStep();
-
-            var progMessages =
-                this.EnumerateType<CxtInfoSection>()
-                    .SelectMany(sec =>
-                    {
-                        if (cvtParam.SplitBySection)
-                            cvtParam.ResetStartStep();
-                        return sec.CollectMessages(cvtParam);
-                    })
-                    .ToArray();
-
-            if (cvtParam.SplitBySection)
-                return progMessages;
-
-            var annotated = CxtInfo.WrapWithProgram(Name, progMessages);
-
-            return annotated;
-        }
-
     }
 }

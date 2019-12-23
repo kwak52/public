@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
-using Dsu.Common.Utilities.Core.ExtensionMethods;
 using Dsu.Common.Utilities.ExtensionMethods;
 
 namespace Dsu.PLCConvertor.Common.Internal
@@ -20,16 +18,6 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// target PLC type
         /// </summary>
         public PLCVendor TargetType { get; private set; }
-        /// <summary>
-        /// Source PLC 의 시작 step.  Message txt file 에 source step 을 기록하기 위해서 사용
-        /// 직접 file 에 write 하지 않는 이유는 추후 병렬화 등을 고려해서 임
-        /// </summary>
-        public int SourceStartStep { get; set; }
-        /// <summary>
-        /// Target PLC 의 시작 step.  Message txt file 에 source step 을 기록하기 위해서 사용
-        /// 직접 file 에 write 하지 않는 이유는 추후 병렬화 등을 고려해서 임
-        /// </summary>
-        public int TargetStartStep { get; set; }
 
 
         static int _failedRungIndex;
@@ -154,25 +142,14 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
 
         /// <summary>
-        /// 하나의 section/program 에 대한 변환이 종료되면, source/target 의 시작 step 을 reset 함
-        /// </summary>
-        public void ResetStartStep()
-        {
-            SourceStartStep = 1;
-            TargetStartStep = 1;
-        }
-
-        /// <summary>
         /// 강제로 section 에 의해서 구분할 지의 여부.
         /// </summary>
         public bool SplitBySection { get => Cx2Xg5kOption.SplitBySection; set { Cx2Xg5kOption.SplitBySection = value; } }
 
-        public ConvertParams(PLCVendor sourceType, PLCVendor targetType, int soruceStartStep = 0, int targetStartStep = 0)
+        public ConvertParams(PLCVendor sourceType, PLCVendor targetType)
         {
             SourceType = sourceType;
             TargetType = targetType;
-            SourceStartStep = soruceStartStep;
-            TargetStartStep = targetStartStep;
             ReviewProjectGenerator = new CxtGenerator(this);
         }
 

@@ -32,15 +32,12 @@ namespace Dsu.PLCConvertor.Common
             // PLC programs 부 : 각 program 은 다중 section 으로 구성되어 있다.
             var programs = cxt.Programs.ToArray();
 
-            var xxxResults = programs.SelectMany(prog => prog.Convert(cvtParams)).ToArray();
-            var ccc = CollectResult();
-
-            //var convertedContents = programs.SelectMany(prog => prog.CollectResults(cvtParams)).ToArray();
-            var convertedContents = ccc.Item1;
+            var convertedResults = programs.SelectMany(prog => prog.Convert(cvtParams)).ToArray();
+            (var qtxLines, var msgLines) = CollectResult(convertedResults);
 
             // 산전 PLC 로 변환된 lines
             var cLines =
-                new[] { GenerateHeader(), convertedContents, GenerateFooter() }
+                new[] { GenerateHeader(), qtxLines, GenerateFooter() }
                 .SelectMany(ls => ls)
                 ;
 
@@ -49,10 +46,8 @@ namespace Dsu.PLCConvertor.Common
             // 메시지 파일 내용 생성
             using (StreamWriter msgStream = new StreamWriter(xg5kMessageFile, false, _encoding))
             {
-                //var msgContents = programs.SelectMany(prog => prog.CollectMessages(cvtParams));
-                var msgContents = ccc.Item2;
                 var mLines = 
-                    new[] { GenerateHeader(), msgContents }
+                    new[] { GenerateHeader(), msgLines }
                     .SelectMany(ls => ls)
                     ;
 
@@ -119,7 +114,7 @@ namespace Dsu.PLCConvertor.Common
                 yield return "[COMMENT FILE END]";
             }
 
-            (string[], string[]) CollectResult()
+            (string[], string[]) CollectResult(IEnumerable<ConvertResult> convResults)
             {
                 (string[], string[]) CollectResultForUnit(CxtInfo unit, IEnumerable<ConvertResult> results)
                 {
@@ -154,9 +149,8 @@ namespace Dsu.PLCConvertor.Common
                     return (Qtx, Msg);
                 }
                 var bySection = cvtParams.SplitBySection;
-                //var sections = programs.SelectMany(prog => prog.Sections).ToHashSet();
                 var genUnits =
-                    from r in xxxResults
+                    from r in convResults
                     group r by (bySection ? (CxtInfo)r.Section : r.Program) into g
                     select new { Unit = g.Key, Rungs = g.ToList() }
                     ;
