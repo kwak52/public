@@ -710,13 +710,13 @@
     "Message": "@++(590) 이 변환되지 않았습니다."
   },
   {
-    "Command": "++L(599)",
+    "Command": "++L(591)",
     "PerInputProc": [
       "DINC $0"
     ],
     "IsTerminal": true,
     "IsLoad": false,
-    "Message": "++L(599) --> DINC ???"
+    "Message": "++L(591) --> DINC ???"
   },
   {
     "Command": "LEN$(650)",
