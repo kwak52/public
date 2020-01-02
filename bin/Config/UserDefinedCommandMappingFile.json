@@ -683,15 +683,6 @@
     "Message": "DOWN(522)이 제대로 변환되지 않았습니다."
   },
   {
-    "Command": "CNTX(546)",
-    "PerInputProc": [
-      "CTU C$0 $1",
-      "RST C$0 0"
-    ],
-    "IsTerminal": true,
-    "IsLoad": false
-  },
-  {
     "Command": "++(590)",
     "PerInputProc": [
       "INC $0"
