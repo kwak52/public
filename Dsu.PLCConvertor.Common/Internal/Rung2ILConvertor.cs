@@ -295,7 +295,7 @@ namespace Dsu.PLCConvertor.Common
         private IEnumerable<string> ConvertFunctionOutput()
         {
             Debug.Assert(_rung.Sinks.Count() == 1);
-            TerminalFunctionNode terminal = _rung.Sinks.First() as TerminalFunctionNode;
+            var terminal = _rung.Sinks.First() as FunctionNode;
             var converted = terminal.Convert(_convertParam).ToArray();
             return converted;
         }

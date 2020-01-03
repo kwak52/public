@@ -2,7 +2,7 @@ CXProgVer:="2.2";
 WrittenByCXPVersion:="9.70";
 FileType:=1;
 Created:="7 11 2019 18 14 50";
-Modified:="7 11 2019 19 8 43";
+Modified:="3 1 2020 10 10 30";
 Name:="NewProject";
 Core:=
 BEGIN
@@ -46,7 +46,7 @@ BEGIN
   IOTable:=
   BEGIN
    Data:=
-$?St$Bk?_#[35]
+$?St$Bk?_#[23]
 5B 4F 4D 52 4F 4E 2E 49 4F 20 54 61 62 6C 65 2E 43 6F 6D 70 6F 6E 65 6E 74 5D 20 43 4A 32 48 20
 43 50 55 36 34 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
@@ -135,9 +135,9 @@ $?St$Bk?_#[35]
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
 00 00 00 00 00 00 00 00 00 00
-$?St$Bk?_#[35]
+$?St$Bk?_#[23]
    UnitSetup:=
-$?St$Bk?_#[36]
+$?St$Bk?_#[24]
 00 06 78 40 91 A3 06 44 12 22 3D 44 4C 89 21 02 84 93 32 78 E8 FA 85 8C 9A CD 18 42 87 08 DD 96
 64 C0 88 91 A3 45 8C 18 2D 60 DC 6C 4A 93 37 64 11 96 38 09 D3 A6 6C 53 9F D5 F6 B1 1F 0A A3 E6
 8D 1C 2B 65 E4 B6 7E 37 9A A4 71 2B 33 60 88 F0 C1 C3 09 9D 3B 46 D8 90 91 AB BD 92 21 E2 65 53
@@ -156,7 +156,7 @@ A9 05 28 9C B1 61 13 22 B1 51 86 4D 98 3C 54 D2 B4 85 B3 29 37 A1 D1 94 2A 6E D2
 85 69 31 59 D3 24 0C 5E 18 BB 0A 11 F3 5B 34 EB E0 8D DB A2 18 87 F7 A4 0E 9D AB 45 62 0C 5A 44
 1B F1 D2 4D 56 11 05 C7 47 03 05 09 12 B6 1C 0E 5A 8E 86 1D 6C 69 4A 9E B9 77 59 04 2D 9A BA 4D
 8E DA 6F 03 FE 01
-$?St$Bk?_#[36]
+$?St$Bk?_#[24]
   END;
   ProgramCheckOptions:=
   BEGIN
@@ -183,17 +183,25 @@ $?St$Bk?_#[36]
  GlobalVariables:=
  BEGIN
   VariableList:=
-  BEGIN_LIST_$#[37]
-  END_LIST_$#[37];
-  VariableCount:=0;
+  BEGIN_LIST_$#[25]
+   ,4001.02,BOOL,,,,Level Low;
+   ,4100.05,BOOL,,,,Drain Valve;
+   ,5120.10,BOOL,,,,Reset;
+   ,D10202,CHANNEL,,,,Alarm-Tank level - Time not empty;
+   ,D11202,CHANNEL,,,,Warning-Tank level - Time not empty;
+   ,H303.05,BOOL,,,,"Time Not Empty Alarm 0=Use, 1=Not Use";
+   ,W120.02,BOOL,,,,Warning-Tank Level - Time Not Empty;
+   ,W20.02,BOOL,,,,Alarm-Tank Level - Time Not Empty;
+  END_LIST_$#[25];
+  VariableCount:=8;
   VariableMultiCommentList:=
-  BEGIN_LIST_$#[38]
-  END_LIST_$#[38];
+  BEGIN_LIST_$#[26]
+  END_LIST_$#[26];
   VariableMultiCommentCount:=0;
   VariableMultiCommentTypeCount:=16;
   VariablePredefinedMultiCommentList:=
-  BEGIN_LIST_$#[39]
-  END_LIST_$#[39];
+  BEGIN_LIST_$#[27]
+  END_LIST_$#[27];
   VariablePredefinedMultiCommentCount:=0;
   POUInstances:=
   BEGIN
@@ -211,7 +219,7 @@ $?St$Bk?_#[36]
    Name:="NewProgram1";
    FileType:=2;
    Created:="7 11 2019 18 14 57";
-   Modified:="7 11 2019 19 8 43";
+   Modified:="3 1 2020 10 10 30";
    Protection:=
    BEGIN
     Enabled:=0;
@@ -219,12 +227,12 @@ $?St$Bk?_#[36]
    LocalVariables:=
    BEGIN
     VariableList:=
-    BEGIN_LIST_$#[40]
-    END_LIST_$#[40];
+    BEGIN_LIST_$#[28]
+    END_LIST_$#[28];
     VariableCount:=0;
     VariableMultiCommentList:=
-    BEGIN_LIST_$#[41]
-    END_LIST_$#[41];
+    BEGIN_LIST_$#[29]
+    END_LIST_$#[29];
     VariableMultiCommentCount:=0;
     VariableMultiCommentTypeCount:=16;
     POUInstances:=
@@ -236,28 +244,109 @@ $?St$Bk?_#[36]
    OpStart:=1;
    Sections:=
    BEGIN
-    SC:=2;
+    SC:=3;
     Sec[0]:=
     BEGIN
      IEC1131Type:=11;
      CompileInline:=0;
      SecType:=0;
-     SecName:="섹션1";
+     SecName:="CNTX";
      ProgramData:=
      BEGIN
-      RC:=2;
+      RC:=4;
       R[0]:=
       BEGIN
        Com:="CJ1H CPU type 필요";
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[42]
+$?St$Bk?_#[30]
 '  R0
 LD 0.00
 LD 0.01
 CNTX(546) 0007 100
-$?St$Bk?_#[42]
+$?St$Bk?_#[30]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[1]:=
+      BEGIN
+       Com:="Tank not Empty";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[31]
+'  R0
+LD 4100.05
+AND 4001.02
+AND P_1min
+LDNOT 4001.02
+OR 5120.10
+OR H303.05
+CNTX(546) 0202 D10202
+$?St$Bk?_#[31]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[2]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[32]
+LD C0202
+AND P_Off
+OUT W20.02
+$?St$Bk?_#[32]
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+      R[3]:=
+      BEGIN
+       Com:="";
+       Flags:="1,0";
+       FBversion:="";
+       SL:="";
+       AtchCmts:=
+       BEGIN
+        CC:=0;
+       END;
+      END;
+     END;
+    END;
+    Sec[1]:=
+    BEGIN
+     IEC1131Type:=11;
+     CompileInline:=0;
+     SecType:=0;
+     SecName:="TIMX";
+     ProgramData:=
+     BEGIN
+      RC:=2;
+      R[0]:=
+      BEGIN
+       Com:="Tank not Empty";
+       Flags:="1,0";
+       FBversion:="";
+       SL:=
+$?St$Bk?_#[33]
+'  R0
+LD 4100.05
+AND 4001.02
+OUT TR0
+ANDNOT W20.02
+TIMX(550) 1202 D11202
+LD TR0
+AND T1202
+OUT W120.02
+$?St$Bk?_#[33]
        AtchCmts:=
        BEGIN
         CC:=0;
@@ -276,7 +365,7 @@ $?St$Bk?_#[42]
       END;
      END;
     END;
-    Sec[1]:=
+    Sec[2]:=
     BEGIN
      IEC1131Type:=11;
      CompileInline:=0;
@@ -291,9 +380,9 @@ $?St$Bk?_#[42]
        Flags:="1,0";
        FBversion:="";
        SL:=
-$?St$Bk?_#[43]
+$?St$Bk?_#[34]
 END(001)
-$?St$Bk?_#[43]
+$?St$Bk?_#[34]
        AtchCmts:=
        BEGIN
         CC:=0;
