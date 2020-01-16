@@ -21,6 +21,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         public int AccumulatedRungIndex { get; set; }
         public int AccumulatedStartILIndex { get; set; }
 
+        public bool IsValid { get { return ILs.Any(il => !il.StartsWith("\"\"")); } }
         public IEnumerable<string> EffectiveILs => ILs.SkipWhile(il => il.StartsWith("'"));
         internal CxtInfoRung(string name)
             : base("Rung")

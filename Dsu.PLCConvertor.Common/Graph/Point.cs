@@ -42,7 +42,8 @@ namespace Dsu.PLCConvertor.Common
         public override string ToString()
         {
             var il = ILSentence == null ? "" : ILSentence.ToString();
-            return il.Contains(Name) ? il : $"{Name}({ILSentence})";
+            var name = Name.NonNullEmptySelector("");
+            return il.Contains(name) ? il : $"{name}({il})";
         }
 
         public virtual string ToShortString()

@@ -550,7 +550,7 @@
   {
     "Command": "+L(401)",
     "PerInputProc": [
-      "MUL $0 $1 $2"
+      "ADD $0 $1 $2"
     ],
     "IsTerminal": true,
     "IsLoad": false,
@@ -686,7 +686,7 @@
     "Command": "CNTX(546)",
     "PerInputProc": [
       "CTD C$0 $1",
-      "RST C$0 0"
+      "RST C$0"
     ],
     "IsTerminal": true,
     "IsLoad": false

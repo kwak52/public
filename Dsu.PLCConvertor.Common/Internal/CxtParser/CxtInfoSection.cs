@@ -34,13 +34,7 @@ namespace Dsu.PLCConvertor.Common.Internal
         /// Section 내에서 valid 한 rung 만을 반환.
         /// </summary>
         /// <returns></returns>
-        internal IEnumerable<CxtInfoRung> EnumerateValidRungs()
-        {
-            return this.EnumerateType<CxtInfoRung>()
-                .Where(rung => rung.ILs.NonNullAny())
-                .Where(rung => rung.ILs.Any(il => ! il.StartsWith("\"\"")))
-                ;
-        }
+        internal IEnumerable<CxtInfoRung> EnumerateValidRungs() => EnumerateType<CxtInfoRung>().Where(r => r.IsValid);
 
         /// <summary>
         /// 섹션에 대해서 PLC 변환
@@ -49,7 +43,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             Global.Logger.Info($"Section {Name} 변환 중...");
 #if DEBUG
-            this.EnumerateValidRungs()
+            var xxx = this.EnumerateValidRungs();
+            xxx
                 .Where(rung => !rung.ILs[0].StartsWith("END"))
                 .Iter(rung => {
                     rung.ILs.Iter(il => Global.Logger.Debug($"{il}"));
@@ -57,16 +52,29 @@ namespace Dsu.PLCConvertor.Common.Internal
 #endif
             Debug.Assert(prog == Parent);
 
-            return this.EnumerateValidRungs()
-                .Select(rung =>
+            var rungs = EnumerateType<CxtInfoRung>().ToArray();
+            foreach (var rung in rungs)
+            {
+                if (rung.IsValid)
                 {
                     var result = rung.Convert(cvtParam, prog, this, targetStartIndex);
-                    if (result == null)
-                        return null;
-                    targetStartIndex += result.Messages.Count() + result.Results.Count();
-                    return result;
-                }).OfNotNull()
-                ;
+                    if (result != null)
+                    {
+                        targetStartIndex += result.Messages.Count() + result.Results.Count();
+                        yield return result;
+                    }
+                }
+                else
+                {
+                    var msgs = new[] { "현재 위치에 누락 부분(e.g 평션블록 등)이 존재할 수 있습니다." };
+                    yield return new ConvertResult(Enumerable.Empty<string>(), msgs)
+                    {
+                        Program = prog,
+                        Section = this,
+                        Rung = rung
+                    };
+                }
+            }
         }
     }
 }

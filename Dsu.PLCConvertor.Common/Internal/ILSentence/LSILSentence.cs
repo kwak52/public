@@ -139,55 +139,60 @@ namespace Dsu.PLCConvertor.Common
 
         public override string ToIL()
         {
-            if (UseAddressMapping && Mnemonic != Mnemonic.RUNG_COMMENT)
-            {
-                var omron = _sourceILSentence as OmronILSentence;
-                bool isOneShot =
-                    omron != null 
-                    && omron.Variation.IsOneOf(OmronILSentence.VariationType.DiffrentiationOn, OmronILSentence.VariationType.DiffrentiationOff)
-                    && omron.Command.Contains("NOT")
-                    ;
-
-
-                var tempAddressAllocator = _rung2ILConvertor.TempAddressAllocator.Value;
-                var rs = AddressConvertorInstance;
-
-                Args = Args.Select((a, n) =>
-                {
-                    var arg = rs.IsMatch(a) ? rs.Convert(a) : a;
-
-                    if (isOneShot) // ONS:
-                    {
-                        var diffrentiation = omron.Variation == OmronILSentence.VariationType.DiffrentiationOn ? '@' : '%';
-                        var searchResult = tempAddressAllocator.Allocate("BIT", this, $"{diffrentiation}{arg}");
-                        _rung2ILConvertor.ProglogRungs.AddRange(searchResult.PrologRungILs);
-                        return searchResult.Temporary;
-                    }
-
-                    if (n == 1 && Mnemonic == Mnemonic.TON && omron != null)
-                    {
-                        var sa = omron.Args;
-                        if (!sa[1].StartsWith("#"))
-                        {
-                            var searchResult = tempAddressAllocator.Allocate("WORD", this, $"{sa[0]}");
-                            _rung2ILConvertor.ProglogRungs.Add($"CMT\t{Cx2Xg5kOption.LabelHeader} 변환용 임시 버퍼");
-                            _rung2ILConvertor.ProglogRungs.Add($"LOAD\t_ON");
-                            _rung2ILConvertor.ProglogRungs.Add($"BIN\t{omron.Args[1]} {searchResult.Temporary}");
-
-                            return searchResult.Temporary;
-                        }
-                    }
-                    return arg;
-                }).ToArray();
-
-                var args = ModifyArguments();
-                var operands = string.Join(" ", args);
-                return $"{Command}\t{operands}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
-            }
+            if (Mnemonic == Mnemonic.RUNG_COMMENT)
+                return $"{Command}\t{string.Join(" ", Args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
             else
             {
-                var args = ModifyArguments();
-                return $"{Command}\t{string.Join(" ", args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
+                if (UseAddressMapping)
+                {
+                    var omron = _sourceILSentence as OmronILSentence;
+                    bool isOneShot =
+                        omron != null
+                        && omron.Variation.IsOneOf(OmronILSentence.VariationType.DiffrentiationOn, OmronILSentence.VariationType.DiffrentiationOff)
+                        && omron.Command.Contains("NOT")
+                        ;
+
+
+                    var tempAddressAllocator = _rung2ILConvertor.TempAddressAllocator.Value;
+                    var rs = AddressConvertorInstance;
+
+                    Args = Args.Select((a, n) =>
+                    {
+                        var arg = rs.IsMatch(a) ? rs.Convert(a) : a;
+
+                        if (isOneShot) // ONS:
+                        {
+                            var diffrentiation = omron.Variation == OmronILSentence.VariationType.DiffrentiationOn ? '@' : '%';
+                            var searchResult = tempAddressAllocator.Allocate("BIT", this, $"{diffrentiation}{arg}");
+                            _rung2ILConvertor.ProglogRungs.AddRange(searchResult.PrologRungILs);
+                            return searchResult.Temporary;
+                        }
+
+                        if (n == 1 && Mnemonic == Mnemonic.TON && omron != null)
+                        {
+                            var sa = omron.Args;
+                            if (!sa[1].StartsWith("#"))
+                            {
+                                var searchResult = tempAddressAllocator.Allocate("WORD", this, $"{sa[0]}");
+                                _rung2ILConvertor.ProglogRungs.Add($"CMT\t{Cx2Xg5kOption.LabelHeader} 변환용 임시 버퍼");
+                                _rung2ILConvertor.ProglogRungs.Add($"LOAD\t_ON");
+                                _rung2ILConvertor.ProglogRungs.Add($"BIN\t{omron.Args[1]} {searchResult.Temporary}");
+
+                                return searchResult.Temporary;
+                            }
+                        }
+                        return arg;
+                    }).ToArray();
+
+                    var args = ModifyArguments();
+                    var operands = string.Join(" ", args);
+                    return $"{Command}\t{operands}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
+                }
+                else
+                {
+                    var args = ModifyArguments();
+                    return $"{Command}\t{string.Join(" ", args)}".TrimEnd(new[] { ' ', '\t', '\r', '\n' });
+                }
             }
         }
     }
