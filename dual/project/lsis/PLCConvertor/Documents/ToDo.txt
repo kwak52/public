@@ -1,4 +1,6 @@
-﻿- 
+﻿- Script Embedding
+	https://stackoverflow.com/questions/137933/what-is-the-best-scripting-language-to-embed-in-a-c-sharp-desktop-application
+- 
 	++L(591) ==> DINC 로 처리
 - TIM 처리
 	옴론 BCD 타이머(TIM)의 버퍼 사용에 대한 부분 논의 
