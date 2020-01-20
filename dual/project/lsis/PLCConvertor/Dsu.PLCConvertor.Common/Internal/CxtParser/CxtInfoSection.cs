@@ -66,13 +66,16 @@ namespace Dsu.PLCConvertor.Common.Internal
                 }
                 else
                 {
-                    var msgs = new[] { "현재 위치에 누락 부분(e.g 평션블록 등)이 존재할 수 있습니다." };
-                    yield return new ConvertResult(Enumerable.Empty<string>(), msgs)
+                    if (rung.ILs.IsNullOrEmpty())
                     {
-                        Program = prog,
-                        Section = this,
-                        Rung = rung
-                    };
+                        var msgs = new[] { "현재 위치에 누락 부분(e.g 평션블록 등)이 존재할 수 있습니다." };
+                        yield return new ConvertResult(Enumerable.Empty<string>(), msgs)
+                        {
+                            Program = prog,
+                            Section = this,
+                            Rung = rung
+                        };
+                    }
                 }
             }
         }

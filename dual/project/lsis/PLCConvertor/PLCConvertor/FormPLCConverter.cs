@@ -66,30 +66,38 @@ namespace PLCConvertor
             {
                 await Task.Run(() =>
                 {
-                    //TestCustomAppConfig();
+                    try
+                    {
+                        //TestCustomAppConfig();
 
-                    //void TestCustomAppConfig()
-                    //{
-                    //    Logger.Info("Custom configuration section test:");
-                    //    var appConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    //    var config = appConfig.GetSection("exportPdv") as CustomConfigurationSection;
-                    //    Logger.Debug($"Source: folder={config.SourceFolderPrefix}");
-                    //    Logger.Debug($"Destination: folder={config.DestinationFolderPrefix}");
-                    //    Logger.Debug($"Destination server IP: {config.DestinationDBServerIp}");
-                    //}
+                        //void TestCustomAppConfig()
+                        //{
+                        //    Logger.Info("Custom configuration section test:");
+                        //    var appConfig = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                        //    var config = appConfig.GetSection("exportPdv") as CustomConfigurationSection;
+                        //    Logger.Debug($"Source: folder={config.SourceFolderPrefix}");
+                        //    Logger.Debug($"Destination: folder={config.DestinationFolderPrefix}");
+                        //    Logger.Debug($"Destination server IP: {config.DestinationDBServerIp}");
+                        //}
 
 
-                    var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
-                    AddressConvertor = AddressConvertor.LoadFromJsonFile(addressMappingJsonFile);
+                        var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
+                        AddressConvertor = AddressConvertor.LoadFromJsonFile(addressMappingJsonFile);
 
-                    var commandMappingJsonFile = ConfigurationManager.AppSettings["userDefinedCommandMappingFile"];
-                    UserDefinedCommandMapper = UserDefinedCommandMapper.LoadFromJsonFile(commandMappingJsonFile, PLCVendor.Omron);
+                        var commandMappingJsonFile = ConfigurationManager.AppSettings["userDefinedCommandMappingFile"];
+                        UserDefinedCommandMapper = UserDefinedCommandMapper.LoadFromJsonFile(commandMappingJsonFile, PLCVendor.Omron);
 
-                    repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
-                    barEditItemSource.EditValue = PLCVendor.Omron;
+                        repositoryItemComboBoxSource.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
+                        barEditItemSource.EditValue = PLCVendor.Omron;
 
-                    repositoryItemComboBoxTarget.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
-                    barEditItemTarget.EditValue = PLCVendor.LSIS;
+                        repositoryItemComboBoxTarget.Items.AddRange(Enum.GetValues(typeof(PLCVendor)));
+                        barEditItemTarget.EditValue = PLCVendor.LSIS;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Error($"{ex}");
+                        MsgBox.Error("에러", $"로딩에 실패하였습니다.\r\n{ex.Message}");
+                    }
                 });
 
                 Enabled = true;

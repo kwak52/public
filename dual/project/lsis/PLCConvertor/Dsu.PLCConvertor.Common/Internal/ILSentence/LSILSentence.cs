@@ -66,7 +66,12 @@ namespace Dsu.PLCConvertor.Common
                 case Mnemonic.TON when nth == 1 && arg.StartsWith("#"):
                     return arg.SkipNChar(1);
             }
+            var num = ModifyNumeric(arg);
+            return num.NonNullEmptySelector(arg);
+        }
 
+        private string ModifyNumeric(string arg)
+        {
             // '#': hexadecimal
             var match = Regex.Match(arg, "^#([A-Fa-f0-9]+)");
             if (match.Success)
@@ -82,25 +87,80 @@ namespace Dsu.PLCConvertor.Common
             if (match.Success)
                 return Regex.Replace(arg, @"^\+", "");
 
-            return arg;
+            return null;
         }
+
+
+        string convertArgumentWithDataRegister(string arg)
+        {
+            //if (arg.StartsWith("&"))
+            //    return arg.SkipNChar(1);
+
+            if (char.IsDigit(arg[0]))
+                return "D" + arg;
+            var num = ModifyNumeric(arg);
+            if (num != null)
+                return num;
+
+            var rs = AddressConvertorInstance;
+            return rs.Convert(arg);
+        }
+
+        //string convertDataRegister(string arg)
+        //{
+        //    if (char.IsDigit(arg[0]))
+        //        return "D" + arg;
+
+        //    return arg;
+        //}
+
 
         // Args : 산전으로 변환되기 이전의 상태를 갖고 있다.  Args 에도 옴론의 argument 가 들어 있는 상태
         // Command : 변환 이후의 상태
         public override string[] ModifyArguments()
         {
             var args = base.ModifyArguments();
-            if (Mnemonic == Mnemonic.BSET)
+            var sourceCmd = _sourceILSentence.Command;
+
+            var match = Regex.Match(sourceCmd, @"([^\(]*)\((\d*)\)");
+            var g = match.Groups.Cast<Group>().Select(gr => gr.ToString()).ToArray();
+            string srcCmd = g.Length == 3 ? g[1] : "";
+
+            switch(srcCmd)
             {
-                // BSET(071) #4 D20002 D20009 ---> FMOV #4 D20002 8 의 결과가 나오도록 D20009 를 8 (9-2+1) 로 수정
-                var leadingLength =
-                    Args[1].Zip(Args[2], (f, s) => (f, s))
-                    .TakeWhile(tpl => tpl.f == tpl.s)
-                    .Count()
-                    ;
-                var n1 = int.Parse(Args[1].SkipNChar(leadingLength));
-                var n2 = int.Parse(Args[2].SkipNChar(leadingLength));
-                args[2] = $"{n2 - n1 + 1}";
+                case "BSET":
+                    Debug.Assert(Mnemonic == Mnemonic.BSET);
+                    // BSET(071) #4 D20002 D20009 ---> FMOV #4 D20002 8 의 결과가 나오도록 D20009 를 8 (9-2+1) 로 수정
+                    var leadingLength =
+                        Args[1].Zip(Args[2], (f, s) => (f, s))
+                        .TakeWhile(tpl => tpl.f == tpl.s)
+                        .Count()
+                        ;
+                    var n1 = int.Parse(Args[1].SkipNChar(leadingLength));
+                    var n2 = int.Parse(Args[2].SkipNChar(leadingLength));
+                    args[2] = $"{n2 - n1 + 1}";
+                    return args;
+
+                case "XFER":
+                    {
+                        Command = "GMOV";
+                        var counter = Args[0].TrimStart(new[] { '&' });
+                        var src = convertArgumentWithDataRegister(Args[1]);
+                        var tgt = convertArgumentWithDataRegister(Args[2]);
+                        return new[] { src, tgt, counter, };
+                    }
+
+                case "MOV":
+                case ">":
+                case "<":
+                case ">=":
+                case "<=":
+                    {
+                        //Command = "MOV";
+                        var src = convertArgumentWithDataRegister(Args[0]);
+                        var tgt = convertArgumentWithDataRegister(Args[1]);
+                        return new[] { src, tgt, };
+                    }
             }
 
             return args;
