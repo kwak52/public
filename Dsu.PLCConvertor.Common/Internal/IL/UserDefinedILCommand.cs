@@ -60,7 +60,9 @@ namespace Dsu.PLCConvertor.Common.Internal
             "@LDNOT", "%LDNOT",
             "@ANDNOT", "%ANDNOT",
             "TIM",
+            //"MOV(021)",
             "BSET(071)",
+            "XFER(070)",
         };
 
         public bool Validate(PLCVendor targetType, bool throwOnFail=true)

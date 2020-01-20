@@ -37,8 +37,11 @@ namespace Dsu.PLCConvertor.Common.Internal
             Rules = rules.ToList();
         }
 
-        public bool IsMatch(string sourceAddress) => _normalRules.Any(r => r.IsMatch(sourceAddress));
-        public string Convert(string sourceAddress) => IsMatch(sourceAddress) ? convert(sourceAddress, _normalRules) : sourceAddress;
+        public bool IsMatch(string sourceAddress, IEnumerable<IAddressConvertRule> rules) => rules.Any(r => r.IsMatch(sourceAddress));
+
+        public bool IsMatch(string sourceAddress) => IsMatch(sourceAddress, _normalRules);
+        public string Convert(string sourceAddress, IEnumerable<IAddressConvertRule> rules) => IsMatch(sourceAddress, rules) ? convert(sourceAddress, rules) : sourceAddress;
+        public string Convert(string sourceAddress) => Convert(sourceAddress, _normalRules);
         public string ConvertWithNamedRule(string ruleName, string sourceAddress)
             => convert(sourceAddress, new[] { _namedAddressRules[ruleName] });
 
@@ -52,8 +55,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         }
 
 
-        public IEnumerable<string> GenerateAllSourceSamples() => Rules.SelectMany(r => r.GenerateSourceSamples());
-        public IEnumerable<(string, string)> GenerateTranslations() => Rules.SelectMany(r => r.GenerateTranslations());
+        public IEnumerable<string> GenerateAllSourceSamples() => _normalRules.SelectMany(r => r.GenerateSourceSamples());
+        public IEnumerable<(string, string)> GenerateTranslations() => _normalRules.SelectMany(r => r.GenerateTranslations());
 
         public static AddressConvertor LoadFromJsonFile(string jsonFile)
             => AddressConvertorSerializer.LoadFromJsonString(File.ReadAllText(jsonFile)).Validate();

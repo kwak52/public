@@ -112,7 +112,7 @@
     "Message": "XFBR(062) -> BMOV ??? 결과 확인 필요"
   },
   {
-    "Command": "XFER(070)",
+    "Command": "XX-XFER(070)",
     "PerInputProc": [
       "GMOV $1 $2 $0"
     ],

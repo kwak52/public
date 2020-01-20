@@ -104,7 +104,8 @@ namespace Dsu.PLCConvertor.Common.Internal
         {
             var serializer = JsonConvert.DeserializeObject<AddressConvertorSerializer>(json, MyJsonSerializer.JsonSettingsSimple);
             var rules =
-                new[] { serializer.OneToOne.Cast<IRuleSerializer>(), serializer.Ranged, /*serializer.Named,*/ }
+                new[] { serializer.OneToOne.Cast<IRuleSerializer>(), serializer.Ranged, serializer.Named, }
+                .OfNotNull()
                 .SelectMany(rs => rs)
                 ;
             return new AddressConvertor(rules.Select(r => r.ToNormalRule()));
