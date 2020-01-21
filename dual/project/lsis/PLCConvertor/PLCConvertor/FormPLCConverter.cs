@@ -13,6 +13,7 @@ using DevExpress.XtraSplashScreen;
 using System.Threading.Tasks;
 using DevExpress.XtraBars;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace PLCConvertor
 {
@@ -235,6 +236,39 @@ namespace PLCConvertor
         private void barButtonItemExit_ItemClick(object sender, ItemClickEventArgs e)
         {
             Close();
+        }
+
+        private void btnRemoveLineNumber_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "QTX file(*.qtx)|*.qtx|All files(*.*)|*.*";
+                ofd.RestoreDirectory = true;
+                if (ofd.ShowDialog() != DialogResult.OK)
+                    return;
+
+                var qtxFile = ofd.FileName;
+                var removed =
+                    File.ReadAllLines(qtxFile)
+                        .Select(l =>
+                        {
+                            var match = Regex.Match(l, @"\d+\t(.*)");
+                            var g = match.Groups.Cast<Group>().Select(gr => gr.ToString()).ToArray();
+                            if (g.Length == 2)
+                                return g[1];
+                            else
+                                return l;
+                        });
+
+                using (var sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "QTX file(*.qtx)|*.qtx|All files(*.*)|*.*";
+                    sfd.RestoreDirectory = true;
+                    if (sfd.ShowDialog() != DialogResult.OK)
+                        return;
+                    File.WriteAllLines(sfd.FileName, removed);
+                }
+            }
         }
     }
 }
