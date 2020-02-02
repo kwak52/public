@@ -1,6 +1,6 @@
 ﻿namespace AddressMapper
 {
-    partial class FormRibonApp
+    partial class FormAddressMapper
     {
         /// <summary>
         /// Required designer variable.
@@ -133,7 +133,7 @@
             this.documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedView1});
             // 
-            // FormRibonApp
+            // FormAddressMapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -141,11 +141,11 @@
             this.Controls.Add(this.dockPanelLog);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
-            this.Name = "FormRibonApp";
+            this.Name = "FormAddressMapper";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;
-            this.Text = "FormRibonApp";
-            this.Load += new System.EventHandler(this.FormRibonApp_Load);
+            this.Text = "FormAddressMapper";
+            this.Load += new System.EventHandler(this.FormAddressMapper_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.dockPanelLog.ResumeLayout(false);

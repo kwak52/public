@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace AddressMapper
 {
-    public partial class FormRibonApp
+    public partial class FormAddressMapper
     {
         public static ILog Logger { get; set; }
 
