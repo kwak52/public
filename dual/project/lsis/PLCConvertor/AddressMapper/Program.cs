@@ -22,8 +22,8 @@ namespace AddressMapper
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var logger = LogManager.GetLogger("AppFx");
-            FormRibonApp.Logger = logger;
+            var logger = LogManager.GetLogger("AddressMapper");
+            FormAddressMapper.Logger = logger;
 
             InstallUnhandledExceptionHandler();
 
@@ -33,7 +33,7 @@ namespace AddressMapper
 
 
             var root = ((log4net.Repository.Hierarchy.Hierarchy)log4net.LogManager.GetRepository()).Root;
-            var form = new FormRibonApp();
+            var form = new FormAddressMapper();
             root.AddAppender(form);
 
 

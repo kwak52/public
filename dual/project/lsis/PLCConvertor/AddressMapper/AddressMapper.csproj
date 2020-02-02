@@ -57,13 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomConfigurationSection.cs" />
-    <Compile Include="FormRibonApp.cs">
+    <Compile Include="FormAddressMapper.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormRibonApp.Designer.cs">
-      <DependentUpon>FormRibonApp.cs</DependentUpon>
+    <Compile Include="FormAddressMapper.Designer.cs">
+      <DependentUpon>FormAddressMapper.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormRibonApp.Log.cs">
+    <Compile Include="FormAddressMapper.Log.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Images.cs" />
@@ -75,8 +75,8 @@
     <Compile Include="UcPanelLog.designer.cs">
       <DependentUpon>UcPanelLog.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FormRibonApp.resx">
-      <DependentUpon>FormRibonApp.cs</DependentUpon>
+    <EmbeddedResource Include="FormAddressMapper.resx">
+      <DependentUpon>FormAddressMapper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
