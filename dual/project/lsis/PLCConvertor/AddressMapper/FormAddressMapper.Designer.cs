@@ -28,48 +28,121 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
+            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.barCheckItemShowLog = new DevExpress.XtraBars.BarCheckItem();
+            this.barCheckItemSource = new DevExpress.XtraBars.BarCheckItem();
+            this.barCheckItemTarget = new DevExpress.XtraBars.BarCheckItem();
+            this.barCheckItemShowMain = new DevExpress.XtraBars.BarCheckItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
-            this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager();
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.ucPanelLog1 = new AddressMapper.UcPanelLog();
+            this.dockPanelSource = new DevExpress.XtraBars.Docking.DockPanel();
+            this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.dockPanelTarget = new DevExpress.XtraBars.Docking.DockPanel();
+            this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
+            this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
+            this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList();
+            this.action1 = new Dsu.Common.Utilities.Actions.Action();
+            this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockPanelLog.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
+            this.dockPanelSource.SuspendLayout();
+            this.dockPanelTarget.SuspendLayout();
+            this.dockPanelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // documentGroup1
+            // 
+            this.documentGroup1.Items.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document[] {
+            this.document1});
+            // 
+            // document1
+            // 
+            this.document1.Caption = "Address map";
+            this.document1.ControlName = "dockPanelMain";
+            this.document1.FloatLocation = new System.Drawing.Point(0, 0);
+            this.document1.FloatSize = new System.Drawing.Size(200, 200);
+            this.document1.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.True;
+            this.document1.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.True;
+            this.document1.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.True;
             // 
             // ribbon
             // 
             this.ribbon.ExpandCollapseItem.Id = 0;
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.ribbon.ExpandCollapseItem});
+            this.ribbon.ExpandCollapseItem,
+            this.barCheckItemShowLog,
+            this.barCheckItemSource,
+            this.barCheckItemTarget,
+            this.barCheckItemShowMain});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 1;
+            this.ribbon.MaxItemId = 5;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbon.Size = new System.Drawing.Size(1178, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
+            // barCheckItemShowLog
+            // 
+            this.barCheckItemShowLog.Caption = "Log";
+            this.barCheckItemShowLog.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemShowLog.Id = 1;
+            this.barCheckItemShowLog.Name = "barCheckItemShowLog";
+            // 
+            // barCheckItemSource
+            // 
+            this.barCheckItemSource.Caption = "Omron";
+            this.barCheckItemSource.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemSource.Id = 2;
+            this.barCheckItemSource.Name = "barCheckItemSource";
+            // 
+            // barCheckItemTarget
+            // 
+            this.barCheckItemTarget.Caption = "XG5000";
+            this.barCheckItemTarget.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemTarget.Id = 3;
+            this.barCheckItemTarget.Name = "barCheckItemTarget";
+            // 
+            // barCheckItemShowMain
+            // 
+            this.barCheckItemShowMain.Caption = "Main";
+            this.barCheckItemShowMain.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemShowMain.Id = 4;
+            this.barCheckItemShowMain.Name = "barCheckItemShowMain";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroup1});
+            this.ribbonPageGroupView,
+            this.ribbonPageGroupTemplates});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "ribbonPage1";
             // 
-            // ribbonPageGroup1
+            // ribbonPageGroupView
             // 
-            this.ribbonPageGroup1.Name = "ribbonPageGroup1";
-            this.ribbonPageGroup1.Text = "ribbonPageGroup1";
+            this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemShowMain);
+            this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemShowLog);
+            this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemSource);
+            this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemTarget);
+            this.ribbonPageGroupView.Name = "ribbonPageGroupView";
+            this.ribbonPageGroupView.Text = "View";
             // 
             // ribbonStatusBar
             // 
@@ -82,7 +155,10 @@
             // 
             this.dockManager1.Form = this;
             this.dockManager1.RootPanels.AddRange(new DevExpress.XtraBars.Docking.DockPanel[] {
-            this.dockPanelLog});
+            this.dockPanelLog,
+            this.dockPanelSource,
+            this.dockPanelTarget,
+            this.dockPanelMain});
             this.dockManager1.TopZIndexControls.AddRange(new string[] {
             "DevExpress.XtraBars.BarDockControl",
             "DevExpress.XtraBars.StandaloneBarDockControl",
@@ -125,6 +201,58 @@
             this.ucPanelLog1.Size = new System.Drawing.Size(1166, 158);
             this.ucPanelLog1.TabIndex = 0;
             // 
+            // dockPanelSource
+            // 
+            this.dockPanelSource.Controls.Add(this.controlContainer1);
+            this.dockPanelSource.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
+            this.dockPanelSource.ID = new System.Guid("e9c28f34-66a8-463d-bed0-25df2c0c5782");
+            this.dockPanelSource.Location = new System.Drawing.Point(0, 217);
+            this.dockPanelSource.Name = "dockPanelSource";
+            this.dockPanelSource.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanelSource.Size = new System.Drawing.Size(200, 418);
+            this.dockPanelSource.Text = "Omron";
+            // 
+            // controlContainer1
+            // 
+            this.controlContainer1.Location = new System.Drawing.Point(6, 33);
+            this.controlContainer1.Name = "controlContainer1";
+            this.controlContainer1.Size = new System.Drawing.Size(185, 379);
+            this.controlContainer1.TabIndex = 0;
+            // 
+            // dockPanelTarget
+            // 
+            this.dockPanelTarget.Controls.Add(this.dockPanel2_Container);
+            this.dockPanelTarget.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
+            this.dockPanelTarget.ID = new System.Guid("ee0c92d3-2a4b-4315-91a1-2bcd5f8935da");
+            this.dockPanelTarget.Location = new System.Drawing.Point(200, 217);
+            this.dockPanelTarget.Name = "dockPanelTarget";
+            this.dockPanelTarget.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanelTarget.Size = new System.Drawing.Size(200, 418);
+            this.dockPanelTarget.Text = "XG5000";
+            // 
+            // dockPanel2_Container
+            // 
+            this.dockPanel2_Container.Location = new System.Drawing.Point(6, 33);
+            this.dockPanel2_Container.Name = "dockPanel2_Container";
+            this.dockPanel2_Container.Size = new System.Drawing.Size(185, 379);
+            this.dockPanel2_Container.TabIndex = 0;
+            // 
+            // dockPanelMain
+            // 
+            this.dockPanelMain.Controls.Add(this.controlContainer2);
+            this.dockPanelMain.DockedAsTabbedDocument = true;
+            this.dockPanelMain.ID = new System.Guid("6e76eaf6-85ee-42b7-8766-5b84857b094c");
+            this.dockPanelMain.Name = "dockPanelMain";
+            this.dockPanelMain.OriginalSize = new System.Drawing.Size(200, 200);
+            this.dockPanelMain.Text = "Address map";
+            // 
+            // controlContainer2
+            // 
+            this.controlContainer2.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer2.Name = "controlContainer2";
+            this.controlContainer2.Size = new System.Drawing.Size(772, 378);
+            this.controlContainer2.TabIndex = 0;
+            // 
             // documentManager1
             // 
             this.documentManager1.ContainerControl = this;
@@ -133,11 +261,48 @@
             this.documentManager1.ViewCollection.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseView[] {
             this.tabbedView1});
             // 
+            // tabbedView1
+            // 
+            this.tabbedView1.DocumentGroups.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup[] {
+            this.documentGroup1});
+            this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
+            this.document1});
+            dockingContainer1.Element = this.documentGroup1;
+            this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
+            dockingContainer1});
+            // 
+            // actionList1
+            // 
+            this.actionList1.Actions.AddRange(new Dsu.Common.Utilities.Actions.Action[] {
+            this.action1});
+            this.actionList1.Count = 1;
+            this.actionList1.ImageList = null;
+            this.actionList1.ShowTextOnToolBar = false;
+            this.actionList1.Tag = null;
+            this.actionList1.UpdateCmdUISleepIntervalOnIdle = 0;
+            // 
+            // action1
+            // 
+            this.action1.Checked = false;
+            this.action1.Enabled = true;
+            this.action1.Hint = null;
+            this.action1.Shortcut = System.Windows.Forms.Shortcut.None;
+            this.action1.Tag = null;
+            this.action1.Text = "38615894";
+            this.action1.Visible = true;
+            // 
+            // ribbonPageGroupTemplates
+            // 
+            this.ribbonPageGroupTemplates.Name = "ribbonPageGroupTemplates";
+            this.ribbonPageGroupTemplates.Text = "Tempaltes";
+            // 
             // FormAddressMapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1178, 876);
+            this.Controls.Add(this.dockPanelTarget);
+            this.Controls.Add(this.dockPanelSource);
             this.Controls.Add(this.dockPanelLog);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
@@ -146,10 +311,15 @@
             this.StatusBar = this.ribbonStatusBar;
             this.Text = "FormAddressMapper";
             this.Load += new System.EventHandler(this.FormAddressMapper_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.dockPanelLog.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
+            this.dockPanelSource.ResumeLayout(false);
+            this.dockPanelTarget.ResumeLayout(false);
+            this.dockPanelMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
             this.ResumeLayout(false);
@@ -161,7 +331,7 @@
 
         private DevExpress.XtraBars.Ribbon.RibbonControl ribbon;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
-        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupView;
         private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar;
         private DevExpress.XtraBars.Docking.DockManager dockManager1;
         private DevExpress.XtraBars.Docking.DockPanel dockPanelLog;
@@ -169,5 +339,20 @@
         private DevExpress.XtraBars.Docking2010.DocumentManager documentManager1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
         private UcPanelLog ucPanelLog1;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemShowLog;
+        private Dsu.Common.Utilities.Actions.ActionList actionList1;
+        private Dsu.Common.Utilities.Actions.Action action1;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemSource;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemTarget;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanelTarget;
+        private DevExpress.XtraBars.Docking.ControlContainer dockPanel2_Container;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanelSource;
+        private DevExpress.XtraBars.Docking.ControlContainer controlContainer1;
+        private DevExpress.XtraBars.Docking.DockPanel dockPanelMain;
+        private DevExpress.XtraBars.Docking.ControlContainer controlContainer2;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup documentGroup1;
+        private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemShowMain;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupTemplates;
     }
 }
