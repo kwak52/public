@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer4 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraEditors.RangeControlRange rangeControlRange1 = new DevExpress.XtraEditors.RangeControlRange();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraEditors.RangeControlRange rangeControlRange2 = new DevExpress.XtraEditors.RangeControlRange();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -56,11 +58,16 @@
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.ucMemoryBar1 = new Dsu.PLCConverter.UI.UcMemoryBar();
+            this.ucMemoryBarOmron = new Dsu.PLCConverter.UI.UcMemoryBar();
             this.numericRangeControlClient1 = new DevExpress.XtraEditors.NumericRangeControlClient();
             this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
+            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.comboBoxEdit2 = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.ucMemoryBar2 = new Dsu.PLCConverter.UI.UcMemoryBar();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -79,6 +86,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit2.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -268,8 +277,8 @@
             this.dockPanelSource.ID = new System.Guid("e9c28f34-66a8-463d-bed0-25df2c0c5782");
             this.dockPanelSource.Location = new System.Drawing.Point(0, 217);
             this.dockPanelSource.Name = "dockPanelSource";
-            this.dockPanelSource.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanelSource.Size = new System.Drawing.Size(200, 614);
+            this.dockPanelSource.OriginalSize = new System.Drawing.Size(89, 200);
+            this.dockPanelSource.Size = new System.Drawing.Size(89, 614);
             this.dockPanelSource.Text = "Omron";
             // 
             // controlContainer1
@@ -277,7 +286,7 @@
             this.controlContainer1.Controls.Add(this.checkedComboBoxEdit1);
             this.controlContainer1.Location = new System.Drawing.Point(6, 33);
             this.controlContainer1.Name = "controlContainer1";
-            this.controlContainer1.Size = new System.Drawing.Size(185, 575);
+            this.controlContainer1.Size = new System.Drawing.Size(74, 575);
             this.controlContainer1.TabIndex = 0;
             // 
             // checkedComboBoxEdit1
@@ -289,7 +298,7 @@
             this.checkedComboBoxEdit1.Name = "checkedComboBoxEdit1";
             this.checkedComboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.checkedComboBoxEdit1.Size = new System.Drawing.Size(175, 30);
+            this.checkedComboBoxEdit1.Size = new System.Drawing.Size(64, 30);
             this.checkedComboBoxEdit1.TabIndex = 0;
             // 
             // dockPanelTarget
@@ -297,17 +306,17 @@
             this.dockPanelTarget.Controls.Add(this.dockPanel2_Container);
             this.dockPanelTarget.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
             this.dockPanelTarget.ID = new System.Guid("ee0c92d3-2a4b-4315-91a1-2bcd5f8935da");
-            this.dockPanelTarget.Location = new System.Drawing.Point(200, 217);
+            this.dockPanelTarget.Location = new System.Drawing.Point(89, 217);
             this.dockPanelTarget.Name = "dockPanelTarget";
-            this.dockPanelTarget.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanelTarget.Size = new System.Drawing.Size(200, 614);
+            this.dockPanelTarget.OriginalSize = new System.Drawing.Size(92, 200);
+            this.dockPanelTarget.Size = new System.Drawing.Size(92, 614);
             this.dockPanelTarget.Text = "XG5000";
             // 
             // dockPanel2_Container
             // 
             this.dockPanel2_Container.Location = new System.Drawing.Point(6, 33);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(185, 575);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(77, 575);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // dockPanelMain
@@ -321,23 +330,28 @@
             // 
             // controlContainer2
             // 
-            this.controlContainer2.Controls.Add(this.ucMemoryBar1);
+            this.controlContainer2.Controls.Add(this.comboBoxEdit2);
+            this.controlContainer2.Controls.Add(this.labelControl2);
+            this.controlContainer2.Controls.Add(this.labelControl1);
+            this.controlContainer2.Controls.Add(this.comboBoxEdit1);
+            this.controlContainer2.Controls.Add(this.ucMemoryBarOmron);
             this.controlContainer2.Location = new System.Drawing.Point(0, 0);
             this.controlContainer2.Name = "controlContainer2";
-            this.controlContainer2.Size = new System.Drawing.Size(1078, 574);
+            this.controlContainer2.Size = new System.Drawing.Size(1297, 574);
             this.controlContainer2.TabIndex = 0;
             // 
-            // ucMemoryBar1
+            // ucMemoryBarOmron
             // 
-            this.ucMemoryBar1.Location = new System.Drawing.Point(24, 30);
-            this.ucMemoryBar1.Margin = new System.Windows.Forms.Padding(2);
-            this.ucMemoryBar1.Maximum = 10240;
-            this.ucMemoryBar1.Minimum = 0;
-            this.ucMemoryBar1.Name = "ucMemoryBar1";
-            this.ucMemoryBar1.RulerDelta = 1024;
-            this.ucMemoryBar1.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
-            this.ucMemoryBar1.Size = new System.Drawing.Size(709, 66);
-            this.ucMemoryBar1.TabIndex = 0;
+            this.ucMemoryBarOmron.Location = new System.Drawing.Point(160, 28);
+            this.ucMemoryBarOmron.Margin = new System.Windows.Forms.Padding(2);
+            this.ucMemoryBarOmron.Maximum = 10240;
+            this.ucMemoryBarOmron.Minimum = 0;
+            this.ucMemoryBarOmron.Name = "ucMemoryBarOmron";
+            this.ucMemoryBarOmron.RulerDelta = 1024;
+            this.ucMemoryBarOmron.SelectedRange = rangeControlRange1;
+            this.ucMemoryBarOmron.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
+            this.ucMemoryBarOmron.Size = new System.Drawing.Size(709, 66);
+            this.ucMemoryBarOmron.TabIndex = 0;
             // 
             // numericRangeControlClient1
             // 
@@ -367,9 +381,58 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
-            dockingContainer4.Element = this.documentGroup1;
+            dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer4});
+            dockingContainer1});
+            // 
+            // comboBoxEdit1
+            // 
+            this.comboBoxEdit1.Location = new System.Drawing.Point(5, 64);
+            this.comboBoxEdit1.MenuManager = this.ribbon;
+            this.comboBoxEdit1.Name = "comboBoxEdit1";
+            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboBoxEdit1.Size = new System.Drawing.Size(150, 30);
+            this.comboBoxEdit1.TabIndex = 1;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Location = new System.Drawing.Point(5, 28);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(63, 22);
+            this.labelControl1.TabIndex = 2;
+            this.labelControl1.Text = "OMRON";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Location = new System.Drawing.Point(5, 120);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(62, 22);
+            this.labelControl2.TabIndex = 3;
+            this.labelControl2.Text = "XG5000";
+            // 
+            // comboBoxEdit2
+            // 
+            this.comboBoxEdit2.Location = new System.Drawing.Point(5, 148);
+            this.comboBoxEdit2.MenuManager = this.ribbon;
+            this.comboBoxEdit2.Name = "comboBoxEdit2";
+            this.comboBoxEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboBoxEdit2.Size = new System.Drawing.Size(150, 30);
+            this.comboBoxEdit2.TabIndex = 4;
+            // 
+            // ucMemoryBar2
+            // 
+            this.ucMemoryBar2.Location = new System.Drawing.Point(160, 28);
+            this.ucMemoryBar2.Margin = new System.Windows.Forms.Padding(2);
+            this.ucMemoryBar2.Maximum = 10240;
+            this.ucMemoryBar2.Minimum = 0;
+            this.ucMemoryBar2.Name = "ucMemoryBar2";
+            this.ucMemoryBar2.RulerDelta = 1024;
+            this.ucMemoryBar2.SelectedRange = rangeControlRange2;
+            this.ucMemoryBar2.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
+            this.ucMemoryBar2.Size = new System.Drawing.Size(709, 66);
+            this.ucMemoryBar2.TabIndex = 0;
             // 
             // FormAddressMapper
             // 
@@ -401,9 +464,12 @@
             this.dockPanelTarget.ResumeLayout(false);
             this.dockPanelMain.ResumeLayout(false);
             this.controlContainer2.ResumeLayout(false);
+            this.controlContainer2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit2.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -442,6 +508,11 @@
         private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit1;
         private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit2;
         private DevExpress.XtraEditors.NumericRangeControlClient numericRangeControlClient1;
-        private Dsu.PLCConverter.UI.UcMemoryBar ucMemoryBar1;
+        private Dsu.PLCConverter.UI.UcMemoryBar ucMemoryBarOmron;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit2;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
+        private Dsu.PLCConverter.UI.UcMemoryBar ucMemoryBar2;
     }
 }

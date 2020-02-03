@@ -1,13 +1,7 @@
-﻿using Dsu.Common.Utilities.ExtensionMethods;
-using Dsu.PLCConverter.UI;
+﻿using DevExpress.XtraEditors;
+using Dsu.Common.Utilities.ExtensionMethods;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Dsu.PLCConverter.UI
@@ -23,7 +17,8 @@ namespace Dsu.PLCConverter.UI
 
         private void FormRange_Load(object sender, EventArgs e)
         {
-
+            textEditStart.EditValue = _memBar.SelectedRange.Minimum;
+            textEditEnd.EditValue   = _memBar.SelectedRange.Maximum;
         }
 
         private void btnApply_Click(object sender, EventArgs e)
@@ -32,16 +27,39 @@ namespace Dsu.PLCConverter.UI
             _memBar.SelectedRange.Maximum = int.Parse(textEditEnd.Text);
         }
 
-        private void textEditStart_Validating(object sender, CancelEventArgs e)
+        private void textEditRange_Validating(object sender, CancelEventArgs e)
         {
-            var min = textEditStart.Text.TryParseInt();
-            var max = textEditEnd.Text.TryParseInt();
-            if (    min == null || max == null
-                || !min.Value.InClosedRange(0, _memBar.Maximum)
-                || !max.Value.InClosedRange(min.Value, _memBar.Maximum))
+            var te = sender as TextEdit;
+            var valOpt = te.Text.TryParseInt();
+            if (valOpt == null)
             {
                 e.Cancel = true;
+                Global.Logger.Warn($"Invalid value : {te.Text}");
+                return;
             }
+
+            var val = valOpt.Value;
+            if (te == textEditStart)
+            {
+                var max = textEditEnd.Text.TryParseInt().Value;
+                if (!val.InClosedRange(0, max))
+                {
+                    e.Cancel = true;
+                    Global.Logger.Warn($"Invalid value : {te.Text}");
+                    return;
+                }
+            }
+            else if (te == textEditEnd)
+            {
+                var min = textEditStart.Text.TryParseInt().Value;
+                if (!val.InClosedRange(min, _memBar.Maximum))
+                {
+                    e.Cancel = true;
+                    Global.Logger.Warn($"Invalid value : {te.Text}");
+                    return;
+                }
+            }
+
             Console.WriteLine("");
         }
     }

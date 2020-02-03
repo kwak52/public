@@ -29,24 +29,24 @@
         private void InitializeComponent()
         {
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.textEditEnd = new DevExpress.XtraEditors.TextEdit();
+            this.textEditStart = new DevExpress.XtraEditors.TextEdit();
             this.comboUnit = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-            this.textEditStart = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-            this.textEditEnd = new DevExpress.XtraEditors.TextEdit();
             this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
             this.btnApply = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
             this.layoutControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditEnd.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditStart.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboUnit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEditStart.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEditEnd.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,6 +62,34 @@
             this.layoutControl1.TabIndex = 0;
             this.layoutControl1.Text = "layoutControl1";
             // 
+            // textEditEnd
+            // 
+            this.textEditEnd.Location = new System.Drawing.Point(41, 80);
+            this.textEditEnd.Name = "textEditEnd";
+            this.textEditEnd.Size = new System.Drawing.Size(183, 30);
+            this.textEditEnd.StyleController = this.layoutControl1;
+            this.textEditEnd.TabIndex = 6;
+            this.textEditEnd.Validating += new System.ComponentModel.CancelEventHandler(this.textEditRange_Validating);
+            // 
+            // textEditStart
+            // 
+            this.textEditStart.Location = new System.Drawing.Point(41, 46);
+            this.textEditStart.Name = "textEditStart";
+            this.textEditStart.Size = new System.Drawing.Size(183, 30);
+            this.textEditStart.StyleController = this.layoutControl1;
+            this.textEditStart.TabIndex = 5;
+            this.textEditStart.Validating += new System.ComponentModel.CancelEventHandler(this.textEditRange_Validating);
+            // 
+            // comboUnit
+            // 
+            this.comboUnit.Location = new System.Drawing.Point(41, 12);
+            this.comboUnit.Name = "comboUnit";
+            this.comboUnit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboUnit.Size = new System.Drawing.Size(197, 30);
+            this.comboUnit.StyleController = this.layoutControl1;
+            this.comboUnit.TabIndex = 4;
+            // 
             // layoutControlGroup1
             // 
             this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
@@ -74,16 +102,6 @@
             this.layoutControlGroup1.Name = "layoutControlGroup1";
             this.layoutControlGroup1.Size = new System.Drawing.Size(250, 125);
             this.layoutControlGroup1.TextVisible = false;
-            // 
-            // comboUnit
-            // 
-            this.comboUnit.Location = new System.Drawing.Point(42, 12);
-            this.comboUnit.Name = "comboUnit";
-            this.comboUnit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboUnit.Size = new System.Drawing.Size(196, 30);
-            this.comboUnit.StyleController = this.layoutControl1;
-            this.comboUnit.TabIndex = 4;
             // 
             // layoutControlItem1
             // 
@@ -102,15 +120,6 @@
             this.emptySpaceItem1.Size = new System.Drawing.Size(14, 71);
             this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
             // 
-            // textEditStart
-            // 
-            this.textEditStart.Location = new System.Drawing.Point(42, 46);
-            this.textEditStart.Name = "textEditStart";
-            this.textEditStart.Size = new System.Drawing.Size(182, 30);
-            this.textEditStart.StyleController = this.layoutControl1;
-            this.textEditStart.TabIndex = 5;
-            this.textEditStart.Validating += new System.ComponentModel.CancelEventHandler(this.textEditStart_Validating);
-            // 
             // layoutControlItem2
             // 
             this.layoutControlItem2.Control = this.textEditStart;
@@ -119,14 +128,6 @@
             this.layoutControlItem2.Size = new System.Drawing.Size(216, 34);
             this.layoutControlItem2.Text = "시작";
             this.layoutControlItem2.TextSize = new System.Drawing.Size(26, 22);
-            // 
-            // textEditEnd
-            // 
-            this.textEditEnd.Location = new System.Drawing.Point(42, 80);
-            this.textEditEnd.Name = "textEditEnd";
-            this.textEditEnd.Size = new System.Drawing.Size(182, 30);
-            this.textEditEnd.StyleController = this.layoutControl1;
-            this.textEditEnd.TabIndex = 6;
             // 
             // layoutControlItem3
             // 
@@ -160,13 +161,13 @@
             this.Load += new System.EventHandler(this.FormRange_Load);
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
             this.layoutControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditEnd.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textEditStart.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboUnit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEditStart.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEditEnd.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
             this.ResumeLayout(false);
 

@@ -24,6 +24,7 @@ namespace AddressMapper
 
             var logger = LogManager.GetLogger("AddressMapper");
             FormAddressMapper.Logger = logger;
+            Dsu.PLCConverter.UI.Global.Logger = logger;
 
             InstallUnhandledExceptionHandler();
 

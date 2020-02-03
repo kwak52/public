@@ -30,7 +30,8 @@ namespace PLCConvertor
 
             var logger = LogManager.GetLogger("PLCConvertor");
             FormPLCConverter.Logger = logger;
-            Global.Logger = logger;
+            Dsu.PLCConvertor.Common.Global.Logger = logger;
+            Dsu.PLCConverter.UI.Global.Logger = logger;
 
             InstallUnhandledExceptionHandler();
 
