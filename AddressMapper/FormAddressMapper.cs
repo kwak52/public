@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using DevExpress.XtraBars;
 using log4net.Appender;
-using System.Configuration;
 using DevExpress.XtraBars.Docking;
-using DevExpress.XtraEditors;
-using System.Diagnostics;
 
 namespace AddressMapper
 {

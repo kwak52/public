@@ -20,7 +20,7 @@ namespace Dsu.PLCConverter.UI
         }
 
 
-        bool _enableEditValueChanging = true;
+        //bool _enableEditValueChanging = true;
         private void UcMemoryBar_Load(object sender, EventArgs args)
         {
             textEditStart.EditValue = 0;
@@ -28,8 +28,8 @@ namespace Dsu.PLCConverter.UI
 
             void SetRange(RangeControlRange range)
             {
-                textEditStart.EditValue = range.Minimum;
-                textEditEnd.EditValue = range.Maximum;
+                //textEditStart.EditValue = range.Minimum;
+                //textEditEnd.EditValue = range.Maximum;
             }
             customRangeControl1.RangeChanging += (s, e) => SetRange(e.Range);
             customRangeControl1.RangeChanged += (s, e) =>
@@ -37,55 +37,67 @@ namespace Dsu.PLCConverter.UI
                 SetRange(e.Range);
             };
 
-            textEditStart.EditValueChanging += (s, e) =>
+            this.customRangeControl1.Appearance.ForeColor = Color.Maroon;
+            this.customRangeControl1.SelectionType = RangeControlSelectionType.ThumbAndFlag;
+
+            var items = contextMenuStrip1.Items;
+            items.Add(new ToolStripMenuItem("숫자로 정확히 입력", Images.T, (o, a) =>
             {
-                try
-                {
-                    if (_enableEditValueChanging)
-                    {
-                        _enableEditValueChanging = false;
-                        var sr = customRangeControl1.SelectedRange;
-                        int newValue = -1;
-                        if (int.TryParse(textEditStart.Text, out newValue) && 0 <= newValue && newValue <= (int)sr.Maximum)
-                            sr.Minimum = newValue;
-                        else
-                            e.Cancel = true;
-                    }
-                }
-                catch(Exception ex)
-                {
-                    e.Cancel = true;
-                }
-                finally
-                {
-                    _enableEditValueChanging = true;
-                }
+            }));
+            customRangeControl1.MouseClick += (s, e) => {
+                if (e.Button == MouseButtons.Right)
+                    customRangeControl1.ContextMenuStrip.Show();
             };
-            textEditEnd.EditValueChanging += (s, e) =>
-            {
-                try
-                {
-                    if (_enableEditValueChanging)
-                    {
-                        _enableEditValueChanging = false;
-                        var sr = customRangeControl1.SelectedRange;
-                        int newValue = -1;
-                        if (int.TryParse(textEditEnd.Text, out newValue) && (int)sr.Minimum <= newValue && newValue <= Maximum)
-                            sr.Maximum = newValue;
-                        else
-                            e.Cancel = true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    e.Cancel = true;
-                }
-                finally
-                {
-                    _enableEditValueChanging = true;
-                }
-            };
-            //textEditStart.EditValueChanged += (s, e) => customRangeControl1.SelectedRange.Minimum = int.Parse(textEditStart.Text);
+
+            //textEditStart.EditValueChanging += (s, e) =>
+            //{
+            //    try
+            //    {
+            //        if (_enableEditValueChanging)
+            //        {
+            //            _enableEditValueChanging = false;
+            //            var sr = customRangeControl1.SelectedRange;
+            //            int newValue = -1;
+            //            if (int.TryParse(textEditStart.Text, out newValue) && 0 <= newValue && newValue <= (int)sr.Maximum)
+            //                sr.Minimum = newValue;
+            //            else
+            //                e.Cancel = true;
+            //        }
+            //    }
+            //    catch(Exception ex)
+            //    {
+            //        e.Cancel = true;
+            //    }
+            //    finally
+            //    {
+            //        _enableEditValueChanging = true;
+            //    }
+            //};
+            //textEditEnd.EditValueChanging += (s, e) =>
+            //{
+            //    try
+            //    {
+            //        if (_enableEditValueChanging)
+            //        {
+            //            _enableEditValueChanging = false;
+            //            var sr = customRangeControl1.SelectedRange;
+            //            int newValue = -1;
+            //            if (int.TryParse(textEditEnd.Text, out newValue) && (int)sr.Minimum <= newValue && newValue <= Maximum)
+            //                sr.Maximum = newValue;
+            //            else
+            //                e.Cancel = true;
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        e.Cancel = true;
+            //    }
+            //    finally
+            //    {
+            //        _enableEditValueChanging = true;
+            //    }
+            //};
+            ////textEditStart.EditValueChanged += (s, e) => customRangeControl1.SelectedRange.Minimum = int.Parse(textEditStart.Text);
         }
 
         NumericRangeControlClient _client => (NumericRangeControlClient)customRangeControl1.Client;
