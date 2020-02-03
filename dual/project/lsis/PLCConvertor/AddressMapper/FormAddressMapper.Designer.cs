@@ -28,43 +28,61 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
-            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
-            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
+            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
+            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barCheckItemShowLog = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemSource = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemTarget = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemShowMain = new DevExpress.XtraBars.BarCheckItem();
+            this.barComboOmron = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
+            this.barComboXG5000 = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemComboBox2 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
+            this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager();
+            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.ucPanelLog1 = new AddressMapper.UcPanelLog();
             this.dockPanelSource = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.checkedComboBoxEdit1 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.dockPanelTarget = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
-            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
-            this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList();
-            this.action1 = new Dsu.Common.Utilities.Actions.Action();
-            this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.rangeControl1 = new AddressMapper.CustomRangeControl();
+            this.numericRangeControlClient1 = new DevExpress.XtraEditors.NumericRangeControlClient();
+            this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
+            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.rangeControlNormal = new DevExpress.XtraEditors.RangeControl();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockPanelLog.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
             this.dockPanelSource.SuspendLayout();
+            this.controlContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit1.Properties)).BeginInit();
             this.dockPanelTarget.SuspendLayout();
             this.dockPanelMain.SuspendLayout();
+            this.controlContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.rangeControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rangeControlNormal)).BeginInit();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -90,12 +108,18 @@
             this.barCheckItemShowLog,
             this.barCheckItemSource,
             this.barCheckItemTarget,
-            this.barCheckItemShowMain});
+            this.barCheckItemShowMain,
+            this.barComboOmron,
+            this.barComboXG5000});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 5;
+            this.ribbon.MaxItemId = 8;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
+            this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemComboBox1,
+            this.repositoryItemCheckEdit1,
+            this.repositoryItemComboBox2});
             this.ribbon.Size = new System.Drawing.Size(1178, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
@@ -127,13 +151,48 @@
             this.barCheckItemShowMain.Id = 4;
             this.barCheckItemShowMain.Name = "barCheckItemShowMain";
             // 
+            // barComboOmron
+            // 
+            this.barComboOmron.Caption = "Omron";
+            this.barComboOmron.Edit = this.repositoryItemComboBox1;
+            this.barComboOmron.Id = 5;
+            this.barComboOmron.Name = "barComboOmron";
+            // 
+            // repositoryItemComboBox1
+            // 
+            this.repositoryItemComboBox1.AutoHeight = false;
+            this.repositoryItemComboBox1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemComboBox1.Name = "repositoryItemComboBox1";
+            // 
+            // barComboXG5000
+            // 
+            this.barComboXG5000.Caption = "XG5000";
+            this.barComboXG5000.Edit = this.repositoryItemComboBox2;
+            this.barComboXG5000.Id = 7;
+            this.barComboXG5000.Name = "barComboXG5000";
+            // 
+            // repositoryItemComboBox2
+            // 
+            this.repositoryItemComboBox2.AutoHeight = false;
+            this.repositoryItemComboBox2.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemComboBox2.Name = "repositoryItemComboBox2";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
-            this.ribbonPageGroupView,
-            this.ribbonPageGroupTemplates});
+            this.ribbonPageGroupTemplates,
+            this.ribbonPageGroupView});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "ribbonPage1";
+            // 
+            // ribbonPageGroupTemplates
+            // 
+            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barComboOmron);
+            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barComboXG5000);
+            this.ribbonPageGroupTemplates.Name = "ribbonPageGroupTemplates";
+            this.ribbonPageGroupTemplates.Text = "Tempaltes";
             // 
             // ribbonPageGroupView
             // 
@@ -143,6 +202,11 @@
             this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemTarget);
             this.ribbonPageGroupView.Name = "ribbonPageGroupView";
             this.ribbonPageGroupView.Text = "View";
+            // 
+            // repositoryItemCheckEdit1
+            // 
+            this.repositoryItemCheckEdit1.AutoHeight = false;
+            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
             // 
             // ribbonStatusBar
             // 
@@ -214,10 +278,23 @@
             // 
             // controlContainer1
             // 
+            this.controlContainer1.Controls.Add(this.checkedComboBoxEdit1);
             this.controlContainer1.Location = new System.Drawing.Point(6, 33);
             this.controlContainer1.Name = "controlContainer1";
             this.controlContainer1.Size = new System.Drawing.Size(185, 379);
             this.controlContainer1.TabIndex = 0;
+            // 
+            // checkedComboBoxEdit1
+            // 
+            this.checkedComboBoxEdit1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedComboBoxEdit1.Location = new System.Drawing.Point(7, 13);
+            this.checkedComboBoxEdit1.MenuManager = this.ribbon;
+            this.checkedComboBoxEdit1.Name = "checkedComboBoxEdit1";
+            this.checkedComboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.checkedComboBoxEdit1.Size = new System.Drawing.Size(175, 30);
+            this.checkedComboBoxEdit1.TabIndex = 0;
             // 
             // dockPanelTarget
             // 
@@ -248,10 +325,35 @@
             // 
             // controlContainer2
             // 
+            this.controlContainer2.Controls.Add(this.rangeControlNormal);
+            this.controlContainer2.Controls.Add(this.rangeControl1);
             this.controlContainer2.Location = new System.Drawing.Point(0, 0);
             this.controlContainer2.Name = "controlContainer2";
             this.controlContainer2.Size = new System.Drawing.Size(772, 378);
             this.controlContainer2.TabIndex = 0;
+            // 
+            // rangeControl1
+            // 
+            this.rangeControl1.Client = this.numericRangeControlClient1;
+            this.rangeControl1.Location = new System.Drawing.Point(177, 71);
+            this.rangeControl1.Name = "rangeControl1";
+            this.rangeControl1.Size = new System.Drawing.Size(420, 90);
+            this.rangeControl1.TabIndex = 0;
+            this.rangeControl1.Text = "rangeControl1";
+            // 
+            // numericRangeControlClient1
+            // 
+            this.numericRangeControlClient1.RangeControl = null;
+            // 
+            // checkedComboBoxEdit2
+            // 
+            this.checkedComboBoxEdit2.Location = new System.Drawing.Point(74, 33);
+            this.checkedComboBoxEdit2.MenuManager = this.ribbon;
+            this.checkedComboBoxEdit2.Name = "checkedComboBoxEdit2";
+            this.checkedComboBoxEdit2.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.checkedComboBoxEdit2.Size = new System.Drawing.Size(150, 30);
+            this.checkedComboBoxEdit2.TabIndex = 0;
             // 
             // documentManager1
             // 
@@ -271,30 +373,14 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
-            // actionList1
+            // rangeControlNormal
             // 
-            this.actionList1.Actions.AddRange(new Dsu.Common.Utilities.Actions.Action[] {
-            this.action1});
-            this.actionList1.Count = 1;
-            this.actionList1.ImageList = null;
-            this.actionList1.ShowTextOnToolBar = false;
-            this.actionList1.Tag = null;
-            this.actionList1.UpdateCmdUISleepIntervalOnIdle = 0;
-            // 
-            // action1
-            // 
-            this.action1.Checked = false;
-            this.action1.Enabled = true;
-            this.action1.Hint = null;
-            this.action1.Shortcut = System.Windows.Forms.Shortcut.None;
-            this.action1.Tag = null;
-            this.action1.Text = "38615894";
-            this.action1.Visible = true;
-            // 
-            // ribbonPageGroupTemplates
-            // 
-            this.ribbonPageGroupTemplates.Name = "ribbonPageGroupTemplates";
-            this.ribbonPageGroupTemplates.Text = "Tempaltes";
+            this.rangeControlNormal.Client = this.numericRangeControlClient1;
+            this.rangeControlNormal.Location = new System.Drawing.Point(146, 239);
+            this.rangeControlNormal.Name = "rangeControlNormal";
+            this.rangeControlNormal.Size = new System.Drawing.Size(420, 90);
+            this.rangeControlNormal.TabIndex = 1;
+            this.rangeControlNormal.Text = "rangeControl2";
             // 
             // FormAddressMapper
             // 
@@ -314,14 +400,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.dockPanelLog.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
             this.dockPanelSource.ResumeLayout(false);
+            this.controlContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit1.Properties)).EndInit();
             this.dockPanelTarget.ResumeLayout(false);
             this.dockPanelMain.ResumeLayout(false);
+            this.controlContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.rangeControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rangeControlNormal)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -340,8 +435,6 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
         private UcPanelLog ucPanelLog1;
         private DevExpress.XtraBars.BarCheckItem barCheckItemShowLog;
-        private Dsu.Common.Utilities.Actions.ActionList actionList1;
-        private Dsu.Common.Utilities.Actions.Action action1;
         private DevExpress.XtraBars.BarCheckItem barCheckItemSource;
         private DevExpress.XtraBars.BarCheckItem barCheckItemTarget;
         private DevExpress.XtraBars.Docking.DockPanel dockPanelTarget;
@@ -354,5 +447,15 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
         private DevExpress.XtraBars.BarCheckItem barCheckItemShowMain;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupTemplates;
+        private DevExpress.XtraBars.BarEditItem barComboOmron;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox1;
+        private DevExpress.XtraBars.BarEditItem barComboXG5000;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox2;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
+        private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit1;
+        private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit2;
+        private DevExpress.XtraEditors.NumericRangeControlClient numericRangeControlClient1;
+        private CustomRangeControl rangeControl1;
+        private DevExpress.XtraEditors.RangeControl rangeControlNormal;
     }
 }
