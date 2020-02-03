@@ -138,6 +138,10 @@
       <Project>{5B526DB1-5344-4FDD-ACA9-4BF76709F567}</Project>
       <Name>Dsu.Common.Utilities.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dsu.PLCConverter.UI\Dsu.PLCConverter.UI.csproj">
+      <Project>{6421926C-449E-44F9-9675-C14805A05B1D}</Project>
+      <Name>Dsu.PLCConverter.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

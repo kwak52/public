@@ -57,12 +57,11 @@
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.rangeControl1 = new AddressMapper.CustomRangeControl();
+            this.ucMemoryBar1 = new Dsu.PLCConverter.UI.UcMemoryBar();
             this.numericRangeControlClient1 = new DevExpress.XtraEditors.NumericRangeControlClient();
             this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.rangeControlNormal = new DevExpress.XtraEditors.RangeControl();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -78,11 +77,9 @@
             this.dockPanelTarget.SuspendLayout();
             this.dockPanelMain.SuspendLayout();
             this.controlContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rangeControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rangeControlNormal)).BeginInit();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -325,21 +322,19 @@
             // 
             // controlContainer2
             // 
-            this.controlContainer2.Controls.Add(this.rangeControlNormal);
-            this.controlContainer2.Controls.Add(this.rangeControl1);
+            this.controlContainer2.Controls.Add(this.ucMemoryBar1);
             this.controlContainer2.Location = new System.Drawing.Point(0, 0);
             this.controlContainer2.Name = "controlContainer2";
             this.controlContainer2.Size = new System.Drawing.Size(772, 378);
             this.controlContainer2.TabIndex = 0;
             // 
-            // rangeControl1
+            // ucMemoryBar1
             // 
-            this.rangeControl1.Client = this.numericRangeControlClient1;
-            this.rangeControl1.Location = new System.Drawing.Point(177, 71);
-            this.rangeControl1.Name = "rangeControl1";
-            this.rangeControl1.Size = new System.Drawing.Size(420, 90);
-            this.rangeControl1.TabIndex = 0;
-            this.rangeControl1.Text = "rangeControl1";
+            this.ucMemoryBar1.Location = new System.Drawing.Point(65, 32);
+            this.ucMemoryBar1.Maximum = 1000;
+            this.ucMemoryBar1.Name = "ucMemoryBar1";
+            this.ucMemoryBar1.Size = new System.Drawing.Size(683, 173);
+            this.ucMemoryBar1.TabIndex = 0;
             // 
             // numericRangeControlClient1
             // 
@@ -373,15 +368,6 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
-            // rangeControlNormal
-            // 
-            this.rangeControlNormal.Client = this.numericRangeControlClient1;
-            this.rangeControlNormal.Location = new System.Drawing.Point(146, 239);
-            this.rangeControlNormal.Name = "rangeControlNormal";
-            this.rangeControlNormal.Size = new System.Drawing.Size(420, 90);
-            this.rangeControlNormal.TabIndex = 1;
-            this.rangeControlNormal.Text = "rangeControl2";
-            // 
             // FormAddressMapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -412,11 +398,9 @@
             this.dockPanelTarget.ResumeLayout(false);
             this.dockPanelMain.ResumeLayout(false);
             this.controlContainer2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.rangeControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rangeControlNormal)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -455,7 +439,6 @@
         private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit1;
         private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit2;
         private DevExpress.XtraEditors.NumericRangeControlClient numericRangeControlClient1;
-        private CustomRangeControl rangeControl1;
-        private DevExpress.XtraEditors.RangeControl rangeControlNormal;
+        private Dsu.PLCConverter.UI.UcMemoryBar ucMemoryBar1;
     }
 }

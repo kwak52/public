@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsu.PLCConvertor.Distributi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressMapper", "AddressMapper\AddressMapper.csproj", "{2C935FC5-828E-4287-8376-08B945D6D330}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsu.PLCConverter.UI", "Dsu.PLCConverter.UI\Dsu.PLCConverter.UI.csproj", "{6421926C-449E-44F9-9675-C14805A05B1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,14 @@ Global
 		{2C935FC5-828E-4287-8376-08B945D6D330}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2C935FC5-828E-4287-8376-08B945D6D330}.Release|x64.ActiveCfg = Release|Any CPU
 		{2C935FC5-828E-4287-8376-08B945D6D330}.Release|x64.Build.0 = Release|Any CPU
+		{6421926C-449E-44F9-9675-C14805A05B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6421926C-449E-44F9-9675-C14805A05B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6421926C-449E-44F9-9675-C14805A05B1D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6421926C-449E-44F9-9675-C14805A05B1D}.Debug|x64.Build.0 = Debug|Any CPU
+		{6421926C-449E-44F9-9675-C14805A05B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6421926C-449E-44F9-9675-C14805A05B1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6421926C-449E-44F9-9675-C14805A05B1D}.Release|x64.ActiveCfg = Release|Any CPU
+		{6421926C-449E-44F9-9675-C14805A05B1D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
