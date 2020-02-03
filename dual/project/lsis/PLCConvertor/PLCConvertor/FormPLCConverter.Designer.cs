@@ -67,7 +67,7 @@
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.ucPanelLog1 = new PLCConvertor.UcPanelLog();
+            this.ucPanelLog1 = new Dsu.PLCConverter.UI.UcPanelLog();
             this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.panelMain = new System.Windows.Forms.Panel();
@@ -457,7 +457,7 @@
         private DevExpress.XtraBars.Docking.ControlContainer dockPanel1_Container;
         private DevExpress.XtraBars.Docking2010.DocumentManager documentManager1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
-        private UcPanelLog ucPanelLog1;
+        private Dsu.PLCConverter.UI.UcPanelLog ucPanelLog1;
         private DevExpress.XtraBars.BarButtonItem barButtonItemTestParse;
         private DevExpress.XtraBars.Docking.DockPanel dockPanelMain;
         private DevExpress.XtraBars.Docking.ControlContainer controlContainer1;

@@ -1,4 +1,4 @@
-﻿namespace PLCConvertor
+﻿namespace Dsu.PLCConverter.UI
 {
     partial class UcPanelLog
     {

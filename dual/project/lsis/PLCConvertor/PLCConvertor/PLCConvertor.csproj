@@ -143,15 +143,8 @@
     <Compile Include="Forms\FormTestAddressMappingRule.Designer.cs">
       <DependentUpon>FormTestAddressMappingRule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Images.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UcPanelLog.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UcPanelLog.designer.cs">
-      <DependentUpon>UcPanelLog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Unused.cs" />
     <Compile Include="Utils\SplashScreenWaitor.cs" />
     <EmbeddedResource Include="FormPLCConverter.resx">
@@ -195,9 +188,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UcPanelLog.resx">
-      <DependentUpon>UcPanelLog.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -215,6 +205,10 @@
     <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
       <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
       <Name>Dsu.Common.Utilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.PLCConverter.UI\Dsu.PLCConverter.UI.csproj">
+      <Project>{6421926C-449E-44F9-9675-C14805A05B1D}</Project>
+      <Name>Dsu.PLCConverter.UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dsu.PLCConvertor.Common\Dsu.PLCConvertor.Common.csproj">
       <Project>{F4513A8D-C7DF-4F1D-9214-D97409879C61}</Project>

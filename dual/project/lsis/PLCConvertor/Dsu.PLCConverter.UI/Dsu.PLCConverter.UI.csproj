@@ -71,6 +71,12 @@
     <Compile Include="UcMemoryBar.designer.cs">
       <DependentUpon>UcMemoryBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="UcPanelLog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcPanelLog.designer.cs">
+      <DependentUpon>UcPanelLog.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormRange.resx">
@@ -83,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UcMemoryBar.resx">
       <DependentUpon>UcMemoryBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcPanelLog.resx">
+      <DependentUpon>UcPanelLog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

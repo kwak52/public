@@ -48,7 +48,7 @@
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager();
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
-            this.ucPanelLog1 = new AddressMapper.UcPanelLog();
+            this.ucPanelLog1 = new Dsu.PLCConverter.UI.UcPanelLog();
             this.dockPanelSource = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.checkedComboBoxEdit1 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
@@ -420,7 +420,7 @@
         private DevExpress.XtraBars.Docking.ControlContainer dockPanel1_Container;
         private DevExpress.XtraBars.Docking2010.DocumentManager documentManager1;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
-        private UcPanelLog ucPanelLog1;
+        private Dsu.PLCConverter.UI.UcPanelLog ucPanelLog1;
         private DevExpress.XtraBars.BarCheckItem barCheckItemShowLog;
         private DevExpress.XtraBars.BarCheckItem barCheckItemSource;
         private DevExpress.XtraBars.BarCheckItem barCheckItemTarget;
