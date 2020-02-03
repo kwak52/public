@@ -12,19 +12,19 @@ using System.Diagnostics;
 
 namespace Dsu.PLCConverter.UI
 {
-    public partial class UcMemoryBar : UserControl
+    public partial class UcMemoryRange : UserControl
     {
         CustomRangeControl _crc => customRangeControl1;
         NumericRangeControlClient _client => (NumericRangeControlClient)customRangeControl1.Client;
 
-        public UcMemoryBar()
+        public UcMemoryRange()
         {
             InitializeComponent();
         }
 
 
         //bool _enableEditValueChanging = true;
-        private void UcMemoryBar_Load(object sender, EventArgs args)
+        private void UcMemoryRange_Load(object sender, EventArgs args)
         {
             void SetRange(RangeControlRange range)
             {

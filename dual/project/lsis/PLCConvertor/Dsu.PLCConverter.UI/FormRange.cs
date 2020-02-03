@@ -8,8 +8,8 @@ namespace Dsu.PLCConverter.UI
 {
     public partial class FormRange : Form
     {
-        UcMemoryBar _memBar;
-        public FormRange(UcMemoryBar memBar)
+        UcMemoryRange _memBar;
+        public FormRange(UcMemoryRange memBar)
         {
             InitializeComponent();
             _memBar = memBar;
