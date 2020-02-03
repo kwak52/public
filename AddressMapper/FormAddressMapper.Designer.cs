@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
-            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
-            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer4 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
+            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barCheckItemShowLog = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemSource = new DevExpress.XtraBars.BarCheckItem();
@@ -46,7 +45,7 @@
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
+            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager();
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.ucPanelLog1 = new AddressMapper.UcPanelLog();
@@ -60,8 +59,8 @@
             this.ucMemoryBar1 = new Dsu.PLCConverter.UI.UcMemoryBar();
             this.numericRangeControlClient1 = new DevExpress.XtraEditors.NumericRangeControlClient();
             this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
-            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
-            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
+            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -117,7 +116,7 @@
             this.repositoryItemComboBox1,
             this.repositoryItemCheckEdit1,
             this.repositoryItemComboBox2});
-            this.ribbon.Size = new System.Drawing.Size(1178, 217);
+            this.ribbon.Size = new System.Drawing.Size(1484, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // barCheckItemShowLog
@@ -207,10 +206,10 @@
             // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 835);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 1031);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(1178, 41);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1484, 41);
             // 
             // dockManager1
             // 
@@ -238,10 +237,10 @@
             this.dockPanelLog.Controls.Add(this.dockPanel1_Container);
             this.dockPanelLog.Dock = DevExpress.XtraBars.Docking.DockingStyle.Bottom;
             this.dockPanelLog.ID = new System.Guid("4be5f6b3-5971-4327-9cd9-0efe0817a1bd");
-            this.dockPanelLog.Location = new System.Drawing.Point(0, 635);
+            this.dockPanelLog.Location = new System.Drawing.Point(0, 831);
             this.dockPanelLog.Name = "dockPanelLog";
             this.dockPanelLog.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanelLog.Size = new System.Drawing.Size(1178, 200);
+            this.dockPanelLog.Size = new System.Drawing.Size(1484, 200);
             this.dockPanelLog.Text = "Log";
             // 
             // dockPanel1_Container
@@ -249,7 +248,7 @@
             this.dockPanel1_Container.Controls.Add(this.ucPanelLog1);
             this.dockPanel1_Container.Location = new System.Drawing.Point(6, 36);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(1166, 158);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(1472, 158);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // ucPanelLog1
@@ -259,7 +258,7 @@
             this.ucPanelLog1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucPanelLog1.Name = "ucPanelLog1";
             this.ucPanelLog1.SelectedIndex = -1;
-            this.ucPanelLog1.Size = new System.Drawing.Size(1166, 158);
+            this.ucPanelLog1.Size = new System.Drawing.Size(1472, 158);
             this.ucPanelLog1.TabIndex = 0;
             // 
             // dockPanelSource
@@ -270,7 +269,7 @@
             this.dockPanelSource.Location = new System.Drawing.Point(0, 217);
             this.dockPanelSource.Name = "dockPanelSource";
             this.dockPanelSource.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanelSource.Size = new System.Drawing.Size(200, 418);
+            this.dockPanelSource.Size = new System.Drawing.Size(200, 614);
             this.dockPanelSource.Text = "Omron";
             // 
             // controlContainer1
@@ -278,7 +277,7 @@
             this.controlContainer1.Controls.Add(this.checkedComboBoxEdit1);
             this.controlContainer1.Location = new System.Drawing.Point(6, 33);
             this.controlContainer1.Name = "controlContainer1";
-            this.controlContainer1.Size = new System.Drawing.Size(185, 379);
+            this.controlContainer1.Size = new System.Drawing.Size(185, 575);
             this.controlContainer1.TabIndex = 0;
             // 
             // checkedComboBoxEdit1
@@ -301,14 +300,14 @@
             this.dockPanelTarget.Location = new System.Drawing.Point(200, 217);
             this.dockPanelTarget.Name = "dockPanelTarget";
             this.dockPanelTarget.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanelTarget.Size = new System.Drawing.Size(200, 418);
+            this.dockPanelTarget.Size = new System.Drawing.Size(200, 614);
             this.dockPanelTarget.Text = "XG5000";
             // 
             // dockPanel2_Container
             // 
             this.dockPanel2_Container.Location = new System.Drawing.Point(6, 33);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(185, 379);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(185, 575);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // dockPanelMain
@@ -325,15 +324,19 @@
             this.controlContainer2.Controls.Add(this.ucMemoryBar1);
             this.controlContainer2.Location = new System.Drawing.Point(0, 0);
             this.controlContainer2.Name = "controlContainer2";
-            this.controlContainer2.Size = new System.Drawing.Size(772, 378);
+            this.controlContainer2.Size = new System.Drawing.Size(1078, 574);
             this.controlContainer2.TabIndex = 0;
             // 
             // ucMemoryBar1
             // 
-            this.ucMemoryBar1.Location = new System.Drawing.Point(65, 32);
-            this.ucMemoryBar1.Maximum = 1000;
+            this.ucMemoryBar1.Location = new System.Drawing.Point(24, 30);
+            this.ucMemoryBar1.Margin = new System.Windows.Forms.Padding(2);
+            this.ucMemoryBar1.Maximum = 10240;
+            this.ucMemoryBar1.Minimum = 0;
             this.ucMemoryBar1.Name = "ucMemoryBar1";
-            this.ucMemoryBar1.Size = new System.Drawing.Size(683, 173);
+            this.ucMemoryBar1.RulerDelta = 1024;
+            this.ucMemoryBar1.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
+            this.ucMemoryBar1.Size = new System.Drawing.Size(709, 66);
             this.ucMemoryBar1.TabIndex = 0;
             // 
             // numericRangeControlClient1
@@ -364,15 +367,15 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
-            dockingContainer1.Element = this.documentGroup1;
+            dockingContainer4.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer1});
+            dockingContainer4});
             // 
             // FormAddressMapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1178, 876);
+            this.ClientSize = new System.Drawing.Size(1484, 1072);
             this.Controls.Add(this.dockPanelTarget);
             this.Controls.Add(this.dockPanelSource);
             this.Controls.Add(this.dockPanelLog);

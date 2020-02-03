@@ -14,6 +14,9 @@ namespace Dsu.PLCConverter.UI
 {
     public partial class UcMemoryBar : UserControl
     {
+        CustomRangeControl _crc => customRangeControl1;
+        NumericRangeControlClient _client => (NumericRangeControlClient)customRangeControl1.Client;
+
         public UcMemoryBar()
         {
             InitializeComponent();
@@ -23,85 +26,38 @@ namespace Dsu.PLCConverter.UI
         //bool _enableEditValueChanging = true;
         private void UcMemoryBar_Load(object sender, EventArgs args)
         {
-            textEditStart.EditValue = 0;
-            textEditEnd.EditValue = 0;
-
             void SetRange(RangeControlRange range)
             {
                 //textEditStart.EditValue = range.Minimum;
                 //textEditEnd.EditValue = range.Maximum;
             }
-            customRangeControl1.RangeChanging += (s, e) => SetRange(e.Range);
-            customRangeControl1.RangeChanged += (s, e) =>
+            _crc.RangeChanging += (s, e) => SetRange(e.Range);
+            _crc.RangeChanged += (s, e) =>
             {
                 SetRange(e.Range);
             };
 
-            this.customRangeControl1.Appearance.ForeColor = Color.Maroon;
-            this.customRangeControl1.SelectionType = RangeControlSelectionType.ThumbAndFlag;
+            ForeColor = Color.Maroon;
+            SelectionType = RangeControlSelectionType.ThumbAndFlag;
 
             var items = contextMenuStrip1.Items;
             items.Add(new ToolStripMenuItem("숫자로 정확히 입력", Images.T, (o, a) =>
             {
+                new FormRange(this).ShowDialog();
             }));
-            customRangeControl1.MouseClick += (s, e) => {
+            _crc.MouseClick += (s, e) => {
                 if (e.Button == MouseButtons.Right)
-                    customRangeControl1.ContextMenuStrip.Show();
+                    _crc.ContextMenuStrip.Show();
             };
-
-            //textEditStart.EditValueChanging += (s, e) =>
-            //{
-            //    try
-            //    {
-            //        if (_enableEditValueChanging)
-            //        {
-            //            _enableEditValueChanging = false;
-            //            var sr = customRangeControl1.SelectedRange;
-            //            int newValue = -1;
-            //            if (int.TryParse(textEditStart.Text, out newValue) && 0 <= newValue && newValue <= (int)sr.Maximum)
-            //                sr.Minimum = newValue;
-            //            else
-            //                e.Cancel = true;
-            //        }
-            //    }
-            //    catch(Exception ex)
-            //    {
-            //        e.Cancel = true;
-            //    }
-            //    finally
-            //    {
-            //        _enableEditValueChanging = true;
-            //    }
-            //};
-            //textEditEnd.EditValueChanging += (s, e) =>
-            //{
-            //    try
-            //    {
-            //        if (_enableEditValueChanging)
-            //        {
-            //            _enableEditValueChanging = false;
-            //            var sr = customRangeControl1.SelectedRange;
-            //            int newValue = -1;
-            //            if (int.TryParse(textEditEnd.Text, out newValue) && (int)sr.Minimum <= newValue && newValue <= Maximum)
-            //                sr.Maximum = newValue;
-            //            else
-            //                e.Cancel = true;
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        e.Cancel = true;
-            //    }
-            //    finally
-            //    {
-            //        _enableEditValueChanging = true;
-            //    }
-            //};
-            ////textEditStart.EditValueChanged += (s, e) => customRangeControl1.SelectedRange.Minimum = int.Parse(textEditStart.Text);
+            _crc.Dock = DockStyle.Fill;
         }
 
-        NumericRangeControlClient _client => (NumericRangeControlClient)customRangeControl1.Client;
         public int Maximum { get { return (int)_client.Maximum; } set { _client.Maximum = (int)value; } }
+        public int Minimum { get { return (int)_client.Minimum; } set { _client.Minimum = (int)value; } }
+        public int RulerDelta { get { return (int)_client.RulerDelta; } set { _client.RulerDelta = (int)value; } }
+        public Color ForeColor { get { return _crc.Appearance.ForeColor; } set { _crc.Appearance.ForeColor = value; } }
+        public RangeControlSelectionType SelectionType { get { return _crc.SelectionType; } set { _crc.SelectionType = value; } }
+        public RangeControlRange SelectedRange { get { return _crc.SelectedRange; } set { _crc.SelectedRange = value; } }
     }
 
     /// <summary>
