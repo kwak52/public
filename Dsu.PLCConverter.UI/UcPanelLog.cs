@@ -4,9 +4,11 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using DevExpress.XtraEditors.Controls;
+using Dsu.Common.Utilities.ExtensionMethods;
+using Dsu.PLCConverter.UI;
 //using Images = Dsu.Common.Resources.Images;
 
-namespace AddressMapper
+namespace Dsu.PLCConverter.UI
 {
     public partial class UcPanelLog : UserControl
     {
@@ -38,7 +40,7 @@ namespace AddressMapper
                     select Regex.Replace(t, "<.*?>", "")
                     ;
 
-                var text = String.Join("\r\n", strings);
+                var text = strings.JoinString("\r\n");
                 Clipboard.SetText(text);
             }));
 
@@ -50,7 +52,7 @@ namespace AddressMapper
                     select Regex.Replace(str, "<.*?>", "")
                 ;
 
-                var text = String.Join("\r\n", strings);
+                var text = strings.JoinString("\r\n");
                 Clipboard.SetText(text);
             }));
 
