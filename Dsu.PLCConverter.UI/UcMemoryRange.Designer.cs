@@ -1,6 +1,6 @@
 ﻿namespace Dsu.PLCConverter.UI
 {
-    partial class UcMemoryBar
+    partial class UcMemoryRange
     {
         /// <summary> 
         /// Required designer variable.
@@ -57,16 +57,16 @@
             this.customRangeControl1.TabIndex = 0;
             this.customRangeControl1.Text = "customRangeControl1";
             // 
-            // UcMemoryBar
+            // UcMemoryRange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.customRangeControl1);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "UcMemoryBar";
+            this.Name = "UcMemoryRange";
             this.Size = new System.Drawing.Size(728, 104);
-            this.Load += new System.EventHandler(this.UcMemoryBar_Load);
+            this.Load += new System.EventHandler(this.UcMemoryRange_Load);
             ((System.ComponentModel.ISupportInitialize)(this.customRangeControl1)).EndInit();
             this.ResumeLayout(false);
 
