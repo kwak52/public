@@ -30,6 +30,8 @@ namespace AddressMapper
         public FormAddressMapper()
         {
             InitializeComponent();
+            dockPanelSource.Visibility = DockVisibility.Hidden;
+            dockPanelTarget.Visibility = DockVisibility.Hidden;
         }
 
         private void FormAddressMapper_Load(object sender, EventArgs args)
