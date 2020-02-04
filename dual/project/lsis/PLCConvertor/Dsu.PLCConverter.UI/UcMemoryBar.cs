@@ -14,9 +14,13 @@ using Dsu.Common.Utilities.ExtensionMethods;
 
 namespace Dsu.PLCConverter.UI
 {
+    /// <summary>
+    /// 메모리 타입 관리용 UI.  내부에 여러개의 range 를 가짐
+    /// </summary>
     public partial class UcMemoryBar : UserControl
     {
         MemorySection _memorySection;
+        List<Control> _rangeControls = new List<Control>();
         public MemorySection MemorySection
         {
             get { return _memorySection; }
@@ -35,12 +39,11 @@ namespace Dsu.PLCConverter.UI
             InitializeComponent();
         }
 
-        private void UcMemoryBar_Load(object sender, EventArgs e)
+        private void UcMemoryBar_Load(object sender, EventArgs args)
         {
-
+            SizeChanged += (s, e) => DrawRanges();
         }
 
-        List<Control> _rangeControls = new List<Control>();
         void DrawRanges()
         {
             _rangeControls.Iter(c => Controls.Remove(c));

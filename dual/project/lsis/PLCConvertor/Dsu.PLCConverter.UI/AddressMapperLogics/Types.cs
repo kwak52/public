@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,6 +98,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
     {
         List<OmronMemorySection> _memories = new List<OmronMemorySection>();
         public string PLCType { get; set; }
+        [Browsable(false)]
         public OmronMemorySection[] Memories => _memories.ToArray();
         public OmronPLC(string plcType, IEnumerable<OmronMemorySection> memSections)
         {
@@ -114,6 +116,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
     {
         List<Xg5kMemorySection> _memories = new List<Xg5kMemorySection>();
         public string PLCType { get; set; }
+        [Browsable(false)]
         public Xg5kMemorySection[] Memories => _memories.ToArray();
         public Xg5kPLC(string plcType, IEnumerable<Xg5kMemorySection> memSections)
         {
