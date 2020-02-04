@@ -1,47 +1,57 @@
-﻿using Newtonsoft.Json;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Dsu.PLCConverter.UI.AddressMapperLogics
 {
+    public interface IMemoryRange
+    {
+        int Start { get; }
+        int End { get; }
+        int Length { get; }
+    }
     public interface IMemorySection { }
 
-    public class RangedMemory
+    [DebuggerDisplay("[{Start}:{End}]")]
+    public class MemoryRangeBase : IMemoryRange
     {
         public int Start { get; set; }
         public int End { get; set; }
         public int Length => End - Start;
-        public RangedMemory(int start, int end)
+        internal MemoryRangeBase(int start, int end)
         {
             Start = start;
             End = end;
         }
-        [JsonConstructor] protected RangedMemory() {}
+        [JsonConstructor] protected MemoryRangeBase() {}
     }
 
-    public class NamedRangedMemory : RangedMemory
+    [DebuggerDisplay("{Name}=[{Start}:{End}]")]
+    public class NamedMemoryRange : MemoryRangeBase
     {
         /// <summary>
         /// "PIO", "M", "T", ...
         /// </summary>
         public string Name { get; set; }
-        public NamedRangedMemory(string name, int start, int end)
+        public NamedMemoryRange(string name, int start, int end)
             : base(start, end)
         {
             Name = name;
         }
-        [JsonConstructor] protected NamedRangedMemory() { }
+        [JsonConstructor] protected NamedMemoryRange() { }
     }
 
 
     /// <summary>
     /// 타입별 PLC 메모리.
     /// </summary>
-    public class MemorySection : NamedRangedMemory, IMemorySection
+    public class MemorySection : NamedMemoryRange, IMemorySection
     {
         public MemorySection(string name, int start, int end)
             : base(name, start, end)
@@ -54,6 +64,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         /// </summary>
         [JsonIgnore]
         public List<MemoryRange> MemoryRanges = new List<MemoryRange>();
+        internal void Clear() => MemoryRanges.Clear();
     }
 
     /// <summary>
@@ -72,7 +83,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         }
     }
 
-    public class MemoryRange : RangedMemory
+    public class MemoryRange : MemoryRangeBase
     {
         public MemorySection Parent { get; set; }
         public MemoryRange(int start, int end, MemorySection parent)
@@ -81,6 +92,22 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
             Parent = parent;
         }
     }
+    public class AllocatedMemoryRange : MemoryRange
+    {
+        public AllocatedMemoryRange(int start, int end, MemorySection parent)
+            : base(start, end, parent)
+        {
+        }
+    }
+    public class FreeMemoryRange : MemoryRange
+    {
+        public FreeMemoryRange(int start, int end, MemorySection parent)
+            : base(start, end, parent)
+        {
+        }
+    }
+
+
 
     public class Xg5kMemorySection : MemorySection
     {
@@ -107,6 +134,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         }
 
         [JsonConstructor] OmronPLC() {}
+        public void Clear() { Memories.Iter(m => m.Clear()); }
     }
 
     /// <summary>
@@ -125,6 +153,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         }
 
         [JsonConstructor] Xg5kPLC() {}
+        public void Clear() { Memories.Iter(m => m.Clear()); }
     }
 
 

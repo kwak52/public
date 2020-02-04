@@ -39,9 +39,10 @@
             // 
             // numericRangeControlClient1
             // 
-            this.numericRangeControlClient1.Maximum = 10240;
+            this.numericRangeControlClient1.Maximum = 200;
+            this.numericRangeControlClient1.Minimum = 100;
             this.numericRangeControlClient1.RangeControl = null;
-            this.numericRangeControlClient1.RulerDelta = 1024;
+            this.numericRangeControlClient1.RulerDelta = 10;
             // 
             // rangeControl1
             // 
