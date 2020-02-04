@@ -6,6 +6,7 @@ using Dsu.PLCConverter.UI.AddressMapperLogics;
 using Newtonsoft.Json;
 using Dsu.PLCConvertor.Common.Util;
 using System.IO;
+using Dsu.PLCConverter.UI;
 
 namespace AddressMapper
 {
@@ -67,21 +68,23 @@ namespace AddressMapper
             {
                 new Xg5kPLC("Xg5k1H",
                     new[] {
-                        new Xg5kMemorySection("PIO",   0, 1024*10),
-                        new Xg5kMemorySection("D",     0, 1024*10),
+                        new Xg5kMemorySection("P",   0, 1024*10),
+                        new Xg5kMemorySection("M",   0, 1024*10),
                     }),
                 new Xg5kPLC("Xg5k2H",
                     new[] {
-                        new Xg5kMemorySection("PIO",   0, 1024),
-                        new Xg5kMemorySection("D",     0, 1024),
+                        new Xg5kMemorySection("P",   0, 1024),
+                        new Xg5kMemorySection("M",   0, 1024),
                     }),
             };
 
             var plcs = new PLCs(omronPLCs, xg5kPLCs);
 
 
+            var file = "OmronMemory.json";
             var json = JsonConvert.SerializeObject(plcs, MyJsonSerializer.JsonSettingsSimple);
-            File.WriteAllText("OmronMemory.json", json);
+            File.WriteAllText(file, json);
+            MsgBox.Info("Info", $"File created: {file}");
         }
     }
 }

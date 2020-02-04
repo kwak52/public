@@ -4,7 +4,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraSplashScreen;
 
 
-namespace PLCConvertor
+namespace Dsu.PLCConverter.UI
 {
     public class SplashScreenWaitor : IDisposable
     {
