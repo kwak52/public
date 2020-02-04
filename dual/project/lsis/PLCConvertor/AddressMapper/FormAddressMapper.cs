@@ -56,8 +56,8 @@ namespace AddressMapper
         {
             InitializeComponent();
 
-            repositoryItemComboOmron.Items.AddRange(plcs.OmronPLCs);
-            repositoryItemComboXg5k.Items.AddRange(plcs.XG5000PLCs);
+            //repositoryItemComboOmron.Items.AddRange(plcs.OmronPLCs);
+            //repositoryItemComboXg5k.Items.AddRange(plcs.XG5000PLCs);
             repositoryItemLookUpEditOmron.DataSource = plcs.OmronPLCs;
             repositoryItemLookUpEditOmron.DisplayMember = "PLCType";
             repositoryItemLookUpEditXg5k.DataSource = plcs.XG5000PLCs;
@@ -67,6 +67,19 @@ namespace AddressMapper
             lookUpEditXg5kMemory.Properties.DisplayMember = "Name";
 
             Mapping = new PLCMapping(plcs.OmronPLCs[0], plcs.XG5000PLCs[0]);
+
+            lookUpEditOmronMemory.EditValueChanged += (s, e) =>
+            {
+                var memory = (OmronMemorySection) lookUpEditOmronMemory.EditValue;
+                ucMemoryBarOmron.MemorySection = memory;
+            };
+
+            lookUpEditXg5kMemory.EditValueChanged += (s, e) =>
+            {
+                var memory = (Xg5kMemorySection)lookUpEditXg5kMemory.EditValue;
+                ucMemoryBarXg5k.MemorySection = memory;
+            };
+
 
             dockPanelSource.Visibility = DockVisibility.Hidden;
             dockPanelTarget.Visibility = DockVisibility.Hidden;
@@ -79,6 +92,7 @@ namespace AddressMapper
             //WireDockPanelVisibility(action1, dockPanelLog, barCheckItemShowLog);
             //WireDockPanelVisibility(action1, dockPanelSource, barCheckItemSource);
             //WireDockPanelVisibility(action1, dockPanelTarget, barCheckItemTarget);
+
         }
 
         private void btnGenerateJsonTemplate_ItemClick(object sender, ItemClickEventArgs e)
