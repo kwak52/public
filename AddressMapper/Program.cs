@@ -1,4 +1,5 @@
 ﻿using Dsu.Common.Utilities;
+using Dsu.PLCConverter.UI.AddressMapperLogics;
 using log4net;
 using log4net.Config;
 using System;
@@ -34,7 +35,8 @@ namespace AddressMapper
 
 
             var root = ((log4net.Repository.Hierarchy.Hierarchy)log4net.LogManager.GetRepository()).Root;
-            var form = new FormAddressMapper();
+            var plcs = PLCs.CreateSamplePLCs();
+            var form = new FormAddressMapper(plcs);
             root.AddAppender(form);
 
 
