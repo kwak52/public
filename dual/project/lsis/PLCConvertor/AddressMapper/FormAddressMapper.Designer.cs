@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraEditors.RangeControlRange rangeControlRange1 = new DevExpress.XtraEditors.RangeControlRange();
             DevExpress.XtraEditors.RangeControlRange rangeControlRange2 = new DevExpress.XtraEditors.RangeControlRange();
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
-            DevExpress.XtraEditors.RangeControlRange rangeControlRange1 = new DevExpress.XtraEditors.RangeControlRange();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -58,6 +58,7 @@
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.UcMemoryRangeXG5000 = new Dsu.PLCConverter.UI.UcMemoryRange();
             this.comboBoxEdit2 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -67,7 +68,8 @@
             this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
-            this.UcMemoryRangeXG5000 = new Dsu.PLCConverter.UI.UcMemoryRange();
+            this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnGenerateJsonTemplate = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -115,9 +117,10 @@
             this.barCheckItemTarget,
             this.barCheckItemShowMain,
             this.barComboOmron,
-            this.barComboXG5000});
+            this.barComboXG5000,
+            this.btnGenerateJsonTemplate});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 8;
+            this.ribbon.MaxItemId = 9;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -188,7 +191,8 @@
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
             this.ribbonPageGroupTemplates,
-            this.ribbonPageGroupView});
+            this.ribbonPageGroupView,
+            this.ribbonPageGroupTest});
             this.ribbonPage1.Name = "ribbonPage1";
             this.ribbonPage1.Text = "ribbonPage1";
             // 
@@ -341,6 +345,19 @@
             this.controlContainer2.Size = new System.Drawing.Size(1297, 574);
             this.controlContainer2.TabIndex = 0;
             // 
+            // UcMemoryRangeXG5000
+            // 
+            this.UcMemoryRangeXG5000.Location = new System.Drawing.Point(160, 112);
+            this.UcMemoryRangeXG5000.Margin = new System.Windows.Forms.Padding(2);
+            this.UcMemoryRangeXG5000.Maximum = 10240;
+            this.UcMemoryRangeXG5000.Minimum = 0;
+            this.UcMemoryRangeXG5000.Name = "UcMemoryRangeXG5000";
+            this.UcMemoryRangeXG5000.RulerDelta = 1024;
+            this.UcMemoryRangeXG5000.SelectedRange = rangeControlRange1;
+            this.UcMemoryRangeXG5000.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
+            this.UcMemoryRangeXG5000.Size = new System.Drawing.Size(709, 66);
+            this.UcMemoryRangeXG5000.TabIndex = 5;
+            // 
             // comboBoxEdit2
             // 
             this.comboBoxEdit2.Location = new System.Drawing.Point(5, 148);
@@ -422,18 +439,18 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
-            // UcMemoryRangeXG5000
+            // ribbonPageGroupTest
             // 
-            this.UcMemoryRangeXG5000.Location = new System.Drawing.Point(160, 112);
-            this.UcMemoryRangeXG5000.Margin = new System.Windows.Forms.Padding(2);
-            this.UcMemoryRangeXG5000.Maximum = 10240;
-            this.UcMemoryRangeXG5000.Minimum = 0;
-            this.UcMemoryRangeXG5000.Name = "UcMemoryRangeXG5000";
-            this.UcMemoryRangeXG5000.RulerDelta = 1024;
-            this.UcMemoryRangeXG5000.SelectedRange = rangeControlRange1;
-            this.UcMemoryRangeXG5000.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
-            this.UcMemoryRangeXG5000.Size = new System.Drawing.Size(709, 66);
-            this.UcMemoryRangeXG5000.TabIndex = 5;
+            this.ribbonPageGroupTest.ItemLinks.Add(this.btnGenerateJsonTemplate);
+            this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
+            this.ribbonPageGroupTest.Text = "Test";
+            // 
+            // btnGenerateJsonTemplate
+            // 
+            this.btnGenerateJsonTemplate.Caption = "Generate Template";
+            this.btnGenerateJsonTemplate.Id = 8;
+            this.btnGenerateJsonTemplate.Name = "btnGenerateJsonTemplate";
+            this.btnGenerateJsonTemplate.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGenerateJsonTemplate_ItemClick);
             // 
             // FormAddressMapper
             // 
@@ -515,5 +532,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private Dsu.PLCConverter.UI.UcMemoryRange UcMemoryRangeXG5000;
+        private DevExpress.XtraBars.BarButtonItem btnGenerateJsonTemplate;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupTest;
     }
 }

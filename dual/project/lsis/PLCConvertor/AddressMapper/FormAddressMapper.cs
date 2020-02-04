@@ -2,6 +2,10 @@
 using DevExpress.XtraBars;
 using log4net.Appender;
 using DevExpress.XtraBars.Docking;
+using Dsu.PLCConverter.UI.AddressMapperLogics;
+using Newtonsoft.Json;
+using Dsu.PLCConvertor.Common.Util;
+using System.IO;
 
 namespace AddressMapper
 {
@@ -41,6 +45,43 @@ namespace AddressMapper
             //WireDockPanelVisibility(action1, dockPanelLog, barCheckItemShowLog);
             //WireDockPanelVisibility(action1, dockPanelSource, barCheckItemSource);
             //WireDockPanelVisibility(action1, dockPanelTarget, barCheckItemTarget);
+        }
+
+        private void btnGenerateJsonTemplate_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var omronPLCs = new[]
+            {
+                new OmronPLC("CJ1H",
+                    new[] {
+                        new OmronMemorySection("PIO",   0, 1024*10, new []{"P" }),
+                        new OmronMemorySection("D",     0, 1024*10, new []{"M", "D" }),
+                    }),
+                new OmronPLC("CJ2H",
+                    new[] {
+                        new OmronMemorySection("PIO",   0, 1024, new []{"P" }),
+                        new OmronMemorySection("D",     0, 1024, new []{"M", "D" }),
+                    }),
+            };
+
+            var xg5kPLCs = new[]
+            {
+                new Xg5kPLC("Xg5k1H",
+                    new[] {
+                        new Xg5kMemorySection("PIO",   0, 1024*10),
+                        new Xg5kMemorySection("D",     0, 1024*10),
+                    }),
+                new Xg5kPLC("Xg5k2H",
+                    new[] {
+                        new Xg5kMemorySection("PIO",   0, 1024),
+                        new Xg5kMemorySection("D",     0, 1024),
+                    }),
+            };
+
+            var plcs = new PLCs(omronPLCs, xg5kPLCs);
+
+
+            var json = JsonConvert.SerializeObject(plcs, MyJsonSerializer.JsonSettingsSimple);
+            File.WriteAllText("OmronMemory.json", json);
         }
     }
 }

@@ -42,6 +42,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\open-sources\bin\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\open-sources\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -56,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressMapperLogics\Types.cs" />
     <Compile Include="FormRange.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +74,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UcMemoryBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcMemoryBar.Designer.cs">
+      <DependentUpon>UcMemoryBar.cs</DependentUpon>
     </Compile>
     <Compile Include="UcMemoryRange.cs">
       <SubType>UserControl</SubType>
@@ -91,6 +102,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcMemoryBar.resx">
+      <DependentUpon>UcMemoryBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcMemoryRange.resx">
       <DependentUpon>UcMemoryRange.cs</DependentUpon>
