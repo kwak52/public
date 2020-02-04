@@ -9,10 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using System.Diagnostics;
+using Dsu.PLCConverter.UI.AddressMapperLogics;
 
 namespace Dsu.PLCConverter.UI
 {
-    public partial class UcMemoryRange : UserControl
+    /// <summary>
+    /// Custom Range Control 을 포함하는 메모리 영역 지정을 위한 사용자 control
+    /// </summary>
+    public partial class UcMemoryRange
+        : UserControl
+        , IMemoryRange
     {
         CustomRangeControl _crc => customRangeControl1;
         NumericRangeControlClient _client => (NumericRangeControlClient)customRangeControl1.Client;
@@ -58,6 +64,20 @@ namespace Dsu.PLCConverter.UI
         public Color ForeColor { get { return _crc.Appearance.ForeColor; } set { _crc.Appearance.ForeColor = value; } }
         public RangeControlSelectionType SelectionType { get { return _crc.SelectionType; } set { _crc.SelectionType = value; } }
         public RangeControlRange SelectedRange { get { return _crc.SelectedRange; } set { _crc.SelectedRange = value; } }
+        public IMemoryRange ActiveRange => SelectedRange.ToMemoryRange();
+
+        public int Start => Minimum;
+        public int End => Maximum;
+        public int Length => End - Start;
+    }
+    public static class EmRangeControl
+    {
+        public static IMemoryRange ToMemoryRange(this RangeControlRange selectedRange)
+        {
+            if (selectedRange.Minimum == null || selectedRange.Maximum == null)
+                return null;
+            return new MemoryRangeBase((int)selectedRange.Minimum, (int)selectedRange.Maximum);
+        }
     }
 
     /// <summary>

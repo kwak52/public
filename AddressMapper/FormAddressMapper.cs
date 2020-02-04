@@ -28,6 +28,13 @@ namespace AddressMapper
         void PLCMappingChanged()
         {
             Global.Logger.Info("PLC types changed.");
+            Clear();
+
+            lookUpEditOmronMemory.Properties.DataSource = null;
+            lookUpEditOmronMemory.EditValue = null;
+            lookUpEditXg5kMemory.Properties.DataSource = null;
+            lookUpEditXg5kMemory.EditValue = null;
+
             lookUpEditOmronMemory.Properties.DataSource = _mapping.OmronPLC.Memories;
             lookUpEditOmronMemory.EditValue = _mapping.OmronPLC.Memories[0];
             lookUpEditXg5kMemory.Properties.DataSource = _mapping.Xg5kPLC.Memories;
@@ -38,6 +45,15 @@ namespace AddressMapper
             barEditItemOmronPLC.EditValue = _mapping.OmronPLC;
             barEditItemXg5kPLC.EditValue = _mapping.Xg5kPLC;
         }
+
+        void Clear()
+        {
+            _mapping.OmronPLC.Clear();
+            _mapping.Xg5kPLC.Clear();
+            ucMemoryBarOmron.DrawRanges();
+            ucMemoryBarXg5k.DrawRanges();
+        }
+
         void WireDockPanelVisibility(Dsu.Common.Utilities.Actions.Action action, DockPanel dockPanel, BarCheckItem checkItem)
         {
             dockPanel.ClosingPanel += (s, e) =>
@@ -102,8 +118,8 @@ namespace AddressMapper
             Mapping = new PLCMapping(_plcs.OmronPLCs[0], _plcs.XG5000PLCs[0]);
 
 
-            //PLCMappingChanged();
-            //AdjustRelativeBarSize();
+            ucMemoryBarOmron.Identifier = "OMRON";
+            ucMemoryBarXg5k.Identifier = "Xg5k";
 
             dockPanelSource.Visibility = DockVisibility.Hidden;
             dockPanelTarget.Visibility = DockVisibility.Hidden;
@@ -140,6 +156,40 @@ namespace AddressMapper
 
 
 
+        /// <summary>
+        /// 선택된 range 간 mapping 수행
+        /// </summary>
+        private void btnAssign_Click(object sender, EventArgs e)
+        {
+            var o = ucMemoryBarOmron.ActiveRangeSelector.SelectedRange.ToMemoryRange();
+            var x = ucMemoryBarXg5k.ActiveRangeSelector.SelectedRange.ToMemoryRange();
+            var om = ucMemoryBarOmron.MemorySection;
+            var xm = ucMemoryBarXg5k.MemorySection;
+            Global.Logger.Info($"Mapping: {om.Name}[{o.Start} - {o.End}] -> {xm.Name}[{x.Start} - {x.End}]");
+            ucMemoryBarOmron.ActiveRangeAllocated();
+            ucMemoryBarXg5k.ActiveRangeAllocated();
+        }
+
+        private void action1_Update(object sender, EventArgs e)
+        {
+            var o = ucMemoryBarOmron.ActiveRangeSelector;
+            var x = ucMemoryBarXg5k.ActiveRangeSelector;
+            if (o == null || x == null)
+            {
+                btnAssign.Enabled = false;
+                return;
+            }
+            var ol = o.SelectedRange.ToMemoryRange()?.Length;
+            var xl = x.SelectedRange.ToMemoryRange()?.Length;
+            btnAssign.Enabled = xl.HasValue && ol.HasValue && xl.Value >= ol.Value;
+        }
+
+        private void btnTestRangeUI_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            new FormTestRangeUI().Show();
+        }
+
+
         private void btnGenerateJsonTemplate_ItemClick(object sender, ItemClickEventArgs e)
         {
             var plcs = PLCs.CreateSamplePLCs();
@@ -149,9 +199,10 @@ namespace AddressMapper
             MsgBox.Info("Info", $"File created: {file}");
         }
 
-        private void btnTestRangeUI_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnShowBarContents_ItemClick(object sender, ItemClickEventArgs e)
         {
-            new FormTestRangeUI().Show();
+            ucMemoryBarOmron.DumpMemoryRanges();
+            ucMemoryBarXg5k.DumpMemoryRanges();
         }
     }
 }
