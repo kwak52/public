@@ -15,23 +15,24 @@ namespace AddressMapper
         : DevExpress.XtraBars.Ribbon.RibbonForm
         , IAppender
     {
-        Mapping _mapping;
-        private Mapping Mapping
+        PLCMapping _mapping;
+        private PLCMapping Mapping
         {
             get { return _mapping; }
-            set {_mapping = value; MappingChanged(); }
+            set {_mapping = value; PLCMappingChanged(); }
         }
-        void MappingChanged()
+        /// <summary>
+        /// 두 PLC 간 기종 변경시 호출 됨
+        /// </summary>
+        void PLCMappingChanged()
         {
-            comboOmronMemory.Properties.Items.Clear();
-            comboOmronMemory.Properties.Items.AddRange(_mapping.OmronPLC.Memories.Select(m => m.Name).ToArray());
+            lookUpEditOmronMemory.Properties.DataSource = _mapping.OmronPLC.Memories;
+            lookUpEditOmronMemory.EditValue = _mapping.OmronPLC.Memories[0];
+            lookUpEditXg5kMemory.Properties.DataSource = _mapping.Xg5kPLC.Memories;
+            lookUpEditXg5kMemory.EditValue = _mapping.Xg5kPLC.Memories[0];
 
-            comboXg5kMemory.Properties.Items.Clear();
-            comboXg5kMemory.Properties.Items.AddRange(_mapping.Xg5kPLC.Memories.Select(m => m.Name).ToArray());
-
-            barEditItemOmron.EditValue = _mapping.OmronPLC;
-            barEditItemXg5k.EditValue = _mapping.Xg5kPLC;
-
+            barEditItemOmronPLC.EditValue = _mapping.OmronPLC;
+            barEditItemXg5kPLC.EditValue = _mapping.Xg5kPLC;
         }
         void WireDockPanelVisibility(Dsu.Common.Utilities.Actions.Action action, DockPanel dockPanel, BarCheckItem checkItem)
         {
@@ -62,7 +63,10 @@ namespace AddressMapper
             repositoryItemLookUpEditXg5k.DataSource = plcs.XG5000PLCs;
             repositoryItemLookUpEditXg5k.DisplayMember = "PLCType";
 
-            Mapping = new Mapping(plcs.OmronPLCs[0], plcs.XG5000PLCs[0]);
+            lookUpEditOmronMemory.Properties.DisplayMember = "Name";
+            lookUpEditXg5kMemory.Properties.DisplayMember = "Name";
+
+            Mapping = new PLCMapping(plcs.OmronPLCs[0], plcs.XG5000PLCs[0]);
 
             dockPanelSource.Visibility = DockVisibility.Hidden;
             dockPanelTarget.Visibility = DockVisibility.Hidden;
