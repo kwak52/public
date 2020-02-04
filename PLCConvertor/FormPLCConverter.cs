@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using DevExpress.XtraBars;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Dsu.PLCConverter.UI;
 
 namespace PLCConvertor
 {
@@ -63,7 +64,7 @@ namespace PLCConvertor
             Cx2Xg5kOption.LogLevel = LogLevel.INFO;
 
             using (var waitor = new SplashScreenWaitor("로딩", "변환기를 로딩합니다."))
-            using (var subscription = Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
+            using (var subscription = Dsu.PLCConvertor.Common.Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
             {
                 await Task.Run(() =>
                 {
@@ -174,7 +175,7 @@ namespace PLCConvertor
                     try
                     {
                         using (var waitor = new SplashScreenWaitor($"{stem}.cxt 변환중", $"{stem}.cxt 을 변환 중입니다."))
-                        using (var subscription = Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
+                        using (var subscription = Dsu.PLCConvertor.Common.Global.UIMessageSubject.Subscribe(m => SplashScreenManager.Default.SetWaitFormDescription(m)))
                         {
                             var cxtInfoRoot = Cx2Xg5k.Convert(cvtParams, cxtPath, qtxFile, "", reviewFile, msgFile);
 
