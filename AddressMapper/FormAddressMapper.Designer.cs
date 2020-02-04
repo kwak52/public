@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.RangeControlRange rangeControlRange3 = new DevExpress.XtraEditors.RangeControlRange();
             DevExpress.XtraEditors.RangeControlRange rangeControlRange1 = new DevExpress.XtraEditors.RangeControlRange();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraEditors.RangeControlRange rangeControlRange2 = new DevExpress.XtraEditors.RangeControlRange();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -62,6 +62,9 @@
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.ucMemoryBarOmron = new Dsu.PLCConverter.UI.UcMemoryBar();
+            this.lookUpEditXg5kMemory = new DevExpress.XtraEditors.LookUpEdit();
+            this.lookUpEditOmronMemory = new DevExpress.XtraEditors.LookUpEdit();
             this.UcMemoryRangeXG5000 = new Dsu.PLCConverter.UI.UcMemoryRange();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
@@ -70,8 +73,7 @@
             this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
-            this.lookUpEditOmronMemory = new DevExpress.XtraEditors.LookUpEdit();
-            this.lookUpEditXg5kMemory = new DevExpress.XtraEditors.LookUpEdit();
+            this.ucMemoryBarXg5k = new Dsu.PLCConverter.UI.UcMemoryBar();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -89,11 +91,11 @@
             this.dockPanelTarget.SuspendLayout();
             this.dockPanelMain.SuspendLayout();
             this.controlContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditXg5kMemory.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditOmronMemory.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditOmronMemory.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditXg5kMemory.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -134,7 +136,7 @@
             this.repositoryItemComboXg5k,
             this.repositoryItemLookUpEditOmron,
             this.repositoryItemLookUpEditXg5k});
-            this.ribbon.Size = new System.Drawing.Size(1484, 217);
+            this.ribbon.Size = new System.Drawing.Size(1402, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // barCheckItemShowLog
@@ -257,7 +259,7 @@
             this.ribbonStatusBar.Location = new System.Drawing.Point(0, 1031);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(1484, 41);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1402, 41);
             // 
             // dockManager1
             // 
@@ -288,7 +290,7 @@
             this.dockPanelLog.Location = new System.Drawing.Point(0, 831);
             this.dockPanelLog.Name = "dockPanelLog";
             this.dockPanelLog.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanelLog.Size = new System.Drawing.Size(1484, 200);
+            this.dockPanelLog.Size = new System.Drawing.Size(1402, 200);
             this.dockPanelLog.Text = "Log";
             // 
             // dockPanel1_Container
@@ -296,7 +298,7 @@
             this.dockPanel1_Container.Controls.Add(this.ucPanelLog1);
             this.dockPanel1_Container.Location = new System.Drawing.Point(6, 36);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(1472, 158);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(1390, 158);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // ucPanelLog1
@@ -306,7 +308,7 @@
             this.ucPanelLog1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ucPanelLog1.Name = "ucPanelLog1";
             this.ucPanelLog1.SelectedIndex = -1;
-            this.ucPanelLog1.Size = new System.Drawing.Size(1472, 158);
+            this.ucPanelLog1.Size = new System.Drawing.Size(1390, 158);
             this.ucPanelLog1.TabIndex = 0;
             // 
             // dockPanelSource
@@ -369,6 +371,8 @@
             // 
             // controlContainer2
             // 
+            this.controlContainer2.Controls.Add(this.ucMemoryBarXg5k);
+            this.controlContainer2.Controls.Add(this.ucMemoryBarOmron);
             this.controlContainer2.Controls.Add(this.lookUpEditXg5kMemory);
             this.controlContainer2.Controls.Add(this.lookUpEditOmronMemory);
             this.controlContainer2.Controls.Add(this.UcMemoryRangeXG5000);
@@ -377,18 +381,48 @@
             this.controlContainer2.Controls.Add(this.UcMemoryRangeOmron);
             this.controlContainer2.Location = new System.Drawing.Point(0, 0);
             this.controlContainer2.Name = "controlContainer2";
-            this.controlContainer2.Size = new System.Drawing.Size(1297, 574);
+            this.controlContainer2.Size = new System.Drawing.Size(1215, 574);
             this.controlContainer2.TabIndex = 0;
+            // 
+            // ucMemoryBarOmron
+            // 
+            this.ucMemoryBarOmron.BackColor = System.Drawing.SystemColors.Control;
+            this.ucMemoryBarOmron.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ucMemoryBarOmron.Location = new System.Drawing.Point(161, 22);
+            this.ucMemoryBarOmron.MemorySection = null;
+            this.ucMemoryBarOmron.Name = "ucMemoryBarOmron";
+            this.ucMemoryBarOmron.Size = new System.Drawing.Size(1045, 64);
+            this.ucMemoryBarOmron.TabIndex = 8;
+            // 
+            // lookUpEditXg5kMemory
+            // 
+            this.lookUpEditXg5kMemory.Location = new System.Drawing.Point(5, 148);
+            this.lookUpEditXg5kMemory.MenuManager = this.ribbon;
+            this.lookUpEditXg5kMemory.Name = "lookUpEditXg5kMemory";
+            this.lookUpEditXg5kMemory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEditXg5kMemory.Size = new System.Drawing.Size(150, 30);
+            this.lookUpEditXg5kMemory.TabIndex = 7;
+            // 
+            // lookUpEditOmronMemory
+            // 
+            this.lookUpEditOmronMemory.Location = new System.Drawing.Point(5, 56);
+            this.lookUpEditOmronMemory.MenuManager = this.ribbon;
+            this.lookUpEditOmronMemory.Name = "lookUpEditOmronMemory";
+            this.lookUpEditOmronMemory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lookUpEditOmronMemory.Size = new System.Drawing.Size(150, 30);
+            this.lookUpEditOmronMemory.TabIndex = 6;
             // 
             // UcMemoryRangeXG5000
             // 
-            this.UcMemoryRangeXG5000.Location = new System.Drawing.Point(160, 112);
+            this.UcMemoryRangeXG5000.Location = new System.Drawing.Point(364, 391);
             this.UcMemoryRangeXG5000.Margin = new System.Windows.Forms.Padding(2);
             this.UcMemoryRangeXG5000.Maximum = 10240;
             this.UcMemoryRangeXG5000.Minimum = 0;
             this.UcMemoryRangeXG5000.Name = "UcMemoryRangeXG5000";
             this.UcMemoryRangeXG5000.RulerDelta = 1024;
-            this.UcMemoryRangeXG5000.SelectedRange = rangeControlRange3;
+            this.UcMemoryRangeXG5000.SelectedRange = rangeControlRange1;
             this.UcMemoryRangeXG5000.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
             this.UcMemoryRangeXG5000.Size = new System.Drawing.Size(709, 66);
             this.UcMemoryRangeXG5000.TabIndex = 5;
@@ -411,13 +445,13 @@
             // 
             // UcMemoryRangeOmron
             // 
-            this.UcMemoryRangeOmron.Location = new System.Drawing.Point(160, 28);
+            this.UcMemoryRangeOmron.Location = new System.Drawing.Point(364, 307);
             this.UcMemoryRangeOmron.Margin = new System.Windows.Forms.Padding(2);
             this.UcMemoryRangeOmron.Maximum = 10240;
             this.UcMemoryRangeOmron.Minimum = 0;
             this.UcMemoryRangeOmron.Name = "UcMemoryRangeOmron";
             this.UcMemoryRangeOmron.RulerDelta = 1024;
-            this.UcMemoryRangeOmron.SelectedRange = rangeControlRange1;
+            this.UcMemoryRangeOmron.SelectedRange = rangeControlRange2;
             this.UcMemoryRangeOmron.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
             this.UcMemoryRangeOmron.Size = new System.Drawing.Size(709, 66);
             this.UcMemoryRangeOmron.TabIndex = 0;
@@ -450,35 +484,25 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
-            dockingContainer2.Element = this.documentGroup1;
+            dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer2});
+            dockingContainer1});
             // 
-            // lookUpEditOmronMemory
+            // ucMemoryBarXg5000
             // 
-            this.lookUpEditOmronMemory.Location = new System.Drawing.Point(5, 56);
-            this.lookUpEditOmronMemory.MenuManager = this.ribbon;
-            this.lookUpEditOmronMemory.Name = "lookUpEditOmronMemory";
-            this.lookUpEditOmronMemory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpEditOmronMemory.Size = new System.Drawing.Size(150, 30);
-            this.lookUpEditOmronMemory.TabIndex = 6;
-            // 
-            // lookUpEditXg5kMemory
-            // 
-            this.lookUpEditXg5kMemory.Location = new System.Drawing.Point(5, 148);
-            this.lookUpEditXg5kMemory.MenuManager = this.ribbon;
-            this.lookUpEditXg5kMemory.Name = "lookUpEditXg5kMemory";
-            this.lookUpEditXg5kMemory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpEditXg5kMemory.Size = new System.Drawing.Size(150, 30);
-            this.lookUpEditXg5kMemory.TabIndex = 7;
+            this.ucMemoryBarXg5k.BackColor = System.Drawing.SystemColors.Control;
+            this.ucMemoryBarXg5k.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ucMemoryBarXg5k.Location = new System.Drawing.Point(161, 114);
+            this.ucMemoryBarXg5k.MemorySection = null;
+            this.ucMemoryBarXg5k.Name = "ucMemoryBarXg5000";
+            this.ucMemoryBarXg5k.Size = new System.Drawing.Size(1045, 64);
+            this.ucMemoryBarXg5k.TabIndex = 9;
             // 
             // FormAddressMapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1484, 1072);
+            this.ClientSize = new System.Drawing.Size(1402, 1072);
             this.Controls.Add(this.dockPanelTarget);
             this.Controls.Add(this.dockPanelSource);
             this.Controls.Add(this.dockPanelLog);
@@ -507,11 +531,11 @@
             this.dockPanelMain.ResumeLayout(false);
             this.controlContainer2.ResumeLayout(false);
             this.controlContainer2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditXg5kMemory.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditOmronMemory.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditOmronMemory.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lookUpEditXg5kMemory.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -560,5 +584,7 @@
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEditXg5k;
         private DevExpress.XtraEditors.LookUpEdit lookUpEditXg5kMemory;
         private DevExpress.XtraEditors.LookUpEdit lookUpEditOmronMemory;
+        private Dsu.PLCConverter.UI.UcMemoryBar ucMemoryBarOmron;
+        private Dsu.PLCConverter.UI.UcMemoryBar ucMemoryBarXg5k;
     }
 }

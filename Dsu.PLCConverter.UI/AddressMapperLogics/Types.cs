@@ -149,11 +149,15 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
                     new[] {
                         new OmronMemorySection("PIO",   0, 1024*10, new []{"P" }),
                         new OmronMemorySection("D",     0, 1024*10, new []{"M", "D" }),
+                        new OmronMemorySection("J",     0, 1024*2,  new []{"M", "D" }),
+                        new OmronMemorySection("K",     0, 512,     new []{"M", "D" }),
                     }),
                 new OmronPLC("CJ2H",
                     new[] {
-                        new OmronMemorySection("PIO",   0, 1024, new []{"P" }),
-                        new OmronMemorySection("D",     0, 1024, new []{"M", "D" }),
+                        new OmronMemorySection("PIO",   0, 1024,    new []{"P" }),
+                        new OmronMemorySection("D",     0, 1024,    new []{"M", "D" }),
+                        new OmronMemorySection("J",     0, 1024*2,  new []{"M", "D" }),
+                        new OmronMemorySection("K",     0, 512,     new []{"M", "D" }),
                     }),
             };
 
@@ -163,11 +167,15 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
                     new[] {
                         new Xg5kMemorySection("P",   0, 1024*10),
                         new Xg5kMemorySection("M",   0, 1024*10),
+                        new Xg5kMemorySection("L",   0, 1024),
                     }),
                 new Xg5kPLC("Xg5k2H",
                     new[] {
                         new Xg5kMemorySection("P",   0, 1024),
                         new Xg5kMemorySection("M",   0, 1024),
+                        new Xg5kMemorySection("X",   0, 10240),
+                        new Xg5kMemorySection("Y",   0, 512),
+                        new Xg5kMemorySection("A",   0, 16),
                     }),
             };
 

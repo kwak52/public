@@ -34,7 +34,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Name = "UcMemoryBar";
+            this.Size = new System.Drawing.Size(867, 97);
             this.Load += new System.EventHandler(this.UcMemoryBar_Load);
             this.ResumeLayout(false);
 
