@@ -148,5 +148,10 @@ namespace AddressMapper
             File.WriteAllText(file, json);
             MsgBox.Info("Info", $"File created: {file}");
         }
+
+        private void btnTestRangeUI_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            new FormTestRangeUI().Show();
+        }
     }
 }
