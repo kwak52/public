@@ -134,5 +134,50 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
             _xg5000PLCs = xg5kPLCs.ToList();
         }
         [JsonConstructor] PLCs() {}
+
+        public static PLCs CreateSamplePLCs()
+        {
+            var omronPLCs = new[]
+            {
+                new OmronPLC("CJ1H",
+                    new[] {
+                        new OmronMemorySection("PIO",   0, 1024*10, new []{"P" }),
+                        new OmronMemorySection("D",     0, 1024*10, new []{"M", "D" }),
+                    }),
+                new OmronPLC("CJ2H",
+                    new[] {
+                        new OmronMemorySection("PIO",   0, 1024, new []{"P" }),
+                        new OmronMemorySection("D",     0, 1024, new []{"M", "D" }),
+                    }),
+            };
+
+            var xg5kPLCs = new[]
+            {
+                new Xg5kPLC("Xg5k1H",
+                    new[] {
+                        new Xg5kMemorySection("P",   0, 1024*10),
+                        new Xg5kMemorySection("M",   0, 1024*10),
+                    }),
+                new Xg5kPLC("Xg5k2H",
+                    new[] {
+                        new Xg5kMemorySection("P",   0, 1024),
+                        new Xg5kMemorySection("M",   0, 1024),
+                    }),
+            };
+
+            var plcs = new PLCs(omronPLCs, xg5kPLCs);
+            return plcs;
+        }
+    }
+
+    public class Mapping
+    {
+        public OmronPLC OmronPLC { get; private set; }        
+        public Xg5kPLC Xg5kPLC { get; private set; }
+        public Mapping(OmronPLC omron, Xg5kPLC xg5k)
+        {
+            OmronPLC = omron;
+            Xg5kPLC = xg5k;
+        }
     }
 }

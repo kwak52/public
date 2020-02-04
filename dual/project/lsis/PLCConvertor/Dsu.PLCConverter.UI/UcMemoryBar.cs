@@ -7,18 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dsu.PLCConverter.UI.AddressMapperLogics;
 
 namespace Dsu.PLCConverter.UI
 {
     public partial class UcMemoryBar : UserControl
     {
-        public int Start { get; set; } = 0;
-        public int End { get; set; } = 0;
+        MemorySection _memorySection;
+        public int Start => _memorySection.Start;
+        public int End => _memorySection.End;
         public List<Tuple<int, int>> Ranges = new List<Tuple<int, int>>();
 
-        public UcMemoryBar(int start, int end)
+        public UcMemoryBar(MemorySection memorySection)
         {
             InitializeComponent();
+            _memorySection = memorySection;
         }
 
         private void UcMemoryBar_Load(object sender, EventArgs e)
