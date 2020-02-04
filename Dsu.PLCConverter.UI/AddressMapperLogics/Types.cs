@@ -13,6 +13,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
     {
         public int Start { get; set; }
         public int End { get; set; }
+        public int Length => End - Start;
         public RangedMemory(int start, int end)
         {
             Start = start;

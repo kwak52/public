@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.XtraEditors.RangeControlRange rangeControlRange1 = new DevExpress.XtraEditors.RangeControlRange();
             DevExpress.XtraEditors.RangeControlRange rangeControlRange2 = new DevExpress.XtraEditors.RangeControlRange();
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
-            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
-            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
+            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
+            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barCheckItemShowLog = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemSource = new DevExpress.XtraBars.BarCheckItem();
@@ -47,11 +52,8 @@
             this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.repositoryItemComboOmron = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            this.repositoryItemCheckEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            this.repositoryItemComboXg5k = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager();
+            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.ucPanelLog1 = new Dsu.PLCConverter.UI.UcPanelLog();
@@ -62,6 +64,7 @@
             this.dockPanel2_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.dockPanelMain = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer2 = new DevExpress.XtraBars.Docking.ControlContainer();
+            this.ucMemoryBarXg5k = new Dsu.PLCConverter.UI.UcMemoryBar();
             this.ucMemoryBarOmron = new Dsu.PLCConverter.UI.UcMemoryBar();
             this.lookUpEditXg5kMemory = new DevExpress.XtraEditors.LookUpEdit();
             this.lookUpEditOmronMemory = new DevExpress.XtraEditors.LookUpEdit();
@@ -71,17 +74,13 @@
             this.UcMemoryRangeOmron = new Dsu.PLCConverter.UI.UcMemoryRange();
             this.numericRangeControlClient1 = new DevExpress.XtraEditors.NumericRangeControlClient();
             this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
-            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
-            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
-            this.ucMemoryBarXg5k = new Dsu.PLCConverter.UI.UcMemoryBar();
+            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
+            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditOmron)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditXg5k)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboOmron)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboXg5k)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockPanelLog.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
@@ -126,17 +125,15 @@
             this.barEditItemOmronPLC,
             this.barEditItemXg5kPLC});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
+            this.ribbon.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ribbon.MaxItemId = 11;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemComboOmron,
-            this.repositoryItemCheckEdit1,
-            this.repositoryItemComboXg5k,
             this.repositoryItemLookUpEditOmron,
             this.repositoryItemLookUpEditXg5k});
-            this.ribbon.Size = new System.Drawing.Size(1402, 217);
+            this.ribbon.Size = new System.Drawing.Size(1122, 183);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
             // barCheckItemShowLog
@@ -181,6 +178,9 @@
             this.barEditItemOmronPLC.EditWidth = 80;
             this.barEditItemOmronPLC.Id = 9;
             this.barEditItemOmronPLC.Name = "barEditItemOmronPLC";
+            toolTipTitleItem1.Text = "옴론 PLC 기종 변경";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            this.barEditItemOmronPLC.SuperTip = superToolTip1;
             // 
             // repositoryItemLookUpEditOmron
             // 
@@ -196,6 +196,9 @@
             this.barEditItemXg5kPLC.EditWidth = 80;
             this.barEditItemXg5kPLC.Id = 10;
             this.barEditItemXg5kPLC.Name = "barEditItemXg5kPLC";
+            toolTipTitleItem2.Text = "산전 PLC 기종 변경";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            this.barEditItemXg5kPLC.SuperTip = superToolTip2;
             // 
             // repositoryItemLookUpEditXg5k
             // 
@@ -235,31 +238,13 @@
             this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
             this.ribbonPageGroupTest.Text = "Test";
             // 
-            // repositoryItemComboOmron
-            // 
-            this.repositoryItemComboOmron.AutoHeight = false;
-            this.repositoryItemComboOmron.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemComboOmron.Name = "repositoryItemComboOmron";
-            // 
-            // repositoryItemCheckEdit1
-            // 
-            this.repositoryItemCheckEdit1.AutoHeight = false;
-            this.repositoryItemCheckEdit1.Name = "repositoryItemCheckEdit1";
-            // 
-            // repositoryItemComboXg5k
-            // 
-            this.repositoryItemComboXg5k.AutoHeight = false;
-            this.repositoryItemComboXg5k.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemComboXg5k.Name = "repositoryItemComboXg5k";
-            // 
             // ribbonStatusBar
             // 
-            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 1031);
+            this.ribbonStatusBar.Location = new System.Drawing.Point(0, 840);
+            this.ribbonStatusBar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ribbonStatusBar.Name = "ribbonStatusBar";
             this.ribbonStatusBar.Ribbon = this.ribbon;
-            this.ribbonStatusBar.Size = new System.Drawing.Size(1402, 41);
+            this.ribbonStatusBar.Size = new System.Drawing.Size(1122, 37);
             // 
             // dockManager1
             // 
@@ -287,28 +272,30 @@
             this.dockPanelLog.Controls.Add(this.dockPanel1_Container);
             this.dockPanelLog.Dock = DevExpress.XtraBars.Docking.DockingStyle.Bottom;
             this.dockPanelLog.ID = new System.Guid("4be5f6b3-5971-4327-9cd9-0efe0817a1bd");
-            this.dockPanelLog.Location = new System.Drawing.Point(0, 831);
+            this.dockPanelLog.Location = new System.Drawing.Point(0, 676);
+            this.dockPanelLog.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dockPanelLog.Name = "dockPanelLog";
             this.dockPanelLog.OriginalSize = new System.Drawing.Size(200, 200);
-            this.dockPanelLog.Size = new System.Drawing.Size(1402, 200);
+            this.dockPanelLog.Size = new System.Drawing.Size(1122, 164);
             this.dockPanelLog.Text = "Log";
             // 
             // dockPanel1_Container
             // 
             this.dockPanel1_Container.Controls.Add(this.ucPanelLog1);
-            this.dockPanel1_Container.Location = new System.Drawing.Point(6, 36);
+            this.dockPanel1_Container.Location = new System.Drawing.Point(5, 29);
+            this.dockPanel1_Container.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dockPanel1_Container.Name = "dockPanel1_Container";
-            this.dockPanel1_Container.Size = new System.Drawing.Size(1390, 158);
+            this.dockPanel1_Container.Size = new System.Drawing.Size(1112, 130);
             this.dockPanel1_Container.TabIndex = 0;
             // 
             // ucPanelLog1
             // 
             this.ucPanelLog1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ucPanelLog1.Location = new System.Drawing.Point(0, 0);
-            this.ucPanelLog1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucPanelLog1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ucPanelLog1.Name = "ucPanelLog1";
             this.ucPanelLog1.SelectedIndex = -1;
-            this.ucPanelLog1.Size = new System.Drawing.Size(1390, 158);
+            this.ucPanelLog1.Size = new System.Drawing.Size(1112, 130);
             this.ucPanelLog1.TabIndex = 0;
             // 
             // dockPanelSource
@@ -316,30 +303,33 @@
             this.dockPanelSource.Controls.Add(this.controlContainer1);
             this.dockPanelSource.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
             this.dockPanelSource.ID = new System.Guid("e9c28f34-66a8-463d-bed0-25df2c0c5782");
-            this.dockPanelSource.Location = new System.Drawing.Point(0, 217);
+            this.dockPanelSource.Location = new System.Drawing.Point(74, 183);
+            this.dockPanelSource.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dockPanelSource.Name = "dockPanelSource";
             this.dockPanelSource.OriginalSize = new System.Drawing.Size(89, 200);
-            this.dockPanelSource.Size = new System.Drawing.Size(89, 614);
+            this.dockPanelSource.Size = new System.Drawing.Size(71, 493);
             this.dockPanelSource.Text = "Omron";
             // 
             // controlContainer1
             // 
             this.controlContainer1.Controls.Add(this.checkedComboBoxEdit1);
-            this.controlContainer1.Location = new System.Drawing.Point(6, 33);
+            this.controlContainer1.Location = new System.Drawing.Point(5, 27);
+            this.controlContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.controlContainer1.Name = "controlContainer1";
-            this.controlContainer1.Size = new System.Drawing.Size(74, 575);
+            this.controlContainer1.Size = new System.Drawing.Size(59, 461);
             this.controlContainer1.TabIndex = 0;
             // 
             // checkedComboBoxEdit1
             // 
             this.checkedComboBoxEdit1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkedComboBoxEdit1.Location = new System.Drawing.Point(7, 13);
+            this.checkedComboBoxEdit1.Location = new System.Drawing.Point(6, 11);
+            this.checkedComboBoxEdit1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkedComboBoxEdit1.MenuManager = this.ribbon;
             this.checkedComboBoxEdit1.Name = "checkedComboBoxEdit1";
             this.checkedComboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.checkedComboBoxEdit1.Size = new System.Drawing.Size(64, 30);
+            this.checkedComboBoxEdit1.Size = new System.Drawing.Size(36, 24);
             this.checkedComboBoxEdit1.TabIndex = 0;
             // 
             // dockPanelTarget
@@ -347,17 +337,19 @@
             this.dockPanelTarget.Controls.Add(this.dockPanel2_Container);
             this.dockPanelTarget.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left;
             this.dockPanelTarget.ID = new System.Guid("ee0c92d3-2a4b-4315-91a1-2bcd5f8935da");
-            this.dockPanelTarget.Location = new System.Drawing.Point(89, 217);
+            this.dockPanelTarget.Location = new System.Drawing.Point(71, 183);
+            this.dockPanelTarget.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dockPanelTarget.Name = "dockPanelTarget";
             this.dockPanelTarget.OriginalSize = new System.Drawing.Size(92, 200);
-            this.dockPanelTarget.Size = new System.Drawing.Size(92, 614);
+            this.dockPanelTarget.Size = new System.Drawing.Size(74, 493);
             this.dockPanelTarget.Text = "XG5000";
             // 
             // dockPanel2_Container
             // 
-            this.dockPanel2_Container.Location = new System.Drawing.Point(6, 33);
+            this.dockPanel2_Container.Location = new System.Drawing.Point(5, 27);
+            this.dockPanel2_Container.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dockPanel2_Container.Name = "dockPanel2_Container";
-            this.dockPanel2_Container.Size = new System.Drawing.Size(77, 575);
+            this.dockPanel2_Container.Size = new System.Drawing.Size(62, 461);
             this.dockPanel2_Container.TabIndex = 0;
             // 
             // dockPanelMain
@@ -380,43 +372,60 @@
             this.controlContainer2.Controls.Add(this.labelControl1);
             this.controlContainer2.Controls.Add(this.UcMemoryRangeOmron);
             this.controlContainer2.Location = new System.Drawing.Point(0, 0);
+            this.controlContainer2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.controlContainer2.Name = "controlContainer2";
-            this.controlContainer2.Size = new System.Drawing.Size(1215, 574);
+            this.controlContainer2.Size = new System.Drawing.Size(971, 458);
             this.controlContainer2.TabIndex = 0;
+            // 
+            // ucMemoryBarXg5k
+            // 
+            this.ucMemoryBarXg5k.BackColor = System.Drawing.SystemColors.Control;
+            this.ucMemoryBarXg5k.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ucMemoryBarXg5k.Location = new System.Drawing.Point(129, 93);
+            this.ucMemoryBarXg5k.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ucMemoryBarXg5k.MemorySection = null;
+            this.ucMemoryBarXg5k.Name = "ucMemoryBarXg5k";
+            this.ucMemoryBarXg5k.Size = new System.Drawing.Size(836, 53);
+            this.ucMemoryBarXg5k.TabIndex = 9;
             // 
             // ucMemoryBarOmron
             // 
             this.ucMemoryBarOmron.BackColor = System.Drawing.SystemColors.Control;
             this.ucMemoryBarOmron.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ucMemoryBarOmron.Location = new System.Drawing.Point(161, 22);
+            this.ucMemoryBarOmron.Location = new System.Drawing.Point(129, 18);
+            this.ucMemoryBarOmron.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.ucMemoryBarOmron.MemorySection = null;
             this.ucMemoryBarOmron.Name = "ucMemoryBarOmron";
-            this.ucMemoryBarOmron.Size = new System.Drawing.Size(1045, 64);
+            this.ucMemoryBarOmron.Size = new System.Drawing.Size(836, 53);
             this.ucMemoryBarOmron.TabIndex = 8;
             // 
             // lookUpEditXg5kMemory
             // 
-            this.lookUpEditXg5kMemory.Location = new System.Drawing.Point(5, 148);
+            this.lookUpEditXg5kMemory.Location = new System.Drawing.Point(4, 121);
+            this.lookUpEditXg5kMemory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lookUpEditXg5kMemory.MenuManager = this.ribbon;
             this.lookUpEditXg5kMemory.Name = "lookUpEditXg5kMemory";
             this.lookUpEditXg5kMemory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpEditXg5kMemory.Size = new System.Drawing.Size(150, 30);
+            this.lookUpEditXg5kMemory.Size = new System.Drawing.Size(120, 24);
             this.lookUpEditXg5kMemory.TabIndex = 7;
+            this.lookUpEditXg5kMemory.ToolTip = "산전 메모리 타입 변경";
             // 
             // lookUpEditOmronMemory
             // 
-            this.lookUpEditOmronMemory.Location = new System.Drawing.Point(5, 56);
+            this.lookUpEditOmronMemory.Location = new System.Drawing.Point(4, 46);
+            this.lookUpEditOmronMemory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lookUpEditOmronMemory.MenuManager = this.ribbon;
             this.lookUpEditOmronMemory.Name = "lookUpEditOmronMemory";
             this.lookUpEditOmronMemory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lookUpEditOmronMemory.Size = new System.Drawing.Size(150, 30);
+            this.lookUpEditOmronMemory.Size = new System.Drawing.Size(120, 24);
             this.lookUpEditOmronMemory.TabIndex = 6;
+            this.lookUpEditOmronMemory.ToolTip = "옴론 메모리 타입 변경";
             // 
             // UcMemoryRangeXG5000
             // 
-            this.UcMemoryRangeXG5000.Location = new System.Drawing.Point(364, 391);
+            this.UcMemoryRangeXG5000.Location = new System.Drawing.Point(291, 320);
             this.UcMemoryRangeXG5000.Margin = new System.Windows.Forms.Padding(2);
             this.UcMemoryRangeXG5000.Maximum = 10240;
             this.UcMemoryRangeXG5000.Minimum = 0;
@@ -424,28 +433,30 @@
             this.UcMemoryRangeXG5000.RulerDelta = 1024;
             this.UcMemoryRangeXG5000.SelectedRange = rangeControlRange1;
             this.UcMemoryRangeXG5000.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
-            this.UcMemoryRangeXG5000.Size = new System.Drawing.Size(709, 66);
+            this.UcMemoryRangeXG5000.Size = new System.Drawing.Size(567, 54);
             this.UcMemoryRangeXG5000.TabIndex = 5;
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(5, 120);
+            this.labelControl2.Location = new System.Drawing.Point(4, 98);
+            this.labelControl2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(62, 22);
+            this.labelControl2.Size = new System.Drawing.Size(51, 18);
             this.labelControl2.TabIndex = 3;
             this.labelControl2.Text = "XG5000";
             // 
             // labelControl1
             // 
-            this.labelControl1.Location = new System.Drawing.Point(5, 28);
+            this.labelControl1.Location = new System.Drawing.Point(4, 23);
+            this.labelControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(63, 22);
+            this.labelControl1.Size = new System.Drawing.Size(53, 18);
             this.labelControl1.TabIndex = 2;
             this.labelControl1.Text = "OMRON";
             // 
             // UcMemoryRangeOmron
             // 
-            this.UcMemoryRangeOmron.Location = new System.Drawing.Point(364, 307);
+            this.UcMemoryRangeOmron.Location = new System.Drawing.Point(291, 251);
             this.UcMemoryRangeOmron.Margin = new System.Windows.Forms.Padding(2);
             this.UcMemoryRangeOmron.Maximum = 10240;
             this.UcMemoryRangeOmron.Minimum = 0;
@@ -453,7 +464,7 @@
             this.UcMemoryRangeOmron.RulerDelta = 1024;
             this.UcMemoryRangeOmron.SelectedRange = rangeControlRange2;
             this.UcMemoryRangeOmron.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
-            this.UcMemoryRangeOmron.Size = new System.Drawing.Size(709, 66);
+            this.UcMemoryRangeOmron.Size = new System.Drawing.Size(567, 54);
             this.UcMemoryRangeOmron.TabIndex = 0;
             // 
             // numericRangeControlClient1
@@ -488,26 +499,17 @@
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
             dockingContainer1});
             // 
-            // ucMemoryBarXg5000
-            // 
-            this.ucMemoryBarXg5k.BackColor = System.Drawing.SystemColors.Control;
-            this.ucMemoryBarXg5k.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ucMemoryBarXg5k.Location = new System.Drawing.Point(161, 114);
-            this.ucMemoryBarXg5k.MemorySection = null;
-            this.ucMemoryBarXg5k.Name = "ucMemoryBarXg5000";
-            this.ucMemoryBarXg5k.Size = new System.Drawing.Size(1045, 64);
-            this.ucMemoryBarXg5k.TabIndex = 9;
-            // 
             // FormAddressMapper
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1402, 1072);
-            this.Controls.Add(this.dockPanelTarget);
+            this.ClientSize = new System.Drawing.Size(1122, 877);
             this.Controls.Add(this.dockPanelSource);
             this.Controls.Add(this.dockPanelLog);
+            this.Controls.Add(this.dockPanelTarget);
             this.Controls.Add(this.ribbonStatusBar);
             this.Controls.Add(this.ribbon);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormAddressMapper";
             this.Ribbon = this.ribbon;
             this.StatusBar = this.ribbonStatusBar;
@@ -518,9 +520,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditOmron)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditXg5k)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboOmron)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboXg5k)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.dockPanelLog.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
@@ -566,9 +565,6 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
         private DevExpress.XtraBars.BarCheckItem barCheckItemShowMain;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupTemplates;
-        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboOmron;
-        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboXg5k;
-        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit1;
         private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit2;
         private DevExpress.XtraEditors.NumericRangeControlClient numericRangeControlClient1;
