@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.RangeControlRange rangeControlRange3 = new DevExpress.XtraEditors.RangeControlRange();
             DevExpress.XtraEditors.RangeControlRange rangeControlRange1 = new DevExpress.XtraEditors.RangeControlRange();
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraEditors.RangeControlRange rangeControlRange2 = new DevExpress.XtraEditors.RangeControlRange();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -38,11 +38,11 @@
             this.barCheckItemSource = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemTarget = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemShowMain = new DevExpress.XtraBars.BarCheckItem();
-            this.barComboOmron = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemComboOmron = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-            this.barComboXG5000 = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemComboXg5k = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.btnGenerateJsonTemplate = new DevExpress.XtraBars.BarButtonItem();
+            this.barEditItemOmron = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemLookUpEditOmron = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -70,11 +70,14 @@
             this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
             this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
+            this.barEditItemXg5k = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemLookUpEditXg5k = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboOmron)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboXg5k)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditOmron)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockPanelLog.SuspendLayout();
@@ -90,6 +93,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditXg5k)).BeginInit();
             this.SuspendLayout();
             // 
             // documentGroup1
@@ -116,18 +120,20 @@
             this.barCheckItemSource,
             this.barCheckItemTarget,
             this.barCheckItemShowMain,
-            this.barComboOmron,
-            this.barComboXG5000,
-            this.btnGenerateJsonTemplate});
+            this.btnGenerateJsonTemplate,
+            this.barEditItemOmron,
+            this.barEditItemXg5k});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
-            this.ribbon.MaxItemId = 9;
+            this.ribbon.MaxItemId = 11;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemComboOmron,
             this.repositoryItemCheckEdit1,
-            this.repositoryItemComboXg5k});
+            this.repositoryItemComboXg5k,
+            this.repositoryItemLookUpEditOmron,
+            this.repositoryItemLookUpEditXg5k});
             this.ribbon.Size = new System.Drawing.Size(1484, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
@@ -159,26 +165,12 @@
             this.barCheckItemShowMain.Id = 4;
             this.barCheckItemShowMain.Name = "barCheckItemShowMain";
             // 
-            // barComboOmron
-            // 
-            this.barComboOmron.Caption = "Omron";
-            this.barComboOmron.Edit = this.repositoryItemComboOmron;
-            this.barComboOmron.Id = 5;
-            this.barComboOmron.Name = "barComboOmron";
-            // 
             // repositoryItemComboOmron
             // 
             this.repositoryItemComboOmron.AutoHeight = false;
             this.repositoryItemComboOmron.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemComboOmron.Name = "repositoryItemComboOmron";
-            // 
-            // barComboXG5000
-            // 
-            this.barComboXG5000.Caption = "XG5000";
-            this.barComboXG5000.Edit = this.repositoryItemComboXg5k;
-            this.barComboXG5000.Id = 7;
-            this.barComboXG5000.Name = "barComboXG5000";
             // 
             // repositoryItemComboXg5k
             // 
@@ -194,6 +186,21 @@
             this.btnGenerateJsonTemplate.Name = "btnGenerateJsonTemplate";
             this.btnGenerateJsonTemplate.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGenerateJsonTemplate_ItemClick);
             // 
+            // barEditItemOmron
+            // 
+            this.barEditItemOmron.Caption = "Omron ";
+            this.barEditItemOmron.Edit = this.repositoryItemLookUpEditOmron;
+            this.barEditItemOmron.EditWidth = 80;
+            this.barEditItemOmron.Id = 9;
+            this.barEditItemOmron.Name = "barEditItemOmron";
+            // 
+            // repositoryItemLookUpEditOmron
+            // 
+            this.repositoryItemLookUpEditOmron.AutoHeight = false;
+            this.repositoryItemLookUpEditOmron.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemLookUpEditOmron.Name = "repositoryItemLookUpEditOmron";
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -205,8 +212,8 @@
             // 
             // ribbonPageGroupTemplates
             // 
-            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barComboOmron);
-            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barComboXG5000);
+            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barEditItemOmron);
+            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barEditItemXg5k);
             this.ribbonPageGroupTemplates.Name = "ribbonPageGroupTemplates";
             this.ribbonPageGroupTemplates.Text = "Tempaltes";
             // 
@@ -366,7 +373,7 @@
             this.UcMemoryRangeXG5000.Minimum = 0;
             this.UcMemoryRangeXG5000.Name = "UcMemoryRangeXG5000";
             this.UcMemoryRangeXG5000.RulerDelta = 1024;
-            this.UcMemoryRangeXG5000.SelectedRange = rangeControlRange3;
+            this.UcMemoryRangeXG5000.SelectedRange = rangeControlRange1;
             this.UcMemoryRangeXG5000.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
             this.UcMemoryRangeXG5000.Size = new System.Drawing.Size(709, 66);
             this.UcMemoryRangeXG5000.TabIndex = 5;
@@ -415,7 +422,7 @@
             this.UcMemoryRangeOmron.Minimum = 0;
             this.UcMemoryRangeOmron.Name = "UcMemoryRangeOmron";
             this.UcMemoryRangeOmron.RulerDelta = 1024;
-            this.UcMemoryRangeOmron.SelectedRange = rangeControlRange1;
+            this.UcMemoryRangeOmron.SelectedRange = rangeControlRange2;
             this.UcMemoryRangeOmron.SelectionType = DevExpress.XtraEditors.RangeControlSelectionType.ThumbAndFlag;
             this.UcMemoryRangeOmron.Size = new System.Drawing.Size(709, 66);
             this.UcMemoryRangeOmron.TabIndex = 0;
@@ -448,9 +455,24 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
-            dockingContainer2.Element = this.documentGroup1;
+            dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer2});
+            dockingContainer1});
+            // 
+            // barEditItemXg5k
+            // 
+            this.barEditItemXg5k.Caption = "XG5000";
+            this.barEditItemXg5k.Edit = this.repositoryItemLookUpEditXg5k;
+            this.barEditItemXg5k.EditWidth = 80;
+            this.barEditItemXg5k.Id = 10;
+            this.barEditItemXg5k.Name = "barEditItemXg5k";
+            // 
+            // repositoryItemLookUpEditXg5k
+            // 
+            this.repositoryItemLookUpEditXg5k.AutoHeight = false;
+            this.repositoryItemLookUpEditXg5k.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemLookUpEditXg5k.Name = "repositoryItemLookUpEditXg5k";
             // 
             // FormAddressMapper
             // 
@@ -472,6 +494,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboOmron)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboXg5k)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditOmron)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.dockPanelLog.ResumeLayout(false);
@@ -488,6 +511,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.checkedComboBoxEdit2.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.documentManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabbedView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditXg5k)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -518,9 +542,7 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.Document document1;
         private DevExpress.XtraBars.BarCheckItem barCheckItemShowMain;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupTemplates;
-        private DevExpress.XtraBars.BarEditItem barComboOmron;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboOmron;
-        private DevExpress.XtraBars.BarEditItem barComboXG5000;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboXg5k;
         private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private DevExpress.XtraEditors.CheckedComboBoxEdit checkedComboBoxEdit1;
@@ -534,5 +556,9 @@
         private Dsu.PLCConverter.UI.UcMemoryRange UcMemoryRangeXG5000;
         private DevExpress.XtraBars.BarButtonItem btnGenerateJsonTemplate;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupTest;
+        private DevExpress.XtraBars.BarEditItem barEditItemOmron;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEditOmron;
+        private DevExpress.XtraBars.BarEditItem barEditItemXg5k;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEditXg5k;
     }
 }
