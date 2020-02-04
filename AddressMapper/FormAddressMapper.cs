@@ -28,6 +28,10 @@ namespace AddressMapper
 
             comboXg5kMemory.Properties.Items.Clear();
             comboXg5kMemory.Properties.Items.AddRange(_mapping.Xg5kPLC.Memories.Select(m => m.Name).ToArray());
+
+            barEditItemOmron.EditValue = _mapping.OmronPLC;
+            barEditItemXg5k.EditValue = _mapping.Xg5kPLC;
+
         }
         void WireDockPanelVisibility(Dsu.Common.Utilities.Actions.Action action, DockPanel dockPanel, BarCheckItem checkItem)
         {
@@ -51,10 +55,13 @@ namespace AddressMapper
         {
             InitializeComponent();
 
-            //repositoryItemComboOmron.Items.AddRange(plcs.OmronPLCs.Select(o => o.PLCType).ToArray());
-            //repositoryItemComboXg5k.Items.AddRange(plcs.XG5000PLCs.Select(o => o.PLCType).ToArray());
             repositoryItemComboOmron.Items.AddRange(plcs.OmronPLCs);
             repositoryItemComboXg5k.Items.AddRange(plcs.XG5000PLCs);
+            repositoryItemLookUpEditOmron.DataSource = plcs.OmronPLCs;
+            repositoryItemLookUpEditOmron.DisplayMember = "PLCType";
+            repositoryItemLookUpEditXg5k.DataSource = plcs.XG5000PLCs;
+            repositoryItemLookUpEditXg5k.DisplayMember = "PLCType";
+
             Mapping = new Mapping(plcs.OmronPLCs[0], plcs.XG5000PLCs[0]);
 
             dockPanelSource.Visibility = DockVisibility.Hidden;
