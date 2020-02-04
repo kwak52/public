@@ -36,6 +36,9 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
     }
 
 
+    /// <summary>
+    /// 타입별 PLC 메모리.
+    /// </summary>
     public class MemorySection : NamedRangedMemory, IMemorySection
     {
         public MemorySection(string name, int start, int end)
@@ -44,6 +47,9 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         }
         [JsonConstructor] protected MemorySection() {}
 
+        /// <summary>
+        /// 하나의 type 에 대해서 분할 mapping 된 조각들 정보
+        /// </summary>
         [JsonIgnore]
         public List<MemoryRange> MemoryRanges = new List<MemoryRange>();
     }
@@ -170,11 +176,14 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         }
     }
 
-    public class Mapping
+    /// <summary>
+    /// 옴론 vs 산전 PLC type 별 mapping
+    /// </summary>
+    public class PLCMapping
     {
         public OmronPLC OmronPLC { get; private set; }        
         public Xg5kPLC Xg5kPLC { get; private set; }
-        public Mapping(OmronPLC omron, Xg5kPLC xg5k)
+        public PLCMapping(OmronPLC omron, Xg5kPLC xg5k)
         {
             OmronPLC = omron;
             Xg5kPLC = xg5k;
