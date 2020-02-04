@@ -62,6 +62,7 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\common\bin\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -129,6 +130,10 @@
     <ProjectReference Include="..\Dsu.PLCConverter.UI\Dsu.PLCConverter.UI.csproj">
       <Project>{6421926C-449E-44F9-9675-C14805A05B1D}</Project>
       <Name>Dsu.PLCConverter.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dsu.PLCConvertor.Common\Dsu.PLCConvertor.Common.csproj">
+      <Project>{F4513A8D-C7DF-4F1D-9214-D97409879C61}</Project>
+      <Name>Dsu.PLCConvertor.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
