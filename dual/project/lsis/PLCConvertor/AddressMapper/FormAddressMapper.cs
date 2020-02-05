@@ -9,6 +9,7 @@ using System.IO;
 using Dsu.PLCConverter.UI;
 using System.Linq;
 using Dsu.Common.Utilities.ExtensionMethods;
+using System.Windows.Forms;
 
 namespace AddressMapper
 {
@@ -123,6 +124,9 @@ namespace AddressMapper
             ucMemoryBarOmron.Identifier = "OMRON";
             ucMemoryBarXg5k.Identifier = "Xg5k";
 
+            gridControlRanged.Dock = DockStyle.Fill;
+            gridControlOneToOne.Dock = DockStyle.Fill;
+
             Subjects.MemorySectionChangeRequestSubject.Subscribe(tpl =>
             {
                 var ucMemoryBar = tpl.Item1;
@@ -188,7 +192,17 @@ namespace AddressMapper
 
         private void btnExport_ItemClick(object sender, ItemClickEventArgs e)
         {
+            foreach (var om in _mapping.OmronPLC.Memories)
+            {
+                string oMemTypeName = om.Name;
+                foreach (var omr in om.MemoryRanges.Cast<AllocatedMemoryRange>())
+                {
+                    var xmr = omr.Counterpart;
+                    var xMemTypeName = xmr.Parent.Name;
 
+                    Global.Logger.Debug($"{oMemTypeName}[{omr.Start}:{omr.End}] => {xMemTypeName}[{xmr.Start}:{xmr.End}]");
+                }
+            }
         }
 
         private void action1_Update(object sender, EventArgs e)
