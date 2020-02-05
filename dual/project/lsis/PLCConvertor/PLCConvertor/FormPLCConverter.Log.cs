@@ -32,7 +32,8 @@ namespace PLCConvertor
                     var lines = msg.SplitByLines().ToArray();
                     if (lines.Length > 0)
                     {
-                        var fmtMsg = string.Format($"<color={cr}>{now} [{level}]: {lines[0]}</color>");
+                        var msgLine = lines[0].Replace("{", "{{").Replace("}", "}}");
+                        var fmtMsg = string.Format($"<color={cr}>{now} [{level}]: {msgLine}</color>");
                         ucPanelLog1.Items.Add(fmtMsg);
 
                         for (int i = 1; i < lines.Length; i++)
