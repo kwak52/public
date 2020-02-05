@@ -85,6 +85,9 @@ namespace AddressMapper
             //WireDockPanelVisibility(action1, dockPanelSource, barCheckItemSource);
             //WireDockPanelVisibility(action1, dockPanelTarget, barCheckItemTarget);
 
+            ucMemoryBarOmron.Counterpart = ucMemoryBarXg5k;
+            ucMemoryBarXg5k.Counterpart = ucMemoryBarOmron;
+
 
             repositoryItemLookUpEditOmron.DataSource = _plcs.OmronPLCs;
             repositoryItemLookUpEditOmron.DisplayMember = "PLCType";
