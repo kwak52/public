@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Dsu.PLCConverter.UI.AddressMapperLogics;
-using Dsu.Common.Utilities.Core.ExtensionMethods;
 using System.Diagnostics;
 using Dsu.Common.Utilities.ExtensionMethods;
 using log4net;
@@ -49,7 +44,6 @@ namespace Dsu.PLCConverter.UI
             InitializeComponent();
         }
 
-        // TODO
         public IMemoryRange SelectedRange { get; set; }
 
         private void UcMemoryBar_Load(object sender, EventArgs args)
@@ -67,16 +61,14 @@ namespace Dsu.PLCConverter.UI
             ActiveRangeSelector = null;
             _rangeControls.Iter(c => Controls.Remove(c));
             _rangeControls.Clear();
-            (var x, var y) = (Location.X, Location.Y);
             (var w, var h) = (Width, Height);
-            var totalLength = End - Start;
 
             /// logical to physical
-            int l2p(int n) => w * n / totalLength;
+            int l2p(int n) => w * n / Length;
             MappedMemoryRectangle rect(MemoryRange r)
             {
                 var width = l2p(r.End - r.Start);
-                var loc = new Point(x + l2p(r.Start), y);
+                var loc = new Point(l2p(r.Start), 0);
                 return new MappedMemoryRectangle(r) { Location = loc, Width = width, Height = h };
             }
             UcMemoryRange range(MemoryRangeBase r)
@@ -101,8 +93,10 @@ namespace Dsu.PLCConverter.UI
 
                     //if (r.Start == i)
                     var rr = rect(r);
-                    _logger.Debug($"Adding rectangle for {Identifier} at location={rr.Location}, Width={rr.Width}, Height={rr.Height}");
+                    var msg = $"Adding rectangle for {Identifier} at location={rr.Location}, Width={rr.Width}, Height={rr.Height}";
+                    _logger.Debug(msg);
                     _rangeControls.Add(rr);
+                    rr.BringToFront();
                 }
             }
             else
@@ -137,9 +131,25 @@ namespace Dsu.PLCConverter.UI
             _logger.Debug("Physical ranges");
             _rangeControls.Iter(r => _logger.Debug($"Location={r.Location}, Width={r.Width}, Height={r.Height}"));
         }
+
+        /// <summary>
+        /// 아직 할당되지 않은 영역을 click 한 경우의 처리
+        /// 이미 할당된 영역이거나 UcMemoryRange(active range selector) 가 영역은 click event 자체가 발생하지 않는다.
+        /// </summary>
+        private void UcMemoryBar_Click(object sender, EventArgs e)
+        {
+            /// physical to logical
+            int p2l(int x) => (int)(Length * x / Width);
+            var pt = PointToClient(MousePosition);
+
+            _logger.Debug($"ActiveRangeSelector={ActiveRangeSelector}, Click Position={pt}, Logical position={p2l(pt.X)}");
+        }
     }
 
 
+    /// <summary>
+    /// 이미 주소가 할당된 영역을 표시하는 rectangle
+    /// </summary>
     public class MappedMemoryRectangle
         : PictureBox
         , IMemoryRange
@@ -152,6 +162,7 @@ namespace Dsu.PLCConverter.UI
             Start = r.Start;
             End = r.End;
             BorderStyle = BorderStyle.FixedSingle;
+            BackColor = Color.Aqua;
         }
     }
 }

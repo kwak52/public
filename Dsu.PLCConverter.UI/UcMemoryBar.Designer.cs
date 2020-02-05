@@ -39,6 +39,7 @@
             this.Name = "UcMemoryBar";
             this.Size = new System.Drawing.Size(867, 97);
             this.Load += new System.EventHandler(this.UcMemoryBar_Load);
+            this.Click += new System.EventHandler(this.UcMemoryBar_Click);
             this.ResumeLayout(false);
 
         }
