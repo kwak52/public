@@ -37,6 +37,9 @@
             DevExpress.XtraEditors.RangeControlRange rangeControlRange1 = new DevExpress.XtraEditors.RangeControlRange();
             DevExpress.XtraEditors.RangeControlRange rangeControlRange2 = new DevExpress.XtraEditors.RangeControlRange();
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -50,6 +53,7 @@
             this.barEditItemXg5kPLC = new DevExpress.XtraBars.BarEditItem();
             this.repositoryItemLookUpEditXg5k = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.btnTestRangeUI = new DevExpress.XtraBars.BarButtonItem();
+            this.btnShowBarContents = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -81,7 +85,9 @@
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList(this.components);
             this.action1 = new Dsu.Common.Utilities.Actions.Action(this.components);
-            this.btnShowBarContents = new DevExpress.XtraBars.BarButtonItem();
+            this.barSelectSampleRange = new DevExpress.XtraBars.BarButtonItem();
+            this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.btnExport = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -131,10 +137,12 @@
             this.barEditItemOmronPLC,
             this.barEditItemXg5kPLC,
             this.btnTestRangeUI,
-            this.btnShowBarContents});
+            this.btnShowBarContents,
+            this.barSelectSampleRange,
+            this.btnExport});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.Margin = new System.Windows.Forms.Padding(2);
-            this.ribbon.MaxItemId = 13;
+            this.ribbon.MaxItemId = 15;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -222,9 +230,17 @@
             this.btnTestRangeUI.Name = "btnTestRangeUI";
             this.btnTestRangeUI.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnTestRangeUI_ItemClick);
             // 
+            // btnShowBarContents
+            // 
+            this.btnShowBarContents.Caption = "Show bar contents";
+            this.btnShowBarContents.Id = 12;
+            this.btnShowBarContents.Name = "btnShowBarContents";
+            this.btnShowBarContents.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnShowBarContents_ItemClick);
+            // 
             // ribbonPage1
             // 
             this.ribbonPage1.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
+            this.ribbonPageGroupFile,
             this.ribbonPageGroupTemplates,
             this.ribbonPageGroupView,
             this.ribbonPageGroupTest});
@@ -252,6 +268,7 @@
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnGenerateJsonTemplate);
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnTestRangeUI);
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnShowBarContents);
+            this.ribbonPageGroupTest.ItemLinks.Add(this.barSelectSampleRange);
             this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
             this.ribbonPageGroupTest.Text = "Test";
             // 
@@ -409,6 +426,7 @@
             // 
             this.ucMemoryBarXg5k.BackColor = System.Drawing.SystemColors.Control;
             this.ucMemoryBarXg5k.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ucMemoryBarXg5k.Identifier = null;
             this.ucMemoryBarXg5k.Location = new System.Drawing.Point(161, 114);
             this.ucMemoryBarXg5k.Margin = new System.Windows.Forms.Padding(2);
             this.ucMemoryBarXg5k.MemorySection = null;
@@ -421,6 +439,7 @@
             // 
             this.ucMemoryBarOmron.BackColor = System.Drawing.SystemColors.Control;
             this.ucMemoryBarOmron.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ucMemoryBarOmron.Identifier = null;
             this.ucMemoryBarOmron.Location = new System.Drawing.Point(161, 22);
             this.ucMemoryBarOmron.Margin = new System.Windows.Forms.Padding(2);
             this.ucMemoryBarOmron.MemorySection = null;
@@ -550,12 +569,31 @@
             this.action1.Visible = true;
             this.action1.Update += new System.EventHandler(this.action1_Update);
             // 
-            // btnShowBarContents
+            // barSelectSampleRange
             // 
-            this.btnShowBarContents.Caption = "Show bar contents";
-            this.btnShowBarContents.Id = 12;
-            this.btnShowBarContents.Name = "btnShowBarContents";
-            this.btnShowBarContents.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnShowBarContents_ItemClick);
+            this.barSelectSampleRange.Caption = "Select Sample Range";
+            this.barSelectSampleRange.Id = 13;
+            this.barSelectSampleRange.Name = "barSelectSampleRange";
+            this.barSelectSampleRange.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barSelectSampleRange_ItemClick);
+            // 
+            // ribbonPageGroupFile
+            // 
+            this.ribbonPageGroupFile.ItemLinks.Add(this.btnExport);
+            this.ribbonPageGroupFile.Name = "ribbonPageGroupFile";
+            this.ribbonPageGroupFile.Text = "File";
+            // 
+            // btnExport
+            // 
+            this.btnExport.Caption = "Export";
+            this.btnExport.Id = 14;
+            this.btnExport.Name = "btnExport";
+            toolTipTitleItem3.Text = "Export";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Exports current mapping to json file.";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem1);
+            this.btnExport.SuperTip = superToolTip3;
+            this.btnExport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExport_ItemClick);
             // 
             // FormAddressMapper
             // 
@@ -645,5 +683,8 @@
         private Dsu.Common.Utilities.Actions.ActionList actionList1;
         private Dsu.Common.Utilities.Actions.Action action1;
         private DevExpress.XtraBars.BarButtonItem btnShowBarContents;
+        private DevExpress.XtraBars.BarButtonItem barSelectSampleRange;
+        private DevExpress.XtraBars.BarButtonItem btnExport;
+        private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupFile;
     }
 }
