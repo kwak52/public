@@ -17,6 +17,7 @@ namespace Dsu.PLCConverter.UI
         : UserControl
         , IMemoryRange
     {
+        public UcMemoryBar Counterpart { get; set; }
         MemorySection _memorySection;
         List<Control> _rangeControls = new List<Control>();
         ILog _logger => Global.Logger;
@@ -50,6 +51,7 @@ namespace Dsu.PLCConverter.UI
         {
             SizeChanged += (s, e) => DrawRanges();
         }
+
 
         internal void ClearActiveRangeSelector()
         {
@@ -185,6 +187,29 @@ namespace Dsu.PLCConverter.UI
                 CreateActiveRangeSelector(rs, re);
             }
         }
+
+        /// <summary>
+        /// 할당된 영역을 제거
+        /// </summary>
+        internal void RemoveMemoryRange(MappedMemoryRectangle m)
+        {
+            _rangeControls.Remove(m);
+            Controls.Remove(m);
+            _ranges.Remove(m.MemoryRange);
+            DrawRanges();
+        }
+        /// <summary>
+        /// 할당된 영역을 제거
+        /// </summary>
+        internal void RemoveMemoryRange(MemoryRange m)
+        {
+            var mappedMemoryRectange =
+                _rangeControls
+                    .OfType<MappedMemoryRectangle>()
+                    .FirstOrDefault(c => c.MemoryRange.Start == m.Start && c.MemoryRange.End == m.End)
+                    ;
+            RemoveMemoryRange(mappedMemoryRectange);
+        }
     }
 
 
@@ -195,17 +220,43 @@ namespace Dsu.PLCConverter.UI
         : PictureBox
         , IMemoryRange
     {
+        /// <summary>
+        /// Logical Memory Range
+        /// </summary>
+        internal MemoryRange MemoryRange;
         public int Start { get; set; }
         public int End { get; set; }
         public int Length => End - Start;
         UcMemoryBar _parent;
-        public MappedMemoryRectangle(UcMemoryBar parent, IMemoryRange r)
+        ContextMenuStrip _contextMenuStrip;
+
+        void InitializeContextMenu()
+        {
+            var _contextMenuStrip = new ContextMenuStrip();
+            var items = _contextMenuStrip.Items;
+            items.Add(new ToolStripMenuItem("Remove mapping", Images.Clear, (o, a) =>
+            {
+                _parent.RemoveMemoryRange(this);
+                var countpartM = ((AllocatedMemoryRange)MemoryRange).Counterpart;
+                _parent.Counterpart.RemoveMemoryRange(countpartM);
+            }));
+            this.MouseClick += (s, e) => {
+                if (e.Button == MouseButtons.Right)
+                    _contextMenuStrip.Show(MousePosition);
+            };
+        }
+
+        public MappedMemoryRectangle(UcMemoryBar parent, MemoryRange r)
         {
             _parent = parent;
+            MemoryRange = r;
+
             Start = r.Start;
             End = r.End;
             BorderStyle = BorderStyle.FixedSingle;
             BackColor = Color.Aqua;
+
+            InitializeContextMenu();
 
             Click += (s, e) =>
             {
