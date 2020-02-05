@@ -21,7 +21,7 @@ namespace Dsu.PLCConverter.UI
         MemorySection _memorySection;
         List<Control> _rangeControls = new List<Control>();
         ILog _logger => Global.Logger;
-
+        public IEnumerable<Control> RangeControls => _rangeControls;
         /// <summary>
         /// 메모리 타입 자료 구조.  children 으로 MemoryRanges 를 가짐
         /// </summary>
@@ -38,6 +38,9 @@ namespace Dsu.PLCConverter.UI
         public int Start => MemorySection.Start;
         public int End => MemorySection.End;
         public int Length => End - Start;
+        /// <summary>
+        /// "OMRON" or "Xg5k"
+        /// </summary>
         public string Identifier { get; set; }
         public IMemoryRange SelectedRange { get; set; }
 
@@ -85,9 +88,9 @@ namespace Dsu.PLCConverter.UI
                 foreach (var r in _ranges)
                 {
                     Debug.Assert(i <= r.Start);
-
+                    Debug.Assert(r is AllocatedMemoryRange);
                     //if (r.Start == i)
-                    var rr = rect(r);
+                    var rr = rect((AllocatedMemoryRange)r);
                     var msg = $"Adding rectangle for {Identifier} at location={rr.Location}, Width={rr.Width}, Height={rr.Height}";
                     _logger.Debug(msg);
                     _rangeControls.Add(rr);
@@ -104,7 +107,7 @@ namespace Dsu.PLCConverter.UI
         /// physical to logical
         int p2l(int x) => (int)(Length * x / Width);
 
-        MappedMemoryRectangle rect(MemoryRange r)
+        MappedMemoryRectangle rect(AllocatedMemoryRange r)
         {
             var width = l2p(r.End - r.Start);
             var loc = new Point(l2p(r.Start), 0);
@@ -195,74 +198,8 @@ namespace Dsu.PLCConverter.UI
         {
             _rangeControls.Remove(m);
             Controls.Remove(m);
-            _ranges.Remove(m.MemoryRange);
+            _ranges.Remove(m.AllocatedMemoryRange);
             DrawRanges();
-        }
-        /// <summary>
-        /// 할당된 영역을 제거
-        /// </summary>
-        internal void RemoveMemoryRange(MemoryRange m)
-        {
-            var mappedMemoryRectange =
-                _rangeControls
-                    .OfType<MappedMemoryRectangle>()
-                    .FirstOrDefault(c => c.MemoryRange.Start == m.Start && c.MemoryRange.End == m.End)
-                    ;
-            RemoveMemoryRange(mappedMemoryRectange);
-        }
-    }
-
-
-    /// <summary>
-    /// 이미 주소가 할당된 영역을 표시하는 rectangle
-    /// </summary>
-    public class MappedMemoryRectangle
-        : PictureBox
-        , IMemoryRange
-    {
-        /// <summary>
-        /// Logical Memory Range
-        /// </summary>
-        internal MemoryRange MemoryRange;
-        public int Start { get; set; }
-        public int End { get; set; }
-        public int Length => End - Start;
-        UcMemoryBar _parent;
-        ContextMenuStrip _contextMenuStrip;
-
-        void InitializeContextMenu()
-        {
-            var _contextMenuStrip = new ContextMenuStrip();
-            var items = _contextMenuStrip.Items;
-            items.Add(new ToolStripMenuItem("Remove mapping", Images.Clear, (o, a) =>
-            {
-                _parent.RemoveMemoryRange(this);
-                var countpartM = ((AllocatedMemoryRange)MemoryRange).Counterpart;
-                _parent.Counterpart.RemoveMemoryRange(countpartM);
-            }));
-            this.MouseClick += (s, e) => {
-                if (e.Button == MouseButtons.Right)
-                    _contextMenuStrip.Show(MousePosition);
-            };
-        }
-
-        public MappedMemoryRectangle(UcMemoryBar parent, MemoryRange r)
-        {
-            _parent = parent;
-            MemoryRange = r;
-
-            Start = r.Start;
-            End = r.End;
-            BorderStyle = BorderStyle.FixedSingle;
-            BackColor = Color.Aqua;
-
-            InitializeContextMenu();
-
-            Click += (s, e) =>
-            {
-                _parent.ClearActiveRangeSelector();
-                Global.Logger.Debug($"Mapped rectangle clicked.");
-            };
         }
     }
 }

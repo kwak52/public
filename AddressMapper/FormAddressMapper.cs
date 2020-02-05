@@ -18,6 +18,7 @@ namespace AddressMapper
     {
         PLCs _plcs;
         PLCMapping _mapping;
+        public static FormAddressMapper TheMainForm { get; private set; }
         private PLCMapping Mapping
         {
             get { return _mapping; }
@@ -75,15 +76,14 @@ namespace AddressMapper
         {
             InitializeComponent();
             _plcs = plcs;
+            TheMainForm = this;
         }
 
         private void FormAddressMapper_Load(object sender, EventArgs args)
         {
             Logger.Info("FormAddressMapper launched.");
-            //WireDockPanelVisibility(action1, dockPanelMain, barCheckItemShowMain);
-            //WireDockPanelVisibility(action1, dockPanelLog, barCheckItemShowLog);
-            //WireDockPanelVisibility(action1, dockPanelSource, barCheckItemSource);
-            //WireDockPanelVisibility(action1, dockPanelTarget, barCheckItemTarget);
+            WireDockPanelVisibility(action1, dockPanelMain, barCheckItemShowMain);
+            WireDockPanelVisibility(action1, dockPanelLog, barCheckItemShowLog);
 
             ucMemoryBarOmron.Counterpart = ucMemoryBarXg5k;
             ucMemoryBarXg5k.Counterpart = ucMemoryBarOmron;
@@ -123,8 +123,19 @@ namespace AddressMapper
             ucMemoryBarOmron.Identifier = "OMRON";
             ucMemoryBarXg5k.Identifier = "Xg5k";
 
-            dockPanelSource.Visibility = DockVisibility.Hidden;
-            dockPanelTarget.Visibility = DockVisibility.Hidden;
+            Subjects.MemorySectionChangeRequestSubject.Subscribe(tpl =>
+            {
+                var ucMemoryBar = tpl.Item1;
+                var memTypeName = tpl.Item2;
+                if (ucMemoryBar == ucMemoryBarOmron)
+                {
+                    lookUpEditOmronMemory.EditValue = _mapping.OmronPLC.Memories.FirstOrDefault(m => m.Name == memTypeName);
+                }
+                else if (ucMemoryBar == ucMemoryBarXg5k)
+                {
+                    lookUpEditXg5kMemory.EditValue = _mapping.Xg5kPLC.Memories.FirstOrDefault(m => m.Name == memTypeName);
+                }
+            });
 
 
             /// 옴론 / 산전 memory bar 두개를 상대적인 크기 반영
