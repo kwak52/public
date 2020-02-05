@@ -38,17 +38,32 @@ namespace Dsu.PLCConverter.UI
         public int End => MemorySection.End;
         public int Length => End - Start;
         public string Identifier { get; set; }
+        public IMemoryRange SelectedRange { get; set; }
 
         public UcMemoryBar()
         {
             InitializeComponent();
         }
 
-        public IMemoryRange SelectedRange { get; set; }
 
         private void UcMemoryBar_Load(object sender, EventArgs args)
         {
             SizeChanged += (s, e) => DrawRanges();
+        }
+
+        internal void ClearActiveRangeSelector()
+        {
+            _rangeControls.Remove(ActiveRangeSelector);
+            Controls.Remove(ActiveRangeSelector);
+            ActiveRangeSelector = null;
+        }
+        void CreateActiveRangeSelector(int start, int end)
+        {
+            var r = new MemoryRangeBase(start, end);
+            var ucRange = range(r);
+            _rangeControls.Add(ucRange);
+            Controls.Add(ucRange);
+            ActiveRangeSelector = ucRange;
         }
 
         public void DrawRanges()
@@ -61,29 +76,7 @@ namespace Dsu.PLCConverter.UI
             ActiveRangeSelector = null;
             _rangeControls.Iter(c => Controls.Remove(c));
             _rangeControls.Clear();
-            (var w, var h) = (Width, Height);
 
-            /// logical to physical
-            int l2p(int n) => w * n / Length;
-            MappedMemoryRectangle rect(MemoryRange r)
-            {
-                var width = l2p(r.End - r.Start);
-                var loc = new Point(l2p(r.Start), 0);
-                return new MappedMemoryRectangle(r) { Location = loc, Width = width, Height = h };
-            }
-            UcMemoryRange range(MemoryRangeBase r)
-            {
-                var width = l2p(r.End - r.Start);
-                var loc = new Point(l2p(r.Start), 0);
-                var ucRange = new UcMemoryRange() { Location = loc, Width = width, Height = h };
-                ucRange.Minimum = r.Start;
-                ucRange.Maximum = r.End;
-                // default : 전체 range 선택
-                ucRange.SelectedRange.Minimum = r.Start;
-                ucRange.SelectedRange.Maximum = r.End;
-                ActiveRangeSelector = ucRange;
-                return ucRange;
-            }
             var i = 0;
             if (_ranges.Any())
             {
@@ -104,21 +97,44 @@ namespace Dsu.PLCConverter.UI
 
             Controls.AddRange(_rangeControls.ToArray());
         }
+        /// logical to physical
+        int l2p(int n) => Width * n / Length;
+        /// physical to logical
+        int p2l(int x) => (int)(Length * x / Width);
+
+        MappedMemoryRectangle rect(MemoryRange r)
+        {
+            var width = l2p(r.End - r.Start);
+            var loc = new Point(l2p(r.Start), 0);
+            return new MappedMemoryRectangle(this, r) { Location = loc, Width = width, Height = Height };
+        }
+        UcMemoryRange range(MemoryRangeBase r)
+        {
+            var width = l2p(r.End - r.Start);
+            var loc = new Point(l2p(r.Start), 0);
+            var ucRange = new UcMemoryRange() { Location = loc, Width = width, Height = Height };
+            ucRange.Minimum = r.Start;
+            ucRange.Maximum = r.End;
+            // default : 전체 range 선택
+            ucRange.SelectedRange.Minimum = r.Start;
+            ucRange.SelectedRange.Maximum = r.End;
+            ActiveRangeSelector = ucRange;
+            return ucRange;
+        }
 
         /// <summary>
         /// 활성 range 구간을 allocation 으로 처리
         /// </summary>
-        public void ActiveRangeAllocated()
+        public AllocatedMemoryRange ActiveRangeAllocated()
         {
             _logger.Debug($"Allocating Ranges for {Identifier}");
 
             var r = ActiveRangeSelector.ActiveRange;
-            _ranges.Add(new AllocatedMemoryRange(r.Start, r.End, MemorySection));
-            _rangeControls.Remove(ActiveRangeSelector);
-            Controls.Remove(ActiveRangeSelector);
-            ActiveRangeSelector = null;
-
+            var allocatedRange = new AllocatedMemoryRange(r.Start, r.End, MemorySection);
+            _ranges.Add(allocatedRange);
+            ClearActiveRangeSelector();
             DrawRanges();
+            return allocatedRange;
         }
 
         public void DumpMemoryRanges()
@@ -136,13 +152,38 @@ namespace Dsu.PLCConverter.UI
         /// 아직 할당되지 않은 영역을 click 한 경우의 처리
         /// 이미 할당된 영역이거나 UcMemoryRange(active range selector) 가 영역은 click event 자체가 발생하지 않는다.
         /// </summary>
-        private void UcMemoryBar_Click(object sender, EventArgs e)
+        private void UcMemoryBar_Click(object sender, EventArgs args)
         {
-            /// physical to logical
-            int p2l(int x) => (int)(Length * x / Width);
             var pt = PointToClient(MousePosition);
 
-            _logger.Debug($"ActiveRangeSelector={ActiveRangeSelector}, Click Position={pt}, Logical position={p2l(pt.X)}");
+            var lpx = p2l(pt.X);
+            _logger.Debug($"ActiveRangeSelector={ActiveRangeSelector}, Click Position={pt}, Logical position={lpx}");
+            ClearActiveRangeSelector();
+
+            Debug.Assert(_ranges.Any());
+            var allS = _ranges.Select(r => r.Start).ToArray();
+            var allE = _ranges.Select(r => r.End).ToArray();
+            /// 클릭한 지점 이후에만 할당되어 있는 경우 : 맨 앞에 빈공간 클릭
+            if (allS.ForAll(s => s > lpx))
+            {
+                var e = allS.Min() - 1;
+                _logger.Debug($"Clicked range=[0, {e}]");
+                CreateActiveRangeSelector(0, e);
+            }
+            /// 클릭한 지점 이전에만 할당된 경우 : 맨 뒤의 빈공간 클릭
+            else if (allE.ForAll(e => e < lpx))
+            {
+                var s = allE.Max() + 1;
+                _logger.Debug($"Clicked range=[{s}, {Length}]");
+                CreateActiveRangeSelector(s, Length);
+            }
+            else
+            {
+                var rs = allE.Where(e => e < lpx).Max() + 1;
+                var re = allS.Where(s => s > lpx).Min() - 1;
+                _logger.Debug($"Clicked range=[{rs}, {re}]");
+                CreateActiveRangeSelector(rs, re);
+            }
         }
     }
 
@@ -157,12 +198,20 @@ namespace Dsu.PLCConverter.UI
         public int Start { get; set; }
         public int End { get; set; }
         public int Length => End - Start;
-        public MappedMemoryRectangle(IMemoryRange r)
+        UcMemoryBar _parent;
+        public MappedMemoryRectangle(UcMemoryBar parent, IMemoryRange r)
         {
+            _parent = parent;
             Start = r.Start;
             End = r.End;
             BorderStyle = BorderStyle.FixedSingle;
             BackColor = Color.Aqua;
+
+            Click += (s, e) =>
+            {
+                _parent.ClearActiveRangeSelector();
+                Global.Logger.Debug($"Mapped rectangle clicked.");
+            };
         }
     }
 }

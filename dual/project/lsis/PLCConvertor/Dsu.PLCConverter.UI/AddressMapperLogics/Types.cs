@@ -92,16 +92,17 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
             Parent = parent;
         }
     }
+
+    /// <summary>
+    /// 할당된 메모리 구간
+    /// </summary>
     public class AllocatedMemoryRange : MemoryRange
     {
+        /// <summary>
+        /// mapping 의 상대편 구간
+        /// </summary>
+        public MemoryRange Counterpart { get; set; }
         public AllocatedMemoryRange(int start, int end, MemorySection parent)
-            : base(start, end, parent)
-        {
-        }
-    }
-    public class FreeMemoryRange : MemoryRange
-    {
-        public FreeMemoryRange(int start, int end, MemorySection parent)
             : base(start, end, parent)
         {
         }

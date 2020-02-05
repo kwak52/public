@@ -8,6 +8,7 @@ using Dsu.PLCConvertor.Common.Util;
 using System.IO;
 using Dsu.PLCConverter.UI;
 using System.Linq;
+using Dsu.Common.Utilities.ExtensionMethods;
 
 namespace AddressMapper
 {
@@ -37,10 +38,8 @@ namespace AddressMapper
 
             lookUpEditOmronMemory.Properties.DataSource = _mapping.OmronPLC.Memories;
             lookUpEditOmronMemory.EditValue = _mapping.OmronPLC.Memories[0];
-            lookUpEditXg5kMemory.Properties.DataSource = _mapping.Xg5kPLC.Memories;
-            lookUpEditXg5kMemory.EditValue = _mapping.Xg5kPLC.Memories[0];
-
-            //lookUpEditXg5kMemory.EditValueChanged();
+            lookUpEditXg5kMemory. Properties.DataSource = _mapping.Xg5kPLC.Memories;
+            lookUpEditXg5kMemory. EditValue = _mapping.Xg5kPLC.Memories[0];
 
             barEditItemOmronPLC.EditValue = _mapping.OmronPLC;
             barEditItemXg5kPLC.EditValue = _mapping.Xg5kPLC;
@@ -125,6 +124,7 @@ namespace AddressMapper
             dockPanelTarget.Visibility = DockVisibility.Hidden;
 
 
+            /// 옴론 / 산전 memory bar 두개를 상대적인 크기 반영
             void AdjustRelativeBarSize()
             {
                 Logger.Debug("AdjustRelativeBarSize called.");
@@ -149,7 +149,7 @@ namespace AddressMapper
             void PLCChanged(object sender1, EventArgs args1)
             {
                 var omron = (OmronPLC)barEditItemOmronPLC.EditValue;
-                var xg5k = (Xg5kPLC)barEditItemXg5kPLC.EditValue;
+                var xg5k  = (Xg5kPLC) barEditItemXg5kPLC. EditValue;
                 Mapping = new PLCMapping(omron, xg5k);
             }
         }
@@ -162,12 +162,19 @@ namespace AddressMapper
         private void btnAssign_Click(object sender, EventArgs e)
         {
             var o = ucMemoryBarOmron.ActiveRangeSelector.SelectedRange.ToMemoryRange();
-            var x = ucMemoryBarXg5k.ActiveRangeSelector.SelectedRange.ToMemoryRange();
+            var x = ucMemoryBarXg5k. ActiveRangeSelector.SelectedRange.ToMemoryRange();
             var om = ucMemoryBarOmron.MemorySection;
-            var xm = ucMemoryBarXg5k.MemorySection;
+            var xm = ucMemoryBarXg5k. MemorySection;
             Global.Logger.Info($"Mapping: {om.Name}[{o.Start} - {o.End}] -> {xm.Name}[{x.Start} - {x.End}]");
-            ucMemoryBarOmron.ActiveRangeAllocated();
-            ucMemoryBarXg5k.ActiveRangeAllocated();
+            var oma = ucMemoryBarOmron.ActiveRangeAllocated();
+            var xma = ucMemoryBarXg5k.ActiveRangeAllocated();
+            oma.Counterpart = xma;
+            xma.Counterpart = oma;
+        }
+
+        private void btnExport_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
         }
 
         private void action1_Update(object sender, EventArgs e)
@@ -202,7 +209,25 @@ namespace AddressMapper
         private void btnShowBarContents_ItemClick(object sender, ItemClickEventArgs e)
         {
             ucMemoryBarOmron.DumpMemoryRanges();
-            ucMemoryBarXg5k.DumpMemoryRanges();
+            ucMemoryBarXg5k. DumpMemoryRanges();
+
+            _mapping.OmronPLC.Memories.Iter(m => {
+
+                m.MemoryRanges.OfType<AllocatedMemoryRange>().Iter(a =>
+                {
+                    var c = a.Counterpart;
+                    Global.Logger.Debug($"{m.Name}[{a.Start}:{a.End}] => {c.Parent.Name}[{c.Start}:{c.End}]");
+                });
+            });
         }
+
+        private void barSelectSampleRange_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            ucMemoryBarOmron.ActiveRangeSelector.SelectedRange.Minimum = 1024;
+            ucMemoryBarOmron.ActiveRangeSelector.SelectedRange.Maximum = 1024*2 - 1;
+            ucMemoryBarXg5k. ActiveRangeSelector.SelectedRange.Minimum = 1024;
+            ucMemoryBarXg5k. ActiveRangeSelector.SelectedRange.Maximum = 1024*2 - 1;
+        }
+
     }
 }
