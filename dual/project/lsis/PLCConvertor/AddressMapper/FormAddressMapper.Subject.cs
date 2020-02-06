@@ -19,18 +19,18 @@ namespace AddressMapper
         void InitializeSubjects()
         {
             /// 메모리 타입 변경시 호출 됨
-            Subjects.MemorySectionChangeRequestSubject.Subscribe(tpl =>
+            Subjects.MemorySectionChangeRequestSubject.Subscribe((Action<Tuple<PLCVendor, string>>)(tpl =>
             {
                 var plcType = tpl.Item1;
                 var memType = tpl.Item2;
                 if (plcType == PLCVendor.Omron)
-                    lookUpEditOmronMemory.EditValue = _mapping.OmronPLC.Memories.FirstOrDefault(m => m.Name == memType);
+                    lookUpEditOmronMemory.EditValue = Enumerable.FirstOrDefault<OmronMemorySection>(_mapping.OmronPLC.Memories, (Func<OmronMemorySection, bool>)(m => (bool)(m.Name == memType)));
                 else if (plcType == PLCVendor.LSIS)
                     lookUpEditXg5kMemory.EditValue = _mapping.Xg5kPLC.Memories.FirstOrDefault(m => m.Name == memType);
-            });
+            }));
 
             /// 두 PLC 간 기종 변경시 호출 됨
-            Subjects.PLCMappingChangeRequestSubject.Subscribe(newMapping =>
+            Subjects.PLCMappingChangeRequestSubject.Subscribe((Action<PLCMapping>)(newMapping =>
             {
                 _logger.Info("PLC types changed.");
                 Clear();
@@ -47,7 +47,7 @@ namespace AddressMapper
 
                 barEditItemOmronPLC.EditValue = newMapping.OmronPLC;
                 barEditItemXg5kPLC.EditValue = newMapping.Xg5kPLC;
-            });
+            }));
         }
 
         void Clear()

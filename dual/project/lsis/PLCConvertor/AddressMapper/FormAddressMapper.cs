@@ -13,6 +13,8 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using Dsu.PLCConvertor.Common;
 using log4net;
+using Dsu.PLCConvertor.Common.Internal;
+using System.Configuration;
 
 namespace AddressMapper
 {
@@ -66,18 +68,23 @@ namespace AddressMapper
             action.Update += (s, e) => checkItem.Checked = dockPanel.Visibility == DockVisibility.Visible;
         }
 
-        public FormAddressMapper(PLCs plcs)
+        public FormAddressMapper()
         {
             InitializeComponent();
-            _plcs = plcs;
             TheMainForm = this;
         }
 
         private void FormAddressMapper_Load(object sender, EventArgs args)
         {
             Logger.Info("FormAddressMapper launched.");
+            var plcHardwareSettingFile = ConfigurationManager.AppSettings["plcHardwareSettingFile"];
+            _plcs = LoadPLCHardwareSetting(plcHardwareSettingFile);
+
             WireDockPanelVisibility(action1, dockPanelMain, barCheckItemShowMain);
             WireDockPanelVisibility(action1, dockPanelLog, barCheckItemShowLog);
+            WireDockPanelVisibility(action1, dockPanelGridRanged, barCheckItemGridRanged);
+            WireDockPanelVisibility(action1, dockPanelGridOneToOne, barCheckItemGridOneToOne);
+            
 
             ucMemoryBarOmron.Counterpart = ucMemoryBarXg5k;
             ucMemoryBarXg5k.Counterpart = ucMemoryBarOmron;
@@ -88,7 +95,7 @@ namespace AddressMapper
             repositoryItemLookUpEditXg5k.DataSource = _plcs.XG5000PLCs;
             repositoryItemLookUpEditXg5k.DisplayMember = "PLCType";
             repositoryItemLookUpEditOmron.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.Omron);
-            repositoryItemLookUpEditXg5k.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.Omron);
+            repositoryItemLookUpEditXg5k.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.LSIS);
 
             lookUpEditOmronMemory.Properties.DisplayMember = "Name";
             lookUpEditXg5kMemory.Properties.DisplayMember = "Name";
@@ -177,6 +184,8 @@ namespace AddressMapper
                     _logger.Debug($"{oMemTypeName}[{omr.Start}:{omr.End}] => {xMemTypeName}[{xmr.Start}:{xmr.End}]");
                 }
             }
+
+            SerializeRules();
         }
 
         private void action1_Update(object sender, EventArgs e)
@@ -229,6 +238,20 @@ namespace AddressMapper
             ucMemoryBarOmron.ActiveRangeSelector.SelectedRange.Maximum = 1024*2 - 1;
             ucMemoryBarXg5k. ActiveRangeSelector.SelectedRange.Minimum = 1024;
             ucMemoryBarXg5k. ActiveRangeSelector.SelectedRange.Maximum = 1024*2 - 1;
+        }
+
+        private void btnLoadPLCSettings_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            using (var ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "JSON file(*.json)|*.json|All files(*.*)|*.*";
+                ofd.FileName = ConfigurationManager.AppSettings["plcHardwareSettingFile"];
+                if (ofd.ShowDialog() != DialogResult.OK)
+                    return;
+
+                var plcHardwareSettingFile = ofd.FileName;
+                _plcs = LoadPLCHardwareSetting(plcHardwareSettingFile);
+            }
         }
     }
 }

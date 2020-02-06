@@ -8,6 +8,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
 {
     public class PLC
     {
+        [JsonIgnore]
         public List<MemorySection> MemorySections = new List<MemorySection>();
         public PLC(IEnumerable<MemorySection> memorySections)
         {
@@ -24,15 +25,15 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
     /// </summary>
     public class OmronPLC : PLC
     {
-        List<OmronMemorySection> _memories = new List<OmronMemorySection>();
-        public string PLCType { get; set; }
         [Browsable(false)]
-        public OmronMemorySection[] Memories => _memories.ToArray();
+        public List<OmronMemorySection> Memories { get; set; } = new List<OmronMemorySection>();
+        public string PLCType { get; set; }
+
         public OmronPLC(string plcType, IEnumerable<OmronMemorySection> memSections)
             : base(memSections)
         {
             PLCType = plcType;
-            _memories = memSections.ToList();
+            Memories = memSections.ToList();
         }
 
         [JsonConstructor] OmronPLC() { }
@@ -44,16 +45,15 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
     /// </summary>
     public class Xg5kPLC : PLC
     {
-        List<Xg5kMemorySection> _memories = new List<Xg5kMemorySection>();
-        public string PLCType { get; set; }
         [Browsable(false)]
-        public Xg5kMemorySection[] Memories => _memories.ToArray();
+        public List<Xg5kMemorySection> Memories { get; set; } = new List<Xg5kMemorySection>();
+        public string PLCType { get; set; }
 
         public Xg5kPLC(string plcType, IEnumerable<Xg5kMemorySection> memSections)
             : base(memSections)
         {
             PLCType = plcType;
-            _memories = memSections.ToList();
+            Memories = memSections.ToList();
         }
 
         [JsonConstructor] Xg5kPLC() { }
@@ -66,15 +66,13 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
     /// </summary>
     public class PLCs
     {
-        List<OmronPLC> _omronPLCs = new List<OmronPLC>();
-        List<Xg5kPLC> _xg5000PLCs = new List<Xg5kPLC>();
+        public List<OmronPLC> OmronPLCs { get; set; } = new List<OmronPLC>();
+        public List<Xg5kPLC> XG5000PLCs { get; set; } = new List<Xg5kPLC>();
 
-        public OmronPLC[] OmronPLCs => _omronPLCs.ToArray();
-        public Xg5kPLC[] XG5000PLCs => _xg5000PLCs.ToArray();
         public PLCs(IEnumerable<OmronPLC> omronPLCs, IEnumerable<Xg5kPLC> xg5kPLCs)
         {
-            _omronPLCs = omronPLCs.ToList();
-            _xg5000PLCs = xg5kPLCs.ToList();
+            OmronPLCs = omronPLCs.ToList();
+            XG5000PLCs = xg5kPLCs.ToList();
         }
         [JsonConstructor] PLCs() { }
 

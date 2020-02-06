@@ -1,4 +1,12 @@
-﻿using Dsu.PLCConverter.UI.AddressMapperLogics;
+﻿using Dsu.PLCConverter.UI;
+using Dsu.PLCConverter.UI.AddressMapperLogics;
+using Dsu.PLCConvertor.Common.Internal;
+using Dsu.PLCConvertor.Common.Util;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 
 namespace AddressMapper
 {
@@ -25,6 +33,32 @@ namespace AddressMapper
 
     partial class FormAddressMapper
     {
+        IEnumerable<IAddressConvertRule> GenerateRules()
+        {
+            foreach ( var m in _rangeMappings)
+            {
+                var o = m.Omron;
+                var x = m.Xg5k;
+                var srcPattern = $"{o.Parent.Name}(%d)";
+                var tgtPattern = $"{x.Parent.Name}(%d)";
+                var srcRange = new[] { Tuple.Create(o.Start, o.End) };
+                var tgtArgsRepr = new[] { "$0" };
+
+                var r = new AddressConvertRule(srcPattern, srcRange, tgtPattern, tgtArgsRepr);
+                yield return r;
+            }
+        }
+
+        void SerializeRules()
+        {
+            var rules = GenerateRules();
+            var serializer = new AddressConvertorSerializer(rules);
+            var json = JsonConvert.SerializeObject(serializer, MyJsonSerializer.JsonSettingsSimple);
+            var addressMappingJsonFile = ConfigurationManager.AppSettings["addressMappingRuleFile"];
+            File.WriteAllText(addressMappingJsonFile, json);
+            MsgBox.Info($"Saved to {addressMappingJsonFile}");
+        }
+
         void InitializeGrids()
         {
 

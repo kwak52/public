@@ -102,6 +102,9 @@
     <Compile Include="FormAddressMapper.Log.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormAddressMapper.Serialize.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormAddressMapper.Subject.cs">
       <SubType>Form</SubType>
     </Compile>

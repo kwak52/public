@@ -1,0 +1,152 @@
+{
+  "OmronPLCs": [
+    {
+      "PLCType": "CJ1H",
+      "Memories": [
+        {
+          "MappablesNames": [
+            "P"
+          ],
+          "Name": "PIO",
+          "Start": 0,
+          "End": 1024,
+          "Length": 1024
+        },
+        {
+          "MappablesNames": [
+            "M",
+            "D"
+          ],
+          "Name": "D",
+          "Start": 0,
+          "End": 10240,
+          "Length": 10240
+        },
+        {
+          "MappablesNames": [
+            "M",
+            "D"
+          ],
+          "Name": "J",
+          "Start": 0,
+          "End": 2048,
+          "Length": 2048
+        },
+        {
+          "MappablesNames": [
+            "M",
+            "D"
+          ],
+          "Name": "K",
+          "Start": 0,
+          "End": 512,
+          "Length": 512
+        }
+      ]
+    },
+    {
+      "PLCType": "CJ2H",
+      "Memories": [
+        {
+          "MappablesNames": [
+            "P"
+          ],
+          "Name": "PIO",
+          "Start": 0,
+          "End": 10240,
+          "Length": 10240
+        },
+        {
+          "MappablesNames": [
+            "M",
+            "D"
+          ],
+          "Name": "D",
+          "Start": 0,
+          "End": 1024,
+          "Length": 1024
+        },
+        {
+          "MappablesNames": [
+            "M",
+            "D"
+          ],
+          "Name": "J",
+          "Start": 0,
+          "End": 2048,
+          "Length": 2048
+        },
+        {
+          "MappablesNames": [
+            "M",
+            "D"
+          ],
+          "Name": "K",
+          "Start": 0,
+          "End": 512,
+          "Length": 512
+        }
+      ]
+    }
+  ],
+  "XG5000PLCs": [
+    {
+      "PLCType": "Xg5k1H",
+      "Memories": [
+        {
+          "Name": "P",
+          "Start": 0,
+          "End": 10240,
+          "Length": 10240
+        },
+        {
+          "Name": "M",
+          "Start": 0,
+          "End": 10240,
+          "Length": 10240
+        },
+        {
+          "Name": "L",
+          "Start": 0,
+          "End": 1024,
+          "Length": 1024
+        }
+      ]
+    },
+    {
+      "PLCType": "Xg5k2H",
+      "Memories": [
+        {
+          "Name": "P",
+          "Start": 0,
+          "End": 1024,
+          "Length": 1024
+        },
+        {
+          "Name": "M",
+          "Start": 0,
+          "End": 1024,
+          "Length": 1024
+        },
+        {
+          "Name": "X",
+          "Start": 0,
+          "End": 10240,
+          "Length": 10240
+        },
+        {
+          "Name": "Y",
+          "Start": 0,
+          "End": 512,
+          "Length": 512
+        },
+        {
+          "Name": "A",
+          "Start": 0,
+          "End": 16,
+          "Length": 16
+        }
+      ]
+    }
+  ]
+}

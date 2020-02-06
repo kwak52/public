@@ -80,12 +80,24 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         /// <summary>
         /// Mapping 가능한 XG5000의 memory 영역 이름
         /// </summary>
-        public List<string> MappablesNames = new List<string>();
+        public List<string> MappablesNames { get; set; } = new List<string>();
+
+        //List<string> _mappablesNames = new List<string>();
+        ///// <summary>
+        ///// Mapping 가능한 XG5000의 memory 영역 이름
+        ///// </summary>
+        //public string[] MappablesNames
+        //{
+        //    get => _mappablesNames.ToArray();
+        //    set { _mappablesNames.Clear(); _mappablesNames.AddRange(value); }
+        //}
+
         public OmronMemorySection(string name, int start, int end, IEnumerable<string> mappableNames)
             : base(name, start, end)
         {
             MappablesNames = mappableNames.ToList();
         }
+        [JsonConstructor] OmronMemorySection() { }
     }
 
     public class MemoryRange : MemoryRangeBase

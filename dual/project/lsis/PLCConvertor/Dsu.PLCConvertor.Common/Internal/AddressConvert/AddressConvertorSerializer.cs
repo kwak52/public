@@ -16,7 +16,7 @@ namespace Dsu.PLCConvertor.Common.Internal
     /// <summary>
     /// 주소 변환 규칙을 serialize 하기 위한 내부 class
     /// </summary>
-    class AddressConvertorSerializer
+    public class AddressConvertorSerializer
     {
         /// <summary>
         /// 1:1 대응 규칙
