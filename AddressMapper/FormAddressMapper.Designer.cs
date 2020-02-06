@@ -38,12 +38,15 @@
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddressMapper));
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barCheckItemShowLog = new DevExpress.XtraBars.BarCheckItem();
-            this.barCheckItemSource = new DevExpress.XtraBars.BarCheckItem();
-            this.barCheckItemTarget = new DevExpress.XtraBars.BarCheckItem();
+            this.barCheckItemGridOneToOne = new DevExpress.XtraBars.BarCheckItem();
+            this.barCheckItemGridRanged = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemShowMain = new DevExpress.XtraBars.BarCheckItem();
             this.btnGenerateJsonTemplate = new DevExpress.XtraBars.BarButtonItem();
             this.barEditItemOmronPLC = new DevExpress.XtraBars.BarEditItem();
@@ -99,6 +102,7 @@
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList(this.components);
             this.action1 = new Dsu.Common.Utilities.Actions.Action(this.components);
+            this.btnLoadPLCSettings = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -146,8 +150,8 @@
             this.ribbon.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbon.ExpandCollapseItem,
             this.barCheckItemShowLog,
-            this.barCheckItemSource,
-            this.barCheckItemTarget,
+            this.barCheckItemGridOneToOne,
+            this.barCheckItemGridRanged,
             this.barCheckItemShowMain,
             this.btnGenerateJsonTemplate,
             this.barEditItemOmronPLC,
@@ -155,10 +159,11 @@
             this.btnTestRangeUI,
             this.btnShowBarContents,
             this.btnSelectSampleRange,
-            this.btnExport});
+            this.btnExport,
+            this.btnLoadPLCSettings});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.Margin = new System.Windows.Forms.Padding(2);
-            this.ribbon.MaxItemId = 16;
+            this.ribbon.MaxItemId = 17;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -175,19 +180,19 @@
             this.barCheckItemShowLog.Id = 1;
             this.barCheckItemShowLog.Name = "barCheckItemShowLog";
             // 
-            // barCheckItemSource
+            // barCheckItemGridOneToOne
             // 
-            this.barCheckItemSource.Caption = "Omron";
-            this.barCheckItemSource.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
-            this.barCheckItemSource.Id = 2;
-            this.barCheckItemSource.Name = "barCheckItemSource";
+            this.barCheckItemGridOneToOne.Caption = "One to one";
+            this.barCheckItemGridOneToOne.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemGridOneToOne.Id = 2;
+            this.barCheckItemGridOneToOne.Name = "barCheckItemGridOneToOne";
             // 
-            // barCheckItemTarget
+            // barCheckItemGridRanged
             // 
-            this.barCheckItemTarget.Caption = "XG5000";
-            this.barCheckItemTarget.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
-            this.barCheckItemTarget.Id = 3;
-            this.barCheckItemTarget.Name = "barCheckItemTarget";
+            this.barCheckItemGridRanged.Caption = "Ranged";
+            this.barCheckItemGridRanged.CheckBoxVisibility = DevExpress.XtraBars.CheckBoxVisibility.BeforeText;
+            this.barCheckItemGridRanged.Id = 3;
+            this.barCheckItemGridRanged.Name = "barCheckItemGridRanged";
             // 
             // barCheckItemShowMain
             // 
@@ -286,6 +291,7 @@
             // ribbonPageGroupFile
             // 
             this.ribbonPageGroupFile.ItemLinks.Add(this.btnExport);
+            this.ribbonPageGroupFile.ItemLinks.Add(this.btnLoadPLCSettings);
             this.ribbonPageGroupFile.Name = "ribbonPageGroupFile";
             this.ribbonPageGroupFile.Text = "File";
             // 
@@ -300,8 +306,8 @@
             // 
             this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemShowMain);
             this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemShowLog);
-            this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemSource);
-            this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemTarget);
+            this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemGridOneToOne);
+            this.ribbonPageGroupView.ItemLinks.Add(this.barCheckItemGridRanged);
             this.ribbonPageGroupView.Name = "ribbonPageGroupView";
             this.ribbonPageGroupView.Text = "View";
             // 
@@ -416,6 +422,7 @@
             this.ucMemoryBarXg5k.Margin = new System.Windows.Forms.Padding(2);
             this.ucMemoryBarXg5k.MemorySection = null;
             this.ucMemoryBarXg5k.Name = "ucMemoryBarXg5k";
+            this.ucMemoryBarXg5k.PLCVendor = Dsu.PLCConvertor.Common.PLCVendor.LSIS;
             this.ucMemoryBarXg5k.SelectedRange = null;
             this.ucMemoryBarXg5k.Size = new System.Drawing.Size(1044, 88);
             this.ucMemoryBarXg5k.TabIndex = 9;
@@ -429,6 +436,7 @@
             this.ucMemoryBarOmron.Margin = new System.Windows.Forms.Padding(2);
             this.ucMemoryBarOmron.MemorySection = null;
             this.ucMemoryBarOmron.Name = "ucMemoryBarOmron";
+            this.ucMemoryBarOmron.PLCVendor = Dsu.PLCConvertor.Common.PLCVendor.LSIS;
             this.ucMemoryBarOmron.SelectedRange = null;
             this.ucMemoryBarOmron.Size = new System.Drawing.Size(1044, 88);
             this.ucMemoryBarOmron.TabIndex = 8;
@@ -729,6 +737,19 @@
             this.action1.Visible = true;
             this.action1.Update += new System.EventHandler(this.action1_Update);
             // 
+            // btnLoadPLCSettings
+            // 
+            this.btnLoadPLCSettings.Caption = "Load PLC settings";
+            this.btnLoadPLCSettings.Id = 16;
+            this.btnLoadPLCSettings.Name = "btnLoadPLCSettings";
+            toolTipTitleItem4.Text = "Load PLC settings";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Load PLC H/W settings from json file.";
+            superToolTip4.Items.Add(toolTipTitleItem4);
+            superToolTip4.Items.Add(toolTipItem2);
+            this.btnLoadPLCSettings.SuperTip = superToolTip4;
+            this.btnLoadPLCSettings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLoadPLCSettings_ItemClick);
+            // 
             // FormAddressMapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -787,8 +808,8 @@
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView tabbedView1;
         private Dsu.PLCConverter.UI.UcPanelLog ucPanelLog1;
         private DevExpress.XtraBars.BarCheckItem barCheckItemShowLog;
-        private DevExpress.XtraBars.BarCheckItem barCheckItemSource;
-        private DevExpress.XtraBars.BarCheckItem barCheckItemTarget;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemGridOneToOne;
+        private DevExpress.XtraBars.BarCheckItem barCheckItemGridRanged;
         private DevExpress.XtraBars.Docking.DockPanel dockPanelMain;
         private DevExpress.XtraBars.Docking.ControlContainer controlContainer2;
         private DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup documentGroup1;
@@ -837,5 +858,6 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandO;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandX;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandEtc;
+        private DevExpress.XtraBars.BarButtonItem btnLoadPLCSettings;
     }
 }

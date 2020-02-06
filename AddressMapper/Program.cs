@@ -35,8 +35,7 @@ namespace AddressMapper
 
 
             var root = ((log4net.Repository.Hierarchy.Hierarchy)log4net.LogManager.GetRepository()).Root;
-            var plcs = PLCs.CreateSamplePLCs();
-            var form = new FormAddressMapper(plcs);
+            var form = new FormAddressMapper();
             root.AddAppender(form);
 
 

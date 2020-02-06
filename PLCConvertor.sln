@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 	ProjectSection(SolutionItems) = preProject
 		bin\Config\AddressMappingRule.json = bin\Config\AddressMappingRule.json
 		Documents\Bugs.txt = Documents\Bugs.txt
+		bin\Config\PLCTypes.json = bin\Config\PLCTypes.json
 		Documents\ReleaseNote.txt = Documents\ReleaseNote.txt
 		bin\Config\TemporaryAddressAllocatorFile.json = bin\Config\TemporaryAddressAllocatorFile.json
 		Documents\TestRung.cxp = Documents\TestRung.cxp
