@@ -88,7 +88,6 @@ namespace AddressMapper
                 File.WriteAllText(sfd.FileName, json);
                 MsgBox.Info($"Saved to {sfd.FileName}");
             }
-
         }
 
         void InitializeGrids()

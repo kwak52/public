@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.numericRangeControlClient1 = new DevExpress.XtraEditors.NumericRangeControlClient();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.customRangeControl1 = new Dsu.PLCConverter.UI.CustomRangeControl();
             ((System.ComponentModel.ISupportInitialize)(this.customRangeControl1)).BeginInit();
             this.SuspendLayout();
@@ -40,12 +38,6 @@
             this.numericRangeControlClient1.Maximum = 10240;
             this.numericRangeControlClient1.RangeControl = null;
             this.numericRangeControlClient1.RulerDelta = 1024;
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // customRangeControl1
             // 
@@ -61,7 +53,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.customRangeControl1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "UcMemoryRange";
@@ -76,6 +67,5 @@
 
         private CustomRangeControl customRangeControl1;
         private DevExpress.XtraEditors.NumericRangeControlClient numericRangeControlClient1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

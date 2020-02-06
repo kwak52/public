@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using System.Diagnostics;
 using Dsu.PLCConverter.UI.AddressMapperLogics;
+using Dsu.PLCConvertor.Common;
+using Dsu.Common.Utilities.ExtensionMethods;
 
 namespace Dsu.PLCConverter.UI
 {
@@ -37,6 +39,8 @@ namespace Dsu.PLCConverter.UI
                 //textEditStart.EditValue = range.Minimum;
                 //textEditEnd.EditValue = range.Maximum;
             }
+            int GetSourceRangeLength() => ((UcMemoryBar)Parent).Counterpart.ActiveRangeSelector.SelectedRange.GetLength();
+
             _crc.RangeChanging += (s, e) => SetRange(e.Range);
             _crc.RangeChanged += (s, e) =>
             {
@@ -46,15 +50,45 @@ namespace Dsu.PLCConverter.UI
             ForeColor = Color.Maroon;
             SelectionType = RangeControlSelectionType.ThumbAndFlag;
 
-            var items = contextMenuStrip1.Items;
-            items.Add(new ToolStripMenuItem("숫자로 정확히 입력", Images.T, (o, a) =>
+            var omronMemBar = ((UcMemoryBar)Parent).Counterpart;
+            var cms = new ContextMenuStrip();
+            var items = cms.Items;
+            switch(((UcMemoryBar)Parent).PLCVendor)
             {
-                new FormRange(this).ShowDialog();
-            }));
+                case PLCVendor.LSIS:
+                    items.Add(new ToolStripMenuItem("숫자로 정확히 입력", Images.T, (o, a) =>
+                    {
+                        var srcLength = GetSourceRangeLength();
+                        new FormRange(this, srcLength).ShowDialog();
+                    }));
+                    items.Add(new ToolStripMenuItem("시작 기준 맞추기", Images.T, (o, a) =>
+                    {
+                        var srcLength = GetSourceRangeLength();
+                        SelectedRange.Minimum = Minimum;
+                        SelectedRange.Maximum = srcLength - 1;
+                    }));
+                    items.Add(new ToolStripMenuItem("끝 기준 맞추기", Images.T, (o, a) =>
+                    {
+                        var srcLength = GetSourceRangeLength();
+                        SelectedRange.Maximum = Maximum;
+                        SelectedRange.Minimum = Maximum - srcLength;
+                    }));
+                    break;
+                case PLCVendor.Omron:
+                    items.Add(new ToolStripMenuItem("숫자로 정확히 입력", Images.T, (o, a) =>
+                    {
+                        new FormRange(this).ShowDialog();
+                    }));
+                    break;
+                default:
+                    throw new Exception("Unknown case.");
+            }
+
             _crc.MouseClick += (s, e) => {
                 if (e.Button == MouseButtons.Right)
-                    _crc.ContextMenuStrip.Show();
+                    cms.Show(MousePosition);
             };
+
             _crc.Dock = DockStyle.Fill;
         }
 
@@ -78,6 +112,9 @@ namespace Dsu.PLCConverter.UI
                 return null;
             return new MemoryRangeBase((int)selectedRange.Minimum, (int)selectedRange.Maximum);
         }
+
+        public static int GetLength(this RangeControlRange range) => (int)range.Maximum - (int)range.Minimum;
+
     }
 
     /// <summary>
