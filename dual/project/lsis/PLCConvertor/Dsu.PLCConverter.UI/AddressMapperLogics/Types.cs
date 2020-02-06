@@ -62,6 +62,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         /// <summary>
         /// 기본적으로 null 값을 가짐.  null 이면 base.Name 값을 따름.  NonNull 로 지정되면 pattern 생성시 이 값을 이용
         /// </summary>
+        [Browsable(false)]
         public string PatternNameOverride { get; set; }
 
         /// <summary>
@@ -89,8 +90,11 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         /// </summary>
         public List<string> MappableXg5kNames { get; set; } = new List<string>();
 
+        [Browsable(false)]
         [JsonProperty(PropertyName = "Bit")]
         public bool BitAccessable { get; set; } = true;
+
+        [Browsable(false)]
         [JsonProperty(PropertyName = "Word")]
         public bool WordAccessable { get; set; } = true;
 

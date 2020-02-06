@@ -86,7 +86,7 @@ namespace Dsu.PLCConverter.UI
             Start = r.Start;
             End = r.End;
             BorderStyle = BorderStyle.FixedSingle;
-            BackColor = Color.Aqua;
+            BackColor = Color.LightCoral;   // Color.Aqua;
 
             InitializeContextMenu();
 

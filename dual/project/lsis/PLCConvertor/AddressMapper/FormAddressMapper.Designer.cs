@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
@@ -36,13 +35,13 @@
             DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddressMapper));
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
-            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
-            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddressMapper));
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
+            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barCheckItemShowLog = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemGridOneToOne = new DevExpress.XtraBars.BarCheckItem();
@@ -57,13 +56,14 @@
             this.btnShowBarContents = new DevExpress.XtraBars.BarButtonItem();
             this.btnSelectSampleRange = new DevExpress.XtraBars.BarButtonItem();
             this.btnExport = new DevExpress.XtraBars.BarButtonItem();
+            this.btnLoadPLCSettings = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
+            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager();
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.ucPanelLog1 = new Dsu.PLCConverter.UI.UcPanelLog();
@@ -98,11 +98,10 @@
             this.gridViewOneToOne = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.numericRangeControlClient1 = new DevExpress.XtraEditors.NumericRangeControlClient();
             this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
-            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
-            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
-            this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList(this.components);
-            this.action1 = new Dsu.Common.Utilities.Actions.Action(this.components);
-            this.btnLoadPLCSettings = new DevExpress.XtraBars.BarButtonItem();
+            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
+            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
+            this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList();
+            this.action1 = new Dsu.Common.Utilities.Actions.Action();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -277,6 +276,19 @@
             superToolTip3.Items.Add(toolTipItem1);
             this.btnExport.SuperTip = superToolTip3;
             this.btnExport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExport_ItemClick);
+            // 
+            // btnLoadPLCSettings
+            // 
+            this.btnLoadPLCSettings.Caption = "Load PLC settings";
+            this.btnLoadPLCSettings.Id = 16;
+            this.btnLoadPLCSettings.Name = "btnLoadPLCSettings";
+            toolTipTitleItem4.Text = "Load PLC settings";
+            toolTipItem2.LeftIndent = 6;
+            toolTipItem2.Text = "Load PLC H/W settings from json file.";
+            superToolTip4.Items.Add(toolTipTitleItem4);
+            superToolTip4.Items.Add(toolTipItem2);
+            this.btnLoadPLCSettings.SuperTip = superToolTip4;
+            this.btnLoadPLCSettings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLoadPLCSettings_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -675,6 +687,7 @@
             this.gridControlOneToOne.Name = "gridControlOneToOne";
             this.gridControlOneToOne.Size = new System.Drawing.Size(400, 200);
             this.gridControlOneToOne.TabIndex = 0;
+            this.gridControlOneToOne.UseEmbeddedNavigator = true;
             this.gridControlOneToOne.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewOneToOne});
             // 
@@ -736,19 +749,6 @@
             this.action1.Text = "8643808";
             this.action1.Visible = true;
             this.action1.Update += new System.EventHandler(this.action1_Update);
-            // 
-            // btnLoadPLCSettings
-            // 
-            this.btnLoadPLCSettings.Caption = "Load PLC settings";
-            this.btnLoadPLCSettings.Id = 16;
-            this.btnLoadPLCSettings.Name = "btnLoadPLCSettings";
-            toolTipTitleItem4.Text = "Load PLC settings";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "Load PLC H/W settings from json file.";
-            superToolTip4.Items.Add(toolTipTitleItem4);
-            superToolTip4.Items.Add(toolTipItem2);
-            this.btnLoadPLCSettings.SuperTip = superToolTip4;
-            this.btnLoadPLCSettings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLoadPLCSettings_ItemClick);
             // 
             // FormAddressMapper
             // 

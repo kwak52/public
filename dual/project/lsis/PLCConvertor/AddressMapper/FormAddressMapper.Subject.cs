@@ -69,7 +69,7 @@ namespace AddressMapper
             ucMemoryBarOmron.DrawRanges();
             ucMemoryBarXg5k.DrawRanges();
             gridControlRanged.DataSource = null;
-            gridControlOneToOne.DataSource = null;
+            //gridControlOneToOne.DataSource = null;
         }
 
         /// <summary>

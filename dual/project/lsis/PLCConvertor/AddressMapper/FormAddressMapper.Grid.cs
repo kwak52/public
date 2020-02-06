@@ -5,39 +5,21 @@ using Dsu.PLCConvertor.Common.Util;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using static Dsu.PLCConvertor.Common.Internal.AddressConvertorSerializer;
 
 namespace AddressMapper
 {
-    public class RangeMapping
-    {
-        public string NameO => Omron.Parent.Name;
-        public int StartO { get => Omron.Start; set => Omron.Start = value; }
-        public int EndO { get => Omron.End; set => Omron.End = value; }
-        public string NameX => Xg5k.Parent.Name;
-        public int StartX { get => Xg5k.Start; set => Xg5k.Start = value; }
-        public int EndX { get => Xg5k.End; set => Xg5k.End = value; }
-
-        public bool Word => ((OmronMemorySection)Omron.Parent).WordAccessable;
-        public bool Bit => ((OmronMemorySection)Omron.Parent).BitAccessable;
-
-        public AllocatedMemoryRange Omron { get; private set; }
-        public AllocatedMemoryRange Xg5k { get; private set; }
-        public RangeMapping(AllocatedMemoryRange omron, AllocatedMemoryRange xg5k)
-        {
-            Omron = omron;
-            Xg5k = xg5k;
-        }
-    }
-
     partial class FormAddressMapper
     {
         IEnumerable<IAddressConvertRule> GenerateRules()
         {
-            foreach ( var m in _rangeMappings)
+            foreach (var m in _rangeMappings)
             {
                 var o = m.Omron;
                 var oms = (OmronMemorySection)o.Parent;
@@ -90,9 +72,37 @@ namespace AddressMapper
             }
         }
 
+        public class Sample
+        {
+            public string Name { get; set; }
+            public Sample(string name)
+            {
+                Name = name;
+            }
+            public Sample() { }
+        }
+        //BindingList<OneToOneRule> _oneToOneRules = new BindingList<OneToOneRule>();
+        BindingList<Sample> _oneToOneRules = new BindingList<Sample>(new [] {new Sample("hello") }.ToList());
+        //List<Sample> _oneToOneRules = new List<Sample>(new[] { new Sample("hello") }.ToList());
         void InitializeGrids()
         {
+            //gridControlOneToOne.EmbeddedNavigator.ButtonClick += (s, e) =>
+            //{
+            //    gridViewOneToOne.AddNewRow();
+            //    e.Handled = true;
+            //};
+            ////gridViewOneToOne.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
+            //gridViewOneToOne.InitNewRow += (s, e) =>
+            //{
+            //    gridViewOneToOne.AddNewRow();
+            //};
 
+
+            //_oneToOneRules.AllowNew = true;
+            //_oneToOneRules.AllowEdit = true;
+            gridViewOneToOne.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
+            gridViewOneToOne.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.True;
+            gridControlOneToOne.DataSource = _oneToOneRules;
         }
     }
 }
