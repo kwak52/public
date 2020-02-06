@@ -4,6 +4,7 @@ using Dsu.PLCConverter.UI;
 using Dsu.PLCConverter.UI.AddressMapperLogics;
 using Dsu.PLCConvertor.Common;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Subjects;
 
@@ -16,6 +17,8 @@ namespace AddressMapper
     }
     partial class FormAddressMapper
     {
+        public static Subject<PLCHWSpecs> PLCHWSpecsChangeRequestSubject = new Subject<PLCHWSpecs>();
+
         void InitializeSubjects()
         {
             /// 메모리 타입 변경시 호출 됨
@@ -48,6 +51,15 @@ namespace AddressMapper
                 barEditItemOmronPLC.EditValue = newMapping.OmronPLC;
                 barEditItemXg5kPLC.EditValue = newMapping.Xg5kPLC;
             }));
+
+            // PLC H/W 설정 파일을 새로 loading 했을 때
+            PLCHWSpecsChangeRequestSubject.Subscribe(hwSpecs => {
+                Debug.Assert(hwSpecs == PLCHWSpecs);
+                repositoryItemLookUpEditOmron.DataSource = hwSpecs.OmronPLCs;
+                repositoryItemLookUpEditXg5k.DataSource = hwSpecs.XG5000PLCs;
+
+                Mapping = new PLCMapping(hwSpecs.OmronPLCs[0], hwSpecs.XG5000PLCs[0]);
+            });
         }
 
         void Clear()

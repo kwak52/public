@@ -8,10 +8,10 @@ namespace AddressMapper
 {
     partial class FormAddressMapper
     {
-        PLCs LoadPLCHardwareSetting(string plcHardwareSettingFile)
+        PLCHWSpecs LoadPLCHardwareSetting(string plcHardwareSettingFile)
         {
             var json = File.ReadAllText(plcHardwareSettingFile);
-            var plcs = JsonConvert.DeserializeObject<PLCs>(json, MyJsonSerializer.JsonSettingsSimple);
+            var plcs = JsonConvert.DeserializeObject<PLCHWSpecs>(json, MyJsonSerializer.JsonSettingsSimple);
             return plcs;
         }
     }

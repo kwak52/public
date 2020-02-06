@@ -15,6 +15,7 @@ using Dsu.PLCConvertor.Common;
 using log4net;
 using Dsu.PLCConvertor.Common.Internal;
 using System.Configuration;
+using System.Reflection;
 
 namespace AddressMapper
 {
@@ -25,7 +26,16 @@ namespace AddressMapper
         /// <summary>
         /// 옴론 및 산전의 모든 H/W PLC type 정의
         /// </summary>
-        PLCs _plcs;
+        PLCHWSpecs _plcs;
+        PLCHWSpecs PLCHWSpecs
+        {
+            get { return _plcs; }
+            set
+            {
+                _plcs = value;
+                PLCHWSpecsChangeRequestSubject.OnNext(value);
+            }
+        }
 
         /// <summary>
         /// 선택된 옴론 및 산전 각 하나씩의 H/W PLC type 
@@ -77,22 +87,23 @@ namespace AddressMapper
         private void FormAddressMapper_Load(object sender, EventArgs args)
         {
             Logger.Info("FormAddressMapper launched.");
-            var plcHardwareSettingFile = ConfigurationManager.AppSettings["plcHardwareSettingFile"];
-            _plcs = LoadPLCHardwareSetting(plcHardwareSettingFile);
+
+            InitializeGrids();
+            InitializeSubjects();
 
             WireDockPanelVisibility(action1, dockPanelMain, barCheckItemShowMain);
             WireDockPanelVisibility(action1, dockPanelLog, barCheckItemShowLog);
             WireDockPanelVisibility(action1, dockPanelGridRanged, barCheckItemGridRanged);
             WireDockPanelVisibility(action1, dockPanelGridOneToOne, barCheckItemGridOneToOne);
-            
 
             ucMemoryBarOmron.Counterpart = ucMemoryBarXg5k;
             ucMemoryBarXg5k.Counterpart = ucMemoryBarOmron;
 
+            var plcHardwareSettingFile = ConfigurationManager.AppSettings["plcHardwareSettingFile"];
+            PLCHWSpecs = LoadPLCHardwareSetting(plcHardwareSettingFile);
 
-            repositoryItemLookUpEditOmron.DataSource = _plcs.OmronPLCs;
+
             repositoryItemLookUpEditOmron.DisplayMember = "PLCType";
-            repositoryItemLookUpEditXg5k.DataSource = _plcs.XG5000PLCs;
             repositoryItemLookUpEditXg5k.DisplayMember = "PLCType";
             repositoryItemLookUpEditOmron.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.Omron);
             repositoryItemLookUpEditXg5k.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.LSIS);
@@ -101,14 +112,20 @@ namespace AddressMapper
             lookUpEditXg5kMemory.Properties.DisplayMember = "Name";
 
 
-            // 메모리 타입 변경
+            // 옴론 메모리 타입 변경
             lookUpEditOmronMemory.EditValueChanged += (s, e) =>
             {
                 var memory = (OmronMemorySection)lookUpEditOmronMemory.EditValue;
                 ucMemoryBarOmron.MemorySection = memory;
                 AdjustRelativeBarSize();
             };
+            //lookUpEditOmronMemory.EditValueChanging += (s, e) =>
+            //{
+            //    var old = (OmronMemorySection)e.OldValue;
+            //    Console.WriteLine("");
+            //};
 
+            // 산전 메모리 타입 변경
             lookUpEditXg5kMemory.EditValueChanged += (s, e) =>
             {
                 var memory = (Xg5kMemorySection)lookUpEditXg5kMemory.EditValue;
@@ -124,15 +141,12 @@ namespace AddressMapper
             gridControlRanged.Dock = DockStyle.Fill;
             gridControlOneToOne.Dock = DockStyle.Fill;
 
-            InitializeGrids();
-            InitializeSubjects();
-
-            Mapping = new PLCMapping(_plcs.OmronPLCs[0], _plcs.XG5000PLCs[0]);
+            Mapping = new PLCMapping(PLCHWSpecs.OmronPLCs[0], PLCHWSpecs.XG5000PLCs[0]);
 
             /// 옴론 / 산전 memory bar 두개를 상대적인 크기 반영
             void AdjustRelativeBarSize()
             {
-                Logger.Debug("AdjustRelativeBarSize called.");
+                //Logger.Debug("AdjustRelativeBarSize called.");
                 if (ucMemoryBarOmron.MemorySection == null || ucMemoryBarXg5k.MemorySection == null)
                     return;
 
@@ -210,7 +224,7 @@ namespace AddressMapper
 
         private void btnGenerateJsonTemplate_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var plcs = PLCs.CreateSamplePLCs();
+            var plcs = PLCHWSpecs.CreateSamplePLCs();
             var file = "OmronMemory.json";
             var json = JsonConvert.SerializeObject(plcs, MyJsonSerializer.JsonSettingsSimple);
             File.WriteAllText(file, json);
@@ -244,13 +258,17 @@ namespace AddressMapper
         {
             using (var ofd = new OpenFileDialog())
             {
+                var folder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
                 ofd.Filter = "JSON file(*.json)|*.json|All files(*.*)|*.*";
-                ofd.FileName = ConfigurationManager.AppSettings["plcHardwareSettingFile"];
+                ofd.RestoreDirectory = true;
+                var path = ConfigurationManager.AppSettings["plcHardwareSettingFile"];
+                ofd.InitialDirectory = Path.Combine(folder, Path.GetDirectoryName(path));
+                ofd.FileName = Path.GetFileName(path);
                 if (ofd.ShowDialog() != DialogResult.OK)
                     return;
 
                 var plcHardwareSettingFile = ofd.FileName;
-                _plcs = LoadPLCHardwareSetting(plcHardwareSettingFile);
+                PLCHWSpecs = LoadPLCHardwareSetting(plcHardwareSettingFile);
             }
         }
     }

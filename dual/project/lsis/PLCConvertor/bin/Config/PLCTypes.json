@@ -1,152 +1,154 @@
 {
   "OmronPLCs": [
     {
-      "PLCType": "CJ1H",
       "Memories": [
         {
-          "MappablesNames": [
-            "P"
-          ],
+          "Bit": true,
+          "Word": false,
+          "PatternNameOverride": null,
           "Name": "PIO",
           "Start": 0,
           "End": 1024,
           "Length": 1024
         },
         {
-          "MappablesNames": [
-            "M",
-            "D"
-          ],
+          "Bit": true,
+          "Word": true,
+          "PatternNameOverride": null,
           "Name": "D",
           "Start": 0,
           "End": 10240,
           "Length": 10240
         },
         {
-          "MappablesNames": [
-            "M",
-            "D"
-          ],
+          "Bit": true,
+          "Word": true,
+          "PatternNameOverride": null,
           "Name": "J",
           "Start": 0,
           "End": 2048,
           "Length": 2048
         },
         {
-          "MappablesNames": [
-            "M",
-            "D"
-          ],
+          "Bit": true,
+          "Word": true,
+          "PatternNameOverride": null,
           "Name": "K",
           "Start": 0,
           "End": 512,
           "Length": 512
         }
-      ]
+      ],
+      "PLCType": "CJ1H"
     },
     {
-      "PLCType": "CJ2H",
       "Memories": [
         {
-          "MappablesNames": [
-            "P"
-          ],
+          "Bit": true,
+          "Word": true,
+          "PatternNameOverride": null,
           "Name": "PIO",
           "Start": 0,
           "End": 10240,
           "Length": 10240
         },
         {
-          "MappablesNames": [
-            "M",
-            "D"
-          ],
+          "Bit": true,
+          "Word": true,
+          "PatternNameOverride": null,
           "Name": "D",
           "Start": 0,
           "End": 1024,
           "Length": 1024
         },
         {
-          "MappablesNames": [
-            "M",
-            "D"
-          ],
+          "Bit": true,
+          "Word": true,
+          "PatternNameOverride": null,
           "Name": "J",
           "Start": 0,
           "End": 2048,
           "Length": 2048
         },
         {
-          "MappablesNames": [
-            "M",
-            "D"
-          ],
+          "Bit": true,
+          "Word": true,
+          "PatternNameOverride": null,
           "Name": "K",
           "Start": 0,
           "End": 512,
           "Length": 512
         }
-      ]
+      ],
+      "PLCType": "CJ2H"
     }
   ],
   "XG5000PLCs": [
     {
-      "PLCType": "Xg5k1H",
       "Memories": [
         {
+          "PatternNameOverride": null,
           "Name": "P",
           "Start": 0,
           "End": 10240,
           "Length": 10240
         },
         {
+          "PatternNameOverride": null,
           "Name": "M",
           "Start": 0,
           "End": 10240,
           "Length": 10240
         },
         {
+          "PatternNameOverride": null,
           "Name": "L",
           "Start": 0,
           "End": 1024,
           "Length": 1024
         }
-      ]
+      ],
+      "PLCType": "Xg5k1H"
     },
     {
-      "PLCType": "Xg5k2H",
       "Memories": [
         {
+          "PatternNameOverride": null,
           "Name": "P",
           "Start": 0,
           "End": 1024,
           "Length": 1024
         },
         {
+          "PatternNameOverride": null,
           "Name": "M",
           "Start": 0,
           "End": 1024,
           "Length": 1024
         },
         {
+          "PatternNameOverride": null,
           "Name": "X",
           "Start": 0,
           "End": 10240,
           "Length": 10240
         },
         {
+          "PatternNameOverride": null,
           "Name": "Y",
           "Start": 0,
           "End": 512,
           "Length": 512
         },
         {
+          "PatternNameOverride": null,
           "Name": "A",
           "Start": 0,
           "End": 16,
           "Length": 16
         }
-      ]
+      ],
+      "PLCType": "Xg5k2H"
     }
   ]
 }
