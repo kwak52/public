@@ -12,6 +12,6 @@ namespace Dsu.PLCConverter.UI
     public static class Subjects
     {
         public static Subject<Tuple<PLCVendor, string>> MemorySectionChangeRequestSubject = new Subject<Tuple<PLCVendor, string>>();
-        public static Subject<PLCMapping> PLCMappingChangeRequestSubject = new Subject<PLCMapping>();
+        public static Subject<PLCMapping> PLCMappingChangeRequestSubject = new Subject<PLCMapping>();        
     }
 }

@@ -64,19 +64,19 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
     /// <summary>
     /// 옴론 및 산전 모든 PLC type 별 정의
     /// </summary>
-    public class PLCs
+    public class PLCHWSpecs
     {
         public List<OmronPLC> OmronPLCs { get; set; } = new List<OmronPLC>();
         public List<Xg5kPLC> XG5000PLCs { get; set; } = new List<Xg5kPLC>();
 
-        public PLCs(IEnumerable<OmronPLC> omronPLCs, IEnumerable<Xg5kPLC> xg5kPLCs)
+        public PLCHWSpecs(IEnumerable<OmronPLC> omronPLCs, IEnumerable<Xg5kPLC> xg5kPLCs)
         {
             OmronPLCs = omronPLCs.ToList();
             XG5000PLCs = xg5kPLCs.ToList();
         }
-        [JsonConstructor] PLCs() { }
+        [JsonConstructor] PLCHWSpecs() { }
 
-        public static PLCs CreateSamplePLCs()
+        public static PLCHWSpecs CreateSamplePLCs()
         {
             var omronPLCs = new[]
             {
@@ -114,7 +114,7 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
                     }),
             };
 
-            var plcs = new PLCs(omronPLCs, xg5kPLCs);
+            var plcs = new PLCHWSpecs(omronPLCs, xg5kPLCs);
             return plcs;
         }
     }

@@ -60,6 +60,11 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         [JsonConstructor] protected MemorySection() {}
 
         /// <summary>
+        /// 기본적으로 null 값을 가짐.  null 이면 base.Name 값을 따름.  NonNull 로 지정되면 pattern 생성시 이 값을 이용
+        /// </summary>
+        public string PatternNameOverride { get; set; }
+
+        /// <summary>
         /// 하나의 type 에 대해서 분할 mapping 된 조각들 정보
         /// </summary>
         [JsonIgnore]
@@ -77,25 +82,22 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
     /// </summary>
     public class OmronMemorySection : MemorySection
     {
+        // 추후에 추가 예정
+        [JsonIgnore]
         /// <summary>
         /// Mapping 가능한 XG5000의 memory 영역 이름
         /// </summary>
-        public List<string> MappablesNames { get; set; } = new List<string>();
+        public List<string> MappableXg5kNames { get; set; } = new List<string>();
 
-        //List<string> _mappablesNames = new List<string>();
-        ///// <summary>
-        ///// Mapping 가능한 XG5000의 memory 영역 이름
-        ///// </summary>
-        //public string[] MappablesNames
-        //{
-        //    get => _mappablesNames.ToArray();
-        //    set { _mappablesNames.Clear(); _mappablesNames.AddRange(value); }
-        //}
+        [JsonProperty(PropertyName = "Bit")]
+        public bool BitAccessable { get; set; } = true;
+        [JsonProperty(PropertyName = "Word")]
+        public bool WordAccessable { get; set; } = true;
 
         public OmronMemorySection(string name, int start, int end, IEnumerable<string> mappableNames)
             : base(name, start, end)
         {
-            MappablesNames = mappableNames.ToList();
+            MappableXg5kNames = mappableNames.ToList();
         }
         [JsonConstructor] OmronMemorySection() { }
     }
