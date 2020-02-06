@@ -64,6 +64,8 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
         /// </summary>
         [JsonIgnore]
         public List<MemoryRange> MemoryRanges = new List<MemoryRange>();
+
+        [Browsable(false)]
         [JsonIgnore]
         public PLC PLC { get; set; }
 

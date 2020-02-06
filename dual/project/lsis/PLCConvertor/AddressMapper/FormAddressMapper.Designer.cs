@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddressMapper));
-            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer2 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
+            DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
             this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
@@ -52,7 +52,7 @@
             this.repositoryItemLookUpEditXg5k = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.btnTestRangeUI = new DevExpress.XtraBars.BarButtonItem();
             this.btnShowBarContents = new DevExpress.XtraBars.BarButtonItem();
-            this.barSelectSampleRange = new DevExpress.XtraBars.BarButtonItem();
+            this.btnSelectSampleRange = new DevExpress.XtraBars.BarButtonItem();
             this.btnExport = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -77,7 +77,18 @@
             this.dockPanelGridRanged = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.gridControlRanged = new DevExpress.XtraGrid.GridControl();
-            this.gridViewRanged = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.bandedGridViewRanged = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridView();
+            this.gridBandO = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridColumnNameO = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridColumnStartO = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridColumnEndO = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBandX = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridColumnNameX = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridColumnStartX = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridColumnEndX = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridBandEtc = new DevExpress.XtraGrid.Views.BandedGrid.GridBand();
+            this.gridColumnWord = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.gridColumnBit = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.dockPanelGridOneToOne = new DevExpress.XtraBars.Docking.DockPanel();
             this.controlContainer3 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.gridControlOneToOne = new DevExpress.XtraGrid.GridControl();
@@ -104,7 +115,7 @@
             this.dockPanelGridRanged.SuspendLayout();
             this.controlContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlRanged)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewRanged)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bandedGridViewRanged)).BeginInit();
             this.dockPanelGridOneToOne.SuspendLayout();
             this.controlContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOneToOne)).BeginInit();
@@ -143,11 +154,11 @@
             this.barEditItemXg5kPLC,
             this.btnTestRangeUI,
             this.btnShowBarContents,
-            this.barSelectSampleRange,
+            this.btnSelectSampleRange,
             this.btnExport});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.Margin = new System.Windows.Forms.Padding(2);
-            this.ribbon.MaxItemId = 15;
+            this.ribbon.MaxItemId = 16;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -199,9 +210,9 @@
             this.barEditItemOmronPLC.EditWidth = 80;
             this.barEditItemOmronPLC.Id = 9;
             this.barEditItemOmronPLC.Name = "barEditItemOmronPLC";
-            toolTipTitleItem4.Text = "옴론 PLC 기종 변경";
-            superToolTip4.Items.Add(toolTipTitleItem4);
-            this.barEditItemOmronPLC.SuperTip = superToolTip4;
+            toolTipTitleItem1.Text = "옴론 PLC 기종 변경";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            this.barEditItemOmronPLC.SuperTip = superToolTip1;
             // 
             // repositoryItemLookUpEditOmron
             // 
@@ -217,9 +228,9 @@
             this.barEditItemXg5kPLC.EditWidth = 80;
             this.barEditItemXg5kPLC.Id = 10;
             this.barEditItemXg5kPLC.Name = "barEditItemXg5kPLC";
-            toolTipTitleItem1.Text = "산전 PLC 기종 변경";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            this.barEditItemXg5kPLC.SuperTip = superToolTip1;
+            toolTipTitleItem2.Text = "산전 PLC 기종 변경";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            this.barEditItemXg5kPLC.SuperTip = superToolTip2;
             // 
             // repositoryItemLookUpEditXg5k
             // 
@@ -242,24 +253,24 @@
             this.btnShowBarContents.Name = "btnShowBarContents";
             this.btnShowBarContents.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnShowBarContents_ItemClick);
             // 
-            // barSelectSampleRange
+            // btnSelectSampleRange
             // 
-            this.barSelectSampleRange.Caption = "Select Sample Range";
-            this.barSelectSampleRange.Id = 13;
-            this.barSelectSampleRange.Name = "barSelectSampleRange";
-            this.barSelectSampleRange.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barSelectSampleRange_ItemClick);
+            this.btnSelectSampleRange.Caption = "Select Sample Range";
+            this.btnSelectSampleRange.Id = 13;
+            this.btnSelectSampleRange.Name = "btnSelectSampleRange";
+            this.btnSelectSampleRange.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSelectSampleRange_ItemClick);
             // 
             // btnExport
             // 
             this.btnExport.Caption = "Export";
             this.btnExport.Id = 14;
             this.btnExport.Name = "btnExport";
-            toolTipTitleItem2.Text = "Export";
-            toolTipItem2.LeftIndent = 6;
-            toolTipItem2.Text = "Exports current mapping to json file.";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            superToolTip2.Items.Add(toolTipItem2);
-            this.btnExport.SuperTip = superToolTip2;
+            toolTipTitleItem3.Text = "Export";
+            toolTipItem1.LeftIndent = 6;
+            toolTipItem1.Text = "Exports current mapping to json file.";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem1);
+            this.btnExport.SuperTip = superToolTip3;
             this.btnExport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExport_ItemClick);
             // 
             // ribbonPage1
@@ -299,7 +310,7 @@
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnGenerateJsonTemplate);
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnTestRangeUI);
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnShowBarContents);
-            this.ribbonPageGroupTest.ItemLinks.Add(this.barSelectSampleRange);
+            this.ribbonPageGroupTest.ItemLinks.Add(this.btnSelectSampleRange);
             this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
             this.ribbonPageGroupTest.Text = "Test";
             // 
@@ -401,7 +412,6 @@
             this.ucMemoryBarXg5k.BackColor = System.Drawing.SystemColors.Control;
             this.ucMemoryBarXg5k.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ucMemoryBarXg5k.Counterpart = null;
-            this.ucMemoryBarXg5k.Identifier = null;
             this.ucMemoryBarXg5k.Location = new System.Drawing.Point(161, 114);
             this.ucMemoryBarXg5k.Margin = new System.Windows.Forms.Padding(2);
             this.ucMemoryBarXg5k.MemorySection = null;
@@ -415,7 +425,6 @@
             this.ucMemoryBarOmron.BackColor = System.Drawing.SystemColors.Control;
             this.ucMemoryBarOmron.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ucMemoryBarOmron.Counterpart = null;
-            this.ucMemoryBarOmron.Identifier = null;
             this.ucMemoryBarOmron.Location = new System.Drawing.Point(161, 22);
             this.ucMemoryBarOmron.Margin = new System.Windows.Forms.Padding(2);
             this.ucMemoryBarOmron.MemorySection = null;
@@ -502,19 +511,133 @@
             // gridControlRanged
             // 
             this.gridControlRanged.Location = new System.Drawing.Point(53, 0);
-            this.gridControlRanged.MainView = this.gridViewRanged;
+            this.gridControlRanged.MainView = this.bandedGridViewRanged;
             this.gridControlRanged.MenuManager = this.ribbon;
             this.gridControlRanged.Name = "gridControlRanged";
             this.gridControlRanged.Size = new System.Drawing.Size(400, 200);
             this.gridControlRanged.TabIndex = 0;
             this.gridControlRanged.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewRanged});
+            this.bandedGridViewRanged});
             // 
-            // gridViewRanged
+            // bandedGridViewRanged
             // 
-            this.gridViewRanged.GridControl = this.gridControlRanged;
-            this.gridViewRanged.Name = "gridViewRanged";
-            this.gridViewRanged.OptionsView.ShowGroupPanel = false;
+            this.bandedGridViewRanged.Bands.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.GridBand[] {
+            this.gridBandO,
+            this.gridBandX,
+            this.gridBandEtc});
+            this.bandedGridViewRanged.Columns.AddRange(new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn[] {
+            this.gridColumnNameO,
+            this.gridColumnStartO,
+            this.gridColumnEndO,
+            this.gridColumnNameX,
+            this.gridColumnStartX,
+            this.gridColumnEndX,
+            this.gridColumnWord,
+            this.gridColumnBit});
+            this.bandedGridViewRanged.GridControl = this.gridControlRanged;
+            this.bandedGridViewRanged.Name = "bandedGridViewRanged";
+            this.bandedGridViewRanged.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridBandO
+            // 
+            this.gridBandO.Caption = "옴론";
+            this.gridBandO.Columns.Add(this.gridColumnNameO);
+            this.gridBandO.Columns.Add(this.gridColumnStartO);
+            this.gridBandO.Columns.Add(this.gridColumnEndO);
+            this.gridBandO.Name = "gridBandO";
+            this.gridBandO.VisibleIndex = 0;
+            this.gridBandO.Width = 336;
+            // 
+            // gridColumnNameO
+            // 
+            this.gridColumnNameO.Caption = "타입";
+            this.gridColumnNameO.FieldName = "NameO";
+            this.gridColumnNameO.MinWidth = 30;
+            this.gridColumnNameO.Name = "gridColumnNameO";
+            this.gridColumnNameO.Visible = true;
+            this.gridColumnNameO.Width = 112;
+            // 
+            // gridColumnStartO
+            // 
+            this.gridColumnStartO.Caption = "시작";
+            this.gridColumnStartO.FieldName = "StartO";
+            this.gridColumnStartO.MinWidth = 30;
+            this.gridColumnStartO.Name = "gridColumnStartO";
+            this.gridColumnStartO.Visible = true;
+            this.gridColumnStartO.Width = 112;
+            // 
+            // gridColumnEndO
+            // 
+            this.gridColumnEndO.Caption = "끝";
+            this.gridColumnEndO.FieldName = "EndO";
+            this.gridColumnEndO.MinWidth = 30;
+            this.gridColumnEndO.Name = "gridColumnEndO";
+            this.gridColumnEndO.Visible = true;
+            this.gridColumnEndO.Width = 112;
+            // 
+            // gridBandX
+            // 
+            this.gridBandX.Caption = "XG5000";
+            this.gridBandX.Columns.Add(this.gridColumnNameX);
+            this.gridBandX.Columns.Add(this.gridColumnStartX);
+            this.gridBandX.Columns.Add(this.gridColumnEndX);
+            this.gridBandX.Name = "gridBandX";
+            this.gridBandX.VisibleIndex = 1;
+            this.gridBandX.Width = 336;
+            // 
+            // gridColumnNameX
+            // 
+            this.gridColumnNameX.Caption = "타입";
+            this.gridColumnNameX.FieldName = "NameX";
+            this.gridColumnNameX.MinWidth = 30;
+            this.gridColumnNameX.Name = "gridColumnNameX";
+            this.gridColumnNameX.Visible = true;
+            this.gridColumnNameX.Width = 112;
+            // 
+            // gridColumnStartX
+            // 
+            this.gridColumnStartX.Caption = "시작";
+            this.gridColumnStartX.FieldName = "StartX";
+            this.gridColumnStartX.MinWidth = 30;
+            this.gridColumnStartX.Name = "gridColumnStartX";
+            this.gridColumnStartX.Visible = true;
+            this.gridColumnStartX.Width = 112;
+            // 
+            // gridColumnEndX
+            // 
+            this.gridColumnEndX.Caption = "끝";
+            this.gridColumnEndX.FieldName = "EndX";
+            this.gridColumnEndX.MinWidth = 30;
+            this.gridColumnEndX.Name = "gridColumnEndX";
+            this.gridColumnEndX.Visible = true;
+            this.gridColumnEndX.Width = 112;
+            // 
+            // gridBandEtc
+            // 
+            this.gridBandEtc.Caption = "비고";
+            this.gridBandEtc.Columns.Add(this.gridColumnWord);
+            this.gridBandEtc.Columns.Add(this.gridColumnBit);
+            this.gridBandEtc.Name = "gridBandEtc";
+            this.gridBandEtc.VisibleIndex = 2;
+            this.gridBandEtc.Width = 224;
+            // 
+            // gridColumnWord
+            // 
+            this.gridColumnWord.Caption = "Word";
+            this.gridColumnWord.FieldName = "Word";
+            this.gridColumnWord.MinWidth = 30;
+            this.gridColumnWord.Name = "gridColumnWord";
+            this.gridColumnWord.Visible = true;
+            this.gridColumnWord.Width = 112;
+            // 
+            // gridColumnBit
+            // 
+            this.gridColumnBit.Caption = "Bit";
+            this.gridColumnBit.FieldName = "Bit";
+            this.gridColumnBit.MinWidth = 30;
+            this.gridColumnBit.Name = "gridColumnBit";
+            this.gridColumnBit.Visible = true;
+            this.gridColumnBit.Width = 112;
             // 
             // dockPanelGridOneToOne
             // 
@@ -581,9 +704,9 @@
             this.documentGroup1});
             this.tabbedView1.Documents.AddRange(new DevExpress.XtraBars.Docking2010.Views.BaseDocument[] {
             this.document1});
-            dockingContainer2.Element = this.documentGroup1;
+            dockingContainer1.Element = this.documentGroup1;
             this.tabbedView1.RootContainer.Nodes.AddRange(new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer[] {
-            dockingContainer2});
+            dockingContainer1});
             // 
             // actionList1
             // 
@@ -638,7 +761,7 @@
             this.dockPanelGridRanged.ResumeLayout(false);
             this.controlContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlRanged)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridViewRanged)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bandedGridViewRanged)).EndInit();
             this.dockPanelGridOneToOne.ResumeLayout(false);
             this.controlContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControlOneToOne)).EndInit();
@@ -691,17 +814,28 @@
         private Dsu.Common.Utilities.Actions.ActionList actionList1;
         private Dsu.Common.Utilities.Actions.Action action1;
         private DevExpress.XtraBars.BarButtonItem btnShowBarContents;
-        private DevExpress.XtraBars.BarButtonItem barSelectSampleRange;
+        private DevExpress.XtraBars.BarButtonItem btnSelectSampleRange;
         private DevExpress.XtraBars.BarButtonItem btnExport;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupFile;
         private DevExpress.XtraBars.Docking.DockPanel dockPanelGridRanged;
         private DevExpress.XtraBars.Docking.ControlContainer controlContainer1;
         private DevExpress.XtraGrid.GridControl gridControlRanged;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridViewRanged;
         private DevExpress.XtraBars.Docking.DockPanel panelContainer1;
         private DevExpress.XtraBars.Docking.DockPanel dockPanelGridOneToOne;
         private DevExpress.XtraBars.Docking.ControlContainer controlContainer3;
         private DevExpress.XtraGrid.GridControl gridControlOneToOne;
         private DevExpress.XtraGrid.Views.Grid.GridView gridViewOneToOne;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridView bandedGridViewRanged;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gridColumnNameO;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gridColumnStartO;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gridColumnEndO;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gridColumnNameX;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gridColumnStartX;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gridColumnEndX;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gridColumnWord;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn gridColumnBit;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandO;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandX;
+        private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandEtc;
     }
 }
