@@ -57,7 +57,7 @@ namespace Dsu.PLCConverter.UI
 
             // 사전에 mapping 한 memory type 이 선택되어 있지 않은 경우, combo 에서 맞는 memory type 을 선택
             if (counterMemTypeName != counterBarMemTypeName)
-                Subjects.MemorySectionChangeRequestSubject.OnNext(Tuple.Create(_parent.Counterpart, counterMemTypeName));
+                Subjects.MemorySectionChangeRequestSubject.OnNext(Tuple.Create(_parent.Counterpart.PLCVendor, counterMemTypeName));
 
             await Task.Run(async () =>
             {

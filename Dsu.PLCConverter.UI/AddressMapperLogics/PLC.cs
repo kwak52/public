@@ -84,14 +84,14 @@ namespace Dsu.PLCConverter.UI.AddressMapperLogics
             {
                 new OmronPLC("CJ1H",
                     new[] {
-                        new OmronMemorySection("PIO",   0, 1024*10, new []{"P" }),
+                        new OmronMemorySection("PIO",   0, 1024,     new []{"P" }),
                         new OmronMemorySection("D",     0, 1024*10, new []{"M", "D" }),
                         new OmronMemorySection("J",     0, 1024*2,  new []{"M", "D" }),
                         new OmronMemorySection("K",     0, 512,     new []{"M", "D" }),
                     }),
                 new OmronPLC("CJ2H",
                     new[] {
-                        new OmronMemorySection("PIO",   0, 1024,    new []{"P" }),
+                        new OmronMemorySection("PIO",   0, 1024*10, new []{"P" }),
                         new OmronMemorySection("D",     0, 1024,    new []{"M", "D" }),
                         new OmronMemorySection("J",     0, 1024*2,  new []{"M", "D" }),
                         new OmronMemorySection("K",     0, 512,     new []{"M", "D" }),

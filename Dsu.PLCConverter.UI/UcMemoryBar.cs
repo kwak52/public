@@ -7,6 +7,7 @@ using Dsu.PLCConverter.UI.AddressMapperLogics;
 using System.Diagnostics;
 using Dsu.Common.Utilities.ExtensionMethods;
 using log4net;
+using Dsu.PLCConvertor.Common;
 
 namespace Dsu.PLCConverter.UI
 {
@@ -17,6 +18,7 @@ namespace Dsu.PLCConverter.UI
         : UserControl
         , IMemoryRange
     {
+        public PLCVendor PLCVendor { get; set; }
         public UcMemoryBar Counterpart { get; set; }
         MemorySection _memorySection;
         List<Control> _rangeControls = new List<Control>();
@@ -38,10 +40,6 @@ namespace Dsu.PLCConverter.UI
         public int Start => MemorySection.Start;
         public int End => MemorySection.End;
         public int Length => End - Start;
-        /// <summary>
-        /// "OMRON" or "Xg5k"
-        /// </summary>
-        public string Identifier { get; set; }
         public IMemoryRange SelectedRange { get; set; }
 
         public UcMemoryBar()
@@ -91,7 +89,7 @@ namespace Dsu.PLCConverter.UI
                     Debug.Assert(r is AllocatedMemoryRange);
                     //if (r.Start == i)
                     var rr = rect((AllocatedMemoryRange)r);
-                    var msg = $"Adding rectangle for {Identifier} at location={rr.Location}, Width={rr.Width}, Height={rr.Height}";
+                    var msg = $"Adding rectangle for {PLCVendor} at location={rr.Location}, Width={rr.Width}, Height={rr.Height}";
                     _logger.Debug(msg);
                     _rangeControls.Add(rr);
                     rr.BringToFront();
@@ -110,13 +108,13 @@ namespace Dsu.PLCConverter.UI
         MappedMemoryRectangle rect(AllocatedMemoryRange r)
         {
             var width = l2p(r.End - r.Start);
-            var loc = new Point(l2p(r.Start), 0);
+            var loc = new System.Drawing.Point(l2p(r.Start), 0);
             return new MappedMemoryRectangle(this, r) { Location = loc, Width = width, Height = Height };
         }
         UcMemoryRange range(MemoryRangeBase r)
         {
             var width = l2p(r.End - r.Start);
-            var loc = new Point(l2p(r.Start), 0);
+            var loc = new System.Drawing.Point(l2p(r.Start), 0);
             var ucRange = new UcMemoryRange() { Location = loc, Width = width, Height = Height };
             ucRange.Minimum = r.Start;
             ucRange.Maximum = r.End;
@@ -132,7 +130,7 @@ namespace Dsu.PLCConverter.UI
         /// </summary>
         public AllocatedMemoryRange ActiveRangeAllocated()
         {
-            _logger.Debug($"Allocating Ranges for {Identifier}");
+            _logger.Debug($"Allocating Ranges for {PLCVendor}");
 
             var r = ActiveRangeSelector.ActiveRange;
             var allocatedRange = new AllocatedMemoryRange(r.Start, r.End, MemorySection);
@@ -144,7 +142,7 @@ namespace Dsu.PLCConverter.UI
 
         public void DumpMemoryRanges()
         {
-            _logger.Info($"Ranges for {Identifier}");
+            _logger.Info($"Ranges for {PLCVendor}");
             _logger.Debug("Logical ranges");
             _logger.Debug($"{MemorySection.Name}");
             _ranges.Iter(r => _logger.Debug($"[{r.Start}:{r.End}]"));

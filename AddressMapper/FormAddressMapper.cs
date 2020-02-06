@@ -10,6 +10,9 @@ using Dsu.PLCConverter.UI;
 using System.Linq;
 using Dsu.Common.Utilities.ExtensionMethods;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using Dsu.PLCConvertor.Common;
+using log4net;
 
 namespace AddressMapper
 {
@@ -17,43 +20,33 @@ namespace AddressMapper
         : DevExpress.XtraBars.Ribbon.RibbonForm
         , IAppender
     {
+        /// <summary>
+        /// 옴론 및 산전의 모든 H/W PLC type 정의
+        /// </summary>
         PLCs _plcs;
+
+        /// <summary>
+        /// 선택된 옴론 및 산전 각 하나씩의 H/W PLC type 
+        /// </summary>
         PLCMapping _mapping;
+
+        /// <summary>
+        /// 최종 mapping 결과들
+        /// </summary>
+        List<RangeMapping> _rangeMappings = new List<RangeMapping>();
+
         public static FormAddressMapper TheMainForm { get; private set; }
         private PLCMapping Mapping
         {
             get { return _mapping; }
-            set {_mapping = value; PLCMappingChanged(); }
-        }
-        /// <summary>
-        /// 두 PLC 간 기종 변경시 호출 됨
-        /// </summary>
-        void PLCMappingChanged()
-        {
-            Global.Logger.Info("PLC types changed.");
-            Clear();
-
-            lookUpEditOmronMemory.Properties.DataSource = null;
-            lookUpEditOmronMemory.EditValue = null;
-            lookUpEditXg5kMemory.Properties.DataSource = null;
-            lookUpEditXg5kMemory.EditValue = null;
-
-            lookUpEditOmronMemory.Properties.DataSource = _mapping.OmronPLC.Memories;
-            lookUpEditOmronMemory.EditValue = _mapping.OmronPLC.Memories[0];
-            lookUpEditXg5kMemory. Properties.DataSource = _mapping.Xg5kPLC.Memories;
-            lookUpEditXg5kMemory. EditValue = _mapping.Xg5kPLC.Memories[0];
-
-            barEditItemOmronPLC.EditValue = _mapping.OmronPLC;
-            barEditItemXg5kPLC.EditValue = _mapping.Xg5kPLC;
+            set
+            {
+                _mapping = value;
+                Subjects.PLCMappingChangeRequestSubject.OnNext(value);
+            }
         }
 
-        void Clear()
-        {
-            _mapping.OmronPLC.Clear();
-            _mapping.Xg5kPLC.Clear();
-            ucMemoryBarOmron.DrawRanges();
-            ucMemoryBarXg5k.DrawRanges();
-        }
+        ILog _logger => Dsu.PLCConverter.UI.Global.Logger;
 
         void WireDockPanelVisibility(Dsu.Common.Utilities.Actions.Action action, DockPanel dockPanel, BarCheckItem checkItem)
         {
@@ -94,8 +87,8 @@ namespace AddressMapper
             repositoryItemLookUpEditOmron.DisplayMember = "PLCType";
             repositoryItemLookUpEditXg5k.DataSource = _plcs.XG5000PLCs;
             repositoryItemLookUpEditXg5k.DisplayMember = "PLCType";
-            repositoryItemLookUpEditOmron.EditValueChanged += PLCChanged;
-            repositoryItemLookUpEditXg5k.EditValueChanged += PLCChanged;
+            repositoryItemLookUpEditOmron.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.Omron);
+            repositoryItemLookUpEditXg5k.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.Omron);
 
             lookUpEditOmronMemory.Properties.DisplayMember = "Name";
             lookUpEditXg5kMemory.Properties.DisplayMember = "Name";
@@ -118,29 +111,16 @@ namespace AddressMapper
 
             dockPanelMain.SizeChanged += (s, e) => AdjustRelativeBarSize();
 
-            Mapping = new PLCMapping(_plcs.OmronPLCs[0], _plcs.XG5000PLCs[0]);
-
-
-            ucMemoryBarOmron.Identifier = "OMRON";
-            ucMemoryBarXg5k.Identifier = "Xg5k";
+            ucMemoryBarOmron.PLCVendor = PLCVendor.Omron;
+            ucMemoryBarXg5k.PLCVendor = PLCVendor.LSIS;
 
             gridControlRanged.Dock = DockStyle.Fill;
             gridControlOneToOne.Dock = DockStyle.Fill;
 
-            Subjects.MemorySectionChangeRequestSubject.Subscribe(tpl =>
-            {
-                var ucMemoryBar = tpl.Item1;
-                var memTypeName = tpl.Item2;
-                if (ucMemoryBar == ucMemoryBarOmron)
-                {
-                    lookUpEditOmronMemory.EditValue = _mapping.OmronPLC.Memories.FirstOrDefault(m => m.Name == memTypeName);
-                }
-                else if (ucMemoryBar == ucMemoryBarXg5k)
-                {
-                    lookUpEditXg5kMemory.EditValue = _mapping.Xg5kPLC.Memories.FirstOrDefault(m => m.Name == memTypeName);
-                }
-            });
+            InitializeGrids();
+            InitializeSubjects();
 
+            Mapping = new PLCMapping(_plcs.OmronPLCs[0], _plcs.XG5000PLCs[0]);
 
             /// 옴론 / 산전 memory bar 두개를 상대적인 크기 반영
             void AdjustRelativeBarSize()
@@ -160,16 +140,6 @@ namespace AddressMapper
 
                 Console.WriteLine("");
             }
-
-            /// <summary>
-            /// 기종 변경
-            /// </summary>
-            void PLCChanged(object sender1, EventArgs args1)
-            {
-                var omron = (OmronPLC)barEditItemOmronPLC.EditValue;
-                var xg5k  = (Xg5kPLC) barEditItemXg5kPLC. EditValue;
-                Mapping = new PLCMapping(omron, xg5k);
-            }
         }
 
 
@@ -183,11 +153,15 @@ namespace AddressMapper
             var x = ucMemoryBarXg5k. ActiveRangeSelector.SelectedRange.ToMemoryRange();
             var om = ucMemoryBarOmron.MemorySection;
             var xm = ucMemoryBarXg5k. MemorySection;
-            Global.Logger.Info($"Mapping: {om.Name}[{o.Start} - {o.End}] -> {xm.Name}[{x.Start} - {x.End}]");
+            _logger.Info($"Mapping: {om.Name}[{o.Start} - {o.End}] -> {xm.Name}[{x.Start} - {x.End}]");
             var oma = ucMemoryBarOmron.ActiveRangeAllocated();
             var xma = ucMemoryBarXg5k.ActiveRangeAllocated();
             oma.Counterpart = xma;
             xma.Counterpart = oma;
+
+            var mapping = new RangeMapping(oma, xma);
+            _rangeMappings.Add(mapping);
+            gridControlRanged.DataSource = _rangeMappings;
         }
 
         private void btnExport_ItemClick(object sender, ItemClickEventArgs e)
@@ -200,7 +174,7 @@ namespace AddressMapper
                     var xmr = omr.Counterpart;
                     var xMemTypeName = xmr.Parent.Name;
 
-                    Global.Logger.Debug($"{oMemTypeName}[{omr.Start}:{omr.End}] => {xMemTypeName}[{xmr.Start}:{xmr.End}]");
+                    _logger.Debug($"{oMemTypeName}[{omr.Start}:{omr.End}] => {xMemTypeName}[{xmr.Start}:{xmr.End}]");
                 }
             }
         }
@@ -244,18 +218,17 @@ namespace AddressMapper
                 m.MemoryRanges.OfType<AllocatedMemoryRange>().Iter(a =>
                 {
                     var c = a.Counterpart;
-                    Global.Logger.Debug($"{m.Name}[{a.Start}:{a.End}] => {c.Parent.Name}[{c.Start}:{c.End}]");
+                    _logger.Debug($"{m.Name}[{a.Start}:{a.End}] => {c.Parent.Name}[{c.Start}:{c.End}]");
                 });
             });
         }
 
-        private void barSelectSampleRange_ItemClick(object sender, ItemClickEventArgs e)
+        private void btnSelectSampleRange_ItemClick(object sender, ItemClickEventArgs e)
         {
             ucMemoryBarOmron.ActiveRangeSelector.SelectedRange.Minimum = 1024;
             ucMemoryBarOmron.ActiveRangeSelector.SelectedRange.Maximum = 1024*2 - 1;
             ucMemoryBarXg5k. ActiveRangeSelector.SelectedRange.Minimum = 1024;
             ucMemoryBarXg5k. ActiveRangeSelector.SelectedRange.Maximum = 1024*2 - 1;
         }
-
     }
 }
