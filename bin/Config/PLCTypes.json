@@ -4,12 +4,12 @@
       "Memories": [
         {
           "Bit": true,
-          "Word": false,
+          "Word": true,
           "PatternNameOverride": null,
           "Name": "PIO",
           "Start": 0,
-          "End": 1024,
-          "Length": 1024
+          "End": 1023,
+          "Length": 1023
         },
         {
           "Bit": true,
@@ -17,8 +17,8 @@
           "PatternNameOverride": null,
           "Name": "D",
           "Start": 0,
-          "End": 10240,
-          "Length": 10240
+          "End": 10239,
+          "Length": 10239
         },
         {
           "Bit": true,
@@ -26,8 +26,8 @@
           "PatternNameOverride": null,
           "Name": "J",
           "Start": 0,
-          "End": 2048,
-          "Length": 2048
+          "End": 2047,
+          "Length": 2047
         },
         {
           "Bit": true,
@@ -35,8 +35,8 @@
           "PatternNameOverride": null,
           "Name": "K",
           "Start": 0,
-          "End": 512,
-          "Length": 512
+          "End": 511,
+          "Length": 511
         }
       ],
       "PLCType": "CJ1H"
@@ -49,8 +49,8 @@
           "PatternNameOverride": null,
           "Name": "PIO",
           "Start": 0,
-          "End": 10240,
-          "Length": 10240
+          "End": 10239,
+          "Length": 10239
         },
         {
           "Bit": true,
@@ -58,8 +58,8 @@
           "PatternNameOverride": null,
           "Name": "D",
           "Start": 0,
-          "End": 1024,
-          "Length": 1024
+          "End": 1023,
+          "Length": 1023
         },
         {
           "Bit": true,
@@ -67,8 +67,8 @@
           "PatternNameOverride": null,
           "Name": "J",
           "Start": 0,
-          "End": 2048,
-          "Length": 2048
+          "End": 2047,
+          "Length": 2047
         },
         {
           "Bit": true,
@@ -76,8 +76,8 @@
           "PatternNameOverride": null,
           "Name": "K",
           "Start": 0,
-          "End": 512,
-          "Length": 512
+          "End": 511,
+          "Length": 511
         }
       ],
       "PLCType": "CJ2H"
@@ -90,22 +90,22 @@
           "PatternNameOverride": null,
           "Name": "P",
           "Start": 0,
-          "End": 10240,
-          "Length": 10240
+          "End": 10239,
+          "Length": 10239
         },
         {
           "PatternNameOverride": null,
           "Name": "M",
           "Start": 0,
-          "End": 10240,
-          "Length": 10240
+          "End": 10239,
+          "Length": 10239
         },
         {
           "PatternNameOverride": null,
           "Name": "L",
           "Start": 0,
-          "End": 1024,
-          "Length": 1024
+          "End": 1023,
+          "Length": 1023
         }
       ],
       "PLCType": "Xg5k1H"
@@ -116,36 +116,36 @@
           "PatternNameOverride": null,
           "Name": "P",
           "Start": 0,
-          "End": 1024,
-          "Length": 1024
+          "End": 1023,
+          "Length": 1023
         },
         {
           "PatternNameOverride": null,
           "Name": "M",
           "Start": 0,
-          "End": 1024,
-          "Length": 1024
+          "End": 1023,
+          "Length": 1023
         },
         {
           "PatternNameOverride": null,
           "Name": "X",
           "Start": 0,
-          "End": 10240,
-          "Length": 10240
+          "End": 10239,
+          "Length": 10239
         },
         {
           "PatternNameOverride": null,
           "Name": "Y",
           "Start": 0,
-          "End": 512,
-          "Length": 512
+          "End": 511,
+          "Length": 511
         },
         {
           "PatternNameOverride": null,
           "Name": "A",
           "Start": 0,
-          "End": 16,
-          "Length": 16
+          "End": 15,
+          "Length": 15
         }
       ],
       "PLCType": "Xg5k2H"

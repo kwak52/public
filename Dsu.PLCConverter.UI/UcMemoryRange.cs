@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Dsu.PLCConverter.UI.AddressMapperLogics;
 using Dsu.PLCConvertor.Common;
 using Dsu.Common.Utilities.ExtensionMethods;
+using DevExpress.XtraEditors.Drawing;
 
 namespace Dsu.PLCConverter.UI
 {
@@ -65,7 +66,7 @@ namespace Dsu.PLCConverter.UI
                     {
                         var srcLength = GetSourceRangeLength();
                         SelectedRange.Minimum = Minimum;
-                        SelectedRange.Maximum = srcLength - 1;
+                        SelectedRange.Maximum = Minimum + srcLength - 1;
                     }));
                     items.Add(new ToolStripMenuItem("끝 기준 맞추기", Images.T, (o, a) =>
                     {
@@ -102,7 +103,7 @@ namespace Dsu.PLCConverter.UI
 
         public int Start => Minimum;
         public int End => Maximum;
-        public int Length => End - Start;
+        public int Length => End - Start + 1;
     }
     public static class EmRangeControl
     {
@@ -113,17 +114,39 @@ namespace Dsu.PLCConverter.UI
             return new MemoryRangeBase((int)selectedRange.Minimum, (int)selectedRange.Maximum);
         }
 
-        public static int GetLength(this RangeControlRange range) => (int)range.Maximum - (int)range.Minimum;
+        public static int GetLength(this RangeControlRange range) => (int)range.Maximum - (int)range.Minimum + 1;
 
     }
 
     /// <summary>
-    /// Custom range control : https://www.devexpress.com/Support/Center/Question/Details/T397835/rangecontrol-where-is-the-rangechanging-event
+    /// DevExpress Range Control
     /// </summary>
+    // Custom range control : https://www.devexpress.com/Support/Center/Question/Details/T397835/rangecontrol-where-is-the-rangechanging-event
+    // Ruler coloring : https://supportcenter.devexpress.com/Ticket/Details/T547214/custom-painting-for-rangecontrol
+    [ToolboxItem(true)]
     public class CustomRangeControl : RangeControl
     {
         public delegate void RangeChangingEventHandler(object sender, RangeControlRangeEventArgs e);
         public event RangeChangingEventHandler RangeChanging;
+
+        protected override BaseControlPainter CreatePainter()
+        {
+            return new CustomRangeControlPainter(new SolidBrush(Color.LightCoral), new SolidBrush(Color.FromArgb(255, 240, 240, 240)), this);
+        }
+
+
+        [Browsable(true)]
+        public Color RangeColor
+        {
+            get { return (Painter as CustomRangeControlPainter).rangeBrush.Color; }
+            set { (Painter as CustomRangeControlPainter).rangeBrush.Color = value; this.Invalidate(); }
+        }
+        [Browsable(true)]
+        public Color OutOfRangeColor
+        {
+            get { return (Painter as CustomRangeControlPainter).outOfRangeBrush.Color; }
+            set { (Painter as CustomRangeControlPainter).outOfRangeBrush.Color = value; this.Invalidate(); }
+        }
 
         public CustomRangeControl() : base() { }
         protected override RangeControlHandler CreateHandler()
@@ -164,6 +187,52 @@ namespace Dsu.PLCConverter.UI
         {
             base.OnMouseMove(e);
             RaiseRangeChangeEvent(e);
+        }
+    }
+
+    public class CustomRangeControlPainter : RangeControlPainter
+    {
+        internal SolidBrush rangeBrush;
+        internal SolidBrush outOfRangeBrush;
+        CustomRangeControl owner;
+
+        public CustomRangeControlPainter(SolidBrush range, SolidBrush outOfRange, CustomRangeControl control)
+        {
+            rangeBrush = range;
+            outOfRangeBrush = outOfRange;
+            owner = control;
+        }
+        protected override void DrawOutOfRangeMask(ControlGraphicsInfoArgs info)
+        {
+            base.DrawOutOfRangeMask(info);
+            RangeControlViewInfo viewInfo = (RangeControlViewInfo)info.ViewInfo;
+            Rectangle left = viewInfo.LeftOutOfRangeBounds;
+            if (left.Width > 0)
+            {
+                info.Graphics.FillRectangle(outOfRangeBrush, left);
+            }
+            Rectangle right = viewInfo.RightOutOfRangeBounds;
+            if (right.Width > 0)
+            {
+                info.Graphics.FillRectangle(outOfRangeBrush, viewInfo.RightOutOfRangeBounds);
+            }
+        }
+        protected override void DrawRuler(ControlGraphicsInfoArgs info)
+        {
+            RangeControlViewInfo viewInfo = (RangeControlViewInfo)info.ViewInfo;
+            NumericRangeControlClient cli = owner.Client as NumericRangeControlClient;
+            if (cli != null)
+            {
+                if (Equals(owner.SelectedRange.Minimum, cli.Minimum) && Equals(owner.SelectedRange.Maximum, cli.Maximum))
+                {
+                    info.Graphics.FillRectangle(Brushes.White, viewInfo.RangeBounds);
+                }
+                else
+                {
+                    info.Graphics.FillRectangle(rangeBrush, viewInfo.RangeBounds);
+                }
+            }
+            base.DrawRuler(info);
         }
     }
 }
