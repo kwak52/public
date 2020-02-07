@@ -4,8 +4,8 @@
       "Memories": [
         {
           "Bit": true,
-          "Word": true,
-          "PatternNameOverride": null,
+          "Word": false,
+          "PatternNameOverride": "",
           "Name": "PIO",
           "Start": 0,
           "End": 1023,

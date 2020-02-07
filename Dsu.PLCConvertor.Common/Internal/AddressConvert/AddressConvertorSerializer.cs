@@ -37,7 +37,16 @@ namespace Dsu.PLCConvertor.Common.Internal
                 To = rule.SourceRepr;
             }
 
-            [JsonConstructor] private OneToOneRule() {}
+            public OneToOneRule(string from, string to)
+            {
+                From = from;
+                To = to;
+            }
+
+            /// <summary>
+            /// Grid 추가를 위해서 empty constructor 가 있어야 한다. (Address Mapper exe)
+            /// </summary>
+            public OneToOneRule() {}
         }
 
         public class MinMax

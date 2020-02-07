@@ -16,6 +16,7 @@ using log4net;
 using Dsu.PLCConvertor.Common.Internal;
 using System.Configuration;
 using System.Reflection;
+using static Dsu.PLCConvertor.Common.Internal.AddressConvertorSerializer;
 
 namespace AddressMapper
 {
@@ -41,11 +42,6 @@ namespace AddressMapper
         /// 선택된 옴론 및 산전 각 하나씩의 H/W PLC type 
         /// </summary>
         PLCMapping _mapping;
-
-        /// <summary>
-        /// 최종 mapping 결과들
-        /// </summary>
-        List<RangeMapping> _rangeMappings = new List<RangeMapping>();
 
         public static FormAddressMapper TheMainForm { get; private set; }
         private PLCMapping Mapping
@@ -182,7 +178,6 @@ namespace AddressMapper
 
             var mapping = new RangeMapping(oma, xma);
             _rangeMappings.Add(mapping);
-            gridControlRanged.DataSource = _rangeMappings;
         }
 
         private void btnExport_ItemClick(object sender, ItemClickEventArgs e)
@@ -213,7 +208,7 @@ namespace AddressMapper
             }
             var ol = o.SelectedRange.ToMemoryRange()?.Length;
             var xl = x.SelectedRange.ToMemoryRange()?.Length;
-            btnAssign.Enabled = xl.HasValue && ol.HasValue && xl.Value >= ol.Value;
+            btnAssign.Enabled = xl.HasValue && ol.HasValue && xl.Value == ol.Value;
         }
 
         private void btnTestRangeUI_ItemClick(object sender, ItemClickEventArgs e)
@@ -270,6 +265,19 @@ namespace AddressMapper
                 var plcHardwareSettingFile = ofd.FileName;
                 PLCHWSpecs = LoadPLCHardwareSetting(plcHardwareSettingFile);
             }
+        }
+
+        private void btnGenerateOneToOne_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var rules = new[]
+            {
+                new OneToOneRule("P_EQ", "F122"),
+                new OneToOneRule("P_GT", "F123"),
+                new OneToOneRule("P_GE", "F124"),
+                new OneToOneRule("P_On", "F00099"),
+            };
+
+            rules.Iter(r => _oneToOneMappings.Add(r));
         }
     }
 }

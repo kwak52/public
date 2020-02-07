@@ -68,8 +68,8 @@ namespace AddressMapper
             _mapping.Xg5kPLC.Clear();
             ucMemoryBarOmron.DrawRanges();
             ucMemoryBarXg5k.DrawRanges();
-            gridControlRanged.DataSource = null;
-            //gridControlOneToOne.DataSource = null;
+            _rangeMappings.Clear();
+            _oneToOneMappings.Clear();
         }
 
         /// <summary>

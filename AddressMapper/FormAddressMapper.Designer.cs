@@ -34,10 +34,14 @@
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
+            DevExpress.Utils.SuperToolTip superToolTip6 = new DevExpress.Utils.SuperToolTip();
+            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem6 = new DevExpress.Utils.ToolTipTitleItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddressMapper));
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
@@ -57,6 +61,7 @@
             this.btnSelectSampleRange = new DevExpress.XtraBars.BarButtonItem();
             this.btnExport = new DevExpress.XtraBars.BarButtonItem();
             this.btnLoadPLCSettings = new DevExpress.XtraBars.BarButtonItem();
+            this.btnGenerateOneToOne = new DevExpress.XtraBars.BarButtonItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -102,6 +107,8 @@
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
             this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList();
             this.action1 = new Dsu.Common.Utilities.Actions.Action();
+            this.gridColumnFrom = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumnTo = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -159,10 +166,11 @@
             this.btnShowBarContents,
             this.btnSelectSampleRange,
             this.btnExport,
-            this.btnLoadPLCSettings});
+            this.btnLoadPLCSettings,
+            this.btnGenerateOneToOne});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.Margin = new System.Windows.Forms.Padding(2);
-            this.ribbon.MaxItemId = 17;
+            this.ribbon.MaxItemId = 18;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -205,6 +213,9 @@
             this.btnGenerateJsonTemplate.Caption = "Generate Template";
             this.btnGenerateJsonTemplate.Id = 8;
             this.btnGenerateJsonTemplate.Name = "btnGenerateJsonTemplate";
+            toolTipTitleItem1.Text = "PLC H/W Spec template 파일 생성";
+            superToolTip1.Items.Add(toolTipTitleItem1);
+            this.btnGenerateJsonTemplate.SuperTip = superToolTip1;
             this.btnGenerateJsonTemplate.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGenerateJsonTemplate_ItemClick);
             // 
             // barEditItemOmronPLC
@@ -214,9 +225,9 @@
             this.barEditItemOmronPLC.EditWidth = 80;
             this.barEditItemOmronPLC.Id = 9;
             this.barEditItemOmronPLC.Name = "barEditItemOmronPLC";
-            toolTipTitleItem1.Text = "옴론 PLC 기종 변경";
-            superToolTip1.Items.Add(toolTipTitleItem1);
-            this.barEditItemOmronPLC.SuperTip = superToolTip1;
+            toolTipTitleItem2.Text = "옴론 PLC 기종 변경";
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            this.barEditItemOmronPLC.SuperTip = superToolTip2;
             // 
             // repositoryItemLookUpEditOmron
             // 
@@ -232,9 +243,9 @@
             this.barEditItemXg5kPLC.EditWidth = 80;
             this.barEditItemXg5kPLC.Id = 10;
             this.barEditItemXg5kPLC.Name = "barEditItemXg5kPLC";
-            toolTipTitleItem2.Text = "산전 PLC 기종 변경";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            this.barEditItemXg5kPLC.SuperTip = superToolTip2;
+            toolTipTitleItem3.Text = "산전 PLC 기종 변경";
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            this.barEditItemXg5kPLC.SuperTip = superToolTip3;
             // 
             // repositoryItemLookUpEditXg5k
             // 
@@ -269,12 +280,12 @@
             this.btnExport.Caption = "Export";
             this.btnExport.Id = 14;
             this.btnExport.Name = "btnExport";
-            toolTipTitleItem3.Text = "Export";
+            toolTipTitleItem4.Text = "Export";
             toolTipItem1.LeftIndent = 6;
             toolTipItem1.Text = "Exports current mapping to json file.";
-            superToolTip3.Items.Add(toolTipTitleItem3);
-            superToolTip3.Items.Add(toolTipItem1);
-            this.btnExport.SuperTip = superToolTip3;
+            superToolTip4.Items.Add(toolTipTitleItem4);
+            superToolTip4.Items.Add(toolTipItem1);
+            this.btnExport.SuperTip = superToolTip4;
             this.btnExport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExport_ItemClick);
             // 
             // btnLoadPLCSettings
@@ -282,13 +293,23 @@
             this.btnLoadPLCSettings.Caption = "Load PLC settings";
             this.btnLoadPLCSettings.Id = 16;
             this.btnLoadPLCSettings.Name = "btnLoadPLCSettings";
-            toolTipTitleItem4.Text = "Load PLC settings";
+            toolTipTitleItem5.Text = "Load PLC settings";
             toolTipItem2.LeftIndent = 6;
             toolTipItem2.Text = "Load PLC H/W settings from json file.";
-            superToolTip4.Items.Add(toolTipTitleItem4);
-            superToolTip4.Items.Add(toolTipItem2);
-            this.btnLoadPLCSettings.SuperTip = superToolTip4;
+            superToolTip5.Items.Add(toolTipTitleItem5);
+            superToolTip5.Items.Add(toolTipItem2);
+            this.btnLoadPLCSettings.SuperTip = superToolTip5;
             this.btnLoadPLCSettings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLoadPLCSettings_ItemClick);
+            // 
+            // btnGenerateOneToOne
+            // 
+            this.btnGenerateOneToOne.Caption = "Generate One to one";
+            this.btnGenerateOneToOne.Id = 17;
+            this.btnGenerateOneToOne.Name = "btnGenerateOneToOne";
+            toolTipTitleItem6.Text = "Generate sample 1:1 mapping rules";
+            superToolTip6.Items.Add(toolTipTitleItem6);
+            this.btnGenerateOneToOne.SuperTip = superToolTip6;
+            this.btnGenerateOneToOne.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGenerateOneToOne_ItemClick);
             // 
             // ribbonPage1
             // 
@@ -329,6 +350,7 @@
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnTestRangeUI);
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnShowBarContents);
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnSelectSampleRange);
+            this.ribbonPageGroupTest.ItemLinks.Add(this.btnGenerateOneToOne);
             this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
             this.ribbonPageGroupTest.Text = "Test";
             // 
@@ -693,6 +715,9 @@
             // 
             // gridViewOneToOne
             // 
+            this.gridViewOneToOne.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumnFrom,
+            this.gridColumnTo});
             this.gridViewOneToOne.GridControl = this.gridControlOneToOne;
             this.gridViewOneToOne.Name = "gridViewOneToOne";
             this.gridViewOneToOne.OptionsView.ShowGroupPanel = false;
@@ -749,6 +774,26 @@
             this.action1.Text = "8643808";
             this.action1.Visible = true;
             this.action1.Update += new System.EventHandler(this.action1_Update);
+            // 
+            // gridColumnFrom
+            // 
+            this.gridColumnFrom.Caption = "옴론";
+            this.gridColumnFrom.FieldName = "From";
+            this.gridColumnFrom.MinWidth = 30;
+            this.gridColumnFrom.Name = "gridColumnFrom";
+            this.gridColumnFrom.Visible = true;
+            this.gridColumnFrom.VisibleIndex = 0;
+            this.gridColumnFrom.Width = 112;
+            // 
+            // gridColumnTo
+            // 
+            this.gridColumnTo.Caption = "XG5000";
+            this.gridColumnTo.FieldName = "To";
+            this.gridColumnTo.MinWidth = 30;
+            this.gridColumnTo.Name = "gridColumnTo";
+            this.gridColumnTo.Visible = true;
+            this.gridColumnTo.VisibleIndex = 1;
+            this.gridColumnTo.Width = 112;
             // 
             // FormAddressMapper
             // 
@@ -859,5 +904,8 @@
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandX;
         private DevExpress.XtraGrid.Views.BandedGrid.GridBand gridBandEtc;
         private DevExpress.XtraBars.BarButtonItem btnLoadPLCSettings;
+        private DevExpress.XtraBars.BarButtonItem btnGenerateOneToOne;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnFrom;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumnTo;
     }
 }

@@ -72,7 +72,7 @@ namespace Dsu.PLCConverter.UI
                     {
                         var srcLength = GetSourceRangeLength();
                         SelectedRange.Maximum = Maximum;
-                        SelectedRange.Minimum = Maximum - srcLength;
+                        SelectedRange.Minimum = Maximum - srcLength + 1;
                     }));
                     break;
                 case PLCVendor.Omron:
