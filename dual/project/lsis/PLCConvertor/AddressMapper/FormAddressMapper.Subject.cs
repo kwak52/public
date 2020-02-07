@@ -48,15 +48,15 @@ namespace AddressMapper
                 lookUpEditXg5kMemory.Properties.DataSource = newMapping.Xg5kPLC.Memories;
                 lookUpEditXg5kMemory.EditValue = newMapping.Xg5kPLC.Memories[0];
 
-                barEditItemOmronPLC.EditValue = newMapping.OmronPLC;
-                barEditItemXg5kPLC.EditValue = newMapping.Xg5kPLC;
+                lookUpEditOmronPLC.EditValue = newMapping.OmronPLC;
+                lookUpEditXg5kPLC.EditValue = newMapping.Xg5kPLC; 
             }));
 
             // PLC H/W 설정 파일을 새로 loading 했을 때
             PLCHWSpecsChangeRequestSubject.Subscribe(hwSpecs => {
                 Debug.Assert(hwSpecs == PLCHWSpecs);
-                repositoryItemLookUpEditOmron.DataSource = hwSpecs.OmronPLCs;
-                repositoryItemLookUpEditXg5k.DataSource = hwSpecs.XG5000PLCs;
+                lookUpEditOmronPLC.Properties.DataSource = hwSpecs.OmronPLCs;
+                lookUpEditXg5kPLC.Properties.DataSource = hwSpecs.XG5000PLCs;
 
                 Mapping = new PLCMapping(hwSpecs.OmronPLCs[0], hwSpecs.XG5000PLCs[0]);
             });
@@ -86,11 +86,11 @@ namespace AddressMapper
                 if (vendor == PLCVendor.Omron)
                 {
                     omron = (OmronPLC)edit.EditValue;
-                    xg5k = (Xg5kPLC)barEditItemXg5kPLC.EditValue;
+                    xg5k = (Xg5kPLC)lookUpEditXg5kPLC.EditValue;
                 }
                 else if (vendor == PLCVendor.LSIS)
                 {
-                    omron = (OmronPLC)barEditItemOmronPLC.EditValue;
+                    omron = (OmronPLC)lookUpEditOmronPLC.EditValue;
                     xg5k = (Xg5kPLC)edit.EditValue;
                 }
             }

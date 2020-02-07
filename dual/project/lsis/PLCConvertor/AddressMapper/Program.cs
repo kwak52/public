@@ -33,6 +33,7 @@ namespace AddressMapper
             // Configure log4net
             XmlConfigurator.Configure(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));
 
+            DevExpress.XtraSplashScreen.SplashScreenManager.ShowForm(typeof(SplashScreen1), true, true);
 
             var root = ((log4net.Repository.Hierarchy.Hierarchy)log4net.LogManager.GetRepository()).Root;
             var form = new FormAddressMapper();
