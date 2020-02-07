@@ -126,6 +126,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\A.png" />
+    <None Include="Resources\ArrowBackwardGreen.png" />
+    <None Include="Resources\ArrowForwardGreen.png" />
     <Content Include="Resources\Clear.png" />
     <Content Include="Resources\Collapse.png" />
     <Content Include="Resources\Copy.png" />

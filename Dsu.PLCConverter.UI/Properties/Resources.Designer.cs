@@ -73,6 +73,26 @@ namespace Dsu.PLCConverter.UI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ArrowBackwardGreen {
+            get {
+                object obj = ResourceManager.GetObject("ArrowBackwardGreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ArrowForwardGreen {
+            get {
+                object obj = ResourceManager.GetObject("ArrowForwardGreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Clear {
             get {
                 object obj = ResourceManager.GetObject("Clear", resourceCulture);

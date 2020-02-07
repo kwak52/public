@@ -62,13 +62,13 @@ namespace Dsu.PLCConverter.UI
                         var srcLength = GetSourceRangeLength();
                         new FormRange(this, srcLength).ShowDialog();
                     }));
-                    items.Add(new ToolStripMenuItem("시작 기준 맞추기", Images.T, (o, a) =>
+                    items.Add(new ToolStripMenuItem("시작 기준 맞추기", Images.ArrowBackwardGreen, (o, a) =>
                     {
                         var srcLength = GetSourceRangeLength();
                         SelectedRange.Minimum = Minimum;
                         SelectedRange.Maximum = Minimum + srcLength - 1;
                     }));
-                    items.Add(new ToolStripMenuItem("끝 기준 맞추기", Images.T, (o, a) =>
+                    items.Add(new ToolStripMenuItem("끝 기준 맞추기", Images.ArrowForwardGreen, (o, a) =>
                     {
                         var srcLength = GetSourceRangeLength();
                         SelectedRange.Maximum = Maximum;
