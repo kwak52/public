@@ -19,6 +19,9 @@ namespace AddressMapper
     {
         IEnumerable<IAddressConvertRule> GenerateRules()
         {
+            foreach (var m in _oneToOneMappings)
+                yield return m.ToNormalRule();
+
             foreach (var m in _rangeMappings)
             {
                 var o = m.Omron;
@@ -81,11 +84,16 @@ namespace AddressMapper
             }
             public Sample() { }
         }
-        //BindingList<OneToOneRule> _oneToOneRules = new BindingList<OneToOneRule>();
-        BindingList<Sample> _oneToOneRules = new BindingList<Sample>(new [] {new Sample("hello") }.ToList());
-        //List<Sample> _oneToOneRules = new List<Sample>(new[] { new Sample("hello") }.ToList());
+        /// <summary>
+        /// 최종 mapping 결과들
+        /// </summary>
+        BindingList<RangeMapping> _rangeMappings = new BindingList<RangeMapping>();
+        BindingList<OneToOneRule> _oneToOneMappings = new BindingList<OneToOneRule>();
         void InitializeGrids()
         {
+            gridControlRanged.DataSource = _rangeMappings;
+            gridControlOneToOne.DataSource = _oneToOneMappings;
+
             //gridControlOneToOne.EmbeddedNavigator.ButtonClick += (s, e) =>
             //{
             //    gridViewOneToOne.AddNewRow();
@@ -96,13 +104,6 @@ namespace AddressMapper
             //{
             //    gridViewOneToOne.AddNewRow();
             //};
-
-
-            //_oneToOneRules.AllowNew = true;
-            //_oneToOneRules.AllowEdit = true;
-            gridViewOneToOne.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
-            gridViewOneToOne.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.True;
-            gridControlOneToOne.DataSource = _oneToOneRules;
         }
     }
 }

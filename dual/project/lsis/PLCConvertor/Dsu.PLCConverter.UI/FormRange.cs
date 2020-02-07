@@ -51,7 +51,7 @@ namespace Dsu.PLCConverter.UI
                         {
                             var val = e.NewValue.ToString().TryParseInt();
                             if (val.HasValue)
-                                textEditEnd.EditValue = val.Value + len;
+                                textEditEnd.EditValue = val.Value + len - 1;
                         }
                     }
                     finally
@@ -67,7 +67,7 @@ namespace Dsu.PLCConverter.UI
                         {
                             var val = e.NewValue.ToString().TryParseInt();
                             if (val.HasValue)
-                                textEditStart.EditValue = val.Value - len;
+                                textEditStart.EditValue = val.Value - len + 1;
                         }
                     }
                     finally
