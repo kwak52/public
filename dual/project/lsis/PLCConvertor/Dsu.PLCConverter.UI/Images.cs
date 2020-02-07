@@ -12,8 +12,8 @@ namespace Dsu.PLCConverter.UI
         //      public static Image ActionAdd { get { return Properties.Resources.ActionAdd; } }
         //      public static Image ActionCancel { get { return Properties.Resources.ActionCancel; } }
 
-        //      public static Image ArrowForward { get { return Properties.Resources.ArrowForward; } }
-        //      public static Image ArrowBackward { get { return Properties.Resources.ArrowBackward; } }
+        public static Image ArrowForwardGreen { get { return Properties.Resources.ArrowForwardGreen; } }
+        public static Image ArrowBackwardGreen { get { return Properties.Resources.ArrowBackwardGreen; } }
 
         //      public static Image ArrowDown { get { return Properties.Resources.ArrowDown; } }
         //      public static Image ArrowUp { get { return Properties.Resources.ArrowUp; } }

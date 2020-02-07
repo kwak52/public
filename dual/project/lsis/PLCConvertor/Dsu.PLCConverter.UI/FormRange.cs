@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
+using DevExpress.XtraLayout.Utils;
 
 namespace Dsu.PLCConverter.UI
 {
@@ -28,16 +29,18 @@ namespace Dsu.PLCConverter.UI
 
         private void FormRange_Load(object sender, EventArgs args)
         {
+            layoutControlItemUnit.Visibility = LayoutVisibility.Never;
+
             var min = (int)_memBar.SelectedRange.Minimum;
             textEditStart.EditValue = min;
             textEditEnd.EditValue   = _memBar.SelectedRange.Maximum;
-            layoutControlItemLength.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Never;
+            layoutControlItemLength.Visibility = LayoutVisibility.Never;
             if (_length.HasValue)
             {
                 var len = _length.Value;
-                layoutControlItemLength.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.Always;
+                layoutControlItemLength.Visibility = LayoutVisibility.Always;
                 textEditLength.EditValue = len;
-                textEditEnd.EditValue = min + len;
+                textEditEnd.EditValue = min + len - 1;
 
                 // 주어진 길이는 source 측에서 결정된 길이를 따름.
                 // Start 의 값을 변경할 때, 주어진 길이를 유지하도록 End 값을 자동수정.
@@ -47,7 +50,7 @@ namespace Dsu.PLCConverter.UI
                 {
                     try
                     {
-                        if (Interlocked.Increment(ref counter) == 1)
+                        if (Interlocked.Increment(ref counter) == 1 && checkEditLengthBound.Checked)
                         {
                             var val = e.NewValue.ToString().TryParseInt();
                             if (val.HasValue)
@@ -63,7 +66,7 @@ namespace Dsu.PLCConverter.UI
                 {
                     try
                     {
-                        if (Interlocked.Increment(ref counter) == 1)
+                        if (Interlocked.Increment(ref counter) == 1 && checkEditLengthBound.Checked)
                         {
                             var val = e.NewValue.ToString().TryParseInt();
                             if (val.HasValue)
@@ -78,10 +81,11 @@ namespace Dsu.PLCConverter.UI
             }
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
+        private void btnOK_Click(object sender, EventArgs e)
         {
             _memBar.SelectedRange.Minimum = int.Parse(textEditStart.Text);
             _memBar.SelectedRange.Maximum = int.Parse(textEditEnd.Text);
+            Close();
         }
 
         private void textEditRange_Validating(object sender, CancelEventArgs e)
@@ -118,6 +122,11 @@ namespace Dsu.PLCConverter.UI
             }
 
             Console.WriteLine("");
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
