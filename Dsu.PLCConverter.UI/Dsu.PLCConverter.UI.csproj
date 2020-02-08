@@ -63,6 +63,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.LSIS.cs">
+      <Link>Properties\CommonAssemblyInfo.LSIS.cs</Link>
+    </Compile>
     <Compile Include="AddressMapperLogics\PLC.cs" />
     <Compile Include="AddressMapperLogics\Types.cs" />
     <Compile Include="ColorInterpolator.cs" />
