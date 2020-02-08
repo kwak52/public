@@ -138,9 +138,9 @@
     <Content Include="Resources\T.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
-      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
-      <Name>Dsu.Common.Utilities.Core</Name>
+    <ProjectReference Include="..\Dsu.Common.LSIS\Dsu.Common.LSIS.csproj">
+      <Project>{39243a80-45fc-4e26-b257-1ecae0bfa1d5}</Project>
+      <Name>Dsu.Common.LSIS</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dsu.PLCConvertor.Common\Dsu.PLCConvertor.Common.csproj">
       <Project>{f4513a8d-c7df-4f1d-9214-d97409879c61}</Project>

@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Dsa.Kefico.DistributionChecker")]
+[assembly: AssemblyTitle("Dsa.LSIS.DistributionChecker")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyProduct("Dsa.Kefico.DistributionChecker")]
+[assembly: AssemblyProduct("Dsa.LSIS.DistributionChecker")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible

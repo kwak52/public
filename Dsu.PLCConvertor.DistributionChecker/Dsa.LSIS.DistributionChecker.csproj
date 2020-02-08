@@ -7,8 +7,8 @@
     <ProjectGuid>{E04C915F-A4CC-494F-B454-C62ABADF1B21}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dsu.PLCConvertor.DistributionChecker</RootNamespace>
-    <AssemblyName>Dsu.PLCConvertor.DistributionChecker</AssemblyName>
+    <RootNamespace>Dsa.LSIS.DistributionChecker</RootNamespace>
+    <AssemblyName>Dsa.LSIS.DistributionChecker</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
