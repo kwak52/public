@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             DevExpress.Utils.SuperToolTip superToolTip1 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
@@ -44,8 +45,8 @@
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem6 = new DevExpress.Utils.ToolTipTitleItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddressMapper));
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
-            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup();
-            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document();
+            this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
+            this.document1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(this.components);
             this.ribbon = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.barCheckItemShowLog = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemGridOneToOne = new DevExpress.XtraBars.BarCheckItem();
@@ -68,7 +69,7 @@
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
-            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager();
+            this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
             this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
             this.ucPanelLog1 = new Dsu.PLCConverter.UI.UcPanelLog();
@@ -101,14 +102,15 @@
             this.controlContainer3 = new DevExpress.XtraBars.Docking.ControlContainer();
             this.gridControlOneToOne = new DevExpress.XtraGrid.GridControl();
             this.gridViewOneToOne = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.numericRangeControlClient1 = new DevExpress.XtraEditors.NumericRangeControlClient();
-            this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
-            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager();
-            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView();
-            this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList();
-            this.action1 = new Dsu.Common.Utilities.Actions.Action();
             this.gridColumnFrom = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumnTo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.numericRangeControlClient1 = new DevExpress.XtraEditors.NumericRangeControlClient();
+            this.checkedComboBoxEdit2 = new DevExpress.XtraEditors.CheckedComboBoxEdit();
+            this.documentManager1 = new DevExpress.XtraBars.Docking2010.DocumentManager(this.components);
+            this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
+            this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList(this.components);
+            this.action1 = new Dsu.Common.Utilities.Actions.Action(this.components);
+            this.btnSelectPLCTypes = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
@@ -167,10 +169,11 @@
             this.btnSelectSampleRange,
             this.btnExport,
             this.btnLoadPLCSettings,
-            this.btnGenerateOneToOne});
+            this.btnGenerateOneToOne,
+            this.btnSelectPLCTypes});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.Margin = new System.Windows.Forms.Padding(2);
-            this.ribbon.MaxItemId = 18;
+            this.ribbon.MaxItemId = 19;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
@@ -330,6 +333,7 @@
             // 
             // ribbonPageGroupTemplates
             // 
+            this.ribbonPageGroupTemplates.ItemLinks.Add(this.btnSelectPLCTypes);
             this.ribbonPageGroupTemplates.ItemLinks.Add(this.barEditItemOmronPLC);
             this.ribbonPageGroupTemplates.ItemLinks.Add(this.barEditItemXg5kPLC);
             this.ribbonPageGroupTemplates.Name = "ribbonPageGroupTemplates";
@@ -722,6 +726,26 @@
             this.gridViewOneToOne.Name = "gridViewOneToOne";
             this.gridViewOneToOne.OptionsView.ShowGroupPanel = false;
             // 
+            // gridColumnFrom
+            // 
+            this.gridColumnFrom.Caption = "옴론";
+            this.gridColumnFrom.FieldName = "From";
+            this.gridColumnFrom.MinWidth = 30;
+            this.gridColumnFrom.Name = "gridColumnFrom";
+            this.gridColumnFrom.Visible = true;
+            this.gridColumnFrom.VisibleIndex = 0;
+            this.gridColumnFrom.Width = 112;
+            // 
+            // gridColumnTo
+            // 
+            this.gridColumnTo.Caption = "XG5000";
+            this.gridColumnTo.FieldName = "To";
+            this.gridColumnTo.MinWidth = 30;
+            this.gridColumnTo.Name = "gridColumnTo";
+            this.gridColumnTo.Visible = true;
+            this.gridColumnTo.VisibleIndex = 1;
+            this.gridColumnTo.Width = 112;
+            // 
             // numericRangeControlClient1
             // 
             this.numericRangeControlClient1.RangeControl = null;
@@ -775,25 +799,12 @@
             this.action1.Visible = true;
             this.action1.Update += new System.EventHandler(this.action1_Update);
             // 
-            // gridColumnFrom
+            // btnSelectPLCTypes
             // 
-            this.gridColumnFrom.Caption = "옴론";
-            this.gridColumnFrom.FieldName = "From";
-            this.gridColumnFrom.MinWidth = 30;
-            this.gridColumnFrom.Name = "gridColumnFrom";
-            this.gridColumnFrom.Visible = true;
-            this.gridColumnFrom.VisibleIndex = 0;
-            this.gridColumnFrom.Width = 112;
-            // 
-            // gridColumnTo
-            // 
-            this.gridColumnTo.Caption = "XG5000";
-            this.gridColumnTo.FieldName = "To";
-            this.gridColumnTo.MinWidth = 30;
-            this.gridColumnTo.Name = "gridColumnTo";
-            this.gridColumnTo.Visible = true;
-            this.gridColumnTo.VisibleIndex = 1;
-            this.gridColumnTo.Width = 112;
+            this.btnSelectPLCTypes.Caption = "Select PLC types";
+            this.btnSelectPLCTypes.Id = 18;
+            this.btnSelectPLCTypes.Name = "btnSelectPLCTypes";
+            this.btnSelectPLCTypes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSelectPLCTypes_ItemClick);
             // 
             // FormAddressMapper
             // 
@@ -907,5 +918,6 @@
         private DevExpress.XtraBars.BarButtonItem btnGenerateOneToOne;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnFrom;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnTo;
+        private DevExpress.XtraBars.BarButtonItem btnSelectPLCTypes;
     }
 }
