@@ -17,13 +17,11 @@ using Dsu.PLCConvertor.Common.Internal;
 using System.Configuration;
 using System.Reflection;
 using static Dsu.PLCConvertor.Common.Internal.AddressConvertorSerializer;
-using DevExpress.LookAndFeel;
-using DevExpress.XtraEditors;
 
 namespace AddressMapper
 {
     public partial class FormAddressMapper
-        : DevExpress.XtraEditors.XtraForm
+        : DevExpress.XtraBars.Ribbon.RibbonForm
         , IAppender
     {
         /// <summary>
@@ -85,28 +83,26 @@ namespace AddressMapper
         private void FormAddressMapper_Load(object sender, EventArgs args)
         {
             Logger.Info("FormAddressMapper launched.");
-            UserLookAndFeel.Default.SetSkinStyle("The Bezier");
+
             InitializeGrids();
             InitializeSubjects();
 
-            //WireDockPanelVisibility(action1, dockPanelMain, barCheckItemShowMain);
-            //WireDockPanelVisibility(action1, dockPanelLog, barCheckItemShowLog);
-            //WireDockPanelVisibility(action1, dockPanelGridRanged,  barCheckItemGridRanged);
-            //WireDockPanelVisibility(action1, dockPanelGridOneToOne, barCheckItemGridOneToOne);
+            WireDockPanelVisibility(action1, dockPanelMain, barCheckItemShowMain);
+            WireDockPanelVisibility(action1, dockPanelLog, barCheckItemShowLog);
+            WireDockPanelVisibility(action1, dockPanelGridRanged, barCheckItemGridRanged);
+            WireDockPanelVisibility(action1, dockPanelGridOneToOne, barCheckItemGridOneToOne);
 
             ucMemoryBarOmron.Counterpart = ucMemoryBarXg5k;
             ucMemoryBarXg5k.Counterpart = ucMemoryBarOmron;
-            tileBar.SelectedItemChanged += TileBar_SelectedItemChanged;
-            windowsUIButtonPanel.ButtonClick += WindowsUIButtonPanel_ButtonClick;
 
             var plcHardwareSettingFile = ConfigurationManager.AppSettings["plcHardwareSettingFile"];
             PLCHWSpecs = LoadPLCHardwareSetting(plcHardwareSettingFile);
 
 
-            lookUpEditOmronPLC.Properties.DisplayMember = "PLCType";
-            lookUpEditXg5kPLC.Properties.DisplayMember = "PLCType";
-            lookUpEditOmronPLC.Properties.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.Omron);
-            lookUpEditXg5kPLC.Properties.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.LSIS);
+            repositoryItemLookUpEditOmron.DisplayMember = "PLCType";
+            repositoryItemLookUpEditXg5k.DisplayMember = "PLCType";
+            repositoryItemLookUpEditOmron.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.Omron);
+            repositoryItemLookUpEditXg5k.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.LSIS);
 
             lookUpEditOmronMemory.Properties.DisplayMember = "Name";
             lookUpEditXg5kMemory.Properties.DisplayMember = "Name";
@@ -133,7 +129,7 @@ namespace AddressMapper
                 AdjustRelativeBarSize();
             };
 
-            this.SizeChanged += (s, e) => AdjustRelativeBarSize();
+            dockPanelMain.SizeChanged += (s, e) => AdjustRelativeBarSize();
 
             ucMemoryBarOmron.PLCVendor = PLCVendor.Omron;
             ucMemoryBarXg5k.PLCVendor = PLCVendor.LSIS;
@@ -142,6 +138,7 @@ namespace AddressMapper
             gridControlOneToOne.Dock = DockStyle.Fill;
 
             Mapping = new PLCMapping(PLCHWSpecs.OmronPLCs[0], PLCHWSpecs.XG5000PLCs[0]);
+            DevExpress.XtraSplashScreen.SplashScreenManager.CloseForm();
 
             /// 옴론 / 산전 memory bar 두개를 상대적인 크기 반영
             void AdjustRelativeBarSize()
@@ -152,7 +149,7 @@ namespace AddressMapper
 
                 var o = ucMemoryBarOmron.MemorySection.Length;
                 var x = ucMemoryBarXg5k.MemorySection.Length;
-                var W = Width;
+                var W = dockPanelMain.Width;
                 var longer = o > x ? ucMemoryBarOmron : ucMemoryBarXg5k;
                 var shorter = o > x ? ucMemoryBarXg5k : ucMemoryBarOmron;
                 var lw = W - longer.Location.X - 10;
@@ -161,13 +158,6 @@ namespace AddressMapper
 
                 Console.WriteLine("");
             }
-
-            DevExpress.XtraSplashScreen.SplashScreenManager.CloseForm();
-        }
-
-        private void TileBar_SelectedItemChanged(object sender, DevExpress.XtraEditors.TileItemEventArgs e)
-        {
-            navigationFrame.SelectedPageIndex = tileBarGroupTables.Items.IndexOf(e.Item);
         }
 
 
@@ -191,7 +181,7 @@ namespace AddressMapper
             _rangeMappings.Add(mapping);
         }
 
-        private void btnExport()
+        private void btnExport_ItemClick(object sender, ItemClickEventArgs e)
         {
             foreach (var om in _mapping.OmronPLC.Memories)
             {
@@ -220,13 +210,6 @@ namespace AddressMapper
             var ol = o.SelectedRange.ToMemoryRange()?.Length;
             var xl = x.SelectedRange.ToMemoryRange()?.Length;
             btnAssign.Enabled = xl.HasValue && ol.HasValue && xl.Value == ol.Value;
-
-
-            bool AddressTab = navigationFrame.SelectedPageIndex == 0;
-            bool ConverterTab = navigationFrame.SelectedPageIndex == 1;
-            windowsUIButtonPanel.Buttons[0].Properties.Enabled = AddressTab; //불러오기
-            windowsUIButtonPanel.Buttons[1].Properties.Enabled = AddressTab; //저장하기
-            windowsUIButtonPanel.Buttons[3].Properties.Enabled = ConverterTab; //변환버튼
         }
 
         private void btnTestRangeUI_ItemClick(object sender, ItemClickEventArgs e)
@@ -267,7 +250,7 @@ namespace AddressMapper
             ucMemoryBarXg5k. ActiveRangeSelector.SelectedRange.Maximum = 1024*2 - 1;
         }
 
-        private void btnLoadPLCSettings()
+        private void btnLoadPLCSettings_ItemClick(object sender, ItemClickEventArgs e)
         {
             using (var ofd = new OpenFileDialog())
             {
@@ -296,30 +279,6 @@ namespace AddressMapper
             };
 
             rules.Iter(r => _oneToOneMappings.Add(r));
-        }
-        void WindowsUIButtonPanel_ButtonClick(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
-        {
-            string Select = e.Button.Properties.Caption;
-            switch(Select)
-            {
-                case "불러오기": btnLoadPLCSettings();
-                    break;
-                case "저장하기": btnExport();
-                    break;
-                case "변환": // PLCConvertor.exe 메뉴
-                    break;
-                case "닫기": // PLCConvertor.exe 메뉴
-                        this.Close();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void FormAddressMapper_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (DialogResult.No == XtraMessageBox.Show("종료하시겠습니까?", "종료확인", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
-                e.Cancel = true;
         }
     }
 }

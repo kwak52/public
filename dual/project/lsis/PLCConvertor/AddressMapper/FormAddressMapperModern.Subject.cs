@@ -10,12 +10,7 @@ using System.Reactive.Subjects;
 
 namespace AddressMapper
 {
-    public enum PLCType
-    {
-        Omron,
-        Xg5k,
-    }
-    partial class FormAddressMapper
+    partial class FormAddressMapperModern
     {
         public static Subject<PLCHWSpecs> PLCHWSpecsChangeRequestSubject = new Subject<PLCHWSpecs>();
 
