@@ -117,7 +117,7 @@ namespace AddressMapper
             {
                 var memory = (OmronMemorySection)lookUpEditOmronMemory.EditValue;
                 ucMemoryBarOmron.MemorySection = memory;
-                //AdjustRelativeBarSize();
+                AdjustRelativeBarSize();
             };
             //lookUpEditOmronMemory.EditValueChanging += (s, e) =>
             //{
@@ -130,10 +130,10 @@ namespace AddressMapper
             {
                 var memory = (Xg5kMemorySection)lookUpEditXg5kMemory.EditValue;
                 ucMemoryBarXg5k.MemorySection = memory;
-                //AdjustRelativeBarSize();
+                AdjustRelativeBarSize();
             };
 
-            //dockPanelMain.SizeChanged += (s, e) => AdjustRelativeBarSize();
+            this.SizeChanged += (s, e) => AdjustRelativeBarSize();
 
             ucMemoryBarOmron.PLCVendor = PLCVendor.Omron;
             ucMemoryBarXg5k.PLCVendor = PLCVendor.LSIS;
@@ -144,23 +144,23 @@ namespace AddressMapper
             Mapping = new PLCMapping(PLCHWSpecs.OmronPLCs[0], PLCHWSpecs.XG5000PLCs[0]);
 
             /// 옴론 / 산전 memory bar 두개를 상대적인 크기 반영
-            //void AdjustRelativeBarSize()
-            //{
-            //    //Logger.Debug("AdjustRelativeBarSize called.");
-            //    if (ucMemoryBarOmron.MemorySection == null || ucMemoryBarXg5k.MemorySection == null)
-            //        return;
+            void AdjustRelativeBarSize()
+            {
+                //Logger.Debug("AdjustRelativeBarSize called.");
+                if (ucMemoryBarOmron.MemorySection == null || ucMemoryBarXg5k.MemorySection == null)
+                    return;
 
-            //    var o = ucMemoryBarOmron.MemorySection.Length;
-            //    var x = ucMemoryBarXg5k.MemorySection.Length;
-            //    var W = dockPanelMain.Width;
-            //    var longer = o > x ? ucMemoryBarOmron : ucMemoryBarXg5k;
-            //    var shorter = o > x ? ucMemoryBarXg5k : ucMemoryBarOmron;
-            //    var lw = W - longer.Location.X - 10;
-            //    longer.Width = lw;
-            //    shorter.Width = (int)(lw * (Math.Min(o, x) / (float)Math.Max(o, x)));
+                var o = ucMemoryBarOmron.MemorySection.Length;
+                var x = ucMemoryBarXg5k.MemorySection.Length;
+                var W = Width;
+                var longer = o > x ? ucMemoryBarOmron : ucMemoryBarXg5k;
+                var shorter = o > x ? ucMemoryBarXg5k : ucMemoryBarOmron;
+                var lw = W - longer.Location.X - 10;
+                longer.Width = lw;
+                shorter.Width = (int)(lw * (Math.Min(o, x) / (float)Math.Max(o, x)));
 
-            //    Console.WriteLine("");
-            //}
+                Console.WriteLine("");
+            }
 
             DevExpress.XtraSplashScreen.SplashScreenManager.CloseForm();
         }
