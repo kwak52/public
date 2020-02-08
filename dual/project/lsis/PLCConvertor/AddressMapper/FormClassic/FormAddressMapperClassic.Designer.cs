@@ -33,16 +33,12 @@
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem1 = new DevExpress.Utils.ToolTipTitleItem();
             DevExpress.Utils.SuperToolTip superToolTip2 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem2 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip3 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem3 = new DevExpress.Utils.ToolTipTitleItem();
+            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
             DevExpress.Utils.SuperToolTip superToolTip4 = new DevExpress.Utils.SuperToolTip();
             DevExpress.Utils.ToolTipTitleItem toolTipTitleItem4 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem1 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip5 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem5 = new DevExpress.Utils.ToolTipTitleItem();
-            DevExpress.Utils.ToolTipItem toolTipItem2 = new DevExpress.Utils.ToolTipItem();
-            DevExpress.Utils.SuperToolTip superToolTip6 = new DevExpress.Utils.SuperToolTip();
-            DevExpress.Utils.ToolTipTitleItem toolTipTitleItem6 = new DevExpress.Utils.ToolTipTitleItem();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddressMapper));
             DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer dockingContainer1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DockingContainer();
             this.documentGroup1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.DocumentGroup(this.components);
@@ -53,21 +49,24 @@
             this.barCheckItemGridRanged = new DevExpress.XtraBars.BarCheckItem();
             this.barCheckItemShowMain = new DevExpress.XtraBars.BarCheckItem();
             this.btnGenerateJsonTemplate = new DevExpress.XtraBars.BarButtonItem();
-            this.barEditItemOmronPLC = new DevExpress.XtraBars.BarEditItem();
-            this.repositoryItemLookUpEditOmron = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.barEditItemXg5kPLC = new DevExpress.XtraBars.BarEditItem();
-            this.repositoryItemLookUpEditXg5k = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.btnTestRangeUI = new DevExpress.XtraBars.BarButtonItem();
             this.btnShowBarContents = new DevExpress.XtraBars.BarButtonItem();
             this.btnSelectSampleRange = new DevExpress.XtraBars.BarButtonItem();
             this.btnExport = new DevExpress.XtraBars.BarButtonItem();
             this.btnLoadPLCSettings = new DevExpress.XtraBars.BarButtonItem();
             this.btnGenerateOneToOne = new DevExpress.XtraBars.BarButtonItem();
+            this.btnSelectPLCTypes = new DevExpress.XtraBars.BarButtonItem();
+            this.barEditItemTextOmron = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
+            this.barEditItemTextXg5k = new DevExpress.XtraBars.BarEditItem();
+            this.repositoryItemTextEditXg5k = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroupFile = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.repositoryItemLookUpEditOmron = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.repositoryItemLookUpEditXg5k = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
@@ -110,10 +109,11 @@
             this.tabbedView1 = new DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(this.components);
             this.actionList1 = new Dsu.Common.Utilities.Actions.ActionList(this.components);
             this.action1 = new Dsu.Common.Utilities.Actions.Action(this.components);
-            this.btnSelectPLCTypes = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditXg5k)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditOmron)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditXg5k)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -162,24 +162,26 @@
             this.barCheckItemGridRanged,
             this.barCheckItemShowMain,
             this.btnGenerateJsonTemplate,
-            this.barEditItemOmronPLC,
-            this.barEditItemXg5kPLC,
             this.btnTestRangeUI,
             this.btnShowBarContents,
             this.btnSelectSampleRange,
             this.btnExport,
             this.btnLoadPLCSettings,
             this.btnGenerateOneToOne,
-            this.btnSelectPLCTypes});
+            this.btnSelectPLCTypes,
+            this.barEditItemTextOmron,
+            this.barEditItemTextXg5k});
             this.ribbon.Location = new System.Drawing.Point(0, 0);
             this.ribbon.Margin = new System.Windows.Forms.Padding(2);
-            this.ribbon.MaxItemId = 19;
+            this.ribbon.MaxItemId = 21;
             this.ribbon.Name = "ribbon";
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemLookUpEditOmron,
-            this.repositoryItemLookUpEditXg5k});
+            this.repositoryItemLookUpEditXg5k,
+            this.repositoryItemTextEdit1,
+            this.repositoryItemTextEditXg5k});
             this.ribbon.Size = new System.Drawing.Size(1321, 217);
             this.ribbon.StatusBar = this.ribbonStatusBar;
             // 
@@ -221,42 +223,6 @@
             this.btnGenerateJsonTemplate.SuperTip = superToolTip1;
             this.btnGenerateJsonTemplate.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGenerateJsonTemplate_ItemClick);
             // 
-            // barEditItemOmronPLC
-            // 
-            this.barEditItemOmronPLC.Caption = "Omron ";
-            this.barEditItemOmronPLC.Edit = this.repositoryItemLookUpEditOmron;
-            this.barEditItemOmronPLC.EditWidth = 80;
-            this.barEditItemOmronPLC.Id = 9;
-            this.barEditItemOmronPLC.Name = "barEditItemOmronPLC";
-            toolTipTitleItem2.Text = "옴론 PLC 기종 변경";
-            superToolTip2.Items.Add(toolTipTitleItem2);
-            this.barEditItemOmronPLC.SuperTip = superToolTip2;
-            // 
-            // repositoryItemLookUpEditOmron
-            // 
-            this.repositoryItemLookUpEditOmron.AutoHeight = false;
-            this.repositoryItemLookUpEditOmron.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemLookUpEditOmron.Name = "repositoryItemLookUpEditOmron";
-            // 
-            // barEditItemXg5kPLC
-            // 
-            this.barEditItemXg5kPLC.Caption = "XG5000";
-            this.barEditItemXg5kPLC.Edit = this.repositoryItemLookUpEditXg5k;
-            this.barEditItemXg5kPLC.EditWidth = 80;
-            this.barEditItemXg5kPLC.Id = 10;
-            this.barEditItemXg5kPLC.Name = "barEditItemXg5kPLC";
-            toolTipTitleItem3.Text = "산전 PLC 기종 변경";
-            superToolTip3.Items.Add(toolTipTitleItem3);
-            this.barEditItemXg5kPLC.SuperTip = superToolTip3;
-            // 
-            // repositoryItemLookUpEditXg5k
-            // 
-            this.repositoryItemLookUpEditXg5k.AutoHeight = false;
-            this.repositoryItemLookUpEditXg5k.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemLookUpEditXg5k.Name = "repositoryItemLookUpEditXg5k";
-            // 
             // btnTestRangeUI
             // 
             this.btnTestRangeUI.Caption = "Range UI";
@@ -283,12 +249,12 @@
             this.btnExport.Caption = "Export";
             this.btnExport.Id = 14;
             this.btnExport.Name = "btnExport";
-            toolTipTitleItem4.Text = "Export";
+            toolTipTitleItem2.Text = "Export";
             toolTipItem1.LeftIndent = 6;
             toolTipItem1.Text = "Exports current mapping to json file.";
-            superToolTip4.Items.Add(toolTipTitleItem4);
-            superToolTip4.Items.Add(toolTipItem1);
-            this.btnExport.SuperTip = superToolTip4;
+            superToolTip2.Items.Add(toolTipTitleItem2);
+            superToolTip2.Items.Add(toolTipItem1);
+            this.btnExport.SuperTip = superToolTip2;
             this.btnExport.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnExport_ItemClick);
             // 
             // btnLoadPLCSettings
@@ -296,12 +262,12 @@
             this.btnLoadPLCSettings.Caption = "Load PLC settings";
             this.btnLoadPLCSettings.Id = 16;
             this.btnLoadPLCSettings.Name = "btnLoadPLCSettings";
-            toolTipTitleItem5.Text = "Load PLC settings";
+            toolTipTitleItem3.Text = "Load PLC settings";
             toolTipItem2.LeftIndent = 6;
             toolTipItem2.Text = "Load PLC H/W settings from json file.";
-            superToolTip5.Items.Add(toolTipTitleItem5);
-            superToolTip5.Items.Add(toolTipItem2);
-            this.btnLoadPLCSettings.SuperTip = superToolTip5;
+            superToolTip3.Items.Add(toolTipTitleItem3);
+            superToolTip3.Items.Add(toolTipItem2);
+            this.btnLoadPLCSettings.SuperTip = superToolTip3;
             this.btnLoadPLCSettings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLoadPLCSettings_ItemClick);
             // 
             // btnGenerateOneToOne
@@ -309,10 +275,45 @@
             this.btnGenerateOneToOne.Caption = "Generate One to one";
             this.btnGenerateOneToOne.Id = 17;
             this.btnGenerateOneToOne.Name = "btnGenerateOneToOne";
-            toolTipTitleItem6.Text = "Generate sample 1:1 mapping rules";
-            superToolTip6.Items.Add(toolTipTitleItem6);
-            this.btnGenerateOneToOne.SuperTip = superToolTip6;
+            toolTipTitleItem4.Text = "Generate sample 1:1 mapping rules";
+            superToolTip4.Items.Add(toolTipTitleItem4);
+            this.btnGenerateOneToOne.SuperTip = superToolTip4;
             this.btnGenerateOneToOne.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnGenerateOneToOne_ItemClick);
+            // 
+            // btnSelectPLCTypes
+            // 
+            this.btnSelectPLCTypes.Caption = "Select PLC types";
+            this.btnSelectPLCTypes.Id = 18;
+            this.btnSelectPLCTypes.Name = "btnSelectPLCTypes";
+            this.btnSelectPLCTypes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSelectPLCTypes_ItemClick);
+            // 
+            // barEditItemTextOmron
+            // 
+            this.barEditItemTextOmron.Caption = "Omron ";
+            this.barEditItemTextOmron.Edit = this.repositoryItemTextEdit1;
+            this.barEditItemTextOmron.EditWidth = 80;
+            this.barEditItemTextOmron.Id = 19;
+            this.barEditItemTextOmron.Name = "barEditItemTextOmron";
+            // 
+            // repositoryItemTextEdit1
+            // 
+            this.repositoryItemTextEdit1.AutoHeight = false;
+            this.repositoryItemTextEdit1.Name = "repositoryItemTextEdit1";
+            this.repositoryItemTextEdit1.ReadOnly = true;
+            // 
+            // barEditItemTextXg5k
+            // 
+            this.barEditItemTextXg5k.Caption = "XG5000";
+            this.barEditItemTextXg5k.Edit = this.repositoryItemTextEditXg5k;
+            this.barEditItemTextXg5k.EditWidth = 80;
+            this.barEditItemTextXg5k.Id = 20;
+            this.barEditItemTextXg5k.Name = "barEditItemTextXg5k";
+            // 
+            // repositoryItemTextEditXg5k
+            // 
+            this.repositoryItemTextEditXg5k.AutoHeight = false;
+            this.repositoryItemTextEditXg5k.Name = "repositoryItemTextEditXg5k";
+            this.repositoryItemTextEditXg5k.ReadOnly = true;
             // 
             // ribbonPage1
             // 
@@ -334,8 +335,8 @@
             // ribbonPageGroupTemplates
             // 
             this.ribbonPageGroupTemplates.ItemLinks.Add(this.btnSelectPLCTypes);
-            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barEditItemOmronPLC);
-            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barEditItemXg5kPLC);
+            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barEditItemTextOmron);
+            this.ribbonPageGroupTemplates.ItemLinks.Add(this.barEditItemTextXg5k);
             this.ribbonPageGroupTemplates.Name = "ribbonPageGroupTemplates";
             this.ribbonPageGroupTemplates.Text = "Tempaltes";
             // 
@@ -357,6 +358,20 @@
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnGenerateOneToOne);
             this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
             this.ribbonPageGroupTest.Text = "Test";
+            // 
+            // repositoryItemLookUpEditOmron
+            // 
+            this.repositoryItemLookUpEditOmron.AutoHeight = false;
+            this.repositoryItemLookUpEditOmron.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemLookUpEditOmron.Name = "repositoryItemLookUpEditOmron";
+            // 
+            // repositoryItemLookUpEditXg5k
+            // 
+            this.repositoryItemLookUpEditXg5k.AutoHeight = false;
+            this.repositoryItemLookUpEditXg5k.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemLookUpEditXg5k.Name = "repositoryItemLookUpEditXg5k";
             // 
             // ribbonStatusBar
             // 
@@ -799,13 +814,6 @@
             this.action1.Visible = true;
             this.action1.Update += new System.EventHandler(this.action1_Update);
             // 
-            // btnSelectPLCTypes
-            // 
-            this.btnSelectPLCTypes.Caption = "Select PLC types";
-            this.btnSelectPLCTypes.Id = 18;
-            this.btnSelectPLCTypes.Name = "btnSelectPLCTypes";
-            this.btnSelectPLCTypes.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSelectPLCTypes_ItemClick);
-            // 
             // FormAddressMapper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 22F);
@@ -824,6 +832,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.documentGroup1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.document1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditXg5k)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditOmron)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditXg5k)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
@@ -878,9 +888,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraBars.BarButtonItem btnGenerateJsonTemplate;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupTest;
-        private DevExpress.XtraBars.BarEditItem barEditItemOmronPLC;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEditOmron;
-        private DevExpress.XtraBars.BarEditItem barEditItemXg5kPLC;
         private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEditXg5k;
         private DevExpress.XtraEditors.LookUpEdit lookUpEditXg5kMemory;
         private DevExpress.XtraEditors.LookUpEdit lookUpEditOmronMemory;
@@ -919,5 +927,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnFrom;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumnTo;
         private DevExpress.XtraBars.BarButtonItem btnSelectPLCTypes;
+        private DevExpress.XtraBars.BarEditItem barEditItemTextOmron;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
+        private DevExpress.XtraBars.BarEditItem barEditItemTextXg5k;
+        private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEditXg5k;
     }
 }
