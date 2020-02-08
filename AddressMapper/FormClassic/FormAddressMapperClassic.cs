@@ -212,6 +212,20 @@ namespace AddressMapper
             btnAssign.Enabled = xl.HasValue && ol.HasValue && xl.Value == ol.Value;
         }
 
+        private void btnSelectPLCTypes_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if ( (_rangeMappings.IsNullOrEmpty() && _oneToOneMappings.IsNullOrEmpty())
+                || MsgBox.Ask("현재 작업 내용을 버리고 새로운 PLC type 을 선택하시겠습니까?") == DialogResult.Yes)
+            {
+                var form = new FormSelectPLCs(_plcs, _mapping);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    Mapping = form.Mapping;
+                }
+            }
+        }
+
+
         private void btnTestRangeUI_ItemClick(object sender, ItemClickEventArgs e)
         {
             new FormTestRangeUI().Show();
