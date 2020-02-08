@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.IO;
 
-namespace Dsa.Kefico.DistributionChecker
+namespace Dsa.LSIS.DistributionChecker
 {
     /// 패키징을 위해서 MakeDistribution.bat 에서 호출 됨.
     /// DEBUG 혹은, FUTURE flag 가 정의된 채로 build 되어서 배포되는 것을 방지하기 위함

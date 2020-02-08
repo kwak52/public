@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PLCConvertor", "PLCConverto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsu.PLCConvertor.Common", "Dsu.PLCConvertor.Common\Dsu.PLCConvertor.Common.csproj", "{F4513A8D-C7DF-4F1D-9214-D97409879C61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsu.Common.Utilities.Core", "..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj", "{853D287B-5D4B-4167-83A5-EEDBB1EEA448}"
-EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ConvertUnitTest", "ConvertUnitTest\ConvertUnitTest.fsproj", "{A788C766-3727-4941-B107-0DDB5BF09796}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{91722776-08B2-40C8-AEFF-9E78678B7FD6}"
@@ -27,11 +25,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		F_5_4solutions_4dual_4project_4lsis_4PLCConvertor_4bin_4Config_4UserDefinedCommandMappingFile_1json__JsonSchema = http://json.schemastore.org/appsettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsu.PLCConvertor.DistributionChecker", "Dsu.PLCConvertor.DistributionChecker\Dsu.PLCConvertor.DistributionChecker.csproj", "{E04C915F-A4CC-494F-B454-C62ABADF1B21}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsa.LSIS.DistributionChecker", "Dsu.PLCConvertor.DistributionChecker\Dsa.LSIS.DistributionChecker.csproj", "{E04C915F-A4CC-494F-B454-C62ABADF1B21}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressMapper", "AddressMapper\AddressMapper.csproj", "{2C935FC5-828E-4287-8376-08B945D6D330}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsu.PLCConverter.UI", "Dsu.PLCConverter.UI\Dsu.PLCConverter.UI.csproj", "{6421926C-449E-44F9-9675-C14805A05B1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dsu.Common.LSIS", "Dsu.Common.LSIS\Dsu.Common.LSIS.csproj", "{39243A80-45FC-4E26-B257-1ECAE0BFA1D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,14 +57,6 @@ Global
 		{F4513A8D-C7DF-4F1D-9214-D97409879C61}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4513A8D-C7DF-4F1D-9214-D97409879C61}.Release|x64.ActiveCfg = Release|Any CPU
 		{F4513A8D-C7DF-4F1D-9214-D97409879C61}.Release|x64.Build.0 = Release|Any CPU
-		{853D287B-5D4B-4167-83A5-EEDBB1EEA448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{853D287B-5D4B-4167-83A5-EEDBB1EEA448}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{853D287B-5D4B-4167-83A5-EEDBB1EEA448}.Debug|x64.ActiveCfg = Debug|x64
-		{853D287B-5D4B-4167-83A5-EEDBB1EEA448}.Debug|x64.Build.0 = Debug|x64
-		{853D287B-5D4B-4167-83A5-EEDBB1EEA448}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{853D287B-5D4B-4167-83A5-EEDBB1EEA448}.Release|Any CPU.Build.0 = Release|Any CPU
-		{853D287B-5D4B-4167-83A5-EEDBB1EEA448}.Release|x64.ActiveCfg = Release|x64
-		{853D287B-5D4B-4167-83A5-EEDBB1EEA448}.Release|x64.Build.0 = Release|x64
 		{A788C766-3727-4941-B107-0DDB5BF09796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A788C766-3727-4941-B107-0DDB5BF09796}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A788C766-3727-4941-B107-0DDB5BF09796}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -97,6 +89,14 @@ Global
 		{6421926C-449E-44F9-9675-C14805A05B1D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6421926C-449E-44F9-9675-C14805A05B1D}.Release|x64.ActiveCfg = Release|Any CPU
 		{6421926C-449E-44F9-9675-C14805A05B1D}.Release|x64.Build.0 = Release|Any CPU
+		{39243A80-45FC-4E26-B257-1ECAE0BFA1D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39243A80-45FC-4E26-B257-1ECAE0BFA1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39243A80-45FC-4E26-B257-1ECAE0BFA1D5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{39243A80-45FC-4E26-B257-1ECAE0BFA1D5}.Debug|x64.Build.0 = Debug|Any CPU
+		{39243A80-45FC-4E26-B257-1ECAE0BFA1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39243A80-45FC-4E26-B257-1ECAE0BFA1D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39243A80-45FC-4E26-B257-1ECAE0BFA1D5}.Release|x64.ActiveCfg = Release|Any CPU
+		{39243A80-45FC-4E26-B257-1ECAE0BFA1D5}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

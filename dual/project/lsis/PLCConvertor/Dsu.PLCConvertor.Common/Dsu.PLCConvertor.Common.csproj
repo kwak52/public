@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\..\open-sources\bin\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -129,13 +129,16 @@
     <Compile Include="Xg5k.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\common\Dsu.Common.Utilities.Core\Dsu.Common.Utilities.Core.csproj">
-      <Project>{853d287b-5d4b-4167-83a5-eedbb1eea448}</Project>
-      <Name>Dsu.Common.Utilities.Core</Name>
+    <Content Include="Internal\AddressConvert\PLCAddressArea.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dsu.Common.LSIS\Dsu.Common.LSIS.csproj">
+      <Project>{39243a80-45fc-4e26-b257-1ecae0bfa1d5}</Project>
+      <Name>Dsu.Common.LSIS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Internal\AddressConvert\PLCAddressArea.txt" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

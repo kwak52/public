@@ -1,5 +1,4 @@
-﻿using Dsu.Common.Utilities.Core.ExtensionMethods;
-using Dsu.Common.Utilities.ExtensionMethods;
+﻿using Dsu.Common.Utilities.ExtensionMethods;
 using Dsu.PLCConvertor.Common.Internal;
 using log4net.Core;
 using System;
