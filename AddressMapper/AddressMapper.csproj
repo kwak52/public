@@ -94,40 +94,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomConfigurationSection.cs" />
-    <Compile Include="FormAddressMapperClassic.cs">
+    <Compile Include="FormClassic\FormAddressMapperClassic.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddressMapperClassic.Designer.cs">
+    <Compile Include="FormClassic\FormAddressMapperClassic.Designer.cs">
       <DependentUpon>FormAddressMapperClassic.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormAddressMapperClassic.Grid.cs">
+    <Compile Include="FormClassic\FormAddressMapperClassic.Grid.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddressMapperClassic.Log.cs">
+    <Compile Include="FormClassic\FormAddressMapperClassic.Log.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddressMapperClassic.Serialize.cs">
+    <Compile Include="FormClassic\FormAddressMapperClassic.Serialize.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddressMapperClassic.Subject.cs">
+    <Compile Include="FormClassic\FormAddressMapperClassic.Subject.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddressMapperModern.cs">
+    <Compile Include="FormModern\FormAddressMapperModern.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddressMapperModern.designer.cs">
+    <Compile Include="FormModern\FormAddressMapperModern.Designer.cs">
       <DependentUpon>FormAddressMapperModern.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormAddressMapperModern.Grid.cs">
+    <Compile Include="FormModern\FormAddressMapperModern.Grid.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddressMapperModern.Log.cs">
+    <Compile Include="FormModern\FormAddressMapperModern.Log.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddressMapperModern.Serialize.cs">
+    <Compile Include="FormModern\FormAddressMapperModern.Serialize.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddressMapperModern.Subject.cs">
+    <Compile Include="FormModern\FormAddressMapperModern.Subject.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormTestRangeUI.cs">
@@ -145,10 +145,10 @@
     <Compile Include="SplashScreen1.Designer.cs">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="FormAddressMapperClassic.resx">
+    <EmbeddedResource Include="FormClassic\FormAddressMapperClassic.resx">
       <DependentUpon>FormAddressMapperClassic.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAddressMapperModern.resx">
+    <EmbeddedResource Include="FormModern\FormAddressMapperModern.resx">
       <DependentUpon>FormAddressMapperModern.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTestRangeUI.resx">
@@ -201,8 +201,6 @@
       <Name>Dsu.PLCConvertor.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FromModern\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
