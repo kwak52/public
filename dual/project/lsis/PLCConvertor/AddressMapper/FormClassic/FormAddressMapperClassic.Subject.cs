@@ -71,32 +71,5 @@ namespace AddressMapper
             _rangeMappings.Clear();
             _oneToOneMappings.Clear();
         }
-
-        ///// <summary>
-        ///// 기종 변경
-        ///// </summary>
-        //void PLCChanged(object sender1, EventArgs args1, PLCVendor vendor)
-        //{
-        //    OmronPLC omron = null;
-        //    Xg5kPLC xg5k = null;
-
-        //    var edit = sender1 as LookUpEdit;
-        //    if (edit != null)
-        //    {
-        //        if (vendor == PLCVendor.Omron)
-        //        {
-        //            omron = (OmronPLC)edit.EditValue;
-        //            xg5k = (Xg5kPLC)barEditItemXg5kPLC.EditValue;
-        //        }
-        //        else if (vendor == PLCVendor.LSIS)
-        //        {
-        //            omron = (OmronPLC)barEditItemOmronPLC.EditValue;
-        //            xg5k = (Xg5kPLC)edit.EditValue;
-        //        }
-        //    }
-        //    if (omron != null && xg5k != null)
-        //        Mapping = new PLCMapping(omron, xg5k);
-        //}
-
     }
 }
