@@ -65,8 +65,6 @@
             this.ribbonPageGroupTemplates = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupView = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroupTest = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
-            this.repositoryItemLookUpEditOmron = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-            this.repositoryItemLookUpEditXg5k = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
             this.ribbonStatusBar = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
@@ -114,8 +112,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditXg5k)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditOmron)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditXg5k)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             this.dockPanelLog.SuspendLayout();
             this.dockPanel1_Container.SuspendLayout();
@@ -178,8 +174,6 @@
             this.ribbon.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
             this.ribbon.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemLookUpEditOmron,
-            this.repositoryItemLookUpEditXg5k,
             this.repositoryItemTextEdit1,
             this.repositoryItemTextEditXg5k});
             this.ribbon.Size = new System.Drawing.Size(1321, 217);
@@ -358,20 +352,6 @@
             this.ribbonPageGroupTest.ItemLinks.Add(this.btnGenerateOneToOne);
             this.ribbonPageGroupTest.Name = "ribbonPageGroupTest";
             this.ribbonPageGroupTest.Text = "Test";
-            // 
-            // repositoryItemLookUpEditOmron
-            // 
-            this.repositoryItemLookUpEditOmron.AutoHeight = false;
-            this.repositoryItemLookUpEditOmron.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemLookUpEditOmron.Name = "repositoryItemLookUpEditOmron";
-            // 
-            // repositoryItemLookUpEditXg5k
-            // 
-            this.repositoryItemLookUpEditXg5k.AutoHeight = false;
-            this.repositoryItemLookUpEditXg5k.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.repositoryItemLookUpEditXg5k.Name = "repositoryItemLookUpEditXg5k";
             // 
             // ribbonStatusBar
             // 
@@ -834,8 +814,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ribbon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEdit1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemTextEditXg5k)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditOmron)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEditXg5k)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             this.dockPanelLog.ResumeLayout(false);
             this.dockPanel1_Container.ResumeLayout(false);
@@ -888,8 +866,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraBars.BarButtonItem btnGenerateJsonTemplate;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroupTest;
-        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEditOmron;
-        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEditXg5k;
         private DevExpress.XtraEditors.LookUpEdit lookUpEditXg5kMemory;
         private DevExpress.XtraEditors.LookUpEdit lookUpEditOmronMemory;
         private Dsu.PLCConverter.UI.UcMemoryBar ucMemoryBarOmron;

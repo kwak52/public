@@ -1,6 +1,4 @@
-﻿using DevExpress.XtraBars;
-using DevExpress.XtraEditors;
-using Dsu.PLCConverter.UI;
+﻿using Dsu.PLCConverter.UI;
 using Dsu.PLCConverter.UI.AddressMapperLogics;
 using Dsu.PLCConvertor.Common;
 using System;
@@ -55,8 +53,6 @@ namespace AddressMapper
             // PLC H/W 설정 파일을 새로 loading 했을 때
             PLCHWSpecsChangeRequestSubject.Subscribe(hwSpecs => {
                 Debug.Assert(hwSpecs == PLCHWSpecs);
-                repositoryItemLookUpEditOmron.DataSource = hwSpecs.OmronPLCs;
-                repositoryItemLookUpEditXg5k.DataSource = hwSpecs.XG5000PLCs;
 
                 Mapping = new PLCMapping(hwSpecs.OmronPLCs[0], hwSpecs.XG5000PLCs[0]);
             });

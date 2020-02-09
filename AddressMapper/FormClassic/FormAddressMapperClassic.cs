@@ -98,12 +98,6 @@ namespace AddressMapper
             var plcHardwareSettingFile = ConfigurationManager.AppSettings["plcHardwareSettingFile"];
             PLCHWSpecs = LoadPLCHardwareSetting(plcHardwareSettingFile);
 
-
-            repositoryItemLookUpEditOmron.DisplayMember = "PLCType";
-            repositoryItemLookUpEditXg5k.DisplayMember = "PLCType";
-            //repositoryItemLookUpEditOmron.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.Omron);
-            //repositoryItemLookUpEditXg5k.EditValueChanged += (s, e) => PLCChanged(s, e, PLCVendor.LSIS);
-
             lookUpEditOmronMemory.Properties.DisplayMember = "Name";
             lookUpEditXg5kMemory.Properties.DisplayMember = "Name";
 
